@@ -17554,7 +17554,7 @@ Move spell ID to $11B5 (?): LDA.W Spell ID                       ;05F5D2|AD2711 
                                                             ;      |        |      ;  
           CODE_05F662: LDA.W $18A5                          ;05F662|ADA518  |0018A5;  
                        LDX.W #$000B                         ;05F665|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;05F668|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;05F668|22398A00|008A39;  
                        LDA.W #$F038                         ;05F66C|A938F0  |      ;  
                        CLC                                  ;05F66F|18      |      ;  
                        ADC.B $00                            ;05F670|6500    |000000;  
@@ -17609,7 +17609,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        PHY                                  ;05F6CB|5A      |      ;  
                        PHX                                  ;05F6CC|DA      |      ;  
                        LDX.W #$000B                         ;05F6CD|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;05F6D0|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;05F6D0|22398A00|008A39;  
                        LDA.W #$F038                         ;05F6D4|A938F0  |      ;  
                        CLC                                  ;05F6D7|18      |      ;  
                        ADC.B $00                            ;05F6D8|6500    |000000;  

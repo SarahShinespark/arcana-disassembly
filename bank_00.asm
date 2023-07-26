@@ -505,7 +505,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                                                             ;      |        |      ;  
           CODE_008353: JSR.W DMA/Video stuff                ;008353|206584  |008465;  
                                                             ;      |        |      ;  
-          CODE_008356: JSR.W CODE_008400                    ;008356|200084  |008400;  
+          CODE_008356: JSR.W Update BG scrolling            ;008356|200084  |008400;  
                        LDA.W HDMA ch. temp                  ;008359|AD5A10  |00105A;  
                        STA.W HDMA enable                    ;00835C|8D0C42  |00420C;  
                        LDA.W Main screen temp               ;00835F|AD5710  |001057;  
@@ -515,7 +515,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        LDX.W #$0000                         ;00836A|A20000  |      ;  
                        JSR.W ($0048,X)                      ;00836D|FC4800  |000048;  
                                                             ;      |        |      ;  
-          CODE_008370: JSR.W CODE_00839F                    ;008370|209F83  |00839F;  
+          CODE_008370: JSR.W Data Register reads            ;008370|209F83  |00839F;  
                        PLB                                  ;008373|AB      |      ;  
                        PLD                                  ;008374|2B      |      ;  
                        PLY                                  ;008375|7A      |      ;  
@@ -543,7 +543,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        RTS                                  ;00839E|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00839F: LDX.W #$0006                         ;00839F|A20600  |      ;  
+  Data Register reads: LDX.W #$0006                         ;00839F|A20600  |      ;  
                                                             ;      |        |      ;  
           CODE_0083A2: LDA.W P1 Data1 Register lo byte,X    ;0083A2|BD1842  |004218;  
                        AND.W #$FFF0                         ;0083A5|29F0FF  |      ;  
@@ -582,7 +582,8 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        DEX                                  ;0083D8|CA      |      ;  
                                                             ;      |        |      ;  
           CODE_0083D9: BPL CODE_0083A2                      ;0083D9|10C7    |0083A2;  
-                       LDA.W $0021                          ;0083DB|AD2100  |000021;  
+                                                            ;      |        |      ;  
+       Well fine then: LDA.W $0021                          ;0083DB|AD2100  |000021;  
                        STA.W $0025                          ;0083DE|8D2500  |000025;  
                        LDA.W $0023                          ;0083E1|AD2300  |000023;  
                        STA.W $0027                          ;0083E4|8D2700  |000027;  
@@ -598,7 +599,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        RTS                                  ;0083FF|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_008400: SEP #$20                             ;008400|E220    |      ;  
+  Update BG scrolling: SEP #$20                             ;008400|E220    |      ;  
                        LDA.W $0FEF                          ;008402|ADEF0F  |000FEF;  
                        STA.W BG1 horizontal scroll          ;008405|8D0D21  |00210D;  
                        LDA.W $0FF0                          ;008408|ADF00F  |000FF0;  
@@ -1652,11 +1653,11 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                        RTL                                  ;008A38|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Multiply into $00: JSR.W Multiply a Lot                 ;008A39|203D8A  |008A3D; I'm not sure what it's purpose is, but it's popular.
+    MultiplyTo$00_far: JSR.W MultiplyTo$00                  ;008A39|203D8A  |008A3D; I'm not sure what it's purpose is, but it's popular.
                        RTL                                  ;008A3C|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Multiply a Lot: PHX                                  ;008A3D|DA      |      ;  
+        MultiplyTo$00: PHX                                  ;008A3D|DA      |      ;  
                        PHA                                  ;008A3E|48      |      ;  
                        PHX                                  ;008A3F|DA      |      ;  
                        STZ.B $02                            ;008A40|6402    |000002;  
@@ -1730,7 +1731,7 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                        INC.B $0A                            ;008AAF|E60A    |00000A;  
                                                             ;      |        |      ;  
           CODE_008AB1: LDX.B $0E                            ;008AB1|A60E    |00000E;  
-                       JSR.W Multiply a Lot                 ;008AB3|203D8A  |008A3D;  
+                       JSR.W MultiplyTo$00                  ;008AB3|203D8A  |008A3D;  
                        LDA.B $01                            ;008AB6|A501    |000001;  
                        LSR.B $0A                            ;008AB8|460A    |00000A;  
                        BCC CODE_008AC0                      ;008ABA|9004    |008AC0;  
@@ -1748,7 +1749,7 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                                                             ;      |        |      ;  
           CODE_008ACC: LDX.B $0E                            ;008ACC|A60E    |00000E;  
                                                             ;      |        |      ;  
-          CODE_008ACE: JSR.W Multiply a Lot                 ;008ACE|203D8A  |008A3D;  
+          CODE_008ACE: JSR.W MultiplyTo$00                  ;008ACE|203D8A  |008A3D;  
                        LDA.B $01                            ;008AD1|A501    |000001;  
                        LSR.B $0A                            ;008AD3|460A    |00000A;  
                        BCC CODE_008ADB                      ;008AD5|9004    |008ADB;  
@@ -1766,7 +1767,7 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                                                             ;      |        |      ;  
           CODE_008AE7: LDX.B $0C                            ;008AE7|A60C    |00000C;  
                                                             ;      |        |      ;  
-          CODE_008AE9: JSR.W Multiply a Lot                 ;008AE9|203D8A  |008A3D;  
+          CODE_008AE9: JSR.W MultiplyTo$00                  ;008AE9|203D8A  |008A3D;  
                        LDA.B $01                            ;008AEC|A501    |000001;  
                        LSR.B $0A                            ;008AEE|460A    |00000A;  
                        BCS CODE_008AF6                      ;008AF0|B004    |008AF6;  
@@ -1782,7 +1783,7 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                        INC.B $0A                            ;008B00|E60A    |00000A;  
                                                             ;      |        |      ;  
           CODE_008B02: LDX.B $0C                            ;008B02|A60C    |00000C;  
-                       JSR.W Multiply a Lot                 ;008B04|203D8A  |008A3D;  
+                       JSR.W MultiplyTo$00                  ;008B04|203D8A  |008A3D;  
                        LDA.B $01                            ;008B07|A501    |000001;  
                                                             ;      |        |      ;  
           CODE_008B09: LSR.B $0A                            ;008B09|460A    |00000A;  
@@ -10734,28 +10735,28 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        TAX                                  ;00C11A|AA      |      ;  
                        LDA.L DATA16_00C176,X                ;00C11B|BF76C100|00C176;  
                        LDX.B $00                            ;00C11F|A600    |000000;  
-                       JSL.L Multiply into $00              ;00C121|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;00C121|22398A00|008A39;  
                        LDA.B $01                            ;00C125|A501    |000001;  
                        STA.B $00                            ;00C127|8500    |000000;  
                        LDX.W Attacker                       ;00C129|AE2111  |001121;  
                        LDY.W Target                         ;00C12C|AC2311  |001123;  
                        JSR.W CODE_00C30C                    ;00C12F|200CC3  |00C30C;  
                        LDX.B $00                            ;00C132|A600    |000000;  
-                       JSL.L Multiply into $00              ;00C134|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;00C134|22398A00|008A39;  
                        LDA.B $01                            ;00C138|A501    |000001;  
                        STA.B $00                            ;00C13A|8500    |000000;  
                        LDX.W Attacker                       ;00C13C|AE2111  |001121;  
                        LDY.W Target                         ;00C13F|AC2311  |001123;  
                        JSR.W CODE_00C431                    ;00C142|2031C4  |00C431;  
                        LDX.B $00                            ;00C145|A600    |000000;  
-                       JSL.L Multiply into $00              ;00C147|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;00C147|22398A00|008A39;  
                        LDX.W Target                         ;00C14B|AE2311  |001123;  
                        LDA.W Condition,X                    ;00C14E|BDC311  |0011C3;  
                        AND.W #$0100                         ;00C151|290001  |      ;  
                        BEQ CODE_00C15F                      ;00C154|F009    |00C15F;  
                        LDA.B $01                            ;00C156|A501    |000001;  
                        LDX.W #$00C0                         ;00C158|A2C000  |      ;  
-                       JSL.L Multiply into $00              ;00C15B|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;00C15B|22398A00|008A39;  
                                                             ;      |        |      ;  
           CODE_00C15F: LDA.B $01                            ;00C15F|A501    |000001;  
                        LDX.W $1125                          ;00C161|AE2511  |001125;  
@@ -10896,7 +10897,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        CLC                                  ;00C267|18      |      ;  
                        ADC.W #$00CD                         ;00C268|69CD00  |      ;  
                        LDX.B $00                            ;00C26B|A600    |000000;  
-                       JSL.L Multiply into $00              ;00C26D|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;00C26D|22398A00|008A39;  
                        LDA.B $01                            ;00C271|A501    |000001;  
                        STA.B $00                            ;00C273|8500    |000000;  
                        LDX.W Target                         ;00C275|AE2311  |001123;  
@@ -10920,7 +10921,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        LDY.W Target                         ;00C29C|AC2311  |001123;  
                        JSR.W CODE_00C2EE                    ;00C29F|20EEC2  |00C2EE;  
                        LDX.B $00                            ;00C2A2|A600    |000000;  
-                       JSR.W Multiply into $00              ;00C2A4|20398A  |008A39;  
+                       JSR.W MultiplyTo$00_far              ;00C2A4|20398A  |008A39;  
                        LDA.B $01                            ;00C2A7|A501    |000001;  
                        STA.B $00                            ;00C2A9|8500    |000000;  
                                                             ;      |        |      ;  
@@ -11533,12 +11534,12 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
   INT magic def bonus: LDA.W Intelligence,X                 ;00C6C4|BD3B12  |00123B;  
                        SEC                                  ;00C6C7|38      |      ;  
                        SBC.W #$0037                         ;00C6C8|E93700  |      ;  
-                       BPL CODE_00C6D1                      ;00C6CB|1004    |00C6D1;  
+                       BPL A*99/256                         ;00C6CB|1004    |00C6D1;  
                        LDA.W #$0000                         ;00C6CD|A90000  |      ;  
                        RTS                                  ;00C6D0|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00C6D1: LDX.W #$0063                         ;00C6D1|A26300  |      ;  
+             A*99/256: LDX.W #$0063                         ;00C6D1|A26300  |      ; 38.6%
                        JSR.W Multiply A*X                   ;00C6D4|208BC8  |00C88B;  
                        AND.W #$FF00                         ;00C6D7|2900FF  |      ;  
                        XBA                                  ;00C6DA|EB      |      ;  
@@ -12729,7 +12730,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        dw $CECE                             ;00CEE0|        |      ;  
                        dw $CECC                             ;00CEE2|        |      ;  
                                                             ;      |        |      ;  
-         Code section: db $07                               ;00CEE4|        |      ;  
+    Loading save file: db $07                               ;00CEE4|        |      ;  
                        dl CODE_00CD7E                       ;00CEE5|        |00CD7E;  
                        db $0B                               ;00CEE8|        |      ;  
                        dw Loop for CEE4                     ;00CEE9|        |00CF3E;  
@@ -13092,7 +13093,7 @@ Load Stage Select data: LDX.W $18D3                          ;00D01D|AED318  |00
                                                             ;      |        |      ;  
           CODE_00D0EB: LDX.W #$0008                         ;00D0EB|A20800  |      ;  
                                                             ;      |        |      ;  
-          CODE_00D0EE: LDA.W $1189,X                        ;00D0EE|BD8911  |001189;  
+          CODE_00D0EE: LDA.W $1189,X                        ;00D0EE|BD8911  |001189; Loops 5 times
                        CLC                                  ;00D0F1|18      |      ;  
                        SBC.W Tbl: Subtraction values,X      ;00D0F2|FD0ED1  |00D10E;  
                        STA.W $1189,X                        ;00D0F5|9D8911  |001189;  
@@ -20759,6 +20760,7 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $FF                               ;00F011|        |      ;  
                        db $FF                               ;00F012|        |      ;  
                        db $FF                               ;00F013|        |      ;  
+                                                            ;      |        |      ;  
                        db $FF                               ;00F014|        |      ;  
                        db $FF                               ;00F015|        |      ;  
                        db $FF                               ;00F016|        |      ;  

@@ -1,7 +1,4 @@
-labels.asm
 main.asm
-bank_1E.asm
-bank_1F.asm
 bank_04.asm
 bank_06.asm
 bank_09.asm
@@ -10,6 +7,8 @@ bank_0B.asm
 bank_0D.asm
 bank_0E.asm
 bank_0F.asm
+bank_1E.asm
+bank_1F.asm
 bank_1*
 !bank_18.asm
 .gitattributes

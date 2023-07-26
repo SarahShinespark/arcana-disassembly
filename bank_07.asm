@@ -219,7 +219,7 @@ Loop: Write spell name: PHY                                  ;078144|5A      |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
    Get spell name ptr: LDX.W #$0016                         ;078161|A21600  |      ; Takes an offset and retrieves a spell name ptr
-                       JSL.L Multiply into $00              ;078164|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;078164|22398A00|008A39;  
                        LDA.W #$E340                         ;078168|A940E3  |      ;  
                        CLC                                  ;07816B|18      |      ;  
                        ADC.B $00                            ;07816C|6500    |000000;  
@@ -1282,7 +1282,7 @@ Spell coloring (battle): PHX                                  ;078872|DA      | 
                        LDA.W Spell list,X                   ;0788BB|BD5914  |001459;  
                        AND.W #$00FF                         ;0788BE|29FF00  |      ;  
                        LDX.W #$0016                         ;0788C1|A21600  |      ;  
-                       JSL.L Multiply into $00              ;0788C4|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;0788C4|22398A00|008A39;  
                                                             ;      |        |      ;  
            Spell RWer: LDX.B $00                            ;0788C8|A600    |000000; Reads/writes the spell names in battle
                        PLY                                  ;0788CA|7A      |      ;  
@@ -1402,7 +1402,7 @@ Spell coloring (battle): PHX                                  ;078872|DA      | 
                        LDA.W Item inventory,X               ;078990|BDB913  |0013B9;  
                        AND.W #$00FF                         ;078993|29FF00  |      ;  
                        LDX.W #$0014                         ;078996|A21400  |      ;  
-                       JSL.L Multiply into $00              ;078999|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;078999|22398A00|008A39;  
                        LDX.B $00                            ;07899D|A600    |000000;  
                        PLY                                  ;07899F|7A      |      ;  
                        SEP #$20                             ;0789A0|E220    |      ;  
@@ -1436,7 +1436,7 @@ Spell coloring (battle): PHX                                  ;078872|DA      | 
                        TAX                                  ;0789D2|AA      |      ;  
                        LDA.W Party order,X                  ;0789D3|BDF311  |0011F3;  
                        STA.B $02                            ;0789D6|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;0789D8|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;0789D8|205EA5  |07A55E;  
                        TAX                                  ;0789DB|AA      |      ;  
                        LDA.W Spell list,X                   ;0789DC|BD5914  |001459;  
                        AND.W #$00FF                         ;0789DF|29FF00  |      ;  
@@ -3513,7 +3513,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDA.W Card inventory,X               ;0796EA|BDA913  |0013A9;  
                        AND.W #$00FF                         ;0796ED|29FF00  |      ;  
                        LDX.W #$000B                         ;0796F0|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;0796F3|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;0796F3|22398A00|008A39;  
                        LDA.B $00                            ;0796F7|A500    |000000;  
                        PLX                                  ;0796F9|FA      |      ;  
                        PHX                                  ;0796FA|DA      |      ;  
@@ -3521,7 +3521,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        TXA                                  ;0796FC|8A      |      ;  
                        LSR A                                ;0796FD|4A      |      ;  
                        LDX.W #$0016                         ;0796FE|A21600  |      ;  
-                       JSL.L Multiply into $00              ;079701|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079701|22398A00|008A39;  
                        LDY.B $00                            ;079705|A400    |000000;  
                        PLX                                  ;079707|FA      |      ;  
                        SEP #$20                             ;079708|E220    |      ;  
@@ -3598,7 +3598,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        BEQ CODE_0797B1                      ;07978F|F020    |0797B1;  
                        LDA.W Page #                         ;079791|ADB911  |0011B9; Load current page in item list
                        LDX.W #$0008                         ;079794|A20800  |      ; Multiply by number of rows per item page
-                       JSL.L Multiply into $00              ;079797|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079797|22398A00|008A39;  
                        LDA.B $00                            ;07979B|A500    |000000;  
                        LDX.W Selection                      ;07979D|AE3F10  |00103F;  
                        CLC                                  ;0797A0|18      |      ;  
@@ -3683,7 +3683,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
           CODE_07982B: LDA.W Page #                         ;07982B|ADB911  |0011B9;  
                        LDX.W #$0008                         ;07982E|A20800  |      ;  
-                       JSL.L Multiply into $00              ;079831|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079831|22398A00|008A39;  
                        LDA.B $00                            ;079835|A500    |000000;  
                        LDX.W Selection                      ;079837|AE3F10  |00103F;  
                        CLC                                  ;07983A|18      |      ;  
@@ -3695,7 +3695,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDX.W Selection                      ;079843|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;079846|BDC709  |0009C7;  
                        STA.B $02                            ;079849|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;07984B|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;07984B|205EA5  |07A55E;  
                        TAX                                  ;07984E|AA      |      ;  
                        LDA.W Spell list,X                   ;07984F|BD5914  |001459;  
                        AND.W #$00FF                         ;079852|29FF00  |      ;  
@@ -3703,7 +3703,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
                        LDA.W Page #                         ;079856|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079859|A20800  |      ;  
-                       JSL.L Multiply into $00              ;07985C|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07985C|22398A00|008A39;  
                        LDA.B $00                            ;079860|A500    |000000;  
                        LDX.W Selection                      ;079862|AE3F10  |00103F;  
                        CLC                                  ;079865|18      |      ;  
@@ -3715,7 +3715,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDX.W Selection                      ;07986E|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;079871|BDC709  |0009C7;  
                        STA.B $02                            ;079874|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;079876|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;079876|205EA5  |07A55E;  
                        TAX                                  ;079879|AA      |      ;  
                        LDA.W Spell list,X                   ;07987A|BD5914  |001459; Load learned spell ID
                        AND.W #$00FF                         ;07987D|29FF00  |      ;  
@@ -3736,9 +3736,9 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        RTL                                  ;0798A2|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-     Tbl: Spell texts: dw Previous page                     ;0798A3|        |089271;  
-                       dw Next page                         ;0798A5|        |08928D;  
-                       dw Lightning 1 text                  ;0798A7|        |08964C;  
+     Tbl: Spell texts: dw Previous page                     ;0798A3|        |089271; Previous page
+                       dw Next page                         ;0798A5|        |08928D; Next page
+                       dw Lightning 1 text                  ;0798A7|        |08964C; Lightning 1
                        dw Lightning 2 text                  ;0798A9|        |08967D;  
                        dw Lightning 3                       ;0798AB|        |0896AE;  
                        dw Smash 1                           ;0798AD|        |0896DF;  
@@ -4171,7 +4171,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
           CODE_079BF8: LDA.W Page #                         ;079BF8|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079BFB|A20800  |      ;  
-                       JSL.L Multiply into $00              ;079BFE|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079BFE|22398A00|008A39;  
                        LDA.B $00                            ;079C02|A500    |000000;  
                        CLC                                  ;079C04|18      |      ;  
                        ADC.W $11B7                          ;079C05|6DB711  |0011B7;  
@@ -4453,7 +4453,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
                        LDA.W Page #                         ;079DF5|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079DF8|A20800  |      ;  
-                       JSL.L Multiply into $00              ;079DFB|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079DFB|22398A00|008A39;  
                        LDA.B $00                            ;079DFF|A500    |000000;  
                        LDX.W Selection                      ;079E01|AE3F10  |00103F;  
                        CLC                                  ;079E04|18      |      ;  
@@ -4465,7 +4465,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDX.W Selection                      ;079E0D|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;079E10|BDC709  |0009C7;  
                        STA.B $02                            ;079E13|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;079E15|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;079E15|205EA5  |07A55E;  
                        TAX                                  ;079E18|AA      |      ;  
                        LDA.W Spell list,X                   ;079E19|BD5914  |001459;  
                        TAX                                  ;079E1C|AA      |      ;  
@@ -4485,7 +4485,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
                        LDA.W Page #                         ;079E36|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079E39|A20800  |      ;  
-                       JSL.L Multiply into $00              ;079E3C|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079E3C|22398A00|008A39;  
                        LDA.B $00                            ;079E40|A500    |000000;  
                        LDX.W Selection                      ;079E42|AE3F10  |00103F;  
                        CLC                                  ;079E45|18      |      ;  
@@ -4500,7 +4500,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        PHA                                  ;079E53|48      |      ;  
                        LDA.W $11BB                          ;079E54|ADBB11  |0011BB;  
                        LDX.W #$0008                         ;079E57|A20800  |      ;  
-                       JSL.L Multiply into $00              ;079E5A|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079E5A|22398A00|008A39;  
                        LDA.B $00                            ;079E5E|A500    |000000;  
                        CLC                                  ;079E60|18      |      ;  
                        ADC.W $11B7                          ;079E61|6DB711  |0011B7;  
@@ -4520,7 +4520,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
                        LDA.W Page #                         ;079E7A|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079E7D|A20800  |      ;  
-                       JSL.L Multiply into $00              ;079E80|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079E80|22398A00|008A39;  
                        LDA.B $00                            ;079E84|A500    |000000;  
                        LDX.W Selection                      ;079E86|AE3F10  |00103F;  
                        CLC                                  ;079E89|18      |      ;  
@@ -4532,14 +4532,14 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDX.W Selection                      ;079E92|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;079E95|BDC709  |0009C7;  
                        STA.B $02                            ;079E98|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;079E9A|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;079E9A|205EA5  |07A55E;  
                        STA.B $22                            ;079E9D|8522    |000022;  
                        TAX                                  ;079E9F|AA      |      ;  
                        LDA.W Spell list,X                   ;079EA0|BD5914  |001459;  
                        PHA                                  ;079EA3|48      |      ;  
                        LDA.W $11BB                          ;079EA4|ADBB11  |0011BB;  
                        LDX.W #$0008                         ;079EA7|A20800  |      ;  
-                       JSL.L Multiply into $00              ;079EAA|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;079EAA|22398A00|008A39;  
                        LDA.B $00                            ;079EAE|A500    |000000;  
                        CLC                                  ;079EB0|18      |      ;  
                        ADC.W $11B7                          ;079EB1|6DB711  |0011B7;  
@@ -4550,7 +4550,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDX.W Selection                      ;079EB9|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;079EBC|BDC709  |0009C7;  
                        STA.B $02                            ;079EBF|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;079EC1|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;079EC1|205EA5  |07A55E;  
                        STA.B $24                            ;079EC4|8524    |000024;  
                        TAX                                  ;079EC6|AA      |      ;  
                        LDA.W Spell list,X                   ;079EC7|BD5914  |001459;  
@@ -4966,7 +4966,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDA.W Item inventory,X               ;07A167|BDB913  |0013B9;  
                        AND.W #$00FF                         ;07A16A|29FF00  |      ;  
                        LDX.W #$0014                         ;07A16D|A21400  |      ;  
-                       JSL.L Multiply into $00              ;07A170|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A170|22398A00|008A39;  
                        LDX.B $00                            ;07A174|A600    |000000;  
                        PLY                                  ;07A176|7A      |      ;  
                        SEP #$20                             ;07A177|E220    |      ;  
@@ -5038,7 +5038,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDA.W Spell list,X                   ;07A1EB|BD5914  |001459;  
                        AND.W #$00FF                         ;07A1EE|29FF00  |      ;  
                        LDX.W #$0016                         ;07A1F1|A21600  |      ;  
-                       JSL.L Multiply into $00              ;07A1F4|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A1F4|22398A00|008A39;  
                        LDX.B $00                            ;07A1F8|A600    |000000;  
                        PLY                                  ;07A1FA|7A      |      ;  
                        SEP #$20                             ;07A1FB|E220    |      ;  
@@ -5071,7 +5071,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDX.W Selection                      ;07A229|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;07A22C|BDC709  |0009C7;  
                        STA.B $02                            ;07A22F|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;07A231|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;07A231|205EA5  |07A55E;  
                        TAX                                  ;07A234|AA      |      ;  
                        RTS                                  ;07A235|60      |      ;  
                                                             ;      |        |      ;  
@@ -5140,7 +5140,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        INC A                                ;07A2AB|1A      |      ;  
                        AND.W #$00FF                         ;07A2AC|29FF00  |      ;  
                        LDX.W #$0008                         ;07A2AF|A20800  |      ;  
-                       JSL.L Multiply into $00              ;07A2B2|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A2B2|22398A00|008A39;  
                        LDX.B $00                            ;07A2B6|A600    |000000;  
                        PLY                                  ;07A2B8|7A      |      ;  
                        SEP #$20                             ;07A2B9|E220    |      ;  
@@ -5185,7 +5185,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDA.W Eqp inventory,X                ;07A2FD|BD1914  |001419;  
                        AND.W #$00FF                         ;07A300|29FF00  |      ;  
                        LDX.W #$0011                         ;07A303|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07A306|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A306|22398A00|008A39;  
                        LDX.B $00                            ;07A30A|A600    |000000;  
                        PLY                                  ;07A30C|7A      |      ;  
                        SEP #$20                             ;07A30D|E220    |      ;  
@@ -5234,7 +5234,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDA.W EqWeapon,X                     ;07A34B|BD8312  |001283;  
                        AND.W #$00FF                         ;07A34E|29FF00  |      ;  
                        LDX.W #$0011                         ;07A351|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07A354|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A354|22398A00|008A39;  
                        LDX.B $00                            ;07A358|A600    |000000;  
                        LDY.W #$0000                         ;07A35A|A00000  |      ;  
                        JSR.W Write equipment name           ;07A35D|20C9A3  |07A3C9;  
@@ -5243,7 +5243,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDA.W EqArmor,X                      ;07A362|BD9B12  |00129B;  
                        AND.W #$00FF                         ;07A365|29FF00  |      ;  
                        LDX.W #$0011                         ;07A368|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07A36B|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A36B|22398A00|008A39;  
                        LDX.B $00                            ;07A36F|A600    |000000;  
                        LDY.W #$0011                         ;07A371|A01100  |      ;  
                        JSR.W Write equipment name           ;07A374|20C9A3  |07A3C9;  
@@ -5252,7 +5252,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDA.W EqAccess.,X                    ;07A379|BDB312  |0012B3;  
                        AND.W #$00FF                         ;07A37C|29FF00  |      ;  
                        LDX.W #$0011                         ;07A37F|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07A382|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A382|22398A00|008A39;  
                        LDX.B $00                            ;07A386|A600    |000000;  
                        LDY.W #$0022                         ;07A388|A02200  |      ;  
                        JSR.W Write equipment name           ;07A38B|20C9A3  |07A3C9;  
@@ -5261,7 +5261,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDA.W EqRing,X                       ;07A390|BDCB12  |0012CB;  
                        AND.W #$00FF                         ;07A393|29FF00  |      ;  
                        LDX.W #$0011                         ;07A396|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07A399|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A399|22398A00|008A39;  
                        LDX.B $00                            ;07A39D|A600    |000000;  
                        LDY.W #$0033                         ;07A39F|A03300  |      ;  
                        JSR.W Write equipment name           ;07A3A2|20C9A3  |07A3C9;  
@@ -5389,7 +5389,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
      Empty item slot?: PHA                                  ;07A45F|48      |      ;  
                        LDA.W Page #                         ;07A460|ADB911  |0011B9;  
                        LDX.W #$0008                         ;07A463|A20800  |      ;  
-                       JSL.L Multiply into $00              ;07A466|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A466|22398A00|008A39;  
                        PLA                                  ;07A46A|68      |      ;  
                        STA.B $20                            ;07A46B|8520    |000020;  
                        LDA.B $00                            ;07A46D|A500    |000000;  
@@ -5414,7 +5414,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
           CODE_07A488: PHA                                  ;07A488|48      |      ;  
                        LDA.W Page #                         ;07A489|ADB911  |0011B9;  
                        LDX.W #$0008                         ;07A48C|A20800  |      ;  
-                       JSL.L Multiply into $00              ;07A48F|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A48F|22398A00|008A39;  
                        PLA                                  ;07A493|68      |      ;  
                        STA.B $20                            ;07A494|8520    |000020;  
                        LDA.B $00                            ;07A496|A500    |000000;  
@@ -5425,7 +5425,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        LDX.W Selection                      ;07A49E|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;07A4A1|BDC709  |0009C7;  
                        STA.B $02                            ;07A4A4|8502    |000002;  
-                       JSR.W CODE_07A55E                    ;07A4A6|205EA5  |07A55E;  
+                       JSR.W GetSpellID                     ;07A4A6|205EA5  |07A55E;  
                        TAX                                  ;07A4A9|AA      |      ;  
                        LDA.W Spell list,X                   ;07A4AA|BD5914  |001459;  
                        AND.W #$00FF                         ;07A4AD|29FF00  |      ;  
@@ -5529,11 +5529,12 @@ Empty Equip item slot?: STA.B $20                            ;07A4DA|8520    |00
                        dw $0001                             ;07A554|        |      ;  
                        dw $0001                             ;07A556|        |      ;  
                        dw $0001                             ;07A558|        |      ;  
-                       JSR.W CODE_07A55E                    ;07A55A|205EA5  |07A55E;  
+                                                            ;      |        |      ;  
+       GetSpellID_far: JSR.W GetSpellID                     ;07A55A|205EA5  |07A55E;  
                        RTL                                  ;07A55D|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_07A55E: LDA.B $00                            ;07A55E|A500    |000000;  
+           GetSpellID: LDA.B $00                            ;07A55E|A500    |000000;  
                        PHA                                  ;07A560|48      |      ;  
                        LDA.B $02                            ;07A561|A502    |000002;  
                        JSR.W Get character offset           ;07A563|20F5B0  |07B0F5;  
@@ -5728,7 +5729,7 @@ Empty Equip item slot?: STA.B $20                            ;07A4DA|8520    |00
                                                             ;      |        |      ;  
 Get name from party ID: LDA.W Current party,X                ;07A6B0|BD5B15  |00155B; Get ID (0-9)
                        LDX.W #$000B                         ;07A6B3|A20B00  |      ; Length of name entries
-                       JSL.L Multiply into $00              ;07A6B6|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A6B6|22398A00|008A39;  
                        LDA.B $00                            ;07A6BA|A500    |000000; Get the product
                        TAX                                  ;07A6BC|AA      |      ; Set as table offset
                        LDY.W #$0000                         ;07A6BD|A00000  |      ;  
@@ -5751,7 +5752,7 @@ Get name from party ID: LDA.W Current party,X                ;07A6B0|BD5B15  |00
                        TAX                                  ;07A6DA|AA      |      ;  
                        LDA.W Current party,X                ;07A6DB|BD5B15  |00155B;  
                        LDX.W #$0011                         ;07A6DE|A21100  |      ; Length of job titles
-                       JSL.L Multiply into $00              ;07A6E1|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A6E1|22398A00|008A39;  
                        LDA.B $00                            ;07A6E5|A500    |000000;  
                        TAX                                  ;07A6E7|AA      |      ;  
                        LDY.W #$0000                         ;07A6E8|A00000  |      ;  
@@ -5775,7 +5776,7 @@ Write title to buffer: LDA.L Character classes,X            ;07A6ED|BF54A505|05A
                        LDA.W Condition,X                    ;07A706|BDC311  |0011C3;  
                        AND.W #$00FF                         ;07A709|29FF00  |      ;  
                        LDX.W #$000D                         ;07A70C|A20D00  |      ; Length of condition entries
-                       JSL.L Multiply into $00              ;07A70F|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A70F|22398A00|008A39;  
                        LDA.B $00                            ;07A713|A500    |000000;  
                        TAX                                  ;07A715|AA      |      ;  
                        LDY.W #$0000                         ;07A716|A00000  |      ;  
@@ -5825,7 +5826,7 @@ Finish condition text: STA.W $15C9,Y                        ;07A72C|99C915  |001
                  Fire: LDA.W #$0004                         ;07A763|A90400  |      ;  
                                                             ;      |        |      ;  
     Load entry length: LDX.W #$0007                         ;07A766|A20700  |      ;  
-                       JSL.L Multiply into $00              ;07A769|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A769|22398A00|008A39;  
                        LDA.B $00                            ;07A76D|A500    |000000;  
                        TAX                                  ;07A76F|AA      |      ;  
                        LDY.W #$0000                         ;07A770|A00000  |      ;  
@@ -6062,7 +6063,7 @@ Sub: Treasure is empty 2: LDA.W #$8FD2                         ;07A8EB|A9D28F  |
                                                             ;      |        |      ;  
        Load Card name: PHA                                  ;07A932|48      |      ;  
                        LDX.W #$000B                         ;07A933|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;07A936|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A936|22398A00|008A39;  
                        LDA.B $00                            ;07A93A|A500    |000000;  
                        TAX                                  ;07A93C|AA      |      ;  
                        LDY.W #$0000                         ;07A93D|A00000  |      ;  
@@ -6088,7 +6089,7 @@ Sub: Treasure is empty 2: LDA.W #$8FD2                         ;07A8EB|A9D28F  |
                                                             ;      |        |      ;  
        Load Item name: PHA                                  ;07A95C|48      |      ;  
                        LDX.W #$0014                         ;07A95D|A21400  |      ;  
-                       JSL.L Multiply into $00              ;07A960|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A960|22398A00|008A39;  
                        LDA.B $00                            ;07A964|A500    |000000;  
                        TAX                                  ;07A966|AA      |      ;  
                        LDY.W #$0000                         ;07A967|A00000  |      ;  
@@ -6114,7 +6115,7 @@ Sub: Treasure is empty 2: LDA.W #$8FD2                         ;07A8EB|A9D28F  |
                                                             ;      |        |      ;  
   Load Equipment name: PHA                                  ;07A986|48      |      ;  
                        LDX.W #$0011                         ;07A987|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07A98A|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07A98A|22398A00|008A39;  
                        LDA.B $00                            ;07A98E|A500    |000000;  
                        TAX                                  ;07A990|AA      |      ;  
                        LDY.W #$0000                         ;07A991|A00000  |      ;  
@@ -7365,7 +7366,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        PHX                                  ;07B1D4|DA      |      ;  
                        LDA.W Max HP,X                       ;07B1D5|BD9313  |001393; Load max HP
                        LDX.W #$004C                         ;07B1D8|A24C00  |      ;  
-                       JSL.L Multiply into $00              ;07B1DB|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B1DB|22398A00|008A39;  
                        LDA.B $00                            ;07B1DF|A500    |000000;  
                        XBA                                  ;07B1E1|EB      |      ;  
                        AND.W #$00FF                         ;07B1E2|29FF00  |      ;  
@@ -7388,7 +7389,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        PHX                                  ;07B1FB|DA      |      ;  
                        LDA.W Current HP,X                   ;07B1FC|BDF312  |0012F3;  
                        LDX.W #$0019                         ;07B1FF|A21900  |      ;  
-                       JSL.L Multiply into $00              ;07B202|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B202|22398A00|008A39;  
                        LDA.B $00                            ;07B206|A500    |000000;  
                        XBA                                  ;07B208|EB      |      ;  
                        AND.W #$00FF                         ;07B209|29FF00  |      ;  
@@ -7469,7 +7470,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        CMP.W #$0009                         ;07B286|C90900  |      ; If ID=9 (Nobody), clear EXP/LV and return
                        BEQ CODE_07B2A3                      ;07B289|F018    |07B2A3;  
                        LDX.W #$0078                         ;07B28B|A27800  |      ; ?? Multiplication with 120, I think this is to jump to their EXP table.
-                       JSL.L Multiply into $00              ;07B28E|22398A00|008A39; I think 8A39 stores X * 120 in $00.
+                       JSL.L MultiplyTo$00_far              ;07B28E|22398A00|008A39; I think 8A39 stores X * 120 in $00.
                        PLY                                  ;07B292|7A      |      ;  
                        LDA.W Current LV,Y                   ;07B293|B97B13  |00137B; Load their LV, double it as an offset
                        ASL A                                ;07B296|0A      |      ;  
@@ -7581,7 +7582,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_07B358: LDX.W #$02D0                         ;07B358|A2D002  |      ;  
-                       JSL.L Multiply into $00              ;07B35B|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B35B|22398A00|008A39;  
                        LDA.B $00                            ;07B35F|A500    |000000;  
                        PHA                                  ;07B361|48      |      ;  
                        LDX.W Selection                      ;07B362|AE3F10  |00103F;  
@@ -7590,7 +7591,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        TAX                                  ;07B369|AA      |      ;  
                        LDA.W Current LV,X                   ;07B36A|BD7B13  |00137B;  
                        LDX.W #$000C                         ;07B36D|A20C00  |      ;  
-                       JSL.L Multiply into $00              ;07B370|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B370|22398A00|008A39;  
                        PLA                                  ;07B374|68      |      ;  
                        CLC                                  ;07B375|18      |      ;  
                        ADC.B $00                            ;07B376|6500    |000000;  
@@ -7793,7 +7794,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_07B4E0: LDX.W #$000B                         ;07B4E0|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;07B4E3|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B4E3|22398A00|008A39;  
                        LDA.W #$9F7B                         ;07B4E7|A97B9F  |      ;  
                        CLC                                  ;07B4EA|18      |      ;  
                        ADC.B $00                            ;07B4EB|6500    |000000;  
@@ -7807,7 +7808,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_07B4FE: LDX.W #$000B                         ;07B4FE|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;07B501|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B501|22398A00|008A39;  
                        LDA.W #$9F7B                         ;07B505|A97B9F  |      ;  
                        CLC                                  ;07B508|18      |      ;  
                        ADC.B $00                            ;07B509|6500    |000000;  
@@ -7821,7 +7822,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_07B51C: LDX.W #$0011                         ;07B51C|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07B51F|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B51F|22398A00|008A39;  
                        LDA.W #$9FE9                         ;07B523|A9E99F  |      ;  
                        CLC                                  ;07B526|18      |      ;  
                        ADC.B $00                            ;07B527|6500    |000000;  
@@ -7840,7 +7841,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        LDA.W Current party,X                ;07B543|BD5B15  |00155B;  
                        BEQ CODE_07B567                      ;07B546|F01F    |07B567;  
                        LDX.W #$0003                         ;07B548|A20300  |      ;  
-                       JSL.L Multiply into $00              ;07B54B|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B54B|22398A00|008A39;  
                        LDA.B $00                            ;07B54F|A500    |000000;  
                        TAX                                  ;07B551|AA      |      ;  
                        PLY                                  ;07B552|7A      |      ;  
@@ -7864,7 +7865,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_07B569: LDX.W #$0011                         ;07B569|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07B56C|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B56C|22398A00|008A39;  
                        LDA.W #$9FE9                         ;07B570|A9E99F  |      ;  
                        CLC                                  ;07B573|18      |      ;  
                        ADC.B $00                            ;07B574|6500    |000000;  
@@ -7885,7 +7886,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        LDA.W Current party,X                ;07B594|BD5B15  |00155B;  
                        BEQ CODE_07B5B8                      ;07B597|F01F    |07B5B8;  
                        LDX.W #$0003                         ;07B599|A20300  |      ;  
-                       JSL.L Multiply into $00              ;07B59C|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B59C|22398A00|008A39;  
                        LDA.B $00                            ;07B5A0|A500    |000000;  
                        TAX                                  ;07B5A2|AA      |      ;  
                        PLY                                  ;07B5A3|7A      |      ;  
@@ -7909,7 +7910,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_07B5BA: LDX.W #$0011                         ;07B5BA|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07B5BD|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B5BD|22398A00|008A39;  
                        LDA.W #$9FE9                         ;07B5C1|A9E99F  |      ;  
                        CLC                                  ;07B5C4|18      |      ;  
                        ADC.B $00                            ;07B5C5|6500    |000000;  
@@ -7928,7 +7929,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        LDA.W Current party,X                ;07B5E1|BD5B15  |00155B;  
                        BEQ CODE_07B605                      ;07B5E4|F01F    |07B605;  
                        LDX.W #$0003                         ;07B5E6|A20300  |      ;  
-                       JSL.L Multiply into $00              ;07B5E9|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B5E9|22398A00|008A39;  
                        LDA.B $00                            ;07B5ED|A500    |000000;  
                        TAX                                  ;07B5EF|AA      |      ;  
                        PLY                                  ;07B5F0|7A      |      ;  
@@ -8302,7 +8303,7 @@ Tbl: Everyone's dodge message: dw DATA8_008BEF                      ;07B7CE|    
                        PHY                                  ;07B89A|5A      |      ;  
                        LDA.W $11A1,X                        ;07B89B|BDA111  |0011A1;  
                        LDX.W #$0011                         ;07B89E|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07B8A1|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B8A1|22398A00|008A39;  
                        LDA.B $00                            ;07B8A5|A500    |000000;  
                        TAX                                  ;07B8A7|AA      |      ;  
                        PLY                                  ;07B8A8|7A      |      ;  
@@ -8339,7 +8340,7 @@ Tbl: Everyone's dodge message: dw DATA8_008BEF                      ;07B7CE|    
                        LDA.W Current map                    ;07B8D8|AD7315  |001573;  
                        AND.W #$00FF                         ;07B8DB|29FF00  |      ;  
                        LDX.W #$0011                         ;07B8DE|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07B8E1|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07B8E1|22398A00|008A39;  
                        LDX.B $00                            ;07B8E5|A600    |000000;  
                        PHX                                  ;07B8E7|DA      |      ;  
                        JSR.W CODE_07B224                    ;07B8E8|2024B2  |07B224;  
@@ -9040,7 +9041,7 @@ Store results in (2b): JSL.L ReadNextScript(2b)RTL          ;07BDD9|22079B00|009
                        SEC                                  ;07BDFD|38      |      ;  
                        SBC.W #$0005                         ;07BDFE|E90500  |      ;  
                        LDX.W #$000D                         ;07BE01|A20D00  |      ;  
-                       JSL.L Multiply into $00              ;07BE04|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07BE04|22398A00|008A39;  
                        LDA.W #$EE10                         ;07BE08|A910EE  |      ;  
                        CLC                                  ;07BE0B|18      |      ;  
                        ADC.B $00                            ;07BE0C|6500    |000000;  
@@ -9095,7 +9096,7 @@ Store results in (2b): JSL.L ReadNextScript(2b)RTL          ;07BDD9|22079B00|009
                                                             ;      |        |      ;  
           CODE_07BE5A: LDA.W $18C3                          ;07BE5A|ADC318  |0018C3;  
                        LDX.W #$0014                         ;07BE5D|A21400  |      ;  
-                       JSL.L Multiply into $00              ;07BE60|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07BE60|22398A00|008A39;  
                        LDA.W #$EE9A                         ;07BE64|A99AEE  |      ;  
                        CLC                                  ;07BE67|18      |      ;  
                        ADC.B $00                            ;07BE68|6500    |000000;  
@@ -9110,7 +9111,7 @@ Store results in (2b): JSL.L ReadNextScript(2b)RTL          ;07BDD9|22079B00|009
                        LDA.W Function results,Y             ;07BE7D|B9B30C  |000CB3;  
                        DEC A                                ;07BE80|3A      |      ;  
                        LDX.W #$000A                         ;07BE81|A20A00  |      ;  
-                       JSL.L Multiply into $00              ;07BE84|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07BE84|22398A00|008A39;  
                        LDA.W #$EE5E                         ;07BE88|A95EEE  |      ;  
                        CLC                                  ;07BE8B|18      |      ;  
                        ADC.B $00                            ;07BE8C|6500    |000000;  
@@ -9685,7 +9686,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                                                             ;      |        |      ;  
           CODE_07C2AF: AND.W #$00FF                         ;07C2AF|29FF00  |      ;  
                        LDX.W #$0011                         ;07C2B2|A21100  |      ;  
-                       JSL.L Multiply into $00              ;07C2B5|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C2B5|22398A00|008A39;  
                        LDA.W #$D67D                         ;07C2B9|A97DD6  |      ;  
                        CLC                                  ;07C2BC|18      |      ;  
                        ADC.B $00                            ;07C2BD|6500    |000000;  
@@ -9718,7 +9719,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                                                             ;      |        |      ;  
           CODE_07C2FB: LDA.W Spell ID                       ;07C2FB|AD2711  |001127;  
                        LDX.W #$0016                         ;07C2FE|A21600  |      ;  
-                       JSL.L Multiply into $00              ;07C301|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C301|22398A00|008A39;  
                        LDA.W #$E340                         ;07C305|A940E3  |      ;  
                        CLC                                  ;07C308|18      |      ;  
                        ADC.B $00                            ;07C309|6500    |000000;  
@@ -9846,7 +9847,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        SEC                                  ;07C3FD|38      |      ;  
                        SBC.W #$0025                         ;07C3FE|E92500  |      ; Get 0-2 offset for death spell
                        LDX.W #$0018                         ;07C401|A21800  |      ; Length of death text
-                       JSL.L Multiply into $00              ;07C404|22398A00|008A39; Get ptr offset
+                       JSL.L MultiplyTo$00_far              ;07C404|22398A00|008A39; Get ptr offset
                        LDA.W #$C423                         ;07C408|A923C4  |      ; Swept Away By Wind offset
                        CLC                                  ;07C40B|18      |      ;  
                        ADC.B $00                            ;07C40C|6500    |000000;  
@@ -9916,7 +9917,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        LDA.W $112B,X                        ;07C4BF|BD2B11  |00112B;  
                        DEC A                                ;07C4C2|3A      |      ;  
                        LDX.W #$0012                         ;07C4C3|A21200  |      ;  
-                       JSL.L Multiply into $00              ;07C4C6|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C4C6|22398A00|008A39;  
                        LDA.W #$C4F1                         ;07C4CA|A9F1C4  |      ;  
                        CLC                                  ;07C4CD|18      |      ;  
                        ADC.B $00                            ;07C4CE|6500    |000000;  
@@ -9997,7 +9998,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        LDA.B $06                            ;07C594|A506    |000006;  
                        LSR A                                ;07C596|4A      |      ;  
                        LDX.W #$0010                         ;07C597|A21000  |      ;  
-                       JSL.L Multiply into $00              ;07C59A|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C59A|22398A00|008A39;  
                        LDA.W #$C631                         ;07C59E|A931C6  |      ;  
                        CLC                                  ;07C5A1|18      |      ;  
                        ADC.B $00                            ;07C5A2|6500    |000000;  
@@ -10112,7 +10113,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        SEC                                  ;07C68E|38      |      ;  
                        SBC.W #$0043                         ;07C68F|E94300  |      ;  
                        LDX.W #$0006                         ;07C692|A20600  |      ;  
-                       JSL.L Multiply into $00              ;07C695|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C695|22398A00|008A39;  
                        LDA.W #$C6B4                         ;07C699|A9B4C6  |      ;  
                        CLC                                  ;07C69C|18      |      ;  
                        ADC.B $00                            ;07C69D|6500    |000000;  
@@ -10146,7 +10147,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        SEC                                  ;07C6D9|38      |      ;  
                        SBC.W #$0003                         ;07C6DA|E90300  |      ;  
                        LDX.W #$000A                         ;07C6DD|A20A00  |      ;  
-                       JSL.L Multiply into $00              ;07C6E0|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C6E0|22398A00|008A39;  
                        LDA.W #$C6FF                         ;07C6E4|A9FFC6  |      ;  
                        CLC                                  ;07C6E7|18      |      ;  
                        ADC.B $00                            ;07C6E8|6500    |000000;  
@@ -10205,7 +10206,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
           CODE_07C768: LDA.W Party slot two                 ;07C768|AD5D15  |00155D;  
                        DEC A                                ;07C76B|3A      |      ;  
                        LDX.W #$0006                         ;07C76C|A20600  |      ;  
-                       JSL.L Multiply into $00              ;07C76F|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C76F|22398A00|008A39;  
                        LDA.W #$C6B4                         ;07C773|A9B4C6  |      ;  
                        CLC                                  ;07C776|18      |      ;  
                        ADC.B $00                            ;07C777|6500    |000000;  
@@ -10455,7 +10456,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        STA.W $13A7                          ;07C93C|8DA713  |0013A7;  
                        LDA.W Party slot two                 ;07C93F|AD5D15  |00155D;  
                        LDX.W #$000B                         ;07C942|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;07C945|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C945|22398A00|008A39;  
                        LDA.W #$9F7B                         ;07C949|A97B9F  |      ;  
                        CLC                                  ;07C94C|18      |      ;  
                        ADC.B $00                            ;07C94D|6500    |000000;  
@@ -10483,7 +10484,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                                                             ;      |        |      ;  
           CODE_07C97F: LDA.W Party slot two                 ;07C97F|AD5D15  |00155D;  
                        LDX.W #$000B                         ;07C982|A20B00  |      ;  
-                       JSL.L Multiply into $00              ;07C985|22398A00|008A39;  
+                       JSL.L MultiplyTo$00_far              ;07C985|22398A00|008A39;  
                        LDA.W #$9F7B                         ;07C989|A97B9F  |      ;  
                        CLC                                  ;07C98C|18      |      ;  
                        ADC.B $00                            ;07C98D|6500    |000000;  

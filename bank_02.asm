@@ -6936,8 +6936,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        LDA.W Selection value,X              ;02A53B|BDEB09  |0009EB;  
                        ASL A                                ;02A53E|0A      |      ;  
                        TAX                                  ;02A53F|AA      |      ;  
-                                                            ;      |        |      ;  
-                     : LDA.W Current HP,X                   ;02A540|BDF312  |0012F3;  
+                       LDA.W Current HP,X                   ;02A540|BDF312  |0012F3;  
                        CMP.B $20                            ;02A543|C520    |000020;  
                        BMI Load Stuff A4AF                  ;02A545|3002    |02A549;  
                        BCS Else                             ;02A547|B022    |02A56B;  

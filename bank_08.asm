@@ -1141,7 +1141,7 @@ Restoration of Spirit: db $10                               ;088794|        |   
                        db $7F                               ;088925|        |      ;  
                        db $00                               ;088926|        |      ;  
                                                             ;      |        |      ;  
-         DATA8_088927: db $06                               ;088927|        |      ; Subroutine for X is statused
+  Statused formatting: db $06                               ;088927|        |      ; Subroutine for X is statused
                        db $0D                               ;088928|        |      ;  
                        db $0C                               ;088929|        |      ;  
                        db $05                               ;08892A|        |      ;  
@@ -1158,7 +1158,7 @@ Restoration of Spirit: db $10                               ;088794|        |   
                        db $00                               ;088935|        |      ;  
                                                             ;      |        |      ;  
        X is paralized: db $10                               ;088936|        |      ;  
-                       dl DATA8_088927                      ;088937|        |088927;  
+                       dl Statused formatting               ;088937|        |088927;  
                        db $10                               ;08893A|        |      ;  
                        dl $001581                           ;08893B|        |001581;  
                        db $0D                               ;08893E|        |      ;  
@@ -1167,7 +1167,7 @@ Restoration of Spirit: db $10                               ;088794|        |   
                        db $00                               ;08894D|        |      ;  
                                                             ;      |        |      ;  
        X is petrified: db $10                               ;08894E|        |      ;  
-                       dl DATA8_088927                      ;08894F|        |088927;  
+                       dl Statused formatting               ;08894F|        |088927;  
                        db $10                               ;088952|        |      ;  
                        dl $001581                           ;088953|        |001581;  
                        db $0D                               ;088956|        |      ;  
@@ -1176,7 +1176,7 @@ Restoration of Spirit: db $10                               ;088794|        |   
                        db $00                               ;088965|        |      ;  
                                                             ;      |        |      ;  
         X is confused: db $10                               ;088966|        |      ;  
-                       dl DATA8_088927                      ;088967|        |088927;  
+                       dl Statused formatting               ;088967|        |088927;  
                        db $10                               ;08896A|        |      ;  
                        dl $001581                           ;08896B|        |001581;  
                        db $0D                               ;08896E|        |      ;  
@@ -1185,7 +1185,7 @@ Restoration of Spirit: db $10                               ;088794|        |   
                        db $00                               ;08897C|        |      ;  
                                                             ;      |        |      ;  
           X is asleep: db $10                               ;08897D|        |      ;  
-                       dl DATA8_088927                      ;08897E|        |088927;  
+                       dl Statused formatting               ;08897E|        |088927;  
                        db $10                               ;088981|        |      ;  
                        dl $001581                           ;088982|        |001581;  
                        db $0D                               ;088985|        |      ;  
@@ -1194,7 +1194,7 @@ Restoration of Spirit: db $10                               ;088794|        |   
                        db $00                               ;088991|        |      ;  
                                                             ;      |        |      ;  
        X has awakened: db $10                               ;088992|        |      ;  
-                       dl DATA8_088927                      ;088993|        |088927;  
+                       dl Statused formatting               ;088993|        |088927;  
                        db "But"                             ;088996|        |      ;  
                        db $0D                               ;088999|        |      ;  
                        db $10                               ;08899A|        |      ;  
@@ -2264,19 +2264,19 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $0D                               ;089640|        |      ;  
                        db $00                               ;089641|        |      ;  
                                                             ;      |        |      ;  
-         DATA8_089642: db $06                               ;089642|        |      ; Sub: Spell text setup
+Sub: Spell text setup: db $06                               ;089642|        |      ; 06 0D: White text
                        db $0D                               ;089643|        |      ;  
-                       db $0C                               ;089644|        |      ;  
-                       db $01                               ;089645|        |      ;  
+                       db $0C                               ;089644|        |      ; 0C: I dunno
+                       db $01                               ;089645|        |      ; 01 00 06: Cursor to (00,06)
                        db $00                               ;089646|        |      ;  
                        db $06                               ;089647|        |      ;  
-                       db $03                               ;089648|        |      ;  
+                       db $03                               ;089648|        |      ; 03 0E: Normal vertical spacing
                        db $0E                               ;089649|        |      ;  
-                       db $1C                               ;08964A|        |      ;  
+                       db $1C                               ;08964A|        |      ; 1C: Display immediately
                        db $00                               ;08964B|        |      ;  
                                                             ;      |        |      ;  
      Lightning 1 text: db $10                               ;08964C|        |      ;  
-                       dl DATA8_089642                      ;08964D|        |089642;  
+                       dl Sub: Spell text setup             ;08964D|        |089642;  
                        db "All enemies attacked "           ;089650|        |      ;  
                        db "by"                              ;089665|        |      ;  
                        db $0D                               ;089667|        |      ; Newline
@@ -2289,7 +2289,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08967C|        |      ;  
                                                             ;      |        |      ;  
      Lightning 2 text: db $10                               ;08967D|        |      ;  
-                       dl DATA8_089642                      ;08967E|        |089642;  
+                       dl Sub: Spell text setup             ;08967E|        |089642;  
                        db "All enemies attacked "           ;089681|        |      ;  
                        db "by"                              ;089696|        |      ;  
                        db $0D                               ;089698|        |      ;  
@@ -2304,7 +2304,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0896AD|        |      ;  
                                                             ;      |        |      ;  
           Lightning 3: db $10                               ;0896AE|        |      ;  
-                       dl DATA8_089642                      ;0896AF|        |089642;  
+                       dl Sub: Spell text setup             ;0896AF|        |089642;  
                        db "All enemies attacked "           ;0896B2|        |      ;  
                        db "by"                              ;0896C7|        |      ;  
                        db $0D                               ;0896C9|        |      ;  
@@ -2319,7 +2319,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0896DE|        |      ;  
                                                             ;      |        |      ;  
               Smash 1: db $10                               ;0896DF|        |      ;  
-                       dl DATA8_089642                      ;0896E0|        |089642;  
+                       dl Sub: Spell text setup             ;0896E0|        |089642;  
                        db "Throw stones at enemy"           ;0896E3|        |      ;  
                        db "."                               ;0896F8|        |      ;  
                        db $01                               ;0896F9|        |      ;  
@@ -2332,7 +2332,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089703|        |      ;  
                                                             ;      |        |      ;  
               Smash 2: db $10                               ;089704|        |      ;  
-                       dl DATA8_089642                      ;089705|        |089642;  
+                       dl Sub: Spell text setup             ;089705|        |089642;  
                        db "Throw stones at enemy"           ;089708|        |      ;  
                        db "."                               ;08971D|        |      ;  
                        db $01                               ;08971E|        |      ;  
@@ -2345,7 +2345,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089728|        |      ;  
                                                             ;      |        |      ;  
               Smash 3: db $10                               ;089729|        |      ;  
-                       dl DATA8_089642                      ;08972A|        |089642;  
+                       dl Sub: Spell text setup             ;08972A|        |089642;  
                        db "Throw stones at enemy"           ;08972D|        |      ;  
                        db "."                               ;089742|        |      ;  
                        db $01                               ;089743|        |      ;  
@@ -2358,7 +2358,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08974D|        |      ;  
                                                             ;      |        |      ;  
               Water 1: db $10                               ;08974E|        |      ;  
-                       dl DATA8_089642                      ;08974F|        |089642;  
+                       dl Sub: Spell text setup             ;08974F|        |089642;  
                        db "Enemies are drowned."            ;089752|        |      ;  
                        db $01                               ;089766|        |      ;  
                        db $6B                               ;089767|        |      ;  
@@ -2370,7 +2370,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089770|        |      ;  
                                                             ;      |        |      ;  
               Water 2: db $10                               ;089771|        |      ;  
-                       dl DATA8_089642                      ;089772|        |089642;  
+                       dl Sub: Spell text setup             ;089772|        |089642;  
                        db "Enemies are drowned."            ;089775|        |      ;  
                        db $01                               ;089789|        |      ;  
                        db $6B                               ;08978A|        |      ;  
@@ -2382,7 +2382,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089793|        |      ;  
                                                             ;      |        |      ;  
               Water 3: db $10                               ;089794|        |      ;  
-                       dl DATA8_089642                      ;089795|        |089642;  
+                       dl Sub: Spell text setup             ;089795|        |089642;  
                        db "Enemies are drowned."            ;089798|        |      ;  
                        db $01                               ;0897AC|        |      ;  
                        db $6B                               ;0897AD|        |      ;  
@@ -2394,7 +2394,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0897B6|        |      ;  
                                                             ;      |        |      ;  
               Flame 1: db $10                               ;0897B7|        |      ;  
-                       dl DATA8_089642                      ;0897B8|        |089642;  
+                       dl Sub: Spell text setup             ;0897B8|        |089642;  
                        db "Enemies attacked by f"           ;0897BB|        |      ;  
                        db "ire."                            ;0897D0|        |      ;  
                        db $01                               ;0897D4|        |      ;  
@@ -2407,7 +2407,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0897DE|        |      ;  
                                                             ;      |        |      ;  
               Flame 2: db $10                               ;0897DF|        |      ;  
-                       dl DATA8_089642                      ;0897E0|        |089642;  
+                       dl Sub: Spell text setup             ;0897E0|        |089642;  
                        db "Enemies attacked by f"           ;0897E3|        |      ;  
                        db "ire."                            ;0897F8|        |      ;  
                        db $01                               ;0897FC|        |      ;  
@@ -2420,7 +2420,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089806|        |      ;  
                                                             ;      |        |      ;  
               Flame 3: db $10                               ;089807|        |      ;  
-                       dl DATA8_089642                      ;089808|        |089642;  
+                       dl Sub: Spell text setup             ;089808|        |089642;  
                        db "Enemies attacked by f"           ;08980B|        |      ;  
                        db "ire."                            ;089820|        |      ;  
                        db $01                               ;089824|        |      ;  
@@ -2433,7 +2433,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08982E|        |      ;  
                                                             ;      |        |      ;  
          DATA8_08982F: db $10                               ;08982F|        |      ;  
-                       dl DATA8_089642                      ;089830|        |089642;  
+                       dl Sub: Spell text setup             ;089830|        |089642;  
                                                             ;      |        |      ;  
           Attribute 1: db "Effective against Ear"           ;089833|        |      ;  
                        db "th"                              ;089848|        |      ;  
@@ -2449,7 +2449,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08985F|        |      ;  
                                                             ;      |        |      ;  
           Attribute 2: db $10                               ;089860|        |      ;  
-                       dl DATA8_089642                      ;089861|        |089642;  
+                       dl Sub: Spell text setup             ;089861|        |089642;  
                        db "Effective against Ear"           ;089864|        |      ;  
                        db "th"                              ;089879|        |      ;  
                        db $0D                               ;08987B|        |      ;  
@@ -2464,7 +2464,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08988F|        |      ;  
                                                             ;      |        |      ;  
           Attribute 3: db $10                               ;089890|        |      ;  
-                       dl DATA8_089642                      ;089891|        |089642;  
+                       dl Sub: Spell text setup             ;089891|        |089642;  
                        db "Effective against Wat"           ;089894|        |      ;  
                        db "er"                              ;0898A9|        |      ;  
                        db $0D                               ;0898AB|        |      ;  
@@ -2479,7 +2479,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0898BF|        |      ;  
                                                             ;      |        |      ;  
           Attribute 4: db $10                               ;0898C0|        |      ;  
-                       dl DATA8_089642                      ;0898C1|        |089642;  
+                       dl Sub: Spell text setup             ;0898C1|        |089642;  
                        db "Effective against Ear"           ;0898C4|        |      ;  
                        db "th"                              ;0898D9|        |      ;  
                        db $0D                               ;0898DB|        |      ;  
@@ -2494,7 +2494,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0898EF|        |      ;  
                                                             ;      |        |      ;  
           Attribute 5: db $10                               ;0898F0|        |      ;  
-                       dl DATA8_089642                      ;0898F1|        |089642;  
+                       dl Sub: Spell text setup             ;0898F1|        |089642;  
                        db "Effective against Wat"           ;0898F4|        |      ;  
                        db "er"                              ;089909|        |      ;  
                        db $0D                               ;08990B|        |      ;  
@@ -2509,7 +2509,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08991F|        |      ;  
                                                             ;      |        |      ;  
           Attribute 6: db $10                               ;089920|        |      ;  
-                       dl DATA8_089642                      ;089921|        |089642;  
+                       dl Sub: Spell text setup             ;089921|        |089642;  
                        db "Effective against Fir"           ;089924|        |      ;  
                        db "e"                               ;089939|        |      ;  
                        db $0D                               ;08993A|        |      ;  
@@ -2524,7 +2524,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08994E|        |      ;  
                                                             ;      |        |      ;  
           Attribute 7: db $10                               ;08994F|        |      ;  
-                       dl DATA8_089642                      ;089950|        |089642;  
+                       dl Sub: Spell text setup             ;089950|        |089642;  
                        db "Effective against Ear"           ;089953|        |      ;  
                        db "th"                              ;089968|        |      ;  
                        db $0D                               ;08996A|        |      ;  
@@ -2539,7 +2539,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089984|        |      ;  
                                                             ;      |        |      ;  
           Attribute 8: db $10                               ;089985|        |      ;  
-                       dl DATA8_089642                      ;089986|        |089642;  
+                       dl Sub: Spell text setup             ;089986|        |089642;  
                        db "Effective against Ear"           ;089989|        |      ;  
                        db "th"                              ;08999E|        |      ;  
                        db $0D                               ;0899A0|        |      ;  
@@ -2554,7 +2554,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0899BA|        |      ;  
                                                             ;      |        |      ;  
           Attribute 9: db $10                               ;0899BB|        |      ;  
-                       dl DATA8_089642                      ;0899BC|        |089642;  
+                       dl Sub: Spell text setup             ;0899BC|        |089642;  
                        db "Effective against Ear"           ;0899BF|        |      ;  
                        db "th"                              ;0899D4|        |      ;  
                        db $0D                               ;0899D6|        |      ;  
@@ -2569,7 +2569,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;0899EF|        |      ;  
                                                             ;      |        |      ;  
          Attribute 10: db $10                               ;0899F0|        |      ;  
-                       dl DATA8_089642                      ;0899F1|        |089642;  
+                       dl Sub: Spell text setup             ;0899F1|        |089642;  
                        db "Effective against Wat"           ;0899F4|        |      ;  
                        db "er"                              ;089A09|        |      ;  
                        db $0D                               ;089A0B|        |      ;  
@@ -2584,7 +2584,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089A24|        |      ;  
                                                             ;      |        |      ;  
          Attribute 11: db $10                               ;089A25|        |      ;  
-                       dl DATA8_089642                      ;089A26|        |089642;  
+                       dl Sub: Spell text setup             ;089A26|        |089642;  
                        db "Effective against All"           ;089A29|        |      ;  
                        db "."                               ;089A3E|        |      ;  
                        db $01                               ;089A3F|        |      ;  
@@ -2597,7 +2597,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089A49|        |      ;  
                                                             ;      |        |      ;  
      Call Wind Spirit: db $10                               ;089A4A|        |      ;  
-                       dl DATA8_089642                      ;089A4B|        |089642;  
+                       dl Sub: Spell text setup             ;089A4B|        |089642;  
                        db "Summons the Wind Spir"           ;089A4E|        |      ;  
                        db "it."                             ;089A63|        |      ;  
                        db $01                               ;089A66|        |      ;  
@@ -2610,7 +2610,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089A70|        |      ;  
                                                             ;      |        |      ;  
     Call Earth Spirit: db $10                               ;089A71|        |      ;  
-                       dl DATA8_089642                      ;089A72|        |089642;  
+                       dl Sub: Spell text setup             ;089A72|        |089642;  
                        db "Summons the Earth Spi"           ;089A75|        |      ;  
                        db "rit."                            ;089A8A|        |      ;  
                        db $01                               ;089A8E|        |      ;  
@@ -2623,7 +2623,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089A98|        |      ;  
                                                             ;      |        |      ;  
     Call Water Spirit: db $10                               ;089A99|        |      ;  
-                       dl DATA8_089642                      ;089A9A|        |089642;  
+                       dl Sub: Spell text setup             ;089A9A|        |089642;  
                        db "Summons the Water Spi"           ;089A9D|        |      ;  
                        db "rit."                            ;089AB2|        |      ;  
                        db $01                               ;089AB6|        |      ;  
@@ -2636,7 +2636,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089AC0|        |      ;  
                                                             ;      |        |      ;  
      Call Fire Spirit: db $10                               ;089AC1|        |      ;  
-                       dl DATA8_089642                      ;089AC2|        |089642;  
+                       dl Sub: Spell text setup             ;089AC2|        |089642;  
                        db "Summons the Fire Spir"           ;089AC5|        |      ;  
                        db "it."                             ;089ADA|        |      ;  
                        db $01                               ;089ADD|        |      ;  
@@ -2649,7 +2649,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089AE7|        |      ;  
                                                             ;      |        |      ;  
           Drain Spell: db $10                               ;089AE8|        |      ; This spell is dummied and doesn't work.
-                       dl DATA8_089642                      ;089AE9|        |089642;  
+                       dl Sub: Spell text setup             ;089AE9|        |089642;  
                        db "Takes Hit Points from"           ;089AEC|        |      ;  
                        db $0D                               ;089B01|        |      ;  
                        db "enemy."                          ;089B02|        |      ;  
@@ -2663,7 +2663,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089B12|        |      ;  
                                                             ;      |        |      ;  
           Psych Spell: db $10                               ;089B13|        |      ; Draining MP would be a killer enemy spell.
-                       dl DATA8_089642                      ;089B14|        |089642;  
+                       dl Sub: Spell text setup             ;089B14|        |089642;  
                        db "Takes Magic Points fr"           ;089B17|        |      ;  
                        db "om"                              ;089B2C|        |      ;  
                        db $0D                               ;089B2E|        |      ;  
@@ -2678,7 +2678,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089B3F|        |      ;  
                                                             ;      |        |      ;  
        HP Restore All: db $10                               ;089B40|        |      ;  
-                       dl DATA8_089642                      ;089B41|        |089642;  
+                       dl Sub: Spell text setup             ;089B41|        |089642;  
                        db "Restores the Hit Poin"           ;089B44|        |      ;  
                        db "ts of"                           ;089B59|        |      ;  
                        db $0D                               ;089B5E|        |      ;  
@@ -2693,7 +2693,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089B7E|        |      ;  
                                                             ;      |        |      ;  
            HP Restore: db $10                               ;089B7F|        |      ;  
-                       dl DATA8_089642                      ;089B80|        |089642;  
+                       dl Sub: Spell text setup             ;089B80|        |089642;  
                        db "Restores your Hit Poi"           ;089B83|        |      ;  
                        db "nts."                            ;089B98|        |      ;  
                        db $01                               ;089B9C|        |      ;  
@@ -2706,7 +2706,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089BA6|        |      ;  
                                                             ;      |        |      ;  
                Heal 1: db $10                               ;089BA7|        |      ;  
-                       dl DATA8_089642                      ;089BA8|        |089642;  
+                       dl Sub: Spell text setup             ;089BA8|        |089642;  
                        db "Restores your Hit Poi"           ;089BAB|        |      ;  
                        db "nts."                            ;089BC0|        |      ;  
                        db $01                               ;089BC4|        |      ;  
@@ -2719,7 +2719,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089BCE|        |      ;  
                                                             ;      |        |      ;  
                Heal 2: db $10                               ;089BCF|        |      ;  
-                       dl DATA8_089642                      ;089BD0|        |089642;  
+                       dl Sub: Spell text setup             ;089BD0|        |089642;  
                        db "Restores your Hit Poi"           ;089BD3|        |      ;  
                        db "nts."                            ;089BE8|        |      ;  
                        db $01                               ;089BEC|        |      ;  
@@ -2732,7 +2732,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089BF6|        |      ;  
                                                             ;      |        |      ;  
                Heal 3: db $10                               ;089BF7|        |      ;  
-                       dl DATA8_089642                      ;089BF8|        |089642;  
+                       dl Sub: Spell text setup             ;089BF8|        |089642;  
                        db "Completely restores y"           ;089BFB|        |      ;  
                        db "our"                             ;089C10|        |      ;  
                        db $0D                               ;089C13|        |      ;  
@@ -2747,7 +2747,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089C29|        |      ;  
                                                             ;      |        |      ;  
            Heal All 1: db $10                               ;089C2A|        |      ;  
-                       dl DATA8_089642                      ;089C2B|        |089642;  
+                       dl Sub: Spell text setup             ;089C2B|        |089642;  
                        db "Restores some of the "           ;089C2E|        |      ;  
                        db "Hit"                             ;089C43|        |      ;  
                        db $0D                               ;089C46|        |      ;  
@@ -2765,7 +2765,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089C71|        |      ;  
                                                             ;      |        |      ;  
            Heal All 2: db $10                               ;089C72|        |      ;  
-                       dl DATA8_089642                      ;089C73|        |089642;  
+                       dl Sub: Spell text setup             ;089C73|        |089642;  
                        db "Restores some of the "           ;089C76|        |      ;  
                        db "Hit"                             ;089C8B|        |      ;  
                        db $0D                               ;089C8E|        |      ;  
@@ -2783,7 +2783,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089CB9|        |      ;  
                                                             ;      |        |      ;  
            Chaos Wind: db $10                               ;089CBA|        |      ;  
-                       dl DATA8_089642                      ;089CBB|        |089642;  
+                       dl Sub: Spell text setup             ;089CBB|        |089642;  
                        db "A powerful wind used "           ;089CBE|        |      ;  
                        db "to"                              ;089CD3|        |      ;  
                        db $0D                               ;089CD5|        |      ;  
@@ -2798,7 +2798,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089CF3|        |      ;  
                                                             ;      |        |      ;  
                Entomb: db $10                               ;089CF4|        |      ;  
-                       dl DATA8_089642                      ;089CF5|        |089642;  
+                       dl Sub: Spell text setup             ;089CF5|        |089642;  
                        db "Buries enemies."                 ;089CF8|        |      ;  
                        db $01                               ;089D07|        |      ;  
                        db $6B                               ;089D08|        |      ;  
@@ -2810,7 +2810,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089D11|        |      ;  
                                                             ;      |        |      ;  
               Destroy: db $10                               ;089D12|        |      ;  
-                       dl DATA8_089642                      ;089D13|        |089642;  
+                       dl Sub: Spell text setup             ;089D13|        |089642;  
                        db "Obvious!"                        ;089D16|        |      ; I'm gonna rename this spell "Obvious!"
                        db $01                               ;089D1E|        |      ;  
                        db $6B                               ;089D1F|        |      ;  
@@ -2822,7 +2822,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089D28|        |      ;  
                                                             ;      |        |      ;  
          Paralyze All: db $10                               ;089D29|        |      ;  
-                       dl DATA8_089642                      ;089D2A|        |089642;  
+                       dl Sub: Spell text setup             ;089D2A|        |089642;  
                        db "Paralyze all enemies."           ;089D2D|        |      ;  
                        db $01                               ;089D42|        |      ;  
                        db $6B                               ;089D43|        |      ;  
@@ -2834,7 +2834,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089D4C|        |      ;  
                                                             ;      |        |      ;  
           Petrify All: db $10                               ;089D4D|        |      ;  
-                       dl DATA8_089642                      ;089D4E|        |089642;  
+                       dl Sub: Spell text setup             ;089D4E|        |089642;  
                        db "Turns all enemies to "           ;089D51|        |      ;  
                        db "stone."                          ;089D66|        |      ;  
                        db $01                               ;089D6C|        |      ;  
@@ -2847,7 +2847,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089D76|        |      ;  
                                                             ;      |        |      ;  
              Stop All: db $10                               ;089D77|        |      ; Silence would be really handy, if it worked.
-                       dl DATA8_089642                      ;089D78|        |089642;  
+                       dl Sub: Spell text setup             ;089D78|        |089642;  
                        db "Silences all of your"            ;089D7B|        |      ;  
                        db $0D                               ;089D8F|        |      ;  
                        db "enemies."                        ;089D90|        |      ;  
@@ -2861,7 +2861,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089DA2|        |      ;  
                                                             ;      |        |      ;  
             Sleep All: db $10                               ;089DA3|        |      ;  
-                       dl DATA8_089642                      ;089DA4|        |089642;  
+                       dl Sub: Spell text setup             ;089DA4|        |089642;  
                        db "Puts all enemies to s"           ;089DA7|        |      ;  
                        db "leep."                           ;089DBC|        |      ;  
                        db $01                               ;089DC1|        |      ;  
@@ -2874,7 +2874,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089DCB|        |      ;  
                                                             ;      |        |      ;  
          Confused All: db $10                               ;089DCC|        |      ;  
-                       dl DATA8_089642                      ;089DCD|        |089642;  
+                       dl Sub: Spell text setup             ;089DCD|        |089642;  
                        db "Prevents logical thin"           ;089DD0|        |      ;  
                        db "king in"                         ;089DE5|        |      ;  
                        db $0D                               ;089DEC|        |      ;  
@@ -2889,7 +2889,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089E03|        |      ;  
                                                             ;      |        |      ;  
              Paralyze: db $10                               ;089E04|        |      ;  
-                       dl DATA8_089642                      ;089E05|        |089642;  
+                       dl Sub: Spell text setup             ;089E05|        |089642;  
                        db "Paralyzes the selecte"           ;089E08|        |      ;  
                        db "d"                               ;089E1D|        |      ;  
                        db $0D                               ;089E1E|        |      ;  
@@ -2904,7 +2904,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089E2F|        |      ;  
                                                             ;      |        |      ;  
               Petrify: db $10                               ;089E30|        |      ;  
-                       dl DATA8_089642                      ;089E31|        |089642;  
+                       dl Sub: Spell text setup             ;089E31|        |089642;  
                        db "Turns the selected en"           ;089E34|        |      ;  
                        db "emy"                             ;089E49|        |      ;  
                        db $0D                               ;089E4C|        |      ;  
@@ -2919,7 +2919,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089E60|        |      ;  
                                                             ;      |        |      ;  
                  Stop: db $10                               ;089E61|        |      ;  
-                       dl DATA8_089642                      ;089E62|        |089642;  
+                       dl Sub: Spell text setup             ;089E62|        |089642;  
                        db "Silences the selected"           ;089E65|        |      ;  
                        db $0D                               ;089E7A|        |      ;  
                        db "enemy."                          ;089E7B|        |      ;  
@@ -2933,7 +2933,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089E8B|        |      ;  
                                                             ;      |        |      ;  
                 Sleep: db $10                               ;089E8C|        |      ;  
-                       dl DATA8_089642                      ;089E8D|        |089642;  
+                       dl Sub: Spell text setup             ;089E8D|        |089642;  
                        db "Puts the selected ene"           ;089E90|        |      ;  
                        db "my"                              ;089EA5|        |      ;  
                        db $0D                               ;089EA7|        |      ;  
@@ -2948,7 +2948,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089EBB|        |      ;  
                                                             ;      |        |      ;  
              Confused: db $10                               ;089EBC|        |      ;  
-                       dl DATA8_089642                      ;089EBD|        |089642;  
+                       dl Sub: Spell text setup             ;089EBD|        |089642;  
                        db "Prevents logical thin"           ;089EC0|        |      ;  
                        db "king in"                         ;089ED5|        |      ;  
                        db $0D                               ;089EDC|        |      ;  
@@ -2963,7 +2963,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089EFA|        |      ;  
                                                             ;      |        |      ;  
        Offense Impair: db $10                               ;089EFB|        |      ; Accuracy impair
-                       dl DATA8_089642                      ;089EFC|        |089642;  
+                       dl Sub: Spell text setup             ;089EFC|        |089642;  
                        db "Decreases the accurac"           ;089EFF|        |      ;  
                        db "y"                               ;089F14|        |      ;  
                        db $0D                               ;089F15|        |      ;  
@@ -2979,7 +2979,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089F37|        |      ;  
                                                             ;      |        |      ;  
    Offense Impair All: db $10                               ;089F38|        |      ; Accuracy Impair All
-                       dl DATA8_089642                      ;089F39|        |089642;  
+                       dl Sub: Spell text setup             ;089F39|        |089642;  
                        db "Decreases the accurac"           ;089F3C|        |      ;  
                        db "y"                               ;089F51|        |      ;  
                        db $0D                               ;089F52|        |      ;  
@@ -2995,7 +2995,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089F76|        |      ;  
                                                             ;      |        |      ;  
        Defense Impair: db $10                               ;089F77|        |      ;  
-                       dl DATA8_089642                      ;089F78|        |089642;  
+                       dl Sub: Spell text setup             ;089F78|        |089642;  
                        db "Decreases the strengt"           ;089F7B|        |      ;  
                        db "h of"                            ;089F90|        |      ;  
                        db $0D                               ;089F94|        |      ;  
@@ -3010,7 +3010,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089FB2|        |      ;  
                                                             ;      |        |      ;  
    Defense Impair All: db $10                               ;089FB3|        |      ;  
-                       dl DATA8_089642                      ;089FB4|        |089642;  
+                       dl Sub: Spell text setup             ;089FB4|        |089642;  
                        db "Decreases the strengt"           ;089FB7|        |      ;  
                        db "h of"                            ;089FCC|        |      ;  
                        db $0D                               ;089FD0|        |      ;  
@@ -3025,7 +3025,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;089FEF|        |      ;  
                                                             ;      |        |      ;  
       Accuracy Impair: db $10                               ;089FF0|        |      ;  
-                       dl DATA8_089642                      ;089FF1|        |089642;  
+                       dl Sub: Spell text setup             ;089FF1|        |089642;  
                        db "Decreases your enemy'"           ;089FF4|        |      ;  
                        db "s"                               ;08A009|        |      ;  
                        db $0D                               ;08A00A|        |      ;  
@@ -3043,7 +3043,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A033|        |      ;  
                                                             ;      |        |      ;  
   Accuracy Impair All: db $10                               ;08A034|        |      ;  
-                       dl DATA8_089642                      ;08A035|        |089642;  
+                       dl Sub: Spell text setup             ;08A035|        |089642;  
                        db "Decreases all of your"           ;08A038|        |      ;  
                        db $0D                               ;08A04D|        |      ;  
                        db "enemies' accuracy rel"           ;08A04E|        |      ;  
@@ -3060,7 +3060,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A07F|        |      ;  
                                                             ;      |        |      ;  
         Attack Impair: db $10                               ;08A080|        |      ; This one reduces Attack
-                       dl DATA8_089642                      ;08A081|        |089642;  
+                       dl Sub: Spell text setup             ;08A081|        |089642;  
                        db "Lowers the strength o"           ;08A084|        |      ;  
                        db "f"                               ;08A099|        |      ;  
                        db $0D                               ;08A09A|        |      ;  
@@ -3075,7 +3075,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A0B9|        |      ;  
                                                             ;      |        |      ;  
     Attack Impair All: db $10                               ;08A0BA|        |      ;  
-                       dl DATA8_089642                      ;08A0BB|        |089642;  
+                       dl Sub: Spell text setup             ;08A0BB|        |089642;  
                        db "Lowers the strength o"           ;08A0BE|        |      ;  
                        db "f all"                           ;08A0D3|        |      ;  
                        db $0D                               ;08A0D8|        |      ;  
@@ -3091,7 +3091,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A0F9|        |      ;  
                                                             ;      |        |      ;  
               Requiem: db $10                               ;08A0FA|        |      ; 3 levels of undead-killer spells. Dummied out. (Fun to imagine there was a 5th spirit that purified undead)
-                       dl DATA8_089642                      ;08A0FB|        |089642;  
+                       dl Sub: Spell text setup             ;08A0FB|        |089642;  
                        db "Liberates the selecte"           ;08A0FE|        |      ;  
                        db "d"                               ;08A113|        |      ;  
                        db $0D                               ;08A114|        |      ;  
@@ -3107,7 +3107,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A136|        |      ;  
                                                             ;      |        |      ;  
          Emancipation: db $10                               ;08A137|        |      ;  
-                       dl DATA8_089642                      ;08A138|        |089642;  
+                       dl Sub: Spell text setup             ;08A138|        |089642;  
                        db "Liberates all Undead "           ;08A13B|        |      ;  
                        db "from"                            ;08A150|        |      ;  
                        db $0D                               ;08A154|        |      ;  
@@ -3122,7 +3122,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A171|        |      ;  
                                                             ;      |        |      ;  
      Final Liberation: db $10                               ;08A172|        |      ;  
-                       dl DATA8_089642                      ;08A173|        |089642;  
+                       dl Sub: Spell text setup             ;08A173|        |089642;  
                        db "All Undead cease to e"           ;08A176|        |      ;  
                        db "xist"                            ;08A18B|        |      ;  
                        db $0D                               ;08A18F|        |      ;  
@@ -3138,7 +3138,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A1B0|        |      ;  
                                                             ;      |        |      ;  
       Ruinous Mission: db $10                               ;08A1B1|        |      ;  
-                       dl DATA8_089642                      ;08A1B2|        |089642;  
+                       dl Sub: Spell text setup             ;08A1B2|        |089642;  
                        db "A Spirit gives the su"           ;08A1B5|        |      ;  
                        db "preme"                           ;08A1CA|        |      ;  
                        db $0D                               ;08A1CF|        |      ;  
@@ -3154,7 +3154,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A1F3|        |      ;  
                                                             ;      |        |      ;  
                  Flee: db $10                               ;08A1F4|        |      ;  
-                       dl DATA8_089642                      ;08A1F5|        |089642;  
+                       dl Sub: Spell text setup             ;08A1F5|        |089642;  
                        db "A retreat to regroup."           ;08A1F8|        |      ;  
                        db $01                               ;08A20D|        |      ;  
                        db $6B                               ;08A20E|        |      ;  
@@ -3166,7 +3166,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A217|        |      ;  
                                                             ;      |        |      ;  
             Dodge All: db $10                               ;08A218|        |      ;  
-                       dl DATA8_089642                      ;08A219|        |089642;  
+                       dl Sub: Spell text setup             ;08A219|        |089642;  
                        db "Your ability to parry"           ;08A21C|        |      ;  
                        db $0D                               ;08A231|        |      ;  
                        db "attacks is increased."           ;08A232|        |      ;  
@@ -3180,7 +3180,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A251|        |      ;  
                                                             ;      |        |      ;  
              Wall All: db $10                               ;08A252|        |      ;  
-                       dl DATA8_089642                      ;08A253|        |089642;  
+                       dl Sub: Spell text setup             ;08A253|        |089642;  
                        db "All of your defensive"           ;08A256|        |      ;  
                        db $0D                               ;08A26B|        |      ;  
                        db "strength is increased"           ;08A26C|        |      ;  
@@ -3195,7 +3195,7 @@ Intelligence Honey text: db $10                               ;0893F2|        | 
                        db $00                               ;08A28C|        |      ;  
                                                             ;      |        |      ;  
 Accuracy Increase All: db $10                               ;08A28D|        |      ;  
-                       dl DATA8_089642                      ;08A28E|        |089642;  
+                       dl Sub: Spell text setup             ;08A28E|        |089642;  
                        db "Your attack accuracy "           ;08A291|        |      ;  
                        db "is"                              ;08A2A6|        |      ;  
                        db $0D                               ;08A2A8|        |      ;  
@@ -3210,7 +3210,7 @@ Accuracy Increase All: db $10                               ;08A28D|        |   
                        db $00                               ;08A2BD|        |      ;  
                                                             ;      |        |      ;  
             Stomp All: db $10                               ;08A2BE|        |      ;  
-                       dl DATA8_089642                      ;08A2BF|        |089642;  
+                       dl Sub: Spell text setup             ;08A2BF|        |089642;  
                        db "Your attack strength "           ;08A2C2|        |      ;  
                        db "is"                              ;08A2D7|        |      ;  
                        db $0D                               ;08A2D9|        |      ;  
@@ -3225,7 +3225,7 @@ Accuracy Increase All: db $10                               ;08A28D|        |   
                        db $00                               ;08A2EE|        |      ;  
                                                             ;      |        |      ;  
  Change Attr. to Wind: db $10                               ;08A2EF|        |      ;  
-                       dl DATA8_089642                      ;08A2F0|        |089642;  
+                       dl Sub: Spell text setup             ;08A2F0|        |089642;  
                        db "Changes your attribut"           ;08A2F3|        |      ;  
                        db "e to"                            ;08A308|        |      ;  
                        db $0D                               ;08A30C|        |      ;  
@@ -3240,7 +3240,7 @@ Accuracy Increase All: db $10                               ;08A28D|        |   
                        db $00                               ;08A31C|        |      ;  
                                                             ;      |        |      ;  
 Change Attr. to Earth: db $10                               ;08A31D|        |      ;  
-                       dl DATA8_089642                      ;08A31E|        |089642;  
+                       dl Sub: Spell text setup             ;08A31E|        |089642;  
                        db "Changes your attribut"           ;08A321|        |      ;  
                        db "e to"                            ;08A336|        |      ;  
                        db $0D                               ;08A33A|        |      ;  
@@ -3255,7 +3255,7 @@ Change Attr. to Earth: db $10                               ;08A31D|        |   
                        db $00                               ;08A34B|        |      ;  
                                                             ;      |        |      ;  
 Change Attr. to Water: db $10                               ;08A34C|        |      ;  
-                       dl DATA8_089642                      ;08A34D|        |089642;  
+                       dl Sub: Spell text setup             ;08A34D|        |089642;  
                        db "Changes your attribut"           ;08A350|        |      ;  
                        db "e to"                            ;08A365|        |      ;  
                        db $0D                               ;08A369|        |      ;  
@@ -3270,7 +3270,7 @@ Change Attr. to Water: db $10                               ;08A34C|        |   
                        db $00                               ;08A37A|        |      ;  
                                                             ;      |        |      ;  
  Change Attr. to Fire: db $10                               ;08A37B|        |      ;  
-                       dl DATA8_089642                      ;08A37C|        |089642;  
+                       dl Sub: Spell text setup             ;08A37C|        |089642;  
                        db "Changes your attribut"           ;08A37F|        |      ;  
                        db "e to"                            ;08A394|        |      ;  
                        db $0D                               ;08A398|        |      ;  
@@ -3285,7 +3285,7 @@ Change Attr. to Water: db $10                               ;08A34C|        |   
                        db $00                               ;08A3A8|        |      ;  
                                                             ;      |        |      ;  
                 Repel: db $10                               ;08A3A9|        |      ; Dummied, would reflect physical damage? Cool.
-                       dl DATA8_089642                      ;08A3AA|        |089642;  
+                       dl Sub: Spell text setup             ;08A3AA|        |089642;  
                        db "Gives you the power t"           ;08A3AD|        |      ;  
                        db "o"                               ;08A3C2|        |      ;  
                        db $0D                               ;08A3C3|        |      ;  
@@ -3300,7 +3300,7 @@ Change Attr. to Water: db $10                               ;08A34C|        |   
                        db $00                               ;08A3DC|        |      ;  
                                                             ;      |        |      ;  
                Mirror: db $10                               ;08A3DD|        |      ; Dummied. So like Mirror in Lufia 1?
-                       dl DATA8_089642                      ;08A3DE|        |089642;  
+                       dl Sub: Spell text setup             ;08A3DE|        |089642;  
                        db "Gives you the power t"           ;08A3E1|        |      ;  
                        db "o"                               ;08A3F6|        |      ;  
                        db $0D                               ;08A3F7|        |      ;  
@@ -3315,7 +3315,7 @@ Change Attr. to Water: db $10                               ;08A34C|        |   
                        db $00                               ;08A40E|        |      ;  
                                                             ;      |        |      ;  
           Restore All: db $10                               ;08A40F|        |      ; Removes sleep status
-                       dl DATA8_089642                      ;08A410|        |089642;  
+                       dl Sub: Spell text setup             ;08A410|        |089642;  
                        db "Restores you to your"            ;08A413|        |      ;  
                        db $0D                               ;08A427|        |      ;  
                        db "original condition."             ;08A428|        |      ;  
@@ -3329,7 +3329,7 @@ Change Attr. to Water: db $10                               ;08A34C|        |   
                        db $00                               ;08A445|        |      ;  
                                                             ;      |        |      ;  
            Revitalize: db $10                               ;08A446|        |      ; Removes paralyze status
-                       dl DATA8_089642                      ;08A447|        |089642;  
+                       dl Sub: Spell text setup             ;08A447|        |089642;  
                        db "Reverses the effects "           ;08A44A|        |      ;  
                        db "of"                              ;08A45F|        |      ;  
                        db $0D                               ;08A461|        |      ;  
@@ -3344,7 +3344,7 @@ Change Attr. to Water: db $10                               ;08A34C|        |   
                        db $00                               ;08A47E|        |      ;  
                                                             ;      |        |      ;  
             Unpetrify: db $10                               ;08A47F|        |      ;  
-                       dl DATA8_089642                      ;08A480|        |089642;  
+                       dl Sub: Spell text setup             ;08A480|        |089642;  
                        db "Reverses the effects "           ;08A483|        |      ;  
                        db "of"                              ;08A498|        |      ;  
                        db $0D                               ;08A49A|        |      ;  
@@ -3359,7 +3359,7 @@ Change Attr. to Water: db $10                               ;08A34C|        |   
                        db $00                               ;08A4B8|        |      ;  
                                                             ;      |        |      ;  
 Restoration of Spirit: db $10                               ;08A4B9|        |      ;  
-                       dl DATA8_089642                      ;08A4BA|        |089642;  
+                       dl Sub: Spell text setup             ;08A4BA|        |089642;  
                        db "Restores all of your"            ;08A4BD|        |      ;  
                        db $0D                               ;08A4D1|        |      ;  
                        db "Spirits."                        ;08A4D2|        |      ;  
@@ -3373,7 +3373,7 @@ Restoration of Spirit: db $10                               ;08A4B9|        |   
                        db $00                               ;08A4E4|        |      ;  
                                                             ;      |        |      ;  
                  Home: db $10                               ;08A4E5|        |      ;  
-                       dl DATA8_089642                      ;08A4E6|        |089642;  
+                       dl Sub: Spell text setup             ;08A4E6|        |089642;  
                        db "Makes it possible to"            ;08A4E9|        |      ;  
                        db $0D                               ;08A4FD|        |      ;  
                        db "return to the town qu"           ;08A4FE|        |      ;  
@@ -3388,7 +3388,7 @@ Restoration of Spirit: db $10                               ;08A4B9|        |   
                        db $00                               ;08A523|        |      ;  
                                                             ;      |        |      ;  
             Way Point: db $10                               ;08A524|        |      ; Dummied. Map could've been cooler.
-                       dl DATA8_089642                      ;08A525|        |089642;  
+                       dl Sub: Spell text setup             ;08A525|        |089642;  
                        db "Mentally mark a spot "           ;08A528|        |      ;  
                        db "on"                              ;08A53D|        |      ;  
                        db $0D                               ;08A53F|        |      ;  
@@ -3406,7 +3406,7 @@ Restoration of Spirit: db $10                               ;08A4B9|        |   
                        db $00                               ;08A567|        |      ;  
                                                             ;      |        |      ;  
        Way Point Warp: db $10                               ;08A568|        |      ;  
-                       dl DATA8_089642                      ;08A569|        |089642;  
+                       dl Sub: Spell text setup             ;08A569|        |089642;  
                        db "Instantly warp to the"           ;08A56C|        |      ;  
                        db " Way"                            ;08A581|        |      ;  
                        db $0D                               ;08A585|        |      ;  
@@ -3421,7 +3421,7 @@ Restoration of Spirit: db $10                               ;08A4B9|        |   
                        db $00                               ;08A59F|        |      ;  
                                                             ;      |        |      ;  
   Diminish Encounters: db $10                               ;08A5A0|        |      ;  
-                       dl DATA8_089642                      ;08A5A1|        |089642;  
+                       dl Sub: Spell text setup             ;08A5A1|        |089642;  
                        db "Fewer enemies are"               ;08A5A4|        |      ;  
                        db $0D                               ;08A5B5|        |      ;  
                        db "encountered."                    ;08A5B6|        |      ;  
@@ -3435,7 +3435,7 @@ Restoration of Spirit: db $10                               ;08A4B9|        |   
                        db $00                               ;08A5CC|        |      ;  
                                                             ;      |        |      ;  
  Diminish Encounters2: db $10                               ;08A5CD|        |      ;  
-                       dl DATA8_089642                      ;08A5CE|        |089642;  
+                       dl Sub: Spell text setup             ;08A5CE|        |089642;  
                        db "Fewer enemies are"               ;08A5D1|        |      ;  
                        db $0D                               ;08A5E2|        |      ;  
                        db "encountered."                    ;08A5E3|        |      ;  
@@ -6937,22 +6937,18 @@ Can't trade with that: db $10                               ;08DE72|        |   
                        db $04                               ;08E3A0|        |      ;  
                        db $06                               ;08E3A1|        |      ;  
                        db $01                               ;08E3A2|        |      ;  
-                       db $22                               ;08E3A3|        |      ;  
-                       db $02                               ;08E3A4|        |      ;  
+                       dw $0222                             ;08E3A3|        |      ;  
                        db $1C                               ;08E3A5|        |      ;  
                        db $06                               ;08E3A6|        |      ;  
                        db $0E                               ;08E3A7|        |      ;  
                        db "MUSIC NUMBER"                    ;08E3A8|        |      ;  
-                       db $01                               ;08E3B4|        |      ;  
-                       db $4C                               ;08E3B5|        |      ;  
-                       db $10                               ;08E3B6|        |      ;  
-                       db $06                               ;08E3B7|        |      ;  
+                       db $01                               ;08E3B4|        |      ; 01: Cursor (4C, 10)
+                       dw $104C                             ;08E3B5|        |      ;  
+                       db $06                               ;08E3B7|        |      ; 06 0D
                        db $0D                               ;08E3B8|        |      ;  
-                       db $11                               ;08E3B9|        |      ;  
+                       db $11                               ;08E3B9|        |      ; 11: Load value $119F
                        db $01                               ;08E3BA|        |      ;  
-                       db $9F                               ;08E3BB|        |      ;  
-                       db $11                               ;08E3BC|        |      ;  
-                       db $00                               ;08E3BD|        |      ;  
+                       dl $00119F                           ;08E3BB|        |00119F;  
                        db $00                               ;08E3BE|        |      ;  
                        db $FF                               ;08E3BF|        |      ;  
                        db $FF                               ;08E3C0|        |      ;  
