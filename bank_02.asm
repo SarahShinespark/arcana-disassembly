@@ -2473,7 +2473,7 @@
                        db $07                               ;028CE3|        |      ;  
                        dl CODE_07B51C                       ;028CE4|        |07B51C;  
                        db $07                               ;028CE7|        |      ; 07: ROM transfer from 0D/958C
-                       dl Transfer setup (6b)               ;028CE8|        |00A140;  
+                       dl Transfer_Setup1(6b)               ;028CE8|        |00A140;  
                        db $8C                               ;028CEB|        |      ;  
                        db $95                               ;028CEC|        |      ;  
                        db $0D                               ;028CED|        |      ;  
@@ -2927,7 +2927,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        dl Store A in $11B5,x (1b offset)    ;028F97|        |07AF9E;  
                        db $02                               ;028F9A|        |      ;  
                        db $07                               ;028F9B|        |      ; idk
-                       dl Reads a lot (??b)                 ;028F9C|        |009CAE;  
+                       dl Travel_data(14b)                  ;028F9C|        |009CAE;  
                        db $00                               ;028F9F|        |      ;  
                        db $0A                               ;028FA0|        |      ;  
                        db $10                               ;028FA1|        |028FA3;  

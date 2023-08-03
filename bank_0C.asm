@@ -8693,7 +8693,12 @@
                        dl WAIT_CLEAR                        ;0CAA23|        |0CFAA5;  
                        db $10                               ;0CAA26|        |      ;  
                        dl PROMPT_ROOKS                      ;0CAA27|        |0CF7E3;  
-                       db ""What?"", $10, $A5, $FA, $0C, $1B, $01, $FF;0CAA2A|        |      ;  
+                       db ""What?""                         ;0CAA2A|        |      ;  
+                       db $10                               ;0CAA31|        |      ;  
+                       dl WAIT_CLEAR                        ;0CAA32|        |0CFAA5;  
+                       db $1B                               ;0CAA35|        |      ;  
+                       db $01                               ;0CAA36|        |      ;  
+                       db $FF                               ;0CAA37|        |      ;  
                        db $00                               ;0CAA38|        |      ;  
                                                             ;      |        |      ;  
            SCRIPT_013: db $10                               ;0CAA39|        |      ;  
@@ -12128,7 +12133,7 @@
                        db $FF                               ;0CEB8E|        |      ;  
                        db $00                               ;0CEB8F|        |      ;  
                                                             ;      |        |      ;  
-            SCRIPT_96: db $10                               ;0CEB90|        |      ;  
+           SCRIPT_096: db $10                               ;0CEB90|        |      ;  
                        dl PROMPT_ROOKS                      ;0CEB91|        |0CF7E3;  
                        db ""How was it?""                   ;0CEB94|        |      ;  
                        db $10                               ;0CEBA1|        |      ;  
@@ -12215,7 +12220,7 @@
                        db $FF                               ;0CED87|        |      ;  
                        db $00                               ;0CED88|        |      ;  
                                                             ;      |        |      ;  
-            SCRIPT_97: db $10                               ;0CED89|        |      ;  
+           SCRIPT_097: db $10                               ;0CED89|        |      ;  
                        dl MACRO_118                         ;0CED8A|        |0CF7C2;  
                        db $10                               ;0CED8D|        |      ;  
                        dl PROMPT_ROOKS                      ;0CED8E|        |0CF7E3;  

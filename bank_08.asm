@@ -672,7 +672,7 @@ Gratuitous Japanese 2: db $06                               ;0883C8|        |   
                        db $0D                               ;08846A|        |      ;  
                        db $00                               ;08846B|        |      ;  
                                                             ;      |        |      ;  
-  Loads 4 things (?)2: db $06                               ;08846C|        |      ;  
+    Battle_Items_Menu: db $06                               ;08846C|        |      ;  
                        db $0D                               ;08846D|        |      ;  
                        db $0C                               ;08846E|        |      ;  
                        db $01                               ;08846F|        |      ;  

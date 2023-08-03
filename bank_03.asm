@@ -2621,7 +2621,7 @@
           CODE_038E04: LDA.W #$99E3                         ;038E04|A9E399  |      ;  
                        JSL.L CODE_0084FE                    ;038E07|22FE8400|0084FE;  
                        LDA.W #$FFD8                         ;038E0B|A9D8FF  |      ;  
-                       STA.W $0FF1                          ;038E0E|8DF10F  |000FF1;  
+                       STA.W TownCompass                    ;038E0E|8DF10F  |000FF1;  
                        STZ.W $0FF9                          ;038E11|9CF90F  |000FF9;  
                        STZ.W $0FF3                          ;038E14|9CF30F  |000FF3;  
                        STZ.W $0FFB                          ;038E17|9CFB0F  |000FFB;  
@@ -3145,7 +3145,7 @@
           CODE_03917F: LDA.W #$99EC                         ;03917F|A9EC99  |      ;  
                        JSL.L CODE_0084FE                    ;039182|22FE8400|0084FE;  
                        LDA.W #$0080                         ;039186|A98000  |      ;  
-                       STA.W $0FF1                          ;039189|8DF10F  |000FF1;  
+                       STA.W TownCompass                    ;039189|8DF10F  |000FF1;  
                        STZ.W $0FF9                          ;03918C|9CF90F  |000FF9;  
                        STZ.W $0FF3                          ;03918F|9CF30F  |000FF3;  
                        STZ.W $0FFB                          ;039192|9CFB0F  |000FFB;  
@@ -3841,7 +3841,7 @@
           CODE_039672: LDA.W #$99EC                         ;039672|A9EC99  |      ;  
                        JSL.L CODE_0084FE                    ;039675|22FE8400|0084FE;  
                        LDA.W #$0128                         ;039679|A92801  |      ;  
-                       STA.W $0FF1                          ;03967C|8DF10F  |000FF1;  
+                       STA.W TownCompass                    ;03967C|8DF10F  |000FF1;  
                        STZ.W $0FF9                          ;03967F|9CF90F  |000FF9;  
                        STZ.W $0FF3                          ;039682|9CF30F  |000FF3;  
                        STZ.W $0FFB                          ;039685|9CFB0F  |000FFB;  
@@ -10381,7 +10381,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        TAX                                  ;03B73D|AA      |      ;  
                        PLA                                  ;03B73E|68      |      ;  
                        STA.W $187F                          ;03B73F|8D7F18  |00187F;  
-                       STA.W $0FF1                          ;03B742|8DF10F  |000FF1;  
+                       STA.W TownCompass                    ;03B742|8DF10F  |000FF1;  
                                                             ;      |        |      ;  
           CODE_03B745: INY                                  ;03B745|C8      |      ;  
                        INY                                  ;03B746|C8      |      ;  
@@ -10408,7 +10408,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                                                             ;      |        |      ;  
           CODE_03B762: STZ.W $0FF9                          ;03B762|9CF90F  |000FF9;  
                        STZ.W $0FFB                          ;03B765|9CFB0F  |000FFB;  
-                       STA.W $0FF1                          ;03B768|8DF10F  |000FF1;  
+                       STA.W TownCompass                    ;03B768|8DF10F  |000FF1;  
                        LDX.W Current map                    ;03B76B|AE7315  |001573;  
                        CPX.W #$0003                         ;03B76E|E00300  |      ;  
                        BNE CODE_03B7A0                      ;03B771|D02D    |03B7A0;  
@@ -10420,7 +10420,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        LDA.W $4217                          ;03B77E|AD1742  |004217;  
                        AND.W #$00FF                         ;03B781|29FF00  |      ;  
                        STA.W $0FF3                          ;03B784|8DF30F  |000FF3;  
-                       LDA.W $0FF1                          ;03B787|ADF10F  |000FF1;  
+                       LDA.W TownCompass                    ;03B787|ADF10F  |000FF1;  
                        AND.W #$FF00                         ;03B78A|2900FF  |      ;  
                        ORA.W #$00C0                         ;03B78D|09C000  |      ;  
                        STA.W Mult. Lo byte                  ;03B790|8D0242  |004202;  
@@ -10685,7 +10685,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $07                               ;03B8CB|        |      ;  
                        dl CODE_03D045                       ;03B8CC|        |03D045;  
                        db $07                               ;03B8CF|        |      ;  
-                       dl Transfer setup (6b)               ;03B8D0|        |00A140;  
+                       dl Transfer_Setup1(6b)               ;03B8D0|        |00A140;  
                        dl UNREACH_0D958E                    ;03B8D3|        |0D958E;  
                        db $02                               ;03B8D6|        |      ;  
                        dw $0002                             ;03B8D7|        |      ;  
@@ -10773,7 +10773,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $07                               ;03B960|        |      ;  
                        dl CODE_03D045                       ;03B961|        |03D045;  
                        db $07                               ;03B964|        |      ;  
-                       dl Transfer setup (6b)               ;03B965|        |00A140;  
+                       dl Transfer_Setup1(6b)               ;03B965|        |00A140;  
                        dl UNREACH_0D958E                    ;03B968|        |0D958E;  
                        db $02                               ;03B96B|        |      ;  
                        dw $0002                             ;03B96C|        |      ;  
@@ -14601,7 +14601,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $03                               ;03CB2C|        |00000A;  
                        db $0A                               ;03CB2D|        |      ;  
                        db $07                               ;03CB2E|        |      ;  
-                       dl Transfer setup (6b)               ;03CB2F|        |00A140;  
+                       dl Transfer_Setup1(6b)               ;03CB2F|        |00A140;  
                        dl UNREACH_03CC6B                    ;03CB32|        |03CC6B;  
                        db $C0                               ;03CB35|        |      ;  
                        dw $0020                             ;03CB36|        |      ;  
@@ -14609,7 +14609,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $05                               ;03CB39|        |      ;  
                        db $0A                               ;03CB3A|        |      ;  
                        db $07                               ;03CB3B|        |      ;  
-                       dl Transfer setup (6b)               ;03CB3C|        |00A140;  
+                       dl Transfer_Setup1(6b)               ;03CB3C|        |00A140;  
                        dl UNREACH_03CD6B                    ;03CB3F|        |03CD6B;  
                        db $C0                               ;03CB42|        |      ;  
                        dw $0020                             ;03CB43|        |      ;  
@@ -14619,7 +14619,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $04                               ;03CB49|        |      ;  
                        db $0A                               ;03CB4A|        |      ;  
                        db $07                               ;03CB4B|        |      ;  
-                       dl Transfer setup (6b)               ;03CB4C|        |00A140;  
+                       dl Transfer_Setup1(6b)               ;03CB4C|        |00A140;  
                        dl UNREACH_03CC6B                    ;03CB4F|        |03CC6B;  
                        db $C0                               ;03CB52|        |      ;  
                        dw $0020                             ;03CB53|        |      ;  
@@ -15282,7 +15282,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $1B                               ;03CE10|        |      ;  
                        dw DATA8_00CF4A                      ;03CE11|        |00CF4A;  
                        db $07                               ;03CE13|        |      ;  
-                       dl Transfer setup (6b)               ;03CE14|        |00A140;  
+                       dl Transfer_Setup1(6b)               ;03CE14|        |00A140;  
                        dl UNREACH_0D91F0                    ;03CE17|        |0D91F0;  
                        db $70                               ;03CE1A|        |      ;  
                        dw $0012                             ;03CE1B|        |      ;  
@@ -15799,7 +15799,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0040                         ;03D08D|A94000  |      ;  
                        JSL.L Sub: Set Music                 ;03D090|2218D100|00D118;  
                        STZ.W $1187                          ;03D094|9C8711  |001187;  
-                       STZ.W $0FF1                          ;03D097|9CF10F  |000FF1;  
+                       STZ.W TownCompass                    ;03D097|9CF10F  |000FF1;  
                        LDA.W #$FFF0                         ;03D09A|A9F0FF  |      ;  
                        STA.W $0FF9                          ;03D09D|8DF90F  |000FF9;  
                        LDA.W #$0018                         ;03D0A0|A91800  |      ;  
@@ -15834,7 +15834,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W Main screen temp               ;03D0E4|AD5710  |001057;  
                        AND.W #$001B                         ;03D0E7|291B00  |      ;  
                        STA.W Main screen temp               ;03D0EA|8D5710  |001057;  
-                       STZ.W $0FF1                          ;03D0ED|9CF10F  |000FF1;  
+                       STZ.W TownCompass                    ;03D0ED|9CF10F  |000FF1;  
                        STZ.W $0FF9                          ;03D0F0|9CF90F  |000FF9;  
                        RTL                                  ;03D0F3|6B      |      ;  
                                                             ;      |        |      ;  
@@ -15863,7 +15863,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDX.W #$3000                         ;03D12C|A20030  |      ;  
                        LDY.W #$0400                         ;03D12F|A00004  |      ;  
                        JSL.L 00/826E_far                    ;03D132|226A8200|00826A;  
-                       STZ.W $0FF1                          ;03D136|9CF10F  |000FF1;  
+                       STZ.W TownCompass                    ;03D136|9CF10F  |000FF1;  
                        STZ.W $0FF9                          ;03D139|9CF90F  |000FF9;  
                        STZ.W $0FF3                          ;03D13C|9CF30F  |000FF3;  
                        STZ.W $0FFB                          ;03D13F|9CFB0F  |000FFB;  
@@ -20126,7 +20126,7 @@ Add color math designation: JSL.L ReadNextScript(1b)RTL          ;03E5BB|22F89A0
                        LDX.W #$5000                         ;03EC61|A20050  |      ;  
                        LDY.W #$0C00                         ;03EC64|A0000C  |      ;  
                        JSL.L 00/82AB_far                    ;03EC67|22A78200|0082A7;  
-                       STZ.W $0FF1                          ;03EC6B|9CF10F  |000FF1;  
+                       STZ.W TownCompass                    ;03EC6B|9CF10F  |000FF1;  
                        STZ.W $0FF9                          ;03EC6E|9CF90F  |000FF9;  
                        STZ.W $0FF3                          ;03EC71|9CF30F  |000FF3;  
                        STZ.W $0FFB                          ;03EC74|9CFB0F  |000FFB;  
