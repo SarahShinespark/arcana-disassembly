@@ -1,6 +1,6 @@
 # arcana-disassembly
 Disassembly for SNES Arcana; this is the code for the vanilla game available for public reference.\
-The code language 65c816 ASM, based on 6502 (NES).\
+The code language is 65c816 ASM, based on 6502 (NES).\
 \
 Contents:\
 bank_00.asm - Common multipurpose functions.\
