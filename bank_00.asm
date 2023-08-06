@@ -681,7 +681,8 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                                                             ;      |        |      ;  
          DATA8_0084B9: db $01                               ;0084B9|        |      ; Not sure what this is, but it doesn't look like code.
                        db $09                               ;0084BA|        |      ;  
-                       db $00                               ;0084BB|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_0084BB: db $00                               ;0084BB|        |      ;  
                        db $08                               ;0084BC|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0084BD: db $00                               ;0084BD|        |      ;  
@@ -724,8 +725,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        db $18                               ;0084DA|        |      ;  
                        db $18                               ;0084DB|        |      ;  
                        db $18                               ;0084DC|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_0084DD: db $19                               ;0084DD|        |      ;  
+                       db $19                               ;0084DD|        |      ;  
                        db $19                               ;0084DE|        |      ;  
                        db $39                               ;0084DF|        |      ;  
                        db $39                               ;0084E0|        |      ;  
@@ -733,14 +733,12 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        db $18                               ;0084E2|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0084E3: db $18                               ;0084E3|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_0084E4: db $18                               ;0084E4|        |      ;  
+                       db $18                               ;0084E4|        |      ;  
                        db $22                               ;0084E5|        |      ;  
                        db $3B                               ;0084E6|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0084E7: db $80                               ;0084E7|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_0084E8: db $80                               ;0084E8|        |      ;  
+                       db $80                               ;0084E8|        |      ;  
                        db $00                               ;0084E9|        |      ;  
                        db $00                               ;0084EA|        |      ;  
                        db $80                               ;0084EB|        |      ;  
@@ -4513,7 +4511,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        RTL                                  ;009C5C|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_009C5D: STZ.W $0637                          ;009C5D|9C3706  |000637;  
+     Some_Setup(12b?): STZ.W $0637                          ;009C5D|9C3706  |000637;  
                        LDA.W #$0024                         ;009C60|A92400  |      ;  
                        STA.W $0639                          ;009C63|8D3906  |000639;  
                                                             ;      |        |      ;  
@@ -4551,7 +4549,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        JMP.W Way more stuff                 ;009CAB|4C248D  |008D24;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-     Travel_data(14b): JSR.W ReadNextScript(1b)RTS          ;009CAE|20F09A  |009AF0; Byte eleven determines travel order (0, 8, 10)
+     Load_Sprite(14b): JSR.W ReadNextScript(1b)RTS          ;009CAE|20F09A  |009AF0; Byte eleven determines travel order (0, 8, 10)
                        STA.W $0637                          ;009CB1|8D3706  |000637;  
                        JSR.W ReadNextScript(1b)RTS          ;009CB4|20F09A  |009AF0;  
                        STA.W $0639                          ;009CB7|8D3906  |000639;  
@@ -4578,7 +4576,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        JML.L A buncha stuff_far             ;009CD9|5C5C9900|00995C;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_009CDD: JSR.W ReadNextScript(1b)RTS          ;009CDD|20F09A  |009AF0;  
+   Battle_related(1b): JSR.W ReadNextScript(1b)RTS          ;009CDD|20F09A  |009AF0; Takes character join ID (12 = Axs)
                        TAX                                  ;009CE0|AA      |      ;  
                        JML.L A buncha stuff_far             ;009CE1|5C5C9900|00995C;  
                                                             ;      |        |      ;  
@@ -4596,7 +4594,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        RTL                                  ;009CF8|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Decomp setup (3b): JSR.W ReadNextScript(2b)RTS          ;009CF9|20009B  |009B00;  
+    Decomp setup (3b): JSR.W ReadNextScript(2b)RTS          ;009CF9|20009B  |009B00; Reads long ptr from $10
                        STA.B $00                            ;009CFC|8500    |000000;  
                        JSR.W ReadNextScript(1b)RTS          ;009CFE|20F09A  |009AF0;  
                        STA.B $02                            ;009D01|8502    |000002;  
@@ -4824,8 +4822,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                                                             ;      |        |      ;  
   Next byte AND $1059: JSR.W ReadNextScript(1b)RTS          ;009E8A|20F09A  |009AF0;  
                        SEP #$20                             ;009E8D|E220    |      ;  
-                                                            ;      |        |      ;  
-          CODE_009E8F: EOR.B #$FF                           ;009E8F|49FF    |      ;  
+                       EOR.B #$FF                           ;009E8F|49FF    |      ;  
                        AND.W Scn Pixelation temp            ;009E91|2D5910  |001059;  
                        STA.W Scn Pixelation temp            ;009E94|8D5910  |001059;  
                        STA.W Screen Pixelation              ;009E97|8D0621  |002106;  
@@ -4837,8 +4834,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        SEP #$20                             ;009EA0|E220    |      ;  
                        ASL A                                ;009EA2|0A      |      ;  
                        ASL A                                ;009EA3|0A      |      ;  
-                                                            ;      |        |      ;  
-          CODE_009EA4: ASL A                                ;009EA4|0A      |      ;  
+                       ASL A                                ;009EA4|0A      |      ;  
                        ASL A                                ;009EA5|0A      |      ;  
                        STA.B $20                            ;009EA6|8520    |000020;  
                        LDA.W Scn Pixelation temp            ;009EA8|AD5910  |001059;  
@@ -4874,8 +4870,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
         DMA xfer (6b): JSR.W ReadNextScript(1b)RTS          ;009EE0|20F09A  |009AF0;  
-                                                            ;      |        |      ;  
-          CODE_009EE3: PHA                                  ;009EE3|48      |      ;  
+                       PHA                                  ;009EE3|48      |      ;  
                        ASL A                                ;009EE4|0A      |      ;  
                        ASL A                                ;009EE5|0A      |      ;  
                        ASL A                                ;009EE6|0A      |      ;  
@@ -4911,7 +4906,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        RTL                                  ;009F1E|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-  Remove HDMA channel: JSR.W ReadNextScript(1b)RTS          ;009F1F|20F09A  |009AF0; Offset reads an AND table to remove a channel
+Remove HDMA channel(1b): JSR.W ReadNextScript(1b)RTS          ;009F1F|20F09A  |009AF0; Offset reads an AND table to remove a channel
                        TAX                                  ;009F22|AA      |      ;  
                                                             ;      |        |      ;  
           CODE_009F23: SEP #$20                             ;009F23|E220    |      ;  
@@ -4931,7 +4926,8 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        STA.W HDMA enable                    ;009F38|8D0C42  |00420C;  
                        RTL                                  ;009F3B|6B      |      ;  
                                                             ;      |        |      ;  
-                       JSR.W CODE_009F4F                    ;009F3C|204F9F  |009F4F;  
+                                                            ;      |        |      ;  
+     Color_Add_Select: JSR.W Color_Math_Desig(2b)           ;009F3C|204F9F  |009F4F;  
                        SEP #$20                             ;009F3F|E220    |      ;  
                        LDA.W Color Add temp                 ;009F41|AD6110  |001061;  
                                                             ;      |        |      ;  
@@ -4944,7 +4940,7 @@ ReadNextScript(2b)RTL: INC.B $10                            ;009B07|E610    |000
                        RTL                                  ;009F4E|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_009F4F: JSR.W ReadNextScript(1b)RTS          ;009F4F|20F09A  |009AF0;  
+ Color_Math_Desig(2b): JSR.W ReadNextScript(1b)RTS          ;009F4F|20F09A  |009AF0;  
                                                             ;      |        |      ;  
           CODE_009F52: STA.B $20                            ;009F52|8520    |000020;  
                        JSR.W ReadNextScript(1b)RTS          ;009F54|20F09A  |009AF0;  
@@ -5107,19 +5103,19 @@ Check for button press: LDX.W Function results               ;00A022|AE4110  |00
                        RTL                                  ;00A050|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Cmp RAM to val: JSR.W ReadNextScript(2b)RTS          ;00A051|20009B  |009B00;  
+Loop_til_RAM_Equals(2b)(2b): JSR.W ReadNextScript(2b)RTS          ;00A051|20009B  |009B00; Compare RAM with a value. If not equal, loops back and calls again.
                                                             ;      |        |      ;  
-          CODE_00A054: STA.B $20                            ;00A054|8520    |000020;  
-                       JSR.W ReadNextScript(2b)RTS          ;00A056|20009B  |009B00;  
+          CODE_00A054: STA.B $20                            ;00A054|8520    |000020; Store RAM addr
+                       JSR.W ReadNextScript(2b)RTS          ;00A056|20009B  |009B00; Get cmp value
                        CMP.B ($20)                          ;00A059|D220    |000020;  
-                       BEQ CODE_00A06E                      ;00A05B|F011    |00A06E;  
+                       BEQ CODE_00A06E                      ;00A05B|F011    |00A06E; Continue/exit if equal
                        LDA.B $10                            ;00A05D|A510    |000010;  
                        SEC                                  ;00A05F|38      |      ;  
-                       SBC.W #$0008                         ;00A060|E90800  |      ;  
+                       SBC.W #$0008                         ;00A060|E90800  |      ; Else decrease PC by 8
                        STA.B $10                            ;00A063|8510    |000010;  
                        LDX.W Function results               ;00A065|AE4110  |001041;  
                        LDA.W #$0001                         ;00A068|A90100  |      ;  
-                       STA.W $0B9F,X                        ;00A06B|9D9F0B  |000B9F;  
+                       STA.W $0B9F,X                        ;00A06B|9D9F0B  |000B9F; Set some function result
                                                             ;      |        |      ;  
           CODE_00A06E: RTL                                  ;00A06E|6B      |      ;  
                                                             ;      |        |      ;  
@@ -5253,7 +5249,7 @@ Read (3b) into text parser: JSR.W ReadNextScript(2b)RTS          ;00A0AC|20009B 
                        dw $0050                             ;00A13C|        |      ;  
                        dw $0060                             ;00A13E|        |      ;  
                                                             ;      |        |      ;  
-  Transfer_Setup1(6b): JSR.W ReadNextScript(2b)RTS          ;00A140|20009B  |009B00; Seems to transfer a bunch of RAM forward 420,x bytes
+Transfer_Data(3b)(1b)(2b): JSR.W ReadNextScript(2b)RTS          ;00A140|20009B  |009B00; Seems to transfer a bunch of RAM forward 420,x bytes
                        STA.B $18                            ;00A143|8518    |000018; $18 Source address
                        JSR.W ReadNextScript(1b)RTS          ;00A145|20F09A  |009AF0; Source bank
                        STA.B $1A                            ;00A148|851A    |00001A;  
@@ -5274,7 +5270,7 @@ Read (3b) into text parser: JSR.W ReadNextScript(2b)RTS          ;00A0AC|20009B 
                        RTL                                  ;00A161|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00A162: LDY.W #$0006                         ;00A162|A00600  |      ;  
+WhatIsThisIDon'tEven_(7b): LDY.W #$0006                         ;00A162|A00600  |      ;  
                        LDA.B [$10],Y                        ;00A165|B710    |000010;  
                        STA.B $20                            ;00A167|8520    |000020;  
                        LDY.W #$0007                         ;00A169|A00700  |      ;  
@@ -5293,7 +5289,8 @@ Read (3b) into text parser: JSR.W ReadNextScript(2b)RTS          ;00A0AC|20009B 
                                                             ;      |        |      ;  
           CODE_00A187: PHA                                  ;00A187|48      |      ;  
                        INC A                                ;00A188|1A      |      ;  
-                       STA.B ($1C),Y                        ;00A189|911C    |00001C;  
+                                                            ;      |        |      ;  
+          CODE_00A189: STA.B ($1C),Y                        ;00A189|911C    |00001C;  
                        PLA                                  ;00A18B|68      |      ;  
                        SEP #$20                             ;00A18C|E220    |      ;  
                        STA.W Mult. Lo byte                  ;00A18E|8D0242  |004202;  
@@ -5358,7 +5355,7 @@ Read (3b) into text parser: JSR.W ReadNextScript(2b)RTS          ;00A0AC|20009B 
                        dl UNREACH_01A0D8                    ;00A20F|        |01A0D8;  
                        dl Sub-asm section                   ;00A212|        |17804D;  
                        dl UNREACH_178C43                    ;00A215|        |178C43;  
-                       dl UNREACH_18849C                    ;00A218|        |18849C;  
+                       dl DATA8_18849C                      ;00A218|        |18849C;  
                        dl UNREACH_18D9D9                    ;00A21B|        |18D9D9;  
                        dl DATA8_028001                      ;00A21E|        |028001;  
                        dl DATA8_028137                      ;00A221|        |028137;  
@@ -5483,7 +5480,7 @@ Read (3b) into text parser: JSR.W ReadNextScript(2b)RTS          ;00A0AC|20009B 
                        dl UNREACH_0985C5                    ;00A374|        |0985C5;  
                        dl UNREACH_09868D                    ;00A377|        |09868D;  
                        dl UNREACH_0986FB                    ;00A37A|        |0986FB;  
-                       dl UNREACH_098763                    ;00A37D|        |098763;  
+                       dl $18A344_data                      ;00A37D|        |098763;  
                                                             ;      |        |      ;  
          PTR24_00A380: dl UNREACH_098843                    ;00A380|        |098843;  
                        dl UNREACH_0989C1                    ;00A383|        |0989C1;  
@@ -5895,7 +5892,7 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        RTS                                  ;00A687|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Setup Text Parser: JSR.W Set Text Parser                ;00A688|208CA6  |00A68C;  
+ Set_Text_Parser_long: JSR.W Set Text Parser                ;00A688|208CA6  |00A68C;  
                        RTL                                  ;00A68B|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -6119,7 +6116,8 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7D5: CMP.W #$0003                         ;00A7D5|C90300  |      ;  
-                       BNE CODE_00A7DD                      ;00A7D8|D003    |00A7DD;  
+                                                            ;      |        |      ;  
+          CODE_00A7D8: BNE CODE_00A7DD                      ;00A7D8|D003    |00A7DD;  
                        JMP.W Text Opcode 03                 ;00A7DA|4CA8A8  |00A8A8;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -6965,7 +6963,8 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        db $09                               ;00ACFC|        |      ;  
                        db $04                               ;00ACFD|        |      ;  
                        db $08                               ;00ACFE|        |      ;  
-                       db $09                               ;00ACFF|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_00ACFF: db $09                               ;00ACFF|        |      ;  
                        db $08                               ;00AD00|        |      ;  
                                                             ;      |        |      ;  
          DATA8_00AD01: db $0A                               ;00AD01|        |      ;  
@@ -11703,7 +11702,8 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C7B9|AA      |      ;  
                        CPY.W #$0008                         ;00C7BA|C00800  |      ;  
                        BCC CODE_00C7C3                      ;00C7BD|9004    |00C7C3;  
-                       LDA.W #$0000                         ;00C7BF|A90000  |      ;  
+                                                            ;      |        |      ;  
+          CODE_00C7BF: LDA.W #$0000                         ;00C7BF|A90000  |      ;  
                        RTS                                  ;00C7C2|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -11735,7 +11735,8 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                                                             ;      |        |      ;  
           CODE_00C7F0: CPY.W #$0002                         ;00C7F0|C00200  |      ;  
                        BEQ CODE_00C7FA                      ;00C7F3|F005    |00C7FA;  
-                       LDA.L Weapon power,X                 ;00C7F5|BFF1DF05|05DFF1;  
+                                                            ;      |        |      ;  
+          CODE_00C7F5: LDA.L Weapon power,X                 ;00C7F5|BFF1DF05|05DFF1;  
                        RTS                                  ;00C7F9|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -12501,13 +12502,15 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00CD13: STA.B $20                            ;00CD13|8520    |000020;  
-                       ASL A                                ;00CD15|0A      |      ;  
+                                                            ;      |        |      ;  
+          CODE_00CD15: ASL A                                ;00CD15|0A      |      ;  
                        TAX                                  ;00CD16|AA      |      ;  
                        LDA.L DATA16_00CD3D,X                ;00CD17|BF3DCD00|00CD3D;  
                        STA.B $00                            ;00CD1B|8500    |000000;  
                        LDA.L DATA16_00CD49,X                ;00CD1D|BF49CD00|00CD49;  
                        STA.B $04                            ;00CD21|8504    |000004;  
-                       LDA.W #$0070                         ;00CD23|A97000  |      ;  
+                                                            ;      |        |      ;  
+          CODE_00CD23: LDA.W #$0070                         ;00CD23|A97000  |      ;  
                        STA.B $02                            ;00CD26|8502    |000002;  
                        STA.B $06                            ;00CD28|8506    |000006;  
                        LDY.W #$0000                         ;00CD2A|A00000  |      ;  
@@ -12793,8 +12796,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
          DATA8_00CF14: db $06                               ;00CF14|        |      ;  
                        db $01                               ;00CF15|        |      ;  
                        db $24                               ;00CF16|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_00CF17: db $01                               ;00CF17|        |      ;  
+                       db $01                               ;00CF17|        |      ;  
                        db $07                               ;00CF18|        |      ;  
                        dl IDK                               ;00CF19|        |00CC67;  
                        db $0B                               ;00CF1C|        |      ;  
@@ -12815,8 +12817,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        db $0B                               ;00CF2D|        |      ;  
                        dw Loop for CEE4                     ;00CF2E|        |00CF3E;  
                        db $06                               ;00CF30|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_00CF31: db $01                               ;00CF31|        |      ;  
+                       db $01                               ;00CF31|        |      ;  
                        db $24                               ;00CF32|        |      ;  
                        db $00                               ;00CF33|        |      ;  
                                                             ;      |        |      ;  
@@ -12836,8 +12837,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        dl CODE_00CE9E                       ;00CF41|        |00CE9E;  
                        db $1E                               ;00CF44|        |      ;  
                        dw $0000                             ;00CF45|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_00CF47: db $05                               ;00CF47|        |      ; RTL
+                       db $05                               ;00CF47|        |      ; RTL
                                                             ;      |        |      ;  
      Tbl: RAM targets: dw $11C3                             ;00CF48|        |0011C3; (2b) destination, (1b) bytes to write
                                                             ;      |        |      ;  
@@ -13458,7 +13458,8 @@ Tbl: Subtraction values: dw $0058                             ;00D10E|        | 
                        SEP #$20                             ;00D355|E220    |      ;  
                        CPX.W #$0001                         ;00D357|E00100  |      ;  
                        LDA.B #$00                           ;00D35A|A900    |      ;  
-                       ROL A                                ;00D35C|2A      |      ;  
+                                                            ;      |        |      ;  
+          CODE_00D35C: ROL A                                ;00D35C|2A      |      ;  
                        STA.W APU 1                          ;00D35D|8D4121  |002141;  
                        ADC.B #$7F                           ;00D360|697F    |      ;  
                        PLA                                  ;00D362|68      |      ;  
@@ -13496,7 +13497,8 @@ Tbl: Subtraction values: dw $0058                             ;00D10E|        | 
                        dl Screen display or80_far           ;00D38B|        |008177;  
                        db $07                               ;00D38E|        |      ;  
                        dl CODE_009D69                       ;00D38F|        |009D69;  
-                       db $01                               ;00D392|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_00D392: db $01                               ;00D392|        |      ;  
                        db $07                               ;00D393|        |      ;  
                        dl Do stuff (6b)                     ;00D394|        |009D6F;  
                        db $02                               ;00D397|        |      ;  
@@ -13510,7 +13512,7 @@ Tbl: Subtraction values: dw $0058                             ;00D10E|        | 
                        dl Main screen OR (1b)               ;00D3A3|        |009DA8;  
                        db $04                               ;00D3A6|        |      ;  
                        db $07                               ;00D3A7|        |      ;  
-                       dl Transfer_Setup1(6b)               ;00D3A8|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;00D3A8|        |00A140;  
                        dl $00D495                           ;00D3AB|        |      ;  
                        db $00                               ;00D3AE|        |      ;  
                        dw $0008                             ;00D3AF|        |      ;  
@@ -13534,7 +13536,8 @@ Tbl: Subtraction values: dw $0058                             ;00D10E|        | 
                        db $00                               ;00D3D1|        |      ;  
                        db $06                               ;00D3D2|        |      ;  
                        db $01                               ;00D3D3|        |      ;  
-                       db $07                               ;00D3D4|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_00D3D4: db $07                               ;00D3D4|        |      ;  
                        dl Read (3b) into text parser        ;00D3D5|        |00A0AC;  
                        dl DATA8_08E39D                      ;00D3D8|        |08E39D;  
                        db $01                               ;00D3DB|        |      ;  
@@ -13542,7 +13545,8 @@ Tbl: Subtraction values: dw $0058                             ;00D10E|        | 
                        db $01                               ;00D3DD|        |      ;  
                        db $01                               ;00D3DE|        |      ;  
                        db $10                               ;00D3DF|        |      ;  
-                       db $07                               ;00D3E0|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_00D3E0: db $07                               ;00D3E0|        |      ;  
                        dl Unfade from black                 ;00D3E1|        |00A0CB;  
                        db $06                               ;00D3E4|        |      ;  
                        db $01                               ;00D3E5|        |      ;  
@@ -13673,8 +13677,7 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $00                               ;00D4A6|        |      ;  
                        db $5D                               ;00D4A7|        |00C8AF;  
                        db $AF                               ;00D4A8|        |D0E8C8;  
-                                                            ;      |        |      ;  
-       UNREACH_00D4A9: db $C8                               ;00D4A9|        |      ;  
+                       db $C8                               ;00D4A9|        |      ;  
                        db $E8                               ;00D4AA|        |      ;  
                        db $D0                               ;00D4AB|        |00D4A8;  
                        db $FB                               ;00D4AC|        |      ;  
@@ -13682,7 +13685,8 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $3F                               ;00D4AE|        |A20EB0;  
                        db $B0                               ;00D4AF|        |00D4BF;  
                        db $0E                               ;00D4B0|        |0048A2;  
-                       db $A2                               ;00D4B1|        |      ;  
+                                                            ;      |        |      ;  
+       UNREACH_00D4B1: db $A2                               ;00D4B1|        |      ;  
                        db $48                               ;00D4B2|        |      ;  
                        db $8F                               ;00D4B3|        |8F0600;  
                        db $00                               ;00D4B4|        |      ;  

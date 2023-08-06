@@ -9760,7 +9760,7 @@
                        db "joins the group."                ;0CBE5E|        |      ;  
                        db $00                               ;0CBE6E|        |      ;  
                                                             ;      |        |      ;  
-           SCRIPT_029: db $10                               ;0CBE6F|        |      ;  
+           SCRIPT_030: db $10                               ;0CBE6F|        |      ;  
                        dl MACRO_118                         ;0CBE70|        |0CF7C2;  
                        db $10                               ;0CBE73|        |      ;  
                        dl MACRO_119                         ;0CBE74|        |0CF7CB;  

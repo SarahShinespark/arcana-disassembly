@@ -43,7 +43,7 @@
                        db $00                               ;058046|        |      ;  
                        db $00                               ;058047|        |      ;  
                        db $07                               ;058048|        |      ; Transfers ROM to RAM
-                       dl Transfer_Setup1(6b)               ;058049|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058049|        |00A140;  
                        dl UNREACH_0D922A                    ;05804C|        |0D922A; 0D/922A -> Source
                        db $40                               ;05804F|        |      ; $0420+80 -> Target
                        dw $0020                             ;058050|        |      ; 20 -> Transfer 20 bytes
@@ -447,11 +447,11 @@
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058216: LDX.W Selection                      ;058216|AE3F10  |00103F;  
-                       LDA.W $11C1                          ;058219|ADC111  |0011C1;  
+                       LDA.W Battle_State                   ;058219|ADC111  |0011C1;  
                        CMP.W $0A0F,X                        ;05821C|DD0F0A  |000A0F;  
                        BEQ CODE_058231                      ;05821F|F010    |058231;  
                        LDA.W #$0002                         ;058221|A90200  |      ;  
-                       CMP.W $11C1                          ;058224|CDC111  |0011C1;  
+                       CMP.W Battle_State                   ;058224|CDC111  |0011C1;  
                        BEQ CODE_058235                      ;058227|F00C    |058235;  
                        LDA.W #$0002                         ;058229|A90200  |      ;  
                        CMP.W $0A0F,X                        ;05822C|DD0F0A  |000A0F;  
@@ -461,7 +461,7 @@
                        RTS                                  ;058234|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_058235: LDA.W $11C1                          ;058235|ADC111  |0011C1;  
+          CODE_058235: LDA.W Battle_State                   ;058235|ADC111  |0011C1;  
                        STA.W $0A0F,X                        ;058238|9D0F0A  |000A0F;  
                        LDA.W #$0001                         ;05823B|A90100  |      ;  
                        RTS                                  ;05823E|60      |      ;  
@@ -814,49 +814,49 @@
                        dw LOOSE_OP_008489                   ;05846F|        |008489;  
                        dw LOOSE_OP_008494                   ;058471|        |008494;  
                        db $07                               ;058473|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058474|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058474|        |00A140;  
                        dl UNREACH_0D9322                    ;058477|        |0D9322;  
                        db $45                               ;05847A|        |      ;  
                        dw $0016                             ;05847B|        |      ;  
                        db $05                               ;05847D|        |      ; RTL
                        db $07                               ;05847E|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05847F|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05847F|        |00A140;  
                        dl UNREACH_0D9456                    ;058482|        |0D9456;  
                        db $45                               ;058485|        |      ;  
                        dw $0016                             ;058486|        |      ;  
                        db $05                               ;058488|        |      ; RTL
                        db $07                               ;058489|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05848A|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05848A|        |00A140;  
                        dl UNREACH_0D93E8                    ;05848D|        |0D93E8;  
                        db $45                               ;058490|        |      ;  
                        dw $0016                             ;058491|        |      ;  
                        db $05                               ;058493|        |      ; RTL
                        db $07                               ;058494|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058495|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058495|        |00A140;  
                        dl UNREACH_0D94DA                    ;058498|        |0D94DA;  
                        db $45                               ;05849B|        |      ;  
                        dw $0016                             ;05849C|        |      ;  
                        db $05                               ;05849E|        |      ; RTL
                        db $07                               ;05849F|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584A0|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584A0|        |00A140;  
                        dl DATA8_0D9338                      ;0584A3|        |0D9338;  
                        db $75                               ;0584A6|        |      ;  
                        dw $0016                             ;0584A7|        |      ;  
                        db $05                               ;0584A9|        |      ; RTL
                        db $07                               ;0584AA|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584AB|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584AB|        |00A140;  
                        dl DATA8_0D934E                      ;0584AE|        |0D934E;  
                        db $75                               ;0584B1|        |      ;  
                        dw $0016                             ;0584B2|        |      ;  
                        db $05                               ;0584B4|        |      ; RTL
                        db $07                               ;0584B5|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584B6|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584B6|        |00A140;  
                        dl UNREACH_0D9364                    ;0584B9|        |0D9364;  
                        db $75                               ;0584BC|        |      ;  
                        dw $0016                             ;0584BD|        |      ;  
                        db $05                               ;0584BF|        |      ; RTL
                        db $07                               ;0584C0|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584C1|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584C1|        |00A140;  
                        dl UNREACH_0D937A                    ;0584C4|        |0D937A;  
                        db $75                               ;0584C7|        |      ;  
                        dw $0016                             ;0584C8|        |      ;  
@@ -873,28 +873,28 @@
                        dw DATA8_0584FC                      ;0584D9|        |0584FC;  
                                                             ;      |        |      ;  
          DATA8_0584DB: db $07                               ;0584DB|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584DC|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584DC|        |00A140;  
                        dl UNREACH_0D9390                    ;0584DF|        |0D9390;  
                        db $55                               ;0584E2|        |      ;  
                        dw $0016                             ;0584E3|        |      ;  
                        db $05                               ;0584E5|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0584E6: db $07                               ;0584E6|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584E7|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584E7|        |00A140;  
                        dl UNREACH_0D9482                    ;0584EA|        |0D9482;  
                        db $55                               ;0584ED|        |      ;  
                        dw $0016                             ;0584EE|        |      ;  
                        db $05                               ;0584F0|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0584F1: db $07                               ;0584F1|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584F2|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584F2|        |00A140;  
                        dl UNREACH_0D93FE                    ;0584F5|        |0D93FE;  
                        db $55                               ;0584F8|        |      ;  
                        dw $0016                             ;0584F9|        |      ;  
                        db $05                               ;0584FB|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0584FC: db $07                               ;0584FC|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0584FD|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0584FD|        |00A140;  
                        dl UNREACH_0D94F0                    ;058500|        |0D94F0;  
                        db $55                               ;058503|        |      ;  
                        dw $0016                             ;058504|        |      ;  
@@ -910,25 +910,25 @@
                        dw CODE_00852D                       ;058513|        |00852D;  
                        dw CODE_008538                       ;058515|        |008538;  
                        db $07                               ;058517|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058518|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058518|        |00A140;  
                        dl UNREACH_0D93A6                    ;05851B|        |0D93A6;  
                        db $55                               ;05851E|        |      ;  
                        dw $0016                             ;05851F|        |      ;  
                        db $05                               ;058521|        |      ;  
                        db $07                               ;058522|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058523|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058523|        |00A140;  
                        dl UNREACH_0D9498                    ;058526|        |0D9498;  
                        db $55                               ;058529|        |      ;  
                        dw $0016                             ;05852A|        |      ;  
                        db $05                               ;05852C|        |      ;  
                        db $07                               ;05852D|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05852E|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05852E|        |00A140;  
                        dl UNREACH_0D9414                    ;058531|        |0D9414;  
                        db $55                               ;058534|        |      ;  
                        dw $0016                             ;058535|        |      ;  
                        db $05                               ;058537|        |      ;  
                        db $07                               ;058538|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058539|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058539|        |00A140;  
                        dl UNREACH_0D9506                    ;05853C|        |0D9506;  
                        db $55                               ;05853F|        |      ;  
                        dw $0016                             ;058540|        |      ;  
@@ -944,25 +944,25 @@
                        dw CODE_008569                       ;05854F|        |008569;  
                        dw LOOSE_OP_008574                   ;058551|        |008574;  
                        db $07                               ;058553|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058554|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058554|        |00A140;  
                        dl UNREACH_0D93BC                    ;058557|        |0D93BC;  
                        db $65                               ;05855A|        |      ;  
                        dw $0016                             ;05855B|        |      ;  
                        db $05                               ;05855D|        |      ;  
                        db $07                               ;05855E|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05855F|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05855F|        |00A140;  
                        dl UNREACH_0D94AE                    ;058562|        |0D94AE;  
                        db $65                               ;058565|        |      ;  
                        dw $0016                             ;058566|        |      ;  
                        db $05                               ;058568|        |      ;  
                        db $07                               ;058569|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05856A|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05856A|        |00A140;  
                        dl UNREACH_0D942A                    ;05856D|        |0D942A;  
                        db $65                               ;058570|        |      ;  
                        dw $0016                             ;058571|        |      ;  
                        db $05                               ;058573|        |      ;  
                        db $07                               ;058574|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058575|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058575|        |00A140;  
                        dl UNREACH_0D951C                    ;058578|        |0D951C;  
                        db $65                               ;05857B|        |      ;  
                        dw $0016                             ;05857C|        |      ;  
@@ -978,25 +978,25 @@
                        dw CODE_0085A5                       ;05858B|        |0085A5;  
                        dw CODE_0085B0                       ;05858D|        |0085B0;  
                        db $07                               ;05858F|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058590|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058590|        |00A140;  
                        dl UNREACH_0D93D2                    ;058593|        |0D93D2;  
                        db $65                               ;058596|        |      ;  
                        dw $0016                             ;058597|        |      ;  
                        db $05                               ;058599|        |      ;  
                        db $07                               ;05859A|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05859B|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05859B|        |00A140;  
                        dl UNREACH_0D94C4                    ;05859E|        |0D94C4;  
                        db $65                               ;0585A1|        |      ;  
                        dw $0016                             ;0585A2|        |      ;  
                        db $05                               ;0585A4|        |      ;  
                        db $07                               ;0585A5|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0585A6|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0585A6|        |00A140;  
                        dl UNREACH_0D9440                    ;0585A9|        |0D9440;  
                        db $65                               ;0585AC|        |      ;  
                        dw $0016                             ;0585AD|        |      ;  
                        db $05                               ;0585AF|        |      ;  
                        db $07                               ;0585B0|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0585B1|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0585B1|        |00A140;  
                        dl UNREACH_0D9532                    ;0585B4|        |0D9532;  
                        db $65                               ;0585B7|        |      ;  
                        dw $0016                             ;0585B8|        |      ;  
@@ -1154,7 +1154,7 @@
                        db $09                               ;058693|        |      ;  
                        dl CODE_0587E9                       ;058694|        |0587E9;  
                        db $07                               ;058697|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058698|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058698|        |00A140;  
                        dl DATA8_0D9338                      ;05869B|        |0D9338;  
                        db $75                               ;05869E|        |      ;  
                        dw $0016                             ;05869F|        |      ;  
@@ -1175,7 +1175,7 @@
          DATA8_0586B4: db $09                               ;0586B4|        |      ;  
                        dl CODE_0587E3                       ;0586B5|        |0587E3;  
                        db $07                               ;0586B8|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0586B9|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0586B9|        |00A140;  
                        dl DATA8_0D9338                      ;0586BC|        |0D9338;  
                        db $75                               ;0586BF|        |      ;  
                        dw $0016                             ;0586C0|        |      ;  
@@ -1242,7 +1242,7 @@
                        db $07                               ;05871A|        |      ;  
                        dl CODE_078DF0                       ;05871B|        |078DF0;  
                        db $07                               ;05871E|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05871F|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05871F|        |00A140;  
                        dl DATA8_0D9338                      ;058722|        |0D9338;  
                        db $75                               ;058725|        |      ;  
                        dw $0016                             ;058726|        |      ;  
@@ -1495,7 +1495,7 @@
                        db $09                               ;0588A4|        |      ;  
                        dl CODE_05899F                       ;0588A5|        |05899F;  
                        db $07                               ;0588A8|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0588A9|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0588A9|        |00A140;  
                        dl DATA8_0D934E                      ;0588AC|        |0D934E;  
                        db $75                               ;0588AF|        |      ;  
                        dw $0016                             ;0588B0|        |      ;  
@@ -1516,7 +1516,7 @@
          DATA8_0588C5: db $09                               ;0588C5|        |      ;  
                        dl CODE_058999                       ;0588C6|        |058999;  
                        db $07                               ;0588C9|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0588CA|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0588CA|        |00A140;  
                        dl DATA8_0D934E                      ;0588CD|        |0D934E;  
                        db $75                               ;0588D0|        |      ;  
                        dw $0016                             ;0588D1|        |      ;  
@@ -1582,7 +1582,7 @@
                        db $07                               ;05892B|        |      ;  
                        dl CODE_078DF0                       ;05892C|        |078DF0;  
                        db $07                               ;05892F|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058930|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058930|        |00A140;  
                        dl DATA8_0D934E                      ;058933|        |0D934E;  
                        db $75                               ;058936|        |      ;  
                        dw $0016                             ;058937|        |      ;  
@@ -1748,7 +1748,7 @@
                        db $09                               ;058A41|        |      ;  
                        dl CODE_058B3C                       ;058A42|        |058B3C;  
                        db $07                               ;058A45|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058A46|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058A46|        |00A140;  
                        dw CODE_009364                       ;058A49|        |009364;  
                        db $0D                               ;058A4B|        |      ;  
                        dw $1675                             ;058A4C|        |001675;  
@@ -1770,7 +1770,7 @@
          DATA8_058A62: db $09                               ;058A62|        |      ;  
                        dl CODE_058B36                       ;058A63|        |058B36;  
                        db $07                               ;058A66|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058A67|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058A67|        |00A140;  
                        dl UNREACH_0D946C                    ;058A6A|        |0D946C;  
                        db $75                               ;058A6D|        |      ;  
                        dw $0016                             ;058A6E|        |      ;  
@@ -1836,7 +1836,7 @@
                        db $07                               ;058AC8|        |      ;  
                        dl CODE_078DF0                       ;058AC9|        |078DF0;  
                        db $07                               ;058ACC|        |      ;  
-                       dl Transfer_Setup1(6b)               ;058ACD|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;058ACD|        |00A140;  
                        dl UNREACH_0D9364                    ;058AD0|        |0D9364;  
                        db $75                               ;058AD3|        |      ;  
                        dw $0016                             ;058AD4|        |      ;  
@@ -3509,7 +3509,7 @@
                        db $07                               ;059222|        |      ;  
                        dl CODE_0E8034                       ;059223|        |0E8034;  
                        db $07                               ;059226|        |      ;  
-                       dl Transfer_Setup1(6b)               ;059227|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;059227|        |00A140;  
                        dl DATA8_0D9548                      ;05922A|        |0D9548;  
                        db $63                               ;05922D|        |      ;  
                        dw $001A                             ;05922E|        |      ;  
@@ -3736,7 +3736,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dl OR element w/parameter            ;05935E|        |07B169;  
                        dw $0000                             ;059361|        |      ;  
                        db $07                               ;059363|        |      ;  
-                       dl Transfer_Setup1(6b)               ;059364|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;059364|        |00A140;  
                        dl DATA8_0D9302                      ;059367|        |0D9302;  
                        db $60                               ;05936A|        |      ;  
                        dw $0020                             ;05936B|        |      ;  
@@ -4732,8 +4732,8 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $01                               ;0597FF|        |      ;  
                        dw $0014                             ;059800|        |      ;  
                        db $07                               ;059802|        |      ; 07: Call 00/A140 (Store next 3b into $18)
-                       dl Transfer_Setup1(6b)               ;059803|        |00A140;  
-                       dl UNREACH_0D958E                    ;059806|        |0D958E; 0D/958E -> $18
+                       dl Transfer_Data(3b)(1b)(2b)         ;059803|        |00A140;  
+                       dl $189AD2_2_bytes                   ;059806|        |0D958E; 0D/958E -> $18
                        db $02                               ;059809|        |      ; $420+2x2 -> $1C
                        db $02                               ;05980A|        |      ; Loop once (Store (0D/958E) -> $0424)
                        db $00                               ;05980B|        |      ;  
@@ -4950,7 +4950,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1C                               ;05994E|        |      ;  
                                                             ;      |        |      ;  
          DATA8_05994F: db $07                               ;05994F|        |      ;  
-                       dl Transfer_Setup1(6b)               ;059950|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;059950|        |00A140;  
                        dl Weapons_Menu                      ;059953|        |0D9590;  
                        db $02                               ;059956|        |      ;  
                        dw $0002                             ;059957|        |      ;  
@@ -5342,7 +5342,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $0C                               ;059B35|        |      ;  
                        dw LOOSE_OP_009BDE                   ;059B36|        |009BDE;  
                        db $07                               ;059B38|        |      ;  
-                       dl Transfer_Setup1(6b)               ;059B39|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;059B39|        |00A140;  
                        dl Weapons_Menu                      ;059B3C|        |0D9590;  
                        db $02                               ;059B3F|        |      ;  
                        db $02                               ;059B40|        |      ;  
@@ -5544,7 +5544,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1C                               ;059C58|        |004007;  
                                                             ;      |        |      ;  
   Battle_Weapons_Menu: db $07                               ;059C59|        |      ;  
-                       dl Transfer_Setup1(6b)               ;059C5A|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;059C5A|        |00A140;  
                        dl Weapons_Menu                      ;059C5D|        |0D9590;  
                        db $02                               ;059C60|        |      ;  
                        dw $0002                             ;059C61|        |      ;  
@@ -5690,28 +5690,28 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $07                               ;059D1E|        |      ;  
                        dl Init 11CB-11D9_far                ;059D1F|        |018154;  
                        db $07                               ;059D22|        |      ;  
-                       dl CODE_009CDD                       ;059D23|        |009CDD;  
+                       dl Battle_related(1b)                ;059D23|        |009CDD;  
                        db $14                               ;059D26|        |      ;  
                        db $07                               ;059D27|        |      ;  
-                       dl CODE_009CDD                       ;059D28|        |009CDD;  
+                       dl Battle_related(1b)                ;059D28|        |009CDD;  
                        db $16                               ;059D2B|        |      ;  
                        db $07                               ;059D2C|        |      ;  
-                       dl CODE_009CDD                       ;059D2D|        |009CDD;  
+                       dl Battle_related(1b)                ;059D2D|        |009CDD;  
                        db $18                               ;059D30|        |      ;  
                        db $07                               ;059D31|        |      ;  
-                       dl CODE_009CDD                       ;059D32|        |009CDD;  
+                       dl Battle_related(1b)                ;059D32|        |009CDD;  
                        db $1A                               ;059D35|        |      ;  
                        db $07                               ;059D36|        |      ;  
-                       dl CODE_009CDD                       ;059D37|        |009CDD;  
+                       dl Battle_related(1b)                ;059D37|        |009CDD;  
                        db $1C                               ;059D3A|        |      ;  
                        db $07                               ;059D3B|        |      ;  
-                       dl CODE_009CDD                       ;059D3C|        |009CDD;  
+                       dl Battle_related(1b)                ;059D3C|        |009CDD;  
                        db $1E                               ;059D3F|        |      ;  
                        db $07                               ;059D40|        |      ;  
-                       dl CODE_009CDD                       ;059D41|        |009CDD;  
+                       dl Battle_related(1b)                ;059D41|        |009CDD;  
                        db $20                               ;059D44|        |      ;  
                        db $07                               ;059D45|        |      ;  
-                       dl CODE_009CDD                       ;059D46|        |009CDD;  
+                       dl Battle_related(1b)                ;059D46|        |009CDD;  
                        db $22                               ;059D49|        |      ;  
                        db $05                               ;059D4A|        |000002;  
                        db $02                               ;059D4B|        |      ;  
@@ -15890,7 +15890,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $06                               ;05F2F9|        |      ; 06 02
                        db $02                               ;05F2FA|        |      ;  
                        db $07                               ;05F2FB|        |      ; Check $11C1
-                       dl If $11C1 = 2 ret 0                ;05F2FC|        |07BBAA;  
+                       dl In_Battle?                        ;05F2FC|        |07BBAA;  
                        db $0B                               ;05F2FF|        |      ; 0B: If false jump F307
                        dw DATA8_05F307                      ;05F300|        |05F307;  
                        db $30                               ;05F302|        |      ; 30 06
@@ -16144,12 +16144,12 @@ Loop for button press?: db $06                               ;05F1F4|        |  
          DATA8_05F459: db $04                               ;05F459|        |      ; 04: JSL 05/9C26, save return addr in $14
                        dl DATA8_059C26                      ;05F45A|        |059C26;  
                        db $07                               ;05F45D|        |      ; 07: Call 07/BBAA if $11C1 = 2 return 0
-                       dl If $11C1 = 2 ret 0                ;05F45E|        |07BBAA;  
+                       dl In_Battle?                        ;05F45E|        |07BBAA;  
                        db $0B                               ;05F461|        |      ; 0B: Jump if false to F473
                        dw EMPTY_00F473                      ;05F462|        |00F473;  
                        db $07                               ;05F464|        |      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-                       dl Transfer_Setup1(6b)               ;05F465|        |00A140;  
-                       dl UNREACH_0D958E                    ;05F468|        |0D958E; $18 -> 0D/958E
+                       dl Transfer_Data(3b)(1b)(2b)         ;05F465|        |00A140;  
+                       dl $189AD2_2_bytes                   ;05F468|        |0D958E; $18 -> 0D/958E
                        db $02                               ;05F46B|        |      ; Offset for 00/A140
                        db $02                               ;05F46C|        |      ; Loop # times/2
                        db $00                               ;05F46D|        |      ;  
@@ -16159,7 +16159,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $94                               ;05F471|        |0000F4;  
                        db $F4                               ;05F472|        |004007;  
                        db $07                               ;05F473|        |      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-                       dl Transfer_Setup1(6b)               ;05F474|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05F474|        |00A140;  
                        dl Weapons_Menu                      ;05F477|        |0D9590; $18 -> 0D/9590
                        db $02                               ;05F47A|        |      ; Offset for 00/A140
                        db $02                               ;05F47B|        |      ; Loop #times /2
@@ -16168,8 +16168,8 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        dw EMPTY_00F494                      ;05F47E|        |00F494;  
                                                             ;      |        |      ;  
          DATA8_05F480: db $07                               ;05F480|        |      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-                       dl Transfer_Setup1(6b)               ;05F481|        |00A140;  
-                       dl UNREACH_0D958C                    ;05F484|        |0D958C; $18 -> 0D/958C
+                       dl Transfer_Data(3b)(1b)(2b)         ;05F481|        |00A140;  
+                       dl $189A85_2_bytes                   ;05F484|        |0D958C; $18 -> 0D/958C
                        db $02                               ;05F487|        |      ;  
                        db $02                               ;05F488|        |      ;  
                        db $00                               ;05F489|        |      ;  
@@ -16252,7 +16252,7 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        db $01                               ;05F4F3|        |      ;  
                        dw $0001                             ;05F4F4|        |      ;  
                        db $07                               ;05F4F6|        |      ;  
-                       dl Travel_data(14b)                  ;05F4F7|        |009CAE;  
+                       dl Load_Sprite(14b)                  ;05F4F7|        |009CAE;  
                        db $00                               ;05F4FA|        |      ;  
                        db $0C                               ;05F4FB|        |      ;  
                        db $11                               ;05F4FC|        |      ;  
@@ -16366,7 +16366,7 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        RTL                                  ;05F5A6|6B      |      ;  
                                                             ;      |        |      ;  
                        db $07                               ;05F5A7|        |      ;  
-                       dl Travel_data(14b)                  ;05F5A8|        |009CAE;  
+                       dl Load_Sprite(14b)                  ;05F5A8|        |009CAE;  
                        db $00                               ;05F5AB|        |      ;  
                        db $0C                               ;05F5AC|        |000011;  
                        db $11                               ;05F5AD|        |000000;  
@@ -16517,7 +16517,7 @@ UseElementalCards_Text: LDA.W $18A5                          ;05F662|ADA518  |00
                        LDA.W #$0008                         ;05F68D|A90800  |      ;  
                        STA.B $02                            ;05F690|8502    |000002;  
                        LDA.W #$0000                         ;05F692|A90000  |      ;  
-                       JSL.L Setup Text Parser              ;05F695|2288A600|00A688; Uses card name in "Rooks used x of card name"
+                       JSL.L Set_Text_Parser_long           ;05F695|2288A600|00A688; Uses card name in "Rooks used x of card name"
                        RTL                                  ;05F699|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -16602,7 +16602,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        LDA.W #$0005                         ;05F72E|A90500  |      ;  
                        STA.B $02                            ;05F731|8502    |000002;  
                        LDA.W #$0000                         ;05F733|A90000  |      ;  
-                       JSL.L Setup Text Parser              ;05F736|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;05F736|2288A600|00A688;  
                        LDA.W #$0001                         ;05F73A|A90100  |      ;  
                        RTL                                  ;05F73D|6B      |      ;  
                                                             ;      |        |      ;  
@@ -16855,7 +16855,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        LDA.W #$0005                         ;05F8F3|A90500  |      ;  
                        STA.B $02                            ;05F8F6|8502    |000002;  
                        LDA.W #$0000                         ;05F8F8|A90000  |      ;  
-                       JSL.L Setup Text Parser              ;05F8FB|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;05F8FB|2288A600|00A688;  
                        LDA.W #$0001                         ;05F8FF|A90100  |      ;  
                        RTL                                  ;05F902|6B      |      ;  
                                                             ;      |        |      ;  
@@ -17022,8 +17022,8 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        db $06                               ;05F9EE|        |      ;  
                        db $0A                               ;05F9EF|        |      ;  
                        db $07                               ;05F9F0|        |      ;  
-                       dl Transfer_Setup1(6b)               ;05F9F1|        |00A140;  
-                       dl UNREACH_0D958E                    ;05F9F4|        |0D958E;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;05F9F1|        |00A140;  
+                       dl $189AD2_2_bytes                   ;05F9F4|        |0D958E;  
                        db $02                               ;05F9F7|        |      ;  
                        dw $0002                             ;05F9F8|        |      ;  
                        db $04                               ;05F9FA|        |      ;  

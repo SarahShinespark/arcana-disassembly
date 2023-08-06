@@ -1915,7 +1915,7 @@
           CODE_03887A: LDA.W Current map                    ;03887A|AD7315  |001573;  
                        BIT.W #$0100                         ;03887D|890001  |      ;  
                        BNE CODE_038885                      ;038880|D003    |038885;  
-                       JMP.W CODE_03B3FD                    ;038882|4CFDB3  |03B3FD;  
+                       JMP.W More_Town_Loading              ;038882|4CFDB3  |03B3FD;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_038885: AND.W #$00FF                         ;038885|29FF00  |      ;  
@@ -2556,7 +2556,7 @@
                        BNE CODE_038D81                      ;038D7C|D003    |038D81;  
                        ORA.W #$0008                         ;038D7E|090800  |      ;  
                                                             ;      |        |      ;  
-          CODE_038D81: LDX.W Setup Text Parser              ;038D81|AE88A6  |00A688;  
+          CODE_038D81: LDX.W Set_Text_Parser_long           ;038D81|AE88A6  |00A688;  
                        BNE CODE_038D89                      ;038D84|D003    |038D89;  
                        ORA.W #$0004                         ;038D86|090400  |      ;  
                                                             ;      |        |      ;  
@@ -2957,7 +2957,7 @@
                        BNE CODE_038FED                      ;038FE8|D003    |038FED;  
                        ORA.W #$0008                         ;038FEA|090800  |      ;  
                                                             ;      |        |      ;  
-          CODE_038FED: LDX.W Setup Text Parser              ;038FED|AE88A6  |00A688;  
+          CODE_038FED: LDX.W Set_Text_Parser_long           ;038FED|AE88A6  |00A688;  
                        BNE CODE_038FF5                      ;038FF0|D003    |038FF5;  
                        ORA.W #$0004                         ;038FF2|090400  |      ;  
                                                             ;      |        |      ;  
@@ -3589,7 +3589,7 @@
                        BNE CODE_039452                      ;03944D|D003    |039452;  
                        ORA.W #$0004                         ;03944F|090400  |      ;  
                                                             ;      |        |      ;  
-          CODE_039452: LDX.W Setup Text Parser              ;039452|AE88A6  |00A688;  
+          CODE_039452: LDX.W Set_Text_Parser_long           ;039452|AE88A6  |00A688;  
                        BNE CODE_03945A                      ;039455|D003    |03945A;  
                        ORA.W #$0002                         ;039457|090200  |      ;  
                                                             ;      |        |      ;  
@@ -3806,7 +3806,7 @@
                        BNE CODE_039630                      ;03962B|D003    |039630;  
                        ORA.W #$0004                         ;03962D|090400  |      ;  
                                                             ;      |        |      ;  
-          CODE_039630: LDX.W Setup Text Parser              ;039630|AE88A6  |00A688;  
+          CODE_039630: LDX.W Set_Text_Parser_long           ;039630|AE88A6  |00A688;  
                        BNE CODE_039638                      ;039633|D003    |039638;  
                        ORA.W #$0002                         ;039635|090200  |      ;  
                                                             ;      |        |      ;  
@@ -9601,7 +9601,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
           CODE_03B351: LDA.W $16F1                          ;03B351|ADF116  |0016F1;  
                        STA.W Current map                    ;03B354|8D7315  |001573;  
                                                             ;      |        |      ;  
-          CODE_03B357: PEA.W $0003                          ;03B357|F40300  |000003;  
+       Entering_Town?: PEA.W $0003                          ;03B357|F40300  |000003;  
                        PLB                                  ;03B35A|AB      |      ;  
                        LDA.W Current map                    ;03B35B|AD7315  |001573;  
                        ASL A                                ;03B35E|0A      |      ;  
@@ -9685,7 +9685,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        dw $0004                             ;03B3F9|        |000004;  
                        dw $0004                             ;03B3FB|        |000004;  
                                                             ;      |        |      ;  
-          CODE_03B3FD: LDA.W Current map                    ;03B3FD|AD7315  |001573;  
+    More_Town_Loading: LDA.W Current map                    ;03B3FD|AD7315  |001573;  
                        ASL A                                ;03B400|0A      |      ;  
                        STA.B $00                            ;03B401|8500    |000000;  
                        TAX                                  ;03B403|AA      |      ;  
@@ -10685,8 +10685,8 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $07                               ;03B8CB|        |      ;  
                        dl CODE_03D045                       ;03B8CC|        |03D045;  
                        db $07                               ;03B8CF|        |      ;  
-                       dl Transfer_Setup1(6b)               ;03B8D0|        |00A140;  
-                       dl UNREACH_0D958E                    ;03B8D3|        |0D958E;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;03B8D0|        |00A140;  
+                       dl $189AD2_2_bytes                   ;03B8D3|        |0D958E;  
                        db $02                               ;03B8D6|        |      ;  
                        dw $0002                             ;03B8D7|        |      ;  
                        db $07                               ;03B8D9|        |      ;  
@@ -10713,7 +10713,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $01                               ;03B900|        |      ;  
                        db $07                               ;03B901|        |      ;  
                        dl 8698 setup (3b)                   ;03B902|        |009D07;  
-                       dl idk                               ;03B905|        |01B52F;  
+                       dl $9D07_data                        ;03B905|        |01B52F;  
                        db $16                               ;03B908|        |      ;  
                        dw $157B                             ;03B909|        |00157B;  
                        dw $0000                             ;03B90B|        |      ;  
@@ -10773,8 +10773,8 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $07                               ;03B960|        |      ;  
                        dl CODE_03D045                       ;03B961|        |03D045;  
                        db $07                               ;03B964|        |      ;  
-                       dl Transfer_Setup1(6b)               ;03B965|        |00A140;  
-                       dl UNREACH_0D958E                    ;03B968|        |0D958E;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;03B965|        |00A140;  
+                       dl $189AD2_2_bytes                   ;03B968|        |0D958E;  
                        db $02                               ;03B96B|        |      ;  
                        dw $0002                             ;03B96C|        |      ;  
                        db $07                               ;03B96E|        |      ;  
@@ -10819,7 +10819,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $01                               ;03B9AF|        |      ;  
                        db $07                               ;03B9B0|        |      ;  
                        dl 8698 setup (3b)                   ;03B9B1|        |009D07;  
-                       dl idk                               ;03B9B4|        |01B52F;  
+                       dl $9D07_data                        ;03B9B4|        |01B52F;  
                        db $16                               ;03B9B7|        |      ;  
                        dw $157B                             ;03B9B8|        |00157B;  
                        dw $0000                             ;03B9BA|        |      ;  
@@ -10847,7 +10847,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        dw LOOSE_OP_00BA47                   ;03B9DD|        |00BA47;  
                        dw LOOSE_OP_00BA5A                   ;03B9DF|        |00BA5A;  
                        db $07                               ;03B9E1|        |      ;  
-                       dl Cmp RAM to val                    ;03B9E2|        |00A051;  
+                       dl Loop_til_RAM_Equals(2b)(2b)       ;03B9E2|        |00A051;  
                        dw $189F                             ;03B9E5|        |00189F;  
                        dw $0005                             ;03B9E7|        |      ;  
                        db $06                               ;03B9E9|        |      ;  
@@ -10889,7 +10889,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        dw $18A1                             ;03BA21|        |0018A1;  
                        dw $0002                             ;03BA23|        |      ;  
                        db $07                               ;03BA25|        |      ;  
-                       dl Cmp RAM to val                    ;03BA26|        |00A051;  
+                       dl Loop_til_RAM_Equals(2b)(2b)       ;03BA26|        |00A051;  
                        dw $189F                             ;03BA29|        |00189F;  
                        dw $0006                             ;03BA2B|        |      ;  
                        db $07                               ;03BA2D|        |      ;  
@@ -10897,7 +10897,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $1A                               ;03BA31|        |      ;  
                        dw CODE_00CA2D                       ;03BA32|        |00CA2D;  
                        db $07                               ;03BA34|        |      ;  
-                       dl Cmp RAM to val                    ;03BA35|        |00A051;  
+                       dl Loop_til_RAM_Equals(2b)(2b)       ;03BA35|        |00A051;  
                        dw $189F                             ;03BA38|        |00189F;  
                        dw $0005                             ;03BA3A|        |      ;  
                        db $07                               ;03BA3C|        |      ;  
@@ -10907,7 +10907,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $1A                               ;03BA44|        |      ;  
                        dw LOOSE_OP_00BA6A                   ;03BA45|        |00BA6A;  
                        db $07                               ;03BA47|        |      ;  
-                       dl Cmp RAM to val                    ;03BA48|        |00A051;  
+                       dl Loop_til_RAM_Equals(2b)(2b)       ;03BA48|        |00A051;  
                        dw $189F                             ;03BA4B|        |00189F;  
                        dw $0005                             ;03BA4D|        |      ;  
                        db $07                               ;03BA4F|        |      ;  
@@ -10917,7 +10917,7 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        db $1A                               ;03BA57|        |      ;  
                        dw LOOSE_OP_00BA6A                   ;03BA58|        |00BA6A;  
                        db $07                               ;03BA5A|        |      ;  
-                       dl Cmp RAM to val                    ;03BA5B|        |00A051;  
+                       dl Loop_til_RAM_Equals(2b)(2b)       ;03BA5B|        |00A051;  
                        dw $189F                             ;03BA5E|        |00189F;  
                        dw $0005                             ;03BA60|        |      ;  
                        db $07                               ;03BA62|        |      ;  
@@ -10963,7 +10963,7 @@ Enter Icorina's house: db $07                               ;03BA99|        |   
                        dw $189F                             ;03BA9E|        |00189F;  
                        dw $0001                             ;03BAA0|        |      ;  
                        db $07                               ;03BAA2|        |      ;  
-                       dl Cmp RAM to val                    ;03BAA3|        |00A051;  
+                       dl Loop_til_RAM_Equals(2b)(2b)       ;03BAA3|        |00A051;  
                        dw $189F                             ;03BAA6|        |00189F;  
                        dw $0002                             ;03BAA8|        |      ;  
                        db $07                               ;03BAAA|        |      ;  
@@ -14373,7 +14373,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $FF                               ;03CA2E|        |      ;  
                        db $07                               ;03CA2F|        |      ;  
                        dl 8698 setup (3b)                   ;03CA30|        |009D07;  
-                       dl idk                               ;03CA33|        |01B674;  
+                       dl $9D07_data2                       ;03CA33|        |01B674;  
                        db $16                               ;03CA36|        |      ; 16: 1 in $157B
                        dw $157B                             ;03CA37|        |00157B;  
                        dw $0001                             ;03CA39|        |      ;  
@@ -14403,7 +14403,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $07                               ;03CA5F|        |      ;  
                        dl Town loading?                     ;03CA60|        |03B379;  
                        db $07                               ;03CA63|        |      ;  
-                       dl CODE_03B3FD                       ;03CA64|        |03B3FD;  
+                       dl More_Town_Loading                 ;03CA64|        |03B3FD;  
                        db $07                               ;03CA67|        |      ; Play town theme "Crowded Marketplace"
                        dl Sub: Get/Set Music                ;03CA68|        |009C3C;  
                        db $59                               ;03CA6B|        |      ;  
@@ -14601,7 +14601,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $03                               ;03CB2C|        |00000A;  
                        db $0A                               ;03CB2D|        |      ;  
                        db $07                               ;03CB2E|        |      ;  
-                       dl Transfer_Setup1(6b)               ;03CB2F|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;03CB2F|        |00A140;  
                        dl UNREACH_03CC6B                    ;03CB32|        |03CC6B;  
                        db $C0                               ;03CB35|        |      ;  
                        dw $0020                             ;03CB36|        |      ;  
@@ -14609,7 +14609,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $05                               ;03CB39|        |      ;  
                        db $0A                               ;03CB3A|        |      ;  
                        db $07                               ;03CB3B|        |      ;  
-                       dl Transfer_Setup1(6b)               ;03CB3C|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;03CB3C|        |00A140;  
                        dl UNREACH_03CD6B                    ;03CB3F|        |03CD6B;  
                        db $C0                               ;03CB42|        |      ;  
                        dw $0020                             ;03CB43|        |      ;  
@@ -14619,7 +14619,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $04                               ;03CB49|        |      ;  
                        db $0A                               ;03CB4A|        |      ;  
                        db $07                               ;03CB4B|        |      ;  
-                       dl Transfer_Setup1(6b)               ;03CB4C|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;03CB4C|        |00A140;  
                        dl UNREACH_03CC6B                    ;03CB4F|        |03CC6B;  
                        db $C0                               ;03CB52|        |      ;  
                        dw $0020                             ;03CB53|        |      ;  
@@ -15248,7 +15248,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $1B                               ;03CDD5|        |      ;  
                        dw LOOSE_OP_00CE75                   ;03CDD6|        |00CE75;  
                        db $07                               ;03CDD8|        |      ;  
-                       dl CODE_07ABBA                       ;03CDD9|        |07ABBA;  
+                       dl Slot2_WeirdOffset                 ;03CDD9|        |07ABBA;  
                        db $12                               ;03CDDC|        |      ;  
                        db $05                               ;03CDDD|        |      ;  
                        dw LOOSE_OP_00CE84                   ;03CDDE|        |00CE84;  
@@ -15259,7 +15259,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $07                               ;03CDE8|        |      ;  
                        dl CODE_0E8012                       ;03CDE9|        |0E8012;  
                        db $07                               ;03CDEC|        |      ;  
-                       dl CODE_07ABCB                       ;03CDED|        |07ABCB;  
+                       dl Slot3_WeirdOffset                 ;03CDED|        |07ABCB;  
                        db $12                               ;03CDF0|        |      ;  
                        db $03                               ;03CDF1|        |      ;  
                        dw PTR16_00CEF6                      ;03CDF2|        |00CEF6;  
@@ -15268,7 +15268,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $07                               ;03CDF8|        |      ;  
                        dl CODE_0E8023                       ;03CDF9|        |0E8023;  
                        db $07                               ;03CDFC|        |      ;  
-                       dl CODE_07ABDC                       ;03CDFD|        |07ABDC;  
+                       dl Slot4_WeirdOffset                 ;03CDFD|        |07ABDC;  
                        db $12                               ;03CE00|        |      ;  
                        db $03                               ;03CE01|        |      ;  
                        dw DATA8_00CF29                      ;03CE02|        |00CF29;  
@@ -15282,14 +15282,14 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $1B                               ;03CE10|        |      ;  
                        dw DATA8_00CF4A                      ;03CE11|        |00CF4A;  
                        db $07                               ;03CE13|        |      ;  
-                       dl Transfer_Setup1(6b)               ;03CE14|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;03CE14|        |00A140;  
                        dl UNREACH_0D91F0                    ;03CE17|        |0D91F0;  
                        db $70                               ;03CE1A|        |      ;  
                        dw $0012                             ;03CE1B|        |      ;  
                        db $04                               ;03CE1D|        |      ;  
                        dl Transfer lots of data             ;03CE1E|        |018A06;  
                        db $07                               ;03CE21|        |      ;  
-                       dl CODE_07ABBA                       ;03CE22|        |07ABBA;  
+                       dl Slot2_WeirdOffset                 ;03CE22|        |07ABBA;  
                        db $12                               ;03CE25|        |      ;  
                        db $05                               ;03CE26|        |      ;  
                        dw DATA8_00CF59                      ;03CE27|        |00CF59;  
@@ -15301,7 +15301,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $02                               ;03CE32|        |      ;  
                        dw $0002                             ;03CE33|        |      ;  
                        db $07                               ;03CE35|        |      ;  
-                       dl CODE_07ABCB                       ;03CE36|        |07ABCB;  
+                       dl Slot3_WeirdOffset                 ;03CE36|        |07ABCB;  
                        db $12                               ;03CE39|        |      ;  
                        db $03                               ;03CE3A|        |      ;  
                        dw PTR16_00CF82                      ;03CE3B|        |00CF82;  
@@ -15311,7 +15311,7 @@ Alchemist: Wait for input 2: db $06                               ;03BBDF|      
                        db $02                               ;03CE42|        |      ;  
                        dw $0003                             ;03CE43|        |      ;  
                        db $07                               ;03CE45|        |      ;  
-                       dl CODE_07ABDC                       ;03CE46|        |07ABDC;  
+                       dl Slot4_WeirdOffset                 ;03CE46|        |07ABDC;  
                        db $12                               ;03CE49|        |      ;  
                        db $03                               ;03CE4A|        |      ;  
                        dw PTR16_00CFAB                      ;03CE4B|        |00CFAB;  
@@ -16112,7 +16112,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03D29A|A90800  |      ;  
                        STA.B $02                            ;03D29D|8502    |000002;  
                        LDA.W #$0001                         ;03D29F|A90100  |      ;  
-                       JML.L Setup Text Parser              ;03D2A2|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03D2A2|5C88A600|00A688;  
                                                             ;      |        |      ;  
                        PEA.W $0003                          ;03D2A6|F40300  |000003;  
                        PLB                                  ;03D2A9|AB      |      ;  
@@ -16133,7 +16133,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.L Banks: Wpn texts,X             ;03D2C4|BFE19A07|079AE1;  
                        STA.B $02                            ;03D2C8|8502    |000002;  
                        LDA.W #$0000                         ;03D2CA|A90000  |      ;  
-                       JML.L Setup Text Parser              ;03D2CD|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03D2CD|5C88A600|00A688;  
                                                             ;      |        |      ;  
                        db $0C                               ;03D2D1|        |001000;  
                        db $00                               ;03D2D2|        |      ;  
@@ -16392,7 +16392,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03D422|A90800  |      ;  
                        STA.B $02                            ;03D425|8502    |000002;  
                        LDA.W #$0001                         ;03D427|A90100  |      ;  
-                       JML.L Setup Text Parser              ;03D42A|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03D42A|5C88A600|00A688;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
          GP displays?: dw UNREACH_08E018                    ;03D42E|        |08E018;  
@@ -16418,7 +16418,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.L PTR16_0797F3,X                 ;03D454|BFF39707|0797F3;  
                        STA.B $02                            ;03D458|8502    |000002;  
                        LDA.W #$0000                         ;03D45A|A90000  |      ;  
-                       JML.L Setup Text Parser              ;03D45D|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03D45D|5C88A600|00A688;  
                                                             ;      |        |      ;  
                        db $05                               ;03D461|        |000000;  
                        db $00                               ;03D462|        |      ;  
@@ -16933,7 +16933,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03D80E|A90800  |      ;  
                        STA.B $02                            ;03D811|8502    |000002;  
                        LDA.W #$0001                         ;03D813|A90100  |      ;  
-                       JML.L Setup Text Parser              ;03D816|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03D816|5C88A600|00A688;  
                                                             ;      |        |      ;  
                        LDX.W Selection                      ;03D81A|AE3F10  |00103F;  
                        LDA.W $09A3,X                        ;03D81D|BDA309  |0009A3;  
@@ -17001,7 +17001,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03D89E|A90800  |      ;  
                        STA.B $02                            ;03D8A1|8502    |000002;  
                        LDA.W #$0001                         ;03D8A3|A90100  |      ;  
-                       JML.L Setup Text Parser              ;03D8A6|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03D8A6|5C88A600|00A688;  
                                                             ;      |        |      ;  
                        LDY.W Selection                      ;03D8AA|AC3F10  |00103F;  
                        LDA.W Shop selection                 ;03D8AD|AD8518  |001885;  
@@ -17018,7 +17018,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.L Banks: Wpn texts,X             ;03D8C3|BFE19A07|079AE1;  
                        STA.B $02                            ;03D8C7|8502    |000002;  
                        LDA.W #$0000                         ;03D8C9|A90000  |      ;  
-                       JSL.L Setup Text Parser              ;03D8CC|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;03D8CC|2288A600|00A688;  
                        JSL.L 00/A764_far                    ;03D8D0|2260A700|00A760;  
                        PLX                                  ;03D8D4|FA      |      ;  
                        LDA.L Prices: Weapons,X              ;03D8D5|BF86DE05|05DE86;  
@@ -17029,7 +17029,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03D8E2|A90800  |      ;  
                        STA.B $02                            ;03D8E5|8502    |000002;  
                        LDA.W #$0001                         ;03D8E7|A90100  |      ;  
-                       JSL.L Setup Text Parser              ;03D8EA|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;03D8EA|2288A600|00A688;  
                        LDY.W Selection                      ;03D8EE|AC3F10  |00103F;  
                        LDA.W $0A0F,Y                        ;03D8F1|B90F0A  |000A0F;  
                        TAY                                  ;03D8F4|A8      |      ;  
@@ -17097,7 +17097,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.L Banks: Item Texts,X            ;03D95F|BFEF9707|0797EF;  
                        STA.B $02                            ;03D963|8502    |000002;  
                        LDA.W #$0000                         ;03D965|A90000  |      ;  
-                       JSL.L Setup Text Parser              ;03D968|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;03D968|2288A600|00A688;  
                        JSL.L 00/A764_far                    ;03D96C|2260A700|00A760;  
                        PEA.W $0003                          ;03D970|F40300  |000003;  
                        PLB                                  ;03D973|AB      |      ;  
@@ -17116,7 +17116,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03D98C|A90800  |      ;  
                        STA.B $02                            ;03D98F|8502    |000002;  
                        LDA.W #$0001                         ;03D991|A90100  |      ;  
-                       JML.L Setup Text Parser              ;03D994|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03D994|5C88A600|00A688;  
                                                             ;      |        |      ;  
                        LDA.W Eqp inventory                  ;03D998|AD1914  |001419;  
                        AND.W #$00FF                         ;03D99B|29FF00  |      ;  
@@ -17347,7 +17347,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.L Banks: Wpn texts,X             ;03DB90|BFE19A07|079AE1;  
                        STA.B $02                            ;03DB94|8502    |000002;  
                        LDA.W #$0000                         ;03DB96|A90000  |      ;  
-                       JSL.L Setup Text Parser              ;03DB99|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;03DB99|2288A600|00A688;  
                        LDY.W Selection                      ;03DB9D|AC3F10  |00103F;  
                        LDA.W $0A0F,Y                        ;03DBA0|B90F0A  |000A0F;  
                        TAY                                  ;03DBA3|A8      |      ;  
@@ -17400,7 +17400,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.L Banks: Item Texts,X            ;03DC00|BFEF9707|0797EF;  
                        STA.B $02                            ;03DC04|8502    |000002;  
                        LDA.W #$0000                         ;03DC06|A90000  |      ;  
-                       JML.L Setup Text Parser              ;03DC09|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03DC09|5C88A600|00A688;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_03DC0D: LDY.W Selection                      ;03DC0D|AC3F10  |00103F;  
@@ -17437,7 +17437,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03DC53|A90800  |      ;  
                        STA.B $02                            ;03DC56|8502    |000002;  
                        LDA.W #$0001                         ;03DC58|A90100  |      ;  
-                       JML.L Setup Text Parser              ;03DC5B|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03DC5B|5C88A600|00A688;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_03DC5F: LDY.W Selection                      ;03DC5F|AC3F10  |00103F;  
@@ -17472,7 +17472,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03DC9F|A90800  |      ;  
                        STA.B $02                            ;03DCA2|8502    |000002;  
                        LDA.W #$0001                         ;03DCA4|A90100  |      ;  
-                       JML.L Setup Text Parser              ;03DCA7|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03DCA7|5C88A600|00A688;  
                                                             ;      |        |      ;  
                        LDY.W Selection                      ;03DCAB|AC3F10  |00103F;  
                        LDA.W Shop selection                 ;03DCAE|AD8518  |001885;  
@@ -17702,7 +17702,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03DE61|A90800  |      ;  
                        STA.B $02                            ;03DE64|8502    |000002;  
                        LDA.W #$0001                         ;03DE66|A90100  |      ;  
-                       JSL.L Setup Text Parser              ;03DE69|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;03DE69|2288A600|00A688;  
                        RTL                                  ;03DE6D|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -17732,7 +17732,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03DE98|A90800  |      ;  
                        STA.B $02                            ;03DE9B|8502    |000002;  
                        LDA.W #$0000                         ;03DE9D|A90000  |      ;  
-                       JSL.L Setup Text Parser              ;03DEA0|2288A600|00A688;  
+                       JSL.L Set_Text_Parser_long           ;03DEA0|2288A600|00A688;  
                        LDA.B $00                            ;03DEA4|A500    |000000;  
                        CMP.W #$D9BE                         ;03DEA6|C9BED9  |      ;  
                        BNE CODE_03DEAF                      ;03DEA9|D004    |03DEAF;  
@@ -17983,7 +17983,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.L Banks: Card texts,X            ;03E037|BF6D9707|07976D;  
                        STA.B $02                            ;03E03B|8502    |000002;  
                        LDA.W #$0000                         ;03E03D|A90000  |      ;  
-                       JML.L Setup Text Parser              ;03E040|5C88A600|00A688;  
+                       JML.L Set_Text_Parser_long           ;03E040|5C88A600|00A688;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
     Card Shop choices: dw $0001                             ;03E044|        |      ; 01 = Wind Card
@@ -18225,7 +18225,7 @@ These do the same thing??: db $04                               ;03CE51|        
                        LDA.W #$0008                         ;03E20E|A90800  |      ;  
                        STA.B $02                            ;03E211|8502    |000002;  
                        LDA.W #$0001                         ;03E213|A90100  |      ;  
-                       JSL.L Setup Text Parser              ;03E216|2288A600|00A688; Write shop menu GP to buffer
+                       JSL.L Set_Text_Parser_long           ;03E216|2288A600|00A688; Write shop menu GP to buffer
                        JSL.L 00/A764_far                    ;03E21A|2260A700|00A760; Draws the text IIRC
                        RTL                                  ;03E21E|6B      |      ;  
                                                             ;      |        |      ;  
@@ -18246,10 +18246,10 @@ Zero $06xx's, do stuff: STX.W $0637                          ;03E21F|8E3706  |00
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_03E241: JSL.L Zero $18FD                     ;03E241|22218318|188321;  
-                       JSL.L BIT $18FD, stuff               ;03E245|22258318|188325;  
+                       JSL.L DC_Setup                       ;03E245|22258318|188325;  
                                                             ;      |        |      ;  
           CODE_03E249: JSL.L Wait for V-Blank_far           ;03E249|22DE8800|0088DE;  
-                       JSL.L Another $18FD check            ;03E24D|223E8318|18833E;  
+                       JSL.L Do_Animation?                  ;03E24D|223E8318|18833E;  
                        BCC CODE_03E249                      ;03E251|90F6    |03E249;  
                        RTS                                  ;03E253|60      |      ;  
                                                             ;      |        |      ;  

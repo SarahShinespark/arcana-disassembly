@@ -24,7 +24,7 @@
                        STA.W $0008                          ;018034|8D0800  |000008;  
                        LDA.W $063B                          ;018037|AD3B06  |00063B;  
                        BPL CODE_018018                      ;01803A|10DC    |018018;  
-                       LDA.W $11C1                          ;01803C|ADC111  |0011C1;  
+                       LDA.W Battle_State                   ;01803C|ADC111  |0011C1;  
                        BMI CODE_018045                      ;01803F|3004    |018045;  
                        JML.L CODE_01B7D9                    ;018041|5CD9B701|01B7D9;  
                                                             ;      |        |      ;  
@@ -49,7 +49,7 @@
                        STZ.W $157F                          ;01805A|9C7F15  |00157F;  
                        STZ.W Event Byte                     ;01805D|9CFF18  |0018FF;  
                        STZ.W $1901                          ;018060|9C0119  |001901;  
-                       STZ.W $11C1                          ;018063|9CC111  |0011C1;  
+                       STZ.W Battle_State                   ;018063|9CC111  |0011C1;  
                        STZ.W $1575                          ;018066|9C7515  |001575;  
                        STZ.W EXP total?                     ;018069|9CA313  |0013A3;  
                        STZ.W GP total?                      ;01806C|9CA513  |0013A5;  
@@ -574,7 +574,7 @@ Initialize all the things: db $07                               ;01836A|        
                        db $1B                               ;018415|        |      ;  
                        dw LOOSE_OP_008489                   ;018416|        |008489;  
                        db $07                               ;018418|        |      ;  
-                       dl CODE_07ABBA                       ;018419|        |07ABBA;  
+                       dl Slot2_WeirdOffset                 ;018419|        |07ABBA;  
                        db $12                               ;01841C|        |      ;  
                        db $05                               ;01841D|        |      ;  
                        dw LOOSE_OP_00849B                   ;01841E|        |00849B;  
@@ -583,14 +583,14 @@ Initialize all the things: db $07                               ;01836A|        
                        dw DATA8_0084D1                      ;018424|        |0084D1;  
                        dw DATA8_0084E3                      ;018426|        |0084E3;  
                        db $07                               ;018428|        |      ;  
-                       dl CODE_07ABCB                       ;018429|        |07ABCB;  
+                       dl Slot3_WeirdOffset                 ;018429|        |07ABCB;  
                        db $12                               ;01842C|        |      ;  
                        db $03                               ;01842D|        |      ;  
                        dw DATA8_0084F5                      ;01842E|        |0084F5;  
                        dw CODE_008507                       ;018430|        |008507;  
                        dw LOOSE_OP_008519                   ;018432|        |008519;  
                        db $07                               ;018434|        |      ;  
-                       dl CODE_07ABDC                       ;018435|        |07ABDC;  
+                       dl Slot4_WeirdOffset                 ;018435|        |07ABDC;  
                        db $12                               ;018438|        |      ;  
                        db $03                               ;018439|        |      ;  
                        dw CODE_00852B                       ;01843A|        |00852B;  
@@ -846,11 +846,11 @@ Initialize all the things: db $07                               ;01836A|        
                        dw $7316                             ;0185EA|        |      ; Set current map = Galia Ch1
                        dw $0015                             ;0185EC|        |000015;  
                        dw $0700                             ;0185EE|        |      ;  
-                       dl CODE_03B357                       ;0185F0|        |03B357;  
+                       dl Entering_Town?                    ;0185F0|        |03B357;  
                        db $07                               ;0185F3|        |      ;  
                        dl Town loading?                     ;0185F4|        |03B379;  
                        db $07                               ;0185F7|        |      ;  
-                       dl CODE_03B3FD                       ;0185F8|        |03B3FD;  
+                       dl More_Town_Loading                 ;0185F8|        |03B3FD;  
                        db $06                               ;0185FB|        |      ;  
                        db $0A                               ;0185FC|        |      ;  
                        db $04                               ;0185FD|        |      ;  
@@ -897,9 +897,9 @@ Initialize all the things: db $07                               ;01836A|        
                        db $04                               ;018633|        |      ;  
                        dl DATA8_018984                      ;018634|        |018984;  
                        db $04                               ;018637|        |      ;  
-                       dl DATA8_0189F1                      ;018638|        |0189F1;  
+                       dl Sub_Disable_HDMA                  ;018638|        |0189F1;  
                        db $07                               ;01863B|        |      ;  
-                       dl CODE_009CDD                       ;01863C|        |009CDD;  
+                       dl Battle_related(1b)                ;01863C|        |009CDD;  
                        db $02                               ;01863F|        |      ;  
                        db $06                               ;018640|        |      ; 06 01
                        db $01                               ;018641|        |      ;  
@@ -1524,7 +1524,7 @@ Initialize all the things: db $07                               ;01836A|        
                        db $89                               ;0188E3|        |      ;  
                        db $01                               ;0188E4|        |000007;  
                        db $07                               ;0188E5|        |      ;  
-                       dl CODE_009CDD                       ;0188E6|        |009CDD;  
+                       dl Battle_related(1b)                ;0188E6|        |009CDD;  
                        db $02                               ;0188E9|        |      ;  
                        db $06                               ;0188EA|        |      ;  
                        db $01                               ;0188EB|        |      ;  
@@ -1601,7 +1601,7 @@ Initialize all the things: db $07                               ;01836A|        
                        db $07                               ;01894F|        |      ;  
                        dl CODE_009CE5                       ;018950|        |009CE5;  
                        db $04                               ;018953|        |      ;  
-                       dl DATA8_0189F1                      ;018954|        |0189F1;  
+                       dl Sub_Disable_HDMA                  ;018954|        |0189F1;  
                        db $06                               ;018957|        |      ;  
                        db $01                               ;018958|        |      ;  
                        db $00                               ;018959|        |      ; Exit game over
@@ -1706,14 +1706,14 @@ Initialize all the things: db $07                               ;01836A|        
                        db $D0                               ;0189EF|        |0189F6;  
                        db $05                               ;0189F0|        |000007;  
                                                             ;      |        |      ;  
-         DATA8_0189F1: db $07                               ;0189F1|        |      ; Disable HDMA 02
-                       dl Remove HDMA channel               ;0189F2|        |009F1F;  
+     Sub_Disable_HDMA: db $07                               ;0189F1|        |      ; Disable HDMA 02
+                       dl Remove HDMA channel(1b)           ;0189F2|        |009F1F;  
                        db $02                               ;0189F5|        |      ;  
                        db $07                               ;0189F6|        |      ; Disable HDMA 03
-                       dl Remove HDMA channel               ;0189F7|        |009F1F;  
+                       dl Remove HDMA channel(1b)           ;0189F7|        |009F1F;  
                        db $03                               ;0189FA|        |      ;  
                        db $07                               ;0189FB|        |      ; Disable HDMA 04
-                       dl Remove HDMA channel               ;0189FC|        |009F1F;  
+                       dl Remove HDMA channel(1b)           ;0189FC|        |009F1F;  
                        db $04                               ;0189FF|        |      ;  
                        db $16                               ;018A00|        |      ; Set $0048 to 0 (no button pressed??)
                        dw $0048                             ;018A01|        |000048;  
@@ -1721,19 +1721,19 @@ Initialize all the things: db $07                               ;01836A|        
                        db $05                               ;018A05|        |      ; RTL
                                                             ;      |        |      ;  
 Transfer lots of data: db $07                               ;018A06|        |      ;  
-                       dl Transfer_Setup1(6b)               ;018A07|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;018A07|        |00A140;  
                        dl $001577                           ;018A0A|        |001577;  
                        db $03                               ;018A0D|        |      ;  
                        db $02                               ;018A0E|        |      ;  
                        db $00                               ;018A0F|        |      ;  
                        db $07                               ;018A10|        |      ;  
-                       dl Transfer_Setup1(6b)               ;018A11|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;018A11|        |00A140;  
                        dl $001577                           ;018A14|        |001577;  
                        db $07                               ;018A17|        |      ;  
                        db $02                               ;018A18|        |      ;  
                        db $00                               ;018A19|        |      ;  
                        db $07                               ;018A1A|        |      ;  
-                       dl Transfer_Setup1(6b)               ;018A1B|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;018A1B|        |00A140;  
                        dl $001577                           ;018A1E|        |001577;  
                        db $73                               ;018A21|        |      ;  
                        db $02                               ;018A22|        |      ;  
@@ -1752,7 +1752,7 @@ Check Event Byte (Useless?): JSL.L ReadNextScript(1b)RTL          ;018A25|22F89A
                        RTL                                  ;018A37|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    is $11C1 negative: LDA.W $11C1                          ;018A38|ADC111  |0011C1;  
+    is $11C1 negative: LDA.W Battle_State                   ;018A38|ADC111  |0011C1;  
                        BMI CODE_018A41                      ;018A3B|3004    |018A41;  
                        LDA.W #$0000                         ;018A3D|A90000  |      ;  
                        RTL                                  ;018A40|6B      |      ;  
@@ -2389,7 +2389,7 @@ Loop: Draw next step?: db $06                               ;018C85|        |   
                        db $07                               ;018D45|        |      ;  
                        dl Town loading?                     ;018D46|        |03B379;  
                        db $07                               ;018D49|        |      ;  
-                       dl CODE_03B3FD                       ;018D4A|        |03B3FD;  
+                       dl More_Town_Loading                 ;018D4A|        |03B3FD;  
                                                             ;      |        |      ;  
         Entering town: db $07                               ;018D4D|        |      ; Set town music??
                        dl Sub: Get/Set Music                ;018D4E|        |009C3C;  
@@ -3127,7 +3127,7 @@ Loop: Draw next step?: db $06                               ;018C85|        |   
                        db $02                               ;01906E|        |      ;  
                        db $07                               ;01906F|        |      ;  
                        dl 8698 setup (3b)                   ;019070|        |009D07;  
-                       dl idk                               ;019073|        |01B674;  
+                       dl $9D07_data2                       ;019073|        |01B674;  
                        db $07                               ;019076|        |000007;  
                        db $07                               ;019077|        |000080;  
                        db $80                               ;019078|        |01907D;  
@@ -3387,7 +3387,7 @@ Levelup Pause for input?: db $06                               ;019197|        |
                        db $0A                               ;0191B4|        |      ;  
                        db $1C                               ;0191B5|        |004007;  
                        db $07                               ;0191B6|        |      ;  
-                       dl Transfer_Setup1(6b)               ;0191B7|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;0191B7|        |00A140;  
                        dl Weapons_Menu                      ;0191BA|        |0D9590;  
                        db $02                               ;0191BD|        |      ;  
                        db $02                               ;0191BE|        |      ;  
@@ -3407,7 +3407,7 @@ Levelup Pause for input?: db $06                               ;019197|        |
                        db $01                               ;0191CF|        |      ;  
                        db $07                               ;0191D0|        |      ;  
                        dl 8698 setup (3b)                   ;0191D1|        |009D07;  
-                       dl idk                               ;0191D4|        |01B52F;  
+                       dl $9D07_data                        ;0191D4|        |01B52F;  
                        db $16                               ;0191D7|        |00007B;  
                        db $7B                               ;0191D8|        |      ;  
                        db $15                               ;0191D9|        |000000;  
@@ -3436,7 +3436,7 @@ Levelup Pause for input?: db $06                               ;019197|        |
                        db $FF                               ;0191F5|        |9D0707;  
                        db $07                               ;0191F6|        |      ;  
                        dl 8698 setup (3b)                   ;0191F7|        |009D07;  
-                       dl idk                               ;0191FA|        |01B674;  
+                       dl $9D07_data2                       ;0191FA|        |01B674;  
                        db $16                               ;0191FD|        |00007B;  
                        db $7B                               ;0191FE|        |      ;  
                        db $15                               ;0191FF|        |000001;  
@@ -3541,7 +3541,7 @@ Levelup Pause for input?: db $06                               ;019197|        |
                        db $0A                               ;019295|        |      ;  
                        db $07                               ;019296|        |      ;  
                        dl 8698 setup (3b)                   ;019297|        |009D07;  
-                       dl idk                               ;01929A|        |01B674;  
+                       dl $9D07_data2                       ;01929A|        |01B674;  
                        db $06                               ;01929D|        |      ;  
                        db $01                               ;01929E|        |      ;  
                        db $16                               ;01929F|        |      ;  
@@ -3566,7 +3566,7 @@ Levelup Pause for input?: db $06                               ;019197|        |
                        db $01                               ;0192B7|        |      ;  
                        db $02                               ;0192B8|        |      ; Advance loop
                        db $07                               ;0192B9|        |      ;  
-                       dl CODE_009CDD                       ;0192BA|        |009CDD;  
+                       dl Battle_related(1b)                ;0192BA|        |009CDD;  
                        db $06                               ;0192BD|        |      ;  
                        db $01                               ;0192BE|        |      ; Loop var = 08
                        db $08                               ;0192BF|        |      ;  
@@ -4018,7 +4018,7 @@ Levelup Pause for input?: db $06                               ;019197|        |
                        db $0B                               ;0194C8|        |      ;  
                        dw CODE_0093F4                       ;0194C9|        |0093F4;  
                        db $07                               ;0194CB|        |      ;  
-                       dl CODE_009C5D                       ;0194CC|        |009C5D;  
+                       dl Some_Setup(12b?)                  ;0194CC|        |009C5D;  
                        db $02                               ;0194CF|        |      ;  
                        db $00                               ;0194D0|        |      ;  
                        db $00                               ;0194D1|        |      ;  
@@ -4201,7 +4201,7 @@ Script: Field Medicine: db $07                               ;019584|        |  
                        db $06                               ;0195D8|        |      ;  
                        db $1E                               ;0195D9|        |      ;  
                        db $07                               ;0195DA|        |      ;  
-                       dl CODE_009CDD                       ;0195DB|        |009CDD;  
+                       dl Battle_related(1b)                ;0195DB|        |009CDD;  
                        db $06                               ;0195DE|        |      ;  
                        db $1F                               ;0195DF|        |      ;  
                        dw $11B5                             ;0195E0|        |0011B5;  
@@ -4218,11 +4218,11 @@ Script: Field Medicine: db $07                               ;019584|        |  
                        db $07                               ;0195EF|        |      ;  
                        dl Sub Reset Map                     ;0195F0|        |07A0D4;  
                        db $07                               ;0195F3|        |      ;  
-                       dl CODE_03B357                       ;0195F4|        |03B357;  
+                       dl Entering_Town?                    ;0195F4|        |03B357;  
                        db $07                               ;0195F7|        |      ;  
                        dl Town loading?                     ;0195F8|        |03B379;  
                        db $07                               ;0195FB|        |      ;  
-                       dl CODE_03B3FD                       ;0195FC|        |03B3FD;  
+                       dl More_Town_Loading                 ;0195FC|        |03B3FD;  
                        db $07                               ;0195FF|        |      ;  
                        dl Main screen OR (1b)               ;019600|        |009DA8;  
                        db $02                               ;019603|        |      ;  
@@ -4234,7 +4234,7 @@ Script: Field Medicine: db $07                               ;019584|        |  
                        db $FF                               ;01960C|        |      ;  
                        db $07                               ;01960D|        |      ;  
                        dl 8698 setup (3b)                   ;01960E|        |009D07;  
-                       dl idk                               ;019611|        |01B674;  
+                       dl $9D07_data2                       ;019611|        |01B674;  
                        db $16                               ;019614|        |      ;  
                        dw $157B                             ;019615|        |00157B;  
                        dw $0001                             ;019617|        |      ;  
@@ -4538,7 +4538,7 @@ Script: Field Medicine: db $07                               ;019584|        |  
                        dl Window Color                      ;01976A|        |0883F7;  
                        db $00                               ;01976D|        |      ;  
                        db $07                               ;01976E|        |      ; Uh, read a lot
-                       dl CODE_009C5D                       ;01976F|        |009C5D;  
+                       dl Some_Setup(12b?)                  ;01976F|        |009C5D;  
                        dw $0003                             ;019772|        |      ;  
                        dw $0000                             ;019774|        |      ;  
                        dw $0000                             ;019776|        |      ;  
@@ -5588,7 +5588,7 @@ Exiting status screen: db $07                               ;019B2C|        |   
                        dw CODE_0091E1                       ;019BF2|        |0091E1;  
                        db $07                               ;019BF4|        |      ; Save a ptr
                        dl 8698 setup (3b)                   ;019BF5|        |009D07;  
-                       dl idk                               ;019BF8|        |01B674;  
+                       dl $9D07_data2                       ;019BF8|        |01B674;  
                        db $16                               ;019BFB|        |      ;  
                        dw $157B                             ;019BFC|        |00157B;  
                        db $01                               ;019BFE|        |      ;  
@@ -6464,7 +6464,7 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        db $06                               ;019FFF|        |      ;  
                        db $01                               ;01A000|        |      ;  
                        db $07                               ;01A001|        |      ;  
-                       dl CODE_009C5D                       ;01A002|        |009C5D;  
+                       dl Some_Setup(12b?)                  ;01A002|        |009C5D;  
                        db $02                               ;01A005|        |      ;  
                        db $00                               ;01A006|        |      ;  
                        db $00                               ;01A007|        |      ;  
@@ -6807,7 +6807,7 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        db $00                               ;01A174|        |      ;  
                                                             ;      |        |      ;  
    Some decompression: db $07                               ;01A175|        |      ;  
-                       dl Transfer_Setup1(6b)               ;01A176|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;01A176|        |00A140;  
                        dl UNREACH_0D95D2                    ;01A179|        |0D95D2;  
                        db $F0                               ;01A17C|        |      ;  
                        dw $0020                             ;01A17D|        |      ;  
@@ -11816,7 +11816,7 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        db $12                               ;01B52D|        |000008;  
                        db $08                               ;01B52E|        |      ;  
                                                             ;      |        |      ;  
-                  idk: db $66                               ;01B52F|        |000002;  
+           $9D07_data: db $66                               ;01B52F|        |      ;  
                        db $02                               ;01B530|        |      ;  
                        db $00                               ;01B531|        |      ;  
                        db $14                               ;01B532|        |000008;  
@@ -12142,7 +12142,7 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        db $9F                               ;01B672|        |02665C;  
                        db $5C                               ;01B673|        |000266;  
                                                             ;      |        |      ;  
-                  idk: db $66                               ;01B674|        |000002;  
+          $9D07_data2: db $66                               ;01B674|        |      ;  
                        db $02                               ;01B675|        |      ;  
                        db $00                               ;01B676|        |      ;  
                        db $14                               ;01B677|        |000008;  
@@ -12559,7 +12559,7 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        db $0A                               ;01B83E|        |      ;  
                                                             ;      |        |      ;  
 Something with displays: db $07                               ;01B83F|        |      ;  
-                       dl Transfer_Setup1(6b)               ;01B840|        |00A140;  
+                       dl Transfer_Data(3b)(1b)(2b)         ;01B840|        |00A140;  
                        dl UNREACH_01E65F                    ;01B843|        |01E65F;  
                        db $00                               ;01B846|        |      ;  
                        db $40                               ;01B847|        |      ;  
@@ -12681,10 +12681,10 @@ Part of mountain scene: db $07                               ;01B866|        |  
                        db $00                               ;01B8E1|        |      ;  
                        dw $0000                             ;01B8E2|        |      ;  
                        db $07                               ;01B8E4|        |      ;  
-                       dl Remove HDMA channel               ;01B8E5|        |009F1F;  
+                       dl Remove HDMA channel(1b)           ;01B8E5|        |009F1F;  
                        db $02                               ;01B8E8|        |      ;  
                        db $07                               ;01B8E9|        |      ;  
-                       dl Remove HDMA channel               ;01B8EA|        |009F1F;  
+                       dl Remove HDMA channel(1b)           ;01B8EA|        |009F1F;  
                        db $03                               ;01B8ED|        |      ;  
                        db $06                               ;01B8EE|        |      ;  
                        db $01                               ;01B8EF|        |      ;  
@@ -13140,7 +13140,7 @@ Load before card spin: db $07                               ;01B927|        |   
       Loop until true: db $06                               ;01BB5B|        |      ;  
                        db $01                               ;01BB5C|        |      ;  
                        db $07                               ;01BB5D|        |      ;  
-                       dl CODE_18D512                       ;01BB5E|        |18D512;  
+                       dl Animation_Loop                    ;01BB5E|        |18D512;  
                        db $0B                               ;01BB61|        |      ; Loop if false
                        dw DATA16_00BB5B                     ;01BB62|        |00BB5B;  
                        db $0D                               ;01BB64|        |      ;  
@@ -13152,7 +13152,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        LDA.L UNREACH_01BD4D,X               ;01BB6D|BF4DBD01|01BD4D;  
                        LDX.W #$0001                         ;01BB71|A20100  |      ;  
                        LDY.W #$0400                         ;01BB74|A00004  |      ;  
-                       JSL.L BIT $18FD, stuff               ;01BB77|22258318|188325;  
+                       JSL.L DC_Setup                       ;01BB77|22258318|188325;  
                        LDA.W #$0000                         ;01BB7B|A90000  |      ;  
                        BCC CODE_01BB81                      ;01BB7E|9001    |01BB81;  
                        INC A                                ;01BB80|1A      |      ;  
@@ -13221,7 +13221,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        dw $0000                             ;01BBD2|        |      ;  
                                                             ;      |        |      ;  
             Loop BBEC: db $07                               ;01BBD4|        |      ;  
-                       dl CODE_009C5D                       ;01BBD5|        |009C5D;  
+                       dl Some_Setup(12b?)                  ;01BBD5|        |009C5D;  
                        db $6B                               ;01BBD8|        |      ;  
                        db $00                               ;01BBD9|        |      ;  
                        db $00                               ;01BBDA|        |      ;  
