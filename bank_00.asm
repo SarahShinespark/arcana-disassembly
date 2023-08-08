@@ -1932,7 +1932,8 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                        db $FF                               ;008BA6|        |      ;  
                                                             ;      |        |      ;  
          DATA8_008BA7: db $FF                               ;008BA7|        |      ;  
-                       db $FE                               ;008BA8|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_008BA8: db $FE                               ;008BA8|        |      ;  
                        db $FE                               ;008BA9|        |      ;  
                        db $FD                               ;008BAA|        |      ;  
                        db $FC                               ;008BAB|        |      ;  
@@ -2026,7 +2027,8 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                        db $FF                               ;008BFC|        |      ;  
                        db $EF                               ;008BFD|        |      ;  
                        db $FF                               ;008BFE|        |      ;  
-                       db $DF                               ;008BFF|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_008BFF: db $DF                               ;008BFF|        |      ;  
                        db $FF                               ;008C00|        |      ;  
                        db $BF                               ;008C01|        |      ;  
                        db $FF                               ;008C02|        |      ;  
@@ -2064,7 +2066,8 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                        db $BF                               ;008C1E|        |      ;  
                                                             ;      |        |      ;  
          DATA8_008C1F: db $FF                               ;008C1F|        |      ;  
-                       db $DF                               ;008C20|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_008C20: db $DF                               ;008C20|        |      ;  
                        db $FF                               ;008C21|        |      ;  
                        db $EF                               ;008C22|        |      ;  
                        db $FF                               ;008C23|        |      ;  
@@ -2098,7 +2101,8 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
         DATA16_008C44: dw $0100                             ;008C44|        |      ;  
                        dw $0200                             ;008C46|        |      ;  
                        dw $0400                             ;008C48|        |      ;  
-                       dw $0800                             ;008C4A|        |      ;  
+                                                            ;      |        |      ;  
+        DATA16_008C4A: dw $0800                             ;008C4A|        |      ;  
                        dw $1000                             ;008C4C|        |      ;  
                        dw $2000                             ;008C4E|        |      ;  
                        dw $4000                             ;008C50|        |      ;  
@@ -2271,7 +2275,8 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        ASL A                                ;008DA0|0A      |      ;  
                        ADC.W Battle Enemy ID,X              ;008DA1|7D4306  |000643;  
                        TAX                                  ;008DA4|AA      |      ;  
-                       LDA.L PtrBank 8DA5,X                 ;008DA5|BFD8A100|00A1D8;  
+                                                            ;      |        |      ;  
+   Load_Code_Handling: LDA.L PtrBank 8DA5,X                 ;008DA5|BFD8A100|00A1D8;  
                        AND.W #$00FF                         ;008DA9|29FF00  |      ;  
                        TAY                                  ;008DAC|A8      |      ;  
                        LDA.L PtrTable 8DAD,X                ;008DAD|BFD6A100|00A1D6;  
@@ -4035,7 +4040,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00995B|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-   A buncha stuff_far: JSR.W A buncha stuff                 ;00995C|206099  |009960;  
+   A buncha stuff_far: JSR.W A buncha stuff                 ;00995C|206099  |009960; Program flow stuff
                        RTL                                  ;00995F|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -5334,14 +5339,14 @@ WhatIsThisIDon'tEven_(7b): LDY.W #$0006                         ;00A162|A00600  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
         PtrTable 8DAD: dl Script 18321                      ;00A1D6|        |018321; 216 entries (???)
-                       dl UNREACH_018A68                    ;00A1D9|        |018A68;  
-                       dl UNREACH_01A32F                    ;00A1DC|        |01A32F;  
-                       dl UNREACH_01A477                    ;00A1DF|        |01A477;  
+                       dl DATA8_018A68                      ;00A1D9|        |018A68;  
+                       dl DATA8_01A32F                      ;00A1DC|        |01A32F;  
+                       dl DATA8_01A477                      ;00A1DF|        |01A477;  
                        dl CODE_058001                       ;00A1E2|        |058001;  
                        dl DATA8_058645                      ;00A1E5|        |058645;  
-                       dl UNREACH_05884E                    ;00A1E8|        |05884E;  
+                       dl DATA8_05884E                      ;00A1E8|        |05884E;  
                        dl DATA8_0589EB                      ;00A1EB|        |0589EB;  
-                       dl UNREACH_058B88                    ;00A1EE|        |058B88;  
+                       dl DATA8_058B88                      ;00A1EE|        |058B88;  
                        dl UNREACH_058D25                    ;00A1F1|        |058D25;  
                        dl UNREACH_058F57                    ;00A1F4|        |058F57;  
                        dl UNREACH_05910A                    ;00A1F7|        |05910A;  
@@ -5351,7 +5356,8 @@ WhatIsThisIDon'tEven_(7b): LDY.W #$0006                         ;00A162|A00600  
                        dl UNREACH_0595D1                    ;00A203|        |0595D1;  
                        dl Bank 0F: Battle anims?            ;00A206|        |0F8001;  
                        dl UNREACH_0FCB2B                    ;00A209|        |0FCB2B;  
-                       dl UNREACH_18968B                    ;00A20C|        |18968B;  
+                                                            ;      |        |      ;  
+       Event_Brancher: dl Call_Event_ASM                    ;00A20C|        |18968B;  
                        dl UNREACH_01A0D8                    ;00A20F|        |01A0D8;  
                        dl Sub-asm section                   ;00A212|        |17804D;  
                        dl UNREACH_178C43                    ;00A215|        |178C43;  
@@ -5444,7 +5450,7 @@ WhatIsThisIDon'tEven_(7b): LDY.W #$0006                         ;00A162|A00600  
                        dl DATA8_01B807                      ;00A314|        |01B807;  
                        dl DATA8_01BC51                      ;00A317|        |01BC51;  
                                                             ;      |        |      ;  
-        PtrTable 8DFA: dl UNREACH_018A68                    ;00A31A|        |018A68;  
+        PtrTable 8DFA: dl DATA8_018A68                      ;00A31A|        |018A68;  
                        dl UNREACH_018C6B                    ;00A31D|        |018C6B;  
                        dl UNREACH_01A467                    ;00A320|        |01A467;  
                        dl UNREACH_01B4CA                    ;00A323|        |01B4CA;  
@@ -5915,7 +5921,7 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                                                             ;      |        |      ;  
           CODE_00A69E: REP #$20                             ;00A69E|C220    |      ;  
                                                             ;      |        |      ;  
-          CODE_00A6A0: STA.L Mult. Lo byte                  ;00A6A0|8F024200|004202;  
+          CODE_00A6A0: STA.L Mult. Lo byte                  ;00A6A0|8F024200|004202; Multiply offset by #$28 (entry size?)
                                                             ;      |        |      ;  
           CODE_00A6A4: NOP                                  ;00A6A4|EA      |      ;  
                                                             ;      |        |      ;  
@@ -6061,39 +6067,39 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
           CODE_00A778: JMP.W CODE_00AB19                    ;00A778|4C19AB  |00AB19;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00A77B: LDX.B $10                            ;00A77B|A610    |000010;  
+ Text_Offset_<=_$10E7: LDX.B $10                            ;00A77B|A610    |000010;  
                        LDA.W $1095                          ;00A77D|AD9510  |001095;  
-                       AND.L DATA16_00AB29,X                ;00A780|3F29AB00|00AB29;  
+                       AND.L Pause_Table,X                  ;00A780|3F29AB00|00AB29; $1095 odd or even?
                        BEQ CODE_00A789                      ;00A784|F003    |00A789;  
                                                             ;      |        |      ;  
-          CODE_00A786: JMP.W CODE_00AB0F                    ;00A786|4C0FAB  |00AB0F;  
+          CODE_00A786: JMP.W Text_Paused                    ;00A786|4C0FAB  |00AB0F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A789: LDX.B $04                            ;00A789|A604    |000004;  
                        LDA.W $0016,X                        ;00A78B|BD1600  |000016;  
                        BNE CODE_00A793                      ;00A78E|D003    |00A793;  
-                       JMP.W CODE_00AB0F                    ;00A790|4C0FAB  |00AB0F;  
+                       JMP.W Text_Paused                    ;00A790|4C0FAB  |00AB0F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A793: DEC.W $0016,X                        ;00A793|DE1600  |000016;  
-                       BEQ CODE_00A79B                      ;00A796|F003    |00A79B;  
-                       JMP.W CODE_00AB0F                    ;00A798|4C0FAB  |00AB0F;  
+                       BEQ Unpause_from_7F                  ;00A796|F003    |00A79B;  
+                       JMP.W Text_Paused                    ;00A798|4C0FAB  |00AB0F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00A79B: LDA.W $0018,X                        ;00A79B|BD1800  |000018;  
-                       STA.B $06                            ;00A79E|8506    |000006;  
+      Unpause_from_7F: LDA.W $0018,X                        ;00A79B|BD1800  |000018;  
+                       STA.B $06                            ;00A79E|8506    |000006; Pop the PC and bank
                        LDA.W $001A,X                        ;00A7A0|BD1A00  |00001A;  
                        STA.B $08                            ;00A7A3|8508    |000008;  
                        LDA.W $0022,X                        ;00A7A5|BD2200  |000022;  
                        STA.B $0C                            ;00A7A8|850C    |00000C;  
                        LDA.W $0020,X                        ;00A7AA|BD2000  |000020;  
                        STA.W $0016,X                        ;00A7AD|9D1600  |000016;  
-                       STZ.B $0A                            ;00A7B0|640A    |00000A;  
+                       STZ.B $0A                            ;00A7B0|640A    |00000A; Clear pause
                                                             ;      |        |      ;  
-          CODE_00A7B2: JMP.W CODE_00AB08                    ;00A7B2|4C08AB  |00AB08;  
+          CODE_00A7B2: JMP.W Get_Pause_Status               ;00A7B2|4C08AB  |00AB08;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
- Reads current letter: LDA.B [$06]                          ;00A7B5|A706    |000006; Handles any opcodes in the text (text scripting language) along with text itself. This text is written to the text buffer $15AF,x.
+Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000006; Handles any opcodes in the text (text scripting language) along with text itself. This text is written to the text buffer $15AF,x.
                        AND.W #$00FF                         ;00A7B7|29FF00  |      ;  
                        STA.B $00                            ;00A7BA|8500    |000000;  
                        INC.B $06                            ;00A7BC|E606    |000006;  
@@ -6201,16 +6207,16 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
           CODE_00A855: JMP.W Text Opcode "Text"             ;00A855|4C11AA  |00AA11; This one's a doozy
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 00: LDA.W $001C,X                        ;00A858|BD1C00  |00001C; Returns from function (pops the pointer)
-                       BNE CODE_00A86B                      ;00A85B|D00E    |00A86B;  
-                       LDA.W #$0000                         ;00A85D|A90000  |      ;  
+       Text Opcode 00: LDA.W $001C,X                        ;00A858|BD1C00  |00001C; Null terminator. Returns from section (pops the pointer)
+                       BNE Text_Pop_Stack                   ;00A85B|D00E    |00A86B;  
+                       LDA.W #$0000                         ;00A85D|A90000  |      ; If no stack, zero it to be sure
                        STA.W $0016,X                        ;00A860|9D1600  |000016;  
-                       LDA.W #$0001                         ;00A863|A90100  |      ;  
+                       LDA.W #$0001                         ;00A863|A90100  |      ; $0A=1 (check for pause?)
                        STA.B $0A                            ;00A866|850A    |00000A;  
                        JMP.W Text Script helper fn          ;00A868|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00A86B: LDA.W $001C,X                        ;00A86B|BD1C00  |00001C;  
+       Text_Pop_Stack: LDA.W $001C,X                        ;00A86B|BD1C00  |00001C;  
                        STA.B $06                            ;00A86E|8506    |000006;  
                        LDA.W $001E,X                        ;00A870|BD1E00  |00001E;  
                        STA.B $08                            ;00A873|8508    |000008;  
@@ -6220,73 +6226,73 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        JMP.W Text Script helper fn          ;00A87E|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 01: LDA.B [$06]                          ;00A881|A706    |000006; Saves next 2 bytes to cursor position (RAM $10A5, $10A7)
-                       AND.W #$00FF                         ;00A883|29FF00  |      ;  
-                       STA.W $000A,X                        ;00A886|9D0A00  |00000A;  
-                       INC.B $06                            ;00A889|E606    |000006;  
+       Text Opcode 01: LDA.B [$06]                          ;00A881|A706    |000006; (2b) Moves cursor to xx,xx (0,0 is top left)
+                       AND.W #$00FF                         ;00A883|29FF00  |      ; Get next byte
+                       STA.W $000A,X                        ;00A886|9D0A00  |00000A; (1b) Set cursor X pos
+                       INC.B $06                            ;00A889|E606    |000006; Advance PC
                        LDA.B [$06]                          ;00A88B|A706    |000006;  
-                       AND.W #$00FF                         ;00A88D|29FF00  |      ;  
+                       AND.W #$00FF                         ;00A88D|29FF00  |      ; Get next byte
                                                             ;      |        |      ;  
-          CODE_00A890: STA.W $000C,X                        ;00A890|9D0C00  |00000C;  
-                       INC.B $06                            ;00A893|E606    |000006;  
+          CODE_00A890: STA.W $000C,X                        ;00A890|9D0C00  |00000C; (1b) Set cursor Y pos
+                       INC.B $06                            ;00A893|E606    |000006; Advance PC
                        JMP.W Text Script helper fn          ;00A895|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 02: LDA.B [$06]                          ;00A898|A706    |000006; Not sure how 02 works.
+       Text Opcode 02: LDA.B [$06]                          ;00A898|A706    |000006; (1b) Used drawing the menus (?) Sets x position + something
                        AND.W #$00FF                         ;00A89A|29FF00  |      ;  
-                       STA.W $0024,X                        ;00A89D|9D2400  |000024;  
-                       STA.W $000A,X                        ;00A8A0|9D0A00  |00000A;  
-                       INC.B $06                            ;00A8A3|E606    |000006;  
+                       STA.W $0024,X                        ;00A89D|9D2400  |000024; Stores (1b) in offset+24
+                       STA.W $000A,X                        ;00A8A0|9D0A00  |00000A; Sets X position
+                       INC.B $06                            ;00A8A3|E606    |000006; Advance PC
                                                             ;      |        |      ;  
           CODE_00A8A5: JMP.W Text Script helper fn          ;00A8A5|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 03: LDA.B [$06]                          ;00A8A8|A706    |000006; Store next byte in $10AD, store $06 ($1DF2) in $10B3, store $1DF4 in $10B5, continue if $0A ($1DF6) is zero else jump to $AB0F. Used for font spacing/positioning
+       Text Opcode 03: LDA.B [$06]                          ;00A8A8|A706    |000006; (1b) Used for font spacing/positioning
                        AND.W #$00FF                         ;00A8AA|29FF00  |      ;  
-                       STA.W $0012,X                        ;00A8AD|9D1200  |000012;  
-                       INC.B $06                            ;00A8B0|E606    |000006;  
+                       STA.W $0012,X                        ;00A8AD|9D1200  |000012; Stores (1b) in offset+12
+                       INC.B $06                            ;00A8B0|E606    |000006; Advance PC
                        JMP.W Text Script helper fn          ;00A8B2|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 04: LDA.B [$06]                          ;00A8B5|A706    |000006;  
+       Text Opcode 04: LDA.B [$06]                          ;00A8B5|A706    |000006; (1b) Sets offset 14
                        AND.W #$00FF                         ;00A8B7|29FF00  |      ;  
-                       STA.W $0014,X                        ;00A8BA|9D1400  |000014;  
-                       INC.B $06                            ;00A8BD|E606    |000006;  
+                       STA.W $0014,X                        ;00A8BA|9D1400  |000014; Stores (1b) in offset+14
+                       INC.B $06                            ;00A8BD|E606    |000006; Advance PC
                        JMP.W Text Script helper fn          ;00A8BF|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 05: LDA.B [$06]                          ;00A8C2|A706    |000006; Four bytes, saves text pointer to $10B3
+       Text Opcode 05: LDA.B [$06]                          ;00A8C2|A706    |000006; (2b) Delays for x?
                        AND.W #$00FF                         ;00A8C4|29FF00  |      ;  
-                       STA.W $0022,X                        ;00A8C7|9D2200  |000022;  
+                       STA.W $0022,X                        ;00A8C7|9D2200  |000022; (1b) in offset 22 and $0C
                        STA.B $0C                            ;00A8CA|850C    |00000C;  
                        INC.B $06                            ;00A8CC|E606    |000006;  
                        LDA.B [$06]                          ;00A8CE|A706    |000006;  
                        AND.W #$00FF                         ;00A8D0|29FF00  |      ;  
-                       STA.W $0020,X                        ;00A8D3|9D2000  |000020;  
+                       STA.W $0020,X                        ;00A8D3|9D2000  |000020; (1b) in offset 20 and 16
                        STA.W $0016,X                        ;00A8D6|9D1600  |000016;  
                        INC.B $06                            ;00A8D9|E606    |000006;  
                        JMP.W Text Script helper fn          ;00A8DB|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 06: LDA.B [$06]                          ;00A8DE|A706    |000006; Read next opcode, ASL, set some variables. Used for font formatting, text display, text highlighting etc.
+       Text Opcode 06: LDA.B [$06]                          ;00A8DE|A706    |000006; (1b) Used for font formatting, text display, text highlighting etc.
                        ASL A                                ;00A8E0|0A      |      ; 06 0D precedes white text, and 06 0E precedes yellow/grayed text.
                        AND.W #$00FF                         ;00A8E1|29FF00  |      ;  
-                       STA.W $000E,X                        ;00A8E4|9D0E00  |00000E;  
+                       STA.W $000E,X                        ;00A8E4|9D0E00  |00000E; Store doubled input in offset+E
                        INC.B $06                            ;00A8E7|E606    |000006;  
                        JMP.W Text Script helper fn          ;00A8E9|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 0C: LDA.B $04                            ;00A8EC|A504    |000004; Sets a ton of RAM to FFFF, saves pointer
-                       JSR.W Text Opcode 0C sub             ;00A8EE|202AA5  |00A52A;  
-                       LDX.B $04                            ;00A8F1|A604    |000004;  
+       Text Opcode 0C: LDA.B $04                            ;00A8EC|A504    |000004; (0b) Sets X pos to something, sets Y pos to 0, does stuff
+                       JSR.W Text Opcode 0C sub             ;00A8EE|202AA5  |00A52A; Do stuffs
+                       LDX.B $04                            ;00A8F1|A604    |000004; Get offset
                        LDA.W $0024,X                        ;00A8F3|BD2400  |000024;  
-                       STA.W $000A,X                        ;00A8F6|9D0A00  |00000A;  
+                       STA.W $000A,X                        ;00A8F6|9D0A00  |00000A; Set X pos to offset+24
                        LDA.W #$0000                         ;00A8F9|A90000  |      ;  
-                       STA.W $000C,X                        ;00A8FC|9D0C00  |00000C;  
+                       STA.W $000C,X                        ;00A8FC|9D0C00  |00000C; Reset Y position
                        JMP.W Text Script helper fn          ;00A8FF|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 0D: LDA.B $04                            ;00A902|A504    |000004; Writes a newline.
+       Text Opcode 0D: LDA.B $04                            ;00A902|A504    |000004; (0b) Writes a newline.
                        JSR.W Text Script Helper 2           ;00A904|20C6A6  |00A6C6;  
                        LDA.B $0C                            ;00A907|A50C    |00000C;  
                        CMP.W #$00FF                         ;00A909|C9FF00  |      ;  
@@ -6299,7 +6305,7 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        JMP.W Text Script helper fn          ;00A916|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 14: LDA.B [$06]                          ;00A919|A706    |000006; 14 xx xx loads text from the address at RAM xx xx
+       Text Opcode 14: LDA.B [$06]                          ;00A919|A706    |000006; (3b ptr) Loads text from RAM ptr
                        STA.B $00                            ;00A91B|8500    |000000;  
                        INC.B $06                            ;00A91D|E606    |000006;  
                        INC.B $06                            ;00A91F|E606    |000006;  
@@ -6320,7 +6326,7 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        JMP.W Text Script helper fn          ;00A940|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 10: LDA.B [$06]                          ;00A943|A706    |000006; Jump to subroutine (pushes ptr)
+       Text Opcode 10: LDA.B [$06]                          ;00A943|A706    |000006; (3b ptr) Text subroutine
                        STA.B $00                            ;00A945|8500    |000000;  
                        INC.B $06                            ;00A947|E606    |000006;  
                        INC.B $06                            ;00A949|E606    |000006;  
@@ -6339,17 +6345,17 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        JMP.W Text Script helper fn          ;00A966|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 11: LDA.B [$06]                          ;00A969|A706    |000006; Converts RAM value to text. i.e. 11 01 E7 16 00: Load from RAM $16E7 
+       Text Opcode 11: LDA.B [$06]                          ;00A969|A706    |000006; (4b) Converts RAM value to text. i.e. 11 01 E7 16 00: Load from RAM $16E7 
                        AND.W #$00FF                         ;00A96B|29FF00  |      ;  
-                       STA.B $0E                            ;00A96E|850E    |00000E;  
+                       STA.B $0E                            ;00A96E|850E    |00000E; (1b) # digits to write
                        INC.B $06                            ;00A970|E606    |000006;  
                        LDA.B [$06]                          ;00A972|A706    |000006;  
-                       STA.B $00                            ;00A974|8500    |000000;  
+                       STA.B $00                            ;00A974|8500    |000000; (2b) RAM addr to read from
                        INC.B $06                            ;00A976|E606    |000006;  
                        INC.B $06                            ;00A978|E606    |000006;  
                        LDA.B [$06]                          ;00A97A|A706    |000006;  
                        AND.W #$00FF                         ;00A97C|29FF00  |      ;  
-                       STA.B $02                            ;00A97F|8502    |000002;  
+                       STA.B $02                            ;00A97F|8502    |000002; (1b) RAM bank to read from
                        INC.B $06                            ;00A981|E606    |000006;  
                        LDA.B $0E                            ;00A983|A50E    |00000E;  
                        JSR.W Text Script Helper Fn 3        ;00A985|202DAB  |00AB2D;  
@@ -6370,10 +6376,10 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        JMP.W Text Script helper fn          ;00A9A5|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1C: LDA.W #$00FE                         ;00A9A8|A9FE00  |      ; This does a lot of something. Makes text appear immediately.
+       Text Opcode 1C: LDA.W #$00FE                         ;00A9A8|A9FE00  |      ; (0c) Makes text appear immediately.
                        LDY.W #$0001                         ;00A9AB|A00100  |      ;  
                                                             ;      |        |      ;  
-          CODE_00A9AE: STA.W $0022,X                        ;00A9AE|9D2200  |000022;  
+       Set_Text_Speed: STA.W $0022,X                        ;00A9AE|9D2200  |000022;  
                        STA.B $0C                            ;00A9B1|850C    |00000C;  
                        TYA                                  ;00A9B3|98      |      ;  
                        STA.W $0020,X                        ;00A9B4|9D2000  |000020;  
@@ -6381,28 +6387,28 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        JMP.W Text Script helper fn          ;00A9BA|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1D: LDA.W #$00FF                         ;00A9BD|A9FF00  |      ; Makes text scroll 1 line at a time.
+       Text Opcode 1D: LDA.W #$00FF                         ;00A9BD|A9FF00  |      ; (0b) Makes text scroll 1 line at a time.
                        LDY.W $1097                          ;00A9C0|AC9710  |001097;  
-                       BRA CODE_00A9AE                      ;00A9C3|80E9    |00A9AE;  
+                       BRA Set_Text_Speed                   ;00A9C3|80E9    |00A9AE;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1E: LDA.W #$0001                         ;00A9C5|A90100  |      ; Text scrolls quickly by character
+       Text Opcode 1E: LDA.W #$0001                         ;00A9C5|A90100  |      ; (0b) Text scrolls quickly by character
                        LDY.W $1099                          ;00A9C8|AC9910  |001099;  
-                       BRA CODE_00A9AE                      ;00A9CB|80E1    |00A9AE;  
+                       BRA Set_Text_Speed                   ;00A9CB|80E1    |00A9AE;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 7F: LDX.B $10                            ;00A9CD|A610    |000010; Pause until A button is pressed.
+       Text Opcode 7F: LDX.B $10                            ;00A9CD|A610    |000010; (0b) Pause until A button is pressed.
                        LDA.W $1095                          ;00A9CF|AD9510  |001095;  
-                       ORA.L DATA16_00AB29,X                ;00A9D2|1F29AB00|00AB29;  
+                       ORA.L Pause_Table,X                  ;00A9D2|1F29AB00|00AB29;  
                        STA.W $1095                          ;00A9D6|8D9510  |001095;  
                        LDA.W #$0001                         ;00A9D9|A90100  |      ;  
                        STA.B $0A                            ;00A9DC|850A    |00000A;  
                        JMP.W Text Script helper fn          ;00A9DE|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1B: LDA.B [$06]                          ;00A9E1|A706    |000006;  Some kind of event code.
+       Text Opcode 1B: LDA.B [$06]                          ;00A9E1|A706    |000006; (2b) Draws dialogue portraits
                        AND.W #$00FF                         ;00A9E3|29FF00  |      ;  
-                       ASL A                                ;00A9E6|0A      |      ;  
+                       ASL A                                ;00A9E6|0A      |      ; Transfer (1b) to a double x offset
                        TAX                                  ;00A9E7|AA      |      ;  
                        INC.B $06                            ;00A9E8|E606    |000006;  
                        LDA.B [$06]                          ;00A9EA|A706    |000006;  
@@ -6551,18 +6557,18 @@ Zero a bunch of stuff: STZ.W $1095                          ;00A64D|9C9510  |001
                        LDA.W #$0001                         ;00AAF7|A90100  |      ;  
                        STA.B $0A                            ;00AAFA|850A    |00000A;  
                                                             ;      |        |      ;  
-Text Script helper fn: LDX.B $04                            ;00AAFC|A604    |000004; I think this pops the pointer in the text pointer stack.
+Text Script helper fn: LDX.B $04                            ;00AAFC|A604    |000004; Pushes the text PC pointer
                        LDA.B $06                            ;00AAFE|A506    |000006;  
-                       STA.W $0018,X                        ;00AB00|9D1800  |000018;  
+                       STA.W $0018,X                        ;00AB00|9D1800  |000018; Offset 18 (Temp PC addr)
                        LDA.B $08                            ;00AB03|A508    |000008;  
-                       STA.W $001A,X                        ;00AB05|9D1A00  |00001A;  
+                       STA.W $001A,X                        ;00AB05|9D1A00  |00001A; Offset 1A (Temp PC bank)
                                                             ;      |        |      ;  
-          CODE_00AB08: LDA.B $0A                            ;00AB08|A50A    |00000A;  
-                       BNE CODE_00AB0F                      ;00AB0A|D003    |00AB0F;  
-                       JMP.W Reads current letter           ;00AB0C|4CB5A7  |00A7B5;  
+     Get_Pause_Status: LDA.B $0A                            ;00AB08|A50A    |00000A; Get pause status
+                       BNE Text_Paused                      ;00AB0A|D003    |00AB0F;  
+                       JMP.W Text_Branch_on_Opcode          ;00AB0C|4CB5A7  |00A7B5; If not paused, continue
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00AB0F: INC.B $10                            ;00AB0F|E610    |000010;  
+          Text_Paused: INC.B $10                            ;00AB0F|E610    |000010;  
                        INC.B $10                            ;00AB11|E610    |000010;  
                        LDA.B $04                            ;00AB13|A504    |000004;  
                        CLC                                  ;00AB15|18      |      ;  
@@ -6571,16 +6577,16 @@ Text Script helper fn: LDX.B $04                            ;00AAFC|A604    |000
           CODE_00AB19: STA.B $04                            ;00AB19|8504    |000004;  
                        CMP.W #$10E7                         ;00AB1B|C9E710  |      ;  
                        BPL CODE_00AB23                      ;00AB1E|1003    |00AB23;  
-                       JMP.W CODE_00A77B                    ;00AB20|4C7BA7  |00A77B;  
+                       JMP.W Text_Offset_<=_$10E7           ;00AB20|4C7BA7  |00A77B;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00AB23: JSR.W CODE_00BFB7                    ;00AB23|20B7BF  |00BFB7;  
+          CODE_00AB23: JSR.W Text_Offset_>_$10E7            ;00AB23|20B7BF  |00BFB7;  
                        PLB                                  ;00AB26|AB      |      ;  
                        PLD                                  ;00AB27|2B      |      ;  
                        RTS                                  ;00AB28|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-        DATA16_00AB29: dw $0001                             ;00AB29|        |      ;  
+          Pause_Table: dw $0001                             ;00AB29|        |      ;  
                        dw $0002                             ;00AB2B|        |      ;  
                                                             ;      |        |      ;  
 Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      |      ;  
@@ -10325,7 +10331,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        LSR A                                ;00BE24|4A      |      ;  
                        AND.W #$0006                         ;00BE25|290600  |      ;  
                        TAX                                  ;00BE28|AA      |      ;  
-                       LDA.L DATA16_00BE43,X                ;00BE29|BF43BE00|00BE43;  
+                       LDA.L Text_0C_table,X                ;00BE29|BF43BE00|00BE43;  
                        PHA                                  ;00BE2D|48      |      ;  
                        LDA.W $1119                          ;00BE2E|AD1911  |001119;  
                        ASL A                                ;00BE31|0A      |      ;  
@@ -10345,7 +10351,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        RTS                                  ;00BE42|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-        DATA16_00BE43: dw $0000                             ;00BE43|        |      ;  
+        Text_0C_table: dw $0000                             ;00BE43|        |      ; Stored to $4000,x (??)
                        dw $00FF                             ;00BE45|        |      ;  
                        dw $FF00                             ;00BE47|        |      ;  
                        dw $FFFF                             ;00BE49|        |      ;  
@@ -10457,7 +10463,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        LSR A                                ;00BEF4|4A      |      ;  
                        AND.W #$0006                         ;00BEF5|290600  |      ;  
                        TAX                                  ;00BEF8|AA      |      ;  
-                       LDA.L DATA16_00BE43,X                ;00BEF9|BF43BE00|00BE43;  
+                       LDA.L Text_0C_table,X                ;00BEF9|BF43BE00|00BE43;  
                        STA.B $0C                            ;00BEFD|850C    |00000C;  
                        LDA.W $1117                          ;00BEFF|AD1711  |001117;  
                        ASL A                                ;00BF02|0A      |      ;  
@@ -10574,7 +10580,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
           CODE_00BFB6: RTS                                  ;00BFB6|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00BFB7: LDA.W $111F                          ;00BFB7|AD1F11  |00111F;  
+  Text_Offset_>_$10E7: LDA.W $111F                          ;00BFB7|AD1F11  |00111F;  
                        BEQ CODE_00C015                      ;00BFBA|F059    |00C015;  
                        PHD                                  ;00BFBC|0B      |      ;  
                        PHA                                  ;00BFBD|48      |      ;  
@@ -12938,7 +12944,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        db $C0                               ;00CFCB|        |      ;  
                        dw $FFFF                             ;00CFCC|        |      ; End MVN section
                        db $10                               ;00CFCE|        |00CFEE;  
-                       db $1E                               ;00CFCF|        |000002;  
+                       db $1E                               ;00CFCF|        |      ;  
                        db $02                               ;00CFD0|        |      ;  
                        db $00                               ;00CFD1|        |      ;  
                        db $07                               ;00CFD2|        |      ;  

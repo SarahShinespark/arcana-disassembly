@@ -13311,7 +13311,7 @@
                        db $14                               ;0CFA08|        |      ;  
                        db $0C                               ;0CFA09|        |      ;  
                        db $0D                               ;0CFA0A|        |      ;  
-                       db $01                               ;0CFA0B|        |      ;  
+                       db $01                               ;0CFA0B|        |      ; (1b) ??
                        db $00                               ;0CFA0C|        |      ;  
                        db $06                               ;0CFA0D|        |      ;  
                        db "Karul"                           ;0CFA0E|        |      ;  

@@ -15,4 +15,4 @@ bank_17.asm - Game start/Initialization\
 bank_18.asm - Story events, treasures, encounters and enemy formations\
 \
 Be advised: Arcana is a LoROM game, and PC addresses must be converted. Best use Lunar Address or WindHex.\
-Explanation: LoROM banks use the upper half of each bank ($8000-$FFFF). So PC $0000-$7FFF is bank 00 (00/8000-00/FFFF), PC $8000-$FFFF is bank $01 (01/8000-01/FFFF), etc.
+Explanation: LoROM banks use the upper half of each bank ($8000-$FFFF). So PC $0000-$7FFF is bank $00 (00/8000-00/FFFF), PC $8000-$FFFF is bank $01 (01/8000-01/FFFF), etc.

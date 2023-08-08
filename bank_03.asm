@@ -18249,7 +18249,7 @@ Zero $06xx's, do stuff: STX.W $0637                          ;03E21F|8E3706  |00
                        JSL.L DC_Setup                       ;03E245|22258318|188325;  
                                                             ;      |        |      ;  
           CODE_03E249: JSL.L Wait for V-Blank_far           ;03E249|22DE8800|0088DE;  
-                       JSL.L Do_Animation?                  ;03E24D|223E8318|18833E;  
+                       JSL.L Decomps_Animations?            ;03E24D|223E8318|18833E;  
                        BCC CODE_03E249                      ;03E251|90F6    |03E249;  
                        RTS                                  ;03E253|60      |      ;  
                                                             ;      |        |      ;  

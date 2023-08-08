@@ -301,9 +301,9 @@
                        LOOSE_OP_0086C8 = $0086C8            ;      |        |      ;  
                        LOOSE_OP_0088C8 = $0088C8            ;      |        |      ;  
                        LOOSE_OP_00891A = $00891A            ;      |        |      ;  
+                       LOOSE_OP_008AD8 = $008AD8            ;      |        |      ;  
                        LOOSE_OP_008B5A = $008B5A            ;      |        |      ;  
                        LOOSE_OP_008AB7 = $008AB7            ;      |        |      ;  
-                       LOOSE_OP_008AD8 = $008AD8            ;      |        |      ;  
                        LOOSE_OP_008B48 = $008B48            ;      |        |      ;  
                        LOOSE_OP_008C85 = $008C85            ;      |        |      ;  
                        LOOSE_OP_0091B6 = $0091B6            ;      |        |      ;  
@@ -828,6 +828,7 @@
                        LOOSE_OP_0088FB = $0088FB            ;      |        |      ;  
                        LOOSE_OP_008A62 = $008A62            ;      |        |      ;  
                        LOOSE_OP_008A0B = $008A0B            ;      |        |      ;  
+                       DATA16_008C35 = $008C35              ;      |        |      ;  
                        LOOSE_OP_008EE1 = $008EE1            ;      |        |      ;  
                        LOOSE_OP_008EEB = $008EEB            ;      |        |      ;  
                        LOOSE_OP_008EF5 = $008EF5            ;      |        |      ;  
