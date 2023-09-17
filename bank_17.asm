@@ -17,7 +17,7 @@
                        JSL.L CODE_008E29                    ;178023|22298E00|008E29;  
                        JSL.L 00/A764_far                    ;178027|2260A700|00A760; Something text-related
                        LDA.W #$8044                         ;17802B|A94480  |      ;  
-                       JSL.L CODE_0084FE                    ;17802E|22FE8400|0084FE;  
+                       JSL.L Decomp_From_RAM?               ;17802E|22FE8400|0084FE;  
                        LDA.W #$2000                         ;178032|A90020  |      ;  
                        STA.W $0006                          ;178035|8D0600  |000006;  
                        LDA.W #$8000                         ;178038|A90080  |      ;  
@@ -56,7 +56,7 @@
                        dw $6000                             ;178066|        |      ;  
                        db $00                               ;178068|        |      ;  
                        db $07                               ;178069|        |      ;  
-                       dl Do stuff (6b)                     ;17806A|        |009D6F;  
+                       dl Do stuff (1b)(1b)(2b)(2b)         ;17806A|        |009D6F;  
                        db $02                               ;17806D|        |      ;  
                        db $00                               ;17806E|        |      ;  
                        dw $5000                             ;17806F|        |      ;  
@@ -84,9 +84,9 @@
                        dl Decomp setup (3b)                 ;178098|        |009CF9;  
                        dl Compressed data                   ;17809B|        |018A4F;  
                        db $07                               ;17809E|        |      ;  
-                       dl 00/A5D9_far                       ;17809F|        |00A0A8;  
+                       dl Do_Stuff_far                      ;17809F|        |00A0A8;  
                        db $07                               ;1780A2|        |      ;  
-                       dl Event_Text                        ;1780A3|        |18D4CC;  
+                       dl Load_Event_Text                   ;1780A3|        |18D4CC;  
                        dl Opening crawl                     ;1780A6|        |178129;  
                        db $00                               ;1780A9|        |      ;  
                        db $06                               ;1780AA|        |000005;  
@@ -125,7 +125,7 @@
                        db $09                               ;1780D3|        |      ;  
                        dl A press intro crawl?              ;1780D4|        |17826D;  
                        db $07                               ;1780D7|        |      ;  
-                       dl Event_Text                        ;1780D8|        |18D4CC;  
+                       dl Load_Event_Text                   ;1780D8|        |18D4CC;  
                        dl DATA8_17812B                      ;1780DB|        |17812B;  
                        db $00                               ;1780DE|        |      ;  
                        db $07                               ;1780DF|        |      ;  
@@ -138,7 +138,7 @@
                        db $00                               ;1780EA|        |      ;  
                        dw $FFFF                             ;1780EB|        |      ;  
                        db $07                               ;1780ED|        |      ;  
-                       dl Event_Text                        ;1780EE|        |18D4CC;  
+                       dl Load_Event_Text                   ;1780EE|        |18D4CC;  
                        dl TEXT_17822B                       ;1780F1|        |17822B;  
                        db $00                               ;1780F4|        |      ;  
                        db $07                               ;1780F5|        |      ;  
@@ -159,7 +159,7 @@
                        db $31                               ;17810C|        |      ;  
                        db $FF                               ;17810D|        |      ;  
                        db $07                               ;17810E|        |      ;  
-                       dl Event_Text                        ;17810F|        |18D4CC;  
+                       dl Load_Event_Text                   ;17810F|        |18D4CC;  
                        dl Opening crawl                     ;178112|        |178129;  
                        db $00                               ;178115|        |      ;  
                        db $06                               ;178116|        |      ;  
@@ -270,13 +270,13 @@
                        dl CODE_009D69                       ;1782A3|        |009D69;  
                        db $01                               ;1782A6|        |      ;  
                        db $07                               ;1782A7|        |      ;  
-                       dl Do stuff (6b)                     ;1782A8|        |009D6F;  
+                       dl Do stuff (1b)(1b)(2b)(2b)         ;1782A8|        |009D6F;  
                        db $00                               ;1782AB|        |      ;  
                        db $00                               ;1782AC|        |      ;  
                        dw $1000                             ;1782AD|        |      ;  
                        dw $0000                             ;1782AF|        |      ;  
                        db $07                               ;1782B1|        |      ;  
-                       dl Do stuff (6b)                     ;1782B2|        |009D6F;  
+                       dl Do stuff (1b)(1b)(2b)(2b)         ;1782B2|        |009D6F;  
                        db $01                               ;1782B5|        |      ;  
                        db $01                               ;1782B6|        |      ;  
                        dw $3000                             ;1782B7|        |      ;  
@@ -296,7 +296,7 @@
                        dl Main screen OR (1b)               ;1782D0|        |009DA8;  
                        db $13                               ;1782D3|        |      ;  
                        db $07                               ;1782D4|        |      ;  
-                       dl Next byte AND $1059               ;1782D5|        |009E8A;  
+                       dl Next byte AND $1059(1b)           ;1782D5|        |009E8A;  
                        db $0F                               ;1782D8|        |      ;  
                        db $78                               ;1782D9|        |      ;  
                        db $01                               ;1782DA|        |000000;  
@@ -1579,7 +1579,7 @@ Ten years have passed: db $06                               ;178B27|        |   
                        db $01                               ;178BEF|        |      ;  
                        db $1F                               ;178BF0|        |      ;  
                        db $07                               ;178BF1|        |      ; White color
-                       dl Set RGB (add)                     ;178BF2|        |009FE2;  
+                       dl Add_RGB(3b)                       ;178BF2|        |009FE2;  
                        db $FF                               ;178BF5|        |      ;  
                        db $FF                               ;178BF6|        |      ;  
                        db $FF                               ;178BF7|        |      ;  
@@ -1599,7 +1599,7 @@ Ten years have passed: db $06                               ;178B27|        |   
                        db $30                               ;178C0B|        |      ;  
                        dl UNREACH_178B84                    ;178C0C|        |178B84;  
                        db $07                               ;178C0F|        |      ;  
-                       dl Set RGB                           ;178C10|        |009F83;  
+                       dl Set RGB(3b)                       ;178C10|        |009F83;  
                        db $1F                               ;178C13|        |      ;  
                        db $1F                               ;178C14|        |      ;  
                        db $1F                               ;178C15|        |      ;  
@@ -1607,7 +1607,7 @@ Ten years have passed: db $06                               ;178B27|        |   
                        db $01                               ;178C17|        |00001F;  
                        db $1F                               ;178C18|        |9FE207;  
                        db $07                               ;178C19|        |      ; White color
-                       dl Set RGB (add)                     ;178C1A|        |009FE2;  
+                       dl Add_RGB(3b)                       ;178C1A|        |009FE2;  
                        db $FF                               ;178C1D|        |      ;  
                        db $FF                               ;178C1E|        |      ;  
                        db $FF                               ;178C1F|        |      ;  
@@ -1621,7 +1621,7 @@ Ten years have passed: db $06                               ;178B27|        |   
                        dl Set CGADSUB                       ;178C29|        |009F70;  
                        db $02                               ;178C2C|        |      ;  
                        db $07                               ;178C2D|        |      ; Black color
-                       dl Set RGB                           ;178C2E|        |009F83;  
+                       dl Set RGB(3b)                       ;178C2E|        |009F83;  
                        db $00                               ;178C31|        |      ;  
                        db $00                               ;178C32|        |      ;  
                        db $00                               ;178C33|        |      ;  
@@ -2415,7 +2415,7 @@ Ten years have passed: db $06                               ;178B27|        |   
                        dl Sub: Get/Set Music                ;178F81|        |009C3C;  
                        db $38                               ;178F84|        |      ;  
                        db $1B                               ;178F85|        |      ;  
-                       dw LOOSE_OP_009038                   ;178F86|        |009038;  
+                       dw Game breaking FF                  ;178F86|        |179038;  
                        db $05                               ;178F88|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_178F89: db $07                               ;178F89|        |      ;  
@@ -2424,13 +2424,13 @@ Ten years have passed: db $06                               ;178B27|        |   
                        dl CODE_009D69                       ;178F8E|        |009D69;  
                        db $01                               ;178F91|        |      ;  
                        db $07                               ;178F92|        |      ;  
-                       dl Do stuff (6b)                     ;178F93|        |009D6F;  
+                       dl Do stuff (1b)(1b)(2b)(2b)         ;178F93|        |009D6F;  
                        db $01                               ;178F96|        |      ;  
                        db $00                               ;178F97|        |      ;  
                        dw $3000                             ;178F98|        |      ;  
                        dw $0400                             ;178F9A|        |      ;  
                        db $07                               ;178F9C|        |      ;  
-                       dl Do stuff (6b)                     ;178F9D|        |009D6F;  
+                       dl Do stuff (1b)(1b)(2b)(2b)         ;178F9D|        |009D6F;  
                        db $02                               ;178FA0|        |      ;  
                        db $00                               ;178FA1|        |      ;  
                        dw $5000                             ;178FA2|        |      ;  
@@ -2468,7 +2468,7 @@ Ten years have passed: db $06                               ;178B27|        |   
                        dl UNREACH_179073                    ;178FE1|        |179073;  
                        db $01                               ;178FE4|        |      ;  
                        db $07                               ;178FE5|        |      ;  
-                       dl 00/A5D9_far                       ;178FE6|        |00A0A8;  
+                       dl Do_Stuff_far                      ;178FE6|        |00A0A8;  
                        db $07                               ;178FE9|        |      ;  
                        dl Chapter splash text               ;178FEA|        |179078;  
                        db $06                               ;178FED|        |      ;  
@@ -2581,13 +2581,13 @@ Clear the Chapter splash: db $01                               ;17904B|        |
                        db $07                               ;179062|        |      ;  
                        dl Main screen AND (1b)              ;179063|        |009DB6;  
                        db $1F                               ;179066|        |      ;  
-                       db $13                               ;179067|        |00002E;  
-                       db $2E                               ;179068|        |000021;  
-                       db $21                               ;179069|        |000000;  
+                       db $13                               ;179067|        |      ; 13: $212E = 0 (Main screen window mask)
+                       db $2E                               ;179068|        |      ;  
+                       db $21                               ;179069|        |      ;  
                        db $00                               ;17906A|        |      ;  
-                       db $06                               ;17906B|        |000001;  
-                       db $01                               ;17906C|        |00001C;  
-                       db $1C                               ;17906D|        |000A08;  
+                       db $06                               ;17906B|        |      ; 06 01
+                       db $01                               ;17906C|        |      ;  
+                       db $1C                               ;17906D|        |      ; 1C (Return)
                                                             ;      |        |      ;  
        UNREACH_17906E: db $08                               ;17906E|        |      ;  
                        db $0A                               ;17906F|        |      ;  
@@ -2679,13 +2679,13 @@ Clear the Chapter splash: db $01                               ;17904B|        |
                        dl CODE_009D69                       ;179193|        |009D69;  
                        db $01                               ;179196|        |      ;  
                        db $07                               ;179197|        |      ;  
-                       dl Do stuff (6b)                     ;179198|        |009D6F;  
+                       dl Do stuff (1b)(1b)(2b)(2b)         ;179198|        |009D6F;  
                        db $00                               ;17919B|        |      ;  
                        db $01                               ;17919C|        |      ;  
                        dw $0000                             ;17919D|        |      ;  
                        dw $1000                             ;17919F|        |      ;  
                        db $07                               ;1791A1|        |      ;  
-                       dl Do stuff (6b)                     ;1791A2|        |009D6F;  
+                       dl Do stuff (1b)(1b)(2b)(2b)         ;1791A2|        |009D6F;  
                        db $01                               ;1791A5|        |      ;  
                        db $01                               ;1791A6|        |      ;  
                        dw $0000                             ;1791A7|        |      ;  

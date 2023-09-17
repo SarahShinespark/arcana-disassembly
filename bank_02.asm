@@ -3,89 +3,101 @@
                                                             ;      |        |      ;  
                        db $FF                               ;028000|        |      ;  
                                                             ;      |        |      ;  
-         DATA8_028001: db $04                               ;028001|        |      ;  
+Bank_02_Enemy_Handling: db $04                               ;028001|        |      ;  
                        dl Battle prep?                      ;028002|        |029124;  
-                       db $09                               ;028005|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_028005: db $09                               ;028005|        |      ;  
                        dl CODE_0280EF                       ;028006|        |0280EF;  
                        db $1A                               ;028009|        |      ;  
-                       dw CODE_00802F                       ;02800A|        |00802F;  
+                       dw DATA8_02802F                      ;02800A|        |02802F;  
                        db $08                               ;02800C|        |      ;  
-                       dw CODE_00802F                       ;02800D|        |00802F;  
+                       dw DATA8_02802F                      ;02800D|        |02802F;  
                        db $04                               ;02800F|        |      ;  
                        dl DATA8_029111                      ;028010|        |029111;  
                        db $0B                               ;028013|        |      ;  
-                       dw LOOSE_OP_008021                   ;028014|        |008021;  
+                       dw DATA8_028021                      ;028014|        |028021;  
                        db $14                               ;028016|        |      ;  
                        db $01                               ;028017|        |      ;  
                        db $14                               ;028018|        |      ;  
                        db $01                               ;028019|        |      ;  
                        db $1A                               ;02801A|        |      ;  
-                       dw CODE_008005                       ;02801B|        |008005;  
+                       dw DATA8_028005                      ;02801B|        |028005;  
                        db $04                               ;02801D|        |      ;  
                        dl Sub: Enemy death anim             ;02801E|        |028F24;  
-                       db $24                               ;028021|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_028021: db $24                               ;028021|        |      ;  
                        db $02                               ;028022|        |      ;  
                        db $07                               ;028023|        |      ;  
-                       dl CODE_07B0B0                       ;028024|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028024|        |07B0B0;  
                        db $01                               ;028027|        |      ;  
                        db $00                               ;028028|        |      ;  
                        db $0B                               ;028029|        |      ;  
-                       dw CODE_008005                       ;02802A|        |008005;  
+                       dw DATA8_028005                      ;02802A|        |028005;  
                        db $1A                               ;02802C|        |      ;  
-                       dw LOOSE_OP_0090F1                   ;02802D|        |0090F1;  
-                       db $24                               ;02802F|        |      ;  
+                       dw Enemy dies SFX                    ;02802D|        |0290F1;  
+                                                            ;      |        |      ;  
+         DATA8_02802F: db $24                               ;02802F|        |      ;  
                        db $02                               ;028030|        |      ;  
                        db $07                               ;028031|        |      ;  
                        dl Zeros 11DB                        ;028032|        |0781F0;  
                        db $08                               ;028035|        |      ;  
-                       dw LOOSE_OP_0080C9                   ;028036|        |0080C9;  
-                       db $24                               ;028038|        |      ;  
+                       dw UNREACH_0280C9                    ;028036|        |0280C9;  
+                                                            ;      |        |      ;  
+         DATA8_028038: db $24                               ;028038|        |      ;  
                        db $02                               ;028039|        |      ;  
                        db $07                               ;02803A|        |      ;  
                        dl CODE_078219                       ;02803B|        |078219;  
                        db $12                               ;02803E|        |      ;  
                        db $05                               ;02803F|        |      ;  
-                       dw LOOSE_OP_00804F                   ;028040|        |00804F;  
-                       dw LOOSE_OP_008055                   ;028042|        |008055;  
-                       dw LOOSE_OP_00805B                   ;028044|        |00805B;  
-                       dw LOOSE_OP_008061                   ;028046|        |008061;  
-                       dw LOOSE_OP_008067                   ;028048|        |008067;  
+                       dw DATA8_02804F                      ;028040|        |02804F;  
+                       dw DATA8_028055                      ;028042|        |028055;  
+                       dw DATA8_02805B                      ;028044|        |02805B;  
+                       dw DATA8_028061                      ;028046|        |028061;  
+                       dw DATA8_028067                      ;028048|        |028067;  
                        db $06                               ;02804A|        |      ;  
                        db $01                               ;02804B|        |      ;  
                        db $1A                               ;02804C|        |      ;  
-                       dw LOOSE_OP_008038                   ;02804D|        |008038;  
-                       db $14                               ;02804F|        |      ;  
+                       dw DATA8_028038                      ;02804D|        |028038;  
+                                                            ;      |        |      ;  
+         DATA8_02804F: db $14                               ;02804F|        |      ;  
                        db $01                               ;028050|        |      ;  
                        db $08                               ;028051|        |      ;  
-                       dw CODE_00806D                       ;028052|        |00806D;  
+                       dw UNREACH_02806D                    ;028052|        |02806D;  
                        db $1C                               ;028054|        |      ;  
-                       db $14                               ;028055|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_028055: db $14                               ;028055|        |      ;  
                        db $01                               ;028056|        |      ;  
                        db $08                               ;028057|        |      ;  
-                       dw CODE_008070                       ;028058|        |008070;  
+                       dw UNREACH_028070                    ;028058|        |028070;  
                        db $1C                               ;02805A|        |      ;  
-                       db $14                               ;02805B|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_02805B: db $14                               ;02805B|        |      ;  
                        db $01                               ;02805C|        |      ;  
                        db $08                               ;02805D|        |      ;  
-                       dw LOOSE_OP_008073                   ;02805E|        |008073;  
+                       dw UNREACH_028073                    ;02805E|        |028073;  
                        db $1C                               ;028060|        |      ;  
-                       db $14                               ;028061|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_028061: db $14                               ;028061|        |      ;  
                        db $01                               ;028062|        |      ;  
                        db $08                               ;028063|        |      ;  
-                       dw LOOSE_OP_008097                   ;028064|        |008097;  
+                       dw UNREACH_028097                    ;028064|        |028097;  
                        db $1C                               ;028066|        |      ;  
-                       db $14                               ;028067|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_028067: db $14                               ;028067|        |      ;  
                        db $01                               ;028068|        |      ;  
                        db $08                               ;028069|        |      ;  
-                       dw LOOSE_OP_0080C9                   ;02806A|        |0080C9;  
+                       dw UNREACH_0280C9                    ;02806A|        |0280C9;  
                        db $1C                               ;02806C|        |      ;  
-                       db $31                               ;02806D|        |000004;  
+                                                            ;      |        |      ;  
+       UNREACH_02806D: db $31                               ;02806D|        |000004;  
                        db $04                               ;02806E|        |00000A;  
                        db $0A                               ;02806F|        |      ;  
-                       db $31                               ;028070|        |000003;  
+                                                            ;      |        |      ;  
+       UNREACH_028070: db $31                               ;028070|        |000003;  
                        db $03                               ;028071|        |00000A;  
                        db $0A                               ;028072|        |      ;  
-                       db $31                               ;028073|        |000004;  
+                                                            ;      |        |      ;  
+       UNREACH_028073: db $31                               ;028073|        |000004;  
                        db $04                               ;028074|        |000031;  
                        db $31                               ;028075|        |000006;  
                        db $06                               ;028076|        |0000A9;  
@@ -121,7 +133,8 @@
                        db $1A                               ;028094|        |      ;  
                        db $73                               ;028095|        |000080;  
                        db $80                               ;028096|        |0280CC;  
-                       db $34                               ;028097|        |000004;  
+                                                            ;      |        |      ;  
+       UNREACH_028097: db $34                               ;028097|        |000004;  
                        db $04                               ;028098|        |000032;  
                        db $32                               ;028099|        |000006;  
                        db $06                               ;02809A|        |0000A8;  
@@ -171,7 +184,8 @@
                        db $1A                               ;0280C6|        |      ;  
                        db $97                               ;0280C7|        |000080;  
                        db $80                               ;0280C8|        |0280FA;  
-                       db $30                               ;0280C9|        |0280CF;  
+                                                            ;      |        |      ;  
+       UNREACH_0280C9: db $30                               ;0280C9|        |0280CF;  
                        db $04                               ;0280CA|        |000006;  
                        db $06                               ;0280CB|        |00002E;  
                        db $2E                               ;0280CC|        |000632;  
@@ -269,7 +283,7 @@
                        db $24                               ;028157|        |      ;  
                        db $02                               ;028158|        |      ;  
                        db $07                               ;028159|        |      ;  
-                       dl CODE_07B0B0                       ;02815A|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02815A|        |07B0B0;  
                        db $01                               ;02815D|        |      ;  
                        db $00                               ;02815E|        |      ;  
                        db $0B                               ;02815F|        |      ;  
@@ -488,7 +502,7 @@
                        db $24                               ;028275|        |      ;  
                        db $02                               ;028276|        |      ;  
                        db $07                               ;028277|        |      ;  
-                       dl CODE_07B0B0                       ;028278|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028278|        |07B0B0;  
                        db $01                               ;02827B|        |      ;  
                        db $00                               ;02827C|        |      ;  
                        db $0B                               ;02827D|        |      ;  
@@ -707,7 +721,7 @@
                        db $24                               ;028393|        |      ;  
                        db $02                               ;028394|        |      ;  
                        db $07                               ;028395|        |      ;  
-                       dl CODE_07B0B0                       ;028396|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028396|        |07B0B0;  
                        db $01                               ;028399|        |      ;  
                        db $00                               ;02839A|        |      ;  
                        db $0B                               ;02839B|        |      ;  
@@ -862,7 +876,7 @@
                        db $24                               ;028471|        |      ;  
                        db $02                               ;028472|        |      ;  
                        db $07                               ;028473|        |      ;  
-                       dl CODE_07B0B0                       ;028474|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028474|        |07B0B0;  
                        db $01                               ;028477|        |      ;  
                        db $00                               ;028478|        |      ;  
                        db $0B                               ;028479|        |      ;  
@@ -1017,7 +1031,7 @@
                        db $24                               ;02854F|        |      ;  
                        db $02                               ;028550|        |      ;  
                        db $07                               ;028551|        |      ;  
-                       dl CODE_07B0B0                       ;028552|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028552|        |07B0B0;  
                        db $01                               ;028555|        |      ;  
                        db $00                               ;028556|        |      ;  
                        db $0B                               ;028557|        |      ;  
@@ -1262,7 +1276,7 @@
                        db $24                               ;028686|        |      ;  
                        db $02                               ;028687|        |      ;  
                        db $07                               ;028688|        |      ;  
-                       dl CODE_07B0B0                       ;028689|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028689|        |07B0B0;  
                        db $01                               ;02868C|        |      ;  
                        db $00                               ;02868D|        |      ;  
                        db $0B                               ;02868E|        |      ;  
@@ -1506,7 +1520,7 @@
                        db $24                               ;0287BD|        |      ;  
                        db $02                               ;0287BE|        |      ;  
                        db $07                               ;0287BF|        |      ;  
-                       dl CODE_07B0B0                       ;0287C0|        |07B0B0;  
+                       dl Condition_Check(2b)               ;0287C0|        |07B0B0;  
                        db $01                               ;0287C3|        |      ;  
                        db $00                               ;0287C4|        |      ;  
                        db $0B                               ;0287C5|        |      ;  
@@ -1753,7 +1767,7 @@
                        db $24                               ;0288F7|        |      ;  
                        db $02                               ;0288F8|        |      ;  
                        db $07                               ;0288F9|        |      ;  
-                       dl CODE_07B0B0                       ;0288FA|        |07B0B0;  
+                       dl Condition_Check(2b)               ;0288FA|        |07B0B0;  
                        db $01                               ;0288FD|        |      ;  
                        db $00                               ;0288FE|        |      ;  
                        db $0B                               ;0288FF|        |      ;  
@@ -1912,7 +1926,7 @@
                        db $24                               ;0289D9|        |      ;  
                        db $02                               ;0289DA|        |      ;  
                        db $07                               ;0289DB|        |      ;  
-                       dl CODE_07B0B0                       ;0289DC|        |07B0B0;  
+                       dl Condition_Check(2b)               ;0289DC|        |07B0B0;  
                        db $01                               ;0289DF|        |      ;  
                        db $00                               ;0289E0|        |      ;  
                        db $0B                               ;0289E1|        |      ;  
@@ -2067,7 +2081,7 @@
                        db $24                               ;028AB7|        |      ;  
                        db $02                               ;028AB8|        |      ;  
                        db $07                               ;028AB9|        |      ;  
-                       dl CODE_07B0B0                       ;028ABA|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028ABA|        |07B0B0;  
                        db $01                               ;028ABD|        |      ;  
                        db $00                               ;028ABE|        |      ;  
                        db $0B                               ;028ABF|        |      ;  
@@ -2468,15 +2482,14 @@
                        STA.W Treasure type,X                ;028CDB|9DC709  |0009C7;  
                        RTL                                  ;028CDE|6B      |      ;  
                                                             ;      |        |      ;  
-                       db $07                               ;028CDF|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_028CDF: db $07                               ;028CDF|        |      ;  
                        dl Get enemy ID_far                  ;028CE0|        |07912A;  
-                       db $07                               ;028CE3|        |      ;  
-                       dl CODE_07B51C                       ;028CE4|        |07B51C;  
+                       db $07                               ;028CE3|        |      ; Get Enemy X name
+                       dl Get_EnemyX_Name                   ;028CE4|        |07B51C;  
                        db $07                               ;028CE7|        |      ; 07: ROM transfer from 0D/958C
                        dl Transfer_Data(3b)(1b)(2b)         ;028CE8|        |00A140;  
-                       db $8C                               ;028CEB|        |      ;  
-                       db $95                               ;028CEC|        |      ;  
-                       db $0D                               ;028CED|        |      ;  
+                       dl $189A85_2_bytes                   ;028CEB|        |0D958C;  
                        db $02                               ;028CEE|        |      ;  
                        db $02                               ;028CEF|        |      ;  
                        db $00                               ;028CF0|        |      ;  
@@ -2490,37 +2503,37 @@
                        dw X is petrified                    ;028CFB|        |028D0E; Petrified
                        dw X is confused                     ;028CFD|        |028D19; Confused
                        dw X is asleep                       ;028CFF|        |028D27; Asleep
-                       dw Is paralyzed?                     ;028D01|        |028D50; ??
+                       dw Normal_Enemy_Attack               ;028D01|        |028D50; Satisfactory
                                                             ;      |        |      ;  
        X is paralyzed: db $07                               ;028D03|        |      ;  
                        dl Read (3b) into text parser        ;028D04|        |00A0AC;  
                        dl X is paralized                    ;028D07|        |088936; 08/8936
                        db $00                               ;028D0A|        |      ;  
                        db $1A                               ;028D0B|        |      ;  
-                       dw LOOSE_OP_008F65                   ;028D0C|        |008F65;  
+                       dw Sub 8F65                          ;028D0C|        |028F65;  
                                                             ;      |        |      ;  
        X is petrified: db $07                               ;028D0E|        |      ;  
                        dl Read (3b) into text parser        ;028D0F|        |00A0AC;  
                        dl X is petrified                    ;028D12|        |08894E; 08/894E
                        db $00                               ;028D15|        |      ;  
                        db $1A                               ;028D16|        |      ;  
-                       dw LOOSE_OP_008F65                   ;028D17|        |008F65;  
+                       dw Sub 8F65                          ;028D17|        |028F65;  
                                                             ;      |        |      ;  
         X is confused: db $07                               ;028D19|        |      ;  
                        dl Read (3b) into text parser        ;028D1A|        |00A0AC;  
                        dl X is confused                     ;028D1D|        |088966; 08/8966
                        db $00                               ;028D20|        |      ;  
                        db $1B                               ;028D21|        |      ;  
-                       dw LOOSE_OP_008F65                   ;028D22|        |008F65;  
+                       dw Sub 8F65                          ;028D22|        |028F65;  
                        db $1A                               ;028D24|        |      ;  
-                       dw CODE_008D65                       ;028D25|        |008D65;  
+                       dw Confusion_Targeting               ;028D25|        |028D65;  
                                                             ;      |        |      ;  
           X is asleep: db $07                               ;028D27|        |      ;  
                        dl Read (3b) into text parser        ;028D28|        |00A0AC;  
                        dl X is asleep                       ;028D2B|        |08897D; 08/897D
                        db $00                               ;028D2E|        |      ;  
                        db $1B                               ;028D2F|        |      ;  
-                       dw LOOSE_OP_008F65                   ;028D30|        |008F65;  
+                       dw Sub 8F65                          ;028D30|        |028F65;  
                        db $07                               ;028D32|        |      ; Call RNG (1/4 chance to wake up)
                        dl RNG (1b), something               ;028D33|        |00A0BD;  
                        db $04                               ;028D36|        |      ;  
@@ -2543,218 +2556,239 @@
                        db $06                               ;028D4E|        |      ; Delay 01
                        db $01                               ;028D4F|        |      ;  
                                                             ;      |        |      ;  
-        Is paralyzed?: db $07                               ;028D50|        |      ; Roll 1d4
+  Normal_Enemy_Attack: db $07                               ;028D50|        |      ; Roll 1d4
                        dl RNG (1b), something               ;028D51|        |00A0BD;  
                        db $04                               ;028D54|        |      ;  
                        db $12                               ;028D55|        |      ;  
-                       db $04                               ;028D56|        |      ; Seems to store 1-4 in $0CB3,x
-                       dw CODE_008D8A                       ;028D57|        |008D8A;  
-                       dw LOOSE_OP_008DB3                   ;028D59|        |008DB3;  
-                       dw CODE_008DDC                       ;028D5B|        |008DDC;  
-                       dw CODE_008E05                       ;028D5D|        |008E05;  
-                       db $0B                               ;028D5F|        |      ;  
-                       dw LOOSE_OP_008D50                   ;028D60|        |008D50;  
-                       db $1A                               ;028D62|        |      ;  
-                       dw LOOSE_OP_008E83                   ;028D63|        |008E83;  
-                       db $07                               ;028D65|        |      ; Roll RNG (1/12)
+                       db $04                               ;028D56|        |      ; Roll PC target
+                       dw Rooks_Targetable                  ;028D57|        |028D8A;  
+                       dw Spirit_Targetable                 ;028D59|        |028DB3;  
+                       dw Guest1_Targetable                 ;028D5B|        |028DDC;  
+                       dw Guest2_Targetable                 ;028D5D|        |028E05;  
+                       db $0B                               ;028D5F|        |      ; Re-roll until you find one
+                       dw Normal_Enemy_Attack               ;028D60|        |028D50;  
+                       db $1A                               ;028D62|        |      ; Attack/Spellcast at the heroes (and Teefa)
+                       dw Enemy_Action                      ;028D63|        |028E83;  
+                                                            ;      |        |      ;  
+  Confusion_Targeting: db $07                               ;028D65|        |      ; Roll RNG (1/12)
                        dl RNG (1b), something               ;028D66|        |00A0BD;  
                        db $0C                               ;028D69|        |      ;  
                        db $12                               ;028D6A|        |      ;  
-                       db $0C                               ;028D6B|        |      ; Seems to store 01-0C in $0CB3,x
-                       dw CODE_008D8A                       ;028D6C|        |008D8A;  
-                       dw LOOSE_OP_008DB3                   ;028D6E|        |008DB3;  
-                       dw CODE_008DDC                       ;028D70|        |008DDC;  
-                       dw CODE_008E05                       ;028D72|        |008E05;  
-                       dw CODE_008E2E                       ;028D74|        |008E2E;  
-                       dw CODE_008E35                       ;028D76|        |008E35;  
-                       dw LOOSE_OP_008E3C                   ;028D78|        |008E3C;  
-                       dw CODE_008E43                       ;028D7A|        |008E43;  
-                       dw LOOSE_OP_008E4A                   ;028D7C|        |008E4A;  
-                       dw CODE_008E51                       ;028D7E|        |008E51;  
-                       dw LOOSE_OP_008E58                   ;028D80|        |008E58;  
-                       dw CODE_008E5F                       ;028D82|        |008E5F;  
-                       db $0B                               ;028D84|        |      ;  
-                       dw CODE_008D65                       ;028D85|        |008D65;  
+                                                            ;      |        |      ;  
+Roll_Confusion_Target: db $0C                               ;028D6B|        |      ; Checks if target (1-4 party) (5-12 enemy) is alive
+                       dw Rooks_Targetable                  ;028D6C|        |028D8A;  
+                       dw Spirit_Targetable                 ;028D6E|        |028DB3;  
+                       dw Guest1_Targetable                 ;028D70|        |028DDC;  
+                       dw Guest2_Targetable                 ;028D72|        |028E05;  
+                       dw Enemy1-8_Targetable               ;028D74|        |028E2E;  
+                       dw DATA8_028E35                      ;028D76|        |028E35;  
+                       dw DATA8_028E3C                      ;028D78|        |028E3C;  
+                       dw DATA8_028E43                      ;028D7A|        |028E43;  
+                       dw DATA8_028E4A                      ;028D7C|        |028E4A;  
+                       dw DATA8_028E51                      ;028D7E|        |028E51;  
+                       dw DATA8_028E58                      ;028D80|        |028E58;  
+                       dw DATA8_028E5F                      ;028D82|        |028E5F;  
+                       db $0B                               ;028D84|        |      ; Re-roll if 0
+                       dw Confusion_Targeting               ;028D85|        |028D65;  
                        db $1A                               ;028D87|        |      ; Jump always: Enemy spell cast
-                       dw LOOSE_OP_008E83                   ;028D88|        |008E83;  
-                       db $1E                               ;028D8A|        |      ;  
+                       dw Enemy_Action                      ;028D88|        |028E83;  
+                                                            ;      |        |      ;  
+     Rooks_Targetable: db $1E                               ;028D8A|        |      ; Rooks Not Here?
                        db $00                               ;028D8B|        |      ;  
                        db $00                               ;028D8C|        |      ;  
                        db $07                               ;028D8D|        |      ;  
-                       dl CODE_07B0B0                       ;028D8E|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028D8E|        |07B0B0;  
                        db $02                               ;028D91|        |      ;  
                        db $00                               ;028D92|        |      ;  
-                       db $0C                               ;028D93|        |      ; If true: jump to 8E7B
-                       dw CODE_008E7B                       ;028D94|        |008E7B;  
-                       db $1E                               ;028D96|        |      ;  
+                       db $0C                               ;028D93|        |      ; If true: invalid target
+                       dw Invalid_Target                    ;028D94|        |028E7B;  
+                       db $1E                               ;028D96|        |      ; Rooks dead?
                        db $00                               ;028D97|        |      ;  
                        db $00                               ;028D98|        |      ;  
                        db $07                               ;028D99|        |      ;  
-                       dl CODE_07B0B0                       ;028D9A|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028D9A|        |07B0B0;  
                        db $01                               ;028D9D|        |      ;  
                        db $00                               ;028D9E|        |      ;  
-                       db $0C                               ;028D9F|        |      ;  
-                       dw CODE_008E7B                       ;028DA0|        |008E7B;  
+                       db $0C                               ;028D9F|        |      ; If true: invalid target
+                       dw Invalid_Target                    ;028DA0|        |028E7B;  
                        db $0F                               ;028DA2|        |      ; Set $0A0F,x to 0
                        db $03                               ;028DA3|        |      ;  
                        db $00                               ;028DA4|        |      ;  
                        db $00                               ;028DA5|        |      ;  
                        db $07                               ;028DA6|        |      ;  
-                       dl CODE_07B4A1                       ;028DA7|        |07B4A1;  
+                       dl Load_Temp_Var(2b)                 ;028DA7|        |07B4A1;  
                        db $03                               ;028DAA|        |      ;  
                        db $00                               ;028DAB|        |      ;  
                        db $07                               ;028DAC|        |      ;  
-                       dl CODE_07B4FE                       ;028DAD|        |07B4FE;  
+                       dl Get_PC_name2                      ;028DAD|        |07B4FE;  
                        db $1A                               ;028DB0|        |      ;  
-                       dw LOOSE_OP_008E7F                   ;028DB1|        |008E7F;  
-                       db $1E                               ;028DB3|        |      ;  
+                       dw Valid_Target                      ;028DB1|        |028E7F;  
+                                                            ;      |        |      ;  
+    Spirit_Targetable: db $1E                               ;028DB3|        |      ; Spirit not here?
                        dw $0001                             ;028DB4|        |      ;  
                        db $07                               ;028DB6|        |      ;  
-                       dl CODE_07B0B0                       ;028DB7|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028DB7|        |07B0B0;  
                        dw $0002                             ;028DBA|        |      ;  
-                       db $0C                               ;028DBC|        |      ;  
-                       dw CODE_008E7B                       ;028DBD|        |008E7B;  
-                       db $1E                               ;028DBF|        |      ;  
+                       db $0C                               ;028DBC|        |      ; If true: invalid target
+                       dw Invalid_Target                    ;028DBD|        |028E7B;  
+                       db $1E                               ;028DBF|        |      ; Spirit dead?
                        dw $0001                             ;028DC0|        |      ;  
                        db $07                               ;028DC2|        |      ;  
-                       dl CODE_07B0B0                       ;028DC3|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028DC3|        |07B0B0;  
                        dw $0001                             ;028DC6|        |      ;  
-                       db $0C                               ;028DC8|        |      ;  
-                       dw CODE_008E7B                       ;028DC9|        |008E7B;  
+                       db $0C                               ;028DC8|        |      ; If true: invalid target
+                       dw Invalid_Target                    ;028DC9|        |028E7B;  
                        db $0F                               ;028DCB|        |      ;  
                        db $03                               ;028DCC|        |      ;  
                        dw $0001                             ;028DCD|        |      ;  
                        db $07                               ;028DCF|        |      ;  
-                       dl CODE_07B4A1                       ;028DD0|        |07B4A1;  
+                       dl Load_Temp_Var(2b)                 ;028DD0|        |07B4A1;  
                        dw $0003                             ;028DD3|        |      ;  
                        db $07                               ;028DD5|        |      ;  
-                       dl CODE_07B4FE                       ;028DD6|        |07B4FE;  
+                       dl Get_PC_name2                      ;028DD6|        |07B4FE;  
                        db $1A                               ;028DD9|        |      ;  
-                       dw LOOSE_OP_008E7F                   ;028DDA|        |008E7F;  
-                       db $1E                               ;028DDC|        |      ;  
+                       dw Valid_Target                      ;028DDA|        |028E7F;  
+                                                            ;      |        |      ;  
+    Guest1_Targetable: db $1E                               ;028DDC|        |      ;  
                        dw $0002                             ;028DDD|        |      ;  
-                       db $07                               ;028DDF|        |      ;  
-                       dl CODE_07B0B0                       ;028DE0|        |07B0B0;  
+                       db $07                               ;028DDF|        |      ; Is Guest1 missing?
+                       dl Condition_Check(2b)               ;028DE0|        |07B0B0;  
                        dw $0002                             ;028DE3|        |      ;  
-                       db $0C                               ;028DE5|        |      ;  
-                       dw CODE_008E7B                       ;028DE6|        |008E7B;  
+                       db $0C                               ;028DE5|        |      ; If so branch to Invalid Target
+                       dw Invalid_Target                    ;028DE6|        |028E7B;  
                        db $1E                               ;028DE8|        |      ;  
                        dw $0002                             ;028DE9|        |      ;  
-                       db $07                               ;028DEB|        |      ;  
-                       dl CODE_07B0B0                       ;028DEC|        |07B0B0;  
+                       db $07                               ;028DEB|        |      ; Is Guest1 dead?
+                       dl Condition_Check(2b)               ;028DEC|        |07B0B0;  
                        dw $0001                             ;028DEF|        |      ;  
-                       db $0C                               ;028DF1|        |      ;  
-                       dw CODE_008E7B                       ;028DF2|        |008E7B;  
-                       db $0F                               ;028DF4|        |      ;  
+                       db $0C                               ;028DF1|        |      ; If so branch to Invalid Target
+                       dw Invalid_Target                    ;028DF2|        |028E7B;  
+                       db $0F                               ;028DF4|        |      ; Set attack target to Guest1
                        db $03                               ;028DF5|        |      ;  
-                       dw $0002                             ;028DF6|        |000002;  
-                       db $07                               ;028DF8|        |      ;  
-                       dl CODE_07B4A1                       ;028DF9|        |07B4A1;  
+                       db $02                               ;028DF6|        |      ;  
+                       db $00                               ;028DF7|        |      ;  
+                       db $07                               ;028DF8|        |      ; Load attack target
+                       dl Load_Temp_Var(2b)                 ;028DF9|        |07B4A1;  
                        dw $0003                             ;028DFC|        |      ;  
-                       db $07                               ;028DFE|        |      ;  
-                       dl CODE_07B4FE                       ;028DFF|        |07B4FE;  
-                       db $1A                               ;028E02|        |      ;  
-                       dw LOOSE_OP_008E7F                   ;028E03|        |008E7F;  
-                       db $1E                               ;028E05|        |      ;  
+                       db $07                               ;028DFE|        |      ; Load character name
+                       dl Get_PC_name2                      ;028DFF|        |07B4FE;  
+                       db $1A                               ;028E02|        |      ; Branch to Valid Target and continue
+                       dw Valid_Target                      ;028E03|        |028E7F;  
+                                                            ;      |        |      ;  
+    Guest2_Targetable: db $1E                               ;028E05|        |      ; Guest2 is Not Here?
                        dw $0003                             ;028E06|        |      ;  
                        db $07                               ;028E08|        |      ;  
-                       dl CODE_07B0B0                       ;028E09|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028E09|        |07B0B0;  
                        dw $0002                             ;028E0C|        |      ;  
                        db $0C                               ;028E0E|        |      ;  
-                       dw CODE_008E7B                       ;028E0F|        |008E7B;  
+                       dw Invalid_Target                    ;028E0F|        |028E7B;  
                        db $1E                               ;028E11|        |      ;  
                        dw $0003                             ;028E12|        |      ;  
                        db $07                               ;028E14|        |      ;  
-                       dl CODE_07B0B0                       ;028E15|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028E15|        |07B0B0;  
                        dw $0001                             ;028E18|        |      ;  
                        db $0C                               ;028E1A|        |      ;  
-                       dw CODE_008E7B                       ;028E1B|        |008E7B;  
+                       dw Invalid_Target                    ;028E1B|        |028E7B;  
                        db $0F                               ;028E1D|        |      ;  
                        db $03                               ;028E1E|        |      ;  
-                       dw $0003                             ;028E1F|        |000003;  
+                       db $03                               ;028E1F|        |      ;  
+                       db $00                               ;028E20|        |      ;  
                        db $07                               ;028E21|        |      ;  
-                       dl CODE_07B4A1                       ;028E22|        |07B4A1;  
+                       dl Load_Temp_Var(2b)                 ;028E22|        |07B4A1;  
                        dw $0003                             ;028E25|        |      ;  
                        db $07                               ;028E27|        |      ;  
-                       dl CODE_07B4FE                       ;028E28|        |07B4FE;  
+                       dl Get_PC_name2                      ;028E28|        |07B4FE;  
                        db $1A                               ;028E2B|        |      ;  
-                       dw LOOSE_OP_008E7F                   ;028E2C|        |008E7F;  
-                       db $0F                               ;028E2E|        |      ;  
+                       dw Valid_Target                      ;028E2C|        |028E7F;  
+                                                            ;      |        |      ;  
+  Enemy1-8_Targetable: db $0F                               ;028E2E|        |      ;  
                        db $03                               ;028E2F|        |      ;  
                        dw $0004                             ;028E30|        |      ;  
                        db $1A                               ;028E32|        |      ;  
-                       dw LOOSE_OP_008E63                   ;028E33|        |008E63;  
-                       db $0F                               ;028E35|        |      ;  
+                       dw Enemy_Dead_Check                  ;028E33|        |028E63;  
+                                                            ;      |        |      ;  
+         DATA8_028E35: db $0F                               ;028E35|        |      ;  
                        db $03                               ;028E36|        |      ;  
                        dw $0005                             ;028E37|        |      ;  
                        db $1A                               ;028E39|        |      ;  
-                       dw LOOSE_OP_008E63                   ;028E3A|        |008E63;  
-                       db $0F                               ;028E3C|        |      ;  
+                       dw Enemy_Dead_Check                  ;028E3A|        |028E63;  
+                                                            ;      |        |      ;  
+         DATA8_028E3C: db $0F                               ;028E3C|        |      ;  
                        db $03                               ;028E3D|        |      ;  
                        dw $0006                             ;028E3E|        |      ;  
                        db $1A                               ;028E40|        |      ;  
-                       dw LOOSE_OP_008E63                   ;028E41|        |008E63;  
-                       db $0F                               ;028E43|        |      ;  
+                       dw Enemy_Dead_Check                  ;028E41|        |028E63;  
+                                                            ;      |        |      ;  
+         DATA8_028E43: db $0F                               ;028E43|        |      ;  
                        db $03                               ;028E44|        |      ;  
                        dw $0007                             ;028E45|        |      ;  
                        db $1A                               ;028E47|        |      ;  
-                       dw LOOSE_OP_008E63                   ;028E48|        |008E63;  
-                       db $0F                               ;028E4A|        |      ;  
+                       dw Enemy_Dead_Check                  ;028E48|        |028E63;  
+                                                            ;      |        |      ;  
+         DATA8_028E4A: db $0F                               ;028E4A|        |      ;  
                        db $03                               ;028E4B|        |      ;  
                        dw $0008                             ;028E4C|        |      ;  
                        db $1A                               ;028E4E|        |      ;  
-                       dw LOOSE_OP_008E63                   ;028E4F|        |008E63;  
-                       db $0F                               ;028E51|        |      ;  
+                       dw Enemy_Dead_Check                  ;028E4F|        |028E63;  
+                                                            ;      |        |      ;  
+         DATA8_028E51: db $0F                               ;028E51|        |      ;  
                        db $03                               ;028E52|        |      ;  
                        dw $0009                             ;028E53|        |      ;  
                        db $1A                               ;028E55|        |      ;  
-                       dw LOOSE_OP_008E63                   ;028E56|        |008E63;  
-                       db $0F                               ;028E58|        |      ;  
+                       dw Enemy_Dead_Check                  ;028E56|        |028E63;  
+                                                            ;      |        |      ;  
+         DATA8_028E58: db $0F                               ;028E58|        |      ;  
                        db $03                               ;028E59|        |      ;  
                        dw $000A                             ;028E5A|        |      ;  
                        db $1A                               ;028E5C|        |      ;  
-                       dw LOOSE_OP_008E63                   ;028E5D|        |008E63;  
-                       db $0F                               ;028E5F|        |      ;  
+                       dw Enemy_Dead_Check                  ;028E5D|        |028E63;  
+                                                            ;      |        |      ;  
+         DATA8_028E5F: db $0F                               ;028E5F|        |      ;  
                        db $03                               ;028E60|        |      ;  
                        dw $000B                             ;028E61|        |      ;  
-                       db $24                               ;028E63|        |      ;  
+                                                            ;      |        |      ;  
+     Enemy_Dead_Check: db $24                               ;028E63|        |      ;  
                        db $03                               ;028E64|        |      ;  
                        db $07                               ;028E65|        |      ;  
-                       dl CODE_07B0B0                       ;028E66|        |07B0B0;  
+                       dl Condition_Check(2b)               ;028E66|        |07B0B0;  
                        dw $0001                             ;028E69|        |      ;  
                        db $0C                               ;028E6B|        |      ;  
-                       dw CODE_008E7B                       ;028E6C|        |008E7B;  
+                       dw Invalid_Target                    ;028E6C|        |028E7B;  
                        db $24                               ;028E6E|        |      ;  
                        db $03                               ;028E6F|        |      ;  
                        db $07                               ;028E70|        |      ;  
                        dl CODE_079139                       ;028E71|        |079139;  
-                       db $07                               ;028E74|        |      ;  
-                       dl CODE_07B5BA                       ;028E75|        |07B5BA;  
-                       db $1A                               ;028E78|        |      ;  
-                       dw LOOSE_OP_008E7F                   ;028E79|        |008E7F;  
-                       db $1E                               ;028E7B|        |      ; Store 0 in $0CB3,x
+                       db $07                               ;028E74|        |      ; Get enemy name
+                       dl Get_Enemy_Name                    ;028E75|        |07B5BA;  
+                       db $1A                               ;028E78|        |      ; Return valid target
+                       dw Valid_Target                      ;028E79|        |028E7F;  
+                                                            ;      |        |      ;  
+       Invalid_Target: db $1E                               ;028E7B|        |      ; Store 0 in $0CB3,x
                        db $00                               ;028E7C|        |      ;  
                        db $00                               ;028E7D|        |      ;  
                        db $1C                               ;028E7E|        |      ; End section
-                       db $1E                               ;028E7F|        |      ; Store 1 in $0CB3,x
+                                                            ;      |        |      ;  
+         Valid_Target: db $1E                               ;028E7F|        |      ; Store 1 in $0CB3,x
                        db $01                               ;028E80|        |      ;  
                        db $00                               ;028E81|        |      ;  
                        db $1C                               ;028E82|        |      ; End section
-                       db $07                               ;028E83|        |      ; Enemy spellcast
+                                                            ;      |        |      ;  
+         Enemy_Action: db $07                               ;028E83|        |      ; Enemy spellcast
                        dl Enemy spellcast                   ;028E84|        |078272;  
-                       db $0B                               ;028E87|        |      ; If false, confusion attack
-                       dw LOOSE_OP_008EB6                   ;028E88|        |008EB6;  
-                       db $07                               ;028E8A|        |      ; Roll 1d4
+                       db $0B                               ;028E87|        |      ; If false, roll enemy physical attack
+                       dw Enemy_Physical_Attack             ;028E88|        |028EB6;  
+                                                            ;      |        |      ;  
+   Enemy_Spell_Attack: db $07                               ;028E8A|        |      ; Roll 1d4
                        dl RNG (1b), something               ;028E8B|        |00A0BD;  
                        db $04                               ;028E8E|        |      ;  
                        db $12                               ;028E8F|        |      ;  
-                       db $04                               ;028E90|        |      ;  
-                       dw CODE_008D8A                       ;028E91|        |008D8A;  
-                       dw LOOSE_OP_008DB3                   ;028E93|        |008DB3;  
-                       dw CODE_008DDC                       ;028E95|        |008DDC;  
-                       dw CODE_008E05                       ;028E97|        |008E05;  
-                       db $0B                               ;028E99|        |      ;  
-                       dw LOOSE_OP_008E8A                   ;028E9A|        |008E8A;  
+                       db $04                               ;028E90|        |      ; Check if target is available
+                       dw Rooks_Targetable                  ;028E91|        |028D8A;  
+                       dw Spirit_Targetable                 ;028E93|        |028DB3;  
+                       dw Guest1_Targetable                 ;028E95|        |028DDC;  
+                       dw Guest2_Targetable                 ;028E97|        |028E05;  
+                       db $0B                               ;028E99|        |      ; Keep rolling until valid target
+                       dw Enemy_Spell_Attack                ;028E9A|        |028E8A;  
                        db $07                               ;028E9C|        |      ;  
                        dl Set attacker/target using 0A0F    ;028E9D|        |07916B;  
                        db $07                               ;028EA0|        |      ;  
@@ -2766,53 +2800,54 @@
                        db $07                               ;028EAC|        |      ;  
                        dl Boss monster?                     ;028EAD|        |07832D;  
                        db $0B                               ;028EB0|        |      ;  
-                       dw CODE_008EB5                       ;028EB1|        |008EB5;  
-                       db $14                               ;028EB3|        |000001;  
-                       db $01                               ;028EB4|        |00001C;  
-                       db $1C                               ;028EB5|        |      ;  
+                       dw DATA8_028EB5                      ;028EB1|        |028EB5;  
+                       db $14                               ;028EB3|        |      ; 14 01
+                       db $01                               ;028EB4|        |      ;  
                                                             ;      |        |      ;  
-     Confusion attack: db $07                               ;028EB6|        |      ; "X Attacks!"
+         DATA8_028EB5: db $1C                               ;028EB5|        |      ; 1C: Return
+                                                            ;      |        |      ;  
+Enemy_Physical_Attack: db $07                               ;028EB6|        |      ; "X Attacks!"
                        dl Read (3b) into text parser        ;028EB7|        |00A0AC;  
                        dl X Attacks                         ;028EBA|        |088492;  
                        db $00                               ;028EBD|        |      ;  
                        db $1B                               ;028EBE|        |      ; JSR 8F65
-                       dw LOOSE_OP_008F65                   ;028EBF|        |008F65;  
+                       dw Sub 8F65                          ;028EBF|        |028F65;  
                        db $1B                               ;028EC1|        |      ; JSR 8F79 (Attack animation)
-                       dw LOOSE_OP_008F79                   ;028EC2|        |008F79;  
+                       dw Sub_Attack_Animation              ;028EC2|        |028F79;  
                        db $06                               ;028EC4|        |      ; Delay 02
                        db $02                               ;028EC5|        |      ;  
                        db $07                               ;028EC6|        |      ; Load attacker and target
                        dl Set attacker/target using 0A0F    ;028EC7|        |07916B;  
                        db $07                               ;028ECA|        |      ; Attacking someone else?
                        dl Targeting another?                ;028ECB|        |07917D;  
-                       db $0B                               ;028ECE|        |      ; If false, jump to Confusion damage
-                       dw LOOSE_OP_008EE2                   ;028ECF|        |008EE2;  
+                       db $0B                               ;028ECE|        |      ; If false, jump to self-Confusion damage
+                       dw Confusion damage                  ;028ECF|        |028EE2;  
                        db $07                               ;028ED1|        |      ; Roll hit/damage
                        dl Roll to hit                       ;028ED2|        |07918D;  
                        db $0B                               ;028ED5|        |      ; If zero, jump to 8F61
-                       dw CODE_008F61                       ;028ED6|        |008F61;  
+                       dw DATA8_028F61                      ;028ED6|        |028F61;  
                        db $07                               ;028ED8|        |      ; Fatal damage?
                        dl Fatal damage?                     ;028ED9|        |078CB8;  
                        db $0B                               ;028EDC|        |      ; If false, jump to 8F37
-                       dw LOOSE_OP_008F37                   ;028EDD|        |008F37;  
+                       dw Nonfatal damage                   ;028EDD|        |028F37;  
                        db $1A                               ;028EDF|        |      ; Jump always to 8F4C (Ouch!)
                        dw LOOSE_OP_008F4C                   ;028EE0|        |008F4C;  
                                                             ;      |        |      ;  
      Confusion damage: db $07                               ;028EE2|        |      ; Hit check
                        dl Roll to hit                       ;028EE3|        |07918D;  
                        db $0B                               ;028EE6|        |      ; If missed, jump to Surprised by his wounds
-                       dw LOOSE_OP_008F14                   ;028EE7|        |008F14;  
+                       dw Surprised by his wounds           ;028EE7|        |028F14;  
                        db $07                               ;028EE9|        |      ; Fatal damage?
                        dl Fatal damage?                     ;028EEA|        |078CB8;  
                        db $0B                               ;028EED|        |      ; Jump if false to Enemy despises himself
-                       dw CODE_008F04                       ;028EEE|        |008F04;  
+                       dw Enemy despises himself            ;028EEE|        |028F04;  
                                                             ;      |        |      ;  
   Enemy lost his mind: db $07                               ;028EF0|        |      ; Call text "Enemy has lost his mind"
                        dl Read (3b) into text parser        ;028EF1|        |00A0AC;  
                        dl X has lost his mind.              ;028EF4|        |0885AF;  
                        db $00                               ;028EF7|        |      ;  
                        db $1B                               ;028EF8|        |      ; JSR 8F65
-                       dw LOOSE_OP_008F65                   ;028EF9|        |008F65;  
+                       dw Sub 8F65                          ;028EF9|        |028F65;  
                        db $14                               ;028EFB|        |      ;  
                        db $01                               ;028EFC|        |      ;  
                        db $14                               ;028EFD|        |      ;  
@@ -2826,7 +2861,7 @@ Enemy despises himself: db $07                               ;028F04|        |  
                        dl X despises himself                ;028F08|        |0885C8;  
                        db $00                               ;028F0B|        |      ;  
                        db $1B                               ;028F0C|        |      ; JSR 8F65
-                       dw LOOSE_OP_008F65                   ;028F0D|        |008F65;  
+                       dw Sub 8F65                          ;028F0D|        |028F65;  
                        db $14                               ;028F0F|        |      ;  
                        db $01                               ;028F10|        |      ;  
                        db $14                               ;028F11|        |      ;  
@@ -2838,7 +2873,7 @@ Surprised by his wounds: db $07                               ;028F14|        | 
                        dl Surprised by his wounds           ;028F18|        |0885DF;  
                        db $00                               ;028F1B|        |      ;  
                        db $1B                               ;028F1C|        |      ; JSR 8F65
-                       dw LOOSE_OP_008F65                   ;028F1D|        |008F65;  
+                       dw Sub 8F65                          ;028F1D|        |028F65;  
                        db $14                               ;028F1F|        |      ;  
                        db $01                               ;028F20|        |      ;  
                        db $14                               ;028F21|        |      ;  
@@ -2851,7 +2886,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        db $1E                               ;028F29|        |      ; Store 7 in $0CB3,x
                        db $07                               ;028F2A|        |      ;  
                        db $00                               ;028F2B|        |      ;  
-                       db $07                               ;028F2C|        |      ;  
+                       db $07                               ;028F2C|        |      ; Data pull
                        dl CODE_1882E6                       ;028F2D|        |1882E6;  
                        db $31                               ;028F30|        |      ; Animation 00
                        db $00                               ;028F31|        |      ;  
@@ -2885,13 +2920,14 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        db $00                               ;028F5D|        |      ;  
                        db $1A                               ;028F5E|        |      ;  
                        dw LOOSE_OP_008F65                   ;028F5F|        |008F65;  
-                       db $07                               ;028F61|        |      ; Show dodge message
+                                                            ;      |        |      ;  
+         DATA8_028F61: db $07                               ;028F61|        |      ; Show dodge message
                        dl Show dodge message                ;028F62|        |07B7A6;  
                                                             ;      |        |      ;  
              Sub 8F65: db $06                               ;028F65|        |      ;  
                        db $01                               ;028F66|        |      ;  
                        db $07                               ;028F67|        |      ; Something with $1095
-                       dl Some $1095 check                  ;028F68|        |07BA4F;  
+                       dl Some $1095 check(1b)              ;028F68|        |07BA4F;  
                        db $00                               ;028F6B|        |      ;  
                        db $0B                               ;028F6C|        |      ; Jump if false to 8F65
                        dw LOOSE_OP_008F65                   ;028F6D|        |008F65;  
@@ -2903,14 +2939,14 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        db $00                               ;028F75|        |      ;  
                        db $06                               ;028F76|        |      ; Delay 0A
                        db $0A                               ;028F77|        |      ;  
-                       db $1C                               ;028F78|        |      ;  
+                       db $1C                               ;028F78|        |      ; 1C: Return
                                                             ;      |        |      ;  
-             Sub 8F79: db $07                               ;028F79|        |      ; Get enemy ID
+ Sub_Attack_Animation: db $07                               ;028F79|        |      ; Get enemy ID
                        dl Get enemy ID_far                  ;028F7A|        |07912A;  
                        db $07                               ;028F7D|        |      ; Boss monster?
                        dl Boss monster?                     ;028F7E|        |07832D;  
                        db $0C                               ;028F81|        |      ; Jump to Boss attack animation
-                       dw CODE_008FBD                       ;028F82|        |008FBD;  
+                       dw Get Boss attack animation         ;028F82|        |028FBD;  
                        db $24                               ;028F84|        |      ; Load $09EB,x
                        db $02                               ;028F85|        |      ;  
                        db $07                               ;028F86|        |      ; Store in $11B5
@@ -2930,7 +2966,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        dl Load_Sprite(14b)                  ;028F9C|        |009CAE;  
                        db $00                               ;028F9F|        |      ;  
                        db $0A                               ;028FA0|        |      ;  
-                       db $10                               ;028FA1|        |028FA3;  
+                       db $10                               ;028FA1|        |      ;  
                        db $00                               ;028FA2|        |      ;  
                        db $00                               ;028FA3|        |      ;  
                        db $00                               ;028FA4|        |      ;  
@@ -2946,13 +2982,14 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
  Removing enemy/boss?: db $07                               ;028FAD|        |      ; Store result in $11BB
                        dl Store A in $11B5,x (1b offset)    ;028FAE|        |07AF9E;  
                        db $03                               ;028FB1|        |      ;  
-                       db $06                               ;028FB2|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_028FB2: db $06                               ;028FB2|        |      ;  
                        db $01                               ;028FB3|        |      ;  
                        db $07                               ;028FB4|        |      ; 07: 07/AF6C Is enemy removed from battle?
-                       dl Is Enemy Removed?                 ;028FB5|        |07AF6C;  
+                       dl Is Enemy Removed?(1b)             ;028FB5|        |07AF6C;  
                        db $03                               ;028FB8|        |      ; Is enemy 3 removed?
                        db $0B                               ;028FB9|        |      ; 0B: Jump if false (8FB2)
-                       dw LOOSE_OP_008FB2                   ;028FBA|        |008FB2;  
+                       dw DATA8_028FB2                      ;028FBA|        |028FB2;  
                        db $1C                               ;028FBC|        |      ; End section/Reset animation
                                                             ;      |        |      ;  
 Get Boss attack animation: db $14                               ;028FBD|        |      ;  
@@ -2964,26 +3001,26 @@ Get Boss attack animation: db $14                               ;028FBD|        
                        db $11                               ;028FC7|        |      ; 11: Switch case (boss #)
                        db $10                               ;028FC8|        |      ;  
                                                             ;      |        |      ;  
-PtrTable: Boss Animations: dw LOOSE_OP_008FEA                   ;028FC9|        |008FEA;  
-                       dw LOOSE_OP_008FFC                   ;028FCB|        |008FFC;  
-                       dw CODE_00900E                       ;028FCD|        |00900E;  
-                       dw CODE_00901A                       ;028FCF|        |00901A;  
-                       dw LOOSE_OP_009022                   ;028FD1|        |009022;  
-                       dw CODE_00902D                       ;028FD3|        |00902D;  
-                       dw Script Reader 2                   ;028FD5|        |00903C;  
-                       dw CODE_00904D                       ;028FD7|        |00904D;  
-                       dw CODE_009059                       ;028FD9|        |009059;  
-                       dw PTR16_00906E                      ;028FDB|        |00906E;  
-                       dw PTR16_009079                      ;028FDD|        |009079;  
-                       dw PTR16_009084                      ;028FDF|        |009084;  
-                       dw PTR16_00908F                      ;028FE1|        |00908F;  
-                       dw PTR16_00909A                      ;028FE3|        |00909A;  
-                       dw PTR16_0090A5                      ;028FE5|        |0090A5;  
-                       dw PTR16_0090B9                      ;028FE7|        |0090B9;  
+PtrTable: Boss Animations: dw Stone Guardian attacks            ;028FC9|        |028FEA;  
+                       dw Iron Guardian attacks             ;028FCB|        |028FFC;  
+                       dw Cyclops attacks                   ;028FCD|        |02900E;  
+                       dw Efrite attacks                    ;028FCF|        |02901A;  
+                       dw Zerel attacks                     ;028FD1|        |029022;  
+                       dw Hydra attacks                     ;028FD3|        |02902D;  
+                       dw Sauza attacks                     ;028FD5|        |02903C;  
+                       dw Darah attacks                     ;028FD7|        |02904D;  
+                       dw Barah attacks                     ;028FD9|        |029059;  
+                       dw Ariel attacks                     ;028FDB|        |02906E;  
+                       dw Teefa attacks                     ;028FDD|        |029079;  
+                       dw Karul attacks                     ;028FDF|        |029084;  
+                       dw Galneon 1 attacks                 ;028FE1|        |02908F;  
+                       dw Galneon 2 attacks                 ;028FE3|        |02909A;  
+                       dw Rimsala 1 attacks                 ;028FE5|        |0290A5;  
+                       dw Rimsala 2 attacks                 ;028FE7|        |0290B9;  
                        db $1C                               ;028FE9|        |      ; 1C: End section?
                                                             ;      |        |      ;  
 Stone Guardian attacks: db $1B                               ;028FEA|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;028FEB|        |0090E5;  
+                       dw Enemy attacks SFX                 ;028FEB|        |0290E5;  
                        db $30                               ;028FED|        |      ; 30: Animation 00 (Stand)
                        db $00                               ;028FEE|        |      ;  
                        db $06                               ;028FEF|        |      ; 06: Delay 01
@@ -3001,7 +3038,7 @@ Stone Guardian attacks: db $1B                               ;028FEA|        |  
                        db $1C                               ;028FFB|        |      ; 1C: End section? (Restart idle animation)
                                                             ;      |        |      ;  
 Iron Guardian attacks: db $1B                               ;028FFC|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;028FFD|        |0090E5;  
+                       dw Enemy attacks SFX                 ;028FFD|        |0290E5;  
                        db $30                               ;028FFF|        |      ; 30: Animation 00 (Stand)
                        db $00                               ;029000|        |      ;  
                        db $06                               ;029001|        |      ; 06: Delay 01
@@ -3019,7 +3056,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $1C                               ;02900D|        |      ; 1C: End section?
                                                             ;      |        |      ;  
       Cyclops attacks: db $1B                               ;02900E|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;02900F|        |0090E5;  
+                       dw Enemy attacks SFX                 ;02900F|        |0290E5;  
                        db $30                               ;029011|        |      ; 30: Animation 04
                        db $04                               ;029012|        |      ;  
                        db $06                               ;029013|        |      ; 06: Delay 06
@@ -3031,7 +3068,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $1C                               ;029019|        |      ;  
                                                             ;      |        |      ;  
        Efrite attacks: db $1B                               ;02901A|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;02901B|        |0090E5;  
+                       dw Enemy attacks SFX                 ;02901B|        |0290E5;  
                        db $30                               ;02901D|        |      ; 30: Animation 07
                        db $07                               ;02901E|        |      ;  
                        db $06                               ;02901F|        |      ; 06: Delay 30
@@ -3039,7 +3076,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $1C                               ;029021|        |      ; 1C: End section?
                                                             ;      |        |      ;  
         Zerel attacks: db $1B                               ;029022|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;029023|        |0090E5;  
+                       dw Enemy attacks SFX                 ;029023|        |0290E5;  
                        db $30                               ;029025|        |      ; 30: Animation 03
                        db $03                               ;029026|        |      ;  
                        db $06                               ;029027|        |      ; 06: Delay 14
@@ -3050,7 +3087,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $1C                               ;02902C|        |      ; 1C: End section? Restart idle
                                                             ;      |        |      ;  
         Hydra attacks: db $1B                               ;02902D|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;02902E|        |0090E5;  
+                       dw Enemy attacks SFX                 ;02902E|        |0290E5;  
                        db $30                               ;029030|        |      ; 30: Animation 04
                        db $04                               ;029031|        |      ;  
                        db $06                               ;029032|        |      ; 06: Delay 08
@@ -3069,7 +3106,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $06                               ;02903E|        |      ; 06: Delay 14
                        db $14                               ;02903F|        |      ;  
                        db $1B                               ;029040|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;029041|        |0090E5;  
+                       dw Enemy attacks SFX                 ;029041|        |0290E5;  
                        db $A8                               ;029043|        |      ; A8: Advance animation
                        db $06                               ;029044|        |      ; 06: Delay 0A
                        db $0A                               ;029045|        |      ;  
@@ -3082,7 +3119,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $1C                               ;02904C|        |      ; End section? Restart idle
                                                             ;      |        |      ;  
         Darah attacks: db $1B                               ;02904D|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;02904E|        |0090E5;  
+                       dw Enemy attacks SFX                 ;02904E|        |0290E5;  
                        db $30                               ;029050|        |      ; Animation 05
                        db $05                               ;029051|        |      ;  
                        db $06                               ;029052|        |      ; Delay 0C
@@ -3094,24 +3131,24 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $1C                               ;029058|        |      ; End section? Restart idle
                                                             ;      |        |      ;  
         Barah attacks: db $1B                               ;029059|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;02905A|        |0090E5;  
-                       db $01                               ;02905C|        |000004;  
-                       db $04                               ;02905D|        |000031;  
-                       db $31                               ;02905E|        |000003;  
-                       db $03                               ;02905F|        |000033;  
-                       db $33                               ;029060|        |000005;  
-                       db $05                               ;029061|        |000031;  
-                       db $31                               ;029062|        |000003;  
-                       db $03                               ;029063|        |000033;  
-                       db $33                               ;029064|        |000006;  
-                       db $06                               ;029065|        |000031;  
-                       db $31                               ;029066|        |000003;  
-                       db $03                               ;029067|        |000033;  
-                       db $33                               ;029068|        |000007;  
-                       db $07                               ;029069|        |000002;  
-                       db $02                               ;02906A|        |      ;  
-                       db $33                               ;02906B|        |000004;  
-                       db $04                               ;02906C|        |00001C;  
+                       dw Enemy attacks SFX                 ;02905A|        |0290E5;  
+                       db $01                               ;02905C|        |      ; Loop 4x
+                       db $04                               ;02905D|        |      ;  
+                       db $31                               ;02905E|        |      ;  
+                       db $03                               ;02905F|        |      ;  
+                       db $33                               ;029060|        |      ;  
+                       db $05                               ;029061|        |      ;  
+                       db $31                               ;029062|        |      ;  
+                       db $03                               ;029063|        |      ;  
+                       db $33                               ;029064|        |      ;  
+                       db $06                               ;029065|        |      ;  
+                       db $31                               ;029066|        |      ;  
+                       db $03                               ;029067|        |      ;  
+                       db $33                               ;029068|        |      ;  
+                       db $07                               ;029069|        |      ;  
+                       db $02                               ;02906A|        |      ; End loop
+                       db $33                               ;02906B|        |      ;  
+                       db $04                               ;02906C|        |      ;  
                        db $1C                               ;02906D|        |      ;  
                                                             ;      |        |      ;  
         Ariel attacks: db $30                               ;02906E|        |      ; Animation 03
@@ -3119,7 +3156,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $06                               ;029070|        |      ; Delay 14
                        db $14                               ;029071|        |      ;  
                        db $1B                               ;029072|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw PTR16_0090E5                      ;029073|        |0090E5;  
+                       dw Enemy attacks SFX                 ;029073|        |0290E5;  
                        db $A8                               ;029075|        |      ; Advance animation
                        db $06                               ;029076|        |      ; Delay 0A
                        db $0A                               ;029077|        |      ;  
@@ -3130,7 +3167,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $06                               ;02907B|        |      ; Delay 14
                        db $14                               ;02907C|        |      ;  
                        db $1B                               ;02907D|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw PTR16_0090E5                      ;02907E|        |0090E5;  
+                       dw Enemy attacks SFX                 ;02907E|        |0290E5;  
                        db $A8                               ;029080|        |      ; Advance animation
                        db $06                               ;029081|        |      ; Delay 0A
                        db $0A                               ;029082|        |      ;  
@@ -3141,7 +3178,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $06                               ;029086|        |      ; Delay 14
                        db $14                               ;029087|        |      ;  
                        db $1B                               ;029088|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw PTR16_0090E5                      ;029089|        |0090E5;  
+                       dw Enemy attacks SFX                 ;029089|        |0290E5;  
                        db $A8                               ;02908B|        |      ; Advance animation
                        db $06                               ;02908C|        |      ; Delay 0A
                        db $0A                               ;02908D|        |      ;  
@@ -3152,7 +3189,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $06                               ;029091|        |      ; Delay 14
                        db $14                               ;029092|        |      ;  
                        db $1B                               ;029093|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw PTR16_0090E5                      ;029094|        |0090E5;  
+                       dw Enemy attacks SFX                 ;029094|        |0290E5;  
                        db $A8                               ;029096|        |      ; Advance animation
                        db $06                               ;029097|        |      ; Delay 0A
                        db $0A                               ;029098|        |      ;  
@@ -3163,7 +3200,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $06                               ;02909C|        |      ; Delay 14
                        db $14                               ;02909D|        |      ;  
                        db $1B                               ;02909E|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw PTR16_0090E5                      ;02909F|        |0090E5;  
+                       dw Enemy attacks SFX                 ;02909F|        |0290E5;  
                        db $A8                               ;0290A1|        |      ; Next animation
                        db $06                               ;0290A2|        |      ; Delay 0A
                        db $0A                               ;0290A3|        |      ;  
@@ -3174,7 +3211,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $06                               ;0290A7|        |      ; Delay 20
                        db $20                               ;0290A8|        |      ;  
                        db $1B                               ;0290A9|        |      ; JSR 90E5 (Enemy attacks)
-                       dw PTR16_0090E5                      ;0290AA|        |0090E5;  
+                       dw Enemy attacks SFX                 ;0290AA|        |0290E5;  
                        db $30                               ;0290AC|        |      ; Animation 03
                        db $03                               ;0290AD|        |      ;  
                        db $06                               ;0290AE|        |      ; Delay 0A
@@ -3190,45 +3227,45 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $1C                               ;0290B8|        |      ; End section? Restart idle
                                                             ;      |        |      ;  
     Rimsala 2 attacks: db $1B                               ;0290B9|        |      ; JSR 90EB (Rimsala attacks) (Mwahaha)
-                       dw LOOSE_OP_0090EB                   ;0290BA|        |0090EB;  
+                       dw Rimsala attacks SFX               ;0290BA|        |0290EB;  
                        db $78                               ;0290BC|        |      ; This section messes with $0FEF,x and $0FF7,x
-                       db $01                               ;0290BD|        |000000;  
+                       db $01                               ;0290BD|        |      ;  
                        db $00                               ;0290BE|        |      ;  
                        db $00                               ;0290BF|        |      ;  
-                       db $80                               ;0290C0|        |0290C3;  
-                       db $01                               ;0290C1|        |000000;  
+                       db $80                               ;0290C0|        |      ;  
+                       db $01                               ;0290C1|        |      ;  
                        db $00                               ;0290C2|        |      ;  
                        db $00                               ;0290C3|        |      ;  
-                       db $06                               ;0290C4|        |      ;  
+                       db $06                               ;0290C4|        |      ; 06 0A
                        db $0A                               ;0290C5|        |      ;  
                        db $78                               ;0290C6|        |      ;  
-                       db $01                               ;0290C7|        |000000;  
+                       db $01                               ;0290C7|        |      ;  
                        db $00                               ;0290C8|        |      ;  
                        db $00                               ;0290C9|        |      ;  
-                       db $80                               ;0290CA|        |0290CD;  
-                       db $01                               ;0290CB|        |000000;  
+                       db $80                               ;0290CA|        |      ;  
+                       db $01                               ;0290CB|        |      ;  
                        db $00                               ;0290CC|        |      ;  
-                       db $01                               ;0290CD|        |000006;  
-                       db $06                               ;0290CE|        |      ;  
+                       db $01                               ;0290CD|        |      ;  
+                       db $06                               ;0290CE|        |      ; 06 0A
                        db $0A                               ;0290CF|        |      ;  
                        db $78                               ;0290D0|        |      ;  
-                       db $01                               ;0290D1|        |000000;  
+                       db $01                               ;0290D1|        |      ;  
                        db $00                               ;0290D2|        |      ;  
-                       db $01                               ;0290D3|        |000080;  
-                       db $80                               ;0290D4|        |0290D7;  
-                       db $01                               ;0290D5|        |000000;  
+                       db $01                               ;0290D3|        |      ;  
+                       db $80                               ;0290D4|        |      ;  
+                       db $01                               ;0290D5|        |      ;  
                        db $00                               ;0290D6|        |      ;  
-                       db $01                               ;0290D7|        |000006;  
-                       db $06                               ;0290D8|        |      ;  
+                       db $01                               ;0290D7|        |      ;  
+                       db $06                               ;0290D8|        |      ; 06 0A
                        db $0A                               ;0290D9|        |      ;  
                        db $78                               ;0290DA|        |      ;  
-                       db $01                               ;0290DB|        |000000;  
+                       db $01                               ;0290DB|        |      ;  
                        db $00                               ;0290DC|        |      ;  
                        db $00                               ;0290DD|        |      ;  
-                       db $80                               ;0290DE|        |0290E1;  
-                       db $01                               ;0290DF|        |000000;  
+                       db $80                               ;0290DE|        |      ;  
+                       db $01                               ;0290DF|        |      ;  
                        db $00                               ;0290E0|        |      ;  
-                       db $01                               ;0290E1|        |000006;  
+                       db $01                               ;0290E1|        |      ;  
                        db $06                               ;0290E2|        |      ; Delay 0A
                        db $0A                               ;0290E3|        |      ;  
                        db $1C                               ;0290E4|        |      ; End section? Restart idle
@@ -3251,7 +3288,8 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $07                               ;0290F9|        |      ; 07: 00/9C44 Play SFX
                        dl Sub: Get/Set SFX                  ;0290FA|        |009C44;  
                        db $02                               ;0290FD|        |      ; Card break SFX
-                       db $07                               ;0290FE|        |      ; 07: 07/B44C (Add exp to total won)
+                                                            ;      |        |      ;  
+Add_enemy_loot_to_total: db $07                               ;0290FE|        |      ; 07: 07/B44C (Add exp to total won)
                        dl Add EXP to total won              ;0290FF|        |07B44C;  
                        db $07                               ;029102|        |      ; 07: 07/B45F (Add GP to total won)
                        dl Add GP to total won               ;029103|        |07B45F;  
@@ -3264,7 +3302,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $00                               ;029110|        |      ;  
                                                             ;      |        |      ;  
          DATA8_029111: db $1B                               ;029111|        |      ;  
-                       dw CODE_008CDF                       ;029112|        |008CDF;  
+                       dw DATA8_028CDF                      ;029112|        |028CDF;  
                        db $1E                               ;029114|        |      ;  
                        dw $FFFF                             ;029115|        |      ;  
                        db $23                               ;029117|        |000003;  
@@ -3351,7 +3389,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;0291BB|        |      ; 24 02: Load $09EB,x
                        db $02                               ;0291BC|        |      ;  
                        db $07                               ;0291BD|        |      ;  
-                       dl CODE_07B0B0                       ;0291BE|        |07B0B0;  
+                       dl Condition_Check(2b)               ;0291BE|        |07B0B0;  
                        db $01                               ;0291C1|        |      ;  
                        db $00                               ;0291C2|        |      ;  
                        db $0B                               ;0291C3|        |      ;  
@@ -3495,7 +3533,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02928E|        |      ;  
                        db $02                               ;02928F|        |      ;  
                        db $07                               ;029290|        |      ;  
-                       dl CODE_07B0B0                       ;029291|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029291|        |07B0B0;  
                        db $01                               ;029294|        |      ;  
                        db $00                               ;029295|        |      ;  
                        db $0B                               ;029296|        |      ;  
@@ -3645,7 +3683,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029367|        |      ;  
                        db $02                               ;029368|        |      ;  
                        db $07                               ;029369|        |      ;  
-                       dl CODE_07B0B0                       ;02936A|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02936A|        |07B0B0;  
                        db $01                               ;02936D|        |      ;  
                        db $00                               ;02936E|        |      ;  
                        db $0B                               ;02936F|        |      ;  
@@ -3795,7 +3833,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029440|        |      ;  
                        db $02                               ;029441|        |      ;  
                        db $07                               ;029442|        |      ;  
-                       dl CODE_07B0B0                       ;029443|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029443|        |07B0B0;  
                        db $01                               ;029446|        |      ;  
                        db $00                               ;029447|        |      ;  
                        db $0B                               ;029448|        |      ;  
@@ -4022,7 +4060,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029566|        |      ;  
                        db $02                               ;029567|        |      ;  
                        db $07                               ;029568|        |      ;  
-                       dl CODE_07B0B0                       ;029569|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029569|        |07B0B0;  
                        db $01                               ;02956C|        |      ;  
                        db $00                               ;02956D|        |      ;  
                        db $0B                               ;02956E|        |      ;  
@@ -4249,7 +4287,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02968C|        |      ;  
                        db $02                               ;02968D|        |      ;  
                        db $07                               ;02968E|        |      ;  
-                       dl CODE_07B0B0                       ;02968F|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02968F|        |07B0B0;  
                        db $01                               ;029692|        |      ;  
                        db $00                               ;029693|        |      ;  
                        db $0B                               ;029694|        |      ;  
@@ -4295,7 +4333,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $14                               ;0296CC|        |      ;  
                        db $01                               ;0296CD|        |      ;  
                        db $08                               ;0296CE|        |      ;  
-                       dw Tbl: op15 operations              ;0296CF|        |0096F2;  
+                       dw Tbl_RAM_Operations                ;0296CF|        |0096F2;  
                        db $1C                               ;0296D1|        |      ;  
                        db $14                               ;0296D2|        |      ;  
                        db $01                               ;0296D3|        |      ;  
@@ -4470,7 +4508,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;0297AC|        |      ;  
                        db $02                               ;0297AD|        |      ;  
                        db $07                               ;0297AE|        |      ;  
-                       dl CODE_07B0B0                       ;0297AF|        |07B0B0;  
+                       dl Condition_Check(2b)               ;0297AF|        |07B0B0;  
                        db $01                               ;0297B2|        |      ;  
                        db $00                               ;0297B3|        |      ;  
                        db $0B                               ;0297B4|        |      ;  
@@ -4683,7 +4721,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;0298C3|        |      ;  
                        db $02                               ;0298C4|        |      ;  
                        db $07                               ;0298C5|        |      ;  
-                       dl CODE_07B0B0                       ;0298C6|        |07B0B0;  
+                       dl Condition_Check(2b)               ;0298C6|        |07B0B0;  
                        db $01                               ;0298C9|        |      ;  
                        db $00                               ;0298CA|        |      ;  
                        db $0B                               ;0298CB|        |      ;  
@@ -4762,7 +4800,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029944|        |      ;  
                        db $02                               ;029945|        |      ;  
                        db $07                               ;029946|        |      ;  
-                       dl CODE_07B0B0                       ;029947|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029947|        |07B0B0;  
                        db $01                               ;02994A|        |      ;  
                        db $00                               ;02994B|        |      ;  
                        db $0B                               ;02994C|        |      ;  
@@ -4848,7 +4886,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;0299CC|        |      ;  
                        db $02                               ;0299CD|        |      ;  
                        db $07                               ;0299CE|        |      ;  
-                       dl CODE_07B0B0                       ;0299CF|        |07B0B0;  
+                       dl Condition_Check(2b)               ;0299CF|        |07B0B0;  
                        db $01                               ;0299D2|        |      ;  
                        db $00                               ;0299D3|        |      ;  
                        db $0B                               ;0299D4|        |      ;  
@@ -4920,7 +4958,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029A47|        |      ;  
                        db $02                               ;029A48|        |      ;  
                        db $07                               ;029A49|        |      ;  
-                       dl CODE_07B0B0                       ;029A4A|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029A4A|        |07B0B0;  
                        db $01                               ;029A4D|        |      ;  
                        db $00                               ;029A4E|        |      ;  
                        db $0B                               ;029A4F|        |      ;  
@@ -5169,7 +5207,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029B83|        |      ;  
                        db $02                               ;029B84|        |      ;  
                        db $07                               ;029B85|        |      ;  
-                       dl CODE_07B0B0                       ;029B86|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029B86|        |07B0B0;  
                        db $01                               ;029B89|        |      ;  
                        db $00                               ;029B8A|        |      ;  
                        db $0B                               ;029B8B|        |      ;  
@@ -5322,7 +5360,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029C61|        |      ;  
                        db $02                               ;029C62|        |      ;  
                        db $07                               ;029C63|        |      ;  
-                       dl CODE_07B0B0                       ;029C64|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029C64|        |07B0B0;  
                        db $01                               ;029C67|        |      ;  
                        db $00                               ;029C68|        |      ;  
                        db $0B                               ;029C69|        |      ;  
@@ -5465,7 +5503,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029D35|        |      ;  
                        db $02                               ;029D36|        |      ;  
                        db $07                               ;029D37|        |      ;  
-                       dl CODE_07B0B0                       ;029D38|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029D38|        |07B0B0;  
                        db $01                               ;029D3B|        |      ;  
                        db $00                               ;029D3C|        |      ;  
                        db $0B                               ;029D3D|        |      ;  
@@ -5486,7 +5524,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $05                               ;029D53|        |      ;  
                        dw CODE_009D63                       ;029D54|        |009D63;  
                        dw CODE_009D69                       ;029D56|        |009D69;  
-                       dw Do stuff (6b)                     ;029D58|        |009D6F;  
+                       dw Do stuff (1b)(1b)(2b)(2b)         ;029D58|        |009D6F;  
                        dw LOOSE_OP_009D75                   ;029D5A|        |009D75;  
                        dw LOOSE_OP_009D7B                   ;029D5C|        |009D7B;  
                        db $06                               ;029D5E|        |      ;  
@@ -5622,7 +5660,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029E17|        |      ;  
                        db $02                               ;029E18|        |      ;  
                        db $07                               ;029E19|        |      ;  
-                       dl CODE_07B0B0                       ;029E1A|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029E1A|        |07B0B0;  
                        db $01                               ;029E1D|        |      ;  
                        db $00                               ;029E1E|        |      ;  
                        db $0B                               ;029E1F|        |      ;  
@@ -5634,7 +5672,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $07                               ;029E27|        |      ;  
                        dl Zeros 11DB                        ;029E28|        |0781F0;  
                        db $08                               ;029E2B|        |      ;  
-                       dw CODE_009E9D                       ;029E2C|        |009E9D;  
+                       dw Screen_Pixelation(1b)             ;029E2C|        |009E9D;  
                        db $24                               ;029E2E|        |      ;  
                        db $02                               ;029E2F|        |      ;  
                        db $07                               ;029E30|        |      ;  
@@ -5673,7 +5711,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $14                               ;029E5D|        |      ;  
                        db $01                               ;029E5E|        |      ;  
                        db $08                               ;029E5F|        |      ;  
-                       dw CODE_009E9D                       ;029E60|        |009E9D;  
+                       dw Screen_Pixelation(1b)             ;029E60|        |009E9D;  
                        db $1C                               ;029E62|        |      ;  
                        db $31                               ;029E63|        |000004;  
                        db $04                               ;029E64|        |00000A;  
@@ -5748,7 +5786,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $31                               ;029EAB|        |000006;  
                        db $06                               ;029EAC|        |00001A;  
                        db $1A                               ;029EAD|        |      ;  
-                       dw CODE_009E9D                       ;029EAE|        |009E9D;  
+                       dw Screen_Pixelation(1b)             ;029EAE|        |009E9D;  
                                                             ;      |        |      ;  
           CODE_029EB0: JSL.L Val equal to $1575?            ;029EB0|22DDAE07|07AEDD;  
                        BNE CODE_029EE0                      ;029EB4|D02A    |029EE0;  
@@ -5810,7 +5848,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029F18|        |      ;  
                        db $02                               ;029F19|        |      ;  
                        db $07                               ;029F1A|        |      ;  
-                       dl CODE_07B0B0                       ;029F1B|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029F1B|        |07B0B0;  
                        db $01                               ;029F1E|        |      ;  
                        db $00                               ;029F1F|        |      ;  
                        db $0B                               ;029F20|        |      ;  
@@ -5967,7 +6005,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;029FFA|        |      ;  
                        db $02                               ;029FFB|        |      ;  
                        db $07                               ;029FFC|        |      ;  
-                       dl CODE_07B0B0                       ;029FFD|        |07B0B0;  
+                       dl Condition_Check(2b)               ;029FFD|        |07B0B0;  
                        db $01                               ;02A000|        |      ;  
                        db $00                               ;02A001|        |      ;  
                        db $0B                               ;02A002|        |      ;  
@@ -6124,7 +6162,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A0DC|        |      ;  
                        db $02                               ;02A0DD|        |      ;  
                        db $07                               ;02A0DE|        |      ;  
-                       dl CODE_07B0B0                       ;02A0DF|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A0DF|        |07B0B0;  
                        db $01                               ;02A0E2|        |      ;  
                        db $00                               ;02A0E3|        |      ;  
                        db $0B                               ;02A0E4|        |      ;  
@@ -6281,7 +6319,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A1BE|        |      ;  
                        db $02                               ;02A1BF|        |      ;  
                        db $07                               ;02A1C0|        |      ;  
-                       dl CODE_07B0B0                       ;02A1C1|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A1C1|        |07B0B0;  
                        db $01                               ;02A1C4|        |      ;  
                        db $00                               ;02A1C5|        |      ;  
                        db $0B                               ;02A1C6|        |      ;  
@@ -6521,7 +6559,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A2F3|        |      ;  
                        db $02                               ;02A2F4|        |      ;  
                        db $07                               ;02A2F5|        |      ;  
-                       dl CODE_07B0B0                       ;02A2F6|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A2F6|        |07B0B0;  
                        db $01                               ;02A2F9|        |      ;  
                        db $00                               ;02A2FA|        |      ;  
                        db $0B                               ;02A2FB|        |      ;  
@@ -6674,7 +6712,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A3D1|        |      ;  
                        db $02                               ;02A3D2|        |      ;  
                        db $07                               ;02A3D3|        |      ;  
-                       dl CODE_07B0B0                       ;02A3D4|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A3D4|        |07B0B0;  
                        db $01                               ;02A3D7|        |      ;  
                        db $00                               ;02A3D8|        |      ;  
                        db $0B                               ;02A3D9|        |      ;  
@@ -6831,7 +6869,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A4B3|        |      ;  
                        db $02                               ;02A4B4|        |      ;  
                        db $07                               ;02A4B5|        |      ;  
-                       dl CODE_07B0B0                       ;02A4B6|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A4B6|        |07B0B0;  
                        db $01                               ;02A4B9|        |      ;  
                        db $00                               ;02A4BA|        |      ;  
                        db $0B                               ;02A4BB|        |      ;  
@@ -6988,7 +7026,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A595|        |      ;  
                        db $02                               ;02A596|        |      ;  
                        db $07                               ;02A597|        |      ;  
-                       dl CODE_07B0B0                       ;02A598|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A598|        |07B0B0;  
                        db $01                               ;02A59B|        |      ;  
                        db $00                               ;02A59C|        |      ;  
                        db $0B                               ;02A59D|        |      ;  
@@ -7145,7 +7183,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A677|        |      ;  
                        db $02                               ;02A678|        |      ;  
                        db $07                               ;02A679|        |      ;  
-                       dl CODE_07B0B0                       ;02A67A|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A67A|        |07B0B0;  
                        db $01                               ;02A67D|        |      ;  
                        db $00                               ;02A67E|        |      ;  
                        db $0B                               ;02A67F|        |      ;  
@@ -7335,7 +7373,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A778|        |      ;  
                        db $02                               ;02A779|        |      ;  
                        db $07                               ;02A77A|        |      ;  
-                       dl CODE_07B0B0                       ;02A77B|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A77B|        |07B0B0;  
                        db $01                               ;02A77E|        |      ;  
                        db $00                               ;02A77F|        |      ;  
                        db $0B                               ;02A780|        |      ;  
@@ -7490,7 +7528,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A856|        |      ;  
                        db $02                               ;02A857|        |      ;  
                        db $07                               ;02A858|        |      ;  
-                       dl CODE_07B0B0                       ;02A859|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A859|        |07B0B0;  
                        db $01                               ;02A85C|        |      ;  
                        db $00                               ;02A85D|        |      ;  
                        db $0B                               ;02A85E|        |      ;  
@@ -7712,7 +7750,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A976|        |      ;  
                        db $02                               ;02A977|        |      ;  
                        db $07                               ;02A978|        |      ;  
-                       dl CODE_07B0B0                       ;02A979|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A979|        |07B0B0;  
                        db $01                               ;02A97C|        |      ;  
                        db $00                               ;02A97D|        |      ;  
                        db $0B                               ;02A97E|        |      ;  
@@ -7786,7 +7824,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02A9F2|        |      ;  
                        db $02                               ;02A9F3|        |      ;  
                        db $07                               ;02A9F4|        |      ;  
-                       dl CODE_07B0B0                       ;02A9F5|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02A9F5|        |07B0B0;  
                        db $01                               ;02A9F8|        |      ;  
                        db $00                               ;02A9F9|        |      ;  
                        db $0B                               ;02A9FA|        |      ;  
@@ -7858,7 +7896,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02AA6D|        |      ;  
                        db $02                               ;02AA6E|        |      ;  
                        db $07                               ;02AA6F|        |      ;  
-                       dl CODE_07B0B0                       ;02AA70|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02AA70|        |07B0B0;  
                        db $01                               ;02AA73|        |      ;  
                        db $00                               ;02AA74|        |      ;  
                        db $0B                               ;02AA75|        |      ;  
@@ -8019,7 +8057,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-8: db $24                               ;02AB4F|        |      ;  
                        db $02                               ;02AB50|        |      ;  
                        db $07                               ;02AB51|        |      ;  
-                       dl CODE_07B0B0                       ;02AB52|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02AB52|        |07B0B0;  
                        db $01                               ;02AB55|        |      ;  
                        db $00                               ;02AB56|        |      ;  
                        db $0B                               ;02AB57|        |      ;  
@@ -8176,7 +8214,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-7: db $24                               ;02AC2D|        |      ;  
                        db $02                               ;02AC2E|        |      ;  
                        db $07                               ;02AC2F|        |      ;  
-                       dl CODE_07B0B0                       ;02AC30|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02AC30|        |07B0B0;  
                        db $01                               ;02AC33|        |      ;  
                        db $00                               ;02AC34|        |      ;  
                        db $0B                               ;02AC35|        |      ;  
@@ -8323,7 +8361,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-6: db $24                               ;02AD01|        |      ;  
                        db $02                               ;02AD02|        |      ;  
                        db $07                               ;02AD03|        |      ;  
-                       dl CODE_07B0B0                       ;02AD04|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02AD04|        |07B0B0;  
                        db $01                               ;02AD07|        |      ;  
                        db $00                               ;02AD08|        |      ;  
                        db $0B                               ;02AD09|        |      ;  
@@ -8469,7 +8507,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-5: db $24                               ;02ADD4|        |      ;  
                        db $02                               ;02ADD5|        |      ;  
                        db $07                               ;02ADD6|        |      ;  
-                       dl CODE_07B0B0                       ;02ADD7|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02ADD7|        |07B0B0;  
                        db $01                               ;02ADDA|        |      ;  
                        db $00                               ;02ADDB|        |      ;  
                        db $0B                               ;02ADDC|        |      ;  
@@ -8625,7 +8663,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
         24-02-07 #-05: db $24                               ;02AEB1|        |      ;  
                        db $02                               ;02AEB2|        |      ;  
                        db $07                               ;02AEB3|        |      ;  
-                       dl CODE_07B0B0                       ;02AEB4|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02AEB4|        |07B0B0;  
                        db $01                               ;02AEB7|        |      ;  
                        db $00                               ;02AEB8|        |      ;  
                        db $0B                               ;02AEB9|        |      ;  
@@ -8786,7 +8824,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-4: db $24                               ;02AF93|        |      ;  
                        db $02                               ;02AF94|        |      ;  
                        db $07                               ;02AF95|        |      ;  
-                       dl CODE_07B0B0                       ;02AF96|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02AF96|        |07B0B0;  
                        db $01                               ;02AF99|        |      ;  
                        db $00                               ;02AF9A|        |      ;  
                        db $0B                               ;02AF9B|        |      ;  
@@ -8947,7 +8985,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-3: db $24                               ;02B075|        |      ;  
                        db $02                               ;02B076|        |      ;  
                        db $07                               ;02B077|        |      ;  
-                       dl CODE_07B0B0                       ;02B078|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02B078|        |07B0B0;  
                        db $01                               ;02B07B|        |      ;  
                        db $00                               ;02B07C|        |      ;  
                        db $0B                               ;02B07D|        |      ;  
@@ -9101,7 +9139,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-2: db $24                               ;02B152|        |      ;  
                        db $02                               ;02B153|        |      ;  
                        db $07                               ;02B154|        |      ;  
-                       dl CODE_07B0B0                       ;02B155|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02B155|        |07B0B0;  
                        db $01                               ;02B158|        |      ;  
                        db $00                               ;02B159|        |      ;  
                        db $0B                               ;02B15A|        |      ;  
@@ -9272,7 +9310,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02B234|        |      ;  
                        db $02                               ;02B235|        |      ;  
                        db $07                               ;02B236|        |      ;  
-                       dl CODE_07B0B0                       ;02B237|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02B237|        |07B0B0;  
                        dw $0001                             ;02B23A|        |      ;  
                        db $0B                               ;02B23C|        |      ;  
                        dw DATA8_00B218                      ;02B23D|        |00B218;  
@@ -9449,7 +9487,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $24                               ;02B32B|        |      ;  
                        db $02                               ;02B32C|        |      ;  
                        db $07                               ;02B32D|        |      ;  
-                       dl CODE_07B0B0                       ;02B32E|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02B32E|        |07B0B0;  
                        dw $0001                             ;02B331|        |      ;  
                        db $0B                               ;02B333|        |      ;  
                        dw $B30F                             ;02B334|        |      ;  
@@ -10021,7 +10059,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #-1: db $24                               ;02B5EC|        |      ;  
                        db $02                               ;02B5ED|        |      ;  
                        db $07                               ;02B5EE|        |      ;  
-                       dl CODE_07B0B0                       ;02B5EF|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02B5EF|        |07B0B0;  
                        db $01                               ;02B5F2|        |      ;  
                        db $00                               ;02B5F3|        |      ;  
                        db $0B                               ;02B5F4|        |      ;  
@@ -10630,7 +10668,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
          24-02-07 #0?: db $24                               ;02B901|        |      ;  
                        db $02                               ;02B902|        |      ;  
                        db $07                               ;02B903|        |      ;  
-                       dl CODE_07B0B0                       ;02B904|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02B904|        |07B0B0;  
                        db $01                               ;02B907|        |      ;  
                        db $00                               ;02B908|        |      ;  
                        db $0B                               ;02B909|        |      ;  
@@ -13922,7 +13960,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
         24-02-07 #4 ?: db $24                               ;02C8B4|        |      ;  
                        db $02                               ;02C8B5|        |      ;  
                        db $07                               ;02C8B6|        |      ;  
-                       dl CODE_07B0B0                       ;02C8B7|        |07B0B0;  
+                       dl Condition_Check(2b)               ;02C8B7|        |07B0B0;  
                        db $01                               ;02C8BA|        |      ;  
                        db $00                               ;02C8BB|        |      ;  
                        db $0B                               ;02C8BC|        |      ;  

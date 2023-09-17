@@ -8337,7 +8337,7 @@
                        db $0D                               ;0CA301|        |      ;  
                        db " avoiding me ?""                 ;0CA302|        |      ;  
                        db $10                               ;0CA311|        |      ;  
-                       dl MACRO_147                         ;0CA312|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CA312|        |0CFA1E;  
                        db ""Didn't our fathers"             ;0CA315|        |      ;  
                        db $0D                               ;0CA328|        |      ;  
                        db " fight together as"              ;0CA329|        |      ;  
@@ -8409,7 +8409,7 @@
                        db $0D                               ;0CA4AF|        |      ;  
                        db " that we meet today."            ;0CA4B0|        |      ;  
                        db $10                               ;0CA4C4|        |      ;  
-                       dl MACRO_147                         ;0CA4C5|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CA4C5|        |0CFA1E;  
                        db " Are you aware that d"           ;0CA4C8|        |      ;  
                        db "ark"                             ;0CA4DD|        |      ;  
                        db $0D                               ;0CA4E0|        |      ;  
@@ -8430,7 +8430,7 @@
                        db " find the reason for "           ;0CA52E|        |      ;  
                        db "this."                           ;0CA543|        |      ;  
                        db $10                               ;0CA548|        |      ;  
-                       dl MACRO_147                         ;0CA549|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CA549|        |0CFA1E;  
                        db " There is chaos at th"           ;0CA54C|        |      ;  
                        db "e"                               ;0CA561|        |      ;  
                        db $0D                               ;0CA562|        |      ;  
@@ -8465,7 +8465,7 @@
                        db $0D                               ;0CA634|        |      ;  
                        db " Master remaining."              ;0CA635|        |      ;  
                        db $10                               ;0CA647|        |      ;  
-                       dl MACRO_147                         ;0CA648|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CA648|        |0CFA1E;  
                        db " Will you do it?""               ;0CA64B|        |      ;  
                        db $10                               ;0CA65C|        |      ;  
                        dl WAIT_CLEAR                        ;0CA65D|        |0CFAA5;  
@@ -8483,7 +8483,7 @@
                        db $0D                               ;0CA6A5|        |      ;  
                        db " your debt."                     ;0CA6A6|        |      ;  
                        db $10                               ;0CA6B1|        |      ;  
-                       dl MACRO_147                         ;0CA6B2|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CA6B2|        |0CFA1E;  
                        db " I wish I could join "           ;0CA6B5|        |      ;  
                        db "you,"                            ;0CA6CA|        |      ;  
                        db $0D                               ;0CA6CE|        |      ;  
@@ -8492,7 +8492,7 @@
                        db $0D                               ;0CA6E7|        |      ;  
                        db " elsewhere."                     ;0CA6E8|        |      ;  
                        db $10                               ;0CA6F3|        |      ;  
-                       dl MACRO_147                         ;0CA6F4|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CA6F4|        |0CFA1E;  
                        db " Please take Teefa"              ;0CA6F7|        |      ;  
                        db $0D                               ;0CA709|        |      ;  
                        db " with you.""                     ;0CA70A|        |      ;  
@@ -8746,7 +8746,7 @@
                        db $0D                               ;0CAB2C|        |      ;  
                        db " with constantly."               ;0CAB2D|        |      ;  
                        db $10                               ;0CAB3E|        |      ;  
-                       dl MACRO_147                         ;0CAB3F|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAB3F|        |0CFA1E;  
                        db " Unless someone comes"           ;0CAB42|        |      ;  
                        db $0D                               ;0CAB57|        |      ;  
                        db " forth to defeat them"           ;0CAB58|        |      ;  
@@ -8755,19 +8755,19 @@
                        db " conflict will never "           ;0CAB73|        |      ;  
                        db "end."                            ;0CAB88|        |      ;  
                        db $10                               ;0CAB8C|        |      ;  
-                       dl MACRO_147                         ;0CAB8D|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAB8D|        |0CFA1E;  
                        db " We want to create a"            ;0CAB90|        |      ;  
                        db $0D                               ;0CABA4|        |      ;  
                        db " peaceful land"                  ;0CABA5|        |      ;  
                        db $10                               ;0CABB3|        |      ;  
-                       dl MACRO_147                         ;0CABB4|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CABB4|        |0CFA1E;  
                        db " where people of all"            ;0CABB7|        |      ;  
                        db $0D                               ;0CABCB|        |      ;  
                        db " countries can live"             ;0CABCC|        |      ;  
                        db $0D                               ;0CABDF|        |      ;  
                        db " together in peace."             ;0CABE0|        |      ;  
                        db $10                               ;0CABF3|        |      ;  
-                       dl MACRO_147                         ;0CABF4|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CABF4|        |0CFA1E;  
                        db " In order to do that"            ;0CABF7|        |      ;  
                        db $0D                               ;0CAC0B|        |      ;  
                        db " we're going to need "           ;0CAC0C|        |      ;  
@@ -8777,14 +8777,14 @@
                        db $0D                               ;0CAC39|        |      ;  
                        db " muster."                        ;0CAC3A|        |      ;  
                        db $10                               ;0CAC42|        |      ;  
-                       dl MACRO_147                         ;0CAC43|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAC43|        |0CFA1E;  
                        db " We'll have to sway o"           ;0CAC46|        |      ;  
                        db "ur"                              ;0CAC5B|        |      ;  
                        db $0D                               ;0CAC5D|        |      ;  
                        db " people toward that e"           ;0CAC5E|        |      ;  
                        db "nd,"                             ;0CAC73|        |      ;  
                        db $10                               ;0CAC76|        |      ;  
-                       dl MACRO_147                         ;0CAC77|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAC77|        |0CFA1E;  
                        db " so we're going to ne"           ;0CAC7A|        |      ;  
                        db "ed"                              ;0CAC8F|        |      ;  
                        db $0D                               ;0CAC91|        |      ;  
@@ -8806,7 +8806,7 @@
                        db ""Oh, you knew about t"           ;0CACE9|        |      ;  
                        db "hat?"                            ;0CACFE|        |      ;  
                        db $10                               ;0CAD02|        |      ;  
-                       dl MACRO_147                         ;0CAD03|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAD03|        |0CFA1E;  
                        db " How about it. Rooks,"           ;0CAD06|        |      ;  
                        db " can"                            ;0CAD1B|        |      ;  
                        db $0D                               ;0CAD1F|        |      ;  
@@ -8841,7 +8841,7 @@
                        db ""Oh!. . . that's too "           ;0CAD73|        |      ;  
                        db "bad."                            ;0CAD88|        |      ;  
                        db $10                               ;0CAD8C|        |      ;  
-                       dl MACRO_147                         ;0CAD8D|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAD8D|        |0CFA1E;  
                        db " You would let down a"           ;0CAD90|        |      ;  
                        db $0D                               ;0CADA5|        |      ;  
                        db " childhood friend. . "           ;0CADA6|        |      ;  
@@ -8879,13 +8879,13 @@
                        db $0D                               ;0CAE51|        |      ;  
                        db " concerned about."               ;0CAE52|        |      ;  
                        db $10                               ;0CAE63|        |      ;  
-                       dl MACRO_147                         ;0CAE64|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAE64|        |0CFA1E;  
                        db " There is one obstacl"           ;0CAE67|        |      ;  
                        db "e to"                            ;0CAE7C|        |      ;  
                        db $0D                               ;0CAE80|        |      ;  
                        db " this plan."                     ;0CAE81|        |      ;  
                        db $10                               ;0CAE8C|        |      ;  
-                       dl MACRO_147                         ;0CAE8D|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAE8D|        |0CFA1E;  
                        db " His ability is exact"           ;0CAE90|        |      ;  
                        db "ly the"                          ;0CAEA5|        |      ;  
                        db $0D                               ;0CAEAB|        |      ;  
@@ -8896,7 +8896,7 @@
                        db $0D                               ;0CAED4|        |      ;  
                        db " ability."                       ;0CAED5|        |      ;  
                        db $10                               ;0CAEDE|        |      ;  
-                       dl MACRO_147                         ;0CAEDF|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CAEDF|        |0CFA1E;  
                        db " The obstacle is you,"           ;0CAEE2|        |      ;  
                        db $0D                               ;0CAEF7|        |      ;  
                        db " Rooks.""                        ;0CAEF8|        |      ;  
@@ -8960,7 +8960,7 @@
                        db $0D                               ;0CAFBD|        |      ;  
                        db " room."                          ;0CAFBE|        |      ;  
                        db $10                               ;0CAFC4|        |      ;  
-                       dl MACRO_149                         ;0CAFC5|        |0CFA30;  
+                       dl CONTINUE_TEEFA                    ;0CAFC5|        |0CFA30;  
                        db " It's starting to tak"           ;0CAFC8|        |      ;  
                        db "e"                               ;0CAFDD|        |      ;  
                        db $0D                               ;0CAFDE|        |      ;  
@@ -9190,12 +9190,12 @@
                        db $0D                               ;0CB376|        |      ;  
                        db " ago,"                           ;0CB377|        |      ;  
                        db $10                               ;0CB37C|        |      ;  
-                       dl MACRO_150                         ;0CB37D|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB37D|        |0CFA39;  
                        db " when Galneon started"           ;0CB380|        |      ;  
                        db $0D                               ;0CB395|        |      ;  
                        db " the rebellion."                 ;0CB396|        |      ;  
                        db $10                               ;0CB3A5|        |      ;  
-                       dl MACRO_150                         ;0CB3A6|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB3A6|        |0CFA39;  
                        db " The late King entrus"           ;0CB3A9|        |      ;  
                        db "ted"                             ;0CB3BE|        |      ;  
                        db $0D                               ;0CB3C1|        |      ;  
@@ -9204,7 +9204,7 @@
                        db $0D                               ;0CB3DA|        |      ;  
                        db " daughter Salah."                ;0CB3DB|        |      ;  
                        db $10                               ;0CB3EB|        |      ;  
-                       dl MACRO_150                         ;0CB3EC|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB3EC|        |0CFA39;  
                        db " Since that day, I ha"           ;0CB3EF|        |      ;  
                        db "ve"                              ;0CB404|        |      ;  
                        db $0D                               ;0CB406|        |      ;  
@@ -9214,18 +9214,18 @@
                        db " government of Galneo"           ;0CB41F|        |      ;  
                        db "n"                               ;0CB434|        |      ;  
                        db $10                               ;0CB435|        |      ;  
-                       dl MACRO_150                         ;0CB436|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB436|        |0CFA39;  
                        db " and restore the King"           ;0CB439|        |      ;  
                        db " to"                             ;0CB44E|        |      ;  
                        db $0D                               ;0CB451|        |      ;  
                        db " his rightful throne."           ;0CB452|        |      ;  
                        db $10                               ;0CB467|        |      ;  
-                       dl MACRO_150                         ;0CB468|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB468|        |0CFA39;  
                        db " Galneon has sold out"           ;0CB46B|        |      ;  
                        db $0D                               ;0CB480|        |      ;  
                        db " to the evil side."              ;0CB481|        |      ;  
                        db $10                               ;0CB493|        |      ;  
-                       dl MACRO_150                         ;0CB494|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB494|        |0CFA39;  
                        db " He defeated the King"           ;0CB497|        |      ;  
                        db ","                               ;0CB4AC|        |      ;  
                        db $0D                               ;0CB4AD|        |      ;  
@@ -9237,13 +9237,13 @@
                        db " ancient secret metho"           ;0CB4DD|        |      ;  
                        db "ds."                             ;0CB4F2|        |      ;  
                        db $10                               ;0CB4F5|        |      ;  
-                       dl MACRO_150                         ;0CB4F6|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB4F6|        |0CFA39;  
                        db " That's why he captur"           ;0CB4F9|        |      ;  
                        db "ed"                              ;0CB50E|        |      ;  
                        db $0D                               ;0CB510|        |      ;  
                        db " the Crystal Sword."             ;0CB511|        |      ;  
                        db $10                               ;0CB524|        |      ;  
-                       dl MACRO_150                         ;0CB525|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB525|        |0CFA39;  
                        db " We must prevent the "           ;0CB528|        |      ;  
                        db $0D                               ;0CB53D|        |      ;  
                        db " reforming of the Evi"           ;0CB53E|        |      ;  
@@ -9265,7 +9265,7 @@
                        dl DISPLAY_AXS                       ;0CB5A6|        |0CF867;  
                        db ""Yes."                           ;0CB5A9|        |      ;  
                        db $10                               ;0CB5AE|        |      ;  
-                       dl MACRO_150                         ;0CB5AF|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB5AF|        |0CFA39;  
                        db " At any rate, you kno"           ;0CB5B2|        |      ;  
                        db "w"                               ;0CB5C7|        |      ;  
                        db $0D                               ;0CB5C8|        |      ;  
@@ -9293,11 +9293,11 @@
                        db $0D                               ;0CB656|        |      ;  
                        db " cards was Zahan,"               ;0CB657|        |      ;  
                        db $10                               ;0CB668|        |      ;  
-                       dl MACRO_150                         ;0CB669|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB669|        |0CFA39;  
                        db " but he's deceased no"           ;0CB66C|        |      ;  
                        db "w."                              ;0CB681|        |      ;  
                        db $10                               ;0CB683|        |      ;  
-                       dl MACRO_150                         ;0CB684|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB684|        |0CFA39;  
                        db " Are you Zahan's son?"           ;0CB687|        |      ;  
                        db """                               ;0CB69C|        |      ;  
                        db $10                               ;0CB69D|        |      ;  
@@ -9348,7 +9348,7 @@
                        db $0D                               ;0CB7B4|        |      ;  
                        db " Galneon's plan?"                ;0CB7B5|        |      ;  
                        db $10                               ;0CB7C5|        |      ;  
-                       dl MACRO_150                         ;0CB7C6|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CB7C6|        |0CFA39;  
                        db " There isn't much tim"           ;0CB7C9|        |      ;  
                        db "e.""                             ;0CB7DE|        |      ;  
                        db $10                               ;0CB7E1|        |      ;  
@@ -9390,7 +9390,7 @@
                        db $0D                               ;0CB89A|        |      ;  
                        db " spells and magic."              ;0CB89B|        |      ;  
                        db $10                               ;0CB8AD|        |      ;  
-                       dl MACRO_151                         ;0CB8AE|        |0CFA42;  
+                       dl CONTINUE_SALAH                    ;0CB8AE|        |0CFA42;  
                        db " Axs, please permit i"           ;0CB8B1|        |      ;  
                        db "t.""                             ;0CB8C6|        |      ;  
                        db $0D                               ;0CB8C9|        |      ;  
@@ -9582,7 +9582,7 @@
                        db $0D                               ;0CBB2B|        |      ;  
                        db " in such a place?"               ;0CBB2C|        |      ;  
                        db $10                               ;0CBB3D|        |      ;  
-                       dl MACRO_153                         ;0CBB3E|        |0CFA54;  
+                       dl CONTINUE_DARWIN                   ;0CBB3E|        |0CFA54;  
                        db " There are many monst"           ;0CBB41|        |      ;  
                        db "ers"                             ;0CBB56|        |      ;  
                        db $0D                               ;0CBB59|        |      ;  
@@ -9602,7 +9602,7 @@
                        db " for women and childr"           ;0CBB92|        |      ;  
                        db "en."                             ;0CBBA7|        |      ;  
                        db $10                               ;0CBBAA|        |      ;  
-                       dl MACRO_153                         ;0CBBAB|        |0CFA54;  
+                       dl CONTINUE_DARWIN                   ;0CBBAB|        |0CFA54;  
                        db " I think you should t"           ;0CBBAE|        |      ;  
                        db "urn"                             ;0CBBC3|        |      ;  
                        db $0D                               ;0CBBC6|        |      ;  
@@ -9664,7 +9664,7 @@
                        db " monster beyond this."           ;0CBCAA|        |      ;  
                        db " . ."                            ;0CBCBF|        |      ;  
                        db $10                               ;0CBCC3|        |      ;  
-                       dl MACRO_153                         ;0CBCC4|        |0CFA54;  
+                       dl CONTINUE_DARWIN                   ;0CBCC4|        |0CFA54;  
                        db " I would have been OK"           ;0CBCC7|        |      ;  
                        db " on"                             ;0CBCDC|        |      ;  
                        db $0D                               ;0CBCDF|        |      ;  
@@ -9676,7 +9676,7 @@
                        db " I'm glad I have some"           ;0CBD08|        |      ;  
                        db " help."                          ;0CBD1D|        |      ;  
                        db $10                               ;0CBD23|        |      ;  
-                       dl MACRO_153                         ;0CBD24|        |0CFA54;  
+                       dl CONTINUE_DARWIN                   ;0CBD24|        |0CFA54;  
                        db " So, are you going wi"           ;0CBD27|        |      ;  
                        db "th"                              ;0CBD3C|        |      ;  
                        db $0D                               ;0CBD3E|        |      ;  
@@ -9740,7 +9740,7 @@
                        db "oice."                           ;0CBE14|        |      ;  
                        db $0D                               ;0CBE19|        |      ;  
                        db " I'll give it a try.""           ;0CBE1A|        |      ;  
-                       db ""                               ;0CBE2F|        |      ;  
+                       db $7F                               ;0CBE2F|        |      ;  
                        db $10                               ;0CBE30|        |      ;  
                        dl DISPLAY_DARWIN                    ;0CBE31|        |0CF90A;  
                        db ""I'm indebted to you."           ;0CBE34|        |      ;  
@@ -9866,7 +9866,7 @@
                        db $0D                               ;0CC025|        |      ;  
                        db " long time!"                     ;0CC026|        |      ;  
                        db $10                               ;0CC031|        |      ;  
-                       dl MACRO_154                         ;0CC032|        |0CFA5D;  
+                       dl CONTINUE_REINOLL                  ;0CC032|        |0CFA5D;  
                        db " Who is this?""                  ;0CC035|        |      ;  
                        db $10                               ;0CC043|        |      ;  
                        dl WAIT_CLEAR                        ;0CC044|        |0CFAA5;  
@@ -9898,12 +9898,12 @@
                        db $0D                               ;0CC0F7|        |      ;  
                        db " unknown,"                       ;0CC0F8|        |      ;  
                        db $10                               ;0CC101|        |      ;  
-                       dl MACRO_154                         ;0CC102|        |0CFA5D;  
+                       dl CONTINUE_REINOLL                  ;0CC102|        |0CFA5D;  
                        db " but I can see now"              ;0CC105|        |      ;  
                        db $0D                               ;0CC117|        |      ;  
                        db " that you're safe."              ;0CC118|        |      ;  
                        db $10                               ;0CC12A|        |      ;  
-                       dl MACRO_154                         ;0CC12B|        |0CFA5D;  
+                       dl CONTINUE_REINOLL                  ;0CC12B|        |0CFA5D;  
                        db " But weren't there"              ;0CC12E|        |      ;  
                        db $0D                               ;0CC140|        |      ;  
                        db " twins?""                        ;0CC141|        |      ;  
@@ -9936,7 +9936,7 @@
                        db " in my old age. I'm s"           ;0CC1D8|        |      ;  
                        db "orry."                           ;0CC1ED|        |      ;  
                        db $10                               ;0CC1F2|        |      ;  
-                       dl MACRO_154                         ;0CC1F3|        |0CFA5D;  
+                       dl CONTINUE_REINOLL                  ;0CC1F3|        |0CFA5D;  
                        db " Why don't you come i"           ;0CC1F6|        |      ;  
                        db "n,"                              ;0CC20B|        |      ;  
                        db $0D                               ;0CC20D|        |      ;  
@@ -9951,13 +9951,13 @@
                        db $00                               ;0CC22D|        |      ;  
                                                             ;      |        |      ;  
            SCRIPT_035: db $10                               ;0CC22E|        |      ;  
-                       dl SCRIPT_044                        ;0CC22F|        |0CC871;  
+                       dl DISPLAY_REINOLL2                  ;0CC22F|        |0CC871;  
                        db ""Well,"                          ;0CC232|        |      ;  
                        db $0D                               ;0CC238|        |      ;  
                        db " this Evil Empress. ."           ;0CC239|        |      ;  
                        db " .""                             ;0CC24E|        |      ;  
                        db $10                               ;0CC251|        |      ;  
-                       dl SCRIPT_046                        ;0CC252|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC252|        |0CC894;  
                        db $10                               ;0CC255|        |      ;  
                        dl PROMPT_ROOKS                      ;0CC256|        |0CF7E3;  
                        db ""I thought you might "           ;0CC259|        |      ;  
@@ -9965,15 +9965,15 @@
                        db $0D                               ;0CC272|        |      ;  
                        db " something. . .""                ;0CC273|        |      ;  
                        db $10                               ;0CC283|        |      ;  
-                       dl SCRIPT_046                        ;0CC284|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC284|        |0CC894;  
                        db $10                               ;0CC287|        |      ;  
-                       dl SCRIPT_044                        ;0CC288|        |0CC871;  
+                       dl DISPLAY_REINOLL2                  ;0CC288|        |0CC871;  
                        db ""I don't really know "           ;0CC28B|        |      ;  
                        db "the"                             ;0CC2A0|        |      ;  
                        db $0D                               ;0CC2A3|        |      ;  
                        db " details,"                       ;0CC2A4|        |      ;  
                        db $10                               ;0CC2AD|        |      ;  
-                       dl SCRIPT_045                        ;0CC2AE|        |0CC88B;  
+                       dl CONTINUE_BIG_REINOLL              ;0CC2AE|        |0CC88B;  
                        db " but if you want to d"           ;0CC2B1|        |      ;  
                        db "efeat"                           ;0CC2C6|        |      ;  
                        db $0D                               ;0CC2CB|        |      ;  
@@ -9984,23 +9984,23 @@
                        db $0D                               ;0CC2F6|        |      ;  
                        db " Spirits"                        ;0CC2F7|        |      ;  
                        db $10                               ;0CC2FF|        |      ;  
-                       dl SCRIPT_045                        ;0CC300|        |0CC88B;  
+                       dl CONTINUE_BIG_REINOLL              ;0CC300|        |0CC88B;  
                        db " and three kinds of"             ;0CC303|        |      ;  
                        db $0D                               ;0CC316|        |      ;  
                        db " Treasures.""                    ;0CC317|        |      ;  
                        db $10                               ;0CC323|        |      ;  
-                       dl SCRIPT_046                        ;0CC324|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC324|        |0CC894;  
                        db $10                               ;0CC327|        |      ;  
                        dl PROMPT_ROOKS                      ;0CC328|        |0CF7E3;  
                        db ""Spirits and Treasure"           ;0CC32B|        |      ;  
                        db "s.""                             ;0CC340|        |      ;  
                        db $10                               ;0CC343|        |      ;  
-                       dl SCRIPT_046                        ;0CC344|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC344|        |0CC894;  
                        db $10                               ;0CC347|        |      ;  
-                       dl SCRIPT_044                        ;0CC348|        |0CC871;  
+                       dl DISPLAY_REINOLL2                  ;0CC348|        |0CC871;  
                        db ""That's right."                  ;0CC34B|        |      ;  
                        db $10                               ;0CC359|        |      ;  
-                       dl SCRIPT_046                        ;0CC35A|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC35A|        |0CC894;  
                        db $1B                               ;0CC35D|        |      ;  
                        db $01                               ;0CC35E|        |      ;  
                        db $FF                               ;0CC35F|        |      ;  
@@ -10051,20 +10051,20 @@
                        db $0D                               ;0CC465|        |      ;  
                        db " legend.""                       ;0CC466|        |      ;  
                        db $10                               ;0CC46F|        |      ;  
-                       dl SCRIPT_046                        ;0CC470|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC470|        |0CC894;  
                        db $10                               ;0CC473|        |      ;  
-                       dl SCRIPT_044                        ;0CC474|        |0CC871;  
+                       dl DISPLAY_REINOLL2                  ;0CC474|        |0CC871;  
                        db ""Yes,"                           ;0CC477|        |      ;  
                        db $0D                               ;0CC47C|        |      ;  
                        db " the legend of Fanas."           ;0CC47D|        |      ;  
                        db $10                               ;0CC492|        |      ;  
-                       dl SCRIPT_045                        ;0CC493|        |0CC88B;  
+                       dl CONTINUE_BIG_REINOLL              ;0CC493|        |0CC88B;  
                        db " If such a thing can "           ;0CC496|        |      ;  
                        db "be"                              ;0CC4AB|        |      ;  
                        db $0D                               ;0CC4AD|        |      ;  
                        db " done again,"                    ;0CC4AE|        |      ;  
                        db $10                               ;0CC4BA|        |      ;  
-                       dl SCRIPT_046                        ;0CC4BB|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC4BB|        |0CC894;  
                        db " we will need someone"           ;0CC4BE|        |      ;  
                        db $0D                               ;0CC4D3|        |      ;  
                        db " with the strengths a"           ;0CC4D4|        |      ;  
@@ -10072,7 +10072,7 @@
                        db $0D                               ;0CC4EB|        |      ;  
                        db " talents Fanal had.""            ;0CC4EC|        |      ;  
                        db $10                               ;0CC500|        |      ;  
-                       dl SCRIPT_046                        ;0CC501|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC501|        |0CC894;  
                        db $10                               ;0CC504|        |      ;  
                        dl PROMPT_SALAH                      ;0CC505|        |0CF8DE;  
                        db ""That's right, only"             ;0CC508|        |      ;  
@@ -10080,25 +10080,25 @@
                        db " a Card Master can do"           ;0CC51C|        |      ;  
                        db " it.""                           ;0CC531|        |      ;  
                        db $10                               ;0CC536|        |      ;  
-                       dl SCRIPT_046                        ;0CC537|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC537|        |0CC894;  
                        db $10                               ;0CC53A|        |      ;  
                        dl PROMPT_ROOKS                      ;0CC53B|        |0CF7E3;  
                        db "". . . . .""                     ;0CC53E|        |      ;  
                        db $10                               ;0CC549|        |      ;  
-                       dl SCRIPT_046                        ;0CC54A|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC54A|        |0CC894;  
                        db $10                               ;0CC54D|        |      ;  
-                       dl SCRIPT_044                        ;0CC54E|        |0CC871;  
+                       dl DISPLAY_REINOLL2                  ;0CC54E|        |0CC871;  
                        db ""I guess you're right"           ;0CC551|        |      ;  
                        db "."                               ;0CC566|        |      ;  
                        db $10                               ;0CC567|        |      ;  
-                       dl SCRIPT_045                        ;0CC568|        |0CC88B;  
+                       dl CONTINUE_BIG_REINOLL              ;0CC568|        |0CC88B;  
                        db " But Salah, don't you"           ;0CC56B|        |      ;  
                        db " have"                           ;0CC580|        |      ;  
                        db $0D                               ;0CC585|        |      ;  
                        db " the Enchanted Jewel?"           ;0CC586|        |      ;  
                        db """                               ;0CC59B|        |      ;  
                        db $10                               ;0CC59C|        |      ;  
-                       dl SCRIPT_046                        ;0CC59D|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC59D|        |0CC894;  
                        db $10                               ;0CC5A0|        |      ;  
                        dl PROMPT_SALAH                      ;0CC5A1|        |0CF8DE;  
                        db ""Yes, I have it hidde"           ;0CC5A4|        |      ;  
@@ -10107,20 +10107,20 @@
                        db " away in a safe place"           ;0CC5BB|        |      ;  
                        db ".""                              ;0CC5D0|        |      ;  
                        db $10                               ;0CC5D2|        |      ;  
-                       dl SCRIPT_046                        ;0CC5D3|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC5D3|        |0CC894;  
                        db $10                               ;0CC5D6|        |      ;  
                        dl PROMPT_ROOKS                      ;0CC5D7|        |0CF7E3;  
                        db ""What do you mean,"              ;0CC5DA|        |      ;  
                        db $0D                               ;0CC5EC|        |      ;  
                        db " a safe place?""                 ;0CC5ED|        |      ;  
                        db $10                               ;0CC5FC|        |      ;  
-                       dl SCRIPT_046                        ;0CC5FD|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC5FD|        |0CC894;  
                        db $10                               ;0CC600|        |      ;  
                        dl PROMPT_SALAH                      ;0CC601|        |0CF8DE;  
                        db ""It's in the Ice Mine"           ;0CC604|        |      ;  
                        db ".""                              ;0CC619|        |      ;  
                        db $10                               ;0CC61B|        |      ;  
-                       dl SCRIPT_046                        ;0CC61C|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC61C|        |0CC894;  
                        db $0C                               ;0CC61F|        |      ;  
                        db $1B                               ;0CC620|        |      ;  
                        db $01                               ;0CC621|        |      ;  
@@ -10128,17 +10128,17 @@
                        db $00                               ;0CC623|        |      ;  
                                                             ;      |        |      ;  
            SCRIPT_039: db $10                               ;0CC624|        |      ;  
-                       dl SCRIPT_044                        ;0CC625|        |0CC871;  
+                       dl DISPLAY_REINOLL2                  ;0CC625|        |0CC871;  
                        db ""Even the wind can't"            ;0CC628|        |      ;  
                        db $0D                               ;0CC63C|        |      ;  
                        db " reach it there.""               ;0CC63D|        |      ;  
                        db $10                               ;0CC64E|        |      ;  
-                       dl SCRIPT_046                        ;0CC64F|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC64F|        |0CC894;  
                        db $10                               ;0CC652|        |      ;  
                        dl PROMPT_SALAH                      ;0CC653|        |0CF8DE;  
                        db ""Let me see it.""                ;0CC656|        |      ;  
                        db $10                               ;0CC666|        |      ;  
-                       dl SCRIPT_046                        ;0CC667|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC667|        |0CC894;  
                        db $0C                               ;0CC66A|        |      ;  
                        db $1B                               ;0CC66B|        |      ;  
                        db $01                               ;0CC66C|        |      ;  
@@ -10151,32 +10151,30 @@
                        db $0D                               ;0CC686|        |      ;  
                        db " arranged."                      ;0CC687|        |      ;  
                        db $10                               ;0CC691|        |      ;  
-                       db $1B                               ;0CC692|        |      ;  
-                       db $FA                               ;0CC693|        |      ;  
-                       db $0C                               ;0CC694|        |      ;  
+                       dl WAIT_NEWLINE                      ;0CC692|        |0CFA1B;  
                        db " How are we going to"            ;0CC695|        |      ;  
                        db $0D                               ;0CC6A9|        |      ;  
                        db " thwart the Evil"                ;0CC6AA|        |      ;  
                        db $0D                               ;0CC6BA|        |      ;  
                        db " Empress?""                      ;0CC6BB|        |      ;  
                        db $10                               ;0CC6C5|        |      ;  
-                       dl SCRIPT_046                        ;0CC6C6|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC6C6|        |0CC894;  
                        db $10                               ;0CC6C9|        |      ;  
-                       dl SCRIPT_044                        ;0CC6CA|        |0CC871;  
+                       dl DISPLAY_REINOLL2                  ;0CC6CA|        |0CC871;  
                        db ""We will. . . . .""              ;0CC6CD|        |      ;  
                        db $10                               ;0CC6DF|        |      ;  
-                       dl SCRIPT_046                        ;0CC6E0|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC6E0|        |0CC894;  
                        db $10                               ;0CC6E3|        |      ;  
                        dl MACRO_119                         ;0CC6E4|        |0CF7CB;  
                        db $0D                               ;0CC6E7|        |      ;  
                        db ""Whoa!""                         ;0CC6E8|        |      ;  
                        db $10                               ;0CC6EF|        |      ;  
-                       dl SCRIPT_046                        ;0CC6F0|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC6F0|        |0CC894;  
                        db $10                               ;0CC6F3|        |      ;  
                        dl PROMPT_ROOKS                      ;0CC6F4|        |0CF7E3;  
                        db ""Salah!""                        ;0CC6F7|        |      ;  
                        db $10                               ;0CC6FF|        |      ;  
-                       dl SCRIPT_046                        ;0CC700|        |0CC894;  
+                       dl WAIT_BIG_REINOLL                  ;0CC700|        |0CC894;  
                        db $0C                               ;0CC703|        |      ;  
                        db $1B                               ;0CC704|        |      ;  
                        db $01                               ;0CC705|        |      ;  
@@ -10203,7 +10201,7 @@
                        db " The Princess is dyin"           ;0CC764|        |      ;  
                        db "g."                              ;0CC779|        |      ;  
                        db $10                               ;0CC77B|        |      ;  
-                       dl MACRO_147                         ;0CC77C|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CC77C|        |0CFA1E;  
                        db " I wonder, Rooks!""              ;0CC77F|        |      ;  
                        db $10                               ;0CC791|        |      ;  
                        dl WAIT_CLEAR                        ;0CC792|        |0CFAA5;  
@@ -10251,7 +10249,7 @@
                        db $0D                               ;0CC81A|        |      ;  
                        db " Zerel."                         ;0CC81B|        |      ;  
                        db $10                               ;0CC822|        |      ;  
-                       dl MACRO_155                         ;0CC823|        |0CFA66;  
+                       dl CONTINUE_ZEREL                    ;0CC823|        |0CFA66;  
                        db " I have come to defea"           ;0CC826|        |      ;  
                        db "t"                               ;0CC83B|        |      ;  
                        db $0D                               ;0CC83C|        |      ;  
@@ -10271,43 +10269,43 @@
                        db $FF                               ;0CC86F|        |      ;  
                        db $00                               ;0CC870|        |      ;  
                                                             ;      |        |      ;  
-           SCRIPT_044: db $1B                               ;0CC871|        |      ;  
+     DISPLAY_REINOLL2: db $1B                               ;0CC871|        |      ; 1B 00 19
                        db $00                               ;0CC872|        |      ;  
                        db $19                               ;0CC873|        |      ;  
-                       db $05                               ;0CC874|        |      ;  
+                       db $05                               ;0CC874|        |      ; 05 FF 14
                        db $FF                               ;0CC875|        |      ;  
                        db $14                               ;0CC876|        |      ;  
-                       db $0C                               ;0CC877|        |      ;  
-                       db $0D                               ;0CC878|        |      ;  
-                       db $01                               ;0CC879|        |      ;  
+                       db $0C                               ;0CC877|        |      ; 0C
+                       db $0D                               ;0CC878|        |      ; 0D
+                       db $01                               ;0CC879|        |      ; 01 00 06
                        db $00                               ;0CC87A|        |      ;  
                        db $06                               ;0CC87B|        |      ;  
                        db "Reinoll"                         ;0CC87C|        |      ;  
-                       db $05                               ;0CC883|        |      ;  
+                       db $05                               ;0CC883|        |      ; 05 01 01
                        db $01                               ;0CC884|        |      ;  
                        db $01                               ;0CC885|        |      ;  
-                       db $0D                               ;0CC886|        |      ;  
-                       db $1B                               ;0CC887|        |      ;  
+                       db $0D                               ;0CC886|        |      ; 0D
+                       db $1B                               ;0CC887|        |      ; 1B 00 18
                        db $00                               ;0CC888|        |      ;  
                        db $18                               ;0CC889|        |      ;  
-                       db $00                               ;0CC88A|        |      ;  
+                       db $00                               ;0CC88A|        |      ; Return
                                                             ;      |        |      ;  
-           SCRIPT_045: db $1B                               ;0CC88B|        |      ;  
+ CONTINUE_BIG_REINOLL: db $1B                               ;0CC88B|        |      ; 1B 00 FE
                        db $00                               ;0CC88C|        |      ;  
                        db $FE                               ;0CC88D|        |      ;  
-                       db $7F                               ;0CC88E|        |      ;  
-                       db $0D                               ;0CC88F|        |      ;  
-                       db $1B                               ;0CC890|        |      ;  
+                       db $7F                               ;0CC88E|        |      ; 7F
+                       db $0D                               ;0CC88F|        |      ; 0D
+                       db $1B                               ;0CC890|        |      ; 1B 00 18
                        db $00                               ;0CC891|        |      ;  
                        db $18                               ;0CC892|        |      ;  
-                       db $00                               ;0CC893|        |      ;  
+                       db $00                               ;0CC893|        |      ; Return
                                                             ;      |        |      ;  
-           SCRIPT_046: db $1B                               ;0CC894|        |      ;  
+     WAIT_BIG_REINOLL: db $1B                               ;0CC894|        |      ; 1B 00 FE
                        db $00                               ;0CC895|        |      ;  
                        db $FE                               ;0CC896|        |      ;  
-                       db $7F                               ;0CC897|        |      ;  
-                       db $0D                               ;0CC898|        |      ;  
-                       db $00                               ;0CC899|        |      ;  
+                       db $7F                               ;0CC897|        |      ; 7F
+                       db $0D                               ;0CC898|        |      ; 0D
+                       db $00                               ;0CC899|        |      ; Return
                                                             ;      |        |      ;  
            SCRIPT_047: db $10                               ;0CC89A|        |      ;  
                        dl MACRO_118                         ;0CC89B|        |0CF7C2;  
@@ -10461,7 +10459,7 @@
                        db $0D                               ;0CCB21|        |      ;  
                        db " the Enchanted Jewel."           ;0CCB22|        |      ;  
                        db $10                               ;0CCB37|        |      ;  
-                       dl MACRO_150                         ;0CCB38|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CCB38|        |0CFA39;  
                        db " I am worried about S"           ;0CCB3B|        |      ;  
                        db "alah,"                           ;0CCB50|        |      ;  
                        db $0D                               ;0CCB55|        |      ;  
@@ -10629,7 +10627,7 @@
                        db $0D                               ;0CCE3B|        |      ;  
                        db " this room."                     ;0CCE3C|        |      ;  
                        db $10                               ;0CCE47|        |      ;  
-                       dl MACRO_147                         ;0CCE48|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CCE48|        |0CFA1E;  
                        db " She put up a fight,"            ;0CCE4B|        |      ;  
                        db $0D                               ;0CCE5F|        |      ;  
                        db " so I put her to slee"           ;0CCE60|        |      ;  
@@ -10700,7 +10698,7 @@
                        dl DISPLAY_ARIEL                     ;0CCFA7|        |0CF7F5;  
                        db ""How about it,"                  ;0CCFAA|        |      ;  
                        db $10                               ;0CCFB8|        |      ;  
-                       dl MACRO_147                         ;0CCFB9|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CCFB9|        |0CFA1E;  
                        db " if I ask once more, "           ;0CCFBC|        |      ;  
                        db "do you"                          ;0CCFD1|        |      ;  
                        db $0D                               ;0CCFD7|        |      ;  
@@ -10735,17 +10733,17 @@
                        db $0D                               ;0CD09F|        |      ;  
                        db " you just said. . ."             ;0CD0A0|        |      ;  
                        db $10                               ;0CD0B3|        |      ;  
-                       dl MACRO_147                         ;0CD0B4|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CD0B4|        |0CFA1E;  
                        db " The Enchanted Jewel "           ;0CD0B7|        |      ;  
                        db "is in"                           ;0CD0CC|        |      ;  
                        db $0D                               ;0CD0D1|        |      ;  
                        db " my hand."                       ;0CD0D2|        |      ;  
                        db $10                               ;0CD0DB|        |      ;  
-                       dl MACRO_147                         ;0CD0DC|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CD0DC|        |0CFA1E;  
                        db " The Crystal Sword, t"           ;0CD0DF|        |      ;  
                        db "oo."                             ;0CD0F4|        |      ;  
                        db $10                               ;0CD0F7|        |      ;  
-                       dl MACRO_147                         ;0CD0F8|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CD0F8|        |0CFA1E;  
                        db " The Reforming of the"           ;0CD0FB|        |      ;  
                        db $0D                               ;0CD110|        |      ;  
                        db " Evil Empress is just"           ;0CD111|        |      ;  
@@ -10879,13 +10877,13 @@
                        db $0D                               ;0CD370|        |      ;  
                        db " you went through."              ;0CD371|        |      ;  
                        db $10                               ;0CD383|        |      ;  
-                       dl MACRO_156                         ;0CD384|        |0CFA6F;  
+                       dl CONTINUE_ICORINA                  ;0CD384|        |0CFA6F;  
                        db " Axs has been a frien"           ;0CD387|        |      ;  
                        db "d for"                           ;0CD39C|        |      ;  
                        db $0D                               ;0CD3A1|        |      ;  
                        db " a long time."                   ;0CD3A2|        |      ;  
                        db $10                               ;0CD3AF|        |      ;  
-                       dl MACRO_156                         ;0CD3B0|        |0CFA6F;  
+                       dl CONTINUE_ICORINA                  ;0CD3B0|        |0CFA6F;  
                        db " I'm worried about Sa"           ;0CD3B3|        |      ;  
                        db "lah,"                            ;0CD3C8|        |      ;  
                        db $0D                               ;0CD3CC|        |      ;  
@@ -10915,7 +10913,7 @@
                        db $0D                               ;0CD448|        |      ;  
                        db " finished."                      ;0CD449|        |      ;  
                        db $10                               ;0CD453|        |      ;  
-                       dl MACRO_150                         ;0CD454|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CD454|        |0CFA39;  
                        db " Unless we do somethi"           ;0CD457|        |      ;  
                        db "ng,"                             ;0CD46C|        |      ;  
                        db $0D                               ;0CD46F|        |      ;  
@@ -10923,7 +10921,7 @@
                        db $0D                               ;0CD485|        |      ;  
                        db " assured."                       ;0CD486|        |      ;  
                        db $10                               ;0CD48F|        |      ;  
-                       dl MACRO_150                         ;0CD490|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CD490|        |0CFA39;  
                        db " This could be our la"           ;0CD493|        |      ;  
                        db "st"                              ;0CD4A8|        |      ;  
                        db $0D                               ;0CD4AA|        |      ;  
@@ -10942,7 +10940,7 @@
                        db $0D                               ;0CD4F8|        |      ;  
                        db " lose our lives."                ;0CD4F9|        |      ;  
                        db $10                               ;0CD509|        |      ;  
-                       dl MACRO_150                         ;0CD50A|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CD50A|        |0CFA39;  
                        db " Even that would be a"           ;0CD50D|        |      ;  
                        db "ll"                              ;0CD522|        |      ;  
                        db $0D                               ;0CD524|        |      ;  
@@ -11117,7 +11115,7 @@
                        db " She says she wants t"           ;0CD856|        |      ;  
                        db "o go."                           ;0CD86B|        |      ;  
                        db $10                               ;0CD870|        |      ;  
-                       dl MACRO_156                         ;0CD871|        |0CFA6F;  
+                       dl CONTINUE_ICORINA                  ;0CD871|        |0CFA6F;  
                        db " With Rooks close by "           ;0CD874|        |      ;  
                        db "to"                              ;0CD889|        |      ;  
                        db $0D                               ;0CD88B|        |      ;  
@@ -11295,7 +11293,7 @@
                        db $FF                               ;0CDB4E|        |      ;  
                        db $00                               ;0CDB4F|        |      ;  
                                                             ;      |        |      ;  
-           SCRIPT_078: db $10                               ;0CDB50|        |      ;  
+           SCRIPT_079: db $10                               ;0CDB50|        |      ;  
                        dl PROMPT_ROOKS                      ;0CDB51|        |0CF7E3;  
                        db ""I wonder if I can ge"           ;0CDB54|        |      ;  
                        db "t in.""                          ;0CDB69|        |      ;  
@@ -11350,7 +11348,7 @@
                        dl DISPLAY_ARIEL                     ;0CDC4F|        |0CF7F5;  
                        db ""It's too late."                 ;0CDC52|        |      ;  
                        db $10                               ;0CDC61|        |      ;  
-                       dl MACRO_147                         ;0CDC62|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CDC62|        |0CFA1E;  
                        db " The preparations for"           ;0CDC65|        |      ;  
                        db " the"                            ;0CDC7A|        |      ;  
                        db $0D                               ;0CDC7E|        |      ;  
@@ -11425,7 +11423,7 @@
                        dl DISPLAY_ARIEL                     ;0CDE20|        |0CF7F5;  
                        db ""Of course."                     ;0CDE23|        |      ;  
                        db $10                               ;0CDE2E|        |      ;  
-                       dl MACRO_147                         ;0CDE2F|        |0CFA1E;  
+                       dl CONTINUE_ARIEL                    ;0CDE2F|        |0CFA1E;  
                        db " It's an important ke"           ;0CDE32|        |      ;  
                        db "y in"                            ;0CDE47|        |      ;  
                        db $0D                               ;0CDE4B|        |      ;  
@@ -11595,7 +11593,7 @@
                        db " you were the Betraye"           ;0CE10B|        |      ;  
                        db "r."                              ;0CE120|        |      ;  
                        db $10                               ;0CE122|        |      ;  
-                       dl MACRO_157                         ;0CE123|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE123|        |0CFA78;  
                        db " You have been used a"           ;0CE126|        |      ;  
                        db "s a"                             ;0CE13B|        |      ;  
                        db $0D                               ;0CE13E|        |      ;  
@@ -11616,7 +11614,7 @@
                        dl DISPLAY_GALNEON                   ;0CE187|        |0CF9B6;  
                        db ""Are you Zahan's son?"           ;0CE18A|        |      ;  
                        db $10                               ;0CE19F|        |      ;  
-                       dl MACRO_157                         ;0CE1A0|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE1A0|        |0CFA78;  
                        db " Just like your fathe"           ;0CE1A3|        |      ;  
                        db "r,"                              ;0CE1B8|        |      ;  
                        db $0D                               ;0CE1BA|        |      ;  
@@ -11625,13 +11623,13 @@
                        db $0D                               ;0CE1D3|        |      ;  
                        db " an obstacle!"                   ;0CE1D4|        |      ;  
                        db $10                               ;0CE1E1|        |      ;  
-                       dl MACRO_157                         ;0CE1E2|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE1E2|        |0CFA78;  
                        db " This is the beginnin"           ;0CE1E5|        |      ;  
                        db "g of"                            ;0CE1FA|        |      ;  
                        db $0D                               ;0CE1FE|        |      ;  
                        db " the end for you!""              ;0CE1FF|        |      ;  
                        db $10                               ;0CE211|        |      ;  
-                       dl MACRO_157                         ;0CE212|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE212|        |0CFA78;  
                        db " I will throw you awa"           ;0CE215|        |      ;  
                        db "y like"                          ;0CE22A|        |      ;  
                        db $0D                               ;0CE230|        |      ;  
@@ -11657,7 +11655,7 @@
                        db $0D                               ;0CE2B2|        |      ;  
                        db " were told,"                     ;0CE2B3|        |      ;  
                        db $10                               ;0CE2BE|        |      ;  
-                       dl MACRO_157                         ;0CE2BF|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE2BF|        |0CFA78;  
                        db " but I crushed your"             ;0CE2C2|        |      ;  
                        db $0D                               ;0CE2D5|        |      ;  
                        db " parents with my own"            ;0CE2D6|        |      ;  
@@ -11739,7 +11737,7 @@
                        db $0D                               ;0CE446|        |      ;  
                        db " far, Rooks!"                    ;0CE447|        |      ;  
                        db $10                               ;0CE453|        |      ;  
-                       dl MACRO_157                         ;0CE454|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE454|        |0CFA78;  
                        db " Haven't I met that"             ;0CE457|        |      ;  
                        db $0D                               ;0CE46A|        |      ;  
                        db " warrior elf somewher"           ;0CE46B|        |      ;  
@@ -11779,12 +11777,12 @@
                        db " know anything about "           ;0CE512|        |      ;  
                        db "you."                            ;0CE527|        |      ;  
                        db $10                               ;0CE52B|        |      ;  
-                       dl MACRO_157                         ;0CE52C|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE52C|        |0CFA78;  
                        db " I don't need her any"           ;0CE52F|        |      ;  
                        db $0D                               ;0CE544|        |      ;  
                        db " more!"                          ;0CE545|        |      ;  
                        db $10                               ;0CE54B|        |      ;  
-                       dl MACRO_157                         ;0CE54C|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE54C|        |0CFA78;  
                        db " I give her back!"               ;0CE54F|        |      ;  
                        db $0D                               ;0CE560|        |      ;  
                        db " I used to be very fo"           ;0CE561|        |      ;  
@@ -11792,7 +11790,7 @@
                        db $0D                               ;0CE57B|        |      ;  
                        db " her."                           ;0CE57C|        |      ;  
                        db $10                               ;0CE581|        |      ;  
-                       dl MACRO_157                         ;0CE582|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE582|        |0CFA78;  
                        db " Ah ha ha ha!""                  ;0CE585|        |      ;  
                        db $10                               ;0CE593|        |      ;  
                        dl WAIT_CLEAR                        ;0CE594|        |0CFAA5;  
@@ -11820,11 +11818,10 @@
                        db $1B                               ;0CE5E2|        |      ;  
                        db $00                               ;0CE5E3|        |      ;  
                        db $04                               ;0CE5E4|        |      ;  
-                       db $20                               ;0CE5E5|        |      ;  
-                       db "You're not making sen"           ;0CE5E6|        |      ;  
-                       db "se!"                             ;0CE5FB|        |      ;  
+                       db " You're not making se"           ;0CE5E5|        |      ;  
+                       db "nse!"                            ;0CE5FA|        |      ;  
                        db $10                               ;0CE5FE|        |      ;  
-                       dl MACRO_149                         ;0CE5FF|        |0CFA30;  
+                       dl CONTINUE_TEEFA                    ;0CE5FF|        |0CFA30;  
                        db " This will be your bu"           ;0CE602|        |      ;  
                        db "rial"                            ;0CE617|        |      ;  
                        db $0D                               ;0CE61B|        |      ;  
@@ -11838,7 +11835,7 @@
                        db $00                               ;0CE62C|        |      ;  
                                                             ;      |        |      ;  
            SCRIPT_089: db $10                               ;0CE62D|        |      ;  
-                       dl DISPLAY_TEEFA3                    ;0CE62E|        |0CF84F;  
+                       dl DISPLAY_TEEFA_CROUCH              ;0CE62E|        |0CF84F;  
                        db $05                               ;0CE631|        |      ;  
                        db $01                               ;0CE632|        |      ;  
                        db $08                               ;0CE633|        |      ;  
@@ -11877,7 +11874,7 @@
                        db $10                               ;0CE6A6|        |      ;  
                        dl WAIT_CLEAR                        ;0CE6A7|        |0CFAA5;  
                        db $10                               ;0CE6AA|        |      ;  
-                       dl DISPLAY_TEEFA3                    ;0CE6AB|        |0CF84F;  
+                       dl DISPLAY_TEEFA_CROUCH              ;0CE6AB|        |0CF84F;  
                        db ""Darwin"                         ;0CE6AE|        |      ;  
                        db $1B                               ;0CE6B5|        |      ;  
                        db $00                               ;0CE6B6|        |      ;  
@@ -11906,7 +11903,7 @@
                        db $10                               ;0CE712|        |      ;  
                        dl WAIT_CLEAR                        ;0CE713|        |0CFAA5;  
                        db $10                               ;0CE716|        |      ;  
-                       dl DISPLAY_TEEFA3                    ;0CE717|        |0CF84F;  
+                       dl DISPLAY_TEEFA_CROUCH              ;0CE717|        |0CF84F;  
                        db $1B                               ;0CE71A|        |      ;  
                        db $00                               ;0CE71B|        |      ;  
                        db $FE                               ;0CE71C|        |      ;  
@@ -11950,7 +11947,7 @@
                        db " you've come this far"           ;0CE7AB|        |      ;  
                        db "."                               ;0CE7C0|        |      ;  
                        db $10                               ;0CE7C1|        |      ;  
-                       dl MACRO_157                         ;0CE7C2|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE7C2|        |0CFA78;  
                        db " It seems you didn't "           ;0CE7C5|        |      ;  
                        db "care"                            ;0CE7DA|        |      ;  
                        db $0D                               ;0CE7DE|        |      ;  
@@ -12000,7 +11997,7 @@
                        db $0D                               ;0CE8E2|        |      ;  
                        db " Princess Salah"                 ;0CE8E3|        |      ;  
                        db $10                               ;0CE8F2|        |      ;  
-                       dl MACRO_157                         ;0CE8F3|        |0CFA78;  
+                       dl CONTINUE_GALNEON                  ;0CE8F3|        |0CFA78;  
                        db " going to make an", $0D, " ap"   ;0CE8F6|        |      ;  
                        db "pearance?""                      ;0CE90B|        |      ;  
                        db $10                               ;0CE915|        |      ;  
@@ -12101,13 +12098,13 @@
                        db $0D                               ;0CEADE|        |      ;  
                        db " is now deceased."               ;0CEADF|        |      ;  
                        db $10                               ;0CEAF0|        |      ;  
-                       dl MACRO_161                         ;0CEAF1|        |0CFA9C;  
+                       dl CONTINUE_TEEFA2                   ;0CEAF1|        |0CFA9C;  
                        db " I have been put in t"           ;0CEAF4|        |      ;  
                        db "he"                              ;0CEB09|        |      ;  
                        db $0D                               ;0CEB0B|        |      ;  
                        db " care of Darwin."                ;0CEB0C|        |      ;  
                        db $10                               ;0CEB1C|        |      ;  
-                       dl MACRO_161                         ;0CEB1D|        |0CFA9C;  
+                       dl CONTINUE_TEEFA2                   ;0CEB1D|        |0CFA9C;  
                        db " But many years ago"             ;0CEB20|        |      ;  
                        db $0D                               ;0CEB33|        |      ;  
                        db " Galneon. . .""                  ;0CEB34|        |      ;  
@@ -12191,7 +12188,7 @@
                        db $0D                               ;0CECCC|        |      ;  
                        db " the Enchanted Jewel,"           ;0CECCD|        |      ;  
                        db $10                               ;0CECE2|        |      ;  
-                       dl MACRO_161                         ;0CECE3|        |0CFA9C;  
+                       dl CONTINUE_TEEFA2                   ;0CECE3|        |0CFA9C;  
                        db " and the Spirit Sword"           ;0CECE6|        |      ;  
                        db " back from Galneon th"           ;0CECFB|        |      ;  
                        db "ere"                             ;0CED10|        |      ;  
@@ -12234,7 +12231,7 @@
                        db $0D                               ;0CEDBF|        |      ;  
                        db " Karul."                         ;0CEDC0|        |      ;  
                        db $10                               ;0CEDC7|        |      ;  
-                       dl MACRO_160                         ;0CEDC8|        |0CFA93;  
+                       dl CONTINUE_KARUL                    ;0CEDC8|        |0CFA93;  
                        db " Rooks, I thought I'd"           ;0CEDCB|        |      ;  
                        db " have"                           ;0CEDE0|        |      ;  
                        db $0D                               ;0CEDE5|        |      ;  
@@ -12254,11 +12251,11 @@
                        db $0D                               ;0CEE3D|        |      ;  
                        db " defeat you here,"               ;0CEE3E|        |      ;  
                        db $10                               ;0CEE4F|        |      ;  
-                       dl MACRO_160                         ;0CEE50|        |0CFA93;  
+                       dl CONTINUE_KARUL                    ;0CEE50|        |0CFA93;  
                        db " but now that Ariel i"           ;0CEE53|        |      ;  
                        db "s gone"                          ;0CEE68|        |      ;  
                        db $10                               ;0CEE6E|        |      ;  
-                       dl MACRO_160                         ;0CEE6F|        |0CFA93;  
+                       dl CONTINUE_KARUL                    ;0CEE6F|        |0CFA93;  
                        db " I don't know what"              ;0CEE72|        |      ;  
                        db $0D                               ;0CEE84|        |      ;  
                        db " Galneon will do.""              ;0CEE85|        |      ;  
@@ -12376,13 +12373,13 @@
                        db $0D                               ;0CF073|        |      ;  
                        db " power!"                         ;0CF074|        |      ;  
                        db $10                               ;0CF07B|        |      ;  
-                       dl MACRO_158                         ;0CF07C|        |0CFA81;  
+                       dl CONTINUE_GALNEON2                 ;0CF07C|        |0CFA81;  
                        db " The power of the god"           ;0CF07F|        |      ;  
                        db "s!"                              ;0CF094|        |      ;  
                        db $0D                               ;0CF096|        |      ;  
                        db " Ah hah hah hah!"                ;0CF097|        |      ;  
                        db $10                               ;0CF0A7|        |      ;  
-                       dl MACRO_158                         ;0CF0A8|        |0CFA81;  
+                       dl CONTINUE_GALNEON2                 ;0CF0A8|        |0CFA81;  
                        db " Your opposition to m"           ;0CF0AB|        |      ;  
                        db "e"                               ;0CF0C0|        |      ;  
                        db $0D                               ;0CF0C1|        |      ;  
@@ -12534,7 +12531,7 @@
                        db " Rimsala starts to mo"           ;0CF313|        |      ;  
                        db "ve."                             ;0CF328|        |      ;  
                        db $10                               ;0CF32B|        |      ;  
-                       dl MACRO_150                         ;0CF32C|        |0CFA39;  
+                       dl CONTINUE_AXS                      ;0CF32C|        |0CFA39;  
                        db " The time to defeat h"           ;0CF32F|        |      ;  
                        db "er"                              ;0CF344|        |      ;  
                        db $0D                               ;0CF346|        |      ;  
@@ -12692,9 +12689,7 @@
                        db $0D                               ;0CF5BC|        |      ;  
                        db " To the South_Fire."             ;0CF5BD|        |      ;  
                        db $10                               ;0CF5D0|        |      ;  
-                       db $1B                               ;0CF5D1|        |      ;  
-                       db $FA                               ;0CF5D2|        |      ;  
-                       db $0C                               ;0CF5D3|        |      ;  
+                       dl WAIT_NEWLINE                      ;0CF5D1|        |0CFA1B;  
                        db " To the West_Water."             ;0CF5D4|        |      ;  
                        db $0D                               ;0CF5E7|        |      ;  
                        db " To the North_Earth."            ;0CF5E8|        |      ;  
@@ -12799,30 +12794,30 @@
                        db $FF                               ;0CF7C0|        |      ;  
                        db $00                               ;0CF7C1|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_118: db $06                               ;0CF7C2|        |      ;  
+            MACRO_118: db $06                               ;0CF7C2|        |      ; 06 0D
                        db $0D                               ;0CF7C3|        |      ;  
-                       db $0C                               ;0CF7C4|        |      ;  
-                       db $01                               ;0CF7C5|        |      ;  
+                       db $0C                               ;0CF7C4|        |      ; 0C
+                       db $01                               ;0CF7C5|        |      ; 01 00 06
                        db $00                               ;0CF7C6|        |      ;  
                        db $06                               ;0CF7C7|        |      ;  
-                       db $03                               ;0CF7C8|        |      ;  
+                       db $03                               ;0CF7C8|        |      ; 03 0E
                        db $0E                               ;0CF7C9|        |      ;  
-                       db $00                               ;0CF7CA|        |      ;  
+                       db $00                               ;0CF7CA|        |      ; 00
                                                             ;      |        |      ;  
-            MACRO_119: db $05                               ;0CF7CB|        |      ; Idk, gets called a lot
+            MACRO_119: db $05                               ;0CF7CB|        |      ; 05 FF 14
                        db $FF                               ;0CF7CC|        |      ;  
                        db $14                               ;0CF7CD|        |      ;  
-                       db $0C                               ;0CF7CE|        |      ;  
-                       db $0D                               ;0CF7CF|        |      ;  
-                       db $01                               ;0CF7D0|        |      ;  
+                       db $0C                               ;0CF7CE|        |      ; 0C
+                       db $0D                               ;0CF7CF|        |      ; 0D
+                       db $01                               ;0CF7D0|        |      ; 01 00 06
                        db $00                               ;0CF7D1|        |      ;  
                        db $06                               ;0CF7D2|        |      ;  
-                       db $05                               ;0CF7D3|        |      ;  
+                       db $05                               ;0CF7D3|        |      ; 05 01 01
                        db $01                               ;0CF7D4|        |      ;  
                        db $01                               ;0CF7D5|        |      ;  
-                       db $00                               ;0CF7D6|        |      ;  
+                       db $00                               ;0CF7D6|        |      ; 00
                                                             ;      |        |      ;  
-            MACRO_120: db $05                               ;0CF7D7|        |      ;  
+            MACRO_120: db $05                               ;0CF7D7|        |      ; Same as 119
                        db $FF                               ;0CF7D8|        |      ;  
                        db $14                               ;0CF7D9|        |      ;  
                        db $0C                               ;0CF7DA|        |      ;  
@@ -12928,7 +12923,7 @@
                        db $04                               ;0CF84D|        |      ;  
                        db $00                               ;0CF84E|        |      ;  
                                                             ;      |        |      ;  
-       DISPLAY_TEEFA3: db $1B                               ;0CF84F|        |      ;  
+ DISPLAY_TEEFA_CROUCH: db $1B                               ;0CF84F|        |      ;  
                        db $00                               ;0CF850|        |      ;  
                        db $07                               ;0CF851|        |      ;  
                        db $05                               ;0CF852|        |      ;  
@@ -13158,7 +13153,7 @@
                        db $01                               ;0CF958|        |      ;  
                        db $00                               ;0CF959|        |      ;  
                        db $06                               ;0CF95A|        |      ;  
-                       db $20                               ;0CF95B|        |      ;  
+                       db " "                               ;0CF95B|        |      ;  
                        db $05                               ;0CF95C|        |      ;  
                        db $01                               ;0CF95D|        |      ;  
                        db $01                               ;0CF95E|        |      ;  
@@ -13328,7 +13323,7 @@
                        db $0D                               ;0CFA1C|        |      ;  
                        db $00                               ;0CFA1D|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_147: db $1B                               ;0CFA1E|        |      ;  
+       CONTINUE_ARIEL: db $1B                               ;0CFA1E|        |      ;  
                        db $00                               ;0CFA1F|        |      ;  
                        db $FE                               ;0CFA20|        |      ;  
                        db $7F                               ;0CFA21|        |      ;  
@@ -13338,7 +13333,7 @@
                        db $00                               ;0CFA25|        |      ;  
                        db $00                               ;0CFA26|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_148: db $1B                               ;0CFA27|        |      ;  
+           UNUSED_148: db $1B                               ;0CFA27|        |      ;  
                        db $00                               ;0CFA28|        |      ;  
                        db $FE                               ;0CFA29|        |      ;  
                        db $7F                               ;0CFA2A|        |      ;  
@@ -13348,7 +13343,7 @@
                        db $0C                               ;0CFA2E|        |      ;  
                        db $00                               ;0CFA2F|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_149: db $1B                               ;0CFA30|        |      ;  
+       CONTINUE_TEEFA: db $1B                               ;0CFA30|        |      ;  
                        db $00                               ;0CFA31|        |      ;  
                        db $FE                               ;0CFA32|        |      ;  
                        db $7F                               ;0CFA33|        |      ;  
@@ -13358,7 +13353,7 @@
                        db $04                               ;0CFA37|        |      ;  
                        db $00                               ;0CFA38|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_150: db $1B                               ;0CFA39|        |      ; Mid Axs speech
+         CONTINUE_AXS: db $1B                               ;0CFA39|        |      ; Mid Axs speech
                        db $00                               ;0CFA3A|        |      ;  
                        db $FE                               ;0CFA3B|        |      ;  
                        db $7F                               ;0CFA3C|        |      ;  
@@ -13368,7 +13363,7 @@
                        db $08                               ;0CFA40|        |      ;  
                        db $00                               ;0CFA41|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_151: db $1B                               ;0CFA42|        |      ;  
+       CONTINUE_SALAH: db $1B                               ;0CFA42|        |      ;  
                        db $00                               ;0CFA43|        |      ;  
                        db $FE                               ;0CFA44|        |      ;  
                        db $7F                               ;0CFA45|        |      ;  
@@ -13378,7 +13373,7 @@
                        db $0E                               ;0CFA49|        |      ;  
                        db $00                               ;0CFA4A|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_152: db $1B                               ;0CFA4B|        |      ;  
+           UNUSED_152: db $1B                               ;0CFA4B|        |      ;  
                        db $00                               ;0CFA4C|        |      ;  
                        db $FE                               ;0CFA4D|        |      ;  
                        db $7F                               ;0CFA4E|        |      ;  
@@ -13388,7 +13383,7 @@
                        db $12                               ;0CFA52|        |      ;  
                        db $00                               ;0CFA53|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_153: db $1B                               ;0CFA54|        |      ;  
+      CONTINUE_DARWIN: db $1B                               ;0CFA54|        |      ;  
                        db $00                               ;0CFA55|        |      ;  
                        db $FE                               ;0CFA56|        |      ;  
                        db $7F                               ;0CFA57|        |      ;  
@@ -13398,7 +13393,7 @@
                        db $14                               ;0CFA5B|        |      ;  
                        db $00                               ;0CFA5C|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_154: db $1B                               ;0CFA5D|        |      ;  
+     CONTINUE_REINOLL: db $1B                               ;0CFA5D|        |      ;  
                        db $00                               ;0CFA5E|        |      ;  
                        db $FE                               ;0CFA5F|        |      ;  
                        db $7F                               ;0CFA60|        |      ;  
@@ -13408,7 +13403,7 @@
                        db $16                               ;0CFA64|        |      ;  
                        db $00                               ;0CFA65|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_155: db $1B                               ;0CFA66|        |      ;  
+       CONTINUE_ZEREL: db $1B                               ;0CFA66|        |      ;  
                        db $00                               ;0CFA67|        |      ;  
                        db $FE                               ;0CFA68|        |      ;  
                        db $7F                               ;0CFA69|        |      ;  
@@ -13418,7 +13413,7 @@
                        db $1A                               ;0CFA6D|        |      ;  
                        db $00                               ;0CFA6E|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_156: db $1B                               ;0CFA6F|        |      ;  
+     CONTINUE_ICORINA: db $1B                               ;0CFA6F|        |      ;  
                        db $00                               ;0CFA70|        |      ;  
                        db $FE                               ;0CFA71|        |      ;  
                        db $7F                               ;0CFA72|        |      ;  
@@ -13428,7 +13423,7 @@
                        db $1C                               ;0CFA76|        |      ;  
                        db $00                               ;0CFA77|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_157: db $1B                               ;0CFA78|        |      ;  
+     CONTINUE_GALNEON: db $1B                               ;0CFA78|        |      ;  
                        db $00                               ;0CFA79|        |      ;  
                        db $FE                               ;0CFA7A|        |      ;  
                        db $7F                               ;0CFA7B|        |      ;  
@@ -13438,7 +13433,7 @@
                        db $22                               ;0CFA7F|        |      ;  
                        db $00                               ;0CFA80|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_158: db $1B                               ;0CFA81|        |      ;  
+    CONTINUE_GALNEON2: db $1B                               ;0CFA81|        |      ;  
                        db $00                               ;0CFA82|        |      ;  
                        db $FE                               ;0CFA83|        |      ;  
                        db $7F                               ;0CFA84|        |      ;  
@@ -13448,7 +13443,7 @@
                        db $24                               ;0CFA88|        |      ;  
                        db $00                               ;0CFA89|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_159: db $1B                               ;0CFA8A|        |      ;  
+           UNUSED_159: db $1B                               ;0CFA8A|        |      ;  
                        db $00                               ;0CFA8B|        |      ;  
                        db $FE                               ;0CFA8C|        |      ;  
                        db $7F                               ;0CFA8D|        |      ;  
@@ -13458,7 +13453,7 @@
                        db $1E                               ;0CFA91|        |      ;  
                        db $00                               ;0CFA92|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_160: db $1B                               ;0CFA93|        |      ;  
+       CONTINUE_KARUL: db $1B                               ;0CFA93|        |      ;  
                        db $00                               ;0CFA94|        |      ;  
                        db $FE                               ;0CFA95|        |      ;  
                        db $7F                               ;0CFA96|        |      ;  
@@ -13468,7 +13463,7 @@
                        db $26                               ;0CFA9A|        |      ;  
                        db $00                               ;0CFA9B|        |      ;  
                                                             ;      |        |      ;  
-            MACRO_161: db $1B                               ;0CFA9C|        |      ;  
+      CONTINUE_TEEFA2: db $1B                               ;0CFA9C|        |      ;  
                        db $00                               ;0CFA9D|        |      ;  
                        db $FE                               ;0CFA9E|        |      ;  
                        db $7F                               ;0CFA9F|        |      ;  
