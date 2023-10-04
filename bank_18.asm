@@ -6509,7 +6509,7 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        ADC.W #$001E                         ;189E70|691E00  |      ;  
                        STA.W $1091                          ;189E73|8D9110  |001091;  
                        LDX.W $0A0F,Y                        ;189E76|BE0F0A  |000A0F;  
-                       LDA.L Tbl_ArielTeefa_Attacks,X       ;189E79|BF8B9E18|189E8B;  
+                       LDA.L Tbl_Who_Hits_Rooks,X           ;189E79|BF8B9E18|189E8B;  
                        STA.B $00                            ;189E7D|8500    |000000;  
                        LDA.W #$0018                         ;189E7F|A91800  |      ;  
                        STA.B $02                            ;189E82|8502    |000002;  
@@ -6517,7 +6517,7 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        JML.L Set_Text_Parser_long           ;189E87|5C88A600|00A688;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-Tbl_ArielTeefa_Attacks: dw Ariel_Attacks                     ;189E8B|        |189E8F; Ariel attacks
+   Tbl_Who_Hits_Rooks: dw Ariel_Attacks                     ;189E8B|        |189E8F; Ariel attacks
                        dw Teefa_Attacks                     ;189E8D|        |189EA4; Teefa attacks
                                                             ;      |        |      ;  
         Ariel_Attacks: db $10                               ;189E8F|        |      ; Macro_119

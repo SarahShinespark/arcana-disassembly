@@ -2507,21 +2507,21 @@ Bank_02_Enemy_Handling: db $04                               ;028001|        |  
                                                             ;      |        |      ;  
        X is paralyzed: db $07                               ;028D03|        |      ;  
                        dl Read (3b) into text parser        ;028D04|        |00A0AC;  
-                       dl X is paralized                    ;028D07|        |088936; 08/8936
+                       dl IsParalyzed                       ;028D07|        |088936; 08/8936
                        db $00                               ;028D0A|        |      ;  
                        db $1A                               ;028D0B|        |      ;  
                        dw Sub 8F65                          ;028D0C|        |028F65;  
                                                             ;      |        |      ;  
        X is petrified: db $07                               ;028D0E|        |      ;  
                        dl Read (3b) into text parser        ;028D0F|        |00A0AC;  
-                       dl X is petrified                    ;028D12|        |08894E; 08/894E
+                       dl IsPetrified                       ;028D12|        |08894E; 08/894E
                        db $00                               ;028D15|        |      ;  
                        db $1A                               ;028D16|        |      ;  
                        dw Sub 8F65                          ;028D17|        |028F65;  
                                                             ;      |        |      ;  
         X is confused: db $07                               ;028D19|        |      ;  
                        dl Read (3b) into text parser        ;028D1A|        |00A0AC;  
-                       dl X is confused                     ;028D1D|        |088966; 08/8966
+                       dl IsConfused                        ;028D1D|        |088966; 08/8966
                        db $00                               ;028D20|        |      ;  
                        db $1B                               ;028D21|        |      ;  
                        dw Sub 8F65                          ;028D22|        |028F65;  
@@ -2530,7 +2530,7 @@ Bank_02_Enemy_Handling: db $04                               ;028001|        |  
                                                             ;      |        |      ;  
           X is asleep: db $07                               ;028D27|        |      ;  
                        dl Read (3b) into text parser        ;028D28|        |00A0AC;  
-                       dl X is asleep                       ;028D2B|        |08897D; 08/897D
+                       dl IsAsleep                          ;028D2B|        |08897D; 08/897D
                        db $00                               ;028D2E|        |      ;  
                        db $1B                               ;028D2F|        |      ;  
                        dw Sub 8F65                          ;028D30|        |028F65;  
@@ -2543,7 +2543,7 @@ Bank_02_Enemy_Handling: db $04                               ;028001|        |  
                                                             ;      |        |      ;  
          Has awakened: db $07                               ;028D3B|        |      ;  
                        dl Read (3b) into text parser        ;028D3C|        |00A0AC;  
-                       dl X has awakened                    ;028D3F|        |088992;  
+                       dl HasAwakened                       ;028D3F|        |088992;  
                        db $00                               ;028D42|        |      ;  
                        db $1B                               ;028D43|        |      ; If false(?) call sub 8F65
                        dw LOOSE_OP_008F65                   ;028D44|        |008F65;  
@@ -2808,7 +2808,7 @@ Roll_Confusion_Target: db $0C                               ;028D6B|        |   
                                                             ;      |        |      ;  
 Enemy_Physical_Attack: db $07                               ;028EB6|        |      ; "X Attacks!"
                        dl Read (3b) into text parser        ;028EB7|        |00A0AC;  
-                       dl X Attacks                         ;028EBA|        |088492;  
+                       dl X_Attacks                         ;028EBA|        |088492;  
                        db $00                               ;028EBD|        |      ;  
                        db $1B                               ;028EBE|        |      ; JSR 8F65
                        dw Sub 8F65                          ;028EBF|        |028F65;  
@@ -2844,7 +2844,7 @@ Enemy_Physical_Attack: db $07                               ;028EB6|        |   
                                                             ;      |        |      ;  
   Enemy lost his mind: db $07                               ;028EF0|        |      ; Call text "Enemy has lost his mind"
                        dl Read (3b) into text parser        ;028EF1|        |00A0AC;  
-                       dl X has lost his mind.              ;028EF4|        |0885AF;  
+                       dl Lost_His_Mind                     ;028EF4|        |0885AF;  
                        db $00                               ;028EF7|        |      ;  
                        db $1B                               ;028EF8|        |      ; JSR 8F65
                        dw Sub 8F65                          ;028EF9|        |028F65;  
@@ -2858,7 +2858,7 @@ Enemy_Physical_Attack: db $07                               ;028EB6|        |   
                                                             ;      |        |      ;  
 Enemy despises himself: db $07                               ;028F04|        |      ; Call text "Enemy despises himself"
                        dl Read (3b) into text parser        ;028F05|        |00A0AC;  
-                       dl X despises himself                ;028F08|        |0885C8;  
+                       dl Despises_Himself                  ;028F08|        |0885C8;  
                        db $00                               ;028F0B|        |      ;  
                        db $1B                               ;028F0C|        |      ; JSR 8F65
                        dw Sub 8F65                          ;028F0D|        |028F65;  
@@ -2870,7 +2870,7 @@ Enemy despises himself: db $07                               ;028F04|        |  
                                                             ;      |        |      ;  
 Surprised by his wounds: db $07                               ;028F14|        |      ; Self attack missed
                        dl Read (3b) into text parser        ;028F15|        |00A0AC;  
-                       dl Surprised by his wounds           ;028F18|        |0885DF;  
+                       dl Surprised_by_wounds               ;028F18|        |0885DF;  
                        db $00                               ;028F1B|        |      ;  
                        db $1B                               ;028F1C|        |      ; JSR 8F65
                        dw Sub 8F65                          ;028F1D|        |028F65;  
@@ -2904,7 +2904,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        dw LOOSE_OP_008F65                   ;028F3F|        |008F65;  
                        db $07                               ;028F41|        |      ; X has taken X damage
                        dl Read (3b) into text parser        ;028F42|        |00A0AC;  
-                       dl X has taken X damage              ;028F45|        |088586;  
+                       dl X_taken_damage2                   ;028F45|        |088586;  
                        db $00                               ;028F48|        |      ;  
                        db $1A                               ;028F49|        |      ; Jump to 8F65
                        dw LOOSE_OP_008F65                   ;028F4A|        |008F65;  
@@ -2916,7 +2916,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        dw LOOSE_OP_008F65                   ;028F54|        |008F65;  
                        db $07                               ;028F56|        |      ; X has taken X damage
                        dl Read (3b) into text parser        ;028F57|        |00A0AC;  
-                       dl X has taken X damage              ;028F5A|        |08853E;  
+                       dl X_taken_damage                    ;028F5A|        |08853E;  
                        db $00                               ;028F5D|        |      ;  
                        db $1A                               ;028F5E|        |      ;  
                        dw LOOSE_OP_008F65                   ;028F5F|        |008F65;  

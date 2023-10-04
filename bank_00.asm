@@ -1086,8 +1086,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        db $00                               ;0086E8|        |      ;  
                        db $80                               ;0086E9|        |      ;  
                                                             ;      |        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_0086EA: db $00                               ;0086EA|        |      ;  
+                       db $00                               ;0086EA|        |      ;  
                        db $80                               ;0086EB|        |      ;  
                                                             ;      |        |      ;  
                        PHD                                  ;0086EC|0B      |      ; Set dp to $1DFC
@@ -3859,7 +3858,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        TAY                                  ;009882|A8      |      ;  
                        SEP #$20                             ;009883|E220    |      ;  
                        TXA                                  ;009885|8A      |      ;  
-                       PHD                                  ;009886|0B      |      ;  
+                                                            ;      |        |      ;  
+          CODE_009886: PHD                                  ;009886|0B      |      ;  
                        PEA.W $0000                          ;009887|F40000  |000000;  
                        PLD                                  ;00988A|2B      |      ;  
                        PHA                                  ;00988B|48      |      ;  
@@ -3876,7 +3876,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        STA.B $1B                            ;0098A0|851B    |00001B;  
                        STZ.B $1D                            ;0098A2|641D    |00001D;  
                        LDA.W $0002,Y                        ;0098A4|B90200  |000002;  
-                       BPL CODE_0098AB                      ;0098A7|1002    |0098AB;  
+                                                            ;      |        |      ;  
+          CODE_0098A7: BPL CODE_0098AB                      ;0098A7|1002    |0098AB;  
                        DEC.B $1D                            ;0098A9|C61D    |00001D;  
                                                             ;      |        |      ;  
           CODE_0098AB: CLC                                  ;0098AB|18      |      ;  
@@ -3941,7 +3942,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        INY                                  ;009910|C8      |      ;  
                        INY                                  ;009911|C8      |      ;  
                        INY                                  ;009912|C8      |      ;  
-                       INY                                  ;009913|C8      |      ;  
+                                                            ;      |        |      ;  
+          CODE_009913: INY                                  ;009913|C8      |      ;  
                                                             ;      |        |      ;  
           CODE_009914: BRA CODE_00989B                      ;009914|8085    |00989B;  
                                                             ;      |        |      ;  
@@ -4003,7 +4005,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
    A buncha stuff_far: JSR.W A buncha stuff                 ;00995C|206099  |009960; Program flow stuff
-                       RTL                                  ;00995F|6B      |      ;  
+                                                            ;      |        |      ;  
+          CODE_00995F: RTL                                  ;00995F|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
        A buncha stuff: PHD                                  ;009960|0B      |      ;  
@@ -4028,7 +4031,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        ORA.W #$C000                         ;009985|0900C0  |      ;  
                        STA.B $00                            ;009988|8500    |000000;  
                        PLX                                  ;00998A|FA      |      ;  
-                       BMI CODE_0099A4                      ;00998B|3017    |0099A4;  
+                                                            ;      |        |      ;  
+          CODE_00998B: BMI CODE_0099A4                      ;00998B|3017    |0099A4;  
                                                             ;      |        |      ;  
           CODE_00998D: LDA.W $06AF,X                        ;00998D|BDAF06  |0006AF;  
                        CMP.B $00                            ;009990|C500    |000000;  
@@ -4149,7 +4153,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                                                             ;      |        |      ;  
           CODE_009A40: TAX                                  ;009A40|AA      |      ;  
                        LDA.W $0AE7,X                        ;009A41|BDE70A  |000AE7;  
-                       BPL CODE_009A40                      ;009A44|10FA    |009A40;  
+                                                            ;      |        |      ;  
+          CODE_009A44: BPL CODE_009A40                      ;009A44|10FA    |009A40;  
                        PLA                                  ;009A46|68      |      ;  
                                                             ;      |        |      ;  
           CODE_009A47: STA.W $0AE7,X                        ;009A47|9DE70A  |000AE7;  
@@ -4171,7 +4176,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        LDX.W $063B                          ;009A5A|AE3B06  |00063B;  
                                                             ;      |        |      ;  
           CODE_009A5D: CPX.B $00                            ;009A5D|E400    |000000;  
-                       BEQ CODE_009A68                      ;009A5F|F007    |009A68;  
+                                                            ;      |        |      ;  
+          CODE_009A5F: BEQ CODE_009A68                      ;009A5F|F007    |009A68;  
                        TXY                                  ;009A61|9B      |      ;  
                        LDA.W $0667,X                        ;009A62|BD6706  |000667;  
                        TAX                                  ;009A65|AA      |      ;  
@@ -4209,7 +4215,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
           CODE_009A8B: PHX                                  ;009A8B|DA      |      ;  
                        JSR.W CODE_009AAA                    ;009A8C|20AA9A  |009AAA;  
                        LDA.W $0AE7,Y                        ;009A8F|B9E70A  |000AE7;  
-                       CPX.W #$FFFF                         ;009A92|E0FFFF  |      ;  
+                                                            ;      |        |      ;  
+          CODE_009A92: CPX.W #$FFFF                         ;009A92|E0FFFF  |      ;  
                        BEQ CODE_009A9D                      ;009A95|F006    |009A9D;  
                        STA.W $0AE7,X                        ;009A97|9DE70A  |000AE7;  
                        PLX                                  ;009A9A|FA      |      ;  
@@ -4233,7 +4240,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        SBC.W #$0002                         ;009AAE|E90200  |      ;  
                        TCD                                  ;009AB1|5B      |      ;  
                        PLA                                  ;009AB2|68      |      ;  
-                       STY.B $00                            ;009AB3|8400    |000000;  
+                                                            ;      |        |      ;  
+          CODE_009AB3: STY.B $00                            ;009AB3|8400    |000000;  
                        LDY.W $06D3,X                        ;009AB5|BCD306  |0006D3;  
                        LDX.W #$FFFF                         ;009AB8|A2FFFF  |      ;  
                                                             ;      |        |      ;  
@@ -4253,7 +4261,8 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                                                             ;      |        |      ;  
           CODE_009ACA: STY.B $24                            ;009ACA|8424    |000024;  
                        STZ.B $00                            ;009ACC|6400    |000000;  
-                       LDA.W $06D3,X                        ;009ACE|BDD306  |0006D3;  
+                                                            ;      |        |      ;  
+          CODE_009ACE: LDA.W $06D3,X                        ;009ACE|BDD306  |0006D3;  
                        CMP.B $24                            ;009AD1|C524    |000024;  
                        BEQ CODE_009ADF                      ;009AD3|F00A    |009ADF;  
                                                             ;      |        |      ;  

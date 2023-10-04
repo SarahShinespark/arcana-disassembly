@@ -216,6 +216,7 @@
                        HDMA ch. temp = $00105A              ;      |        |      ;  
                        Treasure type = $0009C7              ;      |        |      ;  
                        Color Addition Select = $002130      ;      |        |      ;  
+                       ;      |        |      ;  
                        VWF font widths = $00AC34            ;      |        |      ;  
                        Font tile $EC = $00BB69              ;      |        |      ;  
                        Page # = $0011B9                     ;      |        |      ;  
@@ -347,6 +348,9 @@
                        LOOSE_OP_009254 = $009254            ;      |        |      ;  
                        LOOSE_OP_00964C = $00964C            ;      |        |      ;  
                        LOOSE_OP_0091CA = $0091CA            ;      |        |      ;  
+                       LOOSE_OP_0098EB = $0098EB            ;      |        |      ;  
+                       LOOSE_OP_00996A = $00996A            ;      |        |      ;  
+                       LOOSE_OP_0099C2 = $0099C2            ;      |        |      ;  
                        LOOSE_OP_009B6B = $009B6B            ;      |        |      ;  
                        LOOSE_OP_009BB2 = $009BB2            ;      |        |      ;  
                        LOOSE_OP_009B4A = $009B4A            ;      |        |      ;  
@@ -774,15 +778,12 @@
                        LOOSE_OP_009F91 = $009F91            ;      |        |      ;  
                        LOOSE_OP_009FA7 = $009FA7            ;      |        |      ;  
                        LOOSE_OP_008040 = $008040            ;      |        |      ;  
-                       LOOSE_OP_0080E8 = $0080E8            ;      |        |      ;  
                        LOOSE_OP_0081A1 = $0081A1            ;      |        |      ;  
                        LOOSE_OP_008361 = $008361            ;      |        |      ;  
                        LOOSE_OP_00836C = $00836C            ;      |        |      ;  
                        LOOSE_OP_008517 = $008517            ;      |        |      ;  
                        LOOSE_OP_008522 = $008522            ;      |        |      ;  
                        LOOSE_OP_008574 = $008574            ;      |        |      ;  
-                       LOOSE_OP_008665 = $008665            ;      |        |      ;  
-                       LOOSE_OP_008425 = $008425            ;      |        |      ;  
                        LOOSE_OP_0087BB = $0087BB            ;      |        |      ;  
                        LOOSE_OP_0087C5 = $0087C5            ;      |        |      ;  
                        LOOSE_OP_0085BB = $0085BB            ;      |        |      ;  
@@ -791,6 +792,7 @@
                        LOOSE_OP_0088E6 = $0088E6            ;      |        |      ;  
                        LOOSE_OP_0088C5 = $0088C5            ;      |        |      ;  
                        LOOSE_OP_00886E = $00886E            ;      |        |      ;  
+                       LOOSE_OP_008425 = $008425            ;      |        |      ;  
                        LOOSE_OP_0088FB = $0088FB            ;      |        |      ;  
                        LOOSE_OP_008A62 = $008A62            ;      |        |      ;  
                        LOOSE_OP_008A0B = $008A0B            ;      |        |      ;  
@@ -826,7 +828,6 @@
                        LOOSE_OP_00990E = $00990E            ;      |        |      ;  
                        LOOSE_OP_009920 = $009920            ;      |        |      ;  
                        LOOSE_OP_0098CE = $0098CE            ;      |        |      ;  
-                       LOOSE_OP_0098EB = $0098EB            ;      |        |      ;  
                        LOOSE_OP_00813A = $00813A            ;      |        |      ;  
                        LOOSE_OP_00874A = $00874A            ;      |        |      ;  
                        LOOSE_OP_00895B = $00895B            ;      |        |      ;  

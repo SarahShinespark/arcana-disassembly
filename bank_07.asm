@@ -1202,7 +1202,7 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                        LDA.W Selection value,X              ;078834|BDEB09  |0009EB;  
                        ASL A                                ;078837|0A      |      ;  
                        TAX                                  ;078838|AA      |      ;  
-                       LDA.L DATA16_07A572,X                ;078839|BF72A507|07A572;  
+                       LDA.L Spell_List_Offsets,X           ;078839|BF72A507|07A572;  
                        STA.B $00                            ;07883D|8500    |000000;  
                        PLA                                  ;07883F|68      |      ;  
                        CLC                                  ;078840|18      |      ;  
@@ -1327,7 +1327,7 @@ Spell coloring (battle): PHX                                  ;078872|DA      | 
                        LDA.W Selection value,X              ;078905|BDEB09  |0009EB;  
                        ASL A                                ;078908|0A      |      ;  
                        TAX                                  ;078909|AA      |      ;  
-                       LDA.L DATA16_07A572,X                ;07890A|BF72A507|07A572;  
+                       LDA.L Spell_List_Offsets,X           ;07890A|BF72A507|07A572;  
                        STA.B $00                            ;07890E|8500    |000000;  
                        PLA                                  ;078910|68      |      ;  
                        CLC                                  ;078911|18      |      ;  
@@ -2801,7 +2801,8 @@ Set attacker/target using 0A0F: LDX.W Selection                      ;07916B|AE3
           CODE_0791C4: LDA.W #$0004                         ;0791C4|A90400  |      ;  
                        RTL                                  ;0791C7|6B      |      ;  
                                                             ;      |        |      ;  
-                       JSR.W Get character offset           ;0791C8|20F5B0  |07B0F5;  
+                                                            ;      |        |      ;  
+          CODE_0791C8: JSR.W Get character offset           ;0791C8|20F5B0  |07B0F5;  
                        LSR A                                ;0791CB|4A      |      ;  
                        PHA                                  ;0791CC|48      |      ;  
                        LDX.W #$0001                         ;0791CD|A20100  |      ;  
@@ -3195,7 +3196,8 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
           CODE_0794A8: LDA.W #$0000                         ;0794A8|A90000  |      ;  
                        RTL                                  ;0794AB|6B      |      ;  
                                                             ;      |        |      ;  
-                       LDX.W Selection                      ;0794AC|AE3F10  |00103F;  
+                                                            ;      |        |      ;  
+          CODE_0794AC: LDX.W Selection                      ;0794AC|AE3F10  |00103F;  
                        LDA.W $0029                          ;0794AF|AD2900  |000029;  
                        BIT.W #$0800                         ;0794B2|890008  |      ;  
                        BNE CODE_0794D0                      ;0794B5|D019    |0794D0;  
@@ -3445,7 +3447,8 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        db $01                               ;07964B|        |      ;  
                        db $01                               ;07964C|        |      ;  
                        db $01                               ;07964D|        |      ;  
-                       LDY.W Selection                      ;07964E|AC3F10  |00103F;  
+                                                            ;      |        |      ;  
+          CODE_07964E: LDY.W Selection                      ;07964E|AC3F10  |00103F;  
                        LDA.W Selection value,Y              ;079651|B9EB09  |0009EB;  
                        TAX                                  ;079654|AA      |      ;  
                        SEP #$20                             ;079655|E220    |      ;  
@@ -3545,7 +3548,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        db $01                               ;0796D0|        |      ;  
                        db $01                               ;0796D1|        |      ;  
                                                             ;      |        |      ;  
-       Show Card Menu: LDX.W #$0000                         ;0796D2|A20000  |      ;  
+       Show_Card_Menu: LDX.W #$0000                         ;0796D2|A20000  |      ;  
                                                             ;      |        |      ;  
           CODE_0796D5: LDA.W Card inventory,X               ;0796D5|BDA913  |0013A9;  
                        AND.W #$FF00                         ;0796D8|2900FF  |      ;  
@@ -3608,26 +3611,26 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
           CODE_079745: ASL A                                ;079745|0A      |      ;  
                        TAX                                  ;079746|AA      |      ;  
-                       LDA.L Tbl: Card texts,X              ;079747|BF5B9707|07975B;  
+                       LDA.L Tbl_Cards_desc,X               ;079747|BF5B9707|07975B;  
                        STA.B $00                            ;07974B|8500    |000000;  
-                       LDA.L Banks: Card texts,X            ;07974D|BF6D9707|07976D;  
+                       LDA.L Banks_Cards_desc,X             ;07974D|BF6D9707|07976D;  
                        STA.B $02                            ;079751|8502    |000002;  
                        LDA.W #$0000                         ;079753|A90000  |      ;  
                        JSL.L Set_Text_Parser_long           ;079756|2288A600|00A688;  
                        RTL                                  ;07975A|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-      Tbl: Card texts: dw Discard card                      ;07975B|        |0890E0; 9 entries
-                       dw Wind Card description             ;07975D|        |089100;  
-                       dw Earth Card description            ;07975F|        |089139;  
-                       dw Water Card description            ;079761|        |089172;  
-                       dw Fire Card description             ;079763|        |0891AB;  
-                       dw Null Card description             ;079765|        |0891E4;  
-                       dw Fog Card description              ;079767|        |0891FB;  
-                       dw Call Amulet description           ;079769|        |08922E;  
-                       dw Mirror Card description           ;07976B|        |089243;  
+       Tbl_Cards_desc: dw Discard_Card                      ;07975B|        |0890E0; 9 entries
+                       dw Wind_Card_desc                    ;07975D|        |089100;  
+                       dw Earth_Card_desc                   ;07975F|        |089139;  
+                       dw Water_Card_desc                   ;079761|        |089172;  
+                       dw Fire_Card_desc                    ;079763|        |0891AB;  
+                       dw Null_Card_desc                    ;079765|        |0891E4;  
+                       dw Fog_Card_desc                     ;079767|        |0891FB;  
+                       dw Call_Amulet_desc                  ;079769|        |08922E;  
+                       dw Mirror_Card_desc                  ;07976B|        |089243;  
                                                             ;      |        |      ;  
-    Banks: Card texts: dw $0008                             ;07976D|        |000008; 9 entries
+     Banks_Cards_desc: dw $0008                             ;07976D|        |000008; 9 entries
                        dw $0008                             ;07976F|        |000008;  
                        dw $0008                             ;079771|        |000008;  
                        dw $0008                             ;079773|        |000008;  
@@ -3663,41 +3666,41 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                                                             ;      |        |      ;  
           CODE_0797B1: ASL A                                ;0797B1|0A      |      ;  
                        TAX                                  ;0797B2|AA      |      ;  
-                       LDA.L Tbl: Item texts,X              ;0797B3|BFC79707|0797C7;  
+                       LDA.L Tbl_Items_Desc,X               ;0797B3|BFC79707|0797C7;  
                        STA.B $00                            ;0797B7|8500    |000000;  
-                       LDA.L Banks: Item Texts,X            ;0797B9|BFEF9707|0797EF;  
+                       LDA.L Banks_Items_Desc,X             ;0797B9|BFEF9707|0797EF;  
                        STA.B $02                            ;0797BD|8502    |000002;  
                        LDA.W #$0000                         ;0797BF|A90000  |      ;  
                        JSL.L Set_Text_Parser_long           ;0797C2|2288A600|00A688;  
                        RTL                                  ;0797C6|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-      Tbl: Item texts: dw Previous page                     ;0797C7|        |089271; Twenty entries
-                       dw Next page                         ;0797C9|        |08928D;  
+       Tbl_Items_Desc: dw Previous_page                     ;0797C7|        |089271; Twenty entries
+                       dw Next_page                         ;0797C9|        |08928D;  
                                                             ;      |        |      ;  
-         PTR16_0797CB: dw Throw away item                   ;0797CB|        |0892A5;  
-                       dw Return Ring description           ;0797CD|        |0892BD;  
-                       dw Water of Life description         ;0797CF|        |0892E8;  
-                       dw Sleeping Bag text                 ;0797D1|        |08932E;  
-                       dw Tent text                         ;0797D3|        |089363;  
-                       dw Strength Honey text               ;0797D5|        |0893BF;  
-                       dw Intelligence Honey text           ;0797D7|        |0893F2;  
-                       dw Endurance Honey text              ;0797D9|        |089423;  
-                       dw Agility Honey                     ;0797DB|        |08945F;  
-                       dw Restore Honey text                ;0797DD|        |089496;  
-                       dw MP Honey text                     ;0797DF|        |0894B9;  
-                       dw Herbs text                        ;0797E1|        |0894DC;  
-                       dw Medicine text                     ;0797E3|        |0894F2;  
-                       dw Silver Flask text                 ;0797E5|        |08950C;  
-                       dw Gold Flask text                   ;0797E7|        |089523;  
-                       dw Maiden's Tears text               ;0797E9|        |08953D;  
-                       dw Moon Oil text                     ;0797EB|        |089596;  
-                       dw Enchanted Jewel text              ;0797ED|        |0895EF;  
+      Tbl_Items_Descr: dw Toss_item                         ;0797CB|        |0892A5;  
+                       dw Return_Ring_desc                  ;0797CD|        |0892BD;  
+                       dw Water_of_Life_desc                ;0797CF|        |0892E8;  
+                       dw Sleeping_Bag_desc                 ;0797D1|        |08932E;  
+                       dw Tent_desc                         ;0797D3|        |089363;  
+                       dw Str_Honey_desc                    ;0797D5|        |0893BF;  
+                       dw Int_Honey_desc                    ;0797D7|        |0893F2;  
+                       dw Endure_Honey_desc                 ;0797D9|        |089423;  
+                       dw Agi_Honey_desc                    ;0797DB|        |08945F;  
+                       dw HP_Honey_desc                     ;0797DD|        |089496;  
+                       dw MP_Honey_desc                     ;0797DF|        |0894B9;  
+                       dw Herbs_desc                        ;0797E1|        |0894DC;  
+                       dw Medicine_desc                     ;0797E3|        |0894F2;  
+                       dw Silver_Flask_desc                 ;0797E5|        |08950C;  
+                       dw Gold_Flask_desc                   ;0797E7|        |089523;  
+                       dw Maid_Tears_desc                   ;0797E9|        |08953D;  
+                       dw Moon_Oil_desc                     ;0797EB|        |089596;  
+                       dw Enchanted_Jewel_desc              ;0797ED|        |0895EF;  
                                                             ;      |        |      ;  
-    Banks: Item Texts: dw $0008                             ;0797EF|        |000008;  
+     Banks_Items_Desc: dw $0008                             ;0797EF|        |000008;  
                        dw $0008                             ;0797F1|        |000008;  
                                                             ;      |        |      ;  
-         PTR16_0797F3: dw $0008                             ;0797F3|        |000008;  
+    Banks_Items_Descr: dw $0008                             ;0797F3|        |000008;  
                        dw $0008                             ;0797F5|        |000008;  
                        dw $0008                             ;0797F7|        |000008;  
                        dw $0008                             ;0797F9|        |000008;  
@@ -3715,7 +3718,8 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        dw $0008                             ;079811|        |000008;  
                        dw $0008                             ;079813|        |000008;  
                        dw $0008                             ;079815|        |000008;  
-                       JSR.W CODE_07982B                    ;079817|202B98  |07982B;  
+                                                            ;      |        |      ;  
+          CODE_079817: JSR.W CODE_07982B                    ;079817|202B98  |07982B;  
                        CMP.W #$004D                         ;07981A|C94D00  |      ;  
                        BEQ CODE_079823                      ;07981D|F004    |079823;  
                        LDA.W #$0000                         ;07981F|A90000  |      ;  
@@ -3749,7 +3753,8 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        AND.W #$00FF                         ;079852|29FF00  |      ;  
                        RTS                                  ;079855|60      |      ;  
                                                             ;      |        |      ;  
-                       LDA.W Page #                         ;079856|ADB911  |0011B9;  
+                                                            ;      |        |      ;  
+          CODE_079856: LDA.W Page #                         ;079856|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079859|A20800  |      ;  
                        JSL.L MultiplyTo$00_far              ;07985C|22398A00|008A39;  
                        LDA.B $00                            ;079860|A500    |000000;  
@@ -3775,100 +3780,100 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        INC A                                ;07988C|1A      |      ;  
                        ASL A                                ;07988D|0A      |      ;  
                        TAX                                  ;07988E|AA      |      ;  
-                       LDA.L Tbl: Spell texts,X             ;07988F|BFA39807|0798A3;  
+                       LDA.L Tbl_Spells_desc,X              ;07988F|BFA39807|0798A3;  
                        STA.B $00                            ;079893|8500    |000000;  
-                       LDA.L Banks: Spell texts,X           ;079895|BF499907|079949;  
+                       LDA.L Banks_Spells_desc,X            ;079895|BF499907|079949;  
                        STA.B $02                            ;079899|8502    |000002;  
                        LDA.W #$0000                         ;07989B|A90000  |      ;  
                        JSL.L Set_Text_Parser_long           ;07989E|2288A600|00A688;  
                        RTL                                  ;0798A2|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-     Tbl: Spell texts: dw Previous page                     ;0798A3|        |089271; Previous page
-                       dw Next page                         ;0798A5|        |08928D; Next page
-                       dw Lightning 1 text                  ;0798A7|        |08964C; Lightning 1
-                       dw Lightning 2 text                  ;0798A9|        |08967D;  
-                       dw Lightning 3                       ;0798AB|        |0896AE;  
-                       dw Smash 1                           ;0798AD|        |0896DF;  
-                       dw Smash 2                           ;0798AF|        |089704;  
-                       dw Smash 3                           ;0798B1|        |089729;  
-                       dw Water 1                           ;0798B3|        |08974E;  
-                       dw Water 2                           ;0798B5|        |089771;  
-                       dw Water 3                           ;0798B7|        |089794;  
-                       dw Flame 1                           ;0798B9|        |0897B7;  
-                       dw Flame 2                           ;0798BB|        |0897DF;  
-                       dw Flame 3                           ;0798BD|        |089807;  
-                       dw DATA8_08982F                      ;0798BF|        |08982F;  
-                       dw Attribute 2                       ;0798C1|        |089860;  
-                       dw Attribute 3                       ;0798C3|        |089890;  
-                       dw Attribute 4                       ;0798C5|        |0898C0;  
-                       dw Attribute 5                       ;0798C7|        |0898F0;  
-                       dw Attribute 6                       ;0798C9|        |089920;  
-                       dw Attribute 7                       ;0798CB|        |08994F;  
-                       dw Attribute 8                       ;0798CD|        |089985;  
-                       dw Attribute 9                       ;0798CF|        |0899BB;  
-                       dw Attribute 10                      ;0798D1|        |0899F0;  
-                       dw Attribute 11                      ;0798D3|        |089A25;  
-                       dw Call Wind Spirit                  ;0798D5|        |089A4A;  
-                       dw Call Earth Spirit                 ;0798D7|        |089A71;  
-                       dw Call Water Spirit                 ;0798D9|        |089A99;  
-                       dw Call Fire Spirit                  ;0798DB|        |089AC1;  
-                       dw Drain Spell                       ;0798DD|        |089AE8;  
-                       dw Psych Spell                       ;0798DF|        |089B13;  
-                       dw HP Restore All                    ;0798E1|        |089B40;  
-                       dw HP Restore                        ;0798E3|        |089B7F;  
-                       dw Heal 1                            ;0798E5|        |089BA7;  
-                       dw Heal 2                            ;0798E7|        |089BCF;  
-                       dw Heal 3                            ;0798E9|        |089BF7;  
-                       dw Heal All 1                        ;0798EB|        |089C2A;  
-                       dw Heal All 2                        ;0798ED|        |089C72;  
-                       dw Chaos Wind                        ;0798EF|        |089CBA;  
+      Tbl_Spells_desc: dw Previous_page                     ;0798A3|        |089271; Previous page
+                       dw Next_page                         ;0798A5|        |08928D; Next page
+                       dw Lit1                              ;0798A7|        |08964C; Lightning 1
+                       dw Lit2                              ;0798A9|        |08967D;  
+                       dw Lit3                              ;0798AB|        |0896AE;  
+                       dw Smash1                            ;0798AD|        |0896DF;  
+                       dw Smash2                            ;0798AF|        |089704;  
+                       dw Smash3                            ;0798B1|        |089729;  
+                       dw Water1                            ;0798B3|        |08974E;  
+                       dw Water2                            ;0798B5|        |089771;  
+                       dw Water3                            ;0798B7|        |089794;  
+                       dw Flame1                            ;0798B9|        |0897B7;  
+                       dw Flame2                            ;0798BB|        |0897DF;  
+                       dw Flame3                            ;0798BD|        |089807;  
+                       dw Attribute1                        ;0798BF|        |08982F;  
+                       dw Attribute2                        ;0798C1|        |089860;  
+                       dw Attribute3                        ;0798C3|        |089890;  
+                       dw Attribute4                        ;0798C5|        |0898C0;  
+                       dw Attribute5                        ;0798C7|        |0898F0;  
+                       dw Attribute6                        ;0798C9|        |089920;  
+                       dw Attribute7                        ;0798CB|        |08994F;  
+                       dw Attribute8                        ;0798CD|        |089985;  
+                       dw Attribute9                        ;0798CF|        |0899BB;  
+                       dw Attribute10                       ;0798D1|        |0899F0;  
+                       dw Attribute11                       ;0798D3|        |089A25;  
+                       dw CallWind                          ;0798D5|        |089A4A;  
+                       dw CallEarth                         ;0798D7|        |089A71;  
+                       dw CallWater                         ;0798D9|        |089A99;  
+                       dw CallFire                          ;0798DB|        |089AC1;  
+                       dw Drain                             ;0798DD|        |089AE8;  
+                       dw Psych                             ;0798DF|        |089B13;  
+                       dw HPRestoreA                        ;0798E1|        |089B40;  
+                       dw HPRestore                         ;0798E3|        |089B7F;  
+                       dw Heal1                             ;0798E5|        |089BA7;  
+                       dw Heal2                             ;0798E7|        |089BCF;  
+                       dw Heal3                             ;0798E9|        |089BF7;  
+                       dw HealA1                            ;0798EB|        |089C2A;  
+                       dw HealA2                            ;0798ED|        |089C72;  
+                       dw ChaosWind                         ;0798EF|        |089CBA;  
                        dw Entomb                            ;0798F1|        |089CF4;  
                        dw Destroy                           ;0798F3|        |089D12;  
-                       dw Paralyze All                      ;0798F5|        |089D29;  
-                       dw Petrify All                       ;0798F7|        |089D4D;  
-                       dw Stop All                          ;0798F9|        |089D77;  
-                       dw Sleep All                         ;0798FB|        |089DA3;  
-                       dw Confused All                      ;0798FD|        |089DCC;  
+                       dw ParalyzeA                         ;0798F5|        |089D29;  
+                       dw PetrifyA                          ;0798F7|        |089D4D;  
+                       dw StopA                             ;0798F9|        |089D77;  
+                       dw SleepA                            ;0798FB|        |089DA3;  
+                       dw ConfusedA                         ;0798FD|        |089DCC;  
                        dw Paralyze                          ;0798FF|        |089E04;  
                        dw Petrify                           ;079901|        |089E30;  
                        dw Stop                              ;079903|        |089E61;  
                        dw Sleep                             ;079905|        |089E8C;  
                        dw Confused                          ;079907|        |089EBC;  
-                       dw Offense Impair                    ;079909|        |089EFB;  
-                       dw Offense Impair All                ;07990B|        |089F38;  
-                       dw Defense Impair                    ;07990D|        |089F77;  
-                       dw Defense Impair All                ;07990F|        |089FB3;  
-                       dw Accuracy Impair                   ;079911|        |089FF0;  
-                       dw Accuracy Impair All               ;079913|        |08A034;  
-                       dw Attack Impair                     ;079915|        |08A080;  
-                       dw Attack Impair All                 ;079917|        |08A0BA;  
+                       dw AvoidDown                         ;079909|        |089EFB;  
+                       dw AvoidDownA                        ;07990B|        |089F38;  
+                       dw DefDown                           ;07990D|        |089F77;  
+                       dw DefDownA                          ;07990F|        |089FB3;  
+                       dw AccDown                           ;079911|        |089FF0;  
+                       dw AccDownA                          ;079913|        |08A034;  
+                       dw AttDown                           ;079915|        |08A080;  
+                       dw AttDownA                          ;079917|        |08A0BA;  
                        dw Requiem                           ;079919|        |08A0FA;  
                        dw Emancipation                      ;07991B|        |08A137;  
-                       dw Final Liberation                  ;07991D|        |08A172;  
-                       dw Ruinous Mission                   ;07991F|        |08A1B1;  
+                       dw FinalLiberation                   ;07991D|        |08A172;  
+                       dw RuinousMission                    ;07991F|        |08A1B1;  
                        dw Flee                              ;079921|        |08A1F4;  
-                       dw Dodge All                         ;079923|        |08A218;  
-                       dw Wall All                          ;079925|        |08A252;  
-                       dw Accuracy Increase All             ;079927|        |08A28D;  
-                       dw Stomp All                         ;079929|        |08A2BE;  
-                       dw Change Attr. to Wind              ;07992B|        |08A2EF;  
-                       dw Change Attr. to Earth             ;07992D|        |08A31D;  
-                       dw Change Attr. to Water             ;07992F|        |08A34C;  
-                       dw Change Attr. to Fire              ;079931|        |08A37B;  
+                       dw DodgeA                            ;079923|        |08A218;  
+                       dw WallA                             ;079925|        |08A252;  
+                       dw AccUpA                            ;079927|        |08A28D;  
+                       dw StompA                            ;079929|        |08A2BE;  
+                       dw ChangeWind                        ;07992B|        |08A2EF;  
+                       dw ChangeEarth                       ;07992D|        |08A31D;  
+                       dw ChangeWater                       ;07992F|        |08A34C;  
+                       dw ChangeFire                        ;079931|        |08A37B;  
                        dw Repel                             ;079933|        |08A3A9;  
                        dw Mirror                            ;079935|        |08A3DD;  
-                       dw Restore All                       ;079937|        |08A40F;  
+                       dw RestoreA                          ;079937|        |08A40F;  
                        dw Revitalize                        ;079939|        |08A446;  
                        dw Unpetrify                         ;07993B|        |08A47F;  
-                       dw Restoration of Spirit             ;07993D|        |08A4B9;  
+                       dw Restoration                       ;07993D|        |08A4B9;  
                        dw Home                              ;07993F|        |08A4E5;  
-                       dw Way Point                         ;079941|        |08A524;  
-                       dw Way Point Warp                    ;079943|        |08A568;  
-                       dw Diminish Encounters               ;079945|        |08A5A0;  
-                       dw Diminish Encounters2              ;079947|        |08A5CD;  
+                       dw WayPoint                          ;079941|        |08A524;  
+                       dw WayPointWarp                      ;079943|        |08A568;  
+                       dw DiminishEncounters                ;079945|        |08A5A0;  
+                       dw DiminishEncounters2               ;079947|        |08A5CD;  
                                                             ;      |        |      ;  
-   Banks: Spell texts: dw $0008                             ;079949|        |000008;  
+    Banks_Spells_desc: dw $0008                             ;079949|        |000008;  
                        dw $0008                             ;07994B|        |000008;  
                        dw $0008                             ;07994D|        |000008;  
                        dw $0008                             ;07994F|        |000008;  
@@ -3952,130 +3957,130 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        dw $0008                             ;0799EB|        |000008;  
                        dw $0008                             ;0799ED|        |000008;  
                                                             ;      |        |      ;  
-       Tbl: Wpn texts: dw Dagger                            ;0799EF|        |08A604;  
+     Tbl_Weapons_desc: dw Dagger                            ;0799EF|        |08A604;  
                        dw Dagger                            ;0799F1|        |08A604;  
-                       dw DATA8_08A633                      ;0799F3|        |08A633;  
-                       dw DATA8_08A679                      ;0799F5|        |08A679;  
-                       dw DATA8_08A6D0                      ;0799F7|        |08A6D0;  
-                       dw DATA8_08A709                      ;0799F9|        |08A709;  
-                       dw DATA8_08A73D                      ;0799FB|        |08A73D;  
-                       dw DATA8_08A783                      ;0799FD|        |08A783;  
-                       dw DATA8_08A7D7                      ;0799FF|        |08A7D7;  
-                       dw DATA8_08A82D                      ;079A01|        |08A82D;  
-                       dw DATA8_08A897                      ;079A03|        |08A897;  
-                       dw DATA8_08A8EB                      ;079A05|        |08A8EB;  
-                       dw DATA8_08A951                      ;079A07|        |08A951;  
-                       dw DATA8_08A9AD                      ;079A09|        |08A9AD;  
-                       dw DATA8_08AA20                      ;079A0B|        |08AA20;  
-                       dw DATA8_08AA7E                      ;079A0D|        |08AA7E;  
-                       dw DATA8_08AAE4                      ;079A0F|        |08AAE4;  
-                       dw DATA8_08AB39                      ;079A11|        |08AB39;  
-                       dw DATA8_08ABBD                      ;079A13|        |08ABBD;  
-                       dw DATA8_08ABF1                      ;079A15|        |08ABF1;  
-                       dw DATA8_08AC54                      ;079A17|        |08AC54;  
-                       dw DATA8_08ACAE                      ;079A19|        |08ACAE;  
-                       dw DATA8_08AD0A                      ;079A1B|        |08AD0A;  
-                       dw DATA8_08AD5B                      ;079A1D|        |08AD5B;  
-                       dw DATA8_08ADB4                      ;079A1F|        |08ADB4;  
-                       dw DATA8_08AE0C                      ;079A21|        |08AE0C;  
-                       dw DATA8_08AE64                      ;079A23|        |08AE64;  
-                       dw DATA8_08AEC7                      ;079A25|        |08AEC7;  
-                       dw DATA8_08AF2D                      ;079A27|        |08AF2D;  
-                       dw DATA8_08AF8B                      ;079A29|        |08AF8B;  
-                       dw DATA8_08AFE9                      ;079A2B|        |08AFE9;  
-                       dw DATA8_08B026                      ;079A2D|        |08B026;  
-                       dw DATA8_08B08A                      ;079A2F|        |08B08A;  
-                       dw DATA8_08B0D1                      ;079A31|        |08B0D1;  
-                       dw DATA8_08B124                      ;079A33|        |08B124;  
-                       dw DATA8_08B15C                      ;079A35|        |08B15C;  
-                       dw DATA8_08B1B3                      ;079A37|        |08B1B3;  
-                       dw Placeholder Swords                ;079A39|        |08B218;  
-                       dw Placeholder Swords                ;079A3B|        |08B218;  
-                       dw Placeholder Swords                ;079A3D|        |08B218;  
-                       dw Placeholder Swords                ;079A3F|        |08B218;  
-                       dw Soft Leather                      ;079A41|        |08B221;  
-                       dw TEXT_08B286                       ;079A43|        |08B286;  
-                       dw TEXT_08B2DE                       ;079A45|        |08B2DE;  
-                       dw TEXT_08B352                       ;079A47|        |08B352;  
-                       dw TEXT_08B3AB                       ;079A49|        |08B3AB;  
-                       dw TEXT_08B41C                       ;079A4B|        |08B41C;  
-                       dw TEXT_08B479                       ;079A4D|        |08B479;  
-                       dw TEXT_08B4E7                       ;079A4F|        |08B4E7;  
-                       dw TEXT_08B55B                       ;079A51|        |08B55B;  
-                       dw TEXT_08B5B2                       ;079A53|        |08B5B2;  
-                       dw TEXT_08B607                       ;079A55|        |08B607;  
-                       dw TEXT_08B653                       ;079A57|        |08B653;  
-                       dw TEXT_08B6B9                       ;079A59|        |08B6B9;  
-                       dw TEXT_08B72A                       ;079A5B|        |08B72A;  
-                       dw TEXT_08B784                       ;079A5D|        |08B784;  
-                       dw TEXT_08B7D5                       ;079A5F|        |08B7D5;  
-                       dw TEXT_08B843                       ;079A61|        |08B843;  
-                       dw TEXT_08B8A8                       ;079A63|        |08B8A8;  
-                       dw TEXT_08B923                       ;079A65|        |08B923;  
-                       dw TEXT_08B99A                       ;079A67|        |08B99A;  
-                       dw TEXT_08B9F0                       ;079A69|        |08B9F0;  
-                       dw TEXT_08BA50                       ;079A6B|        |08BA50;  
-                       dw TEXT_08BAAD                       ;079A6D|        |08BAAD;  
-                       dw TEXT_08BB13                       ;079A6F|        |08BB13;  
-                       dw TEXT_08BB6C                       ;079A71|        |08BB6C;  
+                       dw ShortSD                           ;0799F3|        |08A633;  
+                       dw LongSD                            ;0799F5|        |08A679;  
+                       dw BroadSD                           ;0799F7|        |08A6D0;  
+                       dw Scimitar                          ;0799F9|        |08A709;  
+                       dw IceBlade                          ;0799FB|        |08A73D;  
+                       dw UndeadBlade                       ;0799FD|        |08A783;  
+                       dw FireBlade                         ;0799FF|        |08A7D7;  
+                       dw DragonBlade                       ;079A01|        |08A82D;  
+                       dw MagicSD                           ;079A03|        |08A897;  
+                       dw LightningSD                       ;079A05|        |08A8EB;  
+                       dw Desiree                           ;079A07|        |08A951;  
+                       dw CrystalSD                         ;079A09|        |08A9AD;  
+                       dw SpiritSD                          ;079A0B|        |08AA20;  
+                       dw GiantSD                           ;079A0D|        |08AA7E;  
+                       dw GoldenSD                          ;079A0F|        |08AAE4;  
+                       dw CursedSD                          ;079A11|        |08AB39;  
+                       dw FlyingAx                          ;079A13|        |08ABBD;  
+                       dw BattleAx                          ;079A15|        |08ABF1;  
+                       dw GreatAx                           ;079A17|        |08AC54;  
+                       dw DemonAx                           ;079A19|        |08ACAE;  
+                       dw Staff                             ;079A1B|        |08AD0A;  
+                       dw MageST                            ;079A1D|        |08AD5B;  
+                       dw MemoryWand                        ;079A1F|        |08ADB4;  
+                       dw Firebrand                         ;079A21|        |08AE0C;  
+                       dw ElderStaff                        ;079A23|        |08AE64;  
+                       dw WishWand                          ;079A25|        |08AEC7;  
+                       dw StaffWisdom                       ;079A27|        |08AF2D;  
+                       dw SpiritStaff                       ;079A29|        |08AF8B;  
+                       dw Mace                              ;079A2B|        |08AFE9;  
+                       dw Flail                             ;079A2D|        |08B026;  
+                       dw BattleHammer                      ;079A2F|        |08B08A;  
+                       dw MorningStar                       ;079A31|        |08B0D1;  
+                       dw Whip                              ;079A33|        |08B124;  
+                       dw ChainWhip                         ;079A35|        |08B15C;  
+                       dw BlackthorneWhip                   ;079A37|        |08B1B3;  
+                       dw SwordNone                         ;079A39|        |08B218;  
+                       dw SwordNone                         ;079A3B|        |08B218;  
+                       dw SwordNone                         ;079A3D|        |08B218;  
+                       dw SwordNone                         ;079A3F|        |08B218;  
+                       dw SoftLeather                       ;079A41|        |08B221;  
+                       dw HardLeather                       ;079A43|        |08B286;  
+                       dw RingMail                          ;079A45|        |08B2DE;  
+                       dw ScaleMail                         ;079A47|        |08B352;  
+                       dw ChainMail                         ;079A49|        |08B3AB;  
+                       dw BreastMail                        ;079A4B|        |08B41C;  
+                       dw BreastPlate                       ;079A4D|        |08B479;  
+                       dw SeamMail                          ;079A4F|        |08B4E7;  
+                       dw PlateMail                         ;079A51|        |08B55B;  
+                       dw MithrilChain                      ;079A53|        |08B5B2;  
+                       dw MithrilPlate                      ;079A55|        |08B607;  
+                       dw MithrilMail                       ;079A57|        |08B653;  
+                       dw DemonMail                         ;079A59|        |08B6B9;  
+                       dw DragonMail                        ;079A5B|        |08B72A;  
+                       dw MagicPlate                        ;079A5D|        |08B784;  
+                       dw MagicMail                         ;079A5F|        |08B7D5;  
+                       dw EarthPlate                        ;079A61|        |08B843;  
+                       dw GrandArmor                        ;079A63|        |08B8A8;  
+                       dw RococoArmor                       ;079A65|        |08B923;  
+                       dw Robe                              ;079A67|        |08B99A;  
+                       dw SilverRobe                        ;079A69|        |08B9F0;  
+                       dw WhiteRobe                         ;079A6B|        |08BA50;  
+                       dw ShamanRobe                        ;079A6D|        |08BAAD;  
+                       dw MagicRobe                         ;079A6F|        |08BB13;  
+                       dw RobeOfValor                       ;079A71|        |08BB6C;  
                                                             ;      |        |      ;  
-                       dw TEXT_08BBD8                       ;079A73|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A75|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A77|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A79|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A7B|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A7D|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A7F|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A81|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A83|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A85|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A87|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A89|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A8B|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A8D|        |08BBD8;  
-                       dw TEXT_08BBD8                       ;079A8F|        |08BBD8;  
-                       dw TEXT_08BBE1                       ;079A91|        |08BBE1;  
-                       dw TEXT_08BC2E                       ;079A93|        |08BC2E;  
-                       dw TEXT_08BC91                       ;079A95|        |08BC91;  
-                       dw TEXT_08BD06                       ;079A97|        |08BD06;  
-                       dw TEXT_08BD53                       ;079A99|        |08BD53;  
-                       dw TEXT_08BDAC                       ;079A9B|        |08BDAC;  
-                       dw TEXT_08BE06                       ;079A9D|        |08BE06;  
-                       dw TEXT_08BE76                       ;079A9F|        |08BE76;  
-                       dw TEXT_08BEDD                       ;079AA1|        |08BEDD;  
-                       dw TEXT_08BF25                       ;079AA3|        |08BF25;  
-                       dw TEXT_08BF93                       ;079AA5|        |08BF93;  
-                       dw TEXT_08BFEB                       ;079AA7|        |08BFEB;  
-                       dw TEXT_08C051                       ;079AA9|        |08C051;  
-                       dw TEXT_08C0AF                       ;079AAB|        |08C0AF;  
-                       dw TEXT_08C11E                       ;079AAD|        |08C11E;  
-                       dw TEXT_08C17F                       ;079AAF|        |08C17F;  
-                       dw TEXT_08C1EE                       ;079AB1|        |08C1EE;  
-                       dw TEXT_08C24F                       ;079AB3|        |08C24F;  
-                       dw TEXT_08C2A8                       ;079AB5|        |08C2A8;  
-                       dw TEXT_08C2A8                       ;079AB7|        |08C2A8;  
-                       dw TEXT_08C2B1                       ;079AB9|        |08C2B1;  
-                       dw TEXT_08C31C                       ;079ABB|        |08C31C;  
-                       dw TEXT_08C37F                       ;079ABD|        |08C37F;  
-                       dw TEXT_08C3C8                       ;079ABF|        |08C3C8;  
-                       dw TEXT_08C422                       ;079AC1|        |08C422;  
-                       dw TEXT_08C48F                       ;079AC3|        |08C48F;  
-                       dw TEXT_08C4F6                       ;079AC5|        |08C4F6;  
-                       dw TEXT_08C55F                       ;079AC7|        |08C55F;  
-                       dw TEXT_08C5C7                       ;079AC9|        |08C5C7;  
-                       dw TEXT_08C639                       ;079ACB|        |08C639;  
-                       dw TEXT_08C69B                       ;079ACD|        |08C69B;  
-                       dw TEXT_08C6FB                       ;079ACF|        |08C6FB;  
-                       dw TEXT_08C767                       ;079AD1|        |08C767;  
-                       dw TEXT_08C7D5                       ;079AD3|        |08C7D5;  
-                       dw TEXT_08C828                       ;079AD5|        |08C828;  
-                       dw TEXT_08C882                       ;079AD7|        |08C882;  
-                       dw TEXT_08C8DB                       ;079AD9|        |08C8DB;  
-                       dw TEXT_08C935                       ;079ADB|        |08C935;  
-                       dw TEXT_08C935                       ;079ADD|        |08C935;  
-                       dw TEXT_08C935                       ;079ADF|        |08C935;  
+                       dw ArmorNone                         ;079A73|        |08BBD8;  
+                       dw ArmorNone                         ;079A75|        |08BBD8;  
+                       dw ArmorNone                         ;079A77|        |08BBD8;  
+                       dw ArmorNone                         ;079A79|        |08BBD8;  
+                       dw ArmorNone                         ;079A7B|        |08BBD8;  
+                       dw ArmorNone                         ;079A7D|        |08BBD8;  
+                       dw ArmorNone                         ;079A7F|        |08BBD8;  
+                       dw ArmorNone                         ;079A81|        |08BBD8;  
+                       dw ArmorNone                         ;079A83|        |08BBD8;  
+                       dw ArmorNone                         ;079A85|        |08BBD8;  
+                       dw ArmorNone                         ;079A87|        |08BBD8;  
+                       dw ArmorNone                         ;079A89|        |08BBD8;  
+                       dw ArmorNone                         ;079A8B|        |08BBD8;  
+                       dw ArmorNone                         ;079A8D|        |08BBD8;  
+                       dw ArmorNone                         ;079A8F|        |08BBD8;  
+                       dw SmallSH                           ;079A91|        |08BBE1;  
+                       dw LargeSH                           ;079A93|        |08BC2E;  
+                       dw SpikeSH                           ;079A95|        |08BC91;  
+                       dw IronSH                            ;079A97|        |08BD06;  
+                       dw MithrilSH                         ;079A99|        |08BD53;  
+                       dw DragonSH                          ;079A9B|        |08BDAC;  
+                       dw DemonSH                           ;079A9D|        |08BE06;  
+                       dw MagicSH                           ;079A9F|        |08BE76;  
+                       dw CaesarSH                          ;079AA1|        |08BEDD;  
+                       dw GrandShield                       ;079AA3|        |08BF25;  
+                       dw CursedSH                          ;079AA5|        |08BF93;  
+                       dw Talisman                          ;079AA7|        |08BFEB;  
+                       dw RuneGauntlet                      ;079AA9|        |08C051;  
+                       dw MithrilGauntlet                   ;079AAB|        |08C0AF;  
+                       dw MagicGauntlet                     ;079AAD|        |08C11E;  
+                       dw SpiritGauntlet                    ;079AAF|        |08C17F;  
+                       dw MoonGauntlet                      ;079AB1|        |08C1EE;  
+                       dw CursedGauntlet                    ;079AB3|        |08C24F;  
+                       dw AmuletNone                        ;079AB5|        |08C2A8;  
+                       dw AmuletNone                        ;079AB7|        |08C2A8;  
+                       dw SecretRing                        ;079AB9|        |08C2B1;  
+                       dw LifeRing                          ;079ABB|        |08C31C;  
+                       dw EuhancerRing                      ;079ABD|        |08C37F;  
+                       dw RingInspiration                   ;079ABF|        |08C3C8;  
+                       dw PeaceRing                         ;079AC1|        |08C422;  
+                       dw AncientRing                       ;079AC3|        |08C48F;  
+                       dw RingOfLife                        ;079AC5|        |08C4F6;  
+                       dw RingOfValor                       ;079AC7|        |08C55F;  
+                       dw RingOfHope                        ;079AC9|        |08C5C7;  
+                       dw SparklingRing                     ;079ACB|        |08C639;  
+                       dw ShiningRing                       ;079ACD|        |08C69B;  
+                       dw RingAmazement                     ;079ACF|        |08C6FB;  
+                       dw RingAstonishment                  ;079AD1|        |08C767;  
+                       dw CrookedRing                       ;079AD3|        |08C7D5;  
+                       dw TwistedRing                       ;079AD5|        |08C828;  
+                       dw GrandRing                         ;079AD7|        |08C882;  
+                       dw CharmRing                         ;079AD9|        |08C8DB;  
+                       dw RingNone                          ;079ADB|        |08C935;  
+                       dw RingNone                          ;079ADD|        |08C935;  
+                       dw RingNone                          ;079ADF|        |08C935;  
                                                             ;      |        |      ;  
-     Banks: Wpn texts: dw $0008                             ;079AE1|        |000008;  
+   Banks_Weapons_desc: dw $0008                             ;079AE1|        |000008;  
                        dw $0008                             ;079AE3|        |000008;  
                        dw $0008                             ;079AE5|        |000008;  
                        dw $0008                             ;079AE7|        |000008;  
@@ -4329,7 +4334,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        TAX                                  ;079CBD|AA      |      ;  
                        LDA.W Current party,X                ;079CBE|BD5B15  |00155B;  
                        TAX                                  ;079CC1|AA      |      ;  
-                       LDA.L Tbl Find Me,X                  ;079CC2|BF32A307|07A332;  
+                       LDA.L Party_Equip_Bits,X             ;079CC2|BF32A307|07A332;  
                        AND.W #$00FF                         ;079CC6|29FF00  |      ;  
                        PHA                                  ;079CC9|48      |      ;  
                        JSR.W Get Equipment ID               ;079CCA|20959C  |079C95;  
@@ -4499,7 +4504,8 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        STA.W Card inventory,X               ;079DF1|9DA913  |0013A9;  
                        RTL                                  ;079DF4|6B      |      ;  
                                                             ;      |        |      ;  
-                       LDA.W Page #                         ;079DF5|ADB911  |0011B9;  
+                                                            ;      |        |      ;  
+     Draw_Magic_Menu?: LDA.W Page #                         ;079DF5|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079DF8|A20800  |      ;  
                        JSL.L MultiplyTo$00_far              ;079DFB|22398A00|008A39;  
                        LDA.B $00                            ;079DFF|A500    |000000;  
@@ -4566,7 +4572,8 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        STA.W Item inventory,X               ;079E76|9DB913  |0013B9;  
                        RTL                                  ;079E79|6B      |      ;  
                                                             ;      |        |      ;  
-                       LDA.W Page #                         ;079E7A|ADB911  |0011B9;  
+                                                            ;      |        |      ;  
+          CODE_079E7A: LDA.W Page #                         ;079E7A|ADB911  |0011B9;  
                        LDX.W #$0008                         ;079E7D|A20800  |      ;  
                        JSL.L MultiplyTo$00_far              ;079E80|22398A00|008A39;  
                        LDA.B $00                            ;079E84|A500    |000000;  
@@ -4770,7 +4777,8 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        STA.W Page #                         ;079FCA|8DB911  |0011B9;  
                        RTL                                  ;079FCD|6B      |      ;  
                                                             ;      |        |      ;  
-                       LDX.W Selection                      ;079FCE|AE3F10  |00103F;  
+                                                            ;      |        |      ;  
+          CODE_079FCE: LDX.W Selection                      ;079FCE|AE3F10  |00103F;  
                        LDA.W Selection value,X              ;079FD1|BDEB09  |0009EB;  
                        BEQ CODE_079FE6                      ;079FD4|F010    |079FE6;  
                        LDA.W Page #                         ;079FD6|ADB911  |0011B9;  
@@ -5138,7 +5146,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        TAX                                  ;07A247|AA      |      ;  
                        LDA.W Current party,X                ;07A248|BD5B15  |00155B;  
                        TAX                                  ;07A24B|AA      |      ;  
-                       LDA.L Tbl Find Me,X                  ;07A24C|BF32A307|07A332;  
+                       LDA.L Party_Equip_Bits,X             ;07A24C|BF32A307|07A332;  
                        AND.W #$00FF                         ;07A250|29FF00  |      ;  
                        STA.B $20                            ;07A253|8520    |000020;  
                        LDA.W Page #                         ;07A255|ADB911  |0011B9;  
@@ -5196,12 +5204,12 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        PLY                                  ;07A2B8|7A      |      ;  
                        SEP #$20                             ;07A2B9|E220    |      ;  
                                                             ;      |        |      ;  
-          CODE_07A2BB: LDA.L TEXT_05D625,X                  ;07A2BB|BF25D605|05D625;  
+          CODE_07A2BB: LDA.L Character_Names,X              ;07A2BB|BF25D605|05D625;  
                        AND.B #$FF                           ;07A2BF|29FF    |      ;  
                        STA.W DisplayText,Y                  ;07A2C1|99AF15  |0015AF;  
                        INX                                  ;07A2C4|E8      |      ;  
                        INY                                  ;07A2C5|C8      |      ;  
-                       LDA.L TEXT_05D625,X                  ;07A2C6|BF25D605|05D625;  
+                       LDA.L Character_Names,X              ;07A2C6|BF25D605|05D625;  
                        AND.B #$FF                           ;07A2CA|29FF    |      ;  
                        BNE CODE_07A2BB                      ;07A2CC|D0ED    |07A2BB;  
                        LDA.B #$08                           ;07A2CE|A908    |      ;  
@@ -5261,15 +5269,15 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
                        RTL                                  ;07A331|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          Tbl Find Me: db $01                               ;07A332|        |000000;  
+     Party_Equip_Bits: db $01                               ;07A332|        |      ; Rooks
                        db $00                               ;07A333|        |      ;  
                        db $00                               ;07A334|        |      ;  
                        db $00                               ;07A335|        |      ;  
                        db $00                               ;07A336|        |      ;  
-                       db $02                               ;07A337|        |      ;  
-                       db $04                               ;07A338|        |000008;  
-                       db $08                               ;07A339|        |      ;  
-                       db $10                               ;07A33A|        |07A33C;  
+                       db $02                               ;07A337|        |      ; Teefa
+                       db $04                               ;07A338|        |      ; Salah
+                       db $08                               ;07A339|        |      ; Darwin
+                       db $10                               ;07A33A|        |      ; Axs
                        db $00                               ;07A33B|        |      ;  
                                                             ;      |        |      ;  
           CODE_07A33C: ASL A                                ;07A33C|0A      |      ;  
@@ -5459,7 +5467,8 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
           CODE_07A480: LDA.W #$0000                         ;07A480|A90000  |      ;  
                        RTS                                  ;07A483|60      |      ;  
                                                             ;      |        |      ;  
-                       JSR.W CODE_07A488                    ;07A484|2088A4  |07A488;  
+                                                            ;      |        |      ;  
+          07_A488_far: JSR.W CODE_07A488                    ;07A484|2088A4  |07A488;  
                        RTL                                  ;07A487|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -5591,7 +5600,7 @@ Empty Equip item slot?: STA.B $20                            ;07A4DA|8520    |00
                        LDA.B $02                            ;07A561|A502    |000002;  
                        JSR.W Get character offset           ;07A563|20F5B0  |07B0F5;  
                        TAX                                  ;07A566|AA      |      ;  
-                       LDA.L DATA16_07A572,X                ;07A567|BF72A507|07A572;  
+                       LDA.L Spell_List_Offsets,X           ;07A567|BF72A507|07A572;  
                        STA.B $00                            ;07A56B|8500    |000000;  
                        PLA                                  ;07A56D|68      |      ;  
                        CLC                                  ;07A56E|18      |      ;  
@@ -5599,7 +5608,7 @@ Empty Equip item slot?: STA.B $20                            ;07A4DA|8520    |00
                        RTS                                  ;07A571|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-        DATA16_07A572: dw $0000                             ;07A572|        |      ;  
+   Spell_List_Offsets: dw $0000                             ;07A572|        |      ;  
                        dw $0040                             ;07A574|        |      ;  
                        dw $0080                             ;07A576|        |      ;  
                        dw $00C0                             ;07A578|        |      ;  
@@ -10411,25 +10420,25 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        RTL                                  ;07C874|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-        What happened: dw Suffered X damage                 ;07C875|        |088624; 0: Damaging
-                       dw No effect                         ;07C877|        |0887BF; 1: Draining (no effect)
-                       dw X's X HP has been restored        ;07C879|        |08868E; 2: Healing
-                       dw X has X                           ;07C87B|        |0886BA; 3: Death and Statuses
-                       dw X has X                           ;07C87D|        |0886BA; 4: Death and Statuses
-                       dw X's X has decreased.              ;07C87F|        |0886CE; 5: Debuffs
-                       dw No effect                         ;07C881|        |0887BF; 6: Undeath (no effect)
-                       dw Ruinous Mission attack            ;07C883|        |0886EF; 7: Ruinous Mission
-                       dw X's X has increased               ;07C885|        |088724; 8: Buffs
-                       dw Change Attribute                  ;07C887|        |08874A; 9: Change Attr.
-                       dw No effect                         ;07C889|        |0887BF; 0A: Reflects (no effect)
-                       dw Status recovery                   ;07C88B|        |088771; 0B: Status heals
-                       dw Restoration of Spirit             ;07C88D|        |088794; 0C: Restoration of Spirit
-                       dw No effect                         ;07C88F|        |0887BF; 0D: Out of battle (no effect)
+        What happened: dw Suffered_damage2                  ;07C875|        |088624; 0: Damaging
+                       dw No_effect                         ;07C877|        |0887BF; 1: Draining (no effect)
+                       dw HP_restored                       ;07C879|        |08868E; 2: Healing
+                       dw X_has_X                           ;07C87B|        |0886BA; 3: Death and Statuses
+                       dw X_has_X                           ;07C87D|        |0886BA; 4: Death and Statuses
+                       dw X_stat_decreased                  ;07C87F|        |0886CE; 5: Debuffs
+                       dw No_effect                         ;07C881|        |0887BF; 6: Undeath (no effect)
+                       dw Spirit_explosion_atk              ;07C883|        |0886EF; 7: Ruinous Mission
+                       dw X_stat_increased                  ;07C885|        |088724; 8: Buffs
+                       dw Change_Attribute                  ;07C887|        |08874A; 9: Change Attr.
+                       dw No_effect                         ;07C889|        |0887BF; 0A: Reflects (no effect)
+                       dw Status_healed                     ;07C88B|        |088771; 0B: Status heals
+                       dw Restoration_of_Spirit             ;07C88D|        |088794; 0C: Restoration of Spirit
+                       dw No_effect                         ;07C88F|        |0887BF; 0D: Out of battle (no effect)
                                                             ;      |        |      ;  
-              Extras?: dw HP recovery                       ;07C891|        |0888B9; HP recovery
-                       dw Status recovery                   ;07C893|        |088771; Status recovery
-                       dw Restoration of Spirit             ;07C895|        |088794; Restoration of Spirit
-                       dw Restoration of Spirit             ;07C897|        |088794; Restoration of Spirit
+              Extras?: dw HP_recovery                       ;07C891|        |0888B9; HP recovery
+                       dw Status_healed                     ;07C893|        |088771; Status recovery
+                       dw Restoration_of_Spirit             ;07C895|        |088794; Restoration of Spirit
+                       dw Restoration_of_Spirit             ;07C897|        |088794; Restoration of Spirit
                                                             ;      |        |      ;  
           CODE_07C899: LDX.W Target                         ;07C899|AE2311  |001123;  
                        LDA.W $112B,X                        ;07C89C|BD2B11  |00112B;  
