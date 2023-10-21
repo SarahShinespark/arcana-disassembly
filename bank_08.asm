@@ -505,7 +505,7 @@ Gratuitous Japanese 2: db $06                               ;0883C8|        |   
                        dl $0015AF                           ;088442|        |0015AF;  
                        db $00                               ;088445|        |      ;  
                                                             ;      |        |      ;  
-   Loads 4 things (?): db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  ", $10;088446|        |      ;  
+      BattleMagicMenu: db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  ", $10;088446|        |      ;  
                        dl $0015AF                           ;088452|        |0015AF;  
                        db $0D, "  ", $10                    ;088455|        |      ;  
                        dl $0015C7                           ;088459|        |0015C7;  
@@ -4395,7 +4395,8 @@ Alchemist: Not enough $: db $10                               ;08D289|        | 
                        db " brought here?""                 ;08D709|        |      ;  
                        db $7F                               ;08D718|        |      ;  
                        db $00                               ;08D719|        |      ;  
-                       db $10                               ;08D71A|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_08D71A: db $10                               ;08D71A|        |      ;  
                        dl Speaking Text Setup               ;08D71B|        |08CCBA;  
                        db $10                               ;08D71E|        |      ;  
                        dl Alchemist menu                    ;08D71F|        |08D1B7;  

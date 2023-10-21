@@ -2484,7 +2484,7 @@ Bank_02_Enemy_Handling: db $04                               ;028001|        |  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
          DATA8_028CDF: db $07                               ;028CDF|        |      ;  
-                       dl Get enemy ID_far                  ;028CE0|        |07912A;  
+                       dl Get enemy ID_from_103F_far        ;028CE0|        |07912A;  
                        db $07                               ;028CE3|        |      ; Get Enemy X name
                        dl Get_EnemyX_Name                   ;028CE4|        |07B51C;  
                        db $07                               ;028CE7|        |      ; 07: ROM transfer from 0D/958C
@@ -2796,7 +2796,7 @@ Roll_Confusion_Target: db $0C                               ;028D6B|        |   
                        db $04                               ;028EA4|        |      ;  
                        dl DATA8_05F480                      ;028EA5|        |05F480;  
                        db $07                               ;028EA8|        |      ;  
-                       dl Get enemy ID_far                  ;028EA9|        |07912A;  
+                       dl Get enemy ID_from_103F_far        ;028EA9|        |07912A;  
                        db $07                               ;028EAC|        |      ;  
                        dl Boss monster?                     ;028EAD|        |07832D;  
                        db $0B                               ;028EB0|        |      ;  
@@ -2942,7 +2942,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        db $1C                               ;028F78|        |      ; 1C: Return
                                                             ;      |        |      ;  
  Sub_Attack_Animation: db $07                               ;028F79|        |      ; Get enemy ID
-                       dl Get enemy ID_far                  ;028F7A|        |07912A;  
+                       dl Get enemy ID_from_103F_far        ;028F7A|        |07912A;  
                        db $07                               ;028F7D|        |      ; Boss monster?
                        dl Boss monster?                     ;028F7E|        |07832D;  
                        db $0C                               ;028F81|        |      ; Jump to Boss attack animation
@@ -2958,7 +2958,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
                        dl Store A in $11B5,x (1b offset)    ;028F8E|        |07AF9E;  
                        db $01                               ;028F91|        |      ;  
                        db $07                               ;028F92|        |      ; Load enemy ID
-                       dl Get enemy ID_far                  ;028F93|        |07912A;  
+                       dl Get enemy ID_from_103F_far        ;028F93|        |07912A;  
                        db $07                               ;028F96|        |      ; Store in $11B9
                        dl Store A in $11B5,x (1b offset)    ;028F97|        |07AF9E;  
                        db $02                               ;028F9A|        |      ;  
@@ -2995,7 +2995,7 @@ Sub: Enemy death anim: db $07                               ;028F24|        |   
 Get Boss attack animation: db $14                               ;028FBD|        |      ;  
                        db $01                               ;028FBE|        |      ;  
                        db $07                               ;028FBF|        |      ; Get enemy ID
-                       dl Get enemy ID_far                  ;028FC0|        |07912A;  
+                       dl Get enemy ID_from_103F_far        ;028FC0|        |07912A;  
                        db $07                               ;028FC3|        |      ; Get boss #
                        dl Get Boss #                        ;028FC4|        |078324;  
                        db $11                               ;028FC7|        |      ; 11: Switch case (boss #)
@@ -3331,9 +3331,9 @@ Add_enemy_loot_to_total: db $07                               ;0290FE|        | 
                        dl CODE_029139                       ;029135|        |029139;  
                        db $05                               ;029138|        |      ; RTL
                                                             ;      |        |      ;  
-          CODE_029139: JSL.L Get enemy ID_far               ;029139|222A9107|07912A;  
+          CODE_029139: JSL.L Get enemy ID_from_103F_far     ;029139|222A9107|07912A;  
                                                             ;      |        |      ;  
-    Load Battle Stats: ASL A                                ;02913D|0A      |      ;  
+  GetEnemyBattleStats: ASL A                                ;02913D|0A      |      ;  
                        TAX                                  ;02913E|AA      |      ;  
                        LDY.W Selection                      ;02913F|AC3F10  |00103F;  
                        LDA.W Selection value,Y              ;029142|B9EB09  |0009EB; Temp var used for the offset of this fighter's battle stats
@@ -3349,16 +3349,16 @@ Add_enemy_loot_to_total: db $07                               ;0290FE|        | 
                        STA.W Endurance,Y                    ;029160|995312  |001253;  
                        LDA.L Get Alertness,X                ;029163|BFD5CB05|05CBD5;  
                        STA.W Alertness,Y                    ;029167|996B12  |00126B;  
-                       LDA.L Get EqWeapon,X                 ;02916A|BF75CC05|05CC75;  
+                       LDA.L Get_Atk_Animation,X            ;02916A|BF75CC05|05CC75;  
                        STA.W EqWeapon,Y                     ;02916E|998312  |001283;  
                        LDA.L Get EqArmor,X                  ;029171|BF15CD05|05CD15;  
                        STA.W EqArmor,Y                      ;029175|999B12  |00129B;  
                        LDA.L Get EqAccessory,X              ;029178|BFB5CD05|05CDB5;  
                        STA.W EqAccess.,Y                    ;02917C|99B312  |0012B3;  
                        LDA.L Enemy LVL,X                    ;02917F|BF35D005|05D035;  
-                       STA.W Current LV,Y                   ;029183|997B13  |00137B;  
+                       STA.W CurrentLV,Y                    ;029183|997B13  |00137B;  
                        LDA.L Enemy EXP,X                    ;029186|BFF5CE05|05CEF5;  
-                       STA.W Current EXP,Y                  ;02918A|996313  |001363;  
+                       STA.W CurrentEXP,Y                   ;02918A|996313  |001363;  
                        LDA.L Enemy max HP,X                 ;02918D|BF55CE05|05CE55;  
                        STA.W Current HP,Y                   ;029191|99F312  |0012F3;  
                        LDX.W Selection                      ;029194|AE3F10  |00103F;  
