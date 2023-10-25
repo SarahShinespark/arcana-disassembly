@@ -301,7 +301,7 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                        BRA CODE_0781DF                      ;0781E7|80F6    |0781DF;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-      Load battle BGM: LDA.W $18EF                          ;0781E9|ADEF18  |0018EF; Loads battle BGM (idk where the value came from)
+      Load battle BGM: LDA.W 4F_50_52_51_Battle             ;0781E9|ADEF18  |0018EF; Loads battle BGM (idk where the value came from)
                        JML.L Sub: Set Music                 ;0781EC|5C3F9C00|009C3F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -429,7 +429,7 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
        Spell casting?: TAX                                  ;0782B3|AA      |      ;  
-                       LDA.L Spell SFX,X                    ;0782B4|BF56ED05|05ED56;  
+                       LDA.L Spell_SFX,X                    ;0782B4|BF56ED05|05ED56;  
                        AND.W #$00FF                         ;0782B8|29FF00  |      ;  
                        JML.L Play SFX                       ;0782BB|5C479C00|009C47;  
                                                             ;      |        |      ;  
@@ -496,17 +496,18 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
           CODE_07833C: LDA.W #$0001                         ;07833C|A90100  |      ;  
                        RTL                                  ;07833F|6B      |      ;  
                                                             ;      |        |      ;  
-                       TAX                                  ;078340|AA      |      ;  
-                       LDA.L DATA8_05ECF7,X                 ;078341|BFF7EC05|05ECF7;  
+                                                            ;      |        |      ;  
+       Draw_Spellcast: TAX                                  ;078340|AA      |      ;  
+                       LDA.L Spell_palette,X                ;078341|BFF7EC05|05ECF7;  
                        AND.W #$00FF                         ;078345|29FF00  |      ;  
                        BEQ CODE_078383                      ;078348|F039    |078383;  
                        DEC A                                ;07834A|3A      |      ;  
                        ASL A                                ;07834B|0A      |      ;  
                        TAX                                  ;07834C|AA      |      ;  
                        PHX                                  ;07834D|DA      |      ;  
-                       LDA.L DATA16_0783A8,X                ;07834E|BFA88307|0783A8;  
+                       LDA.L DATA16_0783A8,X                ;07834E|BFA88307|0783A8; 12 entries
                        PHA                                  ;078352|48      |      ;  
-                       LDA.L PTR16_078390,X                 ;078353|BF908307|078390;  
+                       LDA.L Tbl_Compressed_Spells,X        ;078353|BF908307|078390;  
                        TAX                                  ;078357|AA      |      ;  
                        PLA                                  ;078358|68      |      ;  
                        LDY.W #$9C00                         ;078359|A0009C  |      ;  
@@ -519,7 +520,7 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                        LDA.W #$8387                         ;078367|A98783  |      ;  
                        JSL.L Decomp_From_RAM?               ;07836A|22FE8400|0084FE;  
                        PLX                                  ;07836E|FA      |      ;  
-                       LDA.L PTR16_0783C0,X                 ;07836F|BFC08307|0783C0;  
+                       LDA.L Tbl_Spelldata_MVN,X            ;07836F|BFC08307|0783C0;  
                        TAX                                  ;078373|AA      |      ;  
                        LDY.W #$0600                         ;078374|A00006  |      ;  
                        LDA.W #$001F                         ;078377|A91F00  |      ;  
@@ -534,28 +535,28 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                        RTL                                  ;078386|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-                  Idk: db $00                               ;078387|        |      ;  
+Spell_Anim_Decomp_Stuff: db $00                               ;078387|        |      ;  
                        db $00                               ;078388|        |      ;  
                        db $08                               ;078389|        |      ;  
                        db $00                               ;07838A|        |      ;  
-                       db $9C                               ;07838B|        |00007E;  
-                       db $7E                               ;07838C|        |007800;  
+                       db $9C                               ;07838B|        |      ;  
+                       db $7E                               ;07838C|        |      ;  
                        db $00                               ;07838D|        |      ;  
                        db $78                               ;07838E|        |      ;  
-                       db $FF                               ;07838F|        |A7B8F8;  
+                       db $FF                               ;07838F|        |      ;  
                                                             ;      |        |      ;  
-         PTR16_078390: dw CODE_00B8F8                       ;078390|        |00B8F8;  
-                       dw DATA16_00BBA7                     ;078392|        |00BBA7;  
-                       dw CODE_00BFE0                       ;078394|        |00BFE0;  
-                       dw LOOSE_OP_00C608                   ;078396|        |00C608;  
-                       dw CODE_00CB7A                       ;078398|        |00CB7A;  
-                       dw CODE_00CB7A                       ;07839A|        |00CB7A;  
-                       dw DATA16_00CD49                     ;07839C|        |00CD49;  
-                       dw CODE_00D34C                       ;07839E|        |00D34C;  
-                       dw UNREACH_00D7E5                    ;0783A0|        |00D7E5;  
-                       dw UNREACH_00DDE9                    ;0783A2|        |00DDE9;  
-                       dw UNREACH_00DFD6                    ;0783A4|        |00DFD6;  
-                       dw UNREACH_00DFD6                    ;0783A6|        |00DFD6;  
+Tbl_Compressed_Spells: dw Gfx_Compressed_Spell1             ;078390|        |0DB8F8;  
+                       dw DATA8_0DBBA7                      ;078392|        |0DBBA7;  
+                       dw DATA8_0DBFE0                      ;078394|        |0DBFE0;  
+                       dw DATA8_0DC608                      ;078396|        |0DC608;  
+                       dw DATA8_0DCB7A                      ;078398|        |0DCB7A;  
+                       dw DATA8_0DCB7A                      ;07839A|        |0DCB7A;  
+                       dw DATA8_0DCD49                      ;07839C|        |0DCD49;  
+                       dw DATA8_0DD34C                      ;07839E|        |0DD34C;  
+                       dw DATA8_0DD7E5                      ;0783A0|        |0DD7E5;  
+                       dw DATA8_0DDDE9                      ;0783A2|        |0DDDE9;  
+                       dw DATA8_0DDFD6                      ;0783A4|        |0DDFD6;  
+                       dw DATA8_0DDFD6                      ;0783A6|        |0DDFD6;  
                                                             ;      |        |      ;  
         DATA16_0783A8: dw $000D                             ;0783A8|        |      ;  
                        dw $000D                             ;0783AA|        |      ;  
@@ -570,18 +571,18 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                        dw $000D                             ;0783BC|        |      ;  
                        dw $000D                             ;0783BE|        |      ;  
                                                             ;      |        |      ;  
-         PTR16_0783C0: dw CODE_0095F2                       ;0783C0|        |0095F2;  
-                       dw CODE_0095F2                       ;0783C2|        |0095F2;  
-                       dw CODE_0095F2                       ;0783C4|        |0095F2;  
-                       dw CODE_009612                       ;0783C6|        |009612;  
-                       dw LOOSE_OP_009632                   ;0783C8|        |009632;  
-                       dw CODE_009652                       ;0783CA|        |009652;  
-                       dw LOOSE_OP_009672                   ;0783CC|        |009672;  
-                       dw LOOSE_OP_009692                   ;0783CE|        |009692;  
-                       dw CODE_0096B2                       ;0783D0|        |0096B2;  
-                       dw LOOSE_OP_0096D2                   ;0783D2|        |0096D2;  
-                       dw Tbl_RAM_Operations                ;0783D4|        |0096F2;  
-                       dw CODE_009712                       ;0783D6|        |009712;  
+    Tbl_Spelldata_MVN: dw Spelldata_MVN_1                   ;0783C0|        |0D95F2;  
+                       dw Spelldata_MVN_1                   ;0783C2|        |0D95F2;  
+                       dw Spelldata_MVN_1                   ;0783C4|        |0D95F2;  
+                       dw Spelldata_MVN2                    ;0783C6|        |0D9612;  
+                       dw Spelldata_MVN_3                   ;0783C8|        |0D9632;  
+                       dw Spelldata_MVN4                    ;0783CA|        |0D9652;  
+                       dw Spelldata_MVN5                    ;0783CC|        |0D9672;  
+                       dw Spelldata_MVN6                    ;0783CE|        |0D9692;  
+                       dw Spelldata_MVN7                    ;0783D0|        |0D96B2;  
+                       dw Spelldata_MVN8                    ;0783D2|        |0D96D2;  
+                       dw Spelldata_MVN9                    ;0783D4|        |0D96F2;  
+                       dw Spelldata_MVN10                   ;0783D6|        |0D9712;  
                        LDA.W Spell ID                       ;0783D8|AD2711  |001127;  
                        BPL CODE_0783E1                      ;0783DB|1004    |0783E1;  
                        LDA.W #$0000                         ;0783DD|A90000  |      ;  
@@ -1249,7 +1250,7 @@ Spell coloring (battle): PHX                                  ;078872|DA      | 
           CODE_078876: LDA.W Spell list,X                   ;078876|BD5914  |001459; Load the spell ID
                        AND.W #$00FF                         ;078879|29FF00  |      ;  
                        TAX                                  ;07887C|AA      |      ; Use it as an offset
-                       LDA.L Spell use flag,X               ;07887D|BF4CEA05|05EA4C; Load flag for in-battle spell use
+                       LDA.L Spell_use_flag,X               ;07887D|BF4CEA05|05EA4C; Load flag for in-battle spell use
                        AND.W #$0003                         ;078881|290300  |      ;  
                        CMP.W #$0003                         ;078884|C90300  |      ; Check if it's 3 (use anywhere)
                        BEQ CODE_07889D                      ;078887|F014    |07889D;  
@@ -1447,7 +1448,7 @@ Spell coloring (battle): PHX                                  ;078872|DA      | 
                        LDA.W Spell list,X                   ;0789DC|BD5914  |001459;  
                        AND.W #$00FF                         ;0789DF|29FF00  |      ;  
                        TAX                                  ;0789E2|AA      |      ;  
-                       LDA.L Spell use flag,X               ;0789E3|BF4CEA05|05EA4C;  
+                       LDA.L Spell_use_flag,X               ;0789E3|BF4CEA05|05EA4C;  
                        AND.W #$0003                         ;0789E7|290300  |      ;  
                        CMP.W #$0003                         ;0789EA|C90300  |      ;  
                        BEQ CODE_0789F8                      ;0789ED|F009    |0789F8;  
@@ -3401,7 +3402,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDA.L DATA8_079630,X                 ;079614|BF309607|079630;  
                        STA.W $07AB,Y                        ;079618|99AB07  |0007AB;  
                        LDA.L DATA8_07963B,X                 ;07961B|BF3B9607|07963B;  
-                       STA.W $0A7B,Y                        ;07961F|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;07961F|997B0A  |000A7B;  
                        REP #$20                             ;079622|C220    |      ;  
                        RTL                                  ;079624|6B      |      ;  
                                                             ;      |        |      ;  
@@ -3459,7 +3460,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDA.L DATA8_079679,X                 ;07965E|BF799607|079679;  
                        STA.W $07AB,Y                        ;079662|99AB07  |0007AB;  
                        LDA.L DATA8_079683,X                 ;079665|BF839607|079683;  
-                       STA.W $0A7B,Y                        ;079669|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;079669|997B0A  |000A7B;  
                        REP #$20                             ;07966C|C220    |      ;  
                        RTL                                  ;07966E|6B      |      ;  
                                                             ;      |        |      ;  
@@ -3506,7 +3507,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDA.L DATA8_0796BA,X                 ;07969D|BFBA9607|0796BA;  
                        STA.W $07AB,Y                        ;0796A1|99AB07  |0007AB;  
                        LDA.L DATA8_0796C6,X                 ;0796A4|BFC69607|0796C6;  
-                       STA.W $0A7B,Y                        ;0796A8|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;0796A8|997B0A  |000A7B;  
                        REP #$20                             ;0796AB|C220    |      ;  
                        RTL                                  ;0796AD|6B      |      ;  
                                                             ;      |        |      ;  
@@ -3775,7 +3776,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        LDA.W Spell list,X                   ;07987A|BD5914  |001459; Load learned spell ID
                        AND.W #$00FF                         ;07987D|29FF00  |      ;  
                        TAX                                  ;079880|AA      |      ;  
-                       LDA.L Spell MP cost,X                ;079881|BFA5EC05|05ECA5;  
+                       LDA.L Spell_MP_cost,X                ;079881|BFA5EC05|05ECA5;  
                        AND.W #$00FF                         ;079885|29FF00  |      ;  
                        STA.W $16DB                          ;079888|8DDB16  |0016DB; Save MP cost to write to the screen later
                        TXA                                  ;07988B|8A      |      ;  
@@ -4530,7 +4531,7 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        TAX                                  ;079E18|AA      |      ;  
                        LDA.W Spell list,X                   ;079E19|BD5914  |001459;  
                        TAX                                  ;079E1C|AA      |      ;  
-                       LDA.L Spell use flag,X               ;079E1D|BF4CEA05|05EA4C;  
+                       LDA.L Spell_use_flag,X               ;079E1D|BF4CEA05|05EA4C;  
                        AND.W #$0003                         ;079E21|290300  |      ;  
                        CMP.W #$0003                         ;079E24|C90300  |      ;  
                        BEQ CODE_079E2E                      ;079E27|F005    |079E2E;  
@@ -5066,7 +5067,7 @@ Spell coloring (field): PHX                                  ;07A19C|DA      |  
           CODE_07A1A0: LDA.W Spell list,X                   ;07A1A0|BD5914  |001459; Load spell ID
                        AND.W #$00FF                         ;07A1A3|29FF00  |      ;  
                        TAX                                  ;07A1A6|AA      |      ;  
-                       LDA.L Spell use flag,X               ;07A1A7|BF4CEA05|05EA4C; Load out-of-battle spell flag
+                       LDA.L Spell_use_flag,X               ;07A1A7|BF4CEA05|05EA4C; Load out-of-battle spell flag
                        AND.W #$0003                         ;07A1AB|290300  |      ;  
                        CMP.W #$0003                         ;07A1AE|C90300  |      ; Check if it's 3 (use anywhere)
                        BEQ CODE_07A1CD                      ;07A1B1|F01A    |07A1CD;  
@@ -5565,7 +5566,7 @@ Empty Equip item slot?: STA.B $20                            ;07A4DA|8520    |00
                        LDA.L Table $07AB,X                  ;07A515|BF36A507|07A536;  
                        STA.W $07AB,Y                        ;07A519|99AB07  |0007AB;  
                        LDA.L Table $0A7B,X                  ;07A51C|BF48A507|07A548;  
-                       STA.W $0A7B,Y                        ;07A520|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;07A520|997B0A  |000A7B;  
                        RTL                                  ;07A523|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -8524,7 +8525,8 @@ Tbl: Everyone's dodge message: dw DATA8_008BEF                      ;07B7CE|    
                                                             ;      |        |      ;  
           CODE_07B9A1: RTL                                  ;07B9A1|6B      |      ;  
                                                             ;      |        |      ;  
-                       LDX.W Selection                      ;07B9A2|AE3F10  |00103F;  
+                                                            ;      |        |      ;  
+          CODE_07B9A2: LDX.W Selection                      ;07B9A2|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;07B9A5|BDC709  |0009C7;  
                        BNE CODE_07B9AF                      ;07B9A8|D005    |07B9AF;  
                        LDX.W Attacker                       ;07B9AA|AE2111  |001121;  
@@ -8543,7 +8545,7 @@ Tbl: Everyone's dodge message: dw DATA8_008BEF                      ;07B7CE|    
           CODE_07B9BF: LDA.W Party order,X                  ;07B9BF|BDF311  |0011F3;  
                        ASL A                                ;07B9C2|0A      |      ;  
                        TAX                                  ;07B9C3|AA      |      ;  
-                       LDA.L DATA8_18954E,X                 ;07B9C4|BF4E9518|18954E;  
+                       LDA.L New_stuff,X                    ;07B9C4|BF4E9518|18954E;  
                        LDX.W Selection                      ;07B9C8|AE3F10  |00103F;  
                        PHA                                  ;07B9CB|48      |      ;  
                        AND.W #$00FF                         ;07B9CC|29FF00  |      ;  
@@ -8563,7 +8565,7 @@ Tbl: Everyone's dodge message: dw DATA8_008BEF                      ;07B7CE|    
                        LDA.W Party order,X                  ;07B9E4|BDF311  |0011F3;  
                        ASL A                                ;07B9E7|0A      |      ;  
                        TAX                                  ;07B9E8|AA      |      ;  
-                       LDA.L DATA8_18954E,X                 ;07B9E9|BF4E9518|18954E;  
+                       LDA.L New_stuff,X                    ;07B9E9|BF4E9518|18954E;  
                        LDX.W Selection                      ;07B9ED|AE3F10  |00103F;  
                        PHA                                  ;07B9F0|48      |      ;  
                        AND.W #$00FF                         ;07B9F1|29FF00  |      ;  
@@ -8654,7 +8656,7 @@ Tbl: Everyone's dodge message: dw DATA8_008BEF                      ;07B7CE|    
                        CLC                                  ;07BA8F|18      |      ;  
                        ADC.W #$0008                         ;07BA90|690800  |      ;  
                        LDX.W Selection                      ;07BA93|AE3F10  |00103F;  
-                       STA.W $0A7B,X                        ;07BA96|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;07BA96|9D7B0A  |000A7B;  
                        RTL                                  ;07BA99|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -8694,7 +8696,7 @@ Tbl: Everyone's dodge message: dw DATA8_008BEF                      ;07B7CE|    
                        ROL A                                ;07BACC|2A      |      ;  
                        ROL A                                ;07BACD|2A      |      ;  
                        AND.W #$000F                         ;07BACE|290F00  |      ;  
-                       STA.W $0A7B,X                        ;07BAD1|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;07BAD1|9D7B0A  |000A7B;  
                        RTL                                  ;07BAD4|6B      |      ;  
                                                             ;      |        |      ;  
                        JSL.L ReadNextScript(2b)_far         ;07BAD5|22079B00|009B07;  
@@ -9115,7 +9117,7 @@ Store results in (2b): JSL.L ReadNextScript(2b)_far         ;07BDD9|22079B00|009
                        CLC                                  ;07BDEF|18      |      ;  
                        ADC.W #$0007                         ;07BDF0|690700  |      ;  
                        LDY.W Selection                      ;07BDF3|AC3F10  |00103F;  
-                       STA.W $0A7B,Y                        ;07BDF6|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;07BDF6|997B0A  |000A7B;  
                        RTL                                  ;07BDF9|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -9259,14 +9261,14 @@ Store results in (2b): JSL.L ReadNextScript(2b)_far         ;07BDD9|22079B00|009
                        dw $1519                             ;07BEF8|        |001519;  
                                                             ;      |        |      ;  
      Get spell effect: LDX.W Spell ID                       ;07BEFA|AE2711  |001127;  
-                       LDA.L Tbl: Spell FX,X                ;07BEFD|BFB5ED05|05EDB5;  
+                       LDA.L Tbl_Spell_Category,X           ;07BEFD|BFB5ED05|05EDB5;  
                        AND.W #$00FF                         ;07BF01|29FF00  |      ;  
                        STA.W Spell type                     ;07BF04|8DC518  |0018C5;  
                        RTL                                  ;07BF07|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
   Get_spell_targeting: LDX.W Spell ID                       ;07BF08|AE2711  |001127;  
-                       LDA.L Spell_flag_Targeting,X         ;07BF0B|BF9EEA05|05EA9E;  
+                       LDA.L Spell_flag_targeting,X         ;07BF0B|BF9EEA05|05EA9E;  
                        AND.W #$00FF                         ;07BF0F|29FF00  |      ;  
                        RTL                                  ;07BF12|6B      |      ;  
                                                             ;      |        |      ;  
@@ -9315,7 +9317,7 @@ Get_spell_ID_minus_(1b): JSL.L ReadNextScript(1b)_far         ;07BF2D|22F89A00|0
                        CPY.W #$0008                         ;07BF57|C00800  |      ;  
                        BCS CODE_07BF88                      ;07BF5A|B02C    |07BF88;  
                        LDX.W Spell ID                       ;07BF5C|AE2711  |001127;  
-                       LDA.L Spell MP cost,X                ;07BF5F|BFA5EC05|05ECA5;  
+                       LDA.L Spell_MP_cost,X                ;07BF5F|BFA5EC05|05ECA5;  
                        AND.W #$00FF                         ;07BF63|29FF00  |      ;  
                        STA.B $00                            ;07BF66|8500    |000000;  
                        LDA.W Current MP,Y                   ;07BF68|B92313  |001323;  
@@ -9601,7 +9603,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        ASL A                                ;07C16C|0A      |      ;  
                        TAX                                  ;07C16D|AA      |      ;  
                        PLA                                  ;07C16E|68      |      ;  
-                       CMP.L Spell power,X                  ;07C16F|DF4BEB05|05EB4B;  
+                       CMP.L Spell_Power,X                  ;07C16F|DF4BEB05|05EB4B;  
                        BPL CODE_07C17F                      ;07C173|100A    |07C17F;  
                        BRA CODE_07C184                      ;07C175|800D    |07C184;  
                                                             ;      |        |      ;  
@@ -9622,7 +9624,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        LDA.W Spell ID                       ;07C192|AD2711  |001127;  
                        ASL A                                ;07C195|0A      |      ;  
                        TAX                                  ;07C196|AA      |      ;  
-                       LDA.L Spell power,X                  ;07C197|BF4BEB05|05EB4B;  
+                       LDA.L Spell_Power,X                  ;07C197|BF4BEB05|05EB4B;  
                                                             ;      |        |      ;  
           CODE_07C19B: LDX.W Target                         ;07C19B|AE2311  |001123;  
                        STA.W Status_Weird,X                 ;07C19E|9D2B11  |00112B;  
@@ -9697,7 +9699,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        LDA.W Spell ID                       ;07C220|AD2711  |001127;  
                        ASL A                                ;07C223|0A      |      ;  
                        TAX                                  ;07C224|AA      |      ;  
-                       LDA.L Spell power,X                  ;07C225|BF4BEB05|05EB4B;  
+                       LDA.L Spell_Power,X                  ;07C225|BF4BEB05|05EB4B;  
                        STA.W Status_Weird,Y                 ;07C229|992B11  |00112B;  
                                                             ;      |        |      ;  
           CODE_07C22C: LDA.W Target                         ;07C22C|AD2311  |001123;  
@@ -9716,7 +9718,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        LDA.W Spell ID                       ;07C23F|AD2711  |001127;  
                        ASL A                                ;07C242|0A      |      ;  
                        TAX                                  ;07C243|AA      |      ;  
-                       LDA.L Spell power,X                  ;07C244|BF4BEB05|05EB4B;  
+                       LDA.L Spell_Power,X                  ;07C244|BF4BEB05|05EB4B;  
                        STA.B $00                            ;07C248|8500    |000000;  
                        LDX.W Target                         ;07C24A|AE2311  |001123;  
                        LDA.W Condition,X                    ;07C24D|BDC311  |0011C3;  
@@ -10061,7 +10063,7 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        LDA.W Spell ID                       ;07C569|AD2711  |001127;  
                        ASL A                                ;07C56C|0A      |      ;  
                        TAX                                  ;07C56D|AA      |      ;  
-                       LDA.L Spell power,X                  ;07C56E|BF4BEB05|05EB4B;  
+                       LDA.L Spell_Power,X                  ;07C56E|BF4BEB05|05EB4B;  
                        STA.B $00                            ;07C572|8500    |000000;  
                        PLX                                  ;07C574|FA      |      ;  
                        CPX.W #$0008                         ;07C575|E00800  |      ;  
@@ -10469,18 +10471,18 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                                                             ;      |        |      ;  
           CODE_07C8B8: LDX.W Spell type                     ;07C8B8|AEC518  |0018C5;  
                        CPX.W #$0004                         ;07C8BB|E00400  |      ; Jump if not a status effect
-                       BNE Load effect SFX                  ;07C8BE|D00E    |07C8CE;  
+                       BNE Load_effect_SFX                  ;07C8BE|D00E    |07C8CE;  
                        LDA.W Spell ID                       ;07C8C0|AD2711  |001127;  
                        SEC                                  ;07C8C3|38      |      ;  
                        SBC.W #$0028                         ;07C8C4|E92800  |      ; Get index for status effect (0-A)
                        TAX                                  ;07C8C7|AA      |      ;  
-                       LDA.L Status effect sfx,X            ;07C8C8|BFEAC807|07C8EA;  
-                       BRA SFX exists?                      ;07C8CC|8004    |07C8D2;  
+                       LDA.L Status_effect_SFX,X            ;07C8C8|BFEAC807|07C8EA;  
+                       BRA Does_SFX_exist                   ;07C8CC|8004    |07C8D2;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-      Load effect SFX: LDA.L Spell effect SFX,X             ;07C8CE|BFDCC807|07C8DC;  
+      Load_effect_SFX: LDA.L Spell_effect_SFX,X             ;07C8CE|BFDCC807|07C8DC;  
                                                             ;      |        |      ;  
-          SFX exists?: AND.W #$00FF                         ;07C8D2|29FF00  |      ;  
+       Does_SFX_exist: AND.W #$00FF                         ;07C8D2|29FF00  |      ;  
                        BEQ CODE_07C8DB                      ;07C8D5|F004    |07C8DB; If no SFX, don't play it
                        JML.L Play SFX                       ;07C8D7|5C479C00|009C47;  
                                                             ;      |        |      ;  
@@ -10488,15 +10490,22 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
           CODE_07C8DB: RTL                                  ;07C8DB|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-     Spell effect SFX: dw $0000                             ;07C8DC|        |      ; Damaging (00 is probably default or set later)
-                       dw $001F                             ;07C8DE|        |      ; Healing (1F Healing sfx)
-                       dw $0707                             ;07C8E0|        |      ; Status (07 Damage sfx)
-                       dw $0000                             ;07C8E2|        |      ; Undeath
-                       dw $1F1F                             ;07C8E4|        |      ; Buffs
-                       dw $1F1F                             ;07C8E6|        |      ; Restoration
-                       dw $1F1F                             ;07C8E8|        |      ; Unused?
+     Spell_effect_SFX: db $00                               ;07C8DC|        |      ; Damaging (00 is probably default or set later)
+                       db $00                               ;07C8DD|        |      ; Draining
+                       db $1F                               ;07C8DE|        |      ; Healing (1F Healing sfx)
+                       db $00                               ;07C8DF|        |      ; Death
+                       db $07                               ;07C8E0|        |      ; Status (07 Damage sfx)
+                       db $07                               ;07C8E1|        |      ; Debuffs
+                       db $00                               ;07C8E2|        |      ; Undeath
+                       db $00                               ;07C8E3|        |      ; Ruinous Mission
+                       db $1F                               ;07C8E4|        |      ; Buffs
+                       db $1F                               ;07C8E5|        |      ; Change Attr
+                       db $1F                               ;07C8E6|        |      ; Restoration
+                       db $1F                               ;07C8E7|        |      ; Home
+                       db $1F                               ;07C8E8|        |      ; Unused?
+                       db $1F                               ;07C8E9|        |      ;  
                                                             ;      |        |      ;  
-    Status effect sfx: db $2C                               ;07C8EA|        |      ; Paralyze All (Sleep SFX)
+    Status_effect_SFX: db $2C                               ;07C8EA|        |      ; Paralyze All (Sleep SFX)
                        db $2B                               ;07C8EB|        |      ; Petrify All (Petrify SFX)
                        db $2C                               ;07C8EC|        |      ; Stop All
                        db $2C                               ;07C8ED|        |      ; Sleep All

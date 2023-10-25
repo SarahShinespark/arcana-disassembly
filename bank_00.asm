@@ -667,8 +667,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                                                             ;      |        |      ;  
          DATA8_0084B9: db $01                               ;0084B9|        |      ; Not sure what this is, but it doesn't look like code.
                        db $09                               ;0084BA|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_0084BB: db $00                               ;0084BB|        |      ;  
+                       db $00                               ;0084BB|        |      ;  
                        db $08                               ;0084BC|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0084BD: db $00                               ;0084BD|        |      ;  
@@ -690,8 +689,7 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
                        db $80                               ;0084CA|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0084CB: db $01                               ;0084CB|        |      ;  
-                                                            ;      |        |      ;  
-         DATA8_0084CC: db $01                               ;0084CC|        |      ;  
+                       db $01                               ;0084CC|        |      ;  
                        db $01                               ;0084CD|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0084CE: db $00                               ;0084CE|        |      ;  
@@ -2162,8 +2160,8 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                                                             ;      |        |      ;  
           CODE_008CD0: STZ.W $0FFF,X                        ;008CD0|9EFF0F  |000FFF;  
                        STZ.W $1007,X                        ;008CD3|9E0710  |001007;  
-                       STZ.W $102F,X                        ;008CD6|9E2F10  |00102F;  
-                       STZ.W $1037,X                        ;008CD9|9E3710  |001037;  
+                       STZ.W AnimC0_Total,X                 ;008CD6|9E2F10  |00102F;  
+                       STZ.W AnimC8_Total,X                 ;008CD9|9E3710  |001037;  
                        STZ.W $100F,X                        ;008CDC|9E0F10  |00100F;  
                        STZ.W $1017,X                        ;008CDF|9E1710  |001017;  
                        STZ.W $101F,X                        ;008CE2|9E1F10  |00101F;  
@@ -2281,16 +2279,16 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        PHA                                  ;008DC9|48      |      ;  
                        LDA.W #$FFFF                         ;008DCA|A9FFFF  |      ;  
                        STA.W $1043                          ;008DCD|8D4310  |001043;  
-                       STA.W $0A7B,X                        ;008DD0|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;008DD0|9D7B0A  |000A7B;  
                        STZ.W $08CB,X                        ;008DD3|9ECB08  |0008CB;  
                        STZ.W $085F,X                        ;008DD6|9E5F08  |00085F;  
                        STZ.W $08EF,X                        ;008DD9|9EEF08  |0008EF;  
                        STZ.W $0883,X                        ;008DDC|9E8308  |000883;  
                        STZ.W $0913,X                        ;008DDF|9E1309  |000913;  
                        STZ.W $08A7,X                        ;008DE2|9EA708  |0008A7;  
-                       STZ.W $0937,X                        ;008DE5|9E3709  |000937;  
+                       STZ.W Anim48_Total,X                 ;008DE5|9E3709  |000937;  
                        STZ.W $095B,X                        ;008DE8|9E5B09  |00095B;  
-                       STZ.W $097F,X                        ;008DEB|9E7F09  |00097F;  
+                       STZ.W AnimE8_Total,X                 ;008DEB|9E7F09  |00097F;  
                        JSR.W CODE_009BFD                    ;008DEE|20FD9B  |009BFD;  
                        TXY                                  ;008DF1|9B      |      ;  
                        LDA.W Battle Enemy ID,X              ;008DF2|BD4306  |000643;  
@@ -2309,10 +2307,10 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        AND.W #$7FFF                         ;008E14|29FF7F  |      ;  
                        TAX                                  ;008E17|AA      |      ;  
                        PLA                                  ;008E18|68      |      ;  
-                       STA.W $0BFB,X                        ;008E19|9DFB0B  |000BFB;  
+                       STA.W Ptr_EventStack,X               ;008E19|9DFB0B  |000BFB;  
                        PLA                                  ;008E1C|68      |      ;  
-                       STA.W $0C57,X                        ;008E1D|9D570C  |000C57;  
-                       STZ.W $0B9F,X                        ;008E20|9E9F0B  |000B9F;  
+                       STA.W Bank_EventStack,X              ;008E1D|9D570C  |000C57;  
+                       STZ.W Anim_Loopvar,X                 ;008E20|9E9F0B  |000B9F;  
                        STZ.W $0B43,X                        ;008E23|9E430B  |000B43;  
                        TYA                                  ;008E26|98      |      ;  
                        CLC                                  ;008E27|18      |      ;  
@@ -2355,9 +2353,9 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        LDA.W $0FEF,X                        ;008E71|BDEF0F  |000FEF;  
                        ADC.W $100F,X                        ;008E74|7D0F10  |00100F;  
                        CLC                                  ;008E77|18      |      ;  
-                       ADC.W $102F,X                        ;008E78|7D2F10  |00102F;  
+                       ADC.W AnimC0_Total,X                 ;008E78|7D2F10  |00102F;  
                        STA.W $0FEF,X                        ;008E7B|9DEF0F  |000FEF;  
-                       STZ.W $102F,X                        ;008E7E|9E2F10  |00102F;  
+                       STZ.W AnimC0_Total,X                 ;008E7E|9E2F10  |00102F;  
                        LDA.W $1007,X                        ;008E81|BD0710  |001007;  
                        CLC                                  ;008E84|18      |      ;  
                        ADC.W $1027,X                        ;008E85|7D2710  |001027;  
@@ -2365,9 +2363,9 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        LDA.W $0FF7,X                        ;008E8B|BDF70F  |000FF7;  
                        ADC.W $1017,X                        ;008E8E|7D1710  |001017;  
                        CLC                                  ;008E91|18      |      ;  
-                       ADC.W $1037,X                        ;008E92|7D3710  |001037;  
+                       ADC.W AnimC8_Total,X                 ;008E92|7D3710  |001037;  
                        STA.W $0FF7,X                        ;008E95|9DF70F  |000FF7;  
-                       STZ.W $1037,X                        ;008E98|9E3710  |001037;  
+                       STZ.W AnimC8_Total,X                 ;008E98|9E3710  |001037;  
                        DEX                                  ;008E9B|CA      |      ;  
                        DEX                                  ;008E9C|CA      |      ;  
                        BPL CODE_008E67                      ;008E9D|10C8    |008E67;  
@@ -2384,9 +2382,9 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        LDA.W $0787,X                        ;008EB2|BD8707  |000787;  
                        ADC.W $085F,X                        ;008EB5|7D5F08  |00085F;  
                        CLC                                  ;008EB8|18      |      ;  
-                       ADC.W $0937,X                        ;008EB9|7D3709  |000937;  
+                       ADC.W Anim48_Total,X                 ;008EB9|7D3709  |000937;  
                        STA.W $0787,X                        ;008EBC|9D8707  |000787;  
-                       STZ.W $0937,X                        ;008EBF|9E3709  |000937;  
+                       STZ.W Anim48_Total,X                 ;008EBF|9E3709  |000937;  
                        LDA.W $0817,X                        ;008EC2|BD1708  |000817;  
                        CLC                                  ;008EC5|18      |      ;  
                        ADC.W $08EF,X                        ;008EC6|7DEF08  |0008EF;  
@@ -2404,9 +2402,9 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        LDA.W $07CF,X                        ;008EE6|BDCF07  |0007CF;  
                        ADC.W $08A7,X                        ;008EE9|7DA708  |0008A7;  
                        CLC                                  ;008EEC|18      |      ;  
-                       ADC.W $097F,X                        ;008EED|7D7F09  |00097F;  
+                       ADC.W AnimE8_Total,X                 ;008EED|7D7F09  |00097F;  
                        STA.W $07CF,X                        ;008EF0|9DCF07  |0007CF;  
-                       STZ.W $097F,X                        ;008EF3|9E7F09  |00097F;  
+                       STZ.W AnimE8_Total,X                 ;008EF3|9E7F09  |00097F;  
                        LDA.W $06AF,X                        ;008EF6|BDAF06  |0006AF;  
                        BMI CODE_008F10                      ;008EF9|3015    |008F10;  
                        LDA.W $0787,X                        ;008EFB|BD8707  |000787;  
@@ -2497,7 +2495,7 @@ Some map progress OR filters: dw $8000                             ;008C5C|     
                        STA.B $18                            ;008FC0|8518    |000018;  
                        LDX.W $0AC3,Y                        ;008FC2|BEC30A  |000AC3;  
                        STX.B $1A                            ;008FC5|861A    |00001A;  
-                       LDA.W $0A7B,Y                        ;008FC7|B97B0A  |000A7B;  
+                       LDA.W Anim_ID,Y                      ;008FC7|B97B0A  |000A7B;  
                        BMI CODE_008FD3                      ;008FCA|3007    |008FD3;  
                        ASL A                                ;008FCC|0A      |      ;  
                        TAY                                  ;008FCD|A8      |      ;  
@@ -2532,11 +2530,11 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
      Main Lp PtrSetup: LDX.W Function results               ;009008|AE4110  |001041; Sets the pointers $10 and $12
-                       LDA.W $0B9F,X                        ;00900B|BD9F0B  |000B9F;  
+                       LDA.W Anim_Loopvar,X                 ;00900B|BD9F0B  |000B9F;  
                        BNE CODE_009063                      ;00900E|D053    |009063;  
-                       LDA.W $0BFB,X                        ;009010|BDFB0B  |000BFB;  
+                       LDA.W Ptr_EventStack,X               ;009010|BDFB0B  |000BFB;  
                        STA.B $10                            ;009013|8510    |000010;  
-                       LDA.W $0C57,X                        ;009015|BD570C  |000C57;  
+                       LDA.W Bank_EventStack,X              ;009015|BD570C  |000C57;  
                        STA.B $12                            ;009018|8512    |000012;  
                        TXA                                  ;00901A|8A      |      ;  
                        ASL A                                ;00901B|0A      |      ;  
@@ -2548,20 +2546,20 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        ADC.W #$0000                         ;009026|690000  |      ;  
                        STA.B $16                            ;009029|8516    |000016;  
                                                             ;      |        |      ;  
-        Script Reader: LDA.B [$10]                          ;00902B|A710    |000010; This one's a doozy, it reads the internal scripting language. Most common scripts are 07 (run asm code at 24-bit addr), 0C (jump if false to 16-bit addr), 1B (jsr to 16-bit addr).
+    Code_Event_Reader: LDA.B [$10]                          ;00902B|A710    |000010; This one's a doozy, it reads the internal scripting language. Most common scripts are 07 (run asm code at 24-bit addr), 0C (jump if false to 16-bit addr), 1B (jsr to 16-bit addr).
                        AND.W #$00FF                         ;00902D|29FF00  |      ;  
                        CMP.W #$0030                         ;009030|C93000  |      ;  
-                       BCS Script Reader 2                  ;009033|B007    |00903C;  
+                       BCS Animation_Event_Reader           ;009033|B007    |00903C;  
                        ASL A                                ;009035|0A      |      ;  
                        TAX                                  ;009036|AA      |      ;  
-                       JSR.W (JumpTable1,X)                 ;009037|FC6790  |009067;  
+                       JSR.W (Tbl_Event_Codes,X)            ;009037|FC6790  |009067;  
                        BRA CODE_009051                      ;00903A|8015    |009051;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-      Script Reader 2: PHA                                  ;00903C|48      |      ;  
+Animation_Event_Reader: PHA                                  ;00903C|48      |      ;  
                                                             ;      |        |      ;  
-          CODE_00903D: AND.W #$0007                         ;00903D|290700  |      ;  
-                       STA.W $0B9F,X                        ;009040|9D9F0B  |000B9F;  
+          CODE_00903D: AND.W #$0007                         ;00903D|290700  |      ; Save the low 3 bytes for stuff like setting animation speed
+                       STA.W Anim_Loopvar,X                 ;009040|9D9F0B  |000B9F;  
                        PLA                                  ;009043|68      |      ;  
                        SEC                                  ;009044|38      |      ;  
                        SBC.W #$0030                         ;009045|E93000  |      ;  
@@ -2569,98 +2567,98 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        LSR A                                ;00904B|4A      |      ;  
                        LSR A                                ;00904C|4A      |      ;  
                        TAX                                  ;00904D|AA      |      ;  
-                       JSR.W (JumpTable2,X)                 ;00904E|FCB390  |0090B3;  
+                       JSR.W (Tbl_Animation_Events,X)       ;00904E|FCB390  |0090B3;  
                                                             ;      |        |      ;  
           CODE_009051: LDX.W Function results               ;009051|AE4110  |001041;  
-                       LDA.W $0B9F,X                        ;009054|BD9F0B  |000B9F;  
-                       BEQ Script Reader                    ;009057|F0D2    |00902B;  
+                       LDA.W Anim_Loopvar,X                 ;009054|BD9F0B  |000B9F;  
+                       BEQ Code_Event_Reader                ;009057|F0D2    |00902B; Exit when 0
                        LDA.B $10                            ;009059|A510    |000010;  
-                       STA.W $0BFB,X                        ;00905B|9DFB0B  |000BFB;  
+                       STA.W Ptr_EventStack,X               ;00905B|9DFB0B  |000BFB;  
                        LDA.B $12                            ;00905E|A512    |000012;  
-                       STA.W $0C57,X                        ;009060|9D570C  |000C57;  
+                       STA.W Bank_EventStack,X              ;009060|9D570C  |000C57;  
                                                             ;      |        |      ;  
-          CODE_009063: DEC.W $0B9F,X                        ;009063|DE9F0B  |000B9F;  
+          CODE_009063: DEC.W Anim_Loopvar,X                 ;009063|DE9F0B  |000B9F;  
                        RTS                                  ;009066|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-           JumpTable1: dw Code Opcode 00                    ;009067|        |0090E7;  
-                       dw Code Opcode 01                    ;009069|        |0090FA;  
-                       dw Code Opcode 02                    ;00906B|        |00911E;  
-                       dw Code Opcode 03                    ;00906D|        |009148;  
-                       dw Code Opcode 04                    ;00906F|        |00918D;  
-                       dw Code Opcode 05                    ;009071|        |0091BB;  
-                       dw Code Opcode 06                    ;009073|        |0091DA;  
-                       dw Code Opcode 07                    ;009075|        |009527;  
-                       dw Code Opcode 08                    ;009077|        |0095DF;  
-                       dw Code Opcode 09                    ;009079|        |00963F;  
-                       dw Code Opcode 0A                    ;00907B|        |009655;  
-                       dw Code Opcode 0B                    ;00907D|        |00954D;  
-                       dw Code Opcode 0C                    ;00907F|        |009562;  
-                       dw Code Opcode 0D                    ;009081|        |0095C7;  
-                       dw Code Opcode 0E                    ;009083|        |0096CD;  
-                       dw Code Opcode 0F                    ;009085|        |009717;  
-                       dw Code Opcode 10                    ;009087|        |009741;  
-                       dw Code Opcode 11                    ;009089|        |009577;  
-                       dw Code Opcode 12                    ;00908B|        |00959D;  
-                       dw Code Opcode 13                    ;00908D|        |00974A;  
-                       dw Code Opcode 14                    ;00908F|        |00960C;  
-                       dw Code Opcode 15                    ;009091|        |0096B8;  
-                       dw Code Opcode 16                    ;009093|        |00975F;  
-                       dw Code Opcode 17                    ;009095|        |009772;  
-                       dw Code Opcode 18                    ;009097|        |009791;  
-                       dw Code Opcode 19                    ;009099|        |00968D;  
-                       dw Code Opcode 1A                    ;00909B|        |009140;  
-                       dw Code Opcode 1B                    ;00909D|        |00915A;  
-                       dw Code Opcode 1C                    ;00909F|        |009177;  
-                       dw Code Opcode 1D                    ;0090A1|        |0097A0;  
-                       dw Code Opcode 1E                    ;0090A3|        |0097B6;  
-                       dw Code Opcode 1F                    ;0090A5|        |0097C5;  
-                       dw Code Opcode 20                    ;0090A7|        |0097D8;  
-                       dw Code Opcode 21                    ;0090A9|        |0097F5;  
-                       dw Code Opcode 22                    ;0090AB|        |009814;  
-                       dw Code Opcode 23                    ;0090AD|        |00982A;  
-                       dw Code Opcode 24                    ;0090AF|        |009847;  
-                       dw Code Opcode 25                    ;0090B1|        |009864;  
+      Tbl_Event_Codes: dw Event_Code_00                     ;009067|        |0090E7;  
+                       dw Event_Code_01                     ;009069|        |0090FA;  
+                       dw Event_Code_02                     ;00906B|        |00911E;  
+                       dw Event_Code_03                     ;00906D|        |009148;  
+                       dw Event_Code_04                     ;00906F|        |00918D;  
+                       dw Event_Code_05                     ;009071|        |0091BB;  
+                       dw Event_Code_06                     ;009073|        |0091DA;  
+                       dw Event_Code_07                     ;009075|        |009527;  
+                       dw Event_Code_08                     ;009077|        |0095DF;  
+                       dw Event_Code_09                     ;009079|        |00963F;  
+                       dw Event_Code_0A                     ;00907B|        |009655;  
+                       dw Event_Code_0B                     ;00907D|        |00954D;  
+                       dw Event_Code_0C                     ;00907F|        |009562;  
+                       dw Event_Code_0D                     ;009081|        |0095C7;  
+                       dw Event_Code_0E                     ;009083|        |0096CD;  
+                       dw Event_Code_0F                     ;009085|        |009717;  
+                       dw Event_Code_10                     ;009087|        |009741;  
+                       dw Event_Code_11                     ;009089|        |009577;  
+                       dw Event_Code_12                     ;00908B|        |00959D;  
+                       dw Event_Code_13                     ;00908D|        |00974A;  
+                       dw Event_Code_14                     ;00908F|        |00960C;  
+                       dw Event_Code_15                     ;009091|        |0096B8;  
+                       dw Event_Code_16                     ;009093|        |00975F;  
+                       dw Event_Code_17                     ;009095|        |009772;  
+                       dw Event_Code_18                     ;009097|        |009791;  
+                       dw Event_Code_19                     ;009099|        |00968D;  
+                       dw Event_Code_1A                     ;00909B|        |009140;  
+                       dw Event_Code_1B                     ;00909D|        |00915A;  
+                       dw Event_Code_1C                     ;00909F|        |009177;  
+                       dw Event_Code_1D                     ;0090A1|        |0097A0;  
+                       dw Event_Code_1E                     ;0090A3|        |0097B6;  
+                       dw Event_Code_1F                     ;0090A5|        |0097C5;  
+                       dw Event_Code_20                     ;0090A7|        |0097D8;  
+                       dw Event_Code_21                     ;0090A9|        |0097F5;  
+                       dw Event_Code_22                     ;0090AB|        |009814;  
+                       dw Event_Code_23                     ;0090AD|        |00982A;  
+                       dw Event_Code_24                     ;0090AF|        |009847;  
+                       dw Event_Code_25                     ;0090B1|        |009864;  
                                                             ;      |        |      ;  
-           JumpTable2: dw Anim Opcode 30-37                 ;0090B3|        |0091EA;  
-                       dw Anim Opcode 38-3F                 ;0090B5|        |009202;  
-                       dw Anim Opcode 40-47                 ;0090B7|        |009250;  
-                       dw Anim Opcode 48-4F                 ;0090B9|        |00948C;  
-                       dw Anim Opcode 50-57                 ;0090BB|        |00949F;  
-                       dw Anim Opcode 58-5F                 ;0090BD|        |0092D7;  
-                       dw Anim Opcode 60-67                 ;0090BF|        |0092F8;  
-                       dw Anim Opcode 68-6F                 ;0090C1|        |00933A;  
-                       dw Anim Opcode 70-77                 ;0090C3|        |009362;  
-                       dw Anim Opcode 78-7F                 ;0090C5|        |0093B2;  
-                       dw Anim Opcode 80-87                 ;0090C7|        |0093CA;  
-                       dw Anim Opcode 88-8F                 ;0090C9|        |0093E2;  
-                       dw Anim Opcode 90-97                 ;0090CB|        |009409;  
-                       dw Anim Opcode 98-9F                 ;0090CD|        |009430;  
-                       dw Anim Opcode A0-A7                 ;0090CF|        |00945E;  
-                       dw Anim Opcode A8-AF                 ;0090D1|        |00965F;  
-                       dw Anim Opcode B0-B7                 ;0090D3|        |009668;  
-                       dw Anim Opcode B8-BF                 ;0090D5|        |009671;  
-                       dw Anim Opcode C0-C7                 ;0090D7|        |0094C5;  
-                       dw Anim Opcode C8-CF                 ;0090D9|        |0094DE;  
-                       dw Anim Opcode D0-D7                 ;0090DB|        |0094F7;  
-                       dw Anim Opcode D8-DF                 ;0090DD|        |00950F;  
-                       dw Anim Opcode E0-E7                 ;0090DF|        |00929E;  
-                       dw Anim Opcode E8-EF                 ;0090E1|        |0094B2;  
+ Tbl_Animation_Events: dw Event_Anim_30_37_(1b)             ;0090B3|        |0091EA;  
+                       dw Event_Anim_38_3F_(2b)             ;0090B5|        |009202;  
+                       dw Event_Anim_40_47_(2b)             ;0090B7|        |009250;  
+                       dw Event_Anim_48_4F_(2b)             ;0090B9|        |00948C;  
+                       dw Event_Anim_50_57_(2b)             ;0090BB|        |00949F;  
+                       dw Event_Anim_58_5F_(2b)             ;0090BD|        |0092D7;  
+                       dw Event_Anim_60_67_(2b)             ;0090BF|        |0092F8;  
+                       dw Event_Anim_68_6F_(2b)             ;0090C1|        |00933A;  
+                       dw Event_Anim_70_77_(2b)             ;0090C3|        |009362;  
+                       dw Event_Anim_78_7F_(1b)(2b)         ;0090C5|        |0093B2;  
+                       dw Event_Anim_80_87_(1b)(2b)         ;0090C7|        |0093CA;  
+                       dw Event_Anim_88_8F_(1b)_(2b)        ;0090C9|        |0093E2;  
+                       dw Event_Anim_90_97_(1b)(2b)         ;0090CB|        |009409;  
+                       dw Event_Anim_98_9F_(1b)(2b)         ;0090CD|        |009430;  
+                       dw Event_Anim_A0_A7_(1b)(2b)         ;0090CF|        |00945E;  
+                       dw Event_Anim_A8_AF                  ;0090D1|        |00965F;  
+                       dw Event_Anim_B0_B7                  ;0090D3|        |009668;  
+                       dw Event_Anim_B8_BF_(1b)             ;0090D5|        |009671;  
+                       dw Event_Anim_C0_C7_(1b)(2b)         ;0090D7|        |0094C5;  
+                       dw Event_Anim_C8_CF_(1b)(2b)         ;0090D9|        |0094DE;  
+                       dw Event_Anim_D0_D7                  ;0090DB|        |0094F7;  
+                       dw Event_Anim_D8_DF_(1b)             ;0090DD|        |00950F;  
+                       dw Event_Anim_E0_E7_(2b)             ;0090DF|        |00929E;  
+                       dw Event_Anim_E8_EF_(2b)             ;0090E1|        |0094B2;  
                                                             ;      |        |      ;  
-         PTR16_0090E3: dw Anim Opcode F0-F7                 ;0090E3|        |009319;  
-                       dw Anim Opcode F8-FF                 ;0090E5|        |00938A;  
+         PTR16_0090E3: dw Event_Anim_F0_F7_(2b)             ;0090E3|        |009319;  
+                       dw Event_Anim_F8_FF_(2b)             ;0090E5|        |00938A;  
                                                             ;      |        |      ;  
-       Code Opcode 00: LDX.W Selection                      ;0090E7|AE3F10  |00103F; Section note: These are called by 00/902B to process custom script segments. It's important to learn these to read how most of the game logic works, as there are huge chunks of code that use nothing but these and their parameters.
+        Event_Code_00: LDX.W Selection                      ;0090E7|AE3F10  |00103F; Section note: These are called by 00/902B to process custom script segments. It's important to learn these to read how most of the game logic works, as there are huge chunks of code that use nothing but these and their parameters.
                        JSR.W A buncha stuff                 ;0090EA|206099  |009960; Not sure what this does, think it breaks out of main loop and moves on to a different X value
                        LDX.W Function results               ;0090ED|AE4110  |001041;  
                        LDA.W #$FFFF                         ;0090F0|A9FFFF  |      ;  
-                       STA.W $0B9F,X                        ;0090F3|9D9F0B  |000B9F; Clear X's function results
+                       STA.W Anim_Loopvar,X                 ;0090F3|9D9F0B  |000B9F; Clear X's function results
                        STA.W LoopVar 1047                   ;0090F6|8D4710  |001047; Clear the loop variable
                                                             ;      |        |      ;  
           CODE_0090F9: RTS                                  ;0090F9|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 01: INC.B $10                            ;0090FA|E610    |000010; Affects $14
+        Event_Code_01: INC.B $10                            ;0090FA|E610    |000010; Affects $14
                        LDA.B [$10]                          ;0090FC|A710    |000010;  
                                                             ;      |        |      ;  
           CODE_0090FE: PHA                                  ;0090FE|48      |      ;  
@@ -2684,7 +2682,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00911D|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 02: LDX.W Function results               ;00911E|AE4110  |001041; idk
+        Event_Code_02: LDX.W Function results               ;00911E|AE4110  |001041; idk
                        LDY.W $0B43,X                        ;009121|BC430B  |000B43;  
                        DEY                                  ;009124|88      |      ;  
                        SEP #$20                             ;009125|E220    |      ;  
@@ -2710,13 +2708,13 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00913F|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 1A: LDY.W #$0001                         ;009140|A00100  |      ; JMP (2 bytes)
+        Event_Code_1A: LDY.W #$0001                         ;009140|A00100  |      ; JMP (2 bytes)
                        LDA.B [$10],Y                        ;009143|B710    |000010;  
                        STA.B $10                            ;009145|8510    |000010;  
                        RTS                                  ;009147|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 03: LDY.W #$0001                         ;009148|A00100  |      ; JML (3 bytes)
+        Event_Code_03: LDY.W #$0001                         ;009148|A00100  |      ; JML (3 bytes)
                        LDA.B [$10],Y                        ;00914B|B710    |000010;  
                                                             ;      |        |      ;  
           CODE_00914D: TAX                                  ;00914D|AA      |      ;  
@@ -2729,7 +2727,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009159|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 1B: INC.B $10                            ;00915A|E610    |000010; JSR (2 bytes), saves ptr
+        Event_Code_1B: INC.B $10                            ;00915A|E610    |000010; JSR (2 bytes), saves ptr
                        LDA.B [$10]                          ;00915C|A710    |000010;  
                        PHA                                  ;00915E|48      |      ;  
                        INC.B $10                            ;00915F|E610    |000010;  
@@ -2747,10 +2745,10 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009176|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 1C: LDX.W Function results               ;009177|AE4110  |001041; Return from jump, do lots of stuff
+        Event_Code_1C: LDX.W Function results               ;009177|AE4110  |001041; Return from jump, do lots of stuff
                        LDY.W $0B43,X                        ;00917A|BC430B  |000B43;  
                        BNE CODE_009182                      ;00917D|D003    |009182;  
-                       JMP.W Code Opcode 0D                 ;00917F|4CC795  |0095C7;  
+                       JMP.W Event_Code_0D                  ;00917F|4CC795  |0095C7;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_009182: DEY                                  ;009182|88      |      ;  
@@ -2762,7 +2760,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00918C|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 04: INC.B $10                            ;00918D|E610    |000010; JSL (3 bytes), saves return ptr
+        Event_Code_04: INC.B $10                            ;00918D|E610    |000010; JSL (3 bytes), saves return ptr
                                                             ;      |        |      ;  
           CODE_00918F: LDA.B [$10]                          ;00918F|A710    |000010;  
                        PHA                                  ;009191|48      |      ;  
@@ -2791,10 +2789,10 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0091BA|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 05: LDX.W Function results               ;0091BB|AE4110  |001041; RTL plus whatever 0D does
+        Event_Code_05: LDX.W Function results               ;0091BB|AE4110  |001041; RTL plus whatever 0D does
                        LDY.W $0B43,X                        ;0091BE|BC430B  |000B43;  
                        BNE CODE_0091C6                      ;0091C1|D003    |0091C6;  
-                       JMP.W Code Opcode 0D                 ;0091C3|4CC795  |0095C7;  
+                       JMP.W Event_Code_0D                  ;0091C3|4CC795  |0095C7;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0091C6: DEY                                  ;0091C6|88      |      ;  
@@ -2812,18 +2810,18 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0091D9|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 06: INC.B $10                            ;0091DA|E610    |000010; Does a LOT of formatting stuff, hard to trace
+        Event_Code_06: INC.B $10                            ;0091DA|E610    |000010; Does a LOT of formatting stuff, hard to trace
                        LDX.W Function results               ;0091DC|AE4110  |001041; Reads the next value and breaks out of a loop if nonzero
                        LDA.B [$10]                          ;0091DF|A710    |000010;  
                                                             ;      |        |      ;  
           CODE_0091E1: AND.W #$00FF                         ;0091E1|29FF00  |      ;  
-                       STA.W $0B9F,X                        ;0091E4|9D9F0B  |000B9F;  
+                       STA.W Anim_Loopvar,X                 ;0091E4|9D9F0B  |000B9F;  
                        INC.B $10                            ;0091E7|E610    |000010;  
                                                             ;      |        |      ;  
           CODE_0091E9: RTS                                  ;0091E9|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 30-37: INC.B $10                            ;0091EA|E610    |000010; These need more examples. These are called by 903C "Script Reader 2" for values of 30+.
+Event_Anim_30_37_(1b): INC.B $10                            ;0091EA|E610    |000010; These need more examples. These are called by 903C "Script Reader 2" for values of 30+.
                        LDX.W Selection                      ;0091EC|AE3F10  |00103F; Load target's offset
                                                             ;      |        |      ;  
           CODE_0091EF: LDA.B [$10]                          ;0091EF|A710    |000010; Read the next byte
@@ -2832,13 +2830,13 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        BNE CODE_0091FC                      ;0091F7|D003    |0091FC;  
                        LDA.W #$FFFF                         ;0091F9|A9FFFF  |      ; If 30 FF, load FFFF in $0A7B,x
                                                             ;      |        |      ;  
-          CODE_0091FC: STA.W $0A7B,X                        ;0091FC|9D7B0A  |000A7B; Else for 30 xx, load xx in $0A7B,x
+          CODE_0091FC: STA.W Anim_ID,X                      ;0091FC|9D7B0A  |000A7B; Else for 30 xx, load xx in $0A7B,x
                        INC.B $10                            ;0091FF|E610    |000010; Advance script PC
                                                             ;      |        |      ;  
           CODE_009201: RTS                                  ;009201|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 38-3F: INC.B $10                            ;009202|E610    |000010; I think this involves moving the cursor
+Event_Anim_38_3F_(2b): INC.B $10                            ;009202|E610    |000010; Does a bunch of shit.
                        LDX.W Selection                      ;009204|AE3F10  |00103F; Load target's offset
                                                             ;      |        |      ;  
           CODE_009207: LDA.B [$10]                          ;009207|A710    |000010; Read the next 2 bytes and advance the script PC
@@ -2878,7 +2876,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00924F|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 40-47: INC.B $10                            ;009250|E610    |000010;  
+Event_Anim_40_47_(2b): INC.B $10                            ;009250|E610    |000010;  
                        LDX.W Selection                      ;009252|AE3F10  |00103F;  
                        LDA.B [$10]                          ;009255|A710    |000010;  
                        INC.B $10                            ;009257|E610    |000010;  
@@ -2918,7 +2916,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00929D|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode E0-E7: INC.B $10                            ;00929E|E610    |000010;  
+Event_Anim_E0_E7_(2b): INC.B $10                            ;00929E|E610    |000010;  
                        LDX.W Selection                      ;0092A0|AE3F10  |00103F;  
                        LDA.B [$10]                          ;0092A3|A710    |000010;  
                                                             ;      |        |      ;  
@@ -2947,7 +2945,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
           CODE_0092D6: RTS                                  ;0092D6|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 58-5F: INC.B $10                            ;0092D7|E610    |000010;  
+Event_Anim_58_5F_(2b): INC.B $10                            ;0092D7|E610    |000010;  
                        LDX.W Selection                      ;0092D9|AE3F10  |00103F;  
                        LDA.B [$10]                          ;0092DC|A710    |000010;  
                                                             ;      |        |      ;  
@@ -2968,7 +2966,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0092F7|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 60-67: INC.B $10                            ;0092F8|E610    |000010;  
+Event_Anim_60_67_(2b): INC.B $10                            ;0092F8|E610    |000010;  
                        LDX.W Selection                      ;0092FA|AE3F10  |00103F;  
                        LDA.B [$10]                          ;0092FD|A710    |000010;  
                        PHA                                  ;0092FF|48      |      ;  
@@ -2987,7 +2985,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009318|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode F0-F7: INC.B $10                            ;009319|E610    |000010;  
+Event_Anim_F0_F7_(2b): INC.B $10                            ;009319|E610    |000010;  
                        LDX.W Selection                      ;00931B|AE3F10  |00103F;  
                        LDA.B [$10]                          ;00931E|A710    |000010;  
                        PHA                                  ;009320|48      |      ;  
@@ -3007,7 +3005,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009339|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 68-6F: INC.B $10                            ;00933A|E610    |000010;  
+Event_Anim_68_6F_(2b): INC.B $10                            ;00933A|E610    |000010;  
                        LDX.W Selection                      ;00933C|AE3F10  |00103F;  
                        LDA.B [$10]                          ;00933F|A710    |000010;  
                        PHA                                  ;009341|48      |      ;  
@@ -3030,7 +3028,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009361|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 70-77: INC.B $10                            ;009362|E610    |000010;  
+Event_Anim_70_77_(2b): INC.B $10                            ;009362|E610    |000010;  
                                                             ;      |        |      ;  
           CODE_009364: LDX.W Selection                      ;009364|AE3F10  |00103F;  
                                                             ;      |        |      ;  
@@ -3055,7 +3053,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009389|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode F8-FF: INC.B $10                            ;00938A|E610    |000010;  
+Event_Anim_F8_FF_(2b): INC.B $10                            ;00938A|E610    |000010;  
                        LDX.W Selection                      ;00938C|AE3F10  |00103F;  
                        LDA.B [$10]                          ;00938F|A710    |000010;  
                        PHA                                  ;009391|48      |      ;  
@@ -3081,7 +3079,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0093B1|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 78-7F: INC.B $10                            ;0093B2|E610    |000010; Read (1b) x offset, store (2b) in $0FEF,x and zero $0FFF,x
+Event_Anim_78_7F_(1b)(2b): INC.B $10                            ;0093B2|E610    |000010; Read (1b) x offset, store (2b) in $0FEF,x and zero $0FFF,x
                        LDA.B [$10]                          ;0093B4|A710    |000010;  
                                                             ;      |        |      ;  
           CODE_0093B6: AND.W #$00FF                         ;0093B6|29FF00  |      ;  
@@ -3097,7 +3095,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0093C9|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 80-87: INC.B $10                            ;0093CA|E610    |000010; Read (1b) x offset, store (2b) in $0FF7,x and zero $1007,x
+Event_Anim_80_87_(1b)(2b): INC.B $10                            ;0093CA|E610    |000010; Read (1b) x offset, store (2b) in $0FF7,x and zero $1007,x
                        LDA.B [$10]                          ;0093CC|A710    |000010;  
                        AND.W #$00FF                         ;0093CE|29FF00  |      ;  
                        ASL A                                ;0093D1|0A      |      ;  
@@ -3111,7 +3109,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0093E1|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 88-8F: INC.B $10                            ;0093E2|E610    |000010;  
+Event_Anim_88_8F_(1b)_(2b): INC.B $10                            ;0093E2|E610    |000010;  
                        LDA.B [$10]                          ;0093E4|A710    |000010;  
                        AND.W #$00FF                         ;0093E6|29FF00  |      ;  
                        ASL A                                ;0093E9|0A      |      ;  
@@ -3135,7 +3133,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009408|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 90-97: INC.B $10                            ;009409|E610    |000010;  
+Event_Anim_90_97_(1b)(2b): INC.B $10                            ;009409|E610    |000010;  
                        LDA.B [$10]                          ;00940B|A710    |000010;  
                        AND.W #$00FF                         ;00940D|29FF00  |      ;  
                        ASL A                                ;009410|0A      |      ;  
@@ -3159,7 +3157,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00942F|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 98-9F: INC.B $10                            ;009430|E610    |000010;  
+Event_Anim_98_9F_(1b)(2b): INC.B $10                            ;009430|E610    |000010;  
                        LDA.B [$10]                          ;009432|A710    |000010;  
                        AND.W #$00FF                         ;009434|29FF00  |      ;  
                        ASL A                                ;009437|0A      |      ;  
@@ -3185,7 +3183,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00945D|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode A0-A7: INC.B $10                            ;00945E|E610    |000010;  
+Event_Anim_A0_A7_(1b)(2b): INC.B $10                            ;00945E|E610    |000010;  
                        LDA.B [$10]                          ;009460|A710    |000010;  
                        AND.W #$00FF                         ;009462|29FF00  |      ;  
                        ASL A                                ;009465|0A      |      ;  
@@ -3213,18 +3211,18 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00948B|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 48-4F: INC.B $10                            ;00948C|E610    |000010; Reads (2b), adds to a sum at $0937,x
+Event_Anim_48_4F_(2b): INC.B $10                            ;00948C|E610    |000010; Reads (2b), adds to a sum at $0937,x
                        LDX.W Selection                      ;00948E|AE3F10  |00103F;  
                        LDA.B [$10]                          ;009491|A710    |000010;  
                        CLC                                  ;009493|18      |      ;  
-                       ADC.W $0937,X                        ;009494|7D3709  |000937;  
-                       STA.W $0937,X                        ;009497|9D3709  |000937;  
+                       ADC.W Anim48_Total,X                 ;009494|7D3709  |000937;  
+                       STA.W Anim48_Total,X                 ;009497|9D3709  |000937;  
                        INC.B $10                            ;00949A|E610    |000010;  
                        INC.B $10                            ;00949C|E610    |000010;  
                        RTS                                  ;00949E|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode 50-57: INC.B $10                            ;00949F|E610    |000010; Reads (2b), adds to a sum at $095B,x
+Event_Anim_50_57_(2b): INC.B $10                            ;00949F|E610    |000010; Reads (2b), adds to a sum at $095B,x
                        LDX.W Selection                      ;0094A1|AE3F10  |00103F;  
                        LDA.B [$10]                          ;0094A4|A710    |000010;  
                        CLC                                  ;0094A6|18      |      ;  
@@ -3235,18 +3233,18 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0094B1|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode E8-EF: INC.B $10                            ;0094B2|E610    |000010; Reads (2b), adds to a sum at $097F,x
+Event_Anim_E8_EF_(2b): INC.B $10                            ;0094B2|E610    |000010; Reads (2b), adds to a sum at $097F,x
                        LDX.W Selection                      ;0094B4|AE3F10  |00103F; X = current selection
                        LDA.B [$10]                          ;0094B7|A710    |000010;  
                        CLC                                  ;0094B9|18      |      ;  
-                       ADC.W $097F,X                        ;0094BA|7D7F09  |00097F;  
-                       STA.W $097F,X                        ;0094BD|9D7F09  |00097F;  
+                       ADC.W AnimE8_Total,X                 ;0094BA|7D7F09  |00097F;  
+                       STA.W AnimE8_Total,X                 ;0094BD|9D7F09  |00097F;  
                        INC.B $10                            ;0094C0|E610    |000010;  
                        INC.B $10                            ;0094C2|E610    |000010;  
                        RTS                                  ;0094C4|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode C0-C7: INC.B $10                            ;0094C5|E610    |000010; Reads (1b) offset, reads(2b), adds to a sum at $102F,x
+Event_Anim_C0_C7_(1b)(2b): INC.B $10                            ;0094C5|E610    |000010; Reads (1b) offset, reads(2b), adds to a sum at $102F,x
                        LDA.B [$10]                          ;0094C7|A710    |000010;  
                        AND.W #$00FF                         ;0094C9|29FF00  |      ;  
                        ASL A                                ;0094CC|0A      |      ;  
@@ -3254,15 +3252,15 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        INC.B $10                            ;0094CE|E610    |000010;  
                        LDA.B [$10]                          ;0094D0|A710    |000010;  
                        CLC                                  ;0094D2|18      |      ;  
-                       ADC.W $102F,X                        ;0094D3|7D2F10  |00102F;  
+                       ADC.W AnimC0_Total,X                 ;0094D3|7D2F10  |00102F;  
                                                             ;      |        |      ;  
-          CODE_0094D6: STA.W $102F,X                        ;0094D6|9D2F10  |00102F;  
+          CODE_0094D6: STA.W AnimC0_Total,X                 ;0094D6|9D2F10  |00102F;  
                        INC.B $10                            ;0094D9|E610    |000010;  
                        INC.B $10                            ;0094DB|E610    |000010;  
                        RTS                                  ;0094DD|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode C8-CF: INC.B $10                            ;0094DE|E610    |000010; Reads (1b) offset, reads(2b), adds to a sum at $1037,x
+Event_Anim_C8_CF_(1b)(2b): INC.B $10                            ;0094DE|E610    |000010; Reads (1b) offset, reads(2b), adds to a sum at $1037,x
                        LDA.B [$10]                          ;0094E0|A710    |000010;  
                        AND.W #$00FF                         ;0094E2|29FF00  |      ;  
                        ASL A                                ;0094E5|0A      |      ;  
@@ -3270,14 +3268,14 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        INC.B $10                            ;0094E7|E610    |000010;  
                        LDA.B [$10]                          ;0094E9|A710    |000010;  
                        CLC                                  ;0094EB|18      |      ;  
-                       ADC.W $1037,X                        ;0094EC|7D3710  |001037;  
-                       STA.W $1037,X                        ;0094EF|9D3710  |001037;  
+                       ADC.W AnimC8_Total,X                 ;0094EC|7D3710  |001037;  
+                       STA.W AnimC8_Total,X                 ;0094EF|9D3710  |001037;  
                        INC.B $10                            ;0094F2|E610    |000010;  
                        INC.B $10                            ;0094F4|E610    |000010;  
                        RTS                                  ;0094F6|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode D0-D7: LDX.W Selection                      ;0094F7|AE3F10  |00103F; Zeroes some stuff used by 58-77, F0-FF
+     Event_Anim_D0_D7: LDX.W Selection                      ;0094F7|AE3F10  |00103F; Zeroes some stuff used by 58-77, F0-FF
                        STZ.W $08CB,X                        ;0094FA|9ECB08  |0008CB;  
                        STZ.W $085F,X                        ;0094FD|9E5F08  |00085F;  
                        STZ.W $08EF,X                        ;009500|9EEF08  |0008EF;  
@@ -3289,7 +3287,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00950E|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode D8-DF: INC.B $10                            ;00950F|E610    |000010; Read (1b) offset, zeroes 4 values for it
+Event_Anim_D8_DF_(1b): INC.B $10                            ;00950F|E610    |000010; Read (1b) offset, zeroes 4 values for it
                        LDA.B [$10]                          ;009511|A710    |000010;  
                        AND.W #$00FF                         ;009513|29FF00  |      ;  
                        ASL A                                ;009516|0A      |      ;  
@@ -3302,7 +3300,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009526|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 07: INC.B $10                            ;009527|E610    |000010; Calls a 24-bit pointer, very common.
+        Event_Code_07: INC.B $10                            ;009527|E610    |000010; Calls a 24-bit pointer, very common.
                        LDA.B [$10]                          ;009529|A710    |000010;  
                        STA.W CodePtr                        ;00952B|8D4910  |001049;  
                        INC.B $10                            ;00952E|E610    |000010;  
@@ -3321,7 +3319,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00954C|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 0B: INC.B $10                            ;00954D|E610    |000010; Jump if false/zero (2 byte ptr)
+        Event_Code_0B: INC.B $10                            ;00954D|E610    |000010; Jump if false/zero (2 byte ptr)
                        LDA.B [$10]                          ;00954F|A710    |000010;  
                        TAY                                  ;009551|A8      |      ;  
                        LDX.W Function results               ;009552|AE4110  |001041;  
@@ -3336,7 +3334,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009561|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 0C: INC.B $10                            ;009562|E610    |000010; Jump if true/nonzero (2 byte ptr)
+        Event_Code_0C: INC.B $10                            ;009562|E610    |000010; Jump if true/nonzero (2 byte ptr)
                        LDA.B [$10]                          ;009564|A710    |000010;  
                                                             ;      |        |      ;  
           CODE_009566: TAY                                  ;009566|A8      |      ;  
@@ -3353,7 +3351,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009576|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 11: LDX.W Function results               ;009577|AE4110  |001041; If less than next byte, jump using ptr table
+        Event_Code_11: LDX.W Function results               ;009577|AE4110  |001041; If less than next byte, jump using ptr table
                        LDA.W Function results,X             ;00957A|BDB30C  |000CB3;  
                                                             ;      |        |      ;  
           CODE_00957D: STA.B $20                            ;00957D|8520    |000020;  
@@ -3381,7 +3379,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00959C|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 12: LDX.W Function results               ;00959D|AE4110  |001041; Very complicated (1b), JSR (2b)
+        Event_Code_12: LDX.W Function results               ;00959D|AE4110  |001041; Very complicated (1b), JSR (2b)
                                                             ;      |        |      ;  
           CODE_0095A0: LDA.W Function results,X             ;0095A0|BDB30C  |000CB3;  
                        STA.B $20                            ;0095A3|8520    |000020;  
@@ -3407,48 +3405,46 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        BRA CODE_009594                      ;0095C5|80CD    |009594;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 0D: LDY.W Function results               ;0095C7|AC4110  |001041;  
+        Event_Code_0D: LDY.W Function results               ;0095C7|AC4110  |001041;  
                                                             ;      |        |      ;  
           CODE_0095CA: LDX.W Selection                      ;0095CA|AE3F10  |00103F;  
                        JSR.W Stuff                          ;0095CD|207B9A  |009A7B;  
                        LDA.W #$FFFF                         ;0095D0|A9FFFF  |      ;  
-                       STA.W $0B9F,Y                        ;0095D3|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;0095D3|999F0B  |000B9F;  
                        LDA.W $06D3,X                        ;0095D6|BDD306  |0006D3;  
                        BPL CODE_0095DE                      ;0095D9|1003    |0095DE;  
-                       JMP.W Code Opcode 00                 ;0095DB|4CE790  |0090E7;  
+                       JMP.W Event_Code_00                  ;0095DB|4CE790  |0090E7;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0095DE: RTS                                  ;0095DE|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 08: INC.B $10                            ;0095DF|E610    |000010; op08: Does something with the main loop
+        Event_Code_08: INC.B $10                            ;0095DF|E610    |000010; op08: Does something with the main loop
                        JSR.W Return Carry                   ;0095E1|206C9A  |009A6C; Loads a Y value and returns carry flag
                        BCS CODE_009607                      ;0095E4|B021    |009607;  
                        STY.W LoopVar 1047                   ;0095E6|8C4710  |001047;  
                        LDX.W Function results               ;0095E9|AE4110  |001041;  
                        LDA.W $0AE7,X                        ;0095EC|BDE70A  |000AE7;  
                        STA.W $0AE7,Y                        ;0095EF|99E70A  |000AE7;  
-                                                            ;      |        |      ;  
-          CODE_0095F2: TYA                                  ;0095F2|98      |      ;  
+                       TYA                                  ;0095F2|98      |      ;  
                        STA.W $0AE7,X                        ;0095F3|9DE70A  |000AE7;  
                        TYX                                  ;0095F6|BB      |      ;  
                        STZ.W $0B43,X                        ;0095F7|9E430B  |000B43;  
-                       STZ.W $0B9F,X                        ;0095FA|9E9F0B  |000B9F;  
+                       STZ.W Anim_Loopvar,X                 ;0095FA|9E9F0B  |000B9F;  
                        LDA.B [$10]                          ;0095FD|A710    |000010;  
-                       STA.W $0BFB,X                        ;0095FF|9DFB0B  |000BFB;  
+                       STA.W Ptr_EventStack,X               ;0095FF|9DFB0B  |000BFB;  
                        LDA.B $12                            ;009602|A512    |000012;  
-                       STA.W $0C57,X                        ;009604|9D570C  |000C57;  
+                       STA.W Bank_EventStack,X              ;009604|9D570C  |000C57;  
                                                             ;      |        |      ;  
           CODE_009607: INC.B $10                            ;009607|E610    |000010;  
                        INC.B $10                            ;009609|E610    |000010;  
                        RTS                                  ;00960B|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 14: INC.B $10                            ;00960C|E610    |000010; Does stuff. Compares next byte to $20
+        Event_Code_14: INC.B $10                            ;00960C|E610    |000010; Does stuff. Compares next byte to $20
                        LDA.B [$10]                          ;00960E|A710    |000010;  
                        INC.B $10                            ;009610|E610    |000010;  
-                                                            ;      |        |      ;  
-          CODE_009612: AND.W #$00FF                         ;009612|29FF00  |      ;  
+                       AND.W #$00FF                         ;009612|29FF00  |      ;  
                        CMP.W #$0080                         ;009615|C98000  |      ;  
                        BCS CODE_009629                      ;009618|B00F    |009629;  
                        STA.B $20                            ;00961A|8520    |000020;  
@@ -3475,7 +3471,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
           CODE_00963C: JMP.W CODE_0095CA                    ;00963C|4CCA95  |0095CA;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 09: INC.B $10                            ;00963F|E610    |000010; Call 24bit ptr after returning?
+        Event_Code_09: INC.B $10                            ;00963F|E610    |000010; Call 24bit ptr after returning?
                        LDX.W Selection                      ;009641|AE3F10  |00103F;  
                        LDA.B [$10]                          ;009644|A710    |000010;  
                        STA.W $0A33,X                        ;009646|9D330A  |000A33;  
@@ -3483,32 +3479,31 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        INC.B $10                            ;00964B|E610    |000010;  
                        LDA.B [$10]                          ;00964D|A710    |000010;  
                        STA.W $0A57,X                        ;00964F|9D570A  |000A57;  
-                                                            ;      |        |      ;  
-          CODE_009652: INC.B $10                            ;009652|E610    |000010;  
+                       INC.B $10                            ;009652|E610    |000010;  
                        RTS                                  ;009654|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 0A: LDX.W Function results               ;009655|AE4110  |001041; Clears 0B9F,x
+        Event_Code_0A: LDX.W Function results               ;009655|AE4110  |001041; Clears animation loop
                        LDA.W #$FFFF                         ;009658|A9FFFF  |      ;  
-                       STA.W $0B9F,X                        ;00965B|9D9F0B  |000B9F;  
+                       STA.W Anim_Loopvar,X                 ;00965B|9D9F0B  |000B9F;  
                        RTS                                  ;00965E|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode A8-AF: LDX.W Selection                      ;00965F|AE3F10  |00103F; Increases $0A7B,x ($103F is the offset for $0A33 main loop ptr stack)
-                       INC.W $0A7B,X                        ;009662|FE7B0A  |000A7B;  
+     Event_Anim_A8_AF: LDX.W Selection                      ;00965F|AE3F10  |00103F; Increment animation ID
+                       INC.W Anim_ID,X                      ;009662|FE7B0A  |000A7B;  
                                                             ;      |        |      ;  
           CODE_009665: INC.B $10                            ;009665|E610    |000010;  
                        RTS                                  ;009667|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode B0-B7: LDX.W Selection                      ;009668|AE3F10  |00103F; Decreases $0A7B,x
-                       DEC.W $0A7B,X                        ;00966B|DE7B0A  |000A7B;  
+     Event_Anim_B0_B7: LDX.W Selection                      ;009668|AE3F10  |00103F; Decrements the animation ID
+                       DEC.W Anim_ID,X                      ;00966B|DE7B0A  |000A7B;  
                        INC.B $10                            ;00966E|E610    |000010;  
                                                             ;      |        |      ;  
           CODE_009670: RTS                                  ;009670|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Anim Opcode B8-BF: INC.B $10                            ;009671|E610    |000010;  
+Event_Anim_B8_BF_(1b): INC.B $10                            ;009671|E610    |000010; Adds (1b) to the animation ID
                        LDX.W Selection                      ;009673|AE3F10  |00103F;  
                        LDA.B [$10]                          ;009676|A710    |000010;  
                        AND.W #$00FF                         ;009678|29FF00  |      ;  
@@ -3519,15 +3514,15 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                                                             ;      |        |      ;  
           CODE_009683: CLC                                  ;009683|18      |      ;  
                                                             ;      |        |      ;  
-          CODE_009684: ADC.W $0A7B,X                        ;009684|7D7B0A  |000A7B;  
-                       STA.W $0A7B,X                        ;009687|9D7B0A  |000A7B;  
+          CODE_009684: ADC.W Anim_ID,X                      ;009684|7D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;009687|9D7B0A  |000A7B;  
                                                             ;      |        |      ;  
                        INC.B $10                            ;00968A|E610    |000010;  
                                                             ;      |        |      ;  
           CODE_00968C: RTS                                  ;00968C|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 19: INC.B $10                            ;00968D|E610    |000010; Jumps somewhere weird
+        Event_Code_19: INC.B $10                            ;00968D|E610    |000010; Jumps somewhere weird
                        LDA.B [$10]                          ;00968F|A710    |000010;  
                        STA.B $1C                            ;009691|851C    |00001C;  
                        INC.B $10                            ;009693|E610    |000010;  
@@ -3544,13 +3539,12 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        STA.W CodePtr                        ;0096AA|8D4910  |001049;  
                        LDX.W #$0000                         ;0096AD|A20000  |      ;  
                        SEP #$20                             ;0096B0|E220    |      ;  
-                                                            ;      |        |      ;  
-          CODE_0096B2: JSR.W (CodePtr,X)                    ;0096B2|FC4910  |001049;  
+                       JSR.W (CodePtr,X)                    ;0096B2|FC4910  |001049;  
                        REP #$20                             ;0096B5|C220    |      ;  
                        RTS                                  ;0096B7|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 15: INC.B $10                            ;0096B8|E610    |000010; (4b) Compares an actor ID with a value
+        Event_Code_15: INC.B $10                            ;0096B8|E610    |000010; (4b) Compares an actor ID with a value
                                                             ;      |        |      ;  
           CODE_0096BA: LDA.B [$10]                          ;0096BA|A710    |000010; (1b) Takes an offset to an actor array
                        AND.W #$00FF                         ;0096BC|29FF00  |      ;  
@@ -3565,7 +3559,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        BRA CODE_0096D5                      ;0096CB|8008    |0096D5;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 0E: INC.B $10                            ;0096CD|E610    |000010; (5b) Compares RAM to a value
+        Event_Code_0E: INC.B $10                            ;0096CD|E610    |000010; (5b) Compares RAM to a value
                        LDA.B [$10]                          ;0096CF|A710    |000010;  
                        STA.B $1C                            ;0096D1|851C    |00001C; (2b) RAM address to compare
                        INC.B $10                            ;0096D3|E610    |000010;  
@@ -3612,13 +3606,12 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
                   EOR: LDA.B ($1C)                          ;009710|B21C    |00001C;  
-                                                            ;      |        |      ;  
-          CODE_009712: EOR.B $20                            ;009712|4520    |000020;  
+                       EOR.B $20                            ;009712|4520    |000020;  
                        STA.B ($1C)                          ;009714|921C    |00001C;  
                        RTS                                  ;009716|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 0F: INC.B $10                            ;009717|E610    |000010; (1b) table offset for RAM set, (2b) value
+        Event_Code_0F: INC.B $10                            ;009717|E610    |000010; (1b) table offset for RAM set, (2b) value
                        LDA.B [$10]                          ;009719|A710    |000010;  
                                                             ;      |        |      ;  
           CODE_00971B: AND.W #$00FF                         ;00971B|29FF00  |      ;  
@@ -3642,13 +3635,13 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        dw $09EB                             ;00973D|        |0009EB;  
                        dw $0A0F                             ;00973F|        |000A0F;  
                                                             ;      |        |      ;  
-       Code Opcode 10: LDX.W Selection                      ;009741|AE3F10  |00103F; (0b): Sets 2 RAM vals
+        Event_Code_10: LDX.W Selection                      ;009741|AE3F10  |00103F; (0b): Sets 2 RAM vals
                        JSR.W CODE_009BFD                    ;009744|20FD9B  |009BFD;  
                        INC.B $10                            ;009747|E610    |000010;  
                        RTS                                  ;009749|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 13: INC.B $10                            ;00974A|E610    |000010; (3b): Set RAM address (2b) to value (1b)
+        Event_Code_13: INC.B $10                            ;00974A|E610    |000010; (3b): Set RAM address (2b) to value (1b)
                        LDA.B [$10]                          ;00974C|A710    |000010;  
                        STA.B $18                            ;00974E|8518    |000018;  
                        INC.B $10                            ;009750|E610    |000010;  
@@ -3661,7 +3654,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;00975E|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 16: INC.B $10                            ;00975F|E610    |000010; (4b): Set RAM address (2b) to value (2b)
+        Event_Code_16: INC.B $10                            ;00975F|E610    |000010; (4b): Set RAM address (2b) to value (2b)
                        LDA.B [$10]                          ;009761|A710    |000010;  
                        STA.B $18                            ;009763|8518    |000018;  
                        INC.B $10                            ;009765|E610    |000010;  
@@ -3673,7 +3666,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009771|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 17: INC.B $10                            ;009772|E610    |000010;  
+        Event_Code_17: INC.B $10                            ;009772|E610    |000010;  
                        LDA.B [$10]                          ;009774|A710    |000010;  
                        TAY                                  ;009776|A8      |      ;  
                        LDX.W Function results               ;009777|AE4110  |001041;  
@@ -3694,7 +3687,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
           CODE_009790: RTS                                  ;009790|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 18: INC.B $10                            ;009791|E610    |000010;  
+        Event_Code_18: INC.B $10                            ;009791|E610    |000010;  
                        LDA.B [$10]                          ;009793|A710    |000010;  
                        TAY                                  ;009795|A8      |      ;  
                        LDX.W Function results               ;009796|AE4110  |001041;  
@@ -3703,7 +3696,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        BRA CODE_00977F                      ;00979E|80DF    |00977F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 1D: LDX.W Selection                      ;0097A0|AE3F10  |00103F;  
+        Event_Code_1D: LDX.W Selection                      ;0097A0|AE3F10  |00103F;  
                        INC.B $10                            ;0097A3|E610    |000010;  
                        LDA.B [$10]                          ;0097A5|A710    |000010;  
                        STA.W $0A9F,X                        ;0097A7|9D9F0A  |000A9F;  
@@ -3716,7 +3709,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0097B5|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 1E: INC.B $10                            ;0097B6|E610    |000010; Store value (2b) in $0CB3,x
+        Event_Code_1E: INC.B $10                            ;0097B6|E610    |000010; Store value (2b) in $0CB3,x
                        LDA.B [$10]                          ;0097B8|A710    |000010;  
                                                             ;      |        |      ;  
           CODE_0097BA: LDX.W Function results               ;0097BA|AE4110  |001041;  
@@ -3726,7 +3719,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0097C4|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 1F: INC.B $10                            ;0097C5|E610    |000010; Store value from RAM addr (2b) in $0CB3,x
+        Event_Code_1F: INC.B $10                            ;0097C5|E610    |000010; Store value from RAM addr (2b) in $0CB3,x
                        LDA.B [$10]                          ;0097C7|A710    |000010;  
                        STA.B $18                            ;0097C9|8518    |000018;  
                        LDA.B ($18)                          ;0097CB|B218    |000018;  
@@ -3738,7 +3731,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;0097D7|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 20: LDX.W Selection                      ;0097D8|AE3F10  |00103F;  
+        Event_Code_20: LDX.W Selection                      ;0097D8|AE3F10  |00103F;  
                        LDA.W $06AF,X                        ;0097DB|BDAF06  |0006AF;  
                        BPL CODE_0097E3                      ;0097DE|1003    |0097E3;  
                                                             ;      |        |      ;  
@@ -3755,7 +3748,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
           CODE_0097F2: JMP.W CODE_009B26                    ;0097F2|4C269B  |009B26;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 21: LDX.W Selection                      ;0097F5|AE3F10  |00103F;  
+        Event_Code_21: LDX.W Selection                      ;0097F5|AE3F10  |00103F;  
                                                             ;      |        |      ;  
           CODE_0097F8: LDA.W $06AF,X                        ;0097F8|BDAF06  |0006AF;  
                                                             ;      |        |      ;  
@@ -3773,7 +3766,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        JMP.W CODE_009B60                    ;009811|4C609B  |009B60;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 22: INC.B $10                            ;009814|E610    |000010;  
+        Event_Code_22: INC.B $10                            ;009814|E610    |000010;  
                        LDX.W Selection                      ;009816|AE3F10  |00103F;  
                        LDA.W $06AF,X                        ;009819|BDAF06  |0006AF;  
                        BMI CODE_00981F                      ;00981C|3001    |00981F;  
@@ -3788,7 +3781,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
           CODE_009827: JMP.W CODE_009B87                    ;009827|4C879B  |009B87;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 23: INC.B $10                            ;00982A|E610    |000010; Shares code with 21/22/23
+        Event_Code_23: INC.B $10                            ;00982A|E610    |000010; Shares code with 21/22/23
                        LDA.B [$10]                          ;00982C|A710    |000010;  
                        AND.W #$00FF                         ;00982E|29FF00  |      ;  
                        ASL A                                ;009831|0A      |      ;  
@@ -3803,7 +3796,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009846|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 24: INC.B $10                            ;009847|E610    |000010; (1b) Loads value from a table (00=$09A3)
+        Event_Code_24: INC.B $10                            ;009847|E610    |000010; (1b) Loads value from a table (00=$09A3)
                        LDA.B [$10]                          ;009849|A710    |000010;  
                        AND.W #$00FF                         ;00984B|29FF00  |      ;  
                        ASL A                                ;00984E|0A      |      ;  
@@ -3818,7 +3811,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        RTS                                  ;009863|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Code Opcode 25: INC.B $10                            ;009864|E610    |000010;  
+        Event_Code_25: INC.B $10                            ;009864|E610    |000010;  
                        LDA.B [$10]                          ;009866|A710    |000010;  
                        AND.W #$00FF                         ;009868|29FF00  |      ;  
                        ASL A                                ;00986B|0A      |      ;  
@@ -3828,7 +3821,7 @@ Update $1041, Restart main loop: LDX.W $06D3,Y                        ;008FE0|BE
                        LDY.W Selection                      ;009873|AC3F10  |00103F;  
                        LDA.B ($18),Y                        ;009876|B118    |000018;  
                        LDY.W Function results               ;009878|AC4110  |001041;  
-                       STA.W $0B9F,Y                        ;00987B|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;00987B|999F0B  |000B9F;  
                        INC.B $10                            ;00987E|E610    |000010;  
                        RTS                                  ;009880|60      |      ;  
                                                             ;      |        |      ;  
@@ -5060,7 +5053,7 @@ Loop_til_RAM_Equals(2b)(2b): JSR.W ReadNextScript(2b)_near        ;00A051|20009B
                        STA.B $10                            ;00A063|8510    |000010;  
                        LDX.W Function results               ;00A065|AE4110  |001041;  
                        LDA.W #$0001                         ;00A068|A90100  |      ;  
-                       STA.W $0B9F,X                        ;00A06B|9D9F0B  |000B9F; Set some function result
+                       STA.W Anim_Loopvar,X                 ;00A06B|9D9F0B  |000B9F; Set some function result
                                                             ;      |        |      ;  
           CODE_00A06E: RTL                                  ;00A06E|6B      |      ;  
                                                             ;      |        |      ;  
@@ -5293,8 +5286,8 @@ Confusing_RAM_Xfer(3b)(4b): LDY.W #$0006                         ;00A162|A00600 
                        dl DATA8_0594CB                      ;00A1FD|        |0594CB;  
                        dl DATA8_059552                      ;00A200|        |059552;  
                        dl DATA8_0595D1                      ;00A203|        |0595D1;  
-                       dl Bank 0F: Battle anims?            ;00A206|        |0F8001;  
-                       dl UNREACH_0FCB2B                    ;00A209|        |0FCB2B;  
+                       dl Bank_0F_Battle_anims              ;00A206|        |0F8001;  
+                       dl Event_Spell_Animation             ;00A209|        |0FCB2B;  
                                                             ;      |        |      ;  
        Event_Brancher: dl Call_Event_ASM                    ;00A20C|        |18968B;  
                        dl UNREACH_01A0D8                    ;00A20F|        |01A0D8;  
@@ -5413,7 +5406,7 @@ Confusing_RAM_Xfer(3b)(4b): LDY.W #$0006                         ;00A162|A00600 
          PTR24_00A353: dl UNREACH_01A30F                    ;00A353|        |01A30F;  
                        dl UNREACH_1784CE                    ;00A356|        |1784CE;  
                        dl UNREACH_178E66                    ;00A359|        |178E66;  
-                       dl UNREACH_188649                    ;00A35C|        |188649;  
+                       dl PTR16_188649                      ;00A35C|        |188649;  
                        dl PTR16_18DB60                      ;00A35F|        |18DB60;  
                        dl UNREACH_0980D3                    ;00A362|        |0980D3;  
                        dl UNREACH_098215                    ;00A365|        |098215;  
@@ -5582,7 +5575,7 @@ Confusing_RAM_Xfer(3b)(4b): LDY.W #$0006                         ;00A162|A00600 
           CODE_00A4E1: RTS                                  ;00A4E1|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-  Text Opcode 0C Sub1: TAX                                  ;00A4E2|AA      |      ;  
+   Event_Text_0C_sub1: TAX                                  ;00A4E2|AA      |      ;  
                        LDA.W $0004,X                        ;00A4E3|BD0400  |000004;  
                        STA.W $1115                          ;00A4E6|8D1511  |001115;  
                        LDA.W $0006,X                        ;00A4E9|BD0600  |000006;  
@@ -5602,28 +5595,28 @@ Confusing_RAM_Xfer(3b)(4b): LDY.W #$0006                         ;00A162|A00600 
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A50E: PHX                                  ;00A50E|DA      |      ;  
-                       JSR.W Text Opcode 0C Sub1            ;00A50F|20E2A4  |00A4E2;  
+                       JSR.W Event_Text_0C_sub1             ;00A50F|20E2A4  |00A4E2;  
                        PLA                                  ;00A512|68      |      ;  
                        JSR.W CODE_00B84A                    ;00A513|204AB8  |00B84A;  
                        RTS                                  ;00A516|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A517: PHX                                  ;00A517|DA      |      ;  
-                       JSR.W Text Opcode 0C Sub1            ;00A518|20E2A4  |00A4E2;  
+                       JSR.W Event_Text_0C_sub1             ;00A518|20E2A4  |00A4E2;  
                        PLA                                  ;00A51B|68      |      ;  
                        JSR.W CODE_00B6BA                    ;00A51C|20BAB6  |00B6BA;  
                        RTS                                  ;00A51F|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A520: PHX                                  ;00A520|DA      |      ;  
-                       JSR.W Text Opcode 0C Sub1            ;00A521|20E2A4  |00A4E2;  
+                       JSR.W Event_Text_0C_sub1             ;00A521|20E2A4  |00A4E2;  
                        TYX                                  ;00A524|BB      |      ;  
                        PLA                                  ;00A525|68      |      ;  
                        JSR.W CODE_00BE4B                    ;00A526|204BBE  |00BE4B;  
                        RTS                                  ;00A529|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-   Text Opcode 0C sub: JSR.W Text Opcode 0C Sub1            ;00A52A|20E2A4  |00A4E2;  
+    Event_Text_0C_sub: JSR.W Event_Text_0C_sub1             ;00A52A|20E2A4  |00A4E2;  
                        JSR.W Text Opcode 0C Sub2            ;00A52D|2007BE  |00BE07;  
                        RTS                                  ;00A530|60      |      ;  
                                                             ;      |        |      ;  
@@ -6045,113 +6038,113 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                                                             ;      |        |      ;  
           CODE_00A7BE: LDA.B $00                            ;00A7BE|A500    |000000;  
                        BNE CODE_00A7C5                      ;00A7C0|D003    |00A7C5;  
-                       JMP.W Text Opcode 00                 ;00A7C2|4C58A8  |00A858;  
+                       JMP.W Event_Text_00                  ;00A7C2|4C58A8  |00A858;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7C5: CMP.W #$0001                         ;00A7C5|C90100  |      ; Opcode 01: Saves next 2 bytes to cursor position ($10A5, $10A7)
                        BNE CODE_00A7CD                      ;00A7C8|D003    |00A7CD;  
                                                             ;      |        |      ;  
-          CODE_00A7CA: JMP.W Text Opcode 01                 ;00A7CA|4C81A8  |00A881;  
+          CODE_00A7CA: JMP.W Event_Text_01                  ;00A7CA|4C81A8  |00A881;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7CD: CMP.W #$0002                         ;00A7CD|C90200  |      ;  
                        BNE CODE_00A7D5                      ;00A7D0|D003    |00A7D5;  
                                                             ;      |        |      ;  
-          CODE_00A7D2: JMP.W Text Opcode 02                 ;00A7D2|4C98A8  |00A898;  
+          CODE_00A7D2: JMP.W Event_Text_02                  ;00A7D2|4C98A8  |00A898;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7D5: CMP.W #$0003                         ;00A7D5|C90300  |      ;  
                        BNE CODE_00A7DD                      ;00A7D8|D003    |00A7DD;  
-                       JMP.W Text Opcode 03                 ;00A7DA|4CA8A8  |00A8A8;  
+                       JMP.W Event_Text_03                  ;00A7DA|4CA8A8  |00A8A8;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7DD: CMP.W #$0004                         ;00A7DD|C90400  |      ;  
                        BNE CODE_00A7E5                      ;00A7E0|D003    |00A7E5;  
                                                             ;      |        |      ;  
-          CODE_00A7E2: JMP.W Text Opcode 04                 ;00A7E2|4CB5A8  |00A8B5;  
+          CODE_00A7E2: JMP.W Event_Text_04                  ;00A7E2|4CB5A8  |00A8B5;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7E5: CMP.W #$0005                         ;00A7E5|C90500  |      ;  
                        BNE CODE_00A7ED                      ;00A7E8|D003    |00A7ED;  
-                       JMP.W Text Opcode 05                 ;00A7EA|4CC2A8  |00A8C2;  
+                       JMP.W Event_Text_05                  ;00A7EA|4CC2A8  |00A8C2;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7ED: CMP.W #$0006                         ;00A7ED|C90600  |      ;  
                        BNE CODE_00A7F5                      ;00A7F0|D003    |00A7F5;  
-                       JMP.W Text Opcode 06                 ;00A7F2|4CDEA8  |00A8DE;  
+                       JMP.W Event_Text_06                  ;00A7F2|4CDEA8  |00A8DE;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7F5: CMP.W #$000C                         ;00A7F5|C90C00  |      ;  
                        BNE CODE_00A7FD                      ;00A7F8|D003    |00A7FD;  
-                       JMP.W Text Opcode 0C                 ;00A7FA|4CECA8  |00A8EC;  
+                       JMP.W Event_Text_0C                  ;00A7FA|4CECA8  |00A8EC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A7FD: CMP.W #$000D                         ;00A7FD|C90D00  |      ;  
                        BNE CODE_00A805                      ;00A800|D003    |00A805;  
-                       JMP.W Text Opcode 0D                 ;00A802|4C02A9  |00A902;  
+                       JMP.W Event_Text_0D                  ;00A802|4C02A9  |00A902;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A805: CMP.W #$0010                         ;00A805|C91000  |      ;  
                        BNE CODE_00A80D                      ;00A808|D003    |00A80D;  
-                       JMP.W Text Opcode 10                 ;00A80A|4C43A9  |00A943;  
+                       JMP.W Event_Text_10                  ;00A80A|4C43A9  |00A943;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A80D: CMP.W #$0011                         ;00A80D|C91100  |      ;  
                        BNE CODE_00A815                      ;00A810|D003    |00A815;  
-                       JMP.W Text Opcode 11                 ;00A812|4C69A9  |00A969;  
+                       JMP.W Event_Text_11                  ;00A812|4C69A9  |00A969;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A815: CMP.W #$001C                         ;00A815|C91C00  |      ;  
                        BNE CODE_00A81D                      ;00A818|D003    |00A81D;  
-                       JMP.W Text Opcode 1C                 ;00A81A|4CA8A9  |00A9A8;  
+                       JMP.W Event_Text_1C                  ;00A81A|4CA8A9  |00A9A8;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A81D: CMP.W #$001D                         ;00A81D|C91D00  |      ;  
                        BNE CODE_00A825                      ;00A820|D003    |00A825;  
-                       JMP.W Text Opcode 1D                 ;00A822|4CBDA9  |00A9BD;  
+                       JMP.W Event_Text_1D                  ;00A822|4CBDA9  |00A9BD;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A825: CMP.W #$001E                         ;00A825|C91E00  |      ;  
                        BNE CODE_00A82D                      ;00A828|D003    |00A82D;  
-                       JMP.W Text Opcode 1E                 ;00A82A|4CC5A9  |00A9C5;  
+                       JMP.W Event_Text_1E                  ;00A82A|4CC5A9  |00A9C5;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A82D: CMP.W #$007F                         ;00A82D|C97F00  |      ;  
                        BNE CODE_00A835                      ;00A830|D003    |00A835;  
-                       JMP.W Text Opcode 7F                 ;00A832|4CCDA9  |00A9CD;  
+                       JMP.W Event_Text_7F                  ;00A832|4CCDA9  |00A9CD;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A835: CMP.W #$0014                         ;00A835|C91400  |      ;  
                        BNE CODE_00A83D                      ;00A838|D003    |00A83D;  
                                                             ;      |        |      ;  
-          CODE_00A83A: JMP.W Text Opcode 14                 ;00A83A|4C19A9  |00A919;  
+          CODE_00A83A: JMP.W Event_Text_14                  ;00A83A|4C19A9  |00A919;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A83D: CMP.W #$001B                         ;00A83D|C91B00  |      ;  
                        BNE CODE_00A845                      ;00A840|D003    |00A845;  
-                       JMP.W Text Opcode 1B                 ;00A842|4CE1A9  |00A9E1;  
+                       JMP.W Event_Text_1B                  ;00A842|4CE1A9  |00A9E1;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A845: CMP.W #$000F                         ;00A845|C90F00  |      ;  
                        BNE CODE_00A84D                      ;00A848|D003    |00A84D;  
-                       JMP.W Text Opcode 0F                 ;00A84A|4CF7A9  |00A9F7;  
+                       JMP.W Event_Text_0F                  ;00A84A|4CF7A9  |00A9F7;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A84D: CMP.W #$0008                         ;00A84D|C90800  |      ;  
                        BNE CODE_00A855                      ;00A850|D003    |00A855;  
-                       JMP.W Text Opcode 08                 ;00A852|4C04AA  |00AA04;  
+                       JMP.W Event_Text_08                  ;00A852|4C04AA  |00AA04;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_00A855: JMP.W Text Opcode "Text"             ;00A855|4C11AA  |00AA11; This one's a doozy
+          CODE_00A855: JMP.W Event_Text_Text                ;00A855|4C11AA  |00AA11; This one's a doozy
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 00: LDA.W $001C,X                        ;00A858|BD1C00  |00001C; Null terminator. Returns from section (pops the pointer)
+        Event_Text_00: LDA.W $001C,X                        ;00A858|BD1C00  |00001C; Null terminator. Returns from section (pops the pointer)
                        BNE Text_Pop_Stack                   ;00A85B|D00E    |00A86B;  
                        LDA.W #$0000                         ;00A85D|A90000  |      ; If no stack, zero it to be sure
                        STA.W $0016,X                        ;00A860|9D1600  |000016;  
                        LDA.W #$0001                         ;00A863|A90100  |      ; $0A=1 (check for pause?)
                        STA.B $0A                            ;00A866|850A    |00000A;  
-                       JMP.W Text Script helper fn          ;00A868|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A868|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
        Text_Pop_Stack: LDA.W $001C,X                        ;00A86B|BD1C00  |00001C;  
@@ -6161,10 +6154,10 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        LDA.W #$0000                         ;00A875|A90000  |      ;  
                        STA.W $001C,X                        ;00A878|9D1C00  |00001C;  
                        STA.W $001E,X                        ;00A87B|9D1E00  |00001E;  
-                       JMP.W Text Script helper fn          ;00A87E|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A87E|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 01: LDA.B [$06]                          ;00A881|A706    |000006; (2b) Moves cursor to xx,xx (0,0 is top left)
+        Event_Text_01: LDA.B [$06]                          ;00A881|A706    |000006; (2b) Moves cursor to xx,xx (0,0 is top left)
                        AND.W #$00FF                         ;00A883|29FF00  |      ; Get next byte
                        STA.W $000A,X                        ;00A886|9D0A00  |00000A; (1b) Set cursor X pos
                        INC.B $06                            ;00A889|E606    |000006; Advance PC
@@ -6173,33 +6166,33 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                                                             ;      |        |      ;  
           CODE_00A890: STA.W $000C,X                        ;00A890|9D0C00  |00000C; (1b) Set cursor Y pos
                        INC.B $06                            ;00A893|E606    |000006; Advance PC
-                       JMP.W Text Script helper fn          ;00A895|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A895|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 02: LDA.B [$06]                          ;00A898|A706    |000006; (1b) Used drawing the menus (?) Sets x position + something
+        Event_Text_02: LDA.B [$06]                          ;00A898|A706    |000006; (1b) Used drawing the menus (?) Sets x position + something
                        AND.W #$00FF                         ;00A89A|29FF00  |      ;  
                        STA.W $0024,X                        ;00A89D|9D2400  |000024; Stores (1b) in offset+24
                        STA.W $000A,X                        ;00A8A0|9D0A00  |00000A; Sets X position
                        INC.B $06                            ;00A8A3|E606    |000006; Advance PC
                                                             ;      |        |      ;  
-          CODE_00A8A5: JMP.W Text Script helper fn          ;00A8A5|4CFCAA  |00AAFC;  
+          CODE_00A8A5: JMP.W Event_Text_helper              ;00A8A5|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 03: LDA.B [$06]                          ;00A8A8|A706    |000006; (1b) Used for font spacing/positioning
+        Event_Text_03: LDA.B [$06]                          ;00A8A8|A706    |000006; (1b) Used for font spacing/positioning
                        AND.W #$00FF                         ;00A8AA|29FF00  |      ;  
                        STA.W $0012,X                        ;00A8AD|9D1200  |000012; Stores (1b) in offset+12
                        INC.B $06                            ;00A8B0|E606    |000006; Advance PC
-                       JMP.W Text Script helper fn          ;00A8B2|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A8B2|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 04: LDA.B [$06]                          ;00A8B5|A706    |000006; (1b) Sets offset 14
+        Event_Text_04: LDA.B [$06]                          ;00A8B5|A706    |000006; (1b) Sets offset 14
                        AND.W #$00FF                         ;00A8B7|29FF00  |      ;  
                        STA.W $0014,X                        ;00A8BA|9D1400  |000014; Stores (1b) in offset+14
                        INC.B $06                            ;00A8BD|E606    |000006; Advance PC
-                       JMP.W Text Script helper fn          ;00A8BF|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A8BF|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 05: LDA.B [$06]                          ;00A8C2|A706    |000006; (2b) Delays for x?
+        Event_Text_05: LDA.B [$06]                          ;00A8C2|A706    |000006; (2b) Delays for x?
                        AND.W #$00FF                         ;00A8C4|29FF00  |      ;  
                        STA.W $0022,X                        ;00A8C7|9D2200  |000022; (1b) in offset 22 and $0C
                        STA.B $0C                            ;00A8CA|850C    |00000C;  
@@ -6209,41 +6202,41 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        STA.W $0020,X                        ;00A8D3|9D2000  |000020; (1b) in offset 20 and 16
                        STA.W $0016,X                        ;00A8D6|9D1600  |000016;  
                        INC.B $06                            ;00A8D9|E606    |000006;  
-                       JMP.W Text Script helper fn          ;00A8DB|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A8DB|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 06: LDA.B [$06]                          ;00A8DE|A706    |000006; (1b) Used for font formatting, text display, text highlighting etc.
+        Event_Text_06: LDA.B [$06]                          ;00A8DE|A706    |000006; (1b) Used for font formatting, text display, text highlighting etc.
                        ASL A                                ;00A8E0|0A      |      ; 06 0D precedes white text, and 06 0E precedes yellow/grayed text.
                        AND.W #$00FF                         ;00A8E1|29FF00  |      ;  
                        STA.W $000E,X                        ;00A8E4|9D0E00  |00000E; Store doubled input in offset+E
                        INC.B $06                            ;00A8E7|E606    |000006;  
-                       JMP.W Text Script helper fn          ;00A8E9|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A8E9|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 0C: LDA.B $04                            ;00A8EC|A504    |000004; (0b) Sets X pos to something, sets Y pos to 0, does stuff
-                       JSR.W Text Opcode 0C sub             ;00A8EE|202AA5  |00A52A; Do stuffs
+        Event_Text_0C: LDA.B $04                            ;00A8EC|A504    |000004; (0b) Sets X pos to something, sets Y pos to 0, does stuff
+                       JSR.W Event_Text_0C_sub              ;00A8EE|202AA5  |00A52A; Do stuffs
                        LDX.B $04                            ;00A8F1|A604    |000004; Get offset
                        LDA.W $0024,X                        ;00A8F3|BD2400  |000024;  
                        STA.W $000A,X                        ;00A8F6|9D0A00  |00000A; Set X pos to offset+24
                        LDA.W #$0000                         ;00A8F9|A90000  |      ;  
                        STA.W $000C,X                        ;00A8FC|9D0C00  |00000C; Reset Y position
-                       JMP.W Text Script helper fn          ;00A8FF|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A8FF|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 0D: LDA.B $04                            ;00A902|A504    |000004; (0b) Writes a newline.
+        Event_Text_0D: LDA.B $04                            ;00A902|A504    |000004; (0b) Writes a newline.
                        JSR.W Text Script Helper 2           ;00A904|20C6A6  |00A6C6;  
                        LDA.B $0C                            ;00A907|A50C    |00000C;  
                        CMP.W #$00FF                         ;00A909|C9FF00  |      ;  
                        BEQ CODE_00A911                      ;00A90C|F003    |00A911;  
-                       JMP.W Text Script helper fn          ;00A90E|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A90E|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_00A911: LDA.W #$0001                         ;00A911|A90100  |      ;  
                        STA.B $0A                            ;00A914|850A    |00000A;  
-                       JMP.W Text Script helper fn          ;00A916|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A916|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 14: LDA.B [$06]                          ;00A919|A706    |000006; (3b ptr) Loads text from RAM ptr
+        Event_Text_14: LDA.B [$06]                          ;00A919|A706    |000006; (3b ptr) Loads text from RAM ptr
                        STA.B $00                            ;00A91B|8500    |000000;  
                        INC.B $06                            ;00A91D|E606    |000006;  
                        INC.B $06                            ;00A91F|E606    |000006;  
@@ -6261,10 +6254,10 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        INC.B $00                            ;00A93A|E600    |000000;  
                        LDA.B [$00]                          ;00A93C|A700    |000000;  
                        STA.B $08                            ;00A93E|8508    |000008;  
-                       JMP.W Text Script helper fn          ;00A940|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A940|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 10: LDA.B [$06]                          ;00A943|A706    |000006; (3b ptr) Text subroutine
+        Event_Text_10: LDA.B [$06]                          ;00A943|A706    |000006; (3b ptr) Text subroutine
                        STA.B $00                            ;00A945|8500    |000000;  
                        INC.B $06                            ;00A947|E606    |000006;  
                        INC.B $06                            ;00A949|E606    |000006;  
@@ -6280,10 +6273,10 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        STA.B $06                            ;00A960|8506    |000006;  
                        LDA.B $02                            ;00A962|A502    |000002;  
                        STA.B $08                            ;00A964|8508    |000008;  
-                       JMP.W Text Script helper fn          ;00A966|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A966|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 11: LDA.B [$06]                          ;00A969|A706    |000006; (4b) Converts RAM value to text. i.e. 11 01 E7 16 00: Load from RAM $16E7 
+        Event_Text_11: LDA.B [$06]                          ;00A969|A706    |000006; (4b) Converts RAM value to text. i.e. 11 01 E7 16 00: Load from RAM $16E7 
                        AND.W #$00FF                         ;00A96B|29FF00  |      ;  
                        STA.B $0E                            ;00A96E|850E    |00000E; (1b) # digits to write
                        INC.B $06                            ;00A970|E606    |000006;  
@@ -6311,10 +6304,10 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        LDA.B #$00                           ;00A99F|A900    |      ;  
                        STA.B $09                            ;00A9A1|8509    |000009;  
                        REP #$20                             ;00A9A3|C220    |      ;  
-                       JMP.W Text Script helper fn          ;00A9A5|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A9A5|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1C: LDA.W #$00FE                         ;00A9A8|A9FE00  |      ; (0c) Makes text appear immediately.
+        Event_Text_1C: LDA.W #$00FE                         ;00A9A8|A9FE00  |      ; (0c) Makes text appear immediately.
                        LDY.W #$0001                         ;00A9AB|A00100  |      ;  
                                                             ;      |        |      ;  
        Set_Text_Speed: STA.W $0022,X                        ;00A9AE|9D2200  |000022;  
@@ -6322,29 +6315,29 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        TYA                                  ;00A9B3|98      |      ;  
                        STA.W $0020,X                        ;00A9B4|9D2000  |000020;  
                        STA.W $0016,X                        ;00A9B7|9D1600  |000016;  
-                       JMP.W Text Script helper fn          ;00A9BA|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A9BA|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1D: LDA.W #$00FF                         ;00A9BD|A9FF00  |      ; (0b) Makes text scroll 1 line at a time.
+        Event_Text_1D: LDA.W #$00FF                         ;00A9BD|A9FF00  |      ; (0b) Makes text scroll 1 line at a time.
                        LDY.W $1097                          ;00A9C0|AC9710  |001097;  
                        BRA Set_Text_Speed                   ;00A9C3|80E9    |00A9AE;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1E: LDA.W #$0001                         ;00A9C5|A90100  |      ; (0b) Text scrolls quickly by character
+        Event_Text_1E: LDA.W #$0001                         ;00A9C5|A90100  |      ; (0b) Text scrolls quickly by character
                        LDY.W $1099                          ;00A9C8|AC9910  |001099;  
                        BRA Set_Text_Speed                   ;00A9CB|80E1    |00A9AE;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 7F: LDX.B $10                            ;00A9CD|A610    |000010; (0b) Pause until A button is pressed.
+        Event_Text_7F: LDX.B $10                            ;00A9CD|A610    |000010; (0b) Pause until A button is pressed.
                        LDA.W Pause_status                   ;00A9CF|AD9510  |001095;  
                        ORA.L Pause_Table,X                  ;00A9D2|1F29AB00|00AB29;  
                        STA.W Pause_status                   ;00A9D6|8D9510  |001095;  
                        LDA.W #$0001                         ;00A9D9|A90100  |      ;  
                        STA.B $0A                            ;00A9DC|850A    |00000A;  
-                       JMP.W Text Script helper fn          ;00A9DE|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A9DE|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 1B: LDA.B [$06]                          ;00A9E1|A706    |000006; (2b) Draws dialogue portraits
+        Event_Text_1B: LDA.B [$06]                          ;00A9E1|A706    |000006; (2b) Draws dialogue portraits
                        AND.W #$00FF                         ;00A9E3|29FF00  |      ;  
                        ASL A                                ;00A9E6|0A      |      ; Transfer (1b) to a double x offset
                        TAX                                  ;00A9E7|AA      |      ;  
@@ -6353,24 +6346,24 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        AND.W #$00FF                         ;00A9EC|29FF00  |      ;  
                        STA.W Portrait_offset,X              ;00A9EF|9D8F10  |00108F;  
                        INC.B $06                            ;00A9F2|E606    |000006;  
-                       JMP.W Text Script helper fn          ;00A9F4|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00A9F4|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 0F: LDA.B [$06]                          ;00A9F7|A706    |000006; I really don't think this is used anywhere.
+        Event_Text_0F: LDA.B [$06]                          ;00A9F7|A706    |000006; I really don't think this is used anywhere.
                        AND.W #$00FF                         ;00A9F9|29FF00  |      ;  
                        STA.W $0026,X                        ;00A9FC|9D2600  |000026;  
                        INC.B $06                            ;00A9FF|E606    |000006;  
-                       JMP.W Text Script helper fn          ;00AA01|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00AA01|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       Text Opcode 08: LDA.B [$06]                          ;00AA04|A706    |000006; Relocates the text writer / tabs to a position XX
+        Event_Text_08: LDA.B [$06]                          ;00AA04|A706    |000006; Relocates the text writer / tabs to a position XX
                        AND.W #$00FF                         ;00AA06|29FF00  |      ;  
                        STA.W $000A,X                        ;00AA09|9D0A00  |00000A;  
                        INC.B $06                            ;00AA0C|E606    |000006;  
-                       JMP.W Text Script helper fn          ;00AA0E|4CFCAA  |00AAFC;  
+                       JMP.W Event_Text_helper              ;00AA0E|4CFCAA  |00AAFC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-   Text Opcode "Text": LDA.W $0026,X                        ;00AA11|BD2600  |000026;  
+      Event_Text_Text: LDA.W $0026,X                        ;00AA11|BD2600  |000026;  
                        BEQ CODE_00AA60                      ;00AA14|F04A    |00AA60;  
                        TAX                                  ;00AA16|AA      |      ;  
                        LDA.B $00                            ;00AA17|A500    |000000;  
@@ -6491,11 +6484,11 @@ Text_Branch_on_Opcode: LDA.B [$06]                          ;00A7B5|A706    |000
                        STA.W $000A,X                        ;00AAF0|9D0A00  |00000A;  
                                                             ;      |        |      ;  
           CODE_00AAF3: LDA.B $0C                            ;00AAF3|A50C    |00000C;  
-                       BNE Text Script helper fn            ;00AAF5|D005    |00AAFC;  
+                       BNE Event_Text_helper                ;00AAF5|D005    |00AAFC;  
                        LDA.W #$0001                         ;00AAF7|A90100  |      ;  
                        STA.B $0A                            ;00AAFA|850A    |00000A;  
                                                             ;      |        |      ;  
-Text Script helper fn: LDX.B $04                            ;00AAFC|A604    |000004; Pushes the text PC pointer
+    Event_Text_helper: LDX.B $04                            ;00AAFC|A604    |000004; Pushes the text PC pointer
                        LDA.B $06                            ;00AAFE|A506    |000006;  
                        STA.W $0018,X                        ;00AB00|9D1800  |000018; Offset 18 (Temp PC addr)
                        LDA.B $08                            ;00AB03|A508    |000008;  
@@ -8920,8 +8913,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        LDA.B $04                            ;00B4D4|A504    |000004;  
                        SEC                                  ;00B4D6|38      |      ;  
                        SBC.W #$0200                         ;00B4D7|E90002  |      ;  
-                                                            ;      |        |      ;  
-          CODE_00B4DA: STA.B $04                            ;00B4DA|8504    |000004;  
+                       STA.B $04                            ;00B4DA|8504    |000004;  
                                                             ;      |        |      ;  
           CODE_00B4DC: LDA.B $04                            ;00B4DC|A504    |000004;  
                                                             ;      |        |      ;  
@@ -9547,8 +9539,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        LDA.W $6800,Y                        ;00B8F0|B90068  |006800;  
                        REP #$20                             ;00B8F3|C220    |      ;  
                        LDX.W $111B                          ;00B8F5|AE1B11  |00111B;  
-                                                            ;      |        |      ;  
-          CODE_00B8F8: AND.L AND_table,X                    ;00B8F8|3F0AB800|00B80A;  
+                       AND.L AND_table,X                    ;00B8F8|3F0AB800|00B80A;  
                        EOR.L EOR_table,X                    ;00B8FC|5F2AB800|00B82A;  
                        LDX.B $0A                            ;00B900|A60A    |00000A;  
                        EOR.W $4010,X                        ;00B902|5D1040  |004010;  
@@ -10539,8 +10530,7 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        LDA.B #$00                           ;00BFDA|A900    |      ;  
                        STA.B $03                            ;00BFDC|8503    |000003;  
                        REP #$30                             ;00BFDE|C230    |      ;  
-                                                            ;      |        |      ;  
-          CODE_00BFE0: LDA.W $111D                          ;00BFE0|AD1D11  |00111D;  
+                       LDA.W $111D                          ;00BFE0|AD1D11  |00111D;  
                        LSR A                                ;00BFE3|4A      |      ;  
                        CLC                                  ;00BFE4|18      |      ;  
                        ADC.W $110D                          ;00BFE5|6D0D11  |00110D;  
@@ -11733,7 +11723,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                                                             ;      |        |      ;  
    Get spell accuracy: CPY.W #$0000                         ;00C849|C00000  |      ;  
                        BNE Get spell power                  ;00C84C|D008    |00C856; If 0 accuracy, skip the accuracy check
-                       LDA.L Spell accuracy,X               ;00C84E|BFF0EA05|05EAF0;  
+                       LDA.L Spell_Accuracy,X               ;00C84E|BFF0EA05|05EAF0;  
                        AND.W #$00FF                         ;00C852|29FF00  |      ;  
                        RTS                                  ;00C855|60      |      ;  
                                                             ;      |        |      ;  
@@ -11743,7 +11733,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C858|AA      |      ;  
                        CPY.W #$0001                         ;00C859|C00100  |      ;  
                        BNE CODE_00C863                      ;00C85C|D005    |00C863;  
-                       LDA.L Spell power,X                  ;00C85E|BF4BEB05|05EB4B;  
+                       LDA.L Spell_Power,X                  ;00C85E|BF4BEB05|05EB4B;  
                        RTS                                  ;00C862|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -11755,7 +11745,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        CPX.W #$00B4                         ;00C86D|E0B400  |      ; Skip element if Call Amulet Fail 2
                        BEQ CODE_00C877                      ;00C870|F005    |00C877;  
                                                             ;      |        |      ;  
-      GetSpellElement: LDA.L Spell ??/element,X             ;00C872|BF01EC05|05EC01;  
+      GetSpellElement: LDA.L Spell_??/element,X             ;00C872|BF01EC05|05EC01;  
                        RTS                                  ;00C876|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -12207,8 +12197,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        SBC.B $06                            ;00CB75|E506    |000006;  
                        STA.B $06                            ;00CB77|8506    |000006;  
                        TAX                                  ;00CB79|AA      |      ;  
-                                                            ;      |        |      ;  
-          CODE_00CB7A: INY                                  ;00CB7A|C8      |      ;  
+                       INY                                  ;00CB7A|C8      |      ;  
                        CPY.B $04                            ;00CB7B|C404    |000004;  
                        BCC CODE_00CB6C                      ;00CB7D|90ED    |00CB6C;  
                        RTL                                  ;00CB7F|6B      |      ;  
@@ -13391,8 +13380,7 @@ Tbl: Subtraction values: dw $0058                             ;00D10E|        | 
                        REP #$20                             ;00D347|C220    |      ;  
                        LDA.B [$00],Y                        ;00D349|B700    |000000;  
                        INY                                  ;00D34B|C8      |      ;  
-                                                            ;      |        |      ;  
-          CODE_00D34C: INY                                  ;00D34C|C8      |      ;  
+                       INY                                  ;00D34C|C8      |      ;  
                        TAX                                  ;00D34D|AA      |      ;  
                        LDA.B [$00],Y                        ;00D34E|B700    |000000;  
                                                             ;      |        |      ;  
@@ -14468,8 +14456,7 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $3F                               ;00D7E2|        |D00AB9;  
                        db $B9                               ;00D7E3|        |00D00A;  
                        db $0A                               ;00D7E4|        |      ;  
-                                                            ;      |        |      ;  
-       UNREACH_00D7E5: db $D0                               ;00D7E5|        |00D7FD;  
+                       db $D0                               ;00D7E5|        |00D7FD;  
                        db $16                               ;00D7E6|        |0000FD;  
                        db $FD                               ;00D7E7|        |00DAF0;  
                        db $F0                               ;00D7E8|        |00D7C4;  
@@ -16035,8 +16022,7 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $00                               ;00DDE6|        |      ;  
                        db $01                               ;00DDE7|        |000075;  
                        db $75                               ;00DDE8|        |0000B1;  
-                                                            ;      |        |      ;  
-       UNREACH_00DDE9: db $B1                               ;00DDE9|        |000002;  
+                       db $B1                               ;00DDE9|        |000002;  
                        db $02                               ;00DDEA|        |      ;  
                        db $D0                               ;00DDEB|        |00DDF2;  
                        db $05                               ;00DDEC|        |0000F5;  
@@ -16542,8 +16528,7 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $CD                               ;00DFD3|        |006900;  
                        db $00                               ;00DFD4|        |      ;  
                        db $69                               ;00DFD5|        |      ;  
-                                                            ;      |        |      ;  
-       UNREACH_00DFD6: db $F4                               ;00DFD6|        |00D012;  
+                       db $F4                               ;00DFD6|        |00D012;  
                        db $12                               ;00DFD7|        |0000D0;  
                        db $D0                               ;00DFD8|        |00DFD5;  
                        db $FB                               ;00DFD9|        |      ;  

@@ -7109,7 +7109,7 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        LDA.W Tbl Offset                     ;01A4A5|ADB511  |0011B5;  
                        LSR A                                ;01A4A8|4A      |      ;  
                        DEC A                                ;01A4A9|3A      |      ;  
-                       STA.W $0A7B,X                        ;01A4AA|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;01A4AA|9D7B0A  |000A7B;  
                        RTL                                  ;01A4AD|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -7117,14 +7117,14 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        LDA.W $11B7                          ;01A4B1|ADB711  |0011B7;  
                        BNE CODE_01A4BB                      ;01A4B4|D005    |01A4BB;  
                        DEC A                                ;01A4B6|3A      |      ;  
-                       STA.W $0A7B,X                        ;01A4B7|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;01A4B7|9D7B0A  |000A7B;  
                        RTL                                  ;01A4BA|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_01A4BB: LSR A                                ;01A4BB|4A      |      ;  
                        CLC                                  ;01A4BC|18      |      ;  
                        ADC.W #$000F                         ;01A4BD|690F00  |      ;  
-                       STA.W $0A7B,X                        ;01A4C0|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;01A4C0|9D7B0A  |000A7B;  
                        RTL                                  ;01A4C3|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -7132,14 +7132,14 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        LDA.W Page #                         ;01A4C7|ADB911  |0011B9;  
                        BNE CODE_01A4D1                      ;01A4CA|D005    |01A4D1;  
                        DEC A                                ;01A4CC|3A      |      ;  
-                       STA.W $0A7B,X                        ;01A4CD|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;01A4CD|9D7B0A  |000A7B;  
                        RTL                                  ;01A4D0|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_01A4D1: LSR A                                ;01A4D1|4A      |      ;  
                        CLC                                  ;01A4D2|18      |      ;  
                        ADC.W #$001F                         ;01A4D3|691F00  |      ;  
-                       STA.W $0A7B,X                        ;01A4D6|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;01A4D6|9D7B0A  |000A7B;  
                        RTL                                  ;01A4D9|6B      |      ;  
                                                             ;      |        |      ;  
                        db $00                               ;01A4DA|        |      ;  
@@ -12355,7 +12355,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        TAX                                  ;01B9C0|AA      |      ;  
                        LDA.L UNREACH_01BAB0,X               ;01B9C1|BFB0BA01|01BAB0;  
                        AND.W #$00FF                         ;01B9C5|29FF00  |      ;  
-                       STA.W $0B9F,Y                        ;01B9C8|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;01B9C8|999F0B  |000B9F;  
                        TXA                                  ;01B9CB|8A      |      ;  
                        ASL A                                ;01B9CC|0A      |      ;  
                        TAX                                  ;01B9CD|AA      |      ;  
@@ -12370,7 +12370,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        TAX                                  ;01B9E2|AA      |      ;  
                        LDA.L UNREACH_01BAB0,X               ;01B9E3|BFB0BA01|01BAB0;  
                        AND.W #$00FF                         ;01B9E7|29FF00  |      ;  
-                       STA.W $0B9F,Y                        ;01B9EA|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;01B9EA|999F0B  |000B9F;  
                        TXA                                  ;01B9ED|8A      |      ;  
                        ASL A                                ;01B9EE|0A      |      ;  
                        TAX                                  ;01B9EF|AA      |      ;  
@@ -12385,7 +12385,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        TAX                                  ;01BA04|AA      |      ;  
                        LDA.L UNREACH_01BAB0,X               ;01BA05|BFB0BA01|01BAB0;  
                        AND.W #$00FF                         ;01BA09|29FF00  |      ;  
-                       STA.W $0B9F,Y                        ;01BA0C|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;01BA0C|999F0B  |000B9F;  
                        TXA                                  ;01BA0F|8A      |      ;  
                        ASL A                                ;01BA10|0A      |      ;  
                        TAX                                  ;01BA11|AA      |      ;  
@@ -12402,7 +12402,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        TAX                                  ;01BA2A|AA      |      ;  
                        LDA.L UNREACH_01BAB0,X               ;01BA2B|BFB0BA01|01BAB0;  
                        AND.W #$00FF                         ;01BA2F|29FF00  |      ;  
-                       STA.W $0B9F,Y                        ;01BA32|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;01BA32|999F0B  |000B9F;  
                        TXA                                  ;01BA35|8A      |      ;  
                        ASL A                                ;01BA36|0A      |      ;  
                        TAX                                  ;01BA37|AA      |      ;  
@@ -12622,7 +12622,7 @@ Load before card spin: db $07                               ;01B927|        |   
                                                             ;      |        |      ;  
           CODE_01BB38: LDA.L Some table,X                   ;01BB38|BF43BB01|01BB43;  
                        AND.W #$00FF                         ;01BB3C|29FF00  |      ;  
-                       STA.W $0B9F,Y                        ;01BB3F|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;01BB3F|999F0B  |000B9F;  
                        RTL                                  ;01BB42|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -12781,7 +12781,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        LDA.L UNREACH_01BC1B,X               ;01BC0D|BF1BBC01|01BC1B;  
                        AND.W #$00FF                         ;01BC11|29FF00  |      ;  
                        LDY.W Function results               ;01BC14|AC4110  |001041;  
-                       STA.W $0B9F,Y                        ;01BC17|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;01BC17|999F0B  |000B9F;  
                        RTL                                  ;01BC1A|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -12854,7 +12854,7 @@ Load before card spin: db $07                               ;01B927|        |   
                        LDX.W $1927                          ;01BC62|AE2719  |001927;  
                        LDA.L UNREACH_01BC85,X               ;01BC65|BF85BC01|01BC85;  
                        AND.W #$00FF                         ;01BC69|29FF00  |      ;  
-                       STA.W $0A7B,Y                        ;01BC6C|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;01BC6C|997B0A  |000A7B;  
                        LDA.W #$0080                         ;01BC6F|A98000  |      ;  
                        STA.W $0787,Y                        ;01BC72|998707  |000787;  
                        STA.W $06F7,Y                        ;01BC75|99F706  |0006F7;  

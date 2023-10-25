@@ -55,7 +55,7 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                        DEC A                                ;188059|3A      |      ;  
                        ASL A                                ;18805A|0A      |      ;  
                        TAX                                  ;18805B|AA      |      ;  
-                       LDA.L Tbl_Ch_Encounters,X            ;18805C|BF3D9118|18913D; Build the pointer to that chapter's encounters
+                       LDA.L Tbl_Ch_Encounter_Sets,X        ;18805C|BF3D9118|18913D; Build the pointer to that chapter's encounters
                        STA.B $18                            ;188060|8518    |000018;  
                        LDA.W #$0018                         ;188062|A91800  |      ;  
                        STA.B $1A                            ;188065|851A    |00001A;  
@@ -83,7 +83,7 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                        XBA                                  ;18808C|EB      |      ;  
                        ASL A                                ;18808D|0A      |      ;  
                        TAX                                  ;18808E|AA      |      ;  
-                       LDA.L Formation Tables 00-0A,X       ;18808F|BF709218|189270;  
+                       LDA.L Tbl_Zone_Formations,X          ;18808F|BF709218|189270;  
                        STA.B $1C                            ;188093|851C    |00001C;  
                        LDA.W #$0018                         ;188095|A91800  |      ;  
                        STA.B $1E                            ;188098|851E    |00001E;  
@@ -323,7 +323,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                                                             ;      |        |      ;  
           CODE_18822F: ASL A                                ;18822F|0A      |      ;  
                        TAX                                  ;188230|AA      |      ;  
-                       LDA.L DATA16_1882DA,X                ;188231|BFDA8218|1882DA;  
+                       LDA.L 0E_table,X                     ;188231|BFDA8218|1882DA;  
                        STA.B $0E                            ;188235|850E    |00000E;  
                        LDA.W #$0014                         ;188237|A91400  |      ;  
                        STA.W $0637                          ;18823A|8D3706  |000637;  
@@ -347,9 +347,9 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        LSR A                                ;188267|4A      |      ;  
                        LSR A                                ;188268|4A      |      ;  
                        TAX                                  ;188269|AA      |      ;  
-                       LDA.L DATA8_1882E2,X                 ;18826A|BFE28218|1882E2;  
+                       LDA.L 18EF_table,X                   ;18826A|BFE28218|1882E2;  
                        AND.W #$00FF                         ;18826E|29FF00  |      ;  
-                       STA.W $18EF                          ;188271|8DEF18  |0018EF;  
+                       STA.W 4F_50_52_51_Battle             ;188271|8DEF18  |0018EF;  
                        LDA.B [$18]                          ;188274|A718    |000018;  
                        AND.W #$00FF                         ;188276|29FF00  |      ;  
                        TAY                                  ;188279|A8      |      ;  
@@ -369,12 +369,12 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                                                             ;      |        |      ;  
           CODE_188294: ASL A                                ;188294|0A      |      ;  
                        TAX                                  ;188295|AA      |      ;  
-                       LDA.L DATA8_18954F,X                 ;188296|BF4F9518|18954F;  
+                       LDA.L New_stuff2,X                   ;188296|BF4F9518|18954F;  
                        AND.W #$00FF                         ;18829A|29FF00  |      ;  
                        PHA                                  ;18829D|48      |      ;  
                        EOR.W #$FFFF                         ;18829E|49FFFF  |      ;  
                        STA.W $0633                          ;1882A1|8D3306  |000633;  
-                       LDA.L DATA8_18954E,X                 ;1882A4|BF4E9518|18954E;  
+                       LDA.L New_stuff,X                    ;1882A4|BF4E9518|18954E;  
                        AND.W #$00FF                         ;1882A8|29FF00  |      ;  
                        TAX                                  ;1882AB|AA      |      ;  
                        INC.B $18                            ;1882AC|E618    |000018;  
@@ -401,12 +401,12 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        RTL                                  ;1882D9|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-        DATA16_1882DA: dw $FFFF                             ;1882DA|        |      ;  
+             0E_table: dw $FFFF                             ;1882DA|        |      ; Value depends on how unlucky RNG is
                        dw $0040                             ;1882DC|        |      ;  
                        dw $0020                             ;1882DE|        |      ;  
                        dw $0000                             ;1882E0|        |      ;  
                                                             ;      |        |      ;  
-         DATA8_1882E2: db $4F                               ;1882E2|        |      ;  
+           18EF_table: db $4F                               ;1882E2|        |      ;  
                        db $50                               ;1882E3|        |      ;  
                        db $52                               ;1882E4|        |      ;  
                        db $51                               ;1882E5|        |      ;  
@@ -437,15 +437,15 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        PLB                                  ;188316|AB      |      ;  
                        RTL                                  ;188317|6B      |      ;  
                                                             ;      |        |      ;  
-                       db $00                               ;188318|        |      ;  
+                       db $00                               ;188318|        |      ; Some compressed data
                        db $00                               ;188319|        |      ;  
                        db $08                               ;18831A|        |      ;  
                        db $00                               ;18831B|        |      ;  
-                       db $F0                               ;18831C|        |18839D;  
-                       db $7F                               ;18831D|        |FF7800;  
+                       db $F0                               ;18831C|        |      ;  
+                       db $7F                               ;18831D|        |      ;  
                        db $00                               ;18831E|        |      ;  
                        db $78                               ;18831F|        |      ;  
-                       db $FF                               ;188320|        |18FD9C;  
+                       db $FF                               ;188320|        |      ;  
                                                             ;      |        |      ;  
            Zero $18FD: STZ.W $18FD                          ;188321|9CFD18  |0018FD; Why is this a function?!!!
                        RTL                                  ;188324|6B      |      ;  
@@ -640,29 +640,30 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
          DATA8_18849C: db $16                               ;18849C|        |      ;  
-                       dw $18EB                             ;18849D|        |0018EB;  
+                       dw $18EB                             ;18849D|        |      ;  
                        dw $0000                             ;18849F|        |      ;  
                        db $16                               ;1884A1|        |      ;  
                        dw $18ED                             ;1884A2|        |      ;  
-                       dw PTR16_00FFFF                      ;1884A4|        |00FFFF;  
+                       dw $FFFF                             ;1884A4|        |      ;  
                        db $09                               ;1884A6|        |      ;  
                        dl $18EX_stuff                       ;1884A7|        |1884FC;  
                        db $38                               ;1884AA|        |      ;  
-                       db $80                               ;1884AB|        |1884AE;  
-                       db $01                               ;1884AC|        |000007;  
+                       dw $0180                             ;1884AB|        |      ;  
                        db $07                               ;1884AD|        |      ;  
                        dl CODE_188546                       ;1884AE|        |188546;  
                        db $0B                               ;1884B1|        |      ;  
-                       dw DATA8_0084B9                      ;1884B2|        |0084B9;  
-                       db $30                               ;1884B4|        |1884B8;  
+                       dw DATA8_1884B9                      ;1884B2|        |1884B9;  
+                       db $30                               ;1884B4|        |      ;  
                        db $02                               ;1884B5|        |      ;  
                        db $1A                               ;1884B6|        |      ;  
-                       dw DATA8_0084BB                      ;1884B7|        |0084BB;  
-                       db $30                               ;1884B9|        |1884BB;  
+                       dw DATA8_1884BB                      ;1884B7|        |1884BB;  
+                                                            ;      |        |      ;  
+         DATA8_1884B9: db $30                               ;1884B9|        |      ;  
                        db $00                               ;1884BA|        |      ;  
-                       db $07                               ;1884BB|        |      ;  
+                                                            ;      |        |      ;  
+         DATA8_1884BB: db $07                               ;1884BB|        |      ;  
                        dl Decomp setup (3b)                 ;1884BC|        |009CF9;  
-                       dl RLE_18_84E9                       ;1884BF|        |1884E9;  
+                       dl RLE_Loc_18_84E9                   ;1884BF|        |1884E9;  
                        db $07                               ;1884C2|        |      ;  
                        dl Transfer_Data(3b)(1b)(2b)         ;1884C3|        |00A140;  
                        dl $18/84C6_data                     ;1884C6|        |188A55;  
@@ -682,36 +683,31 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        dw DATA8_1884CC                      ;1884DB|        |1884CC;  
                                                             ;      |        |      ;  
          DATA8_1884DD: db $38                               ;1884DD|        |      ;  
-                       db $80                               ;1884DE|        |      ;  
-                       db $00                               ;1884DF|        |      ;  
+                       dw $0080                             ;1884DE|        |      ;  
                        db $40                               ;1884E0|        |      ;  
-                       db $78                               ;1884E1|        |      ;  
-                       db $00                               ;1884E2|        |      ;  
+                       dw $0078                             ;1884E1|        |      ;  
                        db $1C                               ;1884E3|        |      ;  
                                                             ;      |        |      ;  
          DATA8_1884E4: db $38                               ;1884E4|        |      ;  
-                       db $80                               ;1884E5|        |      ;  
-                       db $01                               ;1884E6|        |      ;  
+                       dw $0180                             ;1884E5|        |      ;  
                        db $1C                               ;1884E7|        |      ;  
                                                             ;      |        |      ;  
          DATA8_1884E8: db $00                               ;1884E8|        |      ;  
                                                             ;      |        |      ;  
-          RLE_18_84E9: db $80                               ;1884E9|        |      ;  
+      RLE_Loc_18_84E9: db $80                               ;1884E9|        |      ;  
                        db $00                               ;1884EA|        |      ;  
                        db $08                               ;1884EB|        |      ;  
-                       db $4F                               ;1884EC|        |      ;  
-                       db $86                               ;1884ED|        |      ;  
-                       db $18                               ;1884EE|        |      ;  
+                       dl RLE_18_84EC                       ;1884EC|        |18864F;  
                        db $00                               ;1884EF|        |      ;  
                        db $60                               ;1884F0|        |      ;  
-                       db $FF                               ;1884F1|        |      ; End RLE
+                       db $FF                               ;1884F1|        |      ;  
                        db $09                               ;1884F2|        |      ;  
                        dl $18EX_stuff                       ;1884F3|        |1884FC;  
                        db $37                               ;1884F6|        |      ;  
                        db $01                               ;1884F7|        |      ;  
                        db $A8                               ;1884F8|        |      ;  
                        db $1A                               ;1884F9|        |      ;  
-                       dw DATA8_0084CC                      ;1884FA|        |0084CC;  
+                       dw DATA8_1884CC                      ;1884FA|        |1884CC;  
                                                             ;      |        |      ;  
           $18EX_stuff: LDA.W $18EB                          ;1884FC|ADEB18  |0018EB;  
                        BEQ CODE_18850E                      ;1884FF|F00D    |18850E;  
@@ -843,7 +839,8 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        STA.W ChestTracker,Y                 ;1885EB|99E318  |0018E3;  
                        RTL                                  ;1885EE|6B      |      ;  
                                                             ;      |        |      ;  
-                       db $01                               ;1885EF|        |000000;  
+                                                            ;      |        |      ;  
+         DATA8_1885EF: db $01                               ;1885EF|        |      ;  
                        db $00                               ;1885F0|        |      ;  
                        db $E8                               ;1885F1|        |      ;  
                        db $28                               ;1885F2|        |      ;  
@@ -873,7 +870,8 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $F8                               ;18860A|        |      ;  
                        db $00                               ;18860B|        |      ;  
                        db $32                               ;18860C|        |000001;  
-                       db $01                               ;18860D|        |000000;  
+                                                            ;      |        |      ;  
+         DATA8_18860D: db $01                               ;18860D|        |      ;  
                        db $00                               ;18860E|        |      ;  
                        db $F8                               ;18860F|        |      ;  
                        db $0A                               ;188610|        |      ;  
@@ -903,7 +901,8 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $08                               ;188628|        |      ;  
                        db $20                               ;188629|        |180132;  
                        db $32                               ;18862A|        |000001;  
-                       db $01                               ;18862B|        |000000;  
+                                                            ;      |        |      ;  
+         DATA8_18862B: db $01                               ;18862B|        |      ;  
                        db $00                               ;18862C|        |      ;  
                        db $F8                               ;18862D|        |      ;  
                        db $26                               ;18862E|        |000032;  
@@ -934,13 +933,11 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $20                               ;188647|        |18EF32;  
                        db $32                               ;188648|        |0000EF;  
                                                             ;      |        |      ;  
-       UNREACH_188649: db $EF                               ;188649|        |860D85;  
-                       db $85                               ;18864A|        |00000D;  
-                       db $0D                               ;18864B|        |002B86;  
-                       db $86                               ;18864C|        |00002B;  
-                       db $2B                               ;18864D|        |      ;  
-                       db $86                               ;18864E|        |00001F;  
-                       db $1F                               ;18864F|        |F8DFD8;  
+         PTR16_188649: dw DATA8_1885EF                      ;188649|        |1885EF;  
+                       dw DATA8_18860D                      ;18864B|        |18860D;  
+                       dw DATA8_18862B                      ;18864D|        |18862B;  
+                                                            ;      |        |      ;  
+          RLE_18_84EC: db $1F                               ;18864F|        |      ;  
                        db $D8                               ;188650|        |      ;  
                        db $DF                               ;188651|        |B0FFF8;  
                        db $F8                               ;188652|        |      ;  
@@ -2849,13 +2846,13 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        dw $0004                             ;1890FD|        |      ;  
                        dw $FFFF                             ;1890FF|        |      ;  
                                                             ;      |        |      ;  
-     Ch_Boss_Position: dw Ch1_Boss1                         ;189101|        |18910B; Pointer table to boss data (8 bytes per entry), see 1880F8
-                       dw Ch2_Boss1                         ;189103|        |18911D;  
-                       dw Ch3_Boss1                         ;189105|        |18912F;  
+     Ch_Boss_Position: dw Stone_Guardian_Pos                ;189101|        |18910B; Pointer table to boss data (8 bytes per entry), see 1880F8
+                       dw Cyclops_Pos                       ;189103|        |18911D;  
+                       dw Hydra_Pos                         ;189105|        |18912F;  
                        dw Ch4_Bosses                        ;189107|        |189139;  
                        dw Ch5_Bosses                        ;189109|        |18913B;  
                                                             ;      |        |      ;  
-            Ch1_Boss1: db $00                               ;18910B|        |      ; Current map (01 00 = Balnea 1F)
+   Stone_Guardian_Pos: db $00                               ;18910B|        |      ; Current map (01 00 = Balnea 1F)
                        db $01                               ;18910C|        |      ;  
                        db $0F                               ;18910D|        |      ; X pos (0F)
                        db $00                               ;18910E|        |      ;  
@@ -2864,7 +2861,7 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $06                               ;189111|        |      ; ??
                        db $00                               ;189112|        |      ;  
                                                             ;      |        |      ;  
-            Ch1_Boss2: db $01                               ;189113|        |      ; Current map (01 01 = Balnea 2F)
+    Iron_Guardian_Pos: db $01                               ;189113|        |      ; Current map (01 01 = Balnea 2F)
                        db $01                               ;189114|        |      ;  
                        db $0F                               ;189115|        |      ; X pos (0F)
                        db $00                               ;189116|        |      ;  
@@ -2875,7 +2872,7 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $FF                               ;18911B|        |      ; End of chapter 1 entries
                        db $FF                               ;18911C|        |      ;  
                                                             ;      |        |      ;  
-            Ch2_Boss1: db $04                               ;18911D|        |      ; Current map (04 01 = Forest of Doubt)
+          Cyclops_Pos: db $04                               ;18911D|        |      ; Current map (04 01 = Forest of Doubt)
                        db $01                               ;18911E|        |      ;  
                        db $08                               ;18911F|        |      ; Position (08, 18)
                        db $00                               ;189120|        |      ;  
@@ -2884,7 +2881,7 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $06                               ;189123|        |      ; ??
                        db $00                               ;189124|        |      ;  
                                                             ;      |        |      ;  
-            Ch2_Boss2: db $03                               ;189125|        |      ; Map 03 01 = Crimson Valley
+           Efrite_Pos: db $03                               ;189125|        |      ; Map 03 01 = Crimson Valley
                        db $01                               ;189126|        |      ;  
                        db $1D                               ;189127|        |      ; Position (1D, 0C)
                        db $00                               ;189128|        |      ;  
@@ -2895,7 +2892,7 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $FF                               ;18912D|        |      ; End Ch2 entries
                        db $FF                               ;18912E|        |      ;  
                                                             ;      |        |      ;  
-            Ch3_Boss1: db $06                               ;18912F|        |      ; Map 06 01 =  Icicle Dungeon
+            Hydra_Pos: db $06                               ;18912F|        |      ; Map 06 01 =  Icicle Dungeon
                        db $01                               ;189130|        |      ;  
                        db $0F                               ;189131|        |      ; Position (0F, 09)
                        db $00                               ;189132|        |      ;  
@@ -2912,1083 +2909,903 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
            Ch5_Bosses: db $FF                               ;18913B|        |      ;  
                        db $FF                               ;18913C|        |      ;  
                                                             ;      |        |      ;  
-    Tbl_Ch_Encounters: dw Ch 1 Encounters, tile 10          ;18913D|        |189147; The game loads different enemies depending on your location in the dungeon. It then looks up the formations and rolls 1/16 to pick which fight you got.
-                       dw Ch 2 Encounters, tile 10          ;18913F|        |189177;  
-                       dw Ch 3 Encounters                   ;189141|        |1891AA;  
-                       dw Ch 4 Encounters                   ;189143|        |1891DD;  
-                       dw Ch 5 Encounters                   ;189145|        |189229;  
+Tbl_Ch_Encounter_Sets: dw Encounters_Ch1_tile10             ;18913D|        |189147; The game loads different enemies depending on your location in the dungeon. It then looks up the formations and rolls 1/16 to pick which fight you got.
+                       dw Encounters_Ch2_tile10             ;18913F|        |189177;  
+                       dw Encounters_Ch3_tile10             ;189141|        |1891AA;  
+                       dw Encounters_Ch4_tile10             ;189143|        |1891DD;  
+                       dw Encounters_Ch5_tile10             ;189145|        |189229;  
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 10: db $05                               ;189147|        |      ; Tile 10 (5 entries)
-                       db $0A                               ;189148|        |      ; Formation Table 0A
+Encounters_Ch1_tile10: db $05                               ;189147|        |      ; Tile 10 (5 entries)
+                       db $0A                               ;189148|        |      ; Zone 0A
                        db $00                               ;189149|        |      ; Slime
                        db $03                               ;18914A|        |      ; Goblin
                        db $05                               ;18914B|        |      ; Dog
                        db $07                               ;18914C|        |      ; Saurian
                        db $09                               ;18914D|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 11: db $05                               ;18914E|        |      ; Tile 11 (5 entries)
-                       db $0A                               ;18914F|        |      ; Formation Table 0A
+Encounters_Ch1_tile11: db $05                               ;18914E|        |      ; Tile 11 (5 entries)
+                       db $0A                               ;18914F|        |      ; Zone 0A
                        db $00                               ;189150|        |      ; Slime
                        db $01                               ;189151|        |      ; Pickpocket
                        db $06                               ;189152|        |      ; Wolf
                        db $07                               ;189153|        |      ; Saurian
                        db $09                               ;189154|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 12: db $05                               ;189155|        |      ; Tile 12 (5 entries)
-                       db $0A                               ;189156|        |      ; Formation Table 0A
+Encounters_Ch1_tile12: db $05                               ;189155|        |      ; Tile 12 (5 entries)
+                       db $0A                               ;189156|        |      ; Zone 0A
                        db $00                               ;189157|        |      ; Slime
                        db $02                               ;189158|        |      ; Thief
                        db $05                               ;189159|        |      ; Dog
                        db $07                               ;18915A|        |      ; Saurian
                        db $09                               ;18915B|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 13: db $05                               ;18915C|        |      ; Tile 13 (5 entries)
-                       db $00                               ;18915D|        |      ; Formation Table 00
+Encounters_Ch1_tile13: db $05                               ;18915C|        |      ; Tile 13 (5 entries)
+                       db $00                               ;18915D|        |      ; Zone 00
                        db $00                               ;18915E|        |      ; Slime
                        db $04                               ;18915F|        |      ; Ogre
                        db $06                               ;189160|        |      ; Wolf
                        db $07                               ;189161|        |      ; Saurian
                        db $09                               ;189162|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 14: db $05                               ;189163|        |      ; Tile 14 (5 entries)
-                       db $00                               ;189164|        |      ; Formation Table 00
+Encounters_Ch1_tile14: db $05                               ;189163|        |      ; Tile 14 (5 entries)
+                       db $00                               ;189164|        |      ; Zone 00
                        db $0A                               ;189165|        |      ; Pudding
                        db $02                               ;189166|        |      ; Thief
                        db $05                               ;189167|        |      ; Dog
                        db $08                               ;189168|        |      ; Lizardman
                        db $09                               ;189169|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 15: db $05                               ;18916A|        |      ; Tile 15 (5 entries)
-                       db $00                               ;18916B|        |      ; Formation Table 00
+Encounters_Ch1_tile15: db $05                               ;18916A|        |      ; Tile 15 (5 entries)
+                       db $00                               ;18916B|        |      ; Zone 00
                        db $0A                               ;18916C|        |      ; Pudding
                        db $02                               ;18916D|        |      ; Thief
                        db $06                               ;18916E|        |      ; Wolf
                        db $08                               ;18916F|        |      ; Lizardman
                        db $09                               ;189170|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 16: db $11                               ;189171|        |      ; Tile 16 (1 entry)
-                       db $01                               ;189172|        |      ; Formation Table 01 (solo boss)
+Encounters_Ch1_tile16: db $11                               ;189171|        |      ; Tile 16 (1 entry)
+                       db $01                               ;189172|        |      ; Zone 01 (boss)
                        db $0B                               ;189173|        |      ; Stone Guardian
                                                             ;      |        |      ;  
-Ch 1 Encounters, tile 17: db $11                               ;189174|        |      ; Tile 17 (1 entry)
-                       db $01                               ;189175|        |      ; Formation Table 01 (solo boss)
+Encounters_Ch1_tile17: db $11                               ;189174|        |      ; Tile 17 (1 entry)
+                       db $01                               ;189175|        |      ; Zone 01 (boss)
                        db $0C                               ;189176|        |      ; Iron Guardian
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 10: db $05                               ;189177|        |      ;  
-                       db $0B                               ;189178|        |      ; Formation Table 0B
+Encounters_Ch2_tile10: db $05                               ;189177|        |      ;  
+                       db $0B                               ;189178|        |      ; Zone 0B
                        db $00                               ;189179|        |      ; Slime
                        db $03                               ;18917A|        |      ; Goblin
                        db $0E                               ;18917B|        |      ; Flytrap
                        db $0D                               ;18917C|        |      ; Bee
                        db $09                               ;18917D|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 11: db $05                               ;18917E|        |      ;  
-                       db $02                               ;18917F|        |      ; Formation Table 02
+Encounters_Ch2_tile11: db $05                               ;18917E|        |      ;  
+                       db $02                               ;18917F|        |      ; Zone 02
                        db $11                               ;189180|        |      ; Trunkman
                        db $02                               ;189181|        |      ; Thief
                        db $0E                               ;189182|        |      ; Flytrap
                        db $0D                               ;189183|        |      ; Bee
                        db $09                               ;189184|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 12: db $05                               ;189185|        |      ;  
-                       db $02                               ;189186|        |      ; Formation Table 02
+Encounters_Ch2_tile12: db $05                               ;189185|        |      ;  
+                       db $02                               ;189186|        |      ; Zone 02
                        db $10                               ;189187|        |      ; Huetree
                        db $02                               ;189188|        |      ; Thief
                        db $0F                               ;189189|        |      ; Wolfsbane
                        db $0D                               ;18918A|        |      ; Bee
                        db $09                               ;18918B|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 13: db $05                               ;18918C|        |      ;  
-                       db $0B                               ;18918D|        |      ; Formation Table 0B
+Encounters_Ch2_tile13: db $05                               ;18918C|        |      ;  
+                       db $0B                               ;18918D|        |      ; Zone 0B
                        db $0A                               ;18918E|        |      ; Jell
                        db $02                               ;18918F|        |      ; Thief
                        db $0F                               ;189190|        |      ; Wolfsbane
                        db $12                               ;189191|        |      ; Sauropod
                        db $09                               ;189192|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 14: db $05                               ;189193|        |      ;  
-                       db $0B                               ;189194|        |      ; Formation Table 0B
+Encounters_Ch2_tile14: db $05                               ;189193|        |      ;  
+                       db $0B                               ;189194|        |      ; Zone 0B
                        db $0A                               ;189195|        |      ; Jell
                        db $13                               ;189196|        |      ; Assassin
                        db $0E                               ;189197|        |      ; Flytrap
                        db $12                               ;189198|        |      ; Sauropod
                        db $09                               ;189199|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 15: db $05                               ;18919A|        |      ;  
-                       db $0B                               ;18919B|        |      ; Formation Table 0B
+Encounters_Ch2_tile15: db $05                               ;18919A|        |      ;  
+                       db $0B                               ;18919B|        |      ; Zone 0B
                        db $0A                               ;18919C|        |      ; Jell
                        db $13                               ;18919D|        |      ; Assassin
                        db $0E                               ;18919E|        |      ; Flytrap
                        db $12                               ;18919F|        |      ; Sauropod
                        db $09                               ;1891A0|        |      ; Chimera
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 16: db $11                               ;1891A1|        |      ;  
+Encounters_Ch2_tile16: db $11                               ;1891A1|        |      ;  
                        db $01                               ;1891A2|        |      ;  
                        db $14                               ;1891A3|        |      ; Cyclops
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 17: db $11                               ;1891A4|        |      ;  
+Encounters_Ch2_tile17: db $11                               ;1891A4|        |      ;  
                        db $04                               ;1891A5|        |      ;  
                        db $15                               ;1891A6|        |      ; Efrite
                                                             ;      |        |      ;  
-Ch 2 Encounters, tile 18: db $11                               ;1891A7|        |      ;  
+Encounters_Ch2_tile18: db $11                               ;1891A7|        |      ;  
                        db $05                               ;1891A8|        |      ;  
                        db $16                               ;1891A9|        |      ; Zerel
                                                             ;      |        |      ;  
-      Ch 3 Encounters: db $05                               ;1891AA|        |      ;  
+Encounters_Ch3_tile10: db $05                               ;1891AA|        |      ;  
                        db $03                               ;1891AB|        |      ;  
                        db $17                               ;1891AC|        |      ;  
                        db $18                               ;1891AD|        |      ;  
                        db $19                               ;1891AE|        |      ;  
                        db $1A                               ;1891AF|        |      ;  
                        db $1B                               ;1891B0|        |      ;  
-                       db $05                               ;1891B1|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile11: db $05                               ;1891B1|        |      ;  
                        db $03                               ;1891B2|        |      ;  
                        db $1C                               ;1891B3|        |      ;  
                        db $1D                               ;1891B4|        |      ;  
                        db $1E                               ;1891B5|        |      ;  
                        db $1A                               ;1891B6|        |      ;  
                        db $1B                               ;1891B7|        |      ;  
-                       db $05                               ;1891B8|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile12: db $05                               ;1891B8|        |      ;  
                        db $03                               ;1891B9|        |      ;  
                        db $17                               ;1891BA|        |      ;  
                        db $1D                               ;1891BB|        |      ;  
                        db $19                               ;1891BC|        |      ;  
                        db $1F                               ;1891BD|        |      ;  
                        db $20                               ;1891BE|        |      ;  
-                       db $05                               ;1891BF|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile13: db $05                               ;1891BF|        |      ;  
                        db $03                               ;1891C0|        |      ;  
                        db $17                               ;1891C1|        |      ;  
                        db $18                               ;1891C2|        |      ;  
                        db $1E                               ;1891C3|        |      ;  
                        db $1F                               ;1891C4|        |      ;  
                        db $20                               ;1891C5|        |      ;  
-                       db $05                               ;1891C6|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile14: db $05                               ;1891C6|        |      ;  
                        db $03                               ;1891C7|        |      ;  
                        db $1C                               ;1891C8|        |      ;  
                        db $21                               ;1891C9|        |      ;  
                        db $22                               ;1891CA|        |      ;  
                        db $23                               ;1891CB|        |      ;  
                        db $24                               ;1891CC|        |      ;  
-                       db $05                               ;1891CD|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile15: db $05                               ;1891CD|        |      ;  
                        db $06                               ;1891CE|        |      ;  
                        db $25                               ;1891CF|        |      ;  
                        db $25                               ;1891D0|        |      ;  
                        db $19                               ;1891D1|        |      ;  
                        db $23                               ;1891D2|        |      ;  
                        db $24                               ;1891D3|        |      ;  
-                       db $01                               ;1891D4|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile16: db $01                               ;1891D4|        |      ;  
                        db $04                               ;1891D5|        |      ;  
-                       db $26                               ;1891D6|        |      ;  
-                       db $11                               ;1891D7|        |      ;  
+                       db $26                               ;1891D6|        |      ; Mimic!
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile17: db $11                               ;1891D7|        |      ;  
                        db $07                               ;1891D8|        |      ;  
                        db $28                               ;1891D9|        |      ;  
-                       db $11                               ;1891DA|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch3_tile18: db $11                               ;1891DA|        |      ;  
                        db $01                               ;1891DB|        |      ;  
                        db $27                               ;1891DC|        |      ;  
                                                             ;      |        |      ;  
-      Ch 4 Encounters: db $05                               ;1891DD|        |      ;  
+Encounters_Ch4_tile10: db $05                               ;1891DD|        |      ;  
                        db $03                               ;1891DE|        |      ;  
                        db $29                               ;1891DF|        |      ;  
                        db $2A                               ;1891E0|        |      ;  
                        db $2B                               ;1891E1|        |      ;  
                        db $2C                               ;1891E2|        |      ;  
                        db $24                               ;1891E3|        |      ;  
-                       db $05                               ;1891E4|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile11: db $05                               ;1891E4|        |      ;  
                        db $03                               ;1891E5|        |      ;  
                        db $29                               ;1891E6|        |      ;  
                        db $2A                               ;1891E7|        |      ;  
                        db $2B                               ;1891E8|        |      ;  
                        db $2C                               ;1891E9|        |      ;  
                        db $24                               ;1891EA|        |      ;  
-                       db $05                               ;1891EB|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile12: db $05                               ;1891EB|        |      ;  
                        db $03                               ;1891EC|        |      ;  
                        db $2D                               ;1891ED|        |      ;  
                        db $2A                               ;1891EE|        |      ;  
                        db $2E                               ;1891EF|        |      ;  
                        db $2F                               ;1891F0|        |      ;  
                        db $24                               ;1891F1|        |      ;  
-                       db $05                               ;1891F2|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile13: db $05                               ;1891F2|        |      ;  
                        db $03                               ;1891F3|        |      ;  
                        db $30                               ;1891F4|        |      ;  
                        db $31                               ;1891F5|        |      ;  
                        db $2E                               ;1891F6|        |      ;  
                        db $32                               ;1891F7|        |      ;  
                        db $33                               ;1891F8|        |      ;  
-                       db $05                               ;1891F9|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile14: db $05                               ;1891F9|        |      ;  
                        db $03                               ;1891FA|        |      ;  
                        db $2D                               ;1891FB|        |      ;  
                        db $31                               ;1891FC|        |      ;  
                        db $34                               ;1891FD|        |      ;  
                        db $2F                               ;1891FE|        |      ;  
                        db $33                               ;1891FF|        |      ;  
-                       db $05                               ;189200|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile15: db $05                               ;189200|        |      ;  
                        db $03                               ;189201|        |      ;  
                        db $30                               ;189202|        |      ;  
                        db $31                               ;189203|        |      ;  
                        db $34                               ;189204|        |      ;  
                        db $32                               ;189205|        |      ;  
                        db $33                               ;189206|        |      ;  
-                       db $05                               ;189207|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile16: db $05                               ;189207|        |      ;  
                        db $06                               ;189208|        |      ;  
                        db $35                               ;189209|        |      ;  
                        db $35                               ;18920A|        |      ;  
                        db $2E                               ;18920B|        |      ;  
                        db $2F                               ;18920C|        |      ;  
                        db $24                               ;18920D|        |      ;  
-                       db $05                               ;18920E|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile17: db $05                               ;18920E|        |      ;  
                        db $06                               ;18920F|        |      ;  
                        db $36                               ;189210|        |      ;  
                        db $36                               ;189211|        |      ;  
                        db $2B                               ;189212|        |      ;  
                        db $32                               ;189213|        |      ;  
                        db $33                               ;189214|        |      ;  
-                       db $05                               ;189215|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile18: db $05                               ;189215|        |      ;  
                        db $06                               ;189216|        |      ;  
                        db $37                               ;189217|        |      ;  
                        db $37                               ;189218|        |      ;  
                        db $2B                               ;189219|        |      ;  
                        db $32                               ;18921A|        |      ;  
                        db $33                               ;18921B|        |      ;  
-                       db $11                               ;18921C|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile19: db $11                               ;18921C|        |      ;  
                        db $01                               ;18921D|        |      ;  
                        db $38                               ;18921E|        |      ;  
-                       db $02                               ;18921F|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile1A: db $02                               ;18921F|        |      ;  
                        db $08                               ;189220|        |      ;  
                        db $38                               ;189221|        |      ;  
                        db $39                               ;189222|        |      ;  
-                       db $01                               ;189223|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile1B: db $01                               ;189223|        |      ;  
                        db $01                               ;189224|        |      ;  
                        db $3A                               ;189225|        |      ;  
-                       db $01                               ;189226|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch4_tile1C: db $01                               ;189226|        |      ;  
                        db $01                               ;189227|        |      ;  
                        db $3B                               ;189228|        |      ;  
                                                             ;      |        |      ;  
-      Ch 5 Encounters: db $05                               ;189229|        |      ;  
+Encounters_Ch5_tile10: db $05                               ;189229|        |      ;  
                        db $06                               ;18922A|        |      ;  
                        db $36                               ;18922B|        |      ;  
                        db $36                               ;18922C|        |      ;  
                        db $40                               ;18922D|        |      ;  
                        db $43                               ;18922E|        |      ;  
                        db $41                               ;18922F|        |      ;  
-                       db $05                               ;189230|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile11: db $05                               ;189230|        |      ;  
                        db $06                               ;189231|        |      ;  
                        db $37                               ;189232|        |      ;  
                        db $37                               ;189233|        |      ;  
                        db $40                               ;189234|        |      ;  
                        db $43                               ;189235|        |      ;  
                        db $41                               ;189236|        |      ;  
-                       db $05                               ;189237|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile12: db $05                               ;189237|        |      ;  
                        db $06                               ;189238|        |      ;  
                        db $3C                               ;189239|        |      ;  
                        db $3C                               ;18923A|        |      ;  
                        db $40                               ;18923B|        |      ;  
                        db $43                               ;18923C|        |      ;  
                        db $41                               ;18923D|        |      ;  
-                       db $05                               ;18923E|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile13: db $05                               ;18923E|        |      ;  
                        db $06                               ;18923F|        |      ;  
                        db $3D                               ;189240|        |      ;  
                        db $3D                               ;189241|        |      ;  
                        db $40                               ;189242|        |      ;  
                        db $43                               ;189243|        |      ;  
                        db $41                               ;189244|        |      ;  
-                       db $05                               ;189245|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile14: db $05                               ;189245|        |      ;  
                        db $06                               ;189246|        |      ;  
                        db $3E                               ;189247|        |      ;  
                        db $3E                               ;189248|        |      ;  
                        db $46                               ;189249|        |      ;  
                        db $49                               ;18924A|        |      ;  
                        db $44                               ;18924B|        |      ;  
-                       db $05                               ;18924C|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile15: db $05                               ;18924C|        |      ;  
                        db $06                               ;18924D|        |      ;  
                        db $3F                               ;18924E|        |      ;  
                        db $3F                               ;18924F|        |      ;  
                        db $46                               ;189250|        |      ;  
                        db $4A                               ;189251|        |      ;  
                        db $45                               ;189252|        |      ;  
-                       db $05                               ;189253|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile16: db $05                               ;189253|        |      ;  
                        db $03                               ;189254|        |      ;  
                        db $47                               ;189255|        |      ;  
                        db $42                               ;189256|        |      ;  
                        db $40                               ;189257|        |      ;  
                        db $43                               ;189258|        |      ;  
                        db $41                               ;189259|        |      ;  
-                       db $05                               ;18925A|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile17: db $05                               ;18925A|        |      ;  
                        db $03                               ;18925B|        |      ;  
                        db $48                               ;18925C|        |      ;  
                        db $42                               ;18925D|        |      ;  
                        db $46                               ;18925E|        |      ;  
                        db $43                               ;18925F|        |      ;  
                        db $45                               ;189260|        |      ;  
-                       db $11                               ;189261|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile18: db $11                               ;189261|        |      ;  
                        db $01                               ;189262|        |      ;  
                        db $4B                               ;189263|        |      ;  
-                       db $01                               ;189264|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile19: db $01                               ;189264|        |      ;  
                        db $01                               ;189265|        |      ;  
                        db $4C                               ;189266|        |      ;  
-                       db $11                               ;189267|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile1A: db $11                               ;189267|        |      ;  
                        db $01                               ;189268|        |      ;  
                        db $4D                               ;189269|        |      ;  
-                       db $21                               ;18926A|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile1B: db $21                               ;18926A|        |      ;  
                        db $09                               ;18926B|        |      ;  
                        db $4E                               ;18926C|        |      ;  
-                       db $31                               ;18926D|        |      ;  
+                                                            ;      |        |      ;  
+Encounters_Ch5_tile1C: db $31                               ;18926D|        |      ;  
                        db $09                               ;18926E|        |      ;  
                        db $4F                               ;18926F|        |      ;  
                                                             ;      |        |      ;  
-Formation Tables 00-0A: dw Formation List 00                 ;189270|        |189288; These contain the sixteen possible encounters for a map tile. Each enemy has a screen position then an encounter slot ID. Slot IDs are placeholders 00-04 and pull the encounters for that map position.
-                       dw Formation List 01                 ;189272|        |189305;  
-                       dw Formation List 02                 ;189274|        |189309;  
-                       dw Formation List 03                 ;189276|        |18937C;  
-                       dw Formation List 04                 ;189278|        |1893FF;  
-                       dw Formation List 05                 ;18927A|        |189403;  
-                       dw Formation List 06                 ;18927C|        |189407;  
-                       dw Formation List 07                 ;18927E|        |18946E;  
-                       dw Formation List 08                 ;189280|        |189472;  
-                       dw Formation List 09                 ;189282|        |189478;  
-                       dw Formation List 0A                 ;189284|        |18947C;  
-                       dw Formation List 0B                 ;189286|        |1894D9;  
+  Tbl_Zone_Formations: dw Formation_Zone_00_Num_Entries     ;189270|        |189288; These contain the sixteen possible encounters for a map tile. Each enemy has a screen position then an encounter slot ID. Slot IDs are placeholders 00-04 and pull the encounters for that map position.
+                       dw Formation_Zone_01_Num_Entries     ;189272|        |189305;  
+                       dw Formation_Zone_02_Num_Entries     ;189274|        |189309;  
+                       dw Formation_Zone_03_Num_Entries     ;189276|        |18937C;  
+                       dw Formation_Zone_04_Num_Entries     ;189278|        |1893FF;  
+                       dw Formation_Zone_05_Num_Entries     ;18927A|        |189403;  
+                       dw Formation_Zone_06_Num_Entries     ;18927C|        |189407;  
+                       dw Formation_Zone_07_Num_Entries     ;18927E|        |18946E;  
+                       dw Formation_Zone_08_Num_Entries     ;189280|        |189472;  
+                       dw Formation_Zone_09_Num_Entries     ;189282|        |189478;  
+                       dw Formation_Zone_0A_Num_Entries     ;189284|        |18947C;  
+                       dw Formation_Zone_0B_Num_Entries     ;189286|        |1894D9;  
                                                             ;      |        |      ;  
-    Formation List 00: db $10                               ;189288|        |      ; Used in Ch1 for tiles 13-15 (10=Sixteen entries)
+Formation_Zone_00_Num_Entries: db $10                               ;189288|        |      ; Used in Ch1 for tiles 13-15 (10=Sixteen entries)
                                                             ;      |        |      ;  
- List 00 Encounter 00: db $08                               ;189289|        |      ; Encounter 00: (slot 00 x8)
-                       db $04                               ;18928A|        |      ; 04: Place at bottom center
-                       db $00                               ;18928B|        |      ; 00: Enemy Slot 00 (Slime/Pudding here)
-                       db $07                               ;18928C|        |      ; 07: Place at bottom left
-                       db $00                               ;18928D|        |      ; 00: Enemy, slot 00
-                       db $08                               ;18928E|        |      ; 08: Place at bottom right
-                       db $00                               ;18928F|        |      ; 00: Enemy, slot 00
-                       db $25                               ;189290|        |      ; #4: Center Left
-                       db $00                               ;189291|        |      ; #4: Enemy slot 00
-                       db $26                               ;189292|        |      ; #5: Center right
-                       db $00                               ;189293|        |      ; #5: Enemy slot 00
-                       db $44                               ;189294|        |      ; #6: Back center
-                       db $00                               ;189295|        |      ; #6: Enemy slot 00
-                       db $47                               ;189296|        |      ; #7: Back left
-                       db $00                               ;189297|        |      ; #7: Enemy slot 00
-                       db $48                               ;189298|        |      ; #8: Back right
-                       db $00                               ;189299|        |      ; #8: Enemy slot 00
+Formation_Zone_00_Layout_00: db $08                               ;189289|        |      ; Encounter 00: (slot 00 x8)
+                       dw $0004                             ;18928A|        |      ; 04: Place at bottom center
+                       dw $0007                             ;18928C|        |      ; 07: Place at bottom left
+                       dw $0008                             ;18928E|        |      ; 08: Place at bottom right
+                       dw $0025                             ;189290|        |      ; #4: Center Left
+                       dw $0026                             ;189292|        |      ; #5: Center right
+                       dw $0044                             ;189294|        |      ; #6: Back center
+                       dw $0047                             ;189296|        |      ; #7: Back left
+                       dw $0048                             ;189298|        |      ; #8: Back right
                                                             ;      |        |      ;  
- List 00 Encounter 01: db $01                               ;18929A|        |      ; Encounter 01: (slot 03 x1)
-                       db $04                               ;18929B|        |      ; Place at bottom center
-                       db $03                               ;18929C|        |      ; Enemy slot 03
+Formation_Zone_00_Layout_01: db $01                               ;18929A|        |      ; Encounter 01: (slot 03 x1)
+                       dw $0304                             ;18929B|        |      ; Place at bottom center
                                                             ;      |        |      ;  
- List 00 Encounter 02: db $01                               ;18929D|        |      ; Encounter 02: (slot 04 x1)
-                       db $04                               ;18929E|        |      ; Place at bottom center
-                       db $04                               ;18929F|        |      ; Enemy slot 04
+Formation_Zone_00_Layout_02: db $01                               ;18929D|        |      ; Encounter 02: (slot 04 x1)
+                       dw $0404                             ;18929E|        |      ; Place at bottom center
                                                             ;      |        |      ;  
- List 00 Encounter 03: db $03                               ;1892A0|        |      ; Encounter 03: (slot 02 x2, slot 03 x1)
-                       db $04                               ;1892A1|        |      ;  
-                       db $02                               ;1892A2|        |      ; Enemy slot 02
-                       db $07                               ;1892A3|        |      ;  
-                       db $03                               ;1892A4|        |      ; Enemy slot 03
-                       db $08                               ;1892A5|        |      ;  
-                       db $02                               ;1892A6|        |      ; Enemy slot 02
+Formation_Zone_00_Layout_03: db $03                               ;1892A0|        |      ; Encounter 03: (slot 02 x2, slot 03 x1)
+                       dw $0204                             ;1892A1|        |      ;  
+                       dw $0307                             ;1892A3|        |      ;  
+                       dw $0208                             ;1892A5|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 04: db $03                               ;1892A7|        |      ; Encounter 04: (slot 02 x2, slot 04 x1)
-                       db $05                               ;1892A8|        |      ;  
-                       db $02                               ;1892A9|        |      ; Enemy slot 02
-                       db $06                               ;1892AA|        |      ;  
-                       db $02                               ;1892AB|        |      ; Enemy slot 02
-                       db $24                               ;1892AC|        |      ;  
-                       db $04                               ;1892AD|        |      ; Enemy slot 04
+Formation_Zone_00_Layout_04: db $03                               ;1892A7|        |      ; Encounter 04: (slot 02 x2, slot 04 x1)
+                       dw $0205                             ;1892A8|        |      ;  
+                       dw $0206                             ;1892AA|        |      ;  
+                       dw $0424                             ;1892AC|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 05: db $03                               ;1892AE|        |      ;  
-                       db $05                               ;1892AF|        |      ; Encounter 05: (slot 03 x2, slot 04 x1)
-                       db $03                               ;1892B0|        |      ; Enemy slot 03
-                       db $06                               ;1892B1|        |      ;  
-                       db $03                               ;1892B2|        |      ; Enemy slot 03
-                       db $24                               ;1892B3|        |      ;  
-                       db $04                               ;1892B4|        |      ; Enemy slot 04
+Formation_Zone_00_Layout_05: db $03                               ;1892AE|        |      ;  
+                       dw $0305                             ;1892AF|        |      ; Encounter 05: (slot 03 x2, slot 04 x1)
+                       dw $0306                             ;1892B1|        |      ;  
+                       dw $0424                             ;1892B3|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 06: db $05                               ;1892B5|        |      ; Encounter 06: (slot 00 x2, slot 03 x2, slot 04 x1)
-                       db $07                               ;1892B6|        |      ; Enemy slot 00
-                       db $00                               ;1892B7|        |      ;  
-                       db $08                               ;1892B8|        |      ; Enemy slot 00
-                       db $00                               ;1892B9|        |      ;  
-                       db $25                               ;1892BA|        |      ; Enemy slot 03
-                       db $03                               ;1892BB|        |      ;  
-                       db $26                               ;1892BC|        |      ; Enemy slot 03
-                       db $03                               ;1892BD|        |      ;  
-                       db $44                               ;1892BE|        |      ; Enemy slot 04
+Formation_Zone_00_Layout_06: db $05                               ;1892B5|        |      ; Encounter 06: (slot 00 x2, slot 03 x2, slot 04 x1)
+                       dw $0007                             ;1892B6|        |      ;  
+                       dw $0008                             ;1892B8|        |      ;  
+                       dw $0325                             ;1892BA|        |      ;  
+                       dw $0326                             ;1892BC|        |      ;  
+                       dw $0444                             ;1892BE|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 07: db $04                               ;1892BF|        |      ; Encounter 07: (slot 03 x1, slot 01 x2, slot 00 x2)
-                       db $05                               ;1892C0|        |      ;  
-                       db $04                               ;1892C1|        |      ;  
-                       db $03                               ;1892C2|        |      ;  
-                       db $25                               ;1892C3|        |      ;  
-                       db $01                               ;1892C4|        |      ;  
-                       db $26                               ;1892C5|        |      ;  
-                       db $01                               ;1892C6|        |      ;  
-                       db $47                               ;1892C7|        |      ;  
-                       db $00                               ;1892C8|        |      ;  
-                       db $48                               ;1892C9|        |      ;  
-                       db $00                               ;1892CA|        |      ;  
+Formation_Zone_00_Layout_07: db $05                               ;1892C0|        |      ; Encounter 07: (slot 03 x1, slot 01 x2, slot 00 x2)
+                       dw $0304                             ;1892C1|        |      ;  
+                       dw $0125                             ;1892C3|        |      ;  
+                       dw $0126                             ;1892C5|        |      ;  
+                       dw $0047                             ;1892C7|        |      ;  
+                       dw $0048                             ;1892C9|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 08: db $02                               ;1892CB|        |      ; Encounter 08: (slot 03 x2)
-                       db $05                               ;1892CC|        |      ;  
-                       db $03                               ;1892CD|        |      ;  
-                       db $06                               ;1892CE|        |      ;  
-                       db $03                               ;1892CF|        |      ;  
+Formation_Zone_00_Layout_08: db $02                               ;1892CB|        |      ; Encounter 08: (slot 03 x2)
+                       dw $0305                             ;1892CC|        |      ;  
+                       dw $0306                             ;1892CE|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 09: db $02                               ;1892D0|        |      ; Encounter 09: (slot 04 x2)
-                       db $05                               ;1892D1|        |      ;  
-                       db $04                               ;1892D2|        |      ;  
-                       db $06                               ;1892D3|        |      ;  
-                       db $04                               ;1892D4|        |      ;  
+Formation_Zone_00_Layout_09: db $02                               ;1892D0|        |      ; Encounter 09: (slot 04 x2)
+                       dw $0405                             ;1892D1|        |      ;  
+                       dw $0406                             ;1892D3|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 0A: db $02                               ;1892D5|        |      ; Encounter 0A: (slot 03 x1, slot 04 x1)
-                       db $05                               ;1892D6|        |      ;  
-                       db $03                               ;1892D7|        |      ;  
-                       db $06                               ;1892D8|        |      ;  
-                       db $04                               ;1892D9|        |      ;  
+Formation_Zone_00_Layout_0A: db $02                               ;1892D5|        |      ; Encounter 0A: (slot 03 x1, slot 04 x1)
+                       dw $0305                             ;1892D6|        |      ;  
+                       dw $0406                             ;1892D8|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 0B: db $05                               ;1892DA|        |      ; Encounter 0B: (slot 00 x4, slot 01 x1)
-                       db $05                               ;1892DB|        |      ;  
-                       db $00                               ;1892DC|        |      ;  
-                       db $06                               ;1892DD|        |      ;  
-                       db $00                               ;1892DE|        |      ;  
-                       db $24                               ;1892DF|        |      ;  
-                       db $01                               ;1892E0|        |      ;  
-                       db $27                               ;1892E1|        |      ;  
-                       db $00                               ;1892E2|        |      ;  
-                       db $28                               ;1892E3|        |      ;  
-                       db $00                               ;1892E4|        |      ;  
+Formation_Zone_00_Layout_0B: db $05                               ;1892DA|        |      ; Encounter 0B: (slot 00 x4, slot 01 x1)
+                       dw $0005                             ;1892DB|        |      ;  
+                       dw $0006                             ;1892DD|        |      ;  
+                       dw $0124                             ;1892DF|        |      ;  
+                       dw $0027                             ;1892E1|        |      ;  
+                       dw $0028                             ;1892E3|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 0C: db $03                               ;1892E5|        |      ; Encounter 0C: (slot 02 x3)
-                       db $04                               ;1892E6|        |      ;  
-                       db $02                               ;1892E7|        |      ;  
-                       db $07                               ;1892E8|        |      ;  
-                       db $02                               ;1892E9|        |      ;  
-                       db $08                               ;1892EA|        |      ;  
-                       db $02                               ;1892EB|        |      ;  
+Formation_Zone_00_Layout_0C: db $03                               ;1892E5|        |      ; Encounter 0C: (slot 02 x3)
+                       dw $0204                             ;1892E6|        |      ;  
+                       dw $0207                             ;1892E8|        |      ;  
+                       dw $0208                             ;1892EA|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 0D: db $03                               ;1892EC|        |      ; Encounter 0D: (slot 02 x1, slot 00 x1, slot 03 x1)
-                       db $07                               ;1892ED|        |      ;  
-                       db $02                               ;1892EE|        |      ;  
-                       db $24                               ;1892EF|        |      ;  
-                       db $00                               ;1892F0|        |      ;  
-                       db $48                               ;1892F1|        |      ;  
-                       db $03                               ;1892F2|        |      ;  
+Formation_Zone_00_Layout_0D: db $03                               ;1892EC|        |      ; Encounter 0D: (slot 02 x1, slot 00 x1, slot 03 x1)
+                       dw $0207                             ;1892ED|        |      ;  
+                       dw $0024                             ;1892EF|        |      ;  
+                       dw $0348                             ;1892F1|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 0E: db $05                               ;1892F3|        |      ; Encounter 0E: (slot 02 x2, slot 00 x1, slot 04 x2)
-                       db $05                               ;1892F4|        |      ;  
-                       db $02                               ;1892F5|        |      ;  
-                       db $06                               ;1892F6|        |      ;  
-                       db $02                               ;1892F7|        |      ;  
-                       db $24                               ;1892F8|        |      ;  
-                       db $00                               ;1892F9|        |      ;  
-                       db $47                               ;1892FA|        |      ;  
-                       db $04                               ;1892FB|        |      ;  
-                       db $48                               ;1892FC|        |      ;  
-                       db $04                               ;1892FD|        |      ;  
+Formation_Zone_00_Layout_0E: db $05                               ;1892F3|        |      ; Encounter 0E: (slot 02 x2, slot 00 x1, slot 04 x2)
+                       dw $0205                             ;1892F4|        |      ;  
+                       dw $0206                             ;1892F6|        |      ;  
+                       dw $0024                             ;1892F8|        |      ;  
+                       dw $0447                             ;1892FA|        |      ;  
+                       dw $0448                             ;1892FC|        |      ;  
                                                             ;      |        |      ;  
- List 00 Encounter 0F: db $03                               ;1892FE|        |      ; Encounter 0F: (slot 03 x2, slot 04 x1)
-                       db $07                               ;1892FF|        |      ;  
-                       db $03                               ;189300|        |      ;  
-                       db $08                               ;189301|        |      ;  
-                       db $03                               ;189302|        |      ;  
-                       db $24                               ;189303|        |      ;  
-                       db $04                               ;189304|        |      ;  
+Formation_Zone_00_Layout_0F: db $03                               ;1892FE|        |      ; Encounter 0F: (slot 03 x2, slot 04 x1)
+                       dw $0307                             ;1892FF|        |      ;  
+                       dw $0308                             ;189301|        |      ;  
+                       dw $0424                             ;189303|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 01: db $01                               ;189305|        |      ;  
-                       db $01                               ;189306|        |      ; 1 encounter (solo boss)
-                       db $09                               ;189307|        |      ;  
-                       db $00                               ;189308|        |      ;  
+Formation_Zone_01_Num_Entries: db $01                               ;189305|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 02: db $10                               ;189309|        |      ; Used by Ch2 tiles 11,12 (Forest of Doubt)
-                       db $02                               ;18930A|        |      ;  
-                       db $05                               ;18930B|        |      ;  
-                       db $00                               ;18930C|        |      ;  
-                       db $06                               ;18930D|        |      ;  
-                       db $00                               ;18930E|        |      ;  
-                       db $02                               ;18930F|        |      ;  
-                       db $05                               ;189310|        |      ;  
-                       db $02                               ;189311|        |      ;  
-                       db $06                               ;189312|        |      ;  
-                       db $02                               ;189313|        |      ;  
-                       db $03                               ;189314|        |      ;  
-                       db $05                               ;189315|        |      ;  
-                       db $00                               ;189316|        |      ;  
-                       db $06                               ;189317|        |      ;  
-                       db $00                               ;189318|        |      ;  
-                       db $24                               ;189319|        |      ;  
-                       db $02                               ;18931A|        |      ;  
-                       db $05                               ;18931B|        |      ;  
-                       db $07                               ;18931C|        |      ;  
-                       db $02                               ;18931D|        |      ;  
-                       db $08                               ;18931E|        |      ;  
-                       db $02                               ;18931F|        |      ;  
-                       db $24                               ;189320|        |      ;  
-                       db $00                               ;189321|        |      ;  
-                       db $45                               ;189322|        |      ;  
-                       db $03                               ;189323|        |      ;  
-                       db $46                               ;189324|        |      ;  
-                       db $03                               ;189325|        |      ;  
-                       db $01                               ;189326|        |      ;  
-                       db $44                               ;189327|        |      ;  
-                       db $03                               ;189328|        |      ;  
-                       db $03                               ;189329|        |      ;  
-                       db $04                               ;18932A|        |      ;  
-                       db $02                               ;18932B|        |      ;  
-                       db $07                               ;18932C|        |      ;  
-                       db $02                               ;18932D|        |      ;  
-                       db $08                               ;18932E|        |      ;  
-                       db $02                               ;18932F|        |      ;  
-                       db $03                               ;189330|        |      ;  
-                       db $05                               ;189331|        |      ;  
-                       db $00                               ;189332|        |      ;  
-                       db $06                               ;189333|        |      ;  
-                       db $00                               ;189334|        |      ;  
-                       db $24                               ;189335|        |      ;  
-                       db $00                               ;189336|        |      ;  
-                       db $01                               ;189337|        |      ;  
-                       db $04                               ;189338|        |      ;  
-                       db $00                               ;189339|        |      ;  
-                       db $01                               ;18933A|        |      ;  
-                       db $04                               ;18933B|        |      ;  
-                       db $02                               ;18933C|        |      ;  
-                       db $01                               ;18933D|        |      ;  
-                       db $04                               ;18933E|        |      ;  
-                       db $04                               ;18933F|        |      ;  
-                       db $05                               ;189340|        |      ;  
-                       db $04                               ;189341|        |      ;  
-                       db $00                               ;189342|        |      ;  
-                       db $07                               ;189343|        |      ;  
-                       db $00                               ;189344|        |      ;  
-                       db $08                               ;189345|        |      ;  
-                       db $00                               ;189346|        |      ;  
-                       db $25                               ;189347|        |      ;  
-                       db $02                               ;189348|        |      ;  
-                       db $26                               ;189349|        |      ;  
-                       db $02                               ;18934A|        |      ;  
-                       db $06                               ;18934B|        |      ;  
-                       db $04                               ;18934C|        |      ;  
-                       db $02                               ;18934D|        |      ;  
-                       db $07                               ;18934E|        |      ;  
-                       db $02                               ;18934F|        |      ;  
-                       db $08                               ;189350|        |      ;  
-                       db $02                               ;189351|        |      ;  
-                       db $25                               ;189352|        |      ;  
-                       db $00                               ;189353|        |      ;  
-                       db $26                               ;189354|        |      ;  
-                       db $00                               ;189355|        |      ;  
-                       db $44                               ;189356|        |      ;  
-                       db $03                               ;189357|        |      ;  
-                       db $06                               ;189358|        |      ;  
-                       db $05                               ;189359|        |      ;  
-                       db $00                               ;18935A|        |      ;  
-                       db $06                               ;18935B|        |      ;  
-                       db $00                               ;18935C|        |      ;  
-                       db $27                               ;18935D|        |      ;  
-                       db $00                               ;18935E|        |      ;  
-                       db $28                               ;18935F|        |      ;  
-                       db $00                               ;189360|        |      ;  
-                       db $45                               ;189361|        |      ;  
-                       db $00                               ;189362|        |      ;  
-                       db $46                               ;189363|        |      ;  
-                       db $00                               ;189364|        |      ;  
-                       db $03                               ;189365|        |      ;  
-                       db $04                               ;189366|        |      ;  
-                       db $02                               ;189367|        |      ;  
-                       db $24                               ;189368|        |      ;  
-                       db $00                               ;189369|        |      ;  
-                       db $44                               ;18936A|        |      ;  
-                       db $03                               ;18936B|        |      ;  
-                       db $03                               ;18936C|        |      ;  
-                       db $05                               ;18936D|        |      ;  
-                       db $00                               ;18936E|        |      ;  
-                       db $06                               ;18936F|        |      ;  
-                       db $02                               ;189370|        |      ;  
-                       db $24                               ;189371|        |      ;  
-                       db $04                               ;189372|        |      ;  
-                       db $04                               ;189373|        |      ;  
-                       db $07                               ;189374|        |      ;  
-                       db $02                               ;189375|        |      ;  
-                       db $08                               ;189376|        |      ;  
-                       db $02                               ;189377|        |      ;  
-                       db $25                               ;189378|        |      ;  
-                       db $02                               ;189379|        |      ;  
-                       db $26                               ;18937A|        |      ;  
-                       db $02                               ;18937B|        |      ;  
+Formation_Zone_01_Boss: db $01                               ;189306|        |      ; 1 encounter (solo boss)
+                       dw $0009                             ;189307|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 03: db $10                               ;18937C|        |      ; Used by Ch 3 (tiles 10-14), Ch 4 (tiles 10-15), Ch 5 (tiles 16-17)
-                       db $01                               ;18937D|        |      ;  
-                       db $04                               ;18937E|        |      ;  
-                       db $02                               ;18937F|        |      ;  
-                       db $01                               ;189380|        |      ;  
-                       db $04                               ;189381|        |      ;  
-                       db $03                               ;189382|        |      ;  
-                       db $01                               ;189383|        |      ;  
-                       db $04                               ;189384|        |      ;  
-                       db $04                               ;189385|        |      ;  
-                       db $01                               ;189386|        |      ;  
-                       db $04                               ;189387|        |      ;  
-                       db $01                               ;189388|        |      ;  
-                       db $03                               ;189389|        |      ;  
-                       db $05                               ;18938A|        |      ;  
-                       db $01                               ;18938B|        |      ;  
-                       db $06                               ;18938C|        |      ;  
-                       db $01                               ;18938D|        |      ;  
-                       db $24                               ;18938E|        |      ;  
-                       db $01                               ;18938F|        |      ;  
-                       db $03                               ;189390|        |      ;  
-                       db $05                               ;189391|        |      ;  
-                       db $02                               ;189392|        |      ;  
-                       db $06                               ;189393|        |      ;  
-                       db $02                               ;189394|        |      ;  
-                       db $24                               ;189395|        |      ;  
-                       db $04                               ;189396|        |      ;  
-                       db $07                               ;189397|        |      ;  
-                       db $05                               ;189398|        |      ;  
-                       db $04                               ;189399|        |      ;  
-                       db $06                               ;18939A|        |      ;  
-                       db $04                               ;18939B|        |      ;  
-                       db $24                               ;18939C|        |      ;  
-                       db $02                               ;18939D|        |      ;  
-                       db $27                               ;18939E|        |      ;  
-                       db $04                               ;18939F|        |      ;  
-                       db $28                               ;1893A0|        |      ;  
-                       db $04                               ;1893A1|        |      ;  
-                       db $45                               ;1893A2|        |      ;  
-                       db $04                               ;1893A3|        |      ;  
-                       db $46                               ;1893A4|        |      ;  
-                       db $04                               ;1893A5|        |      ;  
-                       db $05                               ;1893A6|        |      ;  
-                       db $05                               ;1893A7|        |      ;  
-                       db $00                               ;1893A8|        |      ;  
-                       db $06                               ;1893A9|        |      ;  
-                       db $00                               ;1893AA|        |      ;  
-                       db $24                               ;1893AB|        |      ;  
-                       db $03                               ;1893AC|        |      ;  
-                       db $47                               ;1893AD|        |      ;  
-                       db $02                               ;1893AE|        |      ;  
-                       db $48                               ;1893AF|        |      ;  
-                       db $02                               ;1893B0|        |      ;  
-                       db $05                               ;1893B1|        |      ;  
-                       db $07                               ;1893B2|        |      ;  
-                       db $01                               ;1893B3|        |      ;  
-                       db $08                               ;1893B4|        |      ;  
-                       db $01                               ;1893B5|        |      ;  
-                       db $24                               ;1893B6|        |      ;  
-                       db $03                               ;1893B7|        |      ;  
-                       db $45                               ;1893B8|        |      ;  
-                       db $02                               ;1893B9|        |      ;  
-                       db $46                               ;1893BA|        |      ;  
-                       db $02                               ;1893BB|        |      ;  
-                       db $05                               ;1893BC|        |      ;  
-                       db $04                               ;1893BD|        |      ;  
-                       db $04                               ;1893BE|        |      ;  
-                       db $27                               ;1893BF|        |      ;  
-                       db $01                               ;1893C0|        |      ;  
-                       db $28                               ;1893C1|        |      ;  
-                       db $02                               ;1893C2|        |      ;  
-                       db $45                               ;1893C3|        |      ;  
-                       db $03                               ;1893C4|        |      ;  
-                       db $46                               ;1893C5|        |      ;  
-                       db $03                               ;1893C6|        |      ;  
-                       db $05                               ;1893C7|        |      ;  
-                       db $04                               ;1893C8|        |      ;  
-                       db $00                               ;1893C9|        |      ;  
-                       db $07                               ;1893CA|        |      ;  
-                       db $01                               ;1893CB|        |      ;  
-                       db $08                               ;1893CC|        |      ;  
-                       db $02                               ;1893CD|        |      ;  
-                       db $25                               ;1893CE|        |      ;  
-                       db $03                               ;1893CF|        |      ;  
-                       db $26                               ;1893D0|        |      ;  
-                       db $04                               ;1893D1|        |      ;  
-                       db $05                               ;1893D2|        |      ;  
-                       db $06                               ;1893D3|        |      ;  
-                       db $01                               ;1893D4|        |      ;  
-                       db $07                               ;1893D5|        |      ;  
-                       db $01                               ;1893D6|        |      ;  
-                       db $25                               ;1893D7|        |      ;  
-                       db $01                               ;1893D8|        |      ;  
-                       db $28                               ;1893D9|        |      ;  
-                       db $00                               ;1893DA|        |      ;  
-                       db $44                               ;1893DB|        |      ;  
-                       db $00                               ;1893DC|        |      ;  
-                       db $03                               ;1893DD|        |      ;  
-                       db $04                               ;1893DE|        |      ;  
-                       db $01                               ;1893DF|        |      ;  
-                       db $07                               ;1893E0|        |      ;  
-                       db $02                               ;1893E1|        |      ;  
-                       db $08                               ;1893E2|        |      ;  
-                       db $02                               ;1893E3|        |      ;  
-                       db $05                               ;1893E4|        |      ;  
-                       db $07                               ;1893E5|        |      ;  
-                       db $00                               ;1893E6|        |      ;  
-                       db $08                               ;1893E7|        |      ;  
-                       db $00                               ;1893E8|        |      ;  
-                       db $25                               ;1893E9|        |      ;  
-                       db $01                               ;1893EA|        |      ;  
-                       db $26                               ;1893EB|        |      ;  
-                       db $01                               ;1893EC|        |      ;  
-                       db $44                               ;1893ED|        |      ;  
-                       db $02                               ;1893EE|        |      ;  
-                       db $02                               ;1893EF|        |      ;  
-                       db $05                               ;1893F0|        |      ;  
-                       db $04                               ;1893F1|        |      ;  
-                       db $06                               ;1893F2|        |      ;  
-                       db $02                               ;1893F3|        |      ;  
-                       db $05                               ;1893F4|        |      ;  
-                       db $07                               ;1893F5|        |      ;  
-                       db $04                               ;1893F6|        |      ;  
-                       db $08                               ;1893F7|        |      ;  
-                       db $04                               ;1893F8|        |      ;  
-                       db $24                               ;1893F9|        |      ;  
-                       db $02                               ;1893FA|        |      ;  
-                       db $47                               ;1893FB|        |      ;  
-                       db $04                               ;1893FC|        |      ;  
-                       db $48                               ;1893FD|        |      ;  
-                       db $04                               ;1893FE|        |      ;  
+Formation_Zone_02_Num_Entries: db $10                               ;189309|        |      ; Used by Ch2 tiles 11,12 (Forest of Doubt)
                                                             ;      |        |      ;  
-    Formation List 04: db $01                               ;1893FF|        |      ; Used by Ch 2 Efrite (tile 17), Ch 3 Mimic (tile 16, unused)
-                       db $01                               ;189400|        |      ;  
-                       db $09                               ;189401|        |      ;  
-                       db $00                               ;189402|        |      ;  
+Formation_Zone_02_Layout_00: db $02                               ;18930A|        |      ;  
+                       dw $0005                             ;18930B|        |      ;  
+                       dw $0006                             ;18930D|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 05: db $01                               ;189403|        |      ; Used by Zerel
-                       db $01                               ;189404|        |      ;  
-                       db $0A                               ;189405|        |      ;  
-                       db $00                               ;189406|        |      ;  
+Formation_Zone_02_Layout_01: db $02                               ;18930F|        |      ;  
+                       dw $0205                             ;189310|        |      ;  
+                       dw $0206                             ;189312|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 06: db $10                               ;189407|        |      ; Used by Ch 3 tile 15 (part of bottom floor), Ch 4 tile 16-18/26-28, Ch 5 tile 10-15
-                       db $02                               ;189408|        |      ;  
-                       db $0B                               ;189409|        |      ;  
-                       db $00                               ;18940A|        |      ;  
-                       db $0C                               ;18940B|        |      ;  
-                       db $00                               ;18940C|        |      ;  
-                       db $01                               ;18940D|        |      ;  
-                       db $09                               ;18940E|        |      ;  
-                       db $00                               ;18940F|        |      ;  
-                       db $03                               ;189410|        |      ;  
-                       db $05                               ;189411|        |      ;  
-                       db $02                               ;189412|        |      ;  
-                       db $06                               ;189413|        |      ;  
-                       db $02                               ;189414|        |      ;  
-                       db $29                               ;189415|        |      ;  
-                       db $00                               ;189416|        |      ;  
-                       db $03                               ;189417|        |      ;  
-                       db $05                               ;189418|        |      ;  
-                       db $03                               ;189419|        |      ;  
-                       db $06                               ;18941A|        |      ;  
-                       db $03                               ;18941B|        |      ;  
-                       db $29                               ;18941C|        |      ;  
-                       db $00                               ;18941D|        |      ;  
-                       db $03                               ;18941E|        |      ;  
-                       db $05                               ;18941F|        |      ;  
-                       db $04                               ;189420|        |      ;  
-                       db $06                               ;189421|        |      ;  
-                       db $04                               ;189422|        |      ;  
-                       db $29                               ;189423|        |      ;  
-                       db $00                               ;189424|        |      ;  
-                       db $03                               ;189425|        |      ;  
-                       db $05                               ;189426|        |      ;  
-                       db $03                               ;189427|        |      ;  
-                       db $06                               ;189428|        |      ;  
-                       db $04                               ;189429|        |      ;  
-                       db $29                               ;18942A|        |      ;  
-                       db $00                               ;18942B|        |      ;  
-                       db $02                               ;18942C|        |      ;  
-                       db $0B                               ;18942D|        |      ;  
-                       db $00                               ;18942E|        |      ;  
-                       db $0C                               ;18942F|        |      ;  
-                       db $00                               ;189430|        |      ;  
-                       db $02                               ;189431|        |      ;  
-                       db $0B                               ;189432|        |      ;  
-                       db $00                               ;189433|        |      ;  
-                       db $0C                               ;189434|        |      ;  
-                       db $00                               ;189435|        |      ;  
-                       db $02                               ;189436|        |      ;  
-                       db $0B                               ;189437|        |      ;  
-                       db $00                               ;189438|        |      ;  
-                       db $0C                               ;189439|        |      ;  
-                       db $00                               ;18943A|        |      ;  
-                       db $04                               ;18943B|        |      ;  
-                       db $04                               ;18943C|        |      ;  
-                       db $02                               ;18943D|        |      ;  
-                       db $07                               ;18943E|        |      ;  
-                       db $02                               ;18943F|        |      ;  
-                       db $08                               ;189440|        |      ;  
-                       db $02                               ;189441|        |      ;  
-                       db $29                               ;189442|        |      ;  
-                       db $00                               ;189443|        |      ;  
-                       db $04                               ;189444|        |      ;  
-                       db $04                               ;189445|        |      ;  
-                       db $03                               ;189446|        |      ;  
-                       db $07                               ;189447|        |      ;  
-                       db $03                               ;189448|        |      ;  
-                       db $08                               ;189449|        |      ;  
-                       db $03                               ;18944A|        |      ;  
-                       db $29                               ;18944B|        |      ;  
-                       db $00                               ;18944C|        |      ;  
-                       db $04                               ;18944D|        |      ;  
-                       db $04                               ;18944E|        |      ;  
-                       db $04                               ;18944F|        |      ;  
-                       db $07                               ;189450|        |      ;  
-                       db $04                               ;189451|        |      ;  
-                       db $08                               ;189452|        |      ;  
-                       db $04                               ;189453|        |      ;  
-                       db $29                               ;189454|        |      ;  
-                       db $00                               ;189455|        |      ;  
-                       db $04                               ;189456|        |      ;  
-                       db $04                               ;189457|        |      ;  
-                       db $03                               ;189458|        |      ;  
-                       db $07                               ;189459|        |      ;  
-                       db $02                               ;18945A|        |      ;  
-                       db $08                               ;18945B|        |      ;  
-                       db $04                               ;18945C|        |      ;  
-                       db $29                               ;18945D|        |      ;  
-                       db $00                               ;18945E|        |      ;  
-                       db $02                               ;18945F|        |      ;  
-                       db $0B                               ;189460|        |      ;  
-                       db $00                               ;189461|        |      ;  
-                       db $0C                               ;189462|        |      ;  
-                       db $00                               ;189463|        |      ;  
-                       db $02                               ;189464|        |      ;  
-                       db $0B                               ;189465|        |      ;  
-                       db $00                               ;189466|        |      ;  
-                       db $0C                               ;189467|        |      ;  
-                       db $00                               ;189468|        |      ;  
-                       db $02                               ;189469|        |      ;  
-                       db $0B                               ;18946A|        |      ;  
-                       db $00                               ;18946B|        |      ;  
-                       db $0C                               ;18946C|        |      ;  
-                       db $00                               ;18946D|        |      ;  
+Formation_Zone_02_Layout_02: db $03                               ;189314|        |      ;  
+                       dw $0005                             ;189315|        |      ;  
+                       dw $0006                             ;189317|        |      ;  
+                       dw $0224                             ;189319|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 07: db $01                               ;18946E|        |      ; Used by Hydra
-                       db $01                               ;18946F|        |      ;  
-                       db $0C                               ;189470|        |      ;  
-                       db $00                               ;189471|        |      ;  
+Formation_Zone_02_Layout_03: db $05                               ;18931B|        |      ;  
+                       dw $0207                             ;18931C|        |      ;  
+                       dw $0208                             ;18931E|        |      ;  
+                       dw $0024                             ;189320|        |      ;  
+                       dw $0345                             ;189322|        |      ;  
+                       dw $0346                             ;189324|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 08: db $01                               ;189472|        |      ; Used by Darah and Barah
-                       db $02                               ;189473|        |      ;  
-                       db $0B                               ;189474|        |      ;  
-                       db $00                               ;189475|        |      ;  
-                       db $0C                               ;189476|        |      ;  
-                       db $01                               ;189477|        |      ;  
+Formation_Zone_02_Layout_04: db $01                               ;189326|        |      ;  
+                       dw $0344                             ;189327|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 09: db $01                               ;189478|        |      ; Used by Rimsala 1+2
-                       db $01                               ;189479|        |      ;  
-                       db $0E                               ;18947A|        |      ;  
-                       db $00                               ;18947B|        |      ;  
+Formation_Zone_02_Layout_05: db $03                               ;189329|        |      ;  
+                       dw $0204                             ;18932A|        |      ;  
+                       dw $0207                             ;18932C|        |      ;  
+                       dw $0208                             ;18932E|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 0A: db $10                               ;18947C|        |      ; Used by Ch1, tiles 10-12 (Balnea 1F)
-                       db $01                               ;18947D|        |      ;  
-                       db $04                               ;18947E|        |      ;  
-                       db $00                               ;18947F|        |      ;  
-                       db $01                               ;189480|        |      ;  
-                       db $04                               ;189481|        |      ;  
-                       db $01                               ;189482|        |      ;  
-                       db $01                               ;189483|        |      ;  
-                       db $04                               ;189484|        |      ;  
-                       db $02                               ;189485|        |      ;  
-                       db $02                               ;189486|        |      ;  
-                       db $05                               ;189487|        |      ;  
-                       db $00                               ;189488|        |      ;  
-                       db $06                               ;189489|        |      ;  
-                       db $00                               ;18948A|        |      ;  
-                       db $02                               ;18948B|        |      ;  
-                       db $05                               ;18948C|        |      ;  
-                       db $01                               ;18948D|        |      ;  
-                       db $06                               ;18948E|        |      ;  
-                       db $01                               ;18948F|        |      ;  
-                       db $02                               ;189490|        |      ;  
-                       db $05                               ;189491|        |      ;  
-                       db $02                               ;189492|        |      ;  
-                       db $06                               ;189493|        |      ;  
-                       db $02                               ;189494|        |      ;  
-                       db $03                               ;189495|        |      ;  
-                       db $05                               ;189496|        |      ;  
-                       db $00                               ;189497|        |      ;  
-                       db $06                               ;189498|        |      ;  
-                       db $00                               ;189499|        |      ;  
-                       db $24                               ;18949A|        |      ;  
-                       db $02                               ;18949B|        |      ;  
-                       db $03                               ;18949C|        |      ;  
-                       db $05                               ;18949D|        |      ;  
-                       db $01                               ;18949E|        |      ;  
-                       db $06                               ;18949F|        |      ;  
-                       db $01                               ;1894A0|        |      ;  
-                       db $24                               ;1894A1|        |      ;  
-                       db $02                               ;1894A2|        |      ;  
-                       db $03                               ;1894A3|        |      ;  
-                       db $05                               ;1894A4|        |      ;  
-                       db $02                               ;1894A5|        |      ;  
-                       db $06                               ;1894A6|        |      ;  
-                       db $02                               ;1894A7|        |      ;  
-                       db $24                               ;1894A8|        |      ;  
-                       db $03                               ;1894A9|        |      ;  
-                       db $03                               ;1894AA|        |      ;  
-                       db $05                               ;1894AB|        |      ;  
-                       db $00                               ;1894AC|        |      ;  
-                       db $06                               ;1894AD|        |      ;  
-                       db $00                               ;1894AE|        |      ;  
-                       db $24                               ;1894AF|        |      ;  
-                       db $00                               ;1894B0|        |      ;  
-                       db $03                               ;1894B1|        |      ;  
-                       db $07                               ;1894B2|        |      ;  
-                       db $01                               ;1894B3|        |      ;  
-                       db $08                               ;1894B4|        |      ;  
-                       db $02                               ;1894B5|        |      ;  
-                       db $24                               ;1894B6|        |      ;  
-                       db $00                               ;1894B7|        |      ;  
-                       db $03                               ;1894B8|        |      ;  
-                       db $04                               ;1894B9|        |      ;  
-                       db $02                               ;1894BA|        |      ;  
-                       db $25                               ;1894BB|        |      ;  
-                       db $00                               ;1894BC|        |      ;  
-                       db $26                               ;1894BD|        |      ;  
-                       db $00                               ;1894BE|        |      ;  
-                       db $02                               ;1894BF|        |      ;  
-                       db $05                               ;1894C0|        |      ;  
-                       db $00                               ;1894C1|        |      ;  
-                       db $06                               ;1894C2|        |      ;  
-                       db $01                               ;1894C3|        |      ;  
-                       db $02                               ;1894C4|        |      ;  
-                       db $05                               ;1894C5|        |      ;  
-                       db $01                               ;1894C6|        |      ;  
-                       db $06                               ;1894C7|        |      ;  
-                       db $02                               ;1894C8|        |      ;  
-                       db $02                               ;1894C9|        |      ;  
-                       db $05                               ;1894CA|        |      ;  
-                       db $02                               ;1894CB|        |      ;  
-                       db $06                               ;1894CC|        |      ;  
-                       db $00                               ;1894CD|        |      ;  
-                       db $05                               ;1894CE|        |      ;  
-                       db $04                               ;1894CF|        |      ;  
-                       db $00                               ;1894D0|        |      ;  
-                       db $07                               ;1894D1|        |      ;  
-                       db $00                               ;1894D2|        |      ;  
-                       db $08                               ;1894D3|        |      ;  
-                       db $00                               ;1894D4|        |      ;  
-                       db $25                               ;1894D5|        |      ;  
-                       db $01                               ;1894D6|        |      ;  
-                       db $26                               ;1894D7|        |      ;  
-                       db $01                               ;1894D8|        |      ;  
+Formation_Zone_02_Layout_06: db $03                               ;189330|        |      ;  
+                       dw $0005                             ;189331|        |      ;  
+                       dw $0006                             ;189333|        |      ;  
+                       dw $0024                             ;189335|        |      ;  
                                                             ;      |        |      ;  
-    Formation List 0B: db $10                               ;1894D9|        |      ; Used by Ch 2 (Draven Pass/Crimson Valley)
-                       db $01                               ;1894DA|        |      ;  
-                       db $04                               ;1894DB|        |      ;  
-                       db $01                               ;1894DC|        |      ;  
-                       db $02                               ;1894DD|        |      ;  
-                       db $05                               ;1894DE|        |      ;  
-                       db $00                               ;1894DF|        |      ;  
-                       db $06                               ;1894E0|        |      ;  
-                       db $00                               ;1894E1|        |      ;  
-                       db $03                               ;1894E2|        |      ;  
-                       db $05                               ;1894E3|        |      ;  
-                       db $01                               ;1894E4|        |      ;  
-                       db $06                               ;1894E5|        |      ;  
-                       db $01                               ;1894E6|        |      ;  
-                       db $24                               ;1894E7|        |      ;  
-                       db $03                               ;1894E8|        |      ;  
-                       db $03                               ;1894E9|        |      ;  
-                       db $04                               ;1894EA|        |      ;  
-                       db $04                               ;1894EB|        |      ;  
-                       db $07                               ;1894EC|        |      ;  
-                       db $03                               ;1894ED|        |      ;  
-                       db $08                               ;1894EE|        |      ;  
-                       db $03                               ;1894EF|        |      ;  
-                       db $01                               ;1894F0|        |      ;  
-                       db $04                               ;1894F1|        |      ;  
-                       db $03                               ;1894F2|        |      ;  
-                       db $03                               ;1894F3|        |      ;  
-                       db $05                               ;1894F4|        |      ;  
-                       db $01                               ;1894F5|        |      ;  
-                       db $06                               ;1894F6|        |      ;  
-                       db $01                               ;1894F7|        |      ;  
-                       db $24                               ;1894F8|        |      ;  
-                       db $04                               ;1894F9|        |      ;  
-                       db $03                               ;1894FA|        |      ;  
-                       db $04                               ;1894FB|        |      ;  
-                       db $00                               ;1894FC|        |      ;  
-                       db $07                               ;1894FD|        |      ;  
-                       db $00                               ;1894FE|        |      ;  
-                       db $08                               ;1894FF|        |      ;  
-                       db $00                               ;189500|        |      ;  
-                       db $05                               ;189501|        |      ;  
-                       db $04                               ;189502|        |      ;  
-                       db $04                               ;189503|        |      ;  
-                       db $07                               ;189504|        |      ;  
-                       db $04                               ;189505|        |      ;  
-                       db $08                               ;189506|        |      ;  
-                       db $04                               ;189507|        |      ;  
-                       db $25                               ;189508|        |      ;  
-                       db $03                               ;189509|        |      ;  
-                       db $26                               ;18950A|        |      ;  
-                       db $03                               ;18950B|        |      ;  
-                       db $03                               ;18950C|        |      ;  
-                       db $04                               ;18950D|        |      ;  
-                       db $04                               ;18950E|        |      ;  
-                       db $07                               ;18950F|        |      ;  
-                       db $01                               ;189510|        |      ;  
-                       db $08                               ;189511|        |      ;  
-                       db $01                               ;189512|        |      ;  
-                       db $05                               ;189513|        |      ;  
-                       db $07                               ;189514|        |      ;  
-                       db $01                               ;189515|        |      ;  
-                       db $08                               ;189516|        |      ;  
-                       db $01                               ;189517|        |      ;  
-                       db $25                               ;189518|        |      ;  
-                       db $03                               ;189519|        |      ;  
-                       db $26                               ;18951A|        |      ;  
-                       db $03                               ;18951B|        |      ;  
-                       db $44                               ;18951C|        |      ;  
-                       db $03                               ;18951D|        |      ;  
-                       db $06                               ;18951E|        |      ;  
-                       db $04                               ;18951F|        |      ;  
-                       db $04                               ;189520|        |      ;  
-                       db $25                               ;189521|        |      ;  
-                       db $01                               ;189522|        |      ;  
-                       db $26                               ;189523|        |      ;  
-                       db $01                               ;189524|        |      ;  
-                       db $44                               ;189525|        |      ;  
-                       db $03                               ;189526|        |      ;  
-                       db $47                               ;189527|        |      ;  
-                       db $03                               ;189528|        |      ;  
-                       db $48                               ;189529|        |      ;  
-                       db $03                               ;18952A|        |      ;  
-                       db $03                               ;18952B|        |      ;  
-                       db $04                               ;18952C|        |      ;  
-                       db $03                               ;18952D|        |      ;  
-                       db $25                               ;18952E|        |      ;  
-                       db $03                               ;18952F|        |      ;  
-                       db $26                               ;189530|        |      ;  
-                       db $03                               ;189531|        |      ;  
-                       db $02                               ;189532|        |      ;  
-                       db $05                               ;189533|        |      ;  
-                       db $04                               ;189534|        |      ;  
-                       db $06                               ;189535|        |      ;  
-                       db $04                               ;189536|        |      ;  
-                       db $02                               ;189537|        |      ;  
-                       db $05                               ;189538|        |      ;  
-                       db $03                               ;189539|        |      ;  
-                       db $06                               ;18953A|        |      ;  
-                       db $03                               ;18953B|        |      ;  
-                       db $05                               ;18953C|        |      ;  
-                       db $05                               ;18953D|        |      ;  
-                       db $00                               ;18953E|        |      ;  
-                       db $06                               ;18953F|        |      ;  
-                       db $00                               ;189540|        |      ;  
-                       db $24                               ;189541|        |      ;  
-                       db $00                               ;189542|        |      ;  
-                       db $45                               ;189543|        |      ;  
-                       db $00                               ;189544|        |      ;  
-                       db $46                               ;189545|        |      ;  
-                       db $00                               ;189546|        |      ;  
-                       db $03                               ;189547|        |      ;  
-                       db $05                               ;189548|        |      ;  
-                       db $04                               ;189549|        |      ;  
-                       db $06                               ;18954A|        |      ;  
-                       db $04                               ;18954B|        |      ;  
-                       db $24                               ;18954C|        |      ;  
-                       db $03                               ;18954D|        |      ;  
+Formation_Zone_02_Layout_07: db $01                               ;189337|        |      ;  
+                       dw $0004                             ;189338|        |      ;  
                                                             ;      |        |      ;  
-         DATA8_18954E: db $1C                               ;18954E|        |      ;  
+Formation_Zone_02_Layout_08: db $01                               ;18933A|        |      ;  
+                       dw $0204                             ;18933B|        |      ;  
                                                             ;      |        |      ;  
-         DATA8_18954F: db $38                               ;18954F|        |      ;  
+Formation_Zone_02_Layout_09: db $01                               ;18933D|        |      ;  
+                       dw $0404                             ;18933E|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_02_Layout_0A: db $05                               ;189340|        |      ;  
+                       dw $0004                             ;189341|        |      ;  
+                       dw $0007                             ;189343|        |      ;  
+                       dw $0008                             ;189345|        |      ;  
+                       dw $0225                             ;189347|        |      ;  
+                       dw $0226                             ;189349|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_02_Layout_0B: db $06                               ;18934B|        |      ;  
+                       dw $0204                             ;18934C|        |      ;  
+                       dw $0207                             ;18934E|        |      ;  
+                       dw $0208                             ;189350|        |      ;  
+                       dw $0025                             ;189352|        |      ;  
+                       dw $0026                             ;189354|        |      ;  
+                       dw $0344                             ;189356|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_02_Layout_0C: db $06                               ;189358|        |      ;  
+                       dw $0005                             ;189359|        |      ;  
+                       dw $0006                             ;18935B|        |      ;  
+                       dw $0027                             ;18935D|        |      ;  
+                       dw $0028                             ;18935F|        |      ;  
+                       dw $0045                             ;189361|        |      ;  
+                       dw $0046                             ;189363|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_02_Layout_0D: db $03                               ;189365|        |      ;  
+                       dw $0204                             ;189366|        |      ;  
+                       dw $0024                             ;189368|        |      ;  
+                       dw $0344                             ;18936A|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_02_Layout_0E: db $03                               ;18936C|        |      ;  
+                       dw $0005                             ;18936D|        |      ;  
+                       dw $0206                             ;18936F|        |      ;  
+                       dw $0424                             ;189371|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_02_Layout_0F: db $04                               ;189373|        |      ;  
+                       dw $0207                             ;189374|        |      ;  
+                       dw $0208                             ;189376|        |      ;  
+                       dw $0225                             ;189378|        |      ;  
+                       dw $0226                             ;18937A|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Num_Entries: db $10                               ;18937C|        |      ; Used by Ch 3 (tiles 10-14), Ch 4 (tiles 10-15), Ch 5 (tiles 16-17)
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_00: db $01                               ;18937D|        |      ;  
+                       dw $0204                             ;18937E|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_01: db $01                               ;189380|        |      ;  
+                       dw $0304                             ;189381|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_02: db $01                               ;189383|        |      ;  
+                       dw $0404                             ;189384|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_03: db $01                               ;189386|        |      ;  
+                       dw $0104                             ;189387|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_04: db $03                               ;189389|        |      ;  
+                       dw $0105                             ;18938A|        |      ;  
+                       dw $0106                             ;18938C|        |      ;  
+                       dw $0124                             ;18938E|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_05: db $03                               ;189390|        |      ;  
+                       dw $0205                             ;189391|        |      ;  
+                       dw $0206                             ;189393|        |      ;  
+                       dw $0424                             ;189395|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_06: db $07                               ;189397|        |      ;  
+                       dw $0405                             ;189398|        |      ;  
+                       dw $0406                             ;18939A|        |      ;  
+                       dw $0224                             ;18939C|        |      ;  
+                       dw $0427                             ;18939E|        |      ;  
+                       dw $0428                             ;1893A0|        |      ;  
+                       dw $0445                             ;1893A2|        |      ;  
+                       dw $0446                             ;1893A4|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_07: db $05                               ;1893A6|        |      ;  
+                       dw $0005                             ;1893A7|        |      ;  
+                       dw $0006                             ;1893A9|        |      ;  
+                       dw $0324                             ;1893AB|        |      ;  
+                       dw $0247                             ;1893AD|        |      ;  
+                       dw $0248                             ;1893AF|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_08: db $05                               ;1893B1|        |      ;  
+                       dw $0107                             ;1893B2|        |      ;  
+                       dw $0108                             ;1893B4|        |      ;  
+                       dw $0324                             ;1893B6|        |      ;  
+                       dw $0245                             ;1893B8|        |      ;  
+                       dw $0246                             ;1893BA|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_09: db $05                               ;1893BC|        |      ;  
+                       dw $0404                             ;1893BD|        |      ;  
+                       dw $0127                             ;1893BF|        |      ;  
+                       dw $0228                             ;1893C1|        |      ;  
+                       dw $0345                             ;1893C3|        |      ;  
+                       dw $0346                             ;1893C5|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_0A: db $05                               ;1893C7|        |      ;  
+                       dw $0004                             ;1893C8|        |      ;  
+                       dw $0107                             ;1893CA|        |      ;  
+                       dw $0208                             ;1893CC|        |      ;  
+                       dw $0325                             ;1893CE|        |      ;  
+                       dw $0426                             ;1893D0|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_0B: db $05                               ;1893D2|        |      ;  
+                       dw $0106                             ;1893D3|        |      ;  
+                       dw $0107                             ;1893D5|        |      ;  
+                       dw $0125                             ;1893D7|        |      ;  
+                       dw $0028                             ;1893D9|        |      ;  
+                       dw $0044                             ;1893DB|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_0C: db $03                               ;1893DD|        |      ;  
+                       dw $0104                             ;1893DE|        |      ;  
+                       dw $0207                             ;1893E0|        |      ;  
+                       dw $0208                             ;1893E2|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_0D: db $05                               ;1893E4|        |      ;  
+                       dw $0007                             ;1893E5|        |      ;  
+                       dw $0008                             ;1893E7|        |      ;  
+                       dw $0125                             ;1893E9|        |      ;  
+                       dw $0126                             ;1893EB|        |      ;  
+                       dw $0244                             ;1893ED|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_0E: db $02                               ;1893EF|        |      ;  
+                       dw $0405                             ;1893F0|        |      ;  
+                       dw $0206                             ;1893F2|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_03_Layout_0F: db $05                               ;1893F4|        |      ;  
+                       dw $0407                             ;1893F5|        |      ;  
+                       dw $0408                             ;1893F7|        |      ;  
+                       dw $0224                             ;1893F9|        |      ;  
+                       dw $0447                             ;1893FB|        |      ;  
+                       dw $0448                             ;1893FD|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_04_Num_Entries: db $01                               ;1893FF|        |      ; Used by Ch 2 Efrite (tile 17), Ch 3 Mimic (tile 16, unused)
+                                                            ;      |        |      ;  
+Formation_Zone_04_Boss: db $01                               ;189400|        |      ;  
+                       dw $0009                             ;189401|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_05_Num_Entries: db $01                               ;189403|        |      ; Used by Zerel
+                                                            ;      |        |      ;  
+Formation_Zone_05_Boss: db $01                               ;189404|        |      ;  
+                       dw $000A                             ;189405|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Num_Entries: db $10                               ;189407|        |      ; Used by Ch 3 tile 15 (part of bottom floor), Ch 4 tile 16-18/26-28, Ch 5 tile 10-15
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_00: db $02                               ;189408|        |      ;  
+                       dw $000B                             ;189409|        |      ;  
+                       dw $000C                             ;18940B|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_01: db $01                               ;18940D|        |      ;  
+                       dw $0009                             ;18940E|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_02: db $03                               ;189410|        |      ;  
+                       dw $0205                             ;189411|        |      ;  
+                       dw $0206                             ;189413|        |      ;  
+                       dw $0029                             ;189415|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_03: db $03                               ;189417|        |      ;  
+                       dw $0305                             ;189418|        |      ;  
+                       dw $0306                             ;18941A|        |      ;  
+                       dw $0029                             ;18941C|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_04: db $03                               ;18941E|        |      ;  
+                       dw $0405                             ;18941F|        |      ;  
+                       dw $0406                             ;189421|        |      ;  
+                       dw $0029                             ;189423|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_05: db $03                               ;189425|        |      ;  
+                       dw $0305                             ;189426|        |      ;  
+                       dw $0406                             ;189428|        |      ;  
+                       dw $0029                             ;18942A|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_06: db $02                               ;18942C|        |      ;  
+                       dw $000B                             ;18942D|        |      ;  
+                       dw $000C                             ;18942F|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_07: db $02                               ;189431|        |      ;  
+                       dw $000B                             ;189432|        |      ;  
+                       dw $000C                             ;189434|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_08: db $02                               ;189436|        |      ;  
+                       dw $000B                             ;189437|        |      ;  
+                       dw $000C                             ;189439|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_09: db $04                               ;18943B|        |      ;  
+                       dw $0204                             ;18943C|        |      ;  
+                       dw $0207                             ;18943E|        |      ;  
+                       dw $0208                             ;189440|        |      ;  
+                       dw $0029                             ;189442|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_0A: db $04                               ;189444|        |      ;  
+                       dw $0304                             ;189445|        |      ;  
+                       dw $0307                             ;189447|        |      ;  
+                       dw $0308                             ;189449|        |      ;  
+                       dw $0029                             ;18944B|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_0B: db $04                               ;18944D|        |      ;  
+                       dw $0404                             ;18944E|        |      ;  
+                       dw $0407                             ;189450|        |      ;  
+                       dw $0408                             ;189452|        |      ;  
+                       dw $0029                             ;189454|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_0C: db $04                               ;189456|        |      ;  
+                       dw $0304                             ;189457|        |      ;  
+                       dw $0207                             ;189459|        |      ;  
+                       dw $0408                             ;18945B|        |      ;  
+                       dw $0029                             ;18945D|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_0D: db $02                               ;18945F|        |      ;  
+                       dw $000B                             ;189460|        |      ;  
+                       dw $000C                             ;189462|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_0E: db $02                               ;189464|        |      ;  
+                       dw $000B                             ;189465|        |      ;  
+                       dw $000C                             ;189467|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_06_Layout_0F: db $02                               ;189469|        |      ;  
+                       dw $000B                             ;18946A|        |      ;  
+                       dw $000C                             ;18946C|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_07_Num_Entries: db $01                               ;18946E|        |      ; Used by Hydra
+                                                            ;      |        |      ;  
+Formation_Zone_07_Boss: db $01                               ;18946F|        |      ;  
+                       dw $000C                             ;189470|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_08_Num_Entries: db $01                               ;189472|        |      ; Used by Darah and Barah
+                                                            ;      |        |      ;  
+Formation_Zone_08_Boss: db $02                               ;189473|        |      ;  
+                       dw $000B                             ;189474|        |      ;  
+                       dw $010C                             ;189476|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_09_Num_Entries: db $01                               ;189478|        |      ; Used by Rimsala 1+2
+                                                            ;      |        |      ;  
+Formation_Zone_09_Boss: db $01                               ;189479|        |      ;  
+                       dw $000E                             ;18947A|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Num_Entries: db $10                               ;18947C|        |      ; Used by Ch1, tiles 10-12 (Balnea 1F)
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_00: db $01                               ;18947D|        |      ;  
+                       dw $0004                             ;18947E|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_01: db $01                               ;189480|        |      ;  
+                       dw $0104                             ;189481|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_02: db $01                               ;189483|        |      ;  
+                       dw $0204                             ;189484|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_03: db $02                               ;189486|        |      ;  
+                       dw $0005                             ;189487|        |      ;  
+                       dw $0006                             ;189489|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_04: db $02                               ;18948B|        |      ;  
+                       dw $0105                             ;18948C|        |      ;  
+                       dw $0106                             ;18948E|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_05: db $02                               ;189490|        |      ;  
+                       dw $0205                             ;189491|        |      ;  
+                       dw $0206                             ;189493|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_06: db $03                               ;189495|        |      ;  
+                       dw $0005                             ;189496|        |      ;  
+                       dw $0006                             ;189498|        |      ;  
+                       dw $0224                             ;18949A|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_07: db $03                               ;18949C|        |      ;  
+                       dw $0105                             ;18949D|        |      ;  
+                       dw $0106                             ;18949F|        |      ;  
+                       dw $0224                             ;1894A1|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_08: db $03                               ;1894A3|        |      ;  
+                       dw $0205                             ;1894A4|        |      ;  
+                       dw $0206                             ;1894A6|        |      ;  
+                       dw $0324                             ;1894A8|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_09: db $03                               ;1894AA|        |      ;  
+                       dw $0005                             ;1894AB|        |      ;  
+                       dw $0006                             ;1894AD|        |      ;  
+                       dw $0024                             ;1894AF|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_0A: db $03                               ;1894B1|        |      ;  
+                       dw $0107                             ;1894B2|        |      ;  
+                       dw $0208                             ;1894B4|        |      ;  
+                       dw $0024                             ;1894B6|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_0B: db $03                               ;1894B8|        |      ;  
+                       dw $0204                             ;1894B9|        |      ;  
+                       dw $0025                             ;1894BB|        |      ;  
+                       dw $0026                             ;1894BD|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_0C: db $02                               ;1894BF|        |      ;  
+                       dw $0005                             ;1894C0|        |      ;  
+                       dw $0106                             ;1894C2|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_0D: db $02                               ;1894C4|        |      ;  
+                       dw $0105                             ;1894C5|        |      ;  
+                       dw $0206                             ;1894C7|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_0E: db $02                               ;1894C9|        |      ;  
+                       dw $0205                             ;1894CA|        |      ;  
+                       dw $0006                             ;1894CC|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0A_Layout_0F: db $05                               ;1894CE|        |      ;  
+                       dw $0004                             ;1894CF|        |      ;  
+                       dw $0007                             ;1894D1|        |      ;  
+                       dw $0008                             ;1894D3|        |      ;  
+                       dw $0125                             ;1894D5|        |      ;  
+                       dw $0126                             ;1894D7|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Num_Entries: db $10                               ;1894D9|        |      ; Used by Ch 2 (Draven Pass/Crimson Valley)
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_00: db $01                               ;1894DA|        |      ;  
+                       dw $0104                             ;1894DB|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_01: db $02                               ;1894DD|        |      ;  
+                       dw $0005                             ;1894DE|        |      ;  
+                       dw $0006                             ;1894E0|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_02: db $03                               ;1894E2|        |      ;  
+                       dw $0105                             ;1894E3|        |      ;  
+                       dw $0106                             ;1894E5|        |      ;  
+                       dw $0324                             ;1894E7|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_03: db $03                               ;1894E9|        |      ;  
+                       dw $0404                             ;1894EA|        |      ;  
+                       dw $0307                             ;1894EC|        |      ;  
+                       dw $0308                             ;1894EE|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_04: db $01                               ;1894F0|        |      ;  
+                       dw $0304                             ;1894F1|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_05: db $03                               ;1894F3|        |      ;  
+                       dw $0105                             ;1894F4|        |      ;  
+                       dw $0106                             ;1894F6|        |      ;  
+                       dw $0424                             ;1894F8|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_06: db $03                               ;1894FA|        |      ;  
+                       dw $0004                             ;1894FB|        |      ;  
+                       dw $0007                             ;1894FD|        |      ;  
+                       dw $0008                             ;1894FF|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_07: db $05                               ;189501|        |      ;  
+                       dw $0404                             ;189502|        |      ;  
+                       dw $0407                             ;189504|        |      ;  
+                       dw $0408                             ;189506|        |      ;  
+                       dw $0325                             ;189508|        |      ;  
+                       dw $0326                             ;18950A|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_08: db $03                               ;18950C|        |      ;  
+                       dw $0404                             ;18950D|        |      ;  
+                       dw $0107                             ;18950F|        |      ;  
+                       dw $0108                             ;189511|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_09: db $05                               ;189513|        |      ;  
+                       dw $0107                             ;189514|        |      ;  
+                       dw $0108                             ;189516|        |      ;  
+                       dw $0325                             ;189518|        |      ;  
+                       dw $0326                             ;18951A|        |      ;  
+                       dw $0344                             ;18951C|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_0A: db $06                               ;18951E|        |      ;  
+                       dw $0404                             ;18951F|        |      ;  
+                       dw $0125                             ;189521|        |      ;  
+                       dw $0126                             ;189523|        |      ;  
+                       dw $0344                             ;189525|        |      ;  
+                       dw $0347                             ;189527|        |      ;  
+                       dw $0348                             ;189529|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_0B: db $03                               ;18952B|        |      ;  
+                       dw $0304                             ;18952C|        |      ;  
+                       dw $0325                             ;18952E|        |      ;  
+                       dw $0326                             ;189530|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_0C: db $02                               ;189532|        |      ;  
+                       dw $0405                             ;189533|        |      ;  
+                       dw $0406                             ;189535|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_0D: db $02                               ;189537|        |      ;  
+                       dw $0305                             ;189538|        |      ;  
+                       dw $0306                             ;18953A|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_0E: db $05                               ;18953C|        |      ;  
+                       dw $0005                             ;18953D|        |      ;  
+                       dw $0006                             ;18953F|        |      ;  
+                       dw $0024                             ;189541|        |      ;  
+                       dw $0045                             ;189543|        |      ;  
+                       dw $0046                             ;189545|        |      ;  
+                                                            ;      |        |      ;  
+Formation_Zone_0B_Layout_0F: db $03                               ;189547|        |      ;  
+                       dw $0405                             ;189548|        |      ;  
+                       dw $0406                             ;18954A|        |      ;  
+                       dw $0324                             ;18954C|        |      ;  
+                                                            ;      |        |      ;  
+            New_stuff: db $1C                               ;18954E|        |      ;  
+                                                            ;      |        |      ;  
+           New_stuff2: db $38                               ;18954F|        |      ;  
                        db $E4                               ;189550|        |000038;  
                        db $38                               ;189551|        |      ;  
                        db $1C                               ;189552|        |00E4A0;  
@@ -4349,7 +4166,7 @@ Formation Tables 00-0A: dw Formation List 00                 ;189270|        |18
                        LSR A                                ;189760|4A      |      ;  
                        BCS CODE_18976B                      ;189761|B008    |18976B;  
                        ASL A                                ;189763|0A      |      ;  
-                       STA.W $0A7B,X                        ;189764|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;189764|9D7B0A  |000A7B;  
                        LDA.W #$0000                         ;189767|A90000  |      ;  
                        RTL                                  ;18976A|6B      |      ;  
                                                             ;      |        |      ;  
@@ -4361,7 +4178,7 @@ Formation Tables 00-0A: dw Formation List 00                 ;189270|        |18
                                                             ;      |        |      ;  
           CODE_18976F: LDA.W #$FFFF                         ;18976F|A9FFFF  |      ;  
                                                             ;      |        |      ;  
-          CODE_189772: STA.W $0A7B,X                        ;189772|9D7B0A  |000A7B;  
+          CODE_189772: STA.W Anim_ID,X                      ;189772|9D7B0A  |000A7B;  
                                                             ;      |        |      ;  
           CODE_189775: LDA.W #$0001                         ;189775|A90100  |      ;  
                        RTL                                  ;189778|6B      |      ;  
@@ -5534,15 +5351,15 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        LDA.W $11F7                          ;189D75|ADF711  |0011F7;  
                        ASL A                                ;189D78|0A      |      ;  
                        TAX                                  ;189D79|AA      |      ;  
-                       LDA.L DATA8_18954E,X                 ;189D7A|BF4E9518|18954E; Load lower byte
+                       LDA.L New_stuff,X                    ;189D7A|BF4E9518|18954E; Load lower byte
                        AND.W #$00FF                         ;189D7E|29FF00  |      ;  
                        STA.W $0787,Y                        ;189D81|998707  |000787; Store lower byte
-                       LDA.L DATA8_18954E,X                 ;189D84|BF4E9518|18954E; Load upper byte
+                       LDA.L New_stuff,X                    ;189D84|BF4E9518|18954E; Load upper byte
                        AND.W #$FF00                         ;189D88|2900FF  |      ;  
                        XBA                                  ;189D8B|EB      |      ;  
                        STA.W $07AB,Y                        ;189D8C|99AB07  |0007AB; Store upper byte
                        LDA.W #$0041                         ;189D8F|A94100  |      ;  
-                       STA.W $0A7B,Y                        ;189D92|997B0A  |000A7B; Overwrite it with 41 (??)
+                       STA.W Anim_ID,Y                      ;189D92|997B0A  |000A7B; Overwrite it with 41 (??)
                        RTL                                  ;189D95|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -5826,7 +5643,7 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        LDA.W #$00B2                         ;189FC5|A9B200  |      ;  
                        STA.W $07AB,Y                        ;189FC8|99AB07  |0007AB;  
                        LDA.W #$005B                         ;189FCB|A95B00  |      ;  
-                       STA.W $0A7B,Y                        ;189FCE|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;189FCE|997B0A  |000A7B;  
                        LDA.W Input (0031)                   ;189FD1|AD3100  |000031;  
                        AND.W #$0080                         ;189FD4|298000  |      ;  
                        BNE CODE_189FDD                      ;189FD7|D004    |189FDD;  
@@ -5838,7 +5655,7 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        JSL.L Play SFX                       ;189FE0|22479C00|009C47;  
                        LDY.W Selection                      ;189FE4|AC3F10  |00103F;  
                        LDA.W #$FFFF                         ;189FE7|A9FFFF  |      ;  
-                       STA.W $0A7B,Y                        ;189FEA|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;189FEA|997B0A  |000A7B;  
                        LDA.W $09A3,Y                        ;189FED|B9A309  |0009A3;  
                        INC A                                ;189FF0|1A      |      ;  
                        RTL                                  ;189FF1|6B      |      ;  
@@ -9956,13 +9773,13 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $00                               ;18B434|        |      ; 00
                                                             ;      |        |      ;  
      EVENT_0E_(Dao_1): LDA.W Current map                    ;18B435|AD7315  |001573; Darah event
-                       CMP.W #$0108                         ;18B438|C90801  |      ; Is current map Ch 4 Stavery 1-4F?
+                       CMP.W #$0108                         ;18B438|C90801  |      ; Confirm map = Ch 4 Stavery 1-4F
                        BNE CODE_18B44F                      ;18B43B|D012    |18B44F;  
                        LDA.W Map X pos                      ;18B43D|ADF716  |0016F7;  
-                       CMP.W #$000B                         ;18B440|C90B00  |      ; Confirm X=B
+                       CMP.W #$000B                         ;18B440|C90B00  |      ; Confirm X position
                        BNE CODE_18B44F                      ;18B443|D00A    |18B44F;  
                        LDA.W Map Y pos                      ;18B445|ADF916  |0016F9;  
-                       CMP.W #$000A                         ;18B448|C90A00  |      ; Confirm Y=A
+                       CMP.W #$000A                         ;18B448|C90A00  |      ; Confirm Y position
                        BNE CODE_18B44F                      ;18B44B|D002    |18B44F;  
                        SEC                                  ;18B44D|38      |      ;  
                        RTS                                  ;18B44E|60      |      ;  
@@ -9976,7 +9793,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $01                               ;18B452|        |      ;  
                        db $11                               ;18B453|        |      ;  
                        db $01                               ;18B454|        |      ;  
-                       dw CODE_00B4DA                       ;18B455|        |00B4DA;  
+                       dw DATA8_18B4DA                      ;18B455|        |18B4DA;  
                        db $07                               ;18B457|        |      ;  
                        dl Zero $18FD                        ;18B458|        |188321;  
                        db $07                               ;18B45B|        |      ;  
@@ -9984,7 +9801,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dl RLE_Loc_Pre_Darah1                ;18B45F|        |14820C;  
                        dw $0400                             ;18B462|        |      ;  
                        db $1B                               ;18B464|        |      ;  
-                       dw UNREACH_00D4B9                    ;18B465|        |00D4B9;  
+                       dw ASM_Make_Animation_Loop           ;18B465|        |18D4B9;  
                        db $07                               ;18B467|        |      ;  
                        dl Transfer_Data(3b)(1b)(2b)         ;18B468|        |00A140;  
                        dl Data_Pre_Darah                    ;18B46B|        |19899D;  
@@ -9998,9 +9815,9 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dl SCRIPT_066                        ;18B478|        |0CD60A;  
                        db $00                               ;18B47B|        |      ;  
                        db $08                               ;18B47C|        |      ;  
-                       dw CODE_00971B                       ;18B47D|        |00971B;  
+                       dw Sub_Some_Anim                     ;18B47D|        |18971B;  
                        db $1B                               ;18B47F|        |      ;  
-                       dw UNREACH_00D4C3                    ;18B480|        |00D4C3;  
+                       dw Loop_until_$1091=FF               ;18B480|        |18D4C3;  
                        db $07                               ;18B482|        |      ;  
                        dl Load_Sprite(14b)                  ;18B483|        |009CAE;  
                        db $08                               ;18B486|        |      ;  
@@ -10025,14 +9842,14 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dl SCRIPT_067                        ;18B49A|        |0CD677;  
                        db $00                               ;18B49D|        |      ;  
                        db $1B                               ;18B49E|        |      ;  
-                       dw UNREACH_00D4C3                    ;18B49F|        |00D4C3;  
+                       dw Loop_until_$1091=FF               ;18B49F|        |18D4C3;  
                        db $07                               ;18B4A1|        |      ;  
                        dl Check_Party                       ;18B4A2|        |18D4D9;  
-                       db $14                               ;18B4A5|        |      ;  
+                       db $14                               ;18B4A5|        |      ; 14 01
                        db $01                               ;18B4A6|        |      ;  
-                       db $30                               ;18B4A7|        |      ;  
+                       db $30                               ;18B4A7|        |      ; 30 FF
                        db $FF                               ;18B4A8|        |      ;  
-                       db $16                               ;18B4A9|        |      ;  
+                       db $16                               ;18B4A9|        |      ; Set battle 09 (Darah)
                        dw $18E1                             ;18B4AA|        |      ;  
                        dw $0009                             ;18B4AC|        |      ;  
                        db $07                               ;18B4AE|        |      ;  
@@ -10040,18 +9857,18 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $07                               ;18B4B2|        |      ;  
                        dl Roll encounter                    ;18B4B3|        |188210;  
                        db $1B                               ;18B4B6|        |      ;  
-                       dw DATA8_00D3D4                      ;18B4B7|        |00D3D4;  
+                       dw Sub_Sauza_1                       ;18B4B7|        |18D3D4;  
                        db $1B                               ;18B4B9|        |      ;  
-                       dw PTR24_00D3C3                      ;18B4BA|        |00D3C3;  
+                       dw Sub_Check_11C1                    ;18B4BA|        |18D3C3;  
                        db $1B                               ;18B4BC|        |      ;  
-                       dw DATA8_00D3E0                      ;18B4BD|        |00D3E0;  
+                       dw Sub_Sauza_2                       ;18B4BD|        |18D3E0;  
                                                             ;      |        |      ;  
        Text_SCRIPT068: db $07                               ;18B4BF|        |      ; Got the Earth Spirit
                        dl Load_Event_Text                   ;18B4C0|        |18D4CC;  
                        dl SCRIPT_068                        ;18B4C3|        |0CD6CB;  
                        db $00                               ;18B4C6|        |      ;  
                        db $1B                               ;18B4C7|        |      ;  
-                       dw PTR24_00D37B                      ;18B4C8|        |00D37B;  
+                       dw Fanfare_+_Refresh_Music           ;18B4C8|        |18D37B;  
                                                             ;      |        |      ;  
     Earth_Spirit_Get1: db $1E                               ;18B4CA|        |      ;  
                        db $02                               ;18B4CB|        |      ;  
@@ -10059,12 +9876,13 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $07                               ;18B4CD|        |      ;  
                        dl Get_New_Spirit_far                ;18B4CE|        |078D0C;  
                        db $1B                               ;18B4D1|        |      ;  
-                       dw LOOSE_OP_00D45C                   ;18B4D2|        |00D45C;  
+                       dw Some_sub                          ;18B4D2|        |18D45C;  
                        db $16                               ;18B4D4|        |      ;  
                        dw $1901                             ;18B4D5|        |      ;  
                        dw $0000                             ;18B4D7|        |      ;  
                        db $00                               ;18B4D9|        |      ; 00
-                       db $30                               ;18B4DA|        |      ; 30 4F
+                                                            ;      |        |      ;  
+         DATA8_18B4DA: db $30                               ;18B4DA|        |      ; 30 4F
                        db $4F                               ;18B4DB|        |      ;  
                        db $0A                               ;18B4DC|        |      ; 0A
                                                             ;      |        |      ;  
@@ -10603,11 +10421,11 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        dw Loop_until_$1091=FF               ;18B7EC|        |18D4C3;  
                        db $07                               ;18B7EE|        |      ;  
                        dl Check_Party                       ;18B7EF|        |18D4D9;  
-                       db $14                               ;18B7F2|        |      ;  
+                       db $14                               ;18B7F2|        |      ; 14 01
                        db $01                               ;18B7F3|        |      ;  
-                       db $30                               ;18B7F4|        |      ;  
+                       db $30                               ;18B7F4|        |      ; 30 FF
                        db $FF                               ;18B7F5|        |      ;  
-                       db $16                               ;18B7F6|        |      ;  
+                       db $16                               ;18B7F6|        |      ; Set battle = Darah+Barah (0A)
                        dw $18E1                             ;18B7F7|        |      ;  
                        dw $000A                             ;18B7F9|        |      ;  
                        db $07                               ;18B7FB|        |      ;  
@@ -12401,7 +12219,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        LDX.W Function results               ;18C0C6|AE4110  |001041;  
                        CLC                                  ;18C0C9|18      |      ;  
                        ADC.W #$000F                         ;18C0CA|690F00  |      ;  
-                       STA.W $0B9F,X                        ;18C0CD|9D9F0B  |000B9F;  
+                       STA.W Anim_Loopvar,X                 ;18C0CD|9D9F0B  |000B9F;  
                        RTL                                  ;18C0D0|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -17049,7 +16867,7 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
                        LDA.W $09A3,Y                        ;18DA08|B9A309  |0009A3;  
                        CLC                                  ;18DA0B|18      |      ;  
                        ADC.L UNREACH_18DA48,X               ;18DA0C|7F48DA18|18DA48;  
-                       STA.W $0A7B,Y                        ;18DA10|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;18DA10|997B0A  |000A7B;  
                        LDA.L UNREACH_18DA5C,X               ;18DA13|BF5CDA18|18DA5C;  
                        STA.W $0787,Y                        ;18DA17|998707  |000787;  
                        LDA.L UNREACH_18DA70,X               ;18DA1A|BF70DA18|18DA70;  
@@ -17064,7 +16882,7 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
                        STA.W $0883,Y                        ;18DA3A|998308  |000883;  
                        LDY.W Function results               ;18DA3D|AC4110  |001041;  
                        LDA.L UNREACH_18DAD4,X               ;18DA40|BFD4DA18|18DAD4;  
-                       STA.W $0B9F,Y                        ;18DA44|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;18DA44|999F0B  |000B9F;  
                        RTL                                  ;18DA47|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  

@@ -2954,7 +2954,7 @@
                        db $0C                               ;059263|        |      ;  
                        dw LOOSE_OP_00920A                   ;059264|        |00920A;  
                        db $1A                               ;059266|        |      ;  
-                       dw Code Opcode 06                    ;059267|        |0091DA;  
+                       dw Event_Code_06                     ;059267|        |0091DA;  
                        db $1B                               ;059269|        |      ; 1B: JSR to 8312
                        dw CODE_008312                       ;05926A|        |008312;  
                        db $1A                               ;05926C|        |      ; 1A: Jump to 9269 (nice)
@@ -13420,171 +13420,93 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E33F|        |      ;  
                                                             ;      |        |      ;  
           Spell names: db "                     "           ;05E340|        |      ;  
-                       db $00                               ;05E355|        |      ;  
-                       db "Lightning 1          "           ;05E356|        |      ;  
-                       db $00                               ;05E36B|        |      ;  
-                       db "Lightning 2          "           ;05E36C|        |      ;  
-                       db $00                               ;05E381|        |      ;  
-                       db "Lightning 3          "           ;05E382|        |      ;  
-                       db $00                               ;05E397|        |      ;  
-                       db "Smash 1              "           ;05E398|        |      ;  
-                       db $00                               ;05E3AD|        |      ;  
-                       db "Smash 2              "           ;05E3AE|        |      ;  
-                       db $00                               ;05E3C3|        |      ;  
-                       db "Smash 3              "           ;05E3C4|        |      ;  
-                       db $00                               ;05E3D9|        |      ;  
-                       db "Water 1              "           ;05E3DA|        |      ;  
-                       db $00                               ;05E3EF|        |      ;  
-                       db "Water 2              "           ;05E3F0|        |      ;  
-                       db $00                               ;05E405|        |      ;  
-                       db "Water 3              "           ;05E406|        |      ;  
-                       db $00                               ;05E41B|        |      ;  
-                       db "Flame 1              "           ;05E41C|        |      ;  
-                       db $00                               ;05E431|        |      ;  
-                       db "Flame 2              "           ;05E432|        |      ;  
-                       db $00                               ;05E447|        |      ;  
-                       db "Flame 3              "           ;05E448|        |      ;  
-                       db $00                               ;05E45D|        |      ;  
-                       db "Attribute 1          "           ;05E45E|        |      ;  
-                       db $00                               ;05E473|        |      ;  
-                       db "Attribute 2          "           ;05E474|        |      ;  
-                       db $00                               ;05E489|        |      ;  
-                       db "Attribute 3          "           ;05E48A|        |      ;  
-                       db $00                               ;05E49F|        |      ;  
-                       db "Attribute 4          "           ;05E4A0|        |      ;  
-                       db $00                               ;05E4B5|        |      ;  
-                       db "Attribute 5          "           ;05E4B6|        |      ;  
-                       db $00                               ;05E4CB|        |      ;  
-                       db "Attribute 6          "           ;05E4CC|        |      ;  
-                       db $00                               ;05E4E1|        |      ;  
-                       db "Attribute 7          "           ;05E4E2|        |      ;  
-                       db $00                               ;05E4F7|        |      ;  
-                       db "Attribute 8          "           ;05E4F8|        |      ;  
-                       db $00                               ;05E50D|        |      ;  
+                       db $00, "Lightning 1         "       ;05E355|        |      ;  
+                       db " ", $00, "Lightning 2        "   ;05E36A|        |      ;  
+                       db "  ", $00, "Lightning 3       "   ;05E37F|        |      ;  
+                       db "   ", $00, "Smash 1          "   ;05E394|        |      ;  
+                       db "    ", $00, "Smash 2         "   ;05E3A9|        |      ;  
+                       db "     ", $00, "Smash 3        "   ;05E3BE|        |      ;  
+                       db "      ", $00, "Water 1       "   ;05E3D3|        |      ;  
+                       db "       ", $00, "Water 2      "   ;05E3E8|        |      ;  
+                       db "        ", $00, "Water 3     "   ;05E3FD|        |      ;  
+                       db "         ", $00, "Flame 1    "   ;05E412|        |      ;  
+                       db "          ", $00, "Flame 2   "   ;05E427|        |      ;  
+                       db "           ", $00, "Flame 3  "   ;05E43C|        |      ;  
+                       db "            ", $00, "Attribut"   ;05E451|        |      ;  
+                       db "e 1          ", $00, "Attribu"   ;05E466|        |      ;  
+                       db "te 2          ", $00, "Attrib"   ;05E47B|        |      ;  
+                       db "ute 3          ", $00, "Attri"   ;05E490|        |      ;  
+                       db "bute 4          ", $00, "Attr"   ;05E4A5|        |      ;  
+                       db "ibute 5          ", $00, "Att"   ;05E4BA|        |      ;  
+                       db "ribute 6          ", $00, "At"   ;05E4CF|        |      ;  
+                       db "tribute 7          ", $00, "A"   ;05E4E4|        |      ;  
+                       db "ttribute 8          ", $00       ;05E4F9|        |      ;  
                        db "Attribute 9          "           ;05E50E|        |      ;  
-                       db $00                               ;05E523|        |      ;  
-                       db "Attribute 10         "           ;05E524|        |      ;  
-                       db $00                               ;05E539|        |      ;  
-                       db "Attribute 11         "           ;05E53A|        |      ;  
-                       db $00                               ;05E54F|        |      ;  
-                       db "Call Wind Spirit     "           ;05E550|        |      ;  
-                       db $00                               ;05E565|        |      ;  
-                       db "Call Earth Spirit    "           ;05E566|        |      ;  
-                       db $00                               ;05E57B|        |      ;  
-                       db "Call Water Spirit    "           ;05E57C|        |      ;  
-                       db $00                               ;05E591|        |      ;  
-                       db "Call Fire Spirit     "           ;05E592|        |      ;  
-                       db $00                               ;05E5A7|        |      ;  
-                       db "Drain Spell          "           ;05E5A8|        |      ;  
-                       db $00                               ;05E5BD|        |      ;  
-                       db "Psych Spell          "           ;05E5BE|        |      ;  
-                       db $00                               ;05E5D3|        |      ;  
-                       db "HP Restore All       "           ;05E5D4|        |      ;  
-                       db $00                               ;05E5E9|        |      ;  
-                       db "HP Restore           "           ;05E5EA|        |      ;  
-                       db $00                               ;05E5FF|        |      ;  
-                       db "Heal 1               "           ;05E600|        |      ;  
-                       db $00                               ;05E615|        |      ;  
-                       db "Heal 2               "           ;05E616|        |      ;  
-                       db $00                               ;05E62B|        |      ;  
-                       db "Heal 3               "           ;05E62C|        |      ;  
-                       db $00                               ;05E641|        |      ;  
-                       db "Heal All 1           "           ;05E642|        |      ;  
-                       db $00                               ;05E657|        |      ;  
-                       db "Heal All 2           "           ;05E658|        |      ;  
-                       db $00                               ;05E66D|        |      ;  
-                       db "Chaos Wind           "           ;05E66E|        |      ;  
-                       db $00                               ;05E683|        |      ;  
-                       db "Entomb               "           ;05E684|        |      ;  
-                       db $00                               ;05E699|        |      ;  
-                       db "Destroy              "           ;05E69A|        |      ;  
-                       db $00                               ;05E6AF|        |      ;  
-                       db "Paralyze All         "           ;05E6B0|        |      ;  
-                       db $00                               ;05E6C5|        |      ;  
-                       db "Petrify All          "           ;05E6C6|        |      ;  
-                       db $00                               ;05E6DB|        |      ;  
+                       db $00, "Attribute 10        "       ;05E523|        |      ;  
+                       db " ", $00, "Attribute 11       "   ;05E538|        |      ;  
+                       db "  ", $00, "Call Wind Spirit  "   ;05E54D|        |      ;  
+                       db "   ", $00, "Call Earth Spirit"   ;05E562|        |      ;  
+                       db "    ", $00, "Call Water Spiri"   ;05E577|        |      ;  
+                       db "t    ", $00, "Call Fire Spiri"   ;05E58C|        |      ;  
+                       db "t     ", $00, "Drain Spell   "   ;05E5A1|        |      ;  
+                       db "       ", $00, "Psych Spell  "   ;05E5B6|        |      ;  
+                       db "        ", $00, "HP Restore A"   ;05E5CB|        |      ;  
+                       db "ll       ", $00, "HP Restore "   ;05E5E0|        |      ;  
+                       db "          ", $00, "Heal 1    "   ;05E5F5|        |      ;  
+                       db "           ", $00, "Heal 2   "   ;05E60A|        |      ;  
+                       db "            ", $00, "Heal 3  "   ;05E61F|        |      ;  
+                       db "             ", $00, "Heal Al"   ;05E634|        |      ;  
+                       db "l 1           ", $00, "Heal A"   ;05E649|        |      ;  
+                       db "ll 2           ", $00, "Chaos"   ;05E65E|        |      ;  
+                       db " Wind           ", $00, "Ento"   ;05E673|        |      ;  
+                       db "mb               ", $00, "Des"   ;05E688|        |      ;  
+                       db "troy              ", $00, "Pa"   ;05E69D|        |      ;  
+                       db "ralyze All         ", $00, "P"   ;05E6B2|        |      ;  
+                       db "etrify All          ", $00       ;05E6C7|        |      ;  
                        db "Stop All             "           ;05E6DC|        |      ;  
-                       db $00                               ;05E6F1|        |      ;  
-                       db "Sleep All            "           ;05E6F2|        |      ;  
-                       db $00                               ;05E707|        |      ;  
-                       db "Confused All         "           ;05E708|        |      ;  
-                       db $00                               ;05E71D|        |      ;  
-                       db "Paralyze             "           ;05E71E|        |      ;  
-                       db $00                               ;05E733|        |      ;  
-                       db "Petrify              "           ;05E734|        |      ;  
-                       db $00                               ;05E749|        |      ;  
-                       db "Stop                 "           ;05E74A|        |      ;  
-                       db $00                               ;05E75F|        |      ;  
-                       db "Sleep                "           ;05E760|        |      ;  
-                       db $00                               ;05E775|        |      ;  
-                       db "Confused             "           ;05E776|        |      ;  
-                       db $00                               ;05E78B|        |      ;  
-                       db "Offense Impair       "           ;05E78C|        |      ;  
-                       db $00                               ;05E7A1|        |      ;  
-                       db "Offense Impair All   "           ;05E7A2|        |      ;  
-                       db $00                               ;05E7B7|        |      ;  
-                       db "Defense Impair       "           ;05E7B8|        |      ;  
-                       db $00                               ;05E7CD|        |      ;  
-                       db "Defense Impair All   "           ;05E7CE|        |      ;  
-                       db $00                               ;05E7E3|        |      ;  
-                       db "Accuracy Impair      "           ;05E7E4|        |      ;  
-                       db $00                               ;05E7F9|        |      ;  
-                       db "Accuracy Impair All  "           ;05E7FA|        |      ;  
-                       db $00                               ;05E80F|        |      ;  
-                       db "Attack Impair        "           ;05E810|        |      ;  
-                       db $00                               ;05E825|        |      ;  
-                       db "Attack Impair All    "           ;05E826|        |      ;  
-                       db $00                               ;05E83B|        |      ;  
-                       db "Requiem              "           ;05E83C|        |      ;  
-                       db $00                               ;05E851|        |      ;  
-                       db "Emancipation         "           ;05E852|        |      ;  
-                       db $00                               ;05E867|        |      ;  
-                       db "Final Liberation     "           ;05E868|        |      ;  
-                       db $00                               ;05E87D|        |      ;  
-                       db "Ruinous Mission      "           ;05E87E|        |      ;  
-                       db $00                               ;05E893|        |      ;  
-                       db "Flee                 "           ;05E894|        |      ;  
-                       db $00                               ;05E8A9|        |      ;  
+                       db $00, "Sleep All           "       ;05E6F1|        |      ;  
+                       db " ", $00, "Confused All       "   ;05E706|        |      ;  
+                       db "  ", $00, "Paralyze          "   ;05E71B|        |      ;  
+                       db "   ", $00, "Petrify          "   ;05E730|        |      ;  
+                       db "    ", $00, "Stop            "   ;05E745|        |      ;  
+                       db "     ", $00, "Sleep          "   ;05E75A|        |      ;  
+                       db "      ", $00, "Confused      "   ;05E76F|        |      ;  
+                       db "       ", $00, "Offense Impai"   ;05E784|        |      ;  
+                       db "r       ", $00, "Offense Impa"   ;05E799|        |      ;  
+                       db "ir All   ", $00, "Defense Imp"   ;05E7AE|        |      ;  
+                       db "air       ", $00, "Defense Im"   ;05E7C3|        |      ;  
+                       db "pair All   ", $00, "Accuracy "   ;05E7D8|        |      ;  
+                       db "Impair      ", $00, "Accuracy"   ;05E7ED|        |      ;  
+                       db " Impair All  ", $00, "Attack "   ;05E802|        |      ;  
+                       db "Impair        ", $00, "Attack"   ;05E817|        |      ;  
+                       db " Impair All    ", $00, "Requi"   ;05E82C|        |      ;  
+                       db "em              ", $00, "Eman"   ;05E841|        |      ;  
+                       db "cipation         ", $00, "Fin"   ;05E856|        |      ;  
+                       db "al Liberation     ", $00, "Ru"   ;05E86B|        |      ;  
+                       db "inous Mission      ", $00, "F"   ;05E880|        |      ;  
+                       db "lee                 ", $00       ;05E895|        |      ;  
                        db "Dodge All            "           ;05E8AA|        |      ;  
-                       db $00                               ;05E8BF|        |      ;  
-                       db "Wall All             "           ;05E8C0|        |      ;  
-                       db $00                               ;05E8D5|        |      ;  
-                       db "Accuracy Increase All"           ;05E8D6|        |      ;  
-                       db $00                               ;05E8EB|        |      ;  
-                       db "Stomp All            "           ;05E8EC|        |      ;  
-                       db $00                               ;05E901|        |      ;  
-                       db "Change Attr. to Wind "           ;05E902|        |      ;  
-                       db $00                               ;05E917|        |      ;  
-                       db "Change Attr. to Earth"           ;05E918|        |      ;  
-                       db $00                               ;05E92D|        |      ;  
-                       db "Change Attr. to Water"           ;05E92E|        |      ;  
-                       db $00                               ;05E943|        |      ;  
-                       db "Change Attr. to Fire "           ;05E944|        |      ;  
-                       db $00                               ;05E959|        |      ;  
-                       db "Repel                "           ;05E95A|        |      ;  
-                       db $00                               ;05E96F|        |      ;  
-                       db "Mirror               "           ;05E970|        |      ;  
-                       db $00                               ;05E985|        |      ;  
-                       db "Restore All          "           ;05E986|        |      ;  
-                       db $00                               ;05E99B|        |      ;  
-                       db "Revitalize           "           ;05E99C|        |      ;  
-                       db $00                               ;05E9B1|        |      ;  
-                       db "Unpetrify            "           ;05E9B2|        |      ;  
-                       db $00                               ;05E9C7|        |      ;  
-                       db "Restoration of Spirit"           ;05E9C8|        |      ;  
-                       db $00                               ;05E9DD|        |      ;  
-                       db "Home                 "           ;05E9DE|        |      ;  
-                       db $00                               ;05E9F3|        |      ;  
-                       db "Way Point            "           ;05E9F4|        |      ;  
-                       db $00                               ;05EA09|        |      ;  
-                       db "Way Point Warp       "           ;05EA0A|        |      ;  
-                       db $00                               ;05EA1F|        |      ;  
-                       db "diminish Encounters  "           ;05EA20|        |      ;  
-                       db $00                               ;05EA35|        |      ;  
-                       db "diminish Encounters 2"           ;05EA36|        |      ;  
-                       db $00                               ;05EA4B|        |      ;  
+                       db $00, "Wall All            "       ;05E8BF|        |      ;  
+                       db " ", $00, "Accuracy Increase A"   ;05E8D4|        |      ;  
+                       db "ll", $00, "Stomp All         "   ;05E8E9|        |      ;  
+                       db "   ", $00, "Change Attr. to W"   ;05E8FE|        |      ;  
+                       db "ind ", $00, "Change Attr. to "   ;05E913|        |      ;  
+                       db "Earth", $00, "Change Attr. to"   ;05E928|        |      ;  
+                       db " Water", $00, "Change Attr. t"   ;05E93D|        |      ;  
+                       db "o Fire ", $00, "Repel        "   ;05E952|        |      ;  
+                       db "        ", $00, "Mirror      "   ;05E967|        |      ;  
+                       db "         ", $00, "Restore All"   ;05E97C|        |      ;  
+                       db "          ", $00, "Revitalize"   ;05E991|        |      ;  
+                       db "           ", $00, "Unpetrify"   ;05E9A6|        |      ;  
+                       db "            ", $00, "Restorat"   ;05E9BB|        |      ;  
+                       db "ion of Spirit", $00, "Home   "   ;05E9D0|        |      ;  
+                       db "              ", $00, "Way Po"   ;05E9E5|        |      ;  
+                       db "int            ", $00, "Way P"   ;05E9FA|        |      ;  
+                       db "oint Warp       ", $00, "dimi"   ;05EA0F|        |      ;  
+                       db "nish Encounters  ", $00, "dim"   ;05EA24|        |      ;  
+                       db "inish Encounters 2", $00         ;05EA39|        |      ;  
                                                             ;      |        |      ;  
-       Spell use flag: db $00                               ;05EA4C|        |      ;  
+       Spell_use_flag: db $00                               ;05EA4C|        |      ;  
                        db $02                               ;05EA4D|        |      ; (Starting with Lightning 1)
                        db $02                               ;05EA4E|        |      ; Battle only: 02 (Attack spells)
                        db $02                               ;05EA4F|        |      ; Out-of-battle only: 01 (Home)
@@ -13667,7 +13589,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $01                               ;05EA9C|        |      ;  
                        db $01                               ;05EA9D|        |      ;  
                                                             ;      |        |      ;  
- Spell_flag_Targeting: db $00                               ;05EA9E|        |      ;  
+ Spell_flag_targeting: db $00                               ;05EA9E|        |      ;  
                        db $01                               ;05EA9F|        |      ; 01 is multi-target, 00 is single target.
                        db $01                               ;05EAA0|        |      ; Change Attribute breaks when changed to single-target.
                        db $01                               ;05EAA1|        |      ;  
@@ -13750,7 +13672,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $01                               ;05EAEE|        |      ;  
                        db $01                               ;05EAEF|        |      ;  
                                                             ;      |        |      ;  
-       Spell accuracy: db $00                               ;05EAF0|        |      ;  
+       Spell_Accuracy: db $00                               ;05EAF0|        |      ;  
                        db $CD                               ;05EAF1|        |      ; Accuracy is out of 255; for instance Lightning 1 has CD accuracy (80%)
                        db $CD                               ;05EAF2|        |      ; Due to an odd design, Smash 1/2/3 have higher accuracy than the other elements.
                        db $CD                               ;05EAF3|        |      ;  
@@ -13842,7 +13764,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $F0                               ;05EB49|        |      ; Call Amulet fail1
                        db $F0                               ;05EB4A|        |      ; Call Amulet fail2
                                                             ;      |        |      ;  
-          Spell power: dw $0000                             ;05EB4B|        |      ;  
+          Spell_Power: dw $0000                             ;05EB4B|        |      ;  
                        dw $000A                             ;05EB4D|        |      ; Note that status spells have unique numbers, for instance:
                        dw $0028                             ;05EB4F|        |      ; Paralyze and Paralyze All have power 03 to represent paralysis status.
                        dw $005A                             ;05EB51|        |      ;  
@@ -13934,7 +13856,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        dw $0028                             ;05EBFD|        |      ; Call Amulet fail 1
                        dw $003C                             ;05EBFF|        |      ; Call Amulet fail 2
                                                             ;      |        |      ;  
-     Spell ??/element: dw $0000                             ;05EC01|        |      ;  
+     Spell_??/element: dw $0000                             ;05EC01|        |      ;  
                        dw $1010                             ;05EC03|        |      ; Even bytes are spell element: 10 = Wind, 20 = Earth, 40 = Water, 80 = Fire
                        dw $1010                             ;05EC05|        |      ; (Speculation, maybe this reduces spell effectiveness against bosses.)
                        dw $1010                             ;05EC07|        |      ;  
@@ -13977,7 +13899,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        dw $0000                             ;05EC51|        |      ;  
                        dw $0000                             ;05EC53|        |      ;  
                                                             ;      |        |      ;  
-         Unknown data: dw $0000                             ;05EC55|        |      ;  
+         Unknown_data: dw $0000                             ;05EC55|        |      ;  
                        dw $0000                             ;05EC57|        |      ;  
                        dw $0000                             ;05EC59|        |      ;  
                        dw $0000                             ;05EC5B|        |      ;  
@@ -14018,7 +13940,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        dw $0000                             ;05ECA1|        |      ;  
                        dw $0000                             ;05ECA3|        |      ;  
                                                             ;      |        |      ;  
-        Spell MP cost: db $00                               ;05ECA5|        |      ;  
+        Spell_MP_cost: db $00                               ;05ECA5|        |      ;  
                        db $08                               ;05ECA6|        |      ; Lightning 1: 8 MP
                        db $0E                               ;05ECA7|        |      ;  
                        db $14                               ;05ECA8|        |      ;  
@@ -14101,9 +14023,8 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $04                               ;05ECF5|        |      ;  
                        db $08                               ;05ECF6|        |      ; Diminish Encounters 2: 8 MP
                                                             ;      |        |      ;  
-         DATA8_05ECF7: db $00                               ;05ECF7|        |      ;  
-                                                            ;      |        |      ;  
-        Spell palette: db $01                               ;05ECF8|        |      ; Affects the colors used. Most of them are weird, so only a few are used.
+        Spell_palette: db $00                               ;05ECF7|        |      ; Affects the colors used. Most of them are weird, so only a few are used.
+                       db $01                               ;05ECF8|        |      ;  
                        db $02                               ;05ECF9|        |      ;  
                        db $03                               ;05ECFA|        |      ;  
                        db $01                               ;05ECFB|        |      ;  
@@ -14184,22 +14105,21 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $05                               ;05ED46|        |      ;  
                        db $05                               ;05ED47|        |      ;  
                        db $05                               ;05ED48|        |      ;  
-                                                            ;      |        |      ;  
-         Unknown data: db $07                               ;05ED49|        |000008;  
+                       db $07                               ;05ED49|        |      ;  
                        db $08                               ;05ED4A|        |      ;  
                        db $09                               ;05ED4B|        |      ;  
-                       db $04                               ;05ED4C|        |000005;  
-                       db $05                               ;05ED4D|        |000000;  
+                       db $04                               ;05ED4C|        |      ;  
+                       db $05                               ;05ED4D|        |      ;  
                        db $00                               ;05ED4E|        |      ;  
                        db $00                               ;05ED4F|        |      ;  
                        db $0A                               ;05ED50|        |      ;  
                        db $0A                               ;05ED51|        |      ;  
                        db $0B                               ;05ED52|        |      ;  
-                       db $0C                               ;05ED53|        |000000;  
+                       db $0C                               ;05ED53|        |      ;  
                        db $00                               ;05ED54|        |      ;  
                        db $00                               ;05ED55|        |      ;  
                                                             ;      |        |      ;  
-            Spell SFX: db $00                               ;05ED56|        |      ;  
+            Spell_SFX: db $00                               ;05ED56|        |      ;  
                        db $1E                               ;05ED57|        |      ; This uses SFX ID's, for instance 1E is Lightning.
                        db $1E                               ;05ED58|        |      ;  
                        db $1E                               ;05ED59|        |      ;  
@@ -14281,23 +14201,21 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05EDA5|        |      ;  
                        db $00                               ;05EDA6|        |      ;  
                        db $00                               ;05EDA7|        |      ;  
-                                                            ;      |        |      ;  
-         Unknown data: db $24                               ;05EDA8|        |000024;  
-                       db $24                               ;05EDA9|        |000024;  
-                       db $24                               ;05EDAA|        |000024;  
-                       db $24                               ;05EDAB|        |000019;  
-                                                            ;      |        |      ;  
-    Spellcasting SFX?: db $19                               ;05EDAC|        |000000;  
+                       db $24                               ;05EDA8|        |      ;  
+                       db $24                               ;05EDA9|        |      ;  
+                       db $24                               ;05EDAA|        |      ;  
+                       db $24                               ;05EDAB|        |      ;  
+                       db $19                               ;05EDAC|        |      ;  
                        db $00                               ;05EDAD|        |      ;  
                        db $00                               ;05EDAE|        |      ;  
-                       db $1C                               ;05EDAF|        |001B1C;  
-                       db $1C                               ;05EDB0|        |001A1B;  
+                       db $1C                               ;05EDAF|        |      ;  
+                       db $1C                               ;05EDB0|        |      ;  
                        db $1B                               ;05EDB1|        |      ;  
                        db $1A                               ;05EDB2|        |      ;  
                        db $00                               ;05EDB3|        |      ;  
                        db $00                               ;05EDB4|        |      ;  
                                                             ;      |        |      ;  
-        Tbl: Spell FX: db $FF                               ;05EDB5|        |      ; Attack spells
+   Tbl_Spell_Category: db $FF                               ;05EDB5|        |      ; Attack spells
                        db $00                               ;05EDB6|        |      ;  
                        db $00                               ;05EDB7|        |      ;  
                        db $00                               ;05EDB8|        |      ;  
@@ -14328,7 +14246,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $01                               ;05EDD1|        |      ; Drain Spell
                        db $01                               ;05EDD2|        |      ; Psych Spell
                                                             ;      |        |      ;  
-       Healing spells: db $02                               ;05EDD3|        |      ;  
+       Healing_spells: db $02                               ;05EDD3|        |      ;  
                        db $02                               ;05EDD4|        |      ;  
                        db $02                               ;05EDD5|        |      ;  
                        db $02                               ;05EDD6|        |      ;  
@@ -14336,11 +14254,11 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $02                               ;05EDD8|        |      ;  
                        db $02                               ;05EDD9|        |      ;  
                                                             ;      |        |      ;  
-         Death spells: db $03                               ;05EDDA|        |      ;  
+         Death_spells: db $03                               ;05EDDA|        |      ;  
                        db $03                               ;05EDDB|        |      ;  
                        db $03                               ;05EDDC|        |      ;  
                                                             ;      |        |      ;  
-        Status spells: db $04                               ;05EDDD|        |      ;  
+        Status_spells: db $04                               ;05EDDD|        |      ;  
                        db $04                               ;05EDDE|        |      ;  
                        db $04                               ;05EDDF|        |      ;  
                        db $04                               ;05EDE0|        |      ;  
@@ -14359,8 +14277,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $05                               ;05EDEC|        |      ;  
                        db $05                               ;05EDED|        |      ;  
                        db $05                               ;05EDEE|        |      ;  
-                                                            ;      |        |      ;  
-       Undeath spells: db $06                               ;05EDEF|        |      ;  
+                       db $06                               ;05EDEF|        |      ;  
                        db $06                               ;05EDF0|        |      ;  
                        db $06                               ;05EDF1|        |      ;  
                                                             ;      |        |      ;  
@@ -14372,27 +14289,25 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $08                               ;05EDF6|        |      ;  
                        db $08                               ;05EDF7|        |      ;  
                                                             ;      |        |      ;  
-         Change Attr.: db $09                               ;05EDF8|        |      ;  
+          Change_Attr: db $09                               ;05EDF8|        |      ;  
                        db $09                               ;05EDF9|        |      ;  
                        db $09                               ;05EDFA|        |      ;  
                        db $09                               ;05EDFB|        |      ;  
-                                                            ;      |        |      ;  
-       Reflect spells: db $0A                               ;05EDFC|        |      ;  
+                       db $0A                               ;05EDFC|        |      ;  
                        db $0A                               ;05EDFD|        |      ;  
                                                             ;      |        |      ;  
-         Status heals: db $0B                               ;05EDFE|        |      ; Restore All
+         Status_heals: db $0B                               ;05EDFE|        |      ; Restore All
                        db $0B                               ;05EDFF|        |      ; Revitalize
                        db $0B                               ;05EE00|        |      ; Unpetrify
                                                             ;      |        |      ;  
-Restoration of Spirit: db $0C                               ;05EE01|        |      ;  
+Restoration_of_Spirit: db $0C                               ;05EE01|        |      ;  
                                                             ;      |        |      ;  
-        Out of battle: db $0D                               ;05EE02|        |      ; Home
+                 Home: db $0D                               ;05EE02|        |      ; Home
                        db $0D                               ;05EE03|        |      ; Way Point
                        db $0D                               ;05EE04|        |      ; Way Point Warp
                        db $0D                               ;05EE05|        |      ; Diminish Encounters
                        db $0D                               ;05EE06|        |      ; Diminish Encounters 2
-                                                            ;      |        |      ;  
-         Empty space?: db $FF                               ;05EE07|        |      ;  
+                       db $FF                               ;05EE07|        |      ;  
                        db $FF                               ;05EE08|        |      ;  
                        db $FF                               ;05EE09|        |      ;  
                        db $FF                               ;05EE0A|        |      ;  
@@ -14404,95 +14319,65 @@ Restoration of Spirit: db $0C                               ;05EE01|        |   
                                                             ;      |        |      ;  
       CallAmuletFail2: db $00                               ;05EE0F|        |      ;  
                                                             ;      |        |      ;  
-     (Names) Strength: db "Strength    "                    ;05EE10|        |      ;  
-                       db $00                               ;05EE1C|        |      ;  
+     (Names) Strength: db "Strength    ", $00               ;05EE10|        |      ;  
                                                             ;      |        |      ;  
- (Names) Intelligence: db "Intelligence"                    ;05EE1D|        |      ;  
-                       db $00                               ;05EE29|        |      ;  
+ (Names) Intelligence: db "Intelligence", $00               ;05EE1D|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Endurance: db "Endurance   "                    ;05EE2A|        |      ;  
-                       db $00                               ;05EE36|        |      ;  
+    (Names) Endurance: db "Endurance   ", $00               ;05EE2A|        |      ;  
                                                             ;      |        |      ;  
-      (Names) Agility: db "Agility     "                    ;05EE37|        |      ;  
-                       db $00                               ;05EE43|        |      ;  
+      (Names) Agility: db "Agility     ", $00               ;05EE37|        |      ;  
                                                             ;      |        |      ;  
-           (Names) HP: db "HP          "                    ;05EE44|        |      ;  
-                       db $00                               ;05EE50|        |      ;  
+           (Names) HP: db "HP          ", $00               ;05EE44|        |      ;  
                                                             ;      |        |      ;  
-           (Names) MP: db "MP          "                    ;05EE51|        |      ;  
-                       db $00                               ;05EE5D|        |      ;  
+           (Names) MP: db "MP          ", $00               ;05EE51|        |      ;  
                                                             ;      |        |      ;  
-         (Names) Dead: db "Dead     "                       ;05EE5E|        |      ; Proof this game *does* "say die", that's a little tongue in cheek.
-                       db $00                               ;05EE67|        |      ;  
+         (Names) Dead: db "Dead     ", $00                  ;05EE5E|        |      ; Proof this game *does* "say die", that's a little tongue in cheek.
                                                             ;      |        |      ;  
-    (Names) Condition: db "Condition"                       ;05EE68|        |      ;  
-                       db $00                               ;05EE71|        |      ;  
+    (Names) Condition: db "Condition", $00                  ;05EE68|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Paralyzed: db "Paralyzed"                       ;05EE72|        |      ;  
-                       db $00                               ;05EE7B|        |      ;  
+    (Names) Paralyzed: db "Paralyzed", $00                  ;05EE72|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Petrified: db "Petrified"                       ;05EE7C|        |      ;  
-                       db $00                               ;05EE85|        |      ;  
+    (Names) Petrified: db "Petrified", $00                  ;05EE7C|        |      ;  
                                                             ;      |        |      ;  
-     (Names) Confused: db "Confused "                       ;05EE86|        |      ;  
-                       db $00                               ;05EE8F|        |      ;  
+     (Names) Confused: db "Confused ", $00                  ;05EE86|        |      ;  
                                                             ;      |        |      ;  
-     (Names) Sleeping: db "Sleeping "                       ;05EE90|        |      ;  
-                       db $00                               ;05EE99|        |      ;  
+     (Names) Sleeping: db "Sleeping ", $00                  ;05EE90|        |      ;  
                                                             ;      |        |      ;  
-           Item names: db "                   "             ;05EE9A|        |      ;  
-                       db $00                               ;05EEAD|        |      ;  
+           Item names: db "                   ", $00        ;05EE9A|        |      ;  
                                                             ;      |        |      ;  
-  (Names) Return Ring: db "Return Ring        "             ;05EEAE|        |      ;  
-                       db $00                               ;05EEC1|        |      ;  
+  (Names) Return Ring: db "Return Ring        ", $00        ;05EEAE|        |      ;  
                                                             ;      |        |      ;  
-(Names) Water of Life: db "Water of Life      "             ;05EEC2|        |      ;  
-                       db $00                               ;05EED5|        |      ;  
+(Names) Water of Life: db "Water of Life      ", $00        ;05EEC2|        |      ;  
                                                             ;      |        |      ;  
- (Names) Sleeping Bag: db "Sleeping Bag       "             ;05EED6|        |      ;  
-                       db $00                               ;05EEE9|        |      ;  
+ (Names) Sleeping Bag: db "Sleeping Bag       ", $00        ;05EED6|        |      ;  
                                                             ;      |        |      ;  
-         (Names) Tent: db "Tent               "             ;05EEEA|        |      ;  
-                       db $00                               ;05EEFD|        |      ;  
+         (Names) Tent: db "Tent               ", $00        ;05EEEA|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Str Honey: db "Strength Honey     "             ;05EEFE|        |      ;  
-                       db $00                               ;05EF11|        |      ;  
+    (Names) Str Honey: db "Strength Honey     ", $00        ;05EEFE|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Int Honey: db "Intelligence Honey "             ;05EF12|        |      ;  
-                       db $00                               ;05EF25|        |      ;  
+    (Names) Int Honey: db "Intelligence Honey ", $00        ;05EF12|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Def Honey: db "Endurance Honey    "             ;05EF26|        |      ;  
-                       db $00                               ;05EF39|        |      ;  
+    (Names) Def Honey: db "Endurance Honey    ", $00        ;05EF26|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Agi Honey: db "Agility Honey      "             ;05EF3A|        |      ;  
-                       db $00                               ;05EF4D|        |      ;  
+    (Names) Agi Honey: db "Agility Honey      ", $00        ;05EF3A|        |      ;  
                                                             ;      |        |      ;  
-     (Names) HP Honey: db "Restore Honey      "             ;05EF4E|        |      ;  
-                       db $00                               ;05EF61|        |      ;  
+     (Names) HP Honey: db "Restore Honey      ", $00        ;05EF4E|        |      ;  
                                                             ;      |        |      ;  
-     (Names) MP Honey: db "MP Honey           "             ;05EF62|        |      ;  
-                       db $00                               ;05EF75|        |      ;  
+     (Names) MP Honey: db "MP Honey           ", $00        ;05EF62|        |      ;  
                                                             ;      |        |      ;  
-        (Names) Herbs: db "Herbs              "             ;05EF76|        |      ;  
-                       db $00                               ;05EF89|        |      ;  
+        (Names) Herbs: db "Herbs              ", $00        ;05EF76|        |      ;  
                                                             ;      |        |      ;  
-     (Names) Medicine: db "Medicine           "             ;05EF8A|        |      ;  
-                       db $00                               ;05EF9D|        |      ;  
+     (Names) Medicine: db "Medicine           ", $00        ;05EF8A|        |      ;  
                                                             ;      |        |      ;  
- (Names) Silver Flask: db "Silver Flask       "             ;05EF9E|        |      ;  
-                       db $00                               ;05EFB1|        |      ;  
+ (Names) Silver Flask: db "Silver Flask       ", $00        ;05EF9E|        |      ;  
                                                             ;      |        |      ;  
-   (Names) Gold Flask: db "Gold Flask         "             ;05EFB2|        |      ;  
-                       db $00                               ;05EFC5|        |      ;  
+   (Names) Gold Flask: db "Gold Flask         ", $00        ;05EFB2|        |      ;  
                                                             ;      |        |      ;  
-(Names) Maiden's Kiss: db "Maiden's Tears     "             ;05EFC6|        |      ;  
-                       db $00                               ;05EFD9|        |      ;  
+(Names) Maiden's Kiss: db "Maiden's Tears     ", $00        ;05EFC6|        |      ;  
                                                             ;      |        |      ;  
-     (Names) Moon Oil: db "Moon Oil           "             ;05EFDA|        |      ;  
-                       db $00                               ;05EFED|        |      ;  
+     (Names) Moon Oil: db "Moon Oil           ", $00        ;05EFDA|        |      ;  
                                                             ;      |        |      ;  
-(Names) Enchanted Jwl: db "Enchanted Jewel    "             ;05EFEE|        |      ;  
-                       db $00                               ;05F001|        |      ;  
+(Names) Enchanted Jwl: db "Enchanted Jewel    ", $00        ;05EFEE|        |      ;  
                        db $00                               ;05F002|        |      ;  
                                                             ;      |        |      ;  
         100-250 table: dw $6400                             ;05F003|        |      ; Unsure purpose, a table of the numbers 100-250 by 10's.
@@ -14523,29 +14408,21 @@ Restoration of Spirit: db $0C                               ;05EE01|        |   
                        dw $0303                             ;05F035|        |      ; Maiden's Tears (dummied status heal)
                        db $00                               ;05F037|        |      ; Enchanted Jewel: 00 (not usable)
                                                             ;      |        |      ;  
-           Card names: db "          "                      ;05F038|        |      ; (Blank space)
-                       db $00                               ;05F042|        |      ;  
+           Card names: db "          ", $00                 ;05F038|        |      ; (Blank space)
                                                             ;      |        |      ;  
-    (Names) Wind Card: db "Wind Card "                      ;05F043|        |      ; Wind Card
-                       db $00                               ;05F04D|        |      ;  
+    (Names) Wind Card: db "Wind Card ", $00                 ;05F043|        |      ; Wind Card
                                                             ;      |        |      ;  
-   (Names) Earth Card: db "Earth Card"                      ;05F04E|        |      ;  
-                       db $00                               ;05F058|        |      ;  
+   (Names) Earth Card: db "Earth Card", $00                 ;05F04E|        |      ;  
                                                             ;      |        |      ;  
-   (Names) Water Card: db "Water Card"                      ;05F059|        |      ;  
-                       db $00                               ;05F063|        |      ;  
+   (Names) Water Card: db "Water Card", $00                 ;05F059|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Fire Card: db "Fire Card "                      ;05F064|        |      ;  
-                       db $00                               ;05F06E|        |      ;  
+    (Names) Fire Card: db "Fire Card ", $00                 ;05F064|        |      ;  
                                                             ;      |        |      ;  
-    (Names) Null Card: db "Null Card "                      ;05F06F|        |      ;  
-                       db $00                               ;05F079|        |      ;  
+    (Names) Null Card: db "Null Card ", $00                 ;05F06F|        |      ;  
                                                             ;      |        |      ;  
-     (Names) Fog Card: db "Fog Card  "                      ;05F07A|        |      ;  
-                       db $00                               ;05F084|        |      ;  
+     (Names) Fog Card: db "Fog Card  ", $00                 ;05F07A|        |      ;  
                                                             ;      |        |      ;  
-  (Names) Call Amulet: db "Call Amulet"                     ;05F085|        |      ;  
-                       db $00                               ;05F090|        |      ;  
+  (Names) Call Amulet: db "Call Amulet", $00                ;05F085|        |      ;  
                        dw $4081                             ;05F091|        |      ; These 81 40 would be blank spaces in the Japanese version.
                        dw $4081                             ;05F093|        |      ;  
                        dw $4081                             ;05F095|        |      ;  
@@ -15494,7 +15371,7 @@ Move spell ID to $11B5 (?): LDA.W Spell ID                       ;05F5D2|AD2711 
                        AND.W #$00FF                         ;05F62D|29FF00  |      ;  
                        STA.W Spell ID                       ;05F630|8D2711  |001127;  
                        TAX                                  ;05F633|AA      |      ;  
-                       LDA.L Tbl: Spell FX,X                ;05F634|BFB5ED05|05EDB5;  
+                       LDA.L Tbl_Spell_Category,X           ;05F634|BFB5ED05|05EDB5;  
                        AND.W #$00FF                         ;05F638|29FF00  |      ;  
                        STA.W Spell type                     ;05F63B|8DC518  |0018C5;  
                        STZ.W Attacker                       ;05F63E|9C2111  |001121;  

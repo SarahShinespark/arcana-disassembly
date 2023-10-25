@@ -17874,7 +17874,7 @@ Shop_cursor_setup(3b): JSL.L ReadNextScript(2b)_far         ;03E2A8|22079B00|009
                        BEQ A not pressed                    ;03E320|F011    |03E333;  
                                                             ;      |        |      ;  
             A pressed: LDA.W #$FFFF                         ;03E322|A9FFFF  |      ; A pressed
-                       STA.W $0A7B,Y                        ;03E325|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;03E325|997B0A  |000A7B;  
                        LDA.W #$0011                         ;03E328|A91100  |      ; Confirm SFX
                        JSL.L Play SFX                       ;03E32B|22479C00|009C47;  
                        LDA.W #$0001                         ;03E32F|A90100  |      ; Return 1 (Confirm)
@@ -17885,7 +17885,7 @@ Shop_cursor_setup(3b): JSL.L ReadNextScript(2b)_far         ;03E2A8|22079B00|009
                        BEQ B not pressed                    ;03E336|F011    |03E349;  
                                                             ;      |        |      ;  
             B pressed: LDA.W #$FFFF                         ;03E338|A9FFFF  |      ;  
-                       STA.W $0A7B,Y                        ;03E33B|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;03E33B|997B0A  |000A7B;  
                        LDA.W #$0006                         ;03E33E|A90600  |      ; Cancel SFX
                        JSL.L Play SFX                       ;03E341|22479C00|009C47;  
                        LDA.W #$0002                         ;03E345|A90200  |      ; Return 2 (Cancel)
@@ -18102,7 +18102,7 @@ Shop_cursor_setup(3b): JSL.L ReadNextScript(2b)_far         ;03E2A8|22079B00|009
                        STA.W $07AB,Y                        ;03E4E9|99AB07  |0007AB;  
                        STA.W $06F7,Y                        ;03E4EC|99F706  |0006F7;  
                        LDA.L $7FFFE0,X                      ;03E4EF|BFE0FF7F|7FFFE0;  
-                       STA.W $0A7B,Y                        ;03E4F3|997B0A  |000A7B;  
+                       STA.W Anim_ID,Y                      ;03E4F3|997B0A  |000A7B;  
                        PLA                                  ;03E4F6|68      |      ;  
                        RTL                                  ;03E4F7|6B      |      ; Return 3
                                                             ;      |        |      ;  

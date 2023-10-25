@@ -250,7 +250,7 @@
                                                             ;      |        |      ;  
           CODE_178283: LDX.W Selection                      ;178283|AE3F10  |00103F;  
                        LDA.W $09A3,X                        ;178286|BDA309  |0009A3;  
-                       STA.W $0A7B,X                        ;178289|9D7B0A  |000A7B;  
+                       STA.W Anim_ID,X                      ;178289|9D7B0A  |000A7B;  
                        RTL                                  ;17828C|6B      |      ;  
                                                             ;      |        |      ;  
                        db $16                               ;17828D|        |      ;  
@@ -1557,7 +1557,7 @@ Ten years have passed: db $06                               ;178B27|        |   
                        LDX.W Weather fx                     ;178BD2|AECF18  |0018CF;  
                        LDA.L DATA8_178BE0,X                 ;178BD5|BFE08B17|178BE0;  
                        AND.W #$00FF                         ;178BD9|29FF00  |      ;  
-                       STA.W $0B9F,Y                        ;178BDC|999F0B  |000B9F;  
+                       STA.W Anim_Loopvar,Y                 ;178BDC|999F0B  |000B9F;  
                        RTL                                  ;178BDF|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  

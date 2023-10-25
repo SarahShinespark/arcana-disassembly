@@ -3017,7 +3017,7 @@ PtrTable: Boss Animations: dw Stone Guardian attacks            ;028FC9|        
                        dw Galneon 2 attacks                 ;028FE3|        |02909A;  
                        dw Rimsala 1 attacks                 ;028FE5|        |0290A5;  
                        dw Rimsala 2 attacks                 ;028FE7|        |0290B9;  
-                       db $1C                               ;028FE9|        |      ; 1C: End section?
+                       db $1C                               ;028FE9|        |      ; End of script
                                                             ;      |        |      ;  
 Stone Guardian attacks: db $1B                               ;028FEA|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;028FEB|        |0290E5;  
@@ -3035,7 +3035,7 @@ Stone Guardian attacks: db $1B                               ;028FEA|        |  
                        db $A8                               ;028FF8|        |      ; A8: Animation +1
                        db $06                               ;028FF9|        |      ; 06: Delay 18
                        db $18                               ;028FFA|        |      ;  
-                       db $1C                               ;028FFB|        |      ; 1C: End section? (Restart idle animation)
+                       db $1C                               ;028FFB|        |      ; End of script
                                                             ;      |        |      ;  
 Iron Guardian attacks: db $1B                               ;028FFC|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;028FFD|        |0290E5;  
@@ -3053,7 +3053,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;02900A|        |      ; A8: Animation +1
                        db $06                               ;02900B|        |      ; 06: Delay 18
                        db $18                               ;02900C|        |      ;  
-                       db $1C                               ;02900D|        |      ; 1C: End section?
+                       db $1C                               ;02900D|        |      ; End of script
                                                             ;      |        |      ;  
       Cyclops attacks: db $1B                               ;02900E|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;02900F|        |0290E5;  
@@ -3065,7 +3065,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029016|        |      ; A8: Animation +1
                        db $06                               ;029017|        |      ; 06: Delay 2E
                        db $2E                               ;029018|        |      ;  
-                       db $1C                               ;029019|        |      ;  
+                       db $1C                               ;029019|        |      ; End of script
                                                             ;      |        |      ;  
        Efrite attacks: db $1B                               ;02901A|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;02901B|        |0290E5;  
@@ -3073,7 +3073,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $07                               ;02901E|        |      ;  
                        db $06                               ;02901F|        |      ; 06: Delay 30
                        db $30                               ;029020|        |      ;  
-                       db $1C                               ;029021|        |      ; 1C: End section?
+                       db $1C                               ;029021|        |      ; End of script
                                                             ;      |        |      ;  
         Zerel attacks: db $1B                               ;029022|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;029023|        |0290E5;  
@@ -3084,7 +3084,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029029|        |      ; A8: Animation +1
                        db $06                               ;02902A|        |      ; 06: Delay 0A
                        db $0A                               ;02902B|        |      ;  
-                       db $1C                               ;02902C|        |      ; 1C: End section? Restart idle
+                       db $1C                               ;02902C|        |      ; End of script
                                                             ;      |        |      ;  
         Hydra attacks: db $1B                               ;02902D|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;02902E|        |0290E5;  
@@ -3099,7 +3099,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029038|        |      ; A8: Animation +1
                        db $06                               ;029039|        |      ; 06: Delay 20
                        db $20                               ;02903A|        |      ;  
-                       db $1C                               ;02903B|        |      ; 1C: End section? Restart idle
+                       db $1C                               ;02903B|        |      ; End of script
                                                             ;      |        |      ;  
         Sauza attacks: db $30                               ;02903C|        |      ; 30: Animation 03
                        db $03                               ;02903D|        |      ;  
@@ -3116,7 +3116,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029049|        |      ; Advance animation
                        db $06                               ;02904A|        |      ; Delay 0A
                        db $0A                               ;02904B|        |      ;  
-                       db $1C                               ;02904C|        |      ; End section? Restart idle
+                       db $1C                               ;02904C|        |      ; End of script
                                                             ;      |        |      ;  
         Darah attacks: db $1B                               ;02904D|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;02904E|        |0290E5;  
@@ -3128,7 +3128,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029055|        |      ; Advance animation
                        db $06                               ;029056|        |      ; Delay 0E
                        db $0E                               ;029057|        |      ;  
-                       db $1C                               ;029058|        |      ; End section? Restart idle
+                       db $1C                               ;029058|        |      ; End of script
                                                             ;      |        |      ;  
         Barah attacks: db $1B                               ;029059|        |      ; JSR 90E5 (Enemy attacks)
                        dw Enemy attacks SFX                 ;02905A|        |0290E5;  
@@ -3149,7 +3149,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $02                               ;02906A|        |      ; End loop
                        db $33                               ;02906B|        |      ;  
                        db $04                               ;02906C|        |      ;  
-                       db $1C                               ;02906D|        |      ;  
+                       db $1C                               ;02906D|        |      ; End of script
                                                             ;      |        |      ;  
         Ariel attacks: db $30                               ;02906E|        |      ; Animation 03
                        db $03                               ;02906F|        |      ;  
@@ -3160,7 +3160,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029075|        |      ; Advance animation
                        db $06                               ;029076|        |      ; Delay 0A
                        db $0A                               ;029077|        |      ;  
-                       db $1C                               ;029078|        |      ; End section? Restart idle
+                       db $1C                               ;029078|        |      ; End of script
                                                             ;      |        |      ;  
         Teefa attacks: db $30                               ;029079|        |      ; Animation 03
                        db $03                               ;02907A|        |      ;  
@@ -3171,7 +3171,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029080|        |      ; Advance animation
                        db $06                               ;029081|        |      ; Delay 0A
                        db $0A                               ;029082|        |      ;  
-                       db $1C                               ;029083|        |      ; End section? Restart idle
+                       db $1C                               ;029083|        |      ; End of script
                                                             ;      |        |      ;  
         Karul attacks: db $30                               ;029084|        |      ; Animation 03
                        db $03                               ;029085|        |      ;  
@@ -3182,7 +3182,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;02908B|        |      ; Advance animation
                        db $06                               ;02908C|        |      ; Delay 0A
                        db $0A                               ;02908D|        |      ;  
-                       db $1C                               ;02908E|        |      ; End section? Restart idle
+                       db $1C                               ;02908E|        |      ; End of script
                                                             ;      |        |      ;  
     Galneon 1 attacks: db $30                               ;02908F|        |      ; Animation 03
                        db $03                               ;029090|        |      ;  
@@ -3193,7 +3193,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;029096|        |      ; Advance animation
                        db $06                               ;029097|        |      ; Delay 0A
                        db $0A                               ;029098|        |      ;  
-                       db $1C                               ;029099|        |      ; End section? Restart idle
+                       db $1C                               ;029099|        |      ; End of script
                                                             ;      |        |      ;  
     Galneon 2 attacks: db $30                               ;02909A|        |      ; Animation 03
                        db $03                               ;02909B|        |      ;  
@@ -3204,7 +3204,7 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $A8                               ;0290A1|        |      ; Next animation
                        db $06                               ;0290A2|        |      ; Delay 0A
                        db $0A                               ;0290A3|        |      ;  
-                       db $1C                               ;0290A4|        |      ; End section? Restart idle
+                       db $1C                               ;0290A4|        |      ; End of script
                                                             ;      |        |      ;  
     Rimsala 1 attacks: db $30                               ;0290A5|        |      ; Animation 00
                        db $00                               ;0290A6|        |      ;  
@@ -3224,51 +3224,51 @@ Iron Guardian attacks: db $1B                               ;028FFC|        |   
                        db $03                               ;0290B5|        |      ;  
                        db $06                               ;0290B6|        |      ; Delay 0A
                        db $0A                               ;0290B7|        |      ;  
-                       db $1C                               ;0290B8|        |      ; End section? Restart idle
+                       db $1C                               ;0290B8|        |      ; End of script
                                                             ;      |        |      ;  
     Rimsala 2 attacks: db $1B                               ;0290B9|        |      ; JSR 90EB (Rimsala attacks) (Mwahaha)
                        dw Rimsala attacks SFX               ;0290BA|        |0290EB;  
-                       db $78                               ;0290BC|        |      ; This section messes with $0FEF,x and $0FF7,x
+                       db $78                               ;0290BC|        |      ; 78 01 0000
                        db $01                               ;0290BD|        |      ;  
                        db $00                               ;0290BE|        |      ;  
                        db $00                               ;0290BF|        |      ;  
-                       db $80                               ;0290C0|        |      ;  
+                       db $80                               ;0290C0|        |      ; 80 01 0000
                        db $01                               ;0290C1|        |      ;  
                        db $00                               ;0290C2|        |      ;  
                        db $00                               ;0290C3|        |      ;  
-                       db $06                               ;0290C4|        |      ; 06 0A
+                       db $06                               ;0290C4|        |      ; Pause for 0A frames
                        db $0A                               ;0290C5|        |      ;  
-                       db $78                               ;0290C6|        |      ;  
+                       db $78                               ;0290C6|        |      ; 78 01 0000
                        db $01                               ;0290C7|        |      ;  
                        db $00                               ;0290C8|        |      ;  
                        db $00                               ;0290C9|        |      ;  
-                       db $80                               ;0290CA|        |      ;  
+                       db $80                               ;0290CA|        |      ; 80 01 0100
                        db $01                               ;0290CB|        |      ;  
                        db $00                               ;0290CC|        |      ;  
                        db $01                               ;0290CD|        |      ;  
-                       db $06                               ;0290CE|        |      ; 06 0A
+                       db $06                               ;0290CE|        |      ; Pause for 0A frames
                        db $0A                               ;0290CF|        |      ;  
-                       db $78                               ;0290D0|        |      ;  
+                       db $78                               ;0290D0|        |      ; 78 01 0100
                        db $01                               ;0290D1|        |      ;  
                        db $00                               ;0290D2|        |      ;  
                        db $01                               ;0290D3|        |      ;  
-                       db $80                               ;0290D4|        |      ;  
+                       db $80                               ;0290D4|        |      ; 80 01 0100
                        db $01                               ;0290D5|        |      ;  
                        db $00                               ;0290D6|        |      ;  
                        db $01                               ;0290D7|        |      ;  
-                       db $06                               ;0290D8|        |      ; 06 0A
+                       db $06                               ;0290D8|        |      ; Pause for 0A frames
                        db $0A                               ;0290D9|        |      ;  
-                       db $78                               ;0290DA|        |      ;  
+                       db $78                               ;0290DA|        |      ; 78 01 0000
                        db $01                               ;0290DB|        |      ;  
                        db $00                               ;0290DC|        |      ;  
                        db $00                               ;0290DD|        |      ;  
-                       db $80                               ;0290DE|        |      ;  
+                       db $80                               ;0290DE|        |      ; 80 01 0100
                        db $01                               ;0290DF|        |      ;  
                        db $00                               ;0290E0|        |      ;  
                        db $01                               ;0290E1|        |      ;  
-                       db $06                               ;0290E2|        |      ; Delay 0A
+                       db $06                               ;0290E2|        |      ; Pause for 0A frames
                        db $0A                               ;0290E3|        |      ;  
-                       db $1C                               ;0290E4|        |      ; End section? Restart idle
+                       db $1C                               ;0290E4|        |      ; End of script
                                                             ;      |        |      ;  
     Enemy attacks SFX: db $07                               ;0290E5|        |      ; 07: 00/9C44 Play SFX
                        dl Sub: Get/Set SFX                  ;0290E6|        |009C44;  
@@ -3377,7 +3377,7 @@ Add_enemy_loot_to_total: db $07                               ;0290FE|        | 
                        db $04                               ;0291A9|        |      ;  
                        dl DATA8_029111                      ;0291AA|        |029111;  
                        db $0B                               ;0291AD|        |      ;  
-                       dw Code Opcode 05                    ;0291AE|        |0091BB;  
+                       dw Event_Code_05                     ;0291AE|        |0091BB;  
                        db $14                               ;0291B0|        |      ;  
                        db $01                               ;0291B1|        |      ;  
                        db $14                               ;0291B2|        |      ;  
@@ -3864,7 +3864,7 @@ Add_enemy_loot_to_total: db $07                               ;0290FE|        | 
                        db $14                               ;02946E|        |      ;  
                        db $01                               ;02946F|        |      ;  
                        db $08                               ;029470|        |      ;  
-                       dw Anim Opcode 48-4F                 ;029471|        |00948C;  
+                       dw Event_Anim_48_4F_(2b)             ;029471|        |00948C;  
                        db $1C                               ;029473|        |      ;  
                        db $14                               ;029474|        |      ;  
                        db $01                               ;029475|        |      ;  
@@ -4554,7 +4554,7 @@ Add_enemy_loot_to_total: db $07                               ;0290FE|        | 
                        db $14                               ;0297EC|        |      ;  
                        db $01                               ;0297ED|        |      ;  
                        db $08                               ;0297EE|        |      ;  
-                       dw Code Opcode 22                    ;0297EF|        |009814;  
+                       dw Event_Code_22                     ;0297EF|        |009814;  
                        db $1C                               ;0297F1|        |      ;  
                        db $14                               ;0297F2|        |      ;  
                        db $01                               ;0297F3|        |      ;  
@@ -7569,7 +7569,7 @@ Add_enemy_loot_to_total: db $07                               ;0290FE|        | 
                        db $14                               ;02A890|        |      ;  
                        db $01                               ;02A891|        |      ;  
                        db $08                               ;02A892|        |      ;  
-                       dw Text Opcode 03                    ;02A893|        |00A8A8;  
+                       dw Event_Text_03                     ;02A893|        |00A8A8;  
                        db $1C                               ;02A895|        |      ;  
                        db $14                               ;02A896|        |      ;  
                        db $01                               ;02A897|        |      ;  
