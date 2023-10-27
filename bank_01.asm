@@ -409,7 +409,7 @@ Zero enemy equips_far: JSR.W Zero enemy equips              ;0182EE|20F282  |018
                                                             ;      |        |      ;  
     Zero enemy equips: LDX.W #$0000                         ;0182F2|A20000  |      ;  
                                                             ;      |        |      ;  
-          CODE_0182F5: STZ.W Enemy Weapon,X                 ;0182F5|9E8B12  |00128B;  
+          CODE_0182F5: STZ.W Enemy_Weapon,X                 ;0182F5|9E8B12  |00128B;  
                        STZ.W Enemy Armor,X                  ;0182F8|9EA312  |0012A3;  
                        STZ.W Enemy Access.,X                ;0182FB|9EBB12  |0012BB;  
                        STZ.W Enemy Ring,X                   ;0182FE|9ED312  |0012D3;  
@@ -12024,7 +12024,6 @@ Input loop Equipment menu?: db $06                               ;019DA4|       
                        LDA.W $063B                          ;01B7F7|AD3B06  |00063B;  
                        BPL CODE_01B7E8                      ;01B7FA|10EC    |01B7E8;  
                        db $80                               ;01B7FC|        |01B7FC; Infinite loop?
-                                                            ;      |        |      ;  
                        db $FE                               ;01B7FD|        |000015;  
                        db $15                               ;01B7FE|        |000000;  
                        db $00                               ;01B7FF|        |      ;  

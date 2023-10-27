@@ -7785,7 +7785,6 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        dw $0002                             ;18AA4E|        |      ;  
                        db $30                               ;18AA50|        |      ;  
                        db $4C                               ;18AA51|        |      ;  
-                                                            ;      |        |      ;  
                        db $0A                               ;18AA52|        |      ;  
                                                             ;      |        |      ;  
   Setup_Reinoll_Scene: SEP #$20                             ;18AA53|E220    |      ;  
@@ -15210,7 +15209,7 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        dw LOOSE_OP_00D159                   ;18D054|        |00D159;  
                        dw LOOSE_OP_00D196                   ;18D056|        |00D196;  
                        dw CODE_00D1E1                       ;18D058|        |00D1E1;  
-                       dw PTR24_00D24F                      ;18D05A|        |00D24F;  
+                       dw DATA16_00D24F                     ;18D05A|        |00D24F;  
                                                             ;      |        |      ;  
   Epilogue formatting: db $06                               ;18D05C|        |      ; Font color: white
                        db $0D                               ;18D05D|        |      ;  
@@ -15613,7 +15612,6 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $01                               ;18D3DC|        |      ;  
                        db $00                               ;18D3DD|        |      ;  
                        db $80                               ;18D3DE|        |      ;  
-                                                            ;      |        |      ;  
                        db $1C                               ;18D3DF|        |      ; End section
                                                             ;      |        |      ;  
           Sub_Sauza_2: db $0E                               ;18D3E0|        |      ; 0E (5 bytes)

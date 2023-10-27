@@ -8061,10 +8061,8 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                                                             ;      |        |      ;  
        UNREACH_03ADFE: db $38                               ;03ADFE|        |      ;  
                        db $80                               ;03ADFF|        |03AE01;  
-                                                            ;      |        |      ;  
                        db $00                               ;03AE00|        |      ;  
                        db $40                               ;03AE01|        |      ;  
-                                                            ;      |        |      ;  
                        db $50                               ;03AE02|        |03AE04;  
                        db $00                               ;03AE03|        |      ;  
                        db $30                               ;03AE04|        |03AE06;  
@@ -9585,8 +9583,8 @@ Probably a ptr table idk: dw UNREACH_03A62F                    ;03A5EB|        |
                        dw $0004                             ;03B490|        |000004;  
                                                             ;      |        |      ;  
  Chapter Decomp data3: dw LOOSE_OP_00B6E4                   ;03B492|        |00B6E4;  
-                       dw DATA16_00D292                     ;03B494|        |00D292;  
-                       dw DATA16_00D292                     ;03B496|        |00D292;  
+                       dw PTR24_00D292                      ;03B494|        |00D292;  
+                       dw PTR24_00D292                      ;03B496|        |00D292;  
                        dw UNREACH_00DEB4                    ;03B498|        |00DEB4;  
                        dw CODE_00C583                       ;03B49A|        |00C583;  
                                                             ;      |        |      ;  

@@ -392,7 +392,7 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                                                             ;      |        |      ;  
       Enemy spellcast: JSR.W Get_enemy_ID_from_103F         ;078272|202E91  |07912E;  
                        TAX                                  ;078275|AA      |      ;  
-                       LDA.L Enemy's spell ID,X             ;078276|BF35D205|05D235;  
+                       LDA.L Enemy_Spellcast,X              ;078276|BF35D205|05D235;  
                        AND.W #$00FF                         ;07827A|29FF00  |      ;  
                        BEQ CODE_0782AF                      ;07827D|F030    |0782AF;  
                        PHA                                  ;07827F|48      |      ;  
@@ -403,7 +403,7 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                        TXA                                  ;078288|8A      |      ;  
                        ASL A                                ;078289|0A      |      ;  
                        TAX                                  ;07828A|AA      |      ;  
-                       LDA.L Enemy max HP,X                 ;07828B|BF55CE05|05CE55;  
+                       LDA.L Enemy_mHP,X                    ;07828B|BF55CE05|05CE55;  
                        LSR A                                ;07828F|4A      |      ;  
                        CMP.W Current HP,Y                   ;078290|D9F312  |0012F3; Check if enemy is under half HP
                        BCC CODE_0782A0                      ;078293|900B    |0782A0;  
@@ -479,14 +479,14 @@ Tbl: Spell list offsets: dw $0000                             ;0781B3|        | 
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
            Get Boss #: TAX                                  ;078324|AA      |      ;  
-                       LDA.L Boss #,X                       ;078325|BFE5D105|05D1E5;  
+                       LDA.L Enemy_Boss_No,X                ;078325|BFE5D105|05D1E5;  
                        AND.W #$00FF                         ;078329|29FF00  |      ;  
                        RTL                                  ;07832C|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
         Boss monster?: ASL A                                ;07832D|0A      |      ; Returns 1 for boss encounters
                        TAX                                  ;07832E|AA      |      ;  
-                       LDA.L Enemy race/element,X           ;07832F|BF2DC905|05C92D;  
+                       LDA.L Enemy_Affinity,X               ;07832F|BF2DC905|05C92D;  
                        AND.W #$0010                         ;078333|291000  |      ;  
                        BNE CODE_07833C                      ;078336|D004    |07833C;  
                        LDA.W #$0000                         ;078338|A90000  |      ;  
@@ -608,38 +608,38 @@ Tbl_Compressed_Spells: dw Gfx_Compressed_Spell1             ;078390|        |0DB
                        RTL                                  ;0783FD|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_0783FE: JSL.L Check attr. stuff              ;0783FE|223ABF07|07BF3A;  
+            Run_Check: JSL.L Runnable_Check                 ;0783FE|223ABF07|07BF3A;  
                        BNE CODE_078407                      ;078402|D003    |078407;  
-                       JMP.W CODE_07848F                    ;078404|4C8F84  |07848F;  
+                       JMP.W Run_Fail                       ;078404|4C8F84  |07848F; Return 0 if running is impossible
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_078407: STZ.B $00                            ;078407|6400    |000000;  
+          CODE_078407: STZ.B $00                            ;078407|6400    |000000; Prime the loop ($00 = 0)
                        LDX.W #$0000                         ;078409|A20000  |      ;  
                                                             ;      |        |      ;  
-          CODE_07840C: LDA.W Condition,X                    ;07840C|BDC311  |0011C3;  
+  Loop_Party_MaxLevel: LDA.W Condition,X                    ;07840C|BDC311  |0011C3; Load member status effect
                        AND.W #$00FF                         ;07840F|29FF00  |      ;  
-                       CMP.W #$0001                         ;078412|C90100  |      ;  
+                       CMP.W #$0001                         ;078412|C90100  |      ; Skip if dead (oops)
                        BEQ CODE_078425                      ;078415|F00E    |078425;  
-                       CMP.W #$0002                         ;078417|C90200  |      ;  
+                       CMP.W #$0002                         ;078417|C90200  |      ; Skip if missing (skull card) (I think)
                        BEQ CODE_078425                      ;07841A|F009    |078425;  
                        LDA.W CurrentLV,X                    ;07841C|BD7B13  |00137B;  
-                       CMP.B $00                            ;07841F|C500    |000000;  
+                       CMP.B $00                            ;07841F|C500    |000000; If their LVL is greater than the max, make it the new max
                        BCC CODE_078425                      ;078421|9002    |078425;  
                        STA.B $00                            ;078423|8500    |000000;  
                                                             ;      |        |      ;  
           CODE_078425: INX                                  ;078425|E8      |      ;  
                        INX                                  ;078426|E8      |      ;  
                        CPX.W #$0008                         ;078427|E00800  |      ;  
-                       BCC CODE_07840C                      ;07842A|90E0    |07840C;  
-                       STZ.B $02                            ;07842C|6402    |000002;  
+                       BCC Loop_Party_MaxLevel              ;07842A|90E0    |07840C;  
+                       STZ.B $02                            ;07842C|6402    |000002; Prime the loop ($02 = 0)
                                                             ;      |        |      ;  
-          CODE_07842E: LDA.W Condition,X                    ;07842E|BDC311  |0011C3;  
+  Loop_Enemy_MaxLevel: LDA.W Condition,X                    ;07842E|BDC311  |0011C3; X is now 8 (Enemy offset): loop through enemies
                        AND.W #$00FF                         ;078431|29FF00  |      ;  
-                       CMP.W #$0001                         ;078434|C90100  |      ;  
+                       CMP.W #$0001                         ;078434|C90100  |      ; Skip enemy if dead
                        BEQ CODE_078447                      ;078437|F00E    |078447;  
-                       CMP.W #$0002                         ;078439|C90200  |      ;  
+                       CMP.W #$0002                         ;078439|C90200  |      ; Skip enemy if missing
                        BEQ CODE_078447                      ;07843C|F009    |078447;  
-                       LDA.W CurrentLV,X                    ;07843E|BD7B13  |00137B;  
+                       LDA.W CurrentLV,X                    ;07843E|BD7B13  |00137B; If their LVL is greater than the max, make it the new max
                        CMP.B $02                            ;078441|C502    |000002;  
                        BCC CODE_078447                      ;078443|9002    |078447;  
                        STA.B $02                            ;078445|8502    |000002;  
@@ -647,62 +647,64 @@ Tbl_Compressed_Spells: dw Gfx_Compressed_Spell1             ;078390|        |0DB
           CODE_078447: INX                                  ;078447|E8      |      ;  
                        INX                                  ;078448|E8      |      ;  
                        CPX.W #$0018                         ;078449|E01800  |      ;  
-                       BCC CODE_07842E                      ;07844C|90E0    |07842E;  
-                       LDA.B $00                            ;07844E|A500    |000000;  
+                       BCC Loop_Enemy_MaxLevel              ;07844C|90E0    |07842E;  
+                                                            ;      |        |      ;  
+         Escape_Check: LDA.B $00                            ;07844E|A500    |000000; Subtract max party lvl - max enemy level
                        SEC                                  ;078450|38      |      ;  
                        SBC.B $02                            ;078451|E502    |000002;  
-                       BMI CODE_07846A                      ;078453|3015    |07846A;  
+                       BMI RunChance_1_in_8                 ;078453|3015    |07846A; If underleveled, 1/8 chance
                        CMP.W #$0008                         ;078455|C90800  |      ;  
-                       BCC CODE_078475                      ;078458|901B    |078475;  
+                       BCC RunChance_1_in_4                 ;078458|901B    |078475; If LVL is +0-7, 1/4 chance
                        CMP.W #$000F                         ;07845A|C90F00  |      ;  
-                       BCC CODE_078480                      ;07845D|9021    |078480;  
-                       LDA.W #$0004                         ;07845F|A90400  |      ;  
+                       BCC RunChance_1_in_2                 ;07845D|9021    |078480; If LVL is +8-14, 1/2 chance
+                                                            ;      |        |      ;  
+     RunChance_3_in_4: LDA.W #$0004                         ;07845F|A90400  |      ; If LVL is +15 or higher, 3/4 chance
                        JSL.L RNG                            ;078462|22F18900|0089F1;  
-                       BEQ CODE_07848F                      ;078466|F027    |07848F;  
-                       BRA CODE_07848B                      ;078468|8021    |07848B;  
+                       BEQ Run_Fail                         ;078466|F027    |07848F; 1 in 4 fail
+                       BRA Run_Success                      ;078468|8021    |07848B;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_07846A: LDA.W #$0008                         ;07846A|A90800  |      ;  
+     RunChance_1_in_8: LDA.W #$0008                         ;07846A|A90800  |      ; If party is lower leveled, 1/8 run chance
                        JSL.L RNG                            ;07846D|22F18900|0089F1;  
-                       BEQ CODE_07848B                      ;078471|F018    |07848B;  
-                       BRA CODE_07848F                      ;078473|801A    |07848F;  
+                       BEQ Run_Success                      ;078471|F018    |07848B;  
+                       BRA Run_Fail                         ;078473|801A    |07848F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_078475: LDA.W #$0004                         ;078475|A90400  |      ;  
+     RunChance_1_in_4: LDA.W #$0004                         ;078475|A90400  |      ; If the party is <8 lvls higher, 1/4 run chance
                        JSL.L RNG                            ;078478|22F18900|0089F1;  
-                       BEQ CODE_07848B                      ;07847C|F00D    |07848B;  
-                       BRA CODE_07848F                      ;07847E|800F    |07848F;  
+                       BEQ Run_Success                      ;07847C|F00D    |07848B;  
+                       BRA Run_Fail                         ;07847E|800F    |07848F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_078480: LDA.W #$0002                         ;078480|A90200  |      ;  
+     RunChance_1_in_2: LDA.W #$0002                         ;078480|A90200  |      ;  
                        JSL.L RNG                            ;078483|22F18900|0089F1;  
-                       BEQ CODE_07848B                      ;078487|F002    |07848B;  
-                       BRA CODE_07848F                      ;078489|8004    |07848F;  
+                       BEQ Run_Success                      ;078487|F002    |07848B;  
+                       BRA Run_Fail                         ;078489|8004    |07848F;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_07848B: LDA.W #$0001                         ;07848B|A90100  |      ;  
+          Run_Success: LDA.W #$0001                         ;07848B|A90100  |      ;  
                        RTL                                  ;07848E|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_07848F: LDA.W #$0000                         ;07848F|A90000  |      ;  
+             Run_Fail: LDA.W #$0000                         ;07848F|A90000  |      ;  
                        RTL                                  ;078492|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_078493: STA.B $20                            ;078493|8520    |000020;  
+   Use_Weapon_As_Item: STA.B $20                            ;078493|8520    |000020;  
                        LDX.W Selection                      ;078495|AE3F10  |00103F;  
                        LDA.W Treasure type,X                ;078498|BDC709  |0009C7;  
                        AND.W #$0001                         ;07849B|290100  |      ;  
-                       BNE CODE_0784AA                      ;07849E|D00A    |0784AA;  
+                       BNE No_Spellcast                     ;07849E|D00A    |0784AA;  
                        LDA.W Treasure type,X                ;0784A0|BDC709  |0009C7;  
-                       BEQ CODE_0784AE                      ;0784A3|F009    |0784AE;  
+                       BEQ Load_Weapon_Spell                ;0784A3|F009    |0784AE;  
                        CMP.W #$0002                         ;0784A5|C90200  |      ;  
-                       BEQ CODE_0784CC                      ;0784A8|F022    |0784CC;  
+                       BEQ Use_Amulet_As_Item               ;0784A8|F022    |0784CC;  
                                                             ;      |        |      ;  
-          CODE_0784AA: LDA.W #$0000                         ;0784AA|A90000  |      ;  
+         No_Spellcast: LDA.W #$0000                         ;0784AA|A90000  |      ;  
                        RTL                                  ;0784AD|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_0784AE: LDA.B $20                            ;0784AE|A520    |000020;  
+    Load_Weapon_Spell: LDA.B $20                            ;0784AE|A520    |000020;  
                        ASL A                                ;0784B0|0A      |      ;  
                        STA.W Attacker                       ;0784B1|8D2111  |001121;  
                        TAX                                  ;0784B4|AA      |      ;  
@@ -711,13 +713,13 @@ Tbl_Compressed_Spells: dw Gfx_Compressed_Spell1             ;078390|        |0DB
                        TAX                                  ;0784BB|AA      |      ;  
                        LDA.L Weapon spell cast,X            ;0784BC|BFC7E205|05E2C7;  
                        AND.W #$00FF                         ;0784C0|29FF00  |      ;  
-                       BEQ CODE_0784AA                      ;0784C3|F0E5    |0784AA;  
+                       BEQ No_Spellcast                     ;0784C3|F0E5    |0784AA;  
                        STA.W Spell ID                       ;0784C5|8D2711  |001127;  
                        LDA.W #$0001                         ;0784C8|A90100  |      ;  
                        RTL                                  ;0784CB|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_0784CC: LDA.B $20                            ;0784CC|A520    |000020;  
+   Use_Amulet_As_Item: LDA.B $20                            ;0784CC|A520    |000020;  
                        ASL A                                ;0784CE|0A      |      ;  
                        STA.W Attacker                       ;0784CF|8D2111  |001121;  
                        TAX                                  ;0784D2|AA      |      ;  
@@ -726,7 +728,7 @@ Tbl_Compressed_Spells: dw Gfx_Compressed_Spell1             ;078390|        |0DB
                        TAX                                  ;0784D9|AA      |      ;  
                        LDA.L Weapon spell cast,X            ;0784DA|BFC7E205|05E2C7;  
                        AND.W #$00FF                         ;0784DE|29FF00  |      ;  
-                       BEQ CODE_0784AA                      ;0784E1|F0C7    |0784AA;  
+                       BEQ No_Spellcast                     ;0784E1|F0C7    |0784AA;  
                        STA.W Spell ID                       ;0784E3|8D2711  |001127;  
                        LDA.W #$0002                         ;0784E6|A90200  |      ;  
                        RTL                                  ;0784E9|6B      |      ;  
@@ -4026,7 +4028,6 @@ Checks for input (probably): LDX.W Selection                      ;07933A|AE3F10
                        dw ShamanRobe                        ;079A6D|        |08BAAD;  
                        dw MagicRobe                         ;079A6F|        |08BB13;  
                        dw RobeOfValor                       ;079A71|        |08BB6C;  
-                                                            ;      |        |      ;  
                        dw ArmorNone                         ;079A73|        |08BBD8;  
                        dw ArmorNone                         ;079A75|        |08BBD8;  
                        dw ArmorNone                         ;079A77|        |08BBD8;  
@@ -7791,7 +7792,7 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
   Add GP to total won: JSR.W Get_enemy_ID_from_103F         ;07B45F|202E91  |07912E;  
                        ASL A                                ;07B462|0A      |      ;  
                        TAX                                  ;07B463|AA      |      ;  
-                       LDA.L Enemy GP,X                     ;07B464|BF95CF05|05CF95; Get target's GP value
+                       LDA.L Enemy_GP,X                     ;07B464|BF95CF05|05CF95; Get target's GP value
                        CLC                                  ;07B468|18      |      ;  
                        ADC.W GP total?                      ;07B469|6DA513  |0013A5; Add to a running sum
                        STA.W GP total?                      ;07B46C|8DA513  |0013A5;  
@@ -8036,13 +8037,13 @@ OR element w/parameter: PHA                                  ;07B169|48      |  
                        TAX                                  ;07B60E|AA      |      ;  
                        LDA.W EqWeapon,X                     ;07B60F|BD8312  |001283;  
                        TAX                                  ;07B612|AA      |      ;  
-                       LDA.L EnemyWeaponLookup,X            ;07B613|BFD5D005|05D0D5;  
+                       LDA.L Enemy_WeaponLookup,X           ;07B613|BFD5D005|05D0D5;  
                        AND.W #$00FF                         ;07B617|29FF00  |      ;  
                        RTL                                  ;07B61A|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
   Get Boss music flag: TAX                                  ;07B61B|AA      |      ;  
-                       LDA.L Boss music flag,X              ;07B61C|BF95D105|05D195;  
+                       LDA.L Enemy_Boss_music,X             ;07B61C|BF95D105|05D195;  
                        AND.W #$00FF                         ;07B620|29FF00  |      ;  
                        RTL                                  ;07B623|6B      |      ;  
                                                             ;      |        |      ;  
@@ -9296,20 +9297,20 @@ Get_spell_ID_minus_(1b): JSL.L ReadNextScript(1b)_far         ;07BF2D|22F89A00|0
                        RTL                                  ;07BF39|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-    Check attr. stuff: LDX.W #$0000                         ;07BF3A|A20000  |      ;  
+       Runnable_Check: LDX.W #$0000                         ;07BF3A|A20000  |      ; Searches for boss monsters (they prevent running)
                                                             ;      |        |      ;  
-          CODE_07BF3D: LDA.W Attribute,X                    ;07BF3D|BD0B12  |00120B;  
+ Loop_BossFlag_Search: LDA.W Attribute,X                    ;07BF3D|BD0B12  |00120B;  
                        AND.W #$0010                         ;07BF40|291000  |      ;  
-                       BNE CODE_07BF50                      ;07BF43|D00B    |07BF50;  
+                       BNE CODE_07BF50                      ;07BF43|D00B    |07BF50; If boss monster, return 0 (fail)
                        INX                                  ;07BF45|E8      |      ;  
                        INX                                  ;07BF46|E8      |      ;  
                        CPX.W #$0018                         ;07BF47|E01800  |      ;  
-                       BCC CODE_07BF3D                      ;07BF4A|90F1    |07BF3D;  
-                       LDA.W #$0001                         ;07BF4C|A90100  |      ;  
+                       BCC Loop_BossFlag_Search             ;07BF4A|90F1    |07BF3D;  
+                       LDA.W #$0001                         ;07BF4C|A90100  |      ; Return success if no bosses found
                        RTL                                  ;07BF4F|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_07BF50: LDA.W #$0000                         ;07BF50|A90000  |      ;  
+          CODE_07BF50: LDA.W #$0000                         ;07BF50|A90000  |      ; Return failure if boss found
                        RTL                                  ;07BF53|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -9915,9 +9916,9 @@ Casting on enemies FX: dw Attack spells                     ;07C0A4|        |07C
                        LDA.W Status_Weird,Y                 ;07C3D1|B92B11  |00112B; Get healing value
                        CLC                                  ;07C3D4|18      |      ;  
                        ADC.W Current HP,Y                   ;07C3D5|79F312  |0012F3; Add to current HP
-                       CMP.L Enemy max HP,X                 ;07C3D8|DF55CE05|05CE55; If healed above max, set to max HP
+                       CMP.L Enemy_mHP,X                    ;07C3D8|DF55CE05|05CE55; If healed above max, set to max HP
                        BCC CODE_07C3E2                      ;07C3DC|9004    |07C3E2;  
-                       LDA.L Enemy max HP,X                 ;07C3DE|BF55CE05|05CE55;  
+                       LDA.L Enemy_mHP,X                    ;07C3DE|BF55CE05|05CE55;  
                                                             ;      |        |      ;  
           CODE_07C3E2: STA.W Current HP,Y                   ;07C3E2|99F312  |0012F3;  
                                                             ;      |        |      ;  

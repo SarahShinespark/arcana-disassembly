@@ -3,14 +3,24 @@
                                                             ;      |        |      ;  
                        db $FF                               ;058000|        |      ;  
                                                             ;      |        |      ;  
-          CODE_058001: ORA.L $000002                        ;058001|0F020000|000002;  
-                       BIT.B $00                            ;058005|2400    |000000;  
-                       TSB.W LOOSE_OP_008040                ;058007|0C4080  |008040;  
-                       ORA.L $000000                        ;05800A|0F000000|000000;  
-                       ORA.L $000001                        ;05800E|0F010000|000001;  
-                       ORA.L $000003                        ;058012|0F030000|000003;  
+Bank_05_Stat_Handling: db $0F                               ;058001|        |      ; Set $09EB,x to 2
+                       db $02                               ;058002|        |      ;  
+                       dw $0000                             ;058003|        |      ;  
+                       db $24                               ;058005|        |      ; Load $09A3,x
+                       db $00                               ;058006|        |      ;  
+                       db $0C                               ;058007|        |      ; If true jump to subroutine $8040
+                       dw Character_Init_2                  ;058008|        |058040;  
+                       db $0F                               ;05800A|        |      ; Set $09A3,x to 0
+                       db $00                               ;05800B|        |      ;  
+                       dw $0000                             ;05800C|        |      ;  
+                       db $0F                               ;05800E|        |      ; Set $09C7,x to 0
+                       db $01                               ;05800F|        |      ;  
+                       dw $0000                             ;058010|        |      ;  
+                       db $0F                               ;058012|        |      ; Set $0A0F,x to 0
+                       db $03                               ;058013|        |      ;  
+                       dw $0000                             ;058014|        |      ;  
                                                             ;      |        |      ;  
-       Bank5 script 1: db $07                               ;058016|        |      ; Set current party member to Rooks (00)?
+     Initialize_Rooks: db $07                               ;058016|        |      ; Set current party member to Rooks (00)?
                        dl Set character ID                  ;058017|        |07B470;  
                        db $00                               ;05801A|        |      ;  
                        db $00                               ;05801B|        |      ;  
@@ -25,7 +35,7 @@
                        db $24                               ;05802A|        |      ; Load current character ID
                        db $02                               ;05802B|        |      ;  
                        db $07                               ;05802C|        |      ;  
-                       dl GetJoinSpells                     ;05802D|        |07AC08; 08: ??
+                       dl GetJoinSpells                     ;05802D|        |07AC08;  
                        db $07                               ;058030|        |      ; Increase LV
                        dl Sub: Increase LV                  ;058031|        |07B256;  
                        db $07                               ;058034|        |      ; Max heal
@@ -36,7 +46,8 @@
                        db $00                               ;05803D|        |      ;  
                        db $00                               ;05803E|        |      ; 0000 -> $22
                        db $00                               ;05803F|        |      ;  
-                       db $24                               ;058040|        |      ; Load current character ID
+                                                            ;      |        |      ;  
+     Character_Init_2: db $24                               ;058040|        |      ; Load current character ID
                        db $02                               ;058041|        |      ;  
                        db $07                               ;058042|        |      ; OR their element with zero (useless?)
                        dl OR element w/parameter            ;058043|        |07B169;  
@@ -63,10 +74,10 @@
                        db $02                               ;058065|        |      ;  
                        db $07                               ;058066|        |      ;  
                        dl CODE_078DF0                       ;058067|        |078DF0;  
-                       db $07                               ;05806A|        |      ;  
+                       db $07                               ;05806A|        |      ; Get ID in slot 0
                        dl Get_ID_in_slot(2b)                ;05806B|        |07B0E8;  
                        dw $0000                             ;05806E|        |      ;  
-                       db $12                               ;058070|        |      ;  
+                       db $12                               ;058070|        |      ; Jump on ID value (0-3 => Rooks, Spirit, Guest1/2)
                        db $04                               ;058071|        |      ;  
                        dw DATA8_058197                      ;058072|        |058197;  
                        dw DATA8_0581A1                      ;058074|        |0581A1;  
@@ -3807,7 +3818,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw DATA8_05994F                      ;0597C6|        |05994F; Item
                        dw DATA8_0598B8                      ;0597C8|        |0598B8; (Dummied)
                        dw Combat: Defend                    ;0597CA|        |059CD2; Defend
-                       dw DATA8_059CF1                      ;0597CC|        |059CF1; Run
+                       dw Event_Runnable_Check              ;0597CC|        |059CF1; Run
                        dw DATA8_059A0C                      ;0597CE|        |059A0C; Call
                                                             ;      |        |      ;  
            SaveResult: db $1F                               ;0597D0|        |      ; Store ($11BF) in result $0CB3,x
@@ -4687,7 +4698,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $24                               ;059CA3|        |      ;  
                        db $02                               ;059CA4|        |      ;  
                        db $07                               ;059CA5|        |      ;  
-                       dl CODE_078493                       ;059CA6|        |078493;  
+                       dl Use_Weapon_As_Item                ;059CA6|        |078493;  
                        db $0B                               ;059CA9|        |      ;  
                        dw DATA8_059C77                      ;059CAA|        |059C77;  
                        db $04                               ;059CAC|        |      ;  
@@ -4739,8 +4750,8 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1A                               ;059CEE|        |      ; Jump always to 97D0
                        dw SaveResult                        ;059CEF|        |0597D0;  
                                                             ;      |        |      ;  
-         DATA8_059CF1: db $07                               ;059CF1|        |      ;  
-                       dl CODE_0783FE                       ;059CF2|        |0783FE;  
+ Event_Runnable_Check: db $07                               ;059CF1|        |      ;  
+                       dl Run_Check                         ;059CF2|        |0783FE;  
                        db $0B                               ;059CF5|        |      ;  
                        dw DATA8_059D09                      ;059CF6|        |059D09;  
                        db $07                               ;059CF8|        |      ;  
@@ -9713,16 +9724,11 @@ Darwin level up stats: dw $00A0                             ;05C102|        |   
                        dw $0002                             ;05C69E|        |      ;  
                        dw $0003                             ;05C6A0|        |      ;  
                        dw $0007                             ;05C6A2|        |      ;  
-                       db $01                               ;05C6A4|        |000000;  
-                       db $00                               ;05C6A5|        |      ;  
-                       db $04                               ;05C6A6|        |000000;  
-                       db $00                               ;05C6A7|        |      ;  
-                       db $03                               ;05C6A8|        |000000;  
-                       db $00                               ;05C6A9|        |      ;  
-                       db $01                               ;05C6AA|        |000000;  
-                       db $00                               ;05C6AB|        |      ;  
-                       db $02                               ;05C6AC|        |      ;  
-                       db $00                               ;05C6AD|        |      ;  
+                       dw $0001                             ;05C6A4|        |      ;  
+                       dw $0004                             ;05C6A6|        |      ;  
+                       dw $0003                             ;05C6A8|        |      ;  
+                       dw $0001                             ;05C6AA|        |      ;  
+                       dw $0002                             ;05C6AC|        |      ;  
                                                             ;      |        |      ;  
  Rooks levelup spells: db $00                               ;05C6AE|        |      ;  
                        db $00                               ;05C6AF|        |      ;  
@@ -10375,13 +10381,13 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $36                               ;05C926|        |      ;  
                        db $13                               ;05C927|        |      ;  
                                                             ;      |        |      ;  
-           Axs spells: db $00                               ;05C928|        |      ;  
+           Axs spells: db $00                               ;05C928|        |      ; Poor Axs.
                        db $32                               ;05C929|        |      ;  
                        db $20                               ;05C92A|        |      ;  
                        db $3E                               ;05C92B|        |      ;  
                        db $30                               ;05C92C|        |      ;  
                                                             ;      |        |      ;  
-   Enemy race/element: dw $0200                             ;05C92D|        |      ; Odd bytes are race, even bytes are element.
+       Enemy_Affinity: dw $0200                             ;05C92D|        |      ; Odd bytes are race, even bytes are element.
                        dw $0000                             ;05C92F|        |      ; and an undead armor resists their damage.
                        dw $0000                             ;05C931|        |      ; Element flags: 01 Wind, 02 Earth, 04 Water, 08 Fire
                        dw $0200                             ;05C933|        |      ;  
@@ -10462,8 +10468,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0010                             ;05C9C9|        |      ;  
                        dw $0010                             ;05C9CB|        |      ;  
                                                             ;      |        |      ;  
-              Get STR: dw $0001                             ;05C9CD|        |      ; This section has stats called during damage calculation
-                       dw $0020                             ;05C9CF|        |      ; They don't make much sense, though.
+            Enemy_STR: dw $0001                             ;05C9CD|        |      ; This section has stats called during damage calculation in place of character stats or equipment.
+                       dw $0020                             ;05C9CF|        |      ;  
                        dw $0030                             ;05C9D1|        |      ;  
                        dw $0030                             ;05C9D3|        |      ;  
                        dw $004F                             ;05C9D5|        |      ;  
@@ -10541,8 +10547,9 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $00E0                             ;05CA65|        |      ;  
                        dw $0080                             ;05CA67|        |      ;  
                        dw $0060                             ;05CA69|        |      ;  
-                       dw $00FA                             ;05CA6B|        |      ;  
-                       dw $0078                             ;05CA6D|        |      ;  
+                       dw $00FA                             ;05CA6B|        |      ; Rimsala 2
+                                                            ;      |        |      ;  
+     Tbl_Not_EnemyAtk: dw $0078                             ;05CA6D|        |      ; These 20 ($14) words are beyond the $4F enemies, no idea what it's for.
                        dw $0078                             ;05CA6F|        |      ;  
                        dw $0078                             ;05CA71|        |      ;  
                        dw $0078                             ;05CA73|        |      ;  
@@ -10563,7 +10570,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0064                             ;05CA91|        |      ;  
                        dw $00C8                             ;05CA93|        |      ;  
                                                             ;      |        |      ;  
-              Get INT: dw $0028                             ;05CA95|        |      ;  
+            Enemy_INT: dw $0028                             ;05CA95|        |      ;  
                        dw $0028                             ;05CA97|        |      ;  
                        dw $0028                             ;05CA99|        |      ;  
                        dw $0028                             ;05CA9B|        |      ;  
@@ -10644,7 +10651,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0064                             ;05CB31|        |      ;  
                        dw $00C8                             ;05CB33|        |      ;  
                                                             ;      |        |      ;  
-        Get Endurance: dw $0032                             ;05CB35|        |      ;  
+          Enemy_ENDUR: dw $0032                             ;05CB35|        |      ;  
                        dw $0032                             ;05CB37|        |      ;  
                        dw $0032                             ;05CB39|        |      ;  
                        dw $0032                             ;05CB3B|        |      ;  
@@ -10725,7 +10732,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $00FA                             ;05CBD1|        |      ;  
                        dw $00FA                             ;05CBD3|        |      ;  
                                                             ;      |        |      ;  
-        Get Alertness: dw $0000                             ;05CBD5|        |      ;  
+          Enemy_ALERT: dw $0000                             ;05CBD5|        |      ;  
                        dw $000A                             ;05CBD7|        |      ;  
                        dw $0014                             ;05CBD9|        |      ;  
                        dw $0005                             ;05CBDB|        |      ;  
@@ -10806,7 +10813,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0064                             ;05CC71|        |      ;  
                        dw $00C8                             ;05CC73|        |      ;  
                                                             ;      |        |      ;  
-    Get_Atk_Animation: dw $0040                             ;05CC75|        |      ;  
+  Enemy_Atk_Animation: dw $0040                             ;05CC75|        |      ;  
                        dw $0000                             ;05CC77|        |      ;  
                        dw $0000                             ;05CC79|        |      ;  
                        dw $0000                             ;05CC7B|        |      ;  
@@ -10887,7 +10894,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $000F                             ;05CD11|        |      ;  
                        dw $000F                             ;05CD13|        |      ;  
                                                             ;      |        |      ;  
-          Get EqArmor: dw $0000                             ;05CD15|        |      ;  
+        Enemy_EqArmor: dw $0000                             ;05CD15|        |      ;  
                        dw $0000                             ;05CD17|        |      ;  
                        dw $0000                             ;05CD19|        |      ;  
                        dw $0001                             ;05CD1B|        |      ;  
@@ -10968,7 +10975,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $000C                             ;05CDB1|        |      ;  
                        dw $000F                             ;05CDB3|        |      ;  
                                                             ;      |        |      ;  
-      Get EqAccessory: dw $0000                             ;05CDB5|        |      ;  
+       Enemy EqAmulet: dw $0000                             ;05CDB5|        |      ;  
                        dw $0000                             ;05CDB7|        |      ;  
                        dw $0000                             ;05CDB9|        |      ;  
                        dw $0000                             ;05CDBB|        |      ;  
@@ -11049,7 +11056,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $000F                             ;05CE51|        |      ;  
                        dw $000F                             ;05CE53|        |      ;  
                                                             ;      |        |      ;  
-         Enemy max HP: dw $0003                             ;05CE55|        |      ;  
+            Enemy_mHP: dw $0003                             ;05CE55|        |      ;  
                        dw $0005                             ;05CE57|        |      ;  
                        dw $0008                             ;05CE59|        |      ;  
                        dw $0004                             ;05CE5B|        |      ;  
@@ -11130,7 +11137,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $05DC                             ;05CEF1|        |      ;  
                        dw $0DAC                             ;05CEF3|        |      ;  
                                                             ;      |        |      ;  
-            Enemy EXP: dw $0001                             ;05CEF5|        |      ;  
+            Enemy_EXP: dw $0001                             ;05CEF5|        |      ;  
                        dw $0003                             ;05CEF7|        |      ;  
                        dw $0003                             ;05CEF9|        |      ;  
                        dw $0004                             ;05CEFB|        |      ;  
@@ -11211,7 +11218,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0001                             ;05CF91|        |      ;  
                        dw $0001                             ;05CF93|        |      ;  
                                                             ;      |        |      ;  
-             Enemy GP: dw $0004                             ;05CF95|        |      ;  
+             Enemy_GP: dw $0004                             ;05CF95|        |      ;  
                        dw $0002                             ;05CF97|        |      ;  
                        dw $0005                             ;05CF99|        |      ;  
                        dw $0006                             ;05CF9B|        |      ;  
@@ -11292,7 +11299,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0001                             ;05D031|        |      ;  
                        dw $026D                             ;05D033|        |      ;  
                                                             ;      |        |      ;  
-            Enemy LVL: dw $0001                             ;05D035|        |      ;  
+            Enemy_LVL: dw $0001                             ;05D035|        |      ;  
                        dw $0001                             ;05D037|        |      ;  
                        dw $0002                             ;05D039|        |      ;  
                        dw $0002                             ;05D03B|        |      ;  
@@ -11373,7 +11380,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0028                             ;05D0D1|        |      ;  
                        dw $0032                             ;05D0D3|        |      ;  
                                                             ;      |        |      ;  
-    EnemyWeaponLookup: db $00                               ;05D0D5|        |      ; 120 entries, equally 0-5
+   Enemy_WeaponLookup: db $00                               ;05D0D5|        |      ; 120 entries, equally 0-5
                        db $00                               ;05D0D6|        |      ;  
                        db $00                               ;05D0D7|        |      ;  
                        db $00                               ;05D0D8|        |      ;  
@@ -11566,7 +11573,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $05                               ;05D193|        |      ;  
                        db $05                               ;05D194|        |      ;  
                                                             ;      |        |      ;  
-      Boss music flag: db $00                               ;05D195|        |      ;  
+     Enemy_Boss_music: db $00                               ;05D195|        |      ;  
                        db $00                               ;05D196|        |      ;  
                        db $00                               ;05D197|        |      ;  
                        db $00                               ;05D198|        |      ;  
@@ -11647,7 +11654,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $02                               ;05D1E3|        |      ;  
                        db $02                               ;05D1E4|        |      ;  
                                                             ;      |        |      ;  
-               Boss #: db $FF                               ;05D1E5|        |      ; FF is "not a boss", otherwise the bosses are numbered 00 to 0F.
+        Enemy_Boss_No: db $FF                               ;05D1E5|        |      ; FF is "not a boss", otherwise the bosses are numbered 00 to 0F.
                        db $FF                               ;05D1E6|        |      ; I wonder why...
                        db $FF                               ;05D1E7|        |      ;  
                        db $FF                               ;05D1E8|        |      ;  
@@ -11728,7 +11735,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $0E                               ;05D233|        |      ;  
                        db $0F                               ;05D234|        |      ;  
                                                             ;      |        |      ;  
-     Enemy's spell ID: db $00                               ;05D235|        |      ; 00 = Doesn't cast; otherwise has a chance to cast their spell.
+      Enemy_Spellcast: db $00                               ;05D235|        |      ; 00 = Doesn't cast; otherwise has a chance to cast their spell.
                        db $00                               ;05D236|        |      ; For example, 01 = Lightning 1.
                        db $00                               ;05D237|        |      ; Like Pokemon Red, enemies don't have MP and can cast infinitely.
                        db $00                               ;05D238|        |      ;  
@@ -11809,7 +11816,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $00                               ;05D283|        |      ;  
                        db $17                               ;05D284|        |      ;  
                                                             ;      |        |      ;  
-      Enemy atk stat?: dw $0018                             ;05D285|        |      ; This stat doesn't make much sense.
+            Odd_Data1: dw $0018                             ;05D285|        |      ; 16 entries, related to $128B,x Enemy_Weapon. Loaded during enemy physical attack
                        dw $0014                             ;05D287|        |      ;  
                        dw $0028                             ;05D289|        |      ;  
                        dw $0020                             ;05D28B|        |      ;  
@@ -11825,7 +11832,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0064                             ;05D29F|        |      ;  
                        dw $00C8                             ;05D2A1|        |      ;  
                        dw $0100                             ;05D2A3|        |      ;  
-                       dw $0014                             ;05D2A5|        |      ;  
+                                                            ;      |        |      ;  
+            Odd_Data2: dw $0014                             ;05D2A5|        |      ;  
                        dw $0014                             ;05D2A7|        |      ;  
                        dw $0014                             ;05D2A9|        |      ;  
                        dw $0014                             ;05D2AB|        |      ;  
@@ -11841,7 +11849,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0014                             ;05D2BF|        |      ;  
                        dw $0014                             ;05D2C1|        |      ;  
                        dw $0014                             ;05D2C3|        |      ;  
-                       dw $0018                             ;05D2C5|        |      ;  
+                                                            ;      |        |      ;  
+            Odd_Data3: dw $0018                             ;05D2C5|        |      ;  
                        dw $0014                             ;05D2C7|        |      ;  
                        dw $0028                             ;05D2C9|        |      ;  
                        dw $0020                             ;05D2CB|        |      ;  
@@ -11857,7 +11866,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0064                             ;05D2DF|        |      ;  
                        dw $00C8                             ;05D2E1|        |      ;  
                        dw $0100                             ;05D2E3|        |      ;  
-                       dw $0014                             ;05D2E5|        |      ;  
+                                                            ;      |        |      ;  
+            Odd_Data4: dw $0014                             ;05D2E5|        |      ;  
                        dw $0014                             ;05D2E7|        |      ;  
                        dw $0014                             ;05D2E9|        |      ;  
                        dw $0014                             ;05D2EB|        |      ;  
@@ -11873,7 +11883,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0014                             ;05D2FF|        |      ;  
                        dw $0014                             ;05D301|        |      ;  
                        dw $0014                             ;05D303|        |      ;  
-                       dw $0018                             ;05D305|        |      ;  
+                                                            ;      |        |      ;  
+            Odd_Data5: dw $0018                             ;05D305|        |      ;  
                        dw $0014                             ;05D307|        |      ;  
                        dw $0028                             ;05D309|        |      ;  
                        dw $0020                             ;05D30B|        |      ;  
@@ -11890,7 +11901,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $00C8                             ;05D321|        |      ;  
                        dw $0100                             ;05D323|        |      ;  
                                                             ;      |        |      ;  
-       Unknown tables: dw $0014                             ;05D325|        |      ;  
+            Odd_Data6: dw $0014                             ;05D325|        |      ;  
                        dw $0014                             ;05D327|        |      ;  
                        dw $0014                             ;05D329|        |      ;  
                        dw $0014                             ;05D32B|        |      ;  
@@ -11970,7 +11981,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0014                             ;05D3BF|        |      ;  
                        dw $0014                             ;05D3C1|        |      ;  
                        dw $0014                             ;05D3C3|        |      ;  
-                       dw $0018                             ;05D3C5|        |      ;  
+                                                            ;      |        |      ;  
+            Odd_Data7: dw $0018                             ;05D3C5|        |      ; 2*16 bytes ascending
                        dw $0014                             ;05D3C7|        |      ;  
                        dw $0028                             ;05D3C9|        |      ;  
                        dw $0020                             ;05D3CB|        |      ;  
@@ -11986,7 +11998,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0064                             ;05D3DF|        |      ;  
                        dw $00C8                             ;05D3E1|        |      ;  
                        dw $0100                             ;05D3E3|        |      ;  
-                       dw $0014                             ;05D3E5|        |      ;  
+                                                            ;      |        |      ;  
+            Odd_Data8: dw $0014                             ;05D3E5|        |      ; 2*16 bytes of $0014
                        dw $0014                             ;05D3E7|        |      ;  
                        dw $0014                             ;05D3E9|        |      ;  
                        dw $0014                             ;05D3EB|        |      ;  
@@ -12003,7 +12016,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0014                             ;05D401|        |      ;  
                        dw $0014                             ;05D403|        |      ;  
                                                             ;      |        |      ;  
-        DATA16_05D405: dw $0010                             ;05D405|        |      ;  
+            Odd_Data9: dw $0010                             ;05D405|        |      ; 2*16 bytes
                        dw $0020                             ;05D407|        |      ;  
                        dw $0030                             ;05D409|        |      ;  
                        dw $0040                             ;05D40B|        |      ;  
@@ -12019,7 +12032,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $00E0                             ;05D41F|        |      ;  
                        dw $00F0                             ;05D421|        |      ;  
                        dw $00FF                             ;05D423|        |      ;  
-                       dw $0014                             ;05D425|        |      ;  
+                                                            ;      |        |      ;  
+           Odd_Data10: dw $0014                             ;05D425|        |      ; 2*16 bytes of $0014
                        dw $0014                             ;05D427|        |      ;  
                        dw $0014                             ;05D429|        |      ;  
                        dw $0014                             ;05D42B|        |      ;  
@@ -12036,7 +12050,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0014                             ;05D441|        |      ;  
                        dw $0014                             ;05D443|        |      ;  
                                                             ;      |        |      ;  
-         Enemy AccDef: dw $0000                             ;05D445|        |      ; (Checks notes) "Enemy accessory defense table, offset = accessory x2"
+           Odd_Data11: dw $0000                             ;05D445|        |      ; (Checks notes) "Enemy accessory defense table, offset = accessory x2"
                        dw $000A                             ;05D447|        |      ;  
                        dw $0014                             ;05D449|        |      ;  
                        dw $001E                             ;05D44B|        |      ;  
@@ -12052,7 +12066,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0064                             ;05D45F|        |      ;  
                        dw $00C8                             ;05D461|        |      ;  
                        dw $00FF                             ;05D463|        |      ;  
-                       dw $0014                             ;05D465|        |      ;  
+                                                            ;      |        |      ;  
+           Odd_Data12: dw $0014                             ;05D465|        |      ; 2*16 byes of $14
                        dw $0014                             ;05D467|        |      ;  
                        dw $0014                             ;05D469|        |      ;  
                        dw $0014                             ;05D46B|        |      ;  
@@ -12069,24 +12084,40 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0014                             ;05D481|        |      ;  
                        dw $0014                             ;05D483|        |      ;  
                                                             ;      |        |      ;  
-       Enemy MDEF (?): dw $0200                             ;05D485|        |      ;  
-                       dw $0804                             ;05D487|        |      ;  
-                       dw $140A                             ;05D489|        |      ;  
-                       dw $281E                             ;05D48B|        |      ;  
-                       dw $3C32                             ;05D48D|        |      ;  
-                       dw $5046                             ;05D48F|        |      ;  
-                       dw $645A                             ;05D491|        |      ;  
-                       dw $786E                             ;05D493|        |      ;  
-                       dw $8C82                             ;05D495|        |      ;  
-                       dw $A096                             ;05D497|        |      ;  
-                       dw $0A00                             ;05D499|        |      ;  
-                       dw $1E14                             ;05D49B|        |      ;  
-                       dw $3228                             ;05D49D|        |      ;  
-                       dw $463C                             ;05D49F|        |      ;  
-                       dw $5A50                             ;05D4A1|        |      ;  
-                       dw $5A50                             ;05D4A3|        |      ;  
+           Odd_Data13: db $00                               ;05D485|        |      ; 2*16 bytes
+                       db $02                               ;05D486|        |      ;  
+                       db $04                               ;05D487|        |      ;  
+                       db $08                               ;05D488|        |      ;  
+                       db $0A                               ;05D489|        |      ;  
+                       db $14                               ;05D48A|        |      ;  
+                       db $1E                               ;05D48B|        |      ;  
+                       db $28                               ;05D48C|        |      ;  
+                       db $32                               ;05D48D|        |      ;  
+                       db $3C                               ;05D48E|        |      ;  
+                       db $46                               ;05D48F|        |      ;  
+                       db $50                               ;05D490|        |      ;  
+                       db $5A                               ;05D491|        |      ;  
+                       db $64                               ;05D492|        |      ;  
+                       db $6E                               ;05D493|        |      ;  
+                       db $78                               ;05D494|        |      ;  
+                       db $82                               ;05D495|        |      ;  
+                       db $8C                               ;05D496|        |      ;  
+                       db $96                               ;05D497|        |      ;  
+                       db $A0                               ;05D498|        |      ;  
+                       db $00                               ;05D499|        |      ;  
+                       db $0A                               ;05D49A|        |      ;  
+                       db $14                               ;05D49B|        |      ;  
+                       db $1E                               ;05D49C|        |      ;  
+                       db $28                               ;05D49D|        |      ;  
+                       db $32                               ;05D49E|        |      ;  
+                       db $3C                               ;05D49F|        |      ;  
+                       db $46                               ;05D4A0|        |      ;  
+                       db $50                               ;05D4A1|        |      ;  
+                       db $5A                               ;05D4A2|        |      ;  
+                       db $50                               ;05D4A3|        |      ;  
+                       db $5A                               ;05D4A4|        |      ;  
                                                             ;      |        |      ;  
-              Tbl_$CD: dw $CDCD                             ;05D4A5|        |      ;  
+           Odd_Data14: dw $CDCD                             ;05D4A5|        |      ; 12*16 bytes of $CD
                        dw $CDCD                             ;05D4A7|        |      ;  
                        dw $CDCD                             ;05D4A9|        |      ;  
                        dw $CDCD                             ;05D4AB|        |      ;  
@@ -12183,7 +12214,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $CDCD                             ;05D561|        |      ;  
                        dw $CDCD                             ;05D563|        |      ;  
                                                             ;      |        |      ;  
-           Tbl_0A_etc: dw $0A0A                             ;05D565|        |      ;  
+           Odd_Data15: dw $0A0A                             ;05D565|        |      ;  
                        dw $0A0A                             ;05D567|        |      ;  
                        dw $0A0A                             ;05D569|        |      ;  
                        dw $0A0A                             ;05D56B|        |      ;  
@@ -12215,7 +12246,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0A0A                             ;05D59F|        |      ;  
                        dw $0A0A                             ;05D5A1|        |      ;  
                        dw $0A0A                             ;05D5A3|        |      ;  
-                       dw $0505                             ;05D5A5|        |      ;  
+                                                            ;      |        |      ;  
+           Odd_Data16: dw $0505                             ;05D5A5|        |      ;  
                        dw $0505                             ;05D5A7|        |      ;  
                        dw $0505                             ;05D5A9|        |      ;  
                        dw $0505                             ;05D5AB|        |      ;  
@@ -12231,7 +12263,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0505                             ;05D5BF|        |      ;  
                        dw $0505                             ;05D5C1|        |      ;  
                        dw $0505                             ;05D5C3|        |      ;  
-                       dw $0F0F                             ;05D5C5|        |      ;  
+                                                            ;      |        |      ;  
+           Odd_Data17: dw $0F0F                             ;05D5C5|        |      ;  
                        dw $0F0F                             ;05D5C7|        |      ;  
                        dw $0F0F                             ;05D5C9|        |      ;  
                        dw $0F0F                             ;05D5CB|        |      ;  
@@ -12247,7 +12280,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0F0F                             ;05D5DF|        |      ;  
                        dw $0F0F                             ;05D5E1|        |      ;  
                        dw $0F0F                             ;05D5E3|        |      ;  
-                       dw $1A1A                             ;05D5E5|        |      ;  
+                                                            ;      |        |      ;  
+           Odd_Data18: dw $1A1A                             ;05D5E5|        |      ;  
                        dw $1A1A                             ;05D5E7|        |      ;  
                        dw $1A1A                             ;05D5E9|        |      ;  
                        dw $1A1A                             ;05D5EB|        |      ;  
@@ -12263,7 +12297,8 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $1A1A                             ;05D5FF|        |      ;  
                        dw $1A1A                             ;05D601|        |      ;  
                        dw $1A1A                             ;05D603|        |      ;  
-                       dw $0A0A                             ;05D605|        |      ;  
+                                                            ;      |        |      ;  
+           Odd_Data19: dw $0A0A                             ;05D605|        |      ;  
                        dw $0A0A                             ;05D607|        |      ;  
                        dw $0A0A                             ;05D609|        |      ;  
                        dw $0A0A                             ;05D60B|        |      ;  
@@ -15229,7 +15264,7 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        db $06                               ;05F53E|        |      ; 06 01
                        db $01                               ;05F53F|        |      ;  
                        db $07                               ;05F540|        |      ;  
-                       dl Check attr. stuff                 ;05F541|        |07BF3A;  
+                       dl Runnable_Check                    ;05F541|        |07BF3A;  
                        db $0C                               ;05F544|        |      ;  
                        dw EMPTY_00F554                      ;05F545|        |00F554;  
                        db $07                               ;05F547|        |      ; "No escape" 2

@@ -94,7 +94,6 @@
                        Copy of Current MP = $00133B         ;      |        |      ;  
                        Function results = $000CB3           ;      |        |      ;  
                        Ptr, Encounter layout = $0018D7      ;      |        |      ;  
-                       ;      |        |      ;  
                        SpiritMaxHP = $001395                ;      |        |      ;  
                        Spirit Current HP = $0012F5          ;      |        |      ;  
                        Spirit Condition = $0011C5           ;      |        |      ;  
@@ -249,7 +248,7 @@
                        Enemy ENDR = $00125B                 ;      |        |      ;  
                        Enemy ALRT = $001273                 ;      |        |      ;  
                        Enemy Attr. = $001213                ;      |        |      ;  
-                       Enemy Weapon = $00128B               ;      |        |      ;  
+                       Enemy_Weapon = $00128B               ;      |        |      ;  
                        Enemy Armor = $0012A3                ;      |        |      ;  
                        Enemy Ring = $0012D3                 ;      |        |      ;  
                        ACC modifiers (Enemy) = $0012E5      ;      |        |      ;  
@@ -313,6 +312,7 @@
                        AnimE8_Total = $00097F               ;      |        |      ;  
                        AnimC0_Total = $00102F               ;      |        |      ;  
                        AnimC8_Total = $001037               ;      |        |      ;  
+                       End_Axs_Levelup_Stats = $05C6AD      ;      |        |      ;  
                        DATA16_00AC2E = $00AC2E              ;      |        |      ;  
                        DATA16_00AC30 = $00AC30              ;      |        |      ;  
                        DATA16_00AC32 = $00AC32              ;      |        |      ;  
@@ -389,7 +389,6 @@
                        DATA16_00B94D = $00B94D              ;      |        |      ;  
                        DATA16_00BAE9 = $00BAE9              ;      |        |      ;  
                        DATA16_00BB5B = $00BB5B              ;      |        |      ;  
-                       LOOSE_OP_0080C9 = $0080C9            ;      |        |      ;  
                        LOOSE_OP_008165 = $008165            ;      |        |      ;  
                        LOOSE_OP_008157 = $008157            ;      |        |      ;  
                        LOOSE_OP_0090F1 = $0090F1            ;      |        |      ;  
@@ -741,7 +740,7 @@
                        DATA16_00AC14 = $00AC14              ;      |        |      ;  
                        LOOSE_OP_00C675 = $00C675            ;      |        |      ;  
                        LOOSE_OP_00B6E4 = $00B6E4            ;      |        |      ;  
-                       DATA16_00D292 = $00D292              ;      |        |      ;  
+                       PTR24_00D292 = $00D292               ;      |        |      ;  
                        DATA16_00B823 = $00B823              ;      |        |      ;  
                        DATA16_00B83B = $00B83B              ;      |        |      ;  
                        LOOSE_OP_00B857 = $00B857            ;      |        |      ;  
@@ -790,7 +789,6 @@
                        LOOSE_OP_009F86 = $009F86            ;      |        |      ;  
                        LOOSE_OP_009F91 = $009F91            ;      |        |      ;  
                        LOOSE_OP_009FA7 = $009FA7            ;      |        |      ;  
-                       LOOSE_OP_008040 = $008040            ;      |        |      ;  
                        LOOSE_OP_0081A1 = $0081A1            ;      |        |      ;  
                        LOOSE_OP_008361 = $008361            ;      |        |      ;  
                        LOOSE_OP_00836C = $00836C            ;      |        |      ;  
@@ -867,4 +865,4 @@
                        LOOSE_OP_00D0EC = $00D0EC            ;      |        |      ;  
                        LOOSE_OP_00D159 = $00D159            ;      |        |      ;  
                        LOOSE_OP_00D196 = $00D196            ;      |        |      ;  
-                       PTR24_00D24F = $00D24F               ;      |        |      ;  
+                       DATA16_00D24F = $00D24F              ;      |        |      ;  

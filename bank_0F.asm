@@ -19328,22 +19328,22 @@ Event_Spell_Animation: db $07                               ;0FCB2B|        |   
   Animation_Lightning: db $32                               ;0FCC01|        |      ; Animation 32 30
                        db $30                               ;0FCC02|        |      ;  
                        db $1A                               ;0FCC03|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCC04|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCC04|        |0FCF2B;  
                                                             ;      |        |      ;  
       Animation_Smash: db $32                               ;0FCC06|        |      ; Animation 32 20
                        db $20                               ;0FCC07|        |      ;  
                        db $1A                               ;0FCC08|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCC09|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCC09|        |0FCF2B;  
                                                             ;      |        |      ;  
       Animation_Water: db $32                               ;0FCC0B|        |      ; Animation 32 10
                        db $10                               ;0FCC0C|        |      ;  
                        db $1A                               ;0FCC0D|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCC0E|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCC0E|        |0FCF2B;  
                                                             ;      |        |      ;  
       Animation_Flame: db $32                               ;0FCC10|        |      ; Animation 32 00
                        db $00                               ;0FCC11|        |      ;  
                        db $1A                               ;0FCC12|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCC13|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCC13|        |0FCF2B;  
                                                             ;      |        |      ;  
  Animation_Attribute1: db $31                               ;0FCC15|        |      ; Animation 31 30
                        db $30                               ;0FCC16|        |      ;  
@@ -19410,127 +19410,127 @@ Event_Spell_Animation: db $07                               ;0FCB2B|        |   
                        db $E0                               ;0FCC4F|        |      ;  
                        db $1C                               ;0FCC50|        |      ; End of script
                                                             ;      |        |      ;  
- Animation_Attribute6: db $31                               ;0FCC51|        |      ;  
+ Animation_Attribute6: db $31                               ;0FCC51|        |      ; 31 10
                        db $10                               ;0FCC52|        |      ;  
-                       db $01                               ;0FCC53|        |      ;  
+                       db $01                               ;0FCC53|        |      ; Loop start (15 times)
                        db $0F                               ;0FCC54|        |      ;  
-                       db $B9                               ;0FCC55|        |      ;  
+                       db $B9                               ;0FCC55|        |      ; B9 F0
                        db $F0                               ;0FCC56|        |      ;  
-                       db $B9                               ;0FCC57|        |      ;  
+                       db $B9                               ;0FCC57|        |      ; B9 11
                        db $11                               ;0FCC58|        |      ;  
-                       db $02                               ;0FCC59|        |      ;  
-                       db $B9                               ;0FCC5A|        |      ;  
+                       db $02                               ;0FCC59|        |      ; Loop end
+                       db $B9                               ;0FCC5A|        |      ; B9 F0
                        db $F0                               ;0FCC5B|        |      ;  
                        db $1C                               ;0FCC5C|        |      ; End of script
                                                             ;      |        |      ;  
- Animation_Attribute7: db $31                               ;0FCC5D|        |      ;  
+ Animation_Attribute7: db $31                               ;0FCC5D|        |      ; 31 30
                        db $30                               ;0FCC5E|        |      ;  
-                       db $01                               ;0FCC5F|        |      ;  
+                       db $01                               ;0FCC5F|        |      ; Loop start (15 times)
                        db $0F                               ;0FCC60|        |      ;  
-                       db $B9                               ;0FCC61|        |      ;  
+                       db $B9                               ;0FCC61|        |      ; B9 F0
                        db $F0                               ;0FCC62|        |      ;  
-                       db $B9                               ;0FCC63|        |      ;  
+                       db $B9                               ;0FCC63|        |      ; B9 F0
                        db $F0                               ;0FCC64|        |      ;  
-                       db $B9                               ;0FCC65|        |      ;  
-                       db $21                               ;0FCC66|        |      ;  
+                       db $B9                               ;0FCC65|        |      ; B9 21
+                       db $21                               ;0FCC66|        |      ; Loop end
                        db $02                               ;0FCC67|        |      ;  
-                       db $B9                               ;0FCC68|        |      ;  
+                       db $B9                               ;0FCC68|        |      ; B9 F0
                        db $F0                               ;0FCC69|        |      ;  
-                       db $B9                               ;0FCC6A|        |      ;  
+                       db $B9                               ;0FCC6A|        |      ; B9 F0
                        db $F0                               ;0FCC6B|        |      ;  
                        db $1C                               ;0FCC6C|        |      ; End of script
                                                             ;      |        |      ;  
- Animation_Attribute8: db $31                               ;0FCC6D|        |      ;  
+ Animation_Attribute8: db $31                               ;0FCC6D|        |      ; 31 30
                        db $30                               ;0FCC6E|        |      ;  
-                       db $01                               ;0FCC6F|        |      ;  
+                       db $01                               ;0FCC6F|        |      ; Loop start (15 times)
                        db $0F                               ;0FCC70|        |      ;  
-                       db $B9                               ;0FCC71|        |      ;  
+                       db $B9                               ;0FCC71|        |      ; B9 F0
                        db $F0                               ;0FCC72|        |      ;  
-                       db $B9                               ;0FCC73|        |      ;  
+                       db $B9                               ;0FCC73|        |      ; B9 E0
                        db $E0                               ;0FCC74|        |      ;  
-                       db $B9                               ;0FCC75|        |      ;  
+                       db $B9                               ;0FCC75|        |      ; B9 31
                        db $31                               ;0FCC76|        |      ;  
-                       db $02                               ;0FCC77|        |      ;  
-                       db $B9                               ;0FCC78|        |      ;  
+                       db $02                               ;0FCC77|        |      ; Loop end
+                       db $B9                               ;0FCC78|        |      ; B9 F0
                        db $F0                               ;0FCC79|        |      ;  
-                       db $B9                               ;0FCC7A|        |      ;  
+                       db $B9                               ;0FCC7A|        |      ; B9 E0
                        db $E0                               ;0FCC7B|        |      ;  
                        db $1C                               ;0FCC7C|        |      ; End of script
                                                             ;      |        |      ;  
- Animation_Attribute9: db $31                               ;0FCC7D|        |      ;  
+ Animation_Attribute9: db $31                               ;0FCC7D|        |      ; 31 30
                        db $30                               ;0FCC7E|        |      ;  
-                       db $01                               ;0FCC7F|        |      ;  
+                       db $01                               ;0FCC7F|        |      ; Loop start (15 times)
                        db $0F                               ;0FCC80|        |      ;  
-                       db $B9                               ;0FCC81|        |      ;  
+                       db $B9                               ;0FCC81|        |      ; B9 E0
                        db $E0                               ;0FCC82|        |      ;  
-                       db $B9                               ;0FCC83|        |      ;  
+                       db $B9                               ;0FCC83|        |      ; B9 F0
                        db $F0                               ;0FCC84|        |      ;  
-                       db $B9                               ;0FCC85|        |      ;  
+                       db $B9                               ;0FCC85|        |      ; B9 31
                        db $31                               ;0FCC86|        |      ;  
-                       db $02                               ;0FCC87|        |      ;  
-                       db $B9                               ;0FCC88|        |      ;  
+                       db $02                               ;0FCC87|        |      ; Loop end
+                       db $B9                               ;0FCC88|        |      ; B9 F0
                        db $F0                               ;0FCC89|        |      ;  
-                       db $B9                               ;0FCC8A|        |      ;  
+                       db $B9                               ;0FCC8A|        |      ; B9 E0
                        db $E0                               ;0FCC8B|        |      ;  
                        db $1C                               ;0FCC8C|        |      ; End of script
                                                             ;      |        |      ;  
-Animation_Attribute10: db $31                               ;0FCC8D|        |      ;  
+Animation_Attribute10: db $31                               ;0FCC8D|        |      ; 31 20
                        db $20                               ;0FCC8E|        |      ;  
-                       db $01                               ;0FCC8F|        |      ;  
+                       db $01                               ;0FCC8F|        |      ; Loop start (15 times)
                        db $0F                               ;0FCC90|        |      ;  
-                       db $B9                               ;0FCC91|        |      ;  
+                       db $B9                               ;0FCC91|        |      ; B9 F0
                        db $F0                               ;0FCC92|        |      ;  
-                       db $B9                               ;0FCC93|        |      ;  
+                       db $B9                               ;0FCC93|        |      ; B9 F0
                        db $F0                               ;0FCC94|        |      ;  
-                       db $B9                               ;0FCC95|        |      ;  
+                       db $B9                               ;0FCC95|        |      ; B9 21
                        db $21                               ;0FCC96|        |      ;  
-                       db $02                               ;0FCC97|        |      ;  
-                       db $B9                               ;0FCC98|        |      ;  
+                       db $02                               ;0FCC97|        |      ; Loop end
+                       db $B9                               ;0FCC98|        |      ; B9 F0
                        db $F0                               ;0FCC99|        |      ;  
-                       db $B9                               ;0FCC9A|        |      ;  
+                       db $B9                               ;0FCC9A|        |      ; B9 F0
                        db $F0                               ;0FCC9B|        |      ;  
                        db $1C                               ;0FCC9C|        |      ; End of script
                                                             ;      |        |      ;  
-Animation_Attribute11: db $31                               ;0FCC9D|        |      ;  
+Animation_Attribute11: db $31                               ;0FCC9D|        |      ; 31 30
                        db $30                               ;0FCC9E|        |      ;  
-                       db $01                               ;0FCC9F|        |      ;  
+                       db $01                               ;0FCC9F|        |      ; Loop start (15 times)
                        db $0F                               ;0FCCA0|        |      ;  
-                       db $B9                               ;0FCCA1|        |      ;  
+                       db $B9                               ;0FCCA1|        |      ; B9 F0
                        db $F0                               ;0FCCA2|        |      ;  
-                       db $B9                               ;0FCCA3|        |      ;  
+                       db $B9                               ;0FCCA3|        |      ; B9 F0
                        db $F0                               ;0FCCA4|        |      ;  
-                       db $B9                               ;0FCCA5|        |      ;  
+                       db $B9                               ;0FCCA5|        |      ; B9 F0
                        db $F0                               ;0FCCA6|        |      ;  
-                       db $B9                               ;0FCCA7|        |      ;  
+                       db $B9                               ;0FCCA7|        |      ; B9 31
                        db $31                               ;0FCCA8|        |      ;  
-                       db $02                               ;0FCCA9|        |      ;  
-                       db $B9                               ;0FCCAA|        |      ;  
+                       db $02                               ;0FCCA9|        |      ; Loop end
+                       db $B9                               ;0FCCAA|        |      ; B9 F0
                        db $F0                               ;0FCCAB|        |      ;  
-                       db $B9                               ;0FCCAC|        |      ;  
+                       db $B9                               ;0FCCAC|        |      ; B9 F0
                        db $F0                               ;0FCCAD|        |      ;  
-                       db $B9                               ;0FCCAE|        |      ;  
+                       db $B9                               ;0FCCAE|        |      ; B9 F0
                        db $F0                               ;0FCCAF|        |      ;  
                        db $1C                               ;0FCCB0|        |      ; End of script
                                                             ;      |        |      ;  
   Animation_Call_Wind: db $32                               ;0FCCB1|        |      ;  
                        db $30                               ;0FCCB2|        |      ;  
                        db $1A                               ;0FCCB3|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCCB4|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCCB4|        |0FCF2B;  
                                                             ;      |        |      ;  
  Animation_Call_Earth: db $32                               ;0FCCB6|        |      ;  
                        db $20                               ;0FCCB7|        |      ;  
                        db $1A                               ;0FCCB8|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCCB9|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCCB9|        |0FCF2B;  
                                                             ;      |        |      ;  
  Animation_Call_Water: db $32                               ;0FCCBB|        |      ;  
                        db $10                               ;0FCCBC|        |      ;  
                        db $1A                               ;0FCCBD|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCCBE|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCCBE|        |0FCF2B;  
                                                             ;      |        |      ;  
   Animation_Call_Fire: db $32                               ;0FCCC0|        |      ;  
                        db $00                               ;0FCCC1|        |      ;  
                        db $1A                               ;0FCCC2|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCCC3|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCCC3|        |0FCF2B;  
                                                             ;      |        |      ;  
     Animation_Dummied: db $1C                               ;0FCCC5|        |      ;  
                                                             ;      |        |      ;  
@@ -19853,7 +19853,7 @@ Animation_Attribute11: db $31                               ;0FCC9D|        |   
 Animation_CallAmulet_Fail: db $32                               ;0FCE70|        |      ; Play animation 32 61
                        db $61                               ;0FCE71|        |      ;  
                        db $1A                               ;0FCE72|        |      ; Jump to subroutine $CF2B
-                       dw Event_End_Spell_Anim              ;0FCE73|        |0FCF2B;  
+                       dw Event_Single_Spell_Anim           ;0FCE73|        |0FCF2B;  
                                                             ;      |        |      ;  
 Animation_Unknown_Dummy: db $1C                               ;0FCE75|        |      ; End of script
                                                             ;      |        |      ;  
@@ -19995,7 +19995,7 @@ Animation_Unknown_Dummy: db $1C                               ;0FCE75|        | 
                        dw $0001                             ;0FCF28|        |      ;  
                        db $1C                               ;0FCF2A|        |      ; End of script
                                                             ;      |        |      ;  
- Event_End_Spell_Anim: db $01                               ;0FCF2B|        |      ; Loop 0F times
+Event_Single_Spell_Anim: db $01                               ;0FCF2B|        |      ; Loop 0F times
                        db $0F                               ;0FCF2C|        |      ;  
                        db $AA                               ;0FCF2D|        |      ; Set animation speed to 2
                        db $02                               ;0FCF2E|        |      ; End loop

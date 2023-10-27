@@ -1072,14 +1072,11 @@ Screen display or80_far: JSR.W Screen display or80            ;008177|207B81  |0
             Bit table: RTS                                  ;0086E5|60      |      ;  
                                                             ;      |        |      ;  
                        db $40                               ;0086E6|        |      ;  
-                                                            ;      |        |      ;  
                        db $C0                               ;0086E7|        |      ;  
                        db $00                               ;0086E8|        |      ;  
                        db $80                               ;0086E9|        |      ;  
-                                                            ;      |        |      ;  
                        db $00                               ;0086EA|        |      ;  
                        db $80                               ;0086EB|        |      ;  
-                                                            ;      |        |      ;  
                        PHD                                  ;0086EC|0B      |      ; Set dp to $1DFC
                        PHA                                  ;0086ED|48      |      ;  
                        TDC                                  ;0086EE|7B      |      ;  
@@ -1924,7 +1921,6 @@ Why would you do this: JMP.W CODE_008892                    ;00888B|4C9288  |008
                        db $FB                               ;008BAC|        |      ;  
                        db $F9                               ;008BAD|        |      ;  
                        db $F8                               ;008BAE|        |      ;  
-                                                            ;      |        |      ;  
                        db $F6                               ;008BAF|        |      ;  
                        db $F4                               ;008BB0|        |      ;  
                        db $F3                               ;008BB1|        |      ;  
@@ -3370,7 +3366,6 @@ Event_Anim_D8_DF_(1b): INC.B $10                            ;00950F|E610    |000
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_009594: LDA.B $20                            ;009594|A520    |000020;  
-                                                            ;      |        |      ;  
                        ASL A                                ;009596|0A      |      ;  
                        TAY                                  ;009597|A8      |      ;  
                        LDA.B [$10],Y                        ;009598|B710    |000010;  
@@ -3503,7 +3498,7 @@ Event_Anim_D8_DF_(1b): INC.B $10                            ;00950F|E610    |000
           CODE_009670: RTS                                  ;009670|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-Event_Anim_B8_BF_(1b): INC.B $10                            ;009671|E610    |000010; Adds (1b) to the animation ID
+Event_Anim_B8_BF_(1b): INC.B $10                            ;009671|E610    |000010; Adds (1b) to the animation ID. Can do subtraction too.
                        LDX.W Selection                      ;009673|AE3F10  |00103F;  
                        LDA.B [$10]                          ;009676|A710    |000010;  
                        AND.W #$00FF                         ;009678|29FF00  |      ;  
@@ -3516,7 +3511,6 @@ Event_Anim_B8_BF_(1b): INC.B $10                            ;009671|E610    |000
                                                             ;      |        |      ;  
           CODE_009684: ADC.W Anim_ID,X                      ;009684|7D7B0A  |000A7B;  
                        STA.W Anim_ID,X                      ;009687|9D7B0A  |000A7B;  
-                                                            ;      |        |      ;  
                        INC.B $10                            ;00968A|E610    |000010;  
                                                             ;      |        |      ;  
           CODE_00968C: RTS                                  ;00968C|60      |      ;  
@@ -5274,7 +5268,7 @@ Confusing_RAM_Xfer(3b)(4b): LDY.W #$0006                         ;00A162|A00600 
                        dl DATA8_018A68                      ;00A1D9|        |018A68;  
                        dl DATA8_01A32F                      ;00A1DC|        |01A32F;  
                        dl DATA8_01A477                      ;00A1DF|        |01A477;  
-                       dl CODE_058001                       ;00A1E2|        |058001;  
+                       dl Bank_05_Stat_Handling             ;00A1E2|        |058001;  
                        dl DATA8_058645                      ;00A1E5|        |058645;  
                        dl DATA8_05884E                      ;00A1E8|        |05884E;  
                        dl DATA8_0589EB                      ;00A1EB|        |0589EB;  
@@ -6911,7 +6905,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        db $09                               ;00AD07|        |      ;  
                        db $09                               ;00AD08|        |      ;  
                        db $08                               ;00AD09|        |      ;  
-                                                            ;      |        |      ;  
                        db $08                               ;00AD0A|        |      ;  
                        db $09                               ;00AD0B|        |      ;  
                        db $09                               ;00AD0C|        |      ;  
@@ -6978,7 +6971,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        db $00                               ;00AD42|        |      ;  
                        db $00                               ;00AD43|        |      ;  
                        db $00                               ;00AD44|        |      ;  
-                                                            ;      |        |      ;  
                        db $00                               ;00AD45|        |      ;  
                        db $00                               ;00AD46|        |      ;  
                                                             ;      |        |      ;  
@@ -6994,7 +6986,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        db $00                               ;00AD4F|        |      ;  
                                                             ;      |        |      ;  
          DATA8_00AD50: db $00                               ;00AD50|        |      ;  
-                                                            ;      |        |      ;  
                        db $0E                               ;00AD51|        |      ;  
                        db $38                               ;00AD52|        |      ;  
                                                             ;      |        |      ;  
@@ -7097,7 +7088,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        db $02                               ;00ADB1|        |      ;  
                        db $00                               ;00ADB2|        |      ;  
                        db $10                               ;00ADB3|        |      ;  
-                                                            ;      |        |      ;  
                        db $00                               ;00ADB4|        |      ;  
                        db $80                               ;00ADB5|        |      ;  
                        db $40                               ;00ADB6|        |      ;  
@@ -7390,7 +7380,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        db $0E                               ;00AEC4|        |      ;  
                        db $01                               ;00AEC5|        |      ;  
                        db $10                               ;00AEC6|        |      ;  
-                                                            ;      |        |      ;  
                        db $31                               ;00AEC7|        |      ;  
                                                             ;      |        |      ;  
          DATA8_00AEC8: db $83                               ;00AEC8|        |      ;  
@@ -9675,7 +9664,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        REP #$20                             ;00B9E7|C220    |      ;  
                        LDX.W $111B                          ;00B9E9|AE1B11  |00111B;  
                        AND.L AND_table,X                    ;00B9EC|3F0AB800|00B80A;  
-                                                            ;      |        |      ;  
                        EOR.L EOR_table,X                    ;00B9F0|5F2AB800|00B82A;  
                        LDX.B $0A                            ;00B9F4|A60A    |00000A;  
                        EOR.W $4000,X                        ;00B9F6|5D0040  |004000;  
@@ -10185,7 +10173,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                        XBA                                  ;00BDA5|EB      |      ;  
                        STA.L $7E6800,X                      ;00BDA6|9F00687E|7E6800;  
                        INY                                  ;00BDAA|C8      |      ;  
-                                                            ;      |        |      ;  
                        INY                                  ;00BDAB|C8      |      ;  
                        INX                                  ;00BDAC|E8      |      ;  
                        INX                                  ;00BDAD|E8      |      ;  
@@ -10596,7 +10583,6 @@ Text Script Helper Fn 3: PHD                                  ;00AB2D|0B      | 
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
      Stat Multipliers: dw $0080                             ;00C04F|        |      ; 80 = neutral (not buffed nor debuffed)
-                                                            ;      |        |      ;  
                        dw $00FF                             ;00C051|        |      ; FF = buffed
                        dw $0000                             ;00C053|        |      ; 00 = debuffed
                                                             ;      |        |      ;  
@@ -11515,7 +11501,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C6EF|AA      |      ; X=0
                        CPY.W #$0008                         ;00C6F0|C00800  |      ;  
                        BCC CODE_00C6FB                      ;00C6F3|9006    |00C6FB;  
-                       LDA.L Tbl_0A_etc,X                   ;00C6F5|BF65D505|05D565; Y>8 (dunno what this is)
+                       LDA.L Odd_Data15,X                   ;00C6F5|BF65D505|05D565; Y>8 (dunno what this is)
                        BRA CODE_00C732                      ;00C6F9|8037    |00C732;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -11535,7 +11521,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C714|AA      |      ;  
                        CPY.W #$0008                         ;00C715|C00800  |      ;  
                        BCC CODE_00C720                      ;00C718|9006    |00C720;  
-                       LDA.L Tbl_$CD,X                      ;00C71A|BFA5D405|05D4A5; Y>8: return some monster stat
+                       LDA.L Odd_Data14,X                   ;00C71A|BFA5D405|05D4A5; Y>8: return some monster stat
                        BRA CODE_00C732                      ;00C71E|8012    |00C732;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -11558,7 +11544,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C73C|AA      |      ;  
                        CPY.W #$0008                         ;00C73D|C00800  |      ;  
                        BCC CODE_00C747                      ;00C740|9005    |00C747;  
-                       LDA.L Enemy atk stat?,X              ;00C742|BF85D205|05D285; Y>8: return some monster stat
+                       LDA.L Odd_Data1,X                    ;00C742|BF85D205|05D285; Y>8: return some monster stat
                        RTS                                  ;00C746|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -11613,7 +11599,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C795|AA      |      ;  
                        CPY.W #$0008                         ;00C796|C00800  |      ;  
                        BCC CODE_00C7A0                      ;00C799|9005    |00C7A0;  
-                       LDA.L DATA16_05D405                  ;00C79B|AF05D405|05D405; (Shouldn't this be BF not AF?) Load monster stat
+                       LDA.L Odd_Data9                      ;00C79B|AF05D405|05D405; (Shouldn't this be BF not AF?) Load monster stat
                        RTS                                  ;00C79F|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -11662,7 +11648,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C7E5|AA      |      ;  
                        CPY.W #$0008                         ;00C7E6|C00800  |      ;  
                        BCC CODE_00C7F0                      ;00C7E9|9005    |00C7F0;  
-                       LDA.L Enemy AccDef,X                 ;00C7EB|BF45D405|05D445;  
+                       LDA.L Odd_Data11,X                   ;00C7EB|BF45D405|05D445;  
                        RTS                                  ;00C7EF|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -11700,7 +11686,7 @@ Spell INT damage bonus: LDA.W Intelligence,X                 ;00C6A7|BD3B12  |00
                        TAX                                  ;00C823|AA      |      ;  
                        CPY.W #$0008                         ;00C824|C00800  |      ;  
                        BCC CODE_00C82F                      ;00C827|9006    |00C82F;  
-                       LDA.L Enemy MDEF (?),X               ;00C829|BF85D405|05D485;  
+                       LDA.L Odd_Data13,X                   ;00C829|BF85D405|05D485;  
                        BRA CODE_00C841                      ;00C82D|8012    |00C841;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -13305,7 +13291,6 @@ Tbl: Subtraction values: dw $0058                             ;00D10E|        | 
                        STX.W APU 0                          ;00D2D5|8E4021  |002140;  
                        INX                                  ;00D2D8|E8      |      ;  
                        INC.B $00                            ;00D2D9|E600    |000000;  
-                                                            ;      |        |      ;  
                        DEC.B $04                            ;00D2DB|C604    |000004;  
                        BEQ CODE_00D2B3                      ;00D2DD|F0D4    |00D2B3;  
                        INC.B $00                            ;00D2DF|E600    |000000;  
@@ -13550,7 +13535,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        LDA.W $119F                          ;00D45B|AD9F11  |00119F;  
                        DEC A                                ;00D45E|3A      |      ;  
                        BPL CODE_00D477                      ;00D45F|1016    |00D477;  
-                                                            ;      |        |      ;  
                        LDA.W #$0000                         ;00D461|A90000  |      ;  
                        BRA CODE_00D477                      ;00D464|8011    |00D477;  
                                                             ;      |        |      ;  
@@ -16229,7 +16213,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $13                               ;00DEB0|        |0000EB;  
                        db $EB                               ;00DEB1|        |      ;  
                        db $51                               ;00DEB2|        |0000F5;  
-                                                            ;      |        |      ;  
                        db $F5                               ;00DEB3|        |0000D1;  
                                                             ;      |        |      ;  
        UNREACH_00DEB4: db $D1                               ;00DEB4|        |000002;  
@@ -16249,7 +16232,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $C1                               ;00DEC2|        |0000CF;  
                        db $CF                               ;00DEC3|        |FF48DD;  
                        db $DD                               ;00DEC4|        |00FF48;  
-                                                            ;      |        |      ;  
                        db $48                               ;00DEC5|        |      ;  
                        db $FF                               ;00DEC6|        |CF59EB;  
                        db $EB                               ;00DEC7|        |      ;  
@@ -17766,7 +17748,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $FF                               ;00E4A7|        |      ;  
                        db $FF                               ;00E4A8|        |      ;  
                        db $FF                               ;00E4A9|        |      ;  
-                                                            ;      |        |      ;  
                        db $FF                               ;00E4AA|        |      ;  
                        db $FF                               ;00E4AB|        |      ;  
                        db $FF                               ;00E4AC|        |      ;  
@@ -20102,7 +20083,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $FF                               ;00EDC2|        |      ;  
                        db $FF                               ;00EDC3|        |      ;  
                        db $FF                               ;00EDC4|        |      ;  
-                                                            ;      |        |      ;  
                        db $FF                               ;00EDC5|        |      ;  
                        db $FF                               ;00EDC6|        |      ;  
                        db $FF                               ;00EDC7|        |      ;  
@@ -20694,7 +20674,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $FF                               ;00F011|        |      ;  
                        db $FF                               ;00F012|        |      ;  
                        db $FF                               ;00F013|        |      ;  
-                                                            ;      |        |      ;  
                        db $FF                               ;00F014|        |      ;  
                        db $FF                               ;00F015|        |      ;  
                        db $FF                               ;00F016|        |      ;  
@@ -22370,7 +22349,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $FF                               ;00F687|        |      ;  
                        db $FF                               ;00F688|        |      ;  
                        db $FF                               ;00F689|        |      ;  
-                                                            ;      |        |      ;  
                        db $FF                               ;00F68A|        |      ;  
                        db $FF                               ;00F68B|        |      ;  
                        db $FF                               ;00F68C|        |      ;  
@@ -23771,7 +23749,6 @@ Check for Start press: LDA.W Input (0031)                   ;00D40F|AD3100  |000
                        db $FF                               ;00FBF6|        |      ;  
                        db $FF                               ;00FBF7|        |      ;  
                        db $FF                               ;00FBF8|        |      ;  
-                                                            ;      |        |      ;  
                        db $FF                               ;00FBF9|        |      ;  
                        db $FF                               ;00FBFA|        |      ;  
                        db $FF                               ;00FBFB|        |      ;  
