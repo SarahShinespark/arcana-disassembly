@@ -16,7 +16,7 @@
                        db $07                               ;0F800F|        |      ; Load data for enemy weapon
                        dl CODE_1882E6                       ;0F8010|        |1882E6;  
                        db $07                               ;0F8013|        |      ; Play Attack SFX
-                       dl Sub: Get/Set SFX                  ;0F8014|        |009C44;  
+                       dl GetSet_SFX                        ;0F8014|        |009C44;  
                        db $01                               ;0F8017|        |      ;  
                        db $07                               ;0F8018|        |      ;  
                        dl GetEnemyWpnLookup                 ;0F8019|        |07B607;  
@@ -19713,7 +19713,7 @@ Animation_Attribute11: db $31                               ;0FCC9D|        |   
                        db $07                               ;0FCDA1|        |      ;  
                        dl CODE_1882E6                       ;0FCDA2|        |1882E6;  
                        db $07                               ;0FCDA5|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0FCDA6|        |009C44;  
+                       dl GetSet_SFX                        ;0FCDA6|        |009C44;  
                        db $07                               ;0FCDA9|        |      ; Damage SFX
                        db $31                               ;0FCDAA|        |      ;  
                        db $5F                               ;0FCDAB|        |      ;  
@@ -19748,7 +19748,7 @@ Animation_Attribute11: db $31                               ;0FCC9D|        |   
                        db $07                               ;0FCDD5|        |      ;  
                        dl CODE_1882E6                       ;0FCDD6|        |1882E6;  
                        db $07                               ;0FCDD9|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0FCDDA|        |009C44;  
+                       dl GetSet_SFX                        ;0FCDDA|        |009C44;  
                        db $07                               ;0FCDDD|        |      ; Damage SFX
                        db $31                               ;0FCDDE|        |      ;  
                        db $5F                               ;0FCDDF|        |      ;  
@@ -19803,7 +19803,7 @@ Animation_Attribute11: db $31                               ;0FCC9D|        |   
                        db $07                               ;0FCE28|        |      ;  
                        dl CODE_1882E6                       ;0FCE29|        |1882E6;  
                        db $07                               ;0FCE2C|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0FCE2D|        |009C44;  
+                       dl GetSet_SFX                        ;0FCE2D|        |009C44;  
                        db $07                               ;0FCE30|        |      ; Damage SFX
                        db $31                               ;0FCE31|        |      ;  
                        db $5F                               ;0FCE32|        |      ;  
@@ -19838,7 +19838,7 @@ Animation_Attribute11: db $31                               ;0FCC9D|        |   
                        db $07                               ;0FCE5C|        |      ;  
                        dl CODE_1882E6                       ;0FCE5D|        |1882E6;  
                        db $07                               ;0FCE60|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0FCE61|        |009C44;  
+                       dl GetSet_SFX                        ;0FCE61|        |009C44;  
                        db $07                               ;0FCE64|        |      ; Damage SFX
                        db $31                               ;0FCE65|        |      ;  
                        db $5F                               ;0FCE66|        |      ;  
@@ -19962,7 +19962,7 @@ Animation_Unknown_Dummy: db $1C                               ;0FCE75|        | 
                        dw $1091                             ;0FCEF6|        |      ;  
                        dw $0001                             ;0FCEF8|        |      ;  
                        db $07                               ;0FCEFA|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0FCEFB|        |009C44;  
+                       dl GetSet_SFX                        ;0FCEFB|        |009C44;  
                        db $1F                               ;0FCEFE|        |      ; Healing SFX
                        db $1C                               ;0FCEFF|        |      ; End of script
                                                             ;      |        |      ;  
@@ -20004,7 +20004,7 @@ Event_Single_Spell_Anim: db $01                               ;0FCF2B|        | 
    Spell_Out_Of_Range: db $1C                               ;0FCF30|        |      ; End of script
                                                             ;      |        |      ;  
           CODE_0FCF31: LDX.W Selection                      ;0FCF31|AE3F10  |00103F;  
-                       LDA.W Treasure type,X                ;0FCF34|BDC709  |0009C7;  
+                       LDA.W Temp_09C7,X                    ;0FCF34|BDC709  |0009C7;  
                        CLC                                  ;0FCF37|18      |      ;  
                        ADC.W #$CF5D                         ;0FCF38|695DCF  |      ;  
                        TAX                                  ;0FCF3B|AA      |      ;  
@@ -20014,14 +20014,14 @@ Event_Single_Spell_Anim: db $01                               ;0FCF2B|        | 
                        MVN $00,$0F                          ;0FCF43|54000F  |      ;  
                        PLB                                  ;0FCF46|AB      |      ;  
                        LDX.W Selection                      ;0FCF47|AE3F10  |00103F;  
-                       LDA.W Treasure type,X                ;0FCF4A|BDC709  |0009C7;  
+                       LDA.W Temp_09C7,X                    ;0FCF4A|BDC709  |0009C7;  
                        CLC                                  ;0FCF4D|18      |      ;  
                        ADC.W #$000C                         ;0FCF4E|690C00  |      ;  
                        CMP.W #$0032                         ;0FCF51|C93200  |      ;  
                        BCC CODE_0FCF59                      ;0FCF54|9003    |0FCF59;  
                        LDA.W #$0000                         ;0FCF56|A90000  |      ;  
                                                             ;      |        |      ;  
-          CODE_0FCF59: STA.W Treasure type,X                ;0FCF59|9DC709  |0009C7;  
+          CODE_0FCF59: STA.W Temp_09C7,X                    ;0FCF59|9DC709  |0009C7;  
                        RTL                                  ;0FCF5C|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -20099,10 +20099,10 @@ Event_Single_Spell_Anim: db $01                               ;0FCF2B|        | 
                        db $00                               ;0FCFA4|        |      ;  
                                                             ;      |        |      ;  
   Load_Some_Anim_Data: LDX.W Selection                      ;0FCFA5|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;0FCFA8|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;0FCFA8|BDEB09  |0009EB;  
                        AND.W #$0003                         ;0FCFAB|290300  |      ;  
                        BNE CODE_0FCFD8                      ;0FCFAE|D028    |0FCFD8;  
-                       LDA.W Treasure type,X                ;0FCFB0|BDC709  |0009C7;  
+                       LDA.W Temp_09C7,X                    ;0FCFB0|BDC709  |0009C7;  
                        CLC                                  ;0FCFB3|18      |      ;  
                        ADC.W #$CFDC                         ;0FCFB4|69DCCF  |      ;  
                        TAX                                  ;0FCFB7|AA      |      ;  
@@ -20112,16 +20112,16 @@ Event_Single_Spell_Anim: db $01                               ;0FCF2B|        | 
                        MVN $00,$0F                          ;0FCFBF|54000F  |      ;  
                        PLB                                  ;0FCFC2|AB      |      ;  
                        LDX.W Selection                      ;0FCFC3|AE3F10  |00103F;  
-                       LDA.W Treasure type,X                ;0FCFC6|BDC709  |0009C7;  
+                       LDA.W Temp_09C7,X                    ;0FCFC6|BDC709  |0009C7;  
                        CLC                                  ;0FCFC9|18      |      ;  
                        ADC.W #$000C                         ;0FCFCA|690C00  |      ;  
                        CMP.W #$0032                         ;0FCFCD|C93200  |      ;  
                        BCC CODE_0FCFD5                      ;0FCFD0|9003    |0FCFD5;  
                        LDA.W #$0000                         ;0FCFD2|A90000  |      ;  
                                                             ;      |        |      ;  
-          CODE_0FCFD5: STA.W Treasure type,X                ;0FCFD5|9DC709  |0009C7;  
+          CODE_0FCFD5: STA.W Temp_09C7,X                    ;0FCFD5|9DC709  |0009C7;  
                                                             ;      |        |      ;  
-          CODE_0FCFD8: INC.W Selection value,X              ;0FCFD8|FEEB09  |0009EB;  
+          CODE_0FCFD8: INC.W Selection_value,X              ;0FCFD8|FEEB09  |0009EB;  
                        RTL                                  ;0FCFDB|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  

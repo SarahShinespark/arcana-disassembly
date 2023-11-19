@@ -51,7 +51,7 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                        TAX                                  ;188053|AA      |      ;  
                        BNE Tile_NoEncounter                 ;188054|D0EA    |188040; If roll was nonzero, no encounter
                                                             ;      |        |      ;  
-     Random encounter: LDA.W Chapter #                      ;188056|ADCD18  |0018CD;  
+     Random encounter: LDA.W Chapter_num                    ;188056|ADCD18  |0018CD;  
                        DEC A                                ;188059|3A      |      ;  
                        ASL A                                ;18805A|0A      |      ;  
                        TAX                                  ;18805B|AA      |      ;  
@@ -75,9 +75,9 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                        BNE CODE_18806E                      ;18807B|D0F1    |18806E;  
                                                             ;      |        |      ;  
           CODE_18807D: LDA.B $18                            ;18807D|A518    |000018;  
-                       STA.W Ptr, Enemy list                ;18807F|8DDA18  |0018DA; Save ptr to the enemy list for that tile
+                       STA.W Ptr_Enemy_list                 ;18807F|8DDA18  |0018DA; Save ptr to the enemy list for that tile
                        LDA.B $19                            ;188082|A519    |000019;  
-                       STA.W Bank, Enemy list               ;188084|8DDB18  |0018DB;  
+                       STA.W Bank_Enemy_list                ;188084|8DDB18  |0018DB;  
                        LDA.B [$18]                          ;188087|A718    |000018; Load Formation List (determines the layout of the sixteen possible encounters)
                        AND.W #$FF00                         ;188089|2900FF  |      ;  
                        XBA                                  ;18808C|EB      |      ;  
@@ -103,13 +103,13 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                        BNE CODE_1880A5                      ;1880B1|D0F2    |1880A5;  
                                                             ;      |        |      ;  
           CODE_1880B3: LDA.B $1C                            ;1880B3|A51C    |00001C;  
-                       STA.W Ptr, Encounter layout          ;1880B5|8DD718  |0018D7; Save a long ptr to the encounter in $18D7
+                       STA.W Ptr_Encounter_layout           ;1880B5|8DD718  |0018D7; Save a long ptr to the encounter in $18D7
                        LDA.B $1D                            ;1880B8|A51D    |00001D;  
-                       STA.W Bank, Encounter layout         ;1880BA|8DD818  |0018D8;  
+                       STA.W Bank_Encounter_layout          ;1880BA|8DD818  |0018D8;  
                                                             ;      |        |      ;  
           Weird logic: LDA.W $1901                          ;1880BD|AD0119  |001901; If $1901 not zero and event not "met Karul in Ch 5", force normal attacks
                        BEQ CODE_1880D4                      ;1880C0|F012    |1880D4;  
-                       LDA.W Event Byte                     ;1880C2|ADFF18  |0018FF;  
+                       LDA.W Story_Progress                 ;1880C2|ADFF18  |0018FF;  
                        CMP.W #$0019                         ;1880C5|C91900  |      ; Guessing bc Karul is a back attack
                        BNE CODE_1880CF                      ;1880C8|D005    |1880CF;  
                        LDA.W #$0002                         ;1880CA|A90200  |      ;  
@@ -128,19 +128,19 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                                                             ;      |        |      ;  
           CODE_1880E3: INC A                                ;1880E3|1A      |      ;  
                                                             ;      |        |      ;  
-          CODE_1880E4: STA.W EncounterType                  ;1880E4|8D7915  |001579; 2=Back attack, 3=Normal battle
+          CODE_1880E4: STA.W Encounter_Type                 ;1880E4|8D7915  |001579; 2=Back attack, 3=Normal battle
                        RTL                                  ;1880E7|6B      |      ;  
                                                             ;      |        |      ;  
                        JSR.W BossEncounter                  ;1880E8|20F880  |1880F8;  
                        BCC CODE_1880F7                      ;1880EB|900A    |1880F7;  
                        LDA.W $18DF                          ;1880ED|ADDF18  |0018DF;  
-                       ORA.L Bit flags,X                    ;1880F0|1F348C00|008C34;  
+                       ORA.L Bit_flags,X                    ;1880F0|1F348C00|008C34;  
                        STA.W $18DF                          ;1880F4|8DDF18  |0018DF;  
                                                             ;      |        |      ;  
           CODE_1880F7: RTL                                  ;1880F7|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-        BossEncounter: LDA.W Chapter #                      ;1880F8|ADCD18  |0018CD;  
+        BossEncounter: LDA.W Chapter_num                    ;1880F8|ADCD18  |0018CD;  
                        DEC A                                ;1880FB|3A      |      ;  
                        ASL A                                ;1880FC|0A      |      ;  
                        TAX                                  ;1880FD|AA      |      ;  
@@ -152,17 +152,17 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                                                             ;      |        |      ;  
           CODE_18810C: LDA.B [$18],Y                        ;18810C|B718    |000018;  
                        BMI Boss_Ch4_or_5                    ;18810E|3023    |188133;  
-                       CMP.W Current map                    ;188110|CD7315  |001573;  
+                       CMP.W Curr_map                       ;188110|CD7315  |001573;  
                        BNE CODE_188129                      ;188113|D014    |188129; If the map is wrong, check the next entry
                        INY                                  ;188115|C8      |      ;  
                        INY                                  ;188116|C8      |      ;  
                        LDA.B [$18],Y                        ;188117|B718    |000018;  
-                       CMP.W Map X pos                      ;188119|CDF716  |0016F7;  
+                       CMP.W Map_X                          ;188119|CDF716  |0016F7;  
                        BNE CODE_18812B                      ;18811C|D00D    |18812B;  
                        INY                                  ;18811E|C8      |      ;  
                        INY                                  ;18811F|C8      |      ;  
                        LDA.B [$18],Y                        ;188120|B718    |000018;  
-                       CMP.W Map Y pos                      ;188122|CDF916  |0016F9;  
+                       CMP.W Map_Y                          ;188122|CDF916  |0016F9;  
                        BEQ Boss_Ch1_to_3                    ;188125|F00E    |188135;  
                        BRA CODE_18812D                      ;188127|8004    |18812D;  
                                                             ;      |        |      ;  
@@ -190,7 +190,7 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                        LSR A                                ;18813A|4A      |      ;  
                        TAX                                  ;18813B|AA      |      ;  
                        LDA.W $18DF                          ;18813C|ADDF18  |0018DF;  
-                       AND.L Bit flags,X                    ;18813F|3F348C00|008C34;  
+                       AND.L Bit_flags,X                    ;18813F|3F348C00|008C34;  
                        BNE Boss_Ch4_or_5                    ;188143|D0EE    |188133;  
                        INY                                  ;188145|C8      |      ;  
                        INY                                  ;188146|C8      |      ;  
@@ -216,9 +216,9 @@ Random encounter check: LDA.W FloorTileValue                 ;18802E|ADF516  |00
                        MVN $00,$19                          ;18816A|540019  |      ;  
                        PLB                                  ;18816D|AB      |      ;  
                                                             ;      |        |      ;  
-  Xfer_RAM_and_Decomp: LDA.W Ptr, Enemy list                ;18816E|ADDA18  |0018DA;  
+  Xfer_RAM_and_Decomp: LDA.W Ptr_Enemy_list                 ;18816E|ADDA18  |0018DA;  
                        STA.B $18                            ;188171|8518    |000018;  
-                       LDA.W Bank, Enemy list               ;188173|ADDB18  |0018DB;  
+                       LDA.W Bank_Enemy_list                ;188173|ADDB18  |0018DB;  
                        STA.B $19                            ;188176|8519    |000019;  
                        LDA.B [$18]                          ;188178|A718    |000018;  
                        AND.W #$000F                         ;18817A|290F00  |      ;  
@@ -301,7 +301,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        STA.B $03                            ;188201|8503    |000003;  
                        LDA.W #$0800                         ;188203|A90008  |      ;  
                        STA.B $04                            ;188206|8504    |000004;  
-                       JSL.L 00/8585_far                    ;188208|22818500|008581;  
+                       JSL.L 008585_far                     ;188208|22818500|008581;  
                        INC.W $18DD                          ;18820C|EEDD18  |0018DD;  
                                                             ;      |        |      ;  
           CODE_18820F: RTL                                  ;18820F|6B      |      ;  
@@ -332,13 +332,13 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        STZ.W $0635                          ;188243|9C3506  |000635;  
                        LDA.W #$0004                         ;188246|A90400  |      ;  
                        STA.W $062D                          ;188249|8D2D06  |00062D;  
-                       LDA.W Ptr, Encounter layout          ;18824C|ADD718  |0018D7;  
+                       LDA.W Ptr_Encounter_layout           ;18824C|ADD718  |0018D7;  
                        STA.B $18                            ;18824F|8518    |000018;  
-                       LDA.W Bank, Encounter layout         ;188251|ADD818  |0018D8;  
+                       LDA.W Bank_Encounter_layout          ;188251|ADD818  |0018D8;  
                        STA.B $19                            ;188254|8519    |000019;  
-                       LDA.W Ptr, Enemy list                ;188256|ADDA18  |0018DA;  
+                       LDA.W Ptr_Enemy_list                 ;188256|ADDA18  |0018DA;  
                        STA.B $1C                            ;188259|851C    |00001C;  
-                       LDA.W Bank, Enemy list               ;18825B|ADDB18  |0018DB;  
+                       LDA.W Bank_Enemy_list                ;18825B|ADDB18  |0018DB;  
                        STA.B $1D                            ;18825E|851D    |00001D;  
                        LDA.B [$1C]                          ;188260|A71C    |00001C;  
                        AND.W #$00F0                         ;188262|29F000  |      ;  
@@ -362,7 +362,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        TAX                                  ;188284|AA      |      ;  
                        LDA.B [$18]                          ;188285|A718    |000018;  
                        AND.W #$00FF                         ;188287|29FF00  |      ;  
-                       STA.W Party order,X                  ;18828A|9DF311  |0011F3;  
+                       STA.W Party_order,X                  ;18828A|9DF311  |0011F3;  
                        CMP.B $0E                            ;18828D|C50E    |00000E;  
                        BCC CODE_188294                      ;18828F|9003    |188294;  
                        INC.W $062B                          ;188291|EE2B06  |00062B;  
@@ -388,7 +388,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        CLC                                  ;1882BB|18      |      ;  
                        ADC.W #$0018                         ;1882BC|691800  |      ;  
                        PLY                                  ;1882BF|7A      |      ;  
-                       JSL.L Way more stuff                 ;1882C0|22248D00|008D24;  
+                       JSL.L Way_more_stuff                 ;1882C0|22248D00|008D24;  
                        INC.W $062D                          ;1882C4|EE2D06  |00062D;  
                        INC.B $18                            ;1882C7|E618    |000018;  
                        INC.W $0637                          ;1882C9|EE3706  |000637;  
@@ -426,7 +426,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        JSL.L Decompression_far              ;1882FA|22628700|008762;  
                        PLB                                  ;1882FE|AB      |      ;  
                        LDA.W #$8318                         ;1882FF|A91883  |      ;  
-                       JSL.L Decomp_From_RAM?               ;188302|22FE8400|0084FE;  
+                       JSL.L RAM_Decomp                     ;188302|22FE8400|0084FE;  
                        PLX                                  ;188306|FA      |      ;  
                        LDA.L SourceData2,X                  ;188307|BF318F19|198F31;  
                        TAX                                  ;18830B|AA      |      ;  
@@ -457,10 +457,10 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        RTL                                  ;18832B|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_18832C: STA.W DC_Entry_Addr                  ;18832C|8DF318  |0018F3;  
+          CODE_18832C: STA.W Decomp_Entry_Addr              ;18832C|8DF318  |0018F3;  
                        STY.W $18F1                          ;18832F|8CF118  |0018F1;  
                        SEP #$10                             ;188332|E210    |      ;  
-                       STX.W DC_Entry_Bank                  ;188334|8EF518  |0018F5;  
+                       STX.W Decomp_Entry_Bank              ;188334|8EF518  |0018F5;  
                        REP #$10                             ;188337|C210    |      ;  
                        INC.W $18FD                          ;188339|EEFD18  |0018FD;  
                        CLC                                  ;18833C|18      |      ;  
@@ -473,9 +473,9 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        RTL                                  ;188344|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_188345: LDX.W DC_Entry_Addr                  ;188345|AEF318  |0018F3;  
+          CODE_188345: LDX.W Decomp_Entry_Addr              ;188345|AEF318  |0018F3;  
                        STX.B $18                            ;188348|8618    |000018;  
-                       LDX.W DC_Entry_Bank                  ;18834A|AEF518  |0018F5;  
+                       LDX.W Decomp_Entry_Bank              ;18834A|AEF518  |0018F5;  
                        STX.B $1A                            ;18834D|861A    |00001A;  
                        CMP.W #$0001                         ;18834F|C90100  |      ;  
                        BNE CODE_1883AA                      ;188352|D056    |1883AA;  
@@ -534,7 +534,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        STA.B $08                            ;1883C7|8508    |000008;  
                        LDA.W $18FB                          ;1883C9|ADFB18  |0018FB;  
                        STA.B $09                            ;1883CC|8509    |000009;  
-                       JSL.L 00/8585_far                    ;1883CE|22818500|008581;  
+                       JSL.L 008585_far                     ;1883CE|22818500|008581;  
                        PLA                                  ;1883D2|68      |      ;  
                        STA.B $00                            ;1883D3|8500    |000000;  
                        LSR A                                ;1883D5|4A      |      ;  
@@ -555,7 +555,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        CLC                                  ;1883F6|18      |      ;  
                        ADC.W #$0008                         ;1883F7|690800  |      ;  
                        STA.B $18                            ;1883FA|8518    |000018;  
-                       STA.W DC_Entry_Addr                  ;1883FC|8DF318  |0018F3;  
+                       STA.W Decomp_Entry_Addr              ;1883FC|8DF318  |0018F3;  
                        LDA.B [$18]                          ;1883FF|A718    |000018;  
                        AND.W #$00FF                         ;188401|29FF00  |      ;  
                        CMP.W #$00FF                         ;188404|C9FF00  |      ;  
@@ -572,17 +572,17 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        RTL                                  ;188415|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-  Clear Chest Tracker: STZ.W ChestTracker                   ;188416|9CE318  |0018E3;  
-                       STZ.W ChestTracker 2                 ;188419|9CE518  |0018E5;  
-                       STZ.W ChestTracker 3                 ;18841C|9CE718  |0018E7;  
-                       STZ.W ChestTracker 4                 ;18841F|9CE918  |0018E9;  
+  Clear Chest Tracker: STZ.W ChestTracker_1                 ;188416|9CE318  |0018E3;  
+                       STZ.W ChestTracker_2                 ;188419|9CE518  |0018E5;  
+                       STZ.W ChestTracker_3                 ;18841C|9CE718  |0018E7;  
+                       STZ.W ChestTracker_4                 ;18841F|9CE918  |0018E9;  
                        RTL                                  ;188422|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_188423: LDA.W FloorTileValue                 ;188423|ADF516  |0016F5;  
                        CMP.W #$0080                         ;188426|C98000  |      ;  
                        BNE CODE_188468                      ;188429|D03D    |188468;  
-                       LDA.W Chapter #                      ;18842B|ADCD18  |0018CD;  
+                       LDA.W Chapter_num                    ;18842B|ADCD18  |0018CD;  
                        DEC A                                ;18842E|3A      |      ;  
                        ASL A                                ;18842F|0A      |      ;  
                        TAX                                  ;188430|AA      |      ;  
@@ -595,17 +595,17 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
           CODE_18843E: LDY.W #$0000                         ;18843E|A00000  |      ;  
                        LDA.B [$18],Y                        ;188441|B718    |000018;  
                        BMI CODE_188468                      ;188443|3023    |188468;  
-                       CMP.W Current map                    ;188445|CD7315  |001573;  
+                       CMP.W Curr_map                       ;188445|CD7315  |001573;  
                        BNE CODE_18845C                      ;188448|D012    |18845C;  
                        INY                                  ;18844A|C8      |      ;  
                        INY                                  ;18844B|C8      |      ;  
                        LDA.B [$18],Y                        ;18844C|B718    |000018;  
-                       CMP.W Map X pos                      ;18844E|CDF716  |0016F7;  
+                       CMP.W Map_X                          ;18844E|CDF716  |0016F7;  
                        BNE CODE_18845C                      ;188451|D009    |18845C;  
                        INY                                  ;188453|C8      |      ;  
                        INY                                  ;188454|C8      |      ;  
                        LDA.B [$18],Y                        ;188455|B718    |000018;  
-                       CMP.W Map Y pos                      ;188457|CDF916  |0016F9;  
+                       CMP.W Map_Y                          ;188457|CDF916  |0016F9;  
                        BEQ CODE_188469                      ;18845A|F00D    |188469;  
                                                             ;      |        |      ;  
           CODE_18845C: LDA.B $18                            ;18845C|A518    |000018;  
@@ -636,7 +636,7 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        LDA.W #$0008                         ;18848F|A90800  |      ;  
                        STA.W $0639                          ;188492|8D3906  |000639;  
                        LDA.W #$0016                         ;188495|A91600  |      ;  
-                       JML.L Way more stuff                 ;188498|5C248D00|008D24;  
+                       JML.L Way_more_stuff                 ;188498|5C248D00|008D24;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
          DATA8_18849C: db $16                               ;18849C|        |      ;  
@@ -662,10 +662,10 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        db $00                               ;1884BA|        |      ;  
                                                             ;      |        |      ;  
          DATA8_1884BB: db $07                               ;1884BB|        |      ;  
-                       dl Decomp setup (3b)                 ;1884BC|        |009CF9;  
+                       dl Decomp_setup_3b                   ;1884BC|        |009CF9;  
                        dl RLE_Loc_18_84E9                   ;1884BF|        |1884E9;  
                        db $07                               ;1884C2|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1884C3|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1884C3|        |00A140;  
                        dl $18/84C6_data                     ;1884C6|        |188A55;  
                        db $90                               ;1884C9|        |      ; Offset 90
                        dw $0020                             ;1884CA|        |      ; Length 0020
@@ -731,13 +731,13 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        BNE CODE_18853E                      ;18851D|D01F    |18853E;  
                        LDX.W Selection                      ;18851F|AE3F10  |00103F;  
                        LDA.W $09A3,X                        ;188522|BDA309  |0009A3;  
-                       CMP.W Map X pos                      ;188525|CDF716  |0016F7;  
+                       CMP.W Map_X                          ;188525|CDF716  |0016F7;  
                        BNE CODE_188542                      ;188528|D018    |188542;  
-                       LDA.W Treasure type,X                ;18852A|BDC709  |0009C7;  
-                       CMP.W Map Y pos                      ;18852D|CDF916  |0016F9;  
+                       LDA.W Temp_09C7,X                    ;18852A|BDC709  |0009C7;  
+                       CMP.W Map_Y                          ;18852D|CDF916  |0016F9;  
                        BNE CODE_188542                      ;188530|D010    |188542;  
-                       LDA.W Selection value,X              ;188532|BDEB09  |0009EB;  
-                       CMP.W Facing                         ;188535|CDFB16  |0016FB;  
+                       LDA.W Selection_value,X              ;188532|BDEB09  |0009EB;  
+                       CMP.W Map_Dir                        ;188535|CDFB16  |0016FB;  
                        BNE CODE_18853E                      ;188538|D004    |18853E;  
                        LDA.W #$0000                         ;18853A|A90000  |      ;  
                        RTL                                  ;18853D|6B      |      ;  
@@ -762,19 +762,19 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        AND.W #$000F                         ;188556|290F00  |      ;  
                        ASL A                                ;188559|0A      |      ;  
                        TAX                                  ;18855A|AA      |      ;  
-                       LDA.W ChestTracker,Y                 ;18855B|B9E318  |0018E3;  
-                       AND.L Bit flags,X                    ;18855E|3F348C00|008C34;  
+                       LDA.W ChestTracker_1,Y               ;18855B|B9E318  |0018E3;  
+                       AND.L Bit_flags,X                    ;18855E|3F348C00|008C34;  
                        RTL                                  ;188562|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
   Open Treasure Chest: LDA.W $09A9                          ;188563|ADA909  |0009A9;  
-                       CMP.W Map X pos                      ;188566|CDF716  |0016F7;  
+                       CMP.W Map_X                          ;188566|CDF716  |0016F7;  
                        BNE CODE_18857B                      ;188569|D010    |18857B;  
                        LDA.W $09CD                          ;18856B|ADCD09  |0009CD;  
-                       CMP.W Map Y pos                      ;18856E|CDF916  |0016F9;  
+                       CMP.W Map_Y                          ;18856E|CDF916  |0016F9;  
                        BNE CODE_18857B                      ;188571|D008    |18857B;  
                        LDA.W $09F1                          ;188573|ADF109  |0009F1;  
-                       CMP.W Facing                         ;188576|CDFB16  |0016FB;  
+                       CMP.W Map_Dir                        ;188576|CDFB16  |0016FB;  
                        BEQ CODE_18857F                      ;188579|F004    |18857F;  
                                                             ;      |        |      ;  
           CODE_18857B: LDA.W #$FFFE                         ;18857B|A9FEFF  |      ;  
@@ -791,8 +791,8 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
                        AND.W #$000F                         ;18858C|290F00  |      ;  
                        ASL A                                ;18858F|0A      |      ;  
                        TAX                                  ;188590|AA      |      ;  
-                       LDA.W ChestTracker,Y                 ;188591|B9E318  |0018E3;  
-                       AND.L Bit flags,X                    ;188594|3F348C00|008C34;  
+                       LDA.W ChestTracker_1,Y               ;188591|B9E318  |0018E3;  
+                       AND.L Bit_flags,X                    ;188594|3F348C00|008C34;  
                        BEQ CODE_18859E                      ;188598|F004    |18859E;  
                        LDA.W #$FFFF                         ;18859A|A9FFFF  |      ;  
                        RTL                                  ;18859D|6B      |      ;  
@@ -801,8 +801,8 @@ Loop_Xfer_Data_to_RAM: LDA.B [$1C]                          ;1881A7|A71C    |000
           CODE_18859E: LDX.W #$0006                         ;18859E|A20600  |      ;  
                        LDA.W #$84F2                         ;1885A1|A9F284  |      ;  
                        LDY.W #$0018                         ;1885A4|A01800  |      ;  
-                       JSL.L Sub: Load Stuff                ;1885A7|22B48D00|008DB4;  
-                       LDA.W Chapter #                      ;1885AB|ADCD18  |0018CD;  
+                       JSL.L Sub_LoadStuff                  ;1885A7|22B48D00|008DB4;  
+                       LDA.W Chapter_num                    ;1885AB|ADCD18  |0018CD;  
                        DEC A                                ;1885AE|3A      |      ;  
                        ASL A                                ;1885AF|0A      |      ;  
                        TAX                                  ;1885B0|AA      |      ;  
@@ -834,9 +834,9 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        AND.W #$000F                         ;1885DF|290F00  |      ;  
                        ASL A                                ;1885E2|0A      |      ;  
                        TAX                                  ;1885E3|AA      |      ;  
-                       LDA.W ChestTracker,Y                 ;1885E4|B9E318  |0018E3;  
-                       ORA.L Bit flags,X                    ;1885E7|1F348C00|008C34;  
-                       STA.W ChestTracker,Y                 ;1885EB|99E318  |0018E3;  
+                       LDA.W ChestTracker_1,Y               ;1885E4|B9E318  |0018E3;  
+                       ORA.L Bit_flags,X                    ;1885E7|1F348C00|008C34;  
+                       STA.W ChestTracker_1,Y               ;1885EB|99E318  |0018E3;  
                        RTL                                  ;1885EE|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -2001,14 +2001,14 @@ Update treasure tracker: LDA.W $0A15                          ;1885D2|AD150A  |0
                        db $00                               ;188A73|        |      ;  
                        db $00                               ;188A74|        |      ; End data
                                                             ;      |        |      ;  
-     Turning in town?: LDA.W Current map                    ;188A75|AD7315  |001573;  
+     Turning in town?: LDA.W Curr_map                       ;188A75|AD7315  |001573;  
                        AND.W #$00FF                         ;188A78|29FF00  |      ;  
                        ASL A                                ;188A7B|0A      |      ;  
                        TAX                                  ;188A7C|AA      |      ;  
                        LDA.L Town turning?,X                ;188A7D|BF8F8A18|188A8F;  
                        TAX                                  ;188A81|AA      |      ;  
                        LDA.W $187F                          ;188A82|AD7F18  |00187F;  
-                       JSL.L MultiplyTo$00_far              ;188A85|22398A00|008A39;  
+                       JSL.L MultiplyTo1E00_far             ;188A85|22398A00|008A39;  
                        LDA.B $00                            ;188A89|A500    |000000;  
                        AND.W #$F000                         ;188A8B|2900F0  |      ;  
                        RTL                                  ;188A8E|6B      |      ;  
@@ -3972,14 +3972,14 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        BEQ CODE_18964E                      ;1895F9|F053    |18964E; Skip event
                        LDA.W $1901                          ;1895FB|AD0119  |001901; $1901 is nonzero?
                        BNE CODE_18964E                      ;1895FE|D04E    |18964E; Skip event
-                       LDA.W Event Byte                     ;189600|ADFF18  |0018FF;  
+                       LDA.W Story_Progress                 ;189600|ADFF18  |0018FF;  
                        ASL A                                ;189603|0A      |      ;  
                        TAX                                  ;189604|AA      |      ;  
                                                             ;      |        |      ;  
       Call_Event_Code: JSR.W (TBL_EVENTS,X)                 ;189605|FC4F96  |18964F; Code to check if you're in the right place
                        BCC CODE_18964E                      ;189608|9044    |18964E; Skip event if carry flag is not set
                        LDX.W #$0006                         ;18960A|A20600  |      ;  
-                       JSL.L A buncha stuff_far             ;18960D|225C9900|00995C; Idk what this does
+                       JSL.L A_buncha_stuff_far             ;18960D|225C9900|00995C; Idk what this does
                        LDA.W #$0006                         ;189611|A90600  |      ;  
                        STA.W $0637                          ;189614|8D3706  |000637;  
                        LDA.W #$0008                         ;189617|A90800  |      ;  
@@ -3987,7 +3987,7 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        STZ.W $0635                          ;18961D|9C3506  |000635;  
                        LDA.W #$8000                         ;189620|A90080  |      ;  
                        STA.W $0633                          ;189623|8D3306  |000633;  
-                       LDA.W Event Byte                     ;189626|ADFF18  |0018FF;  
+                       LDA.W Story_Progress                 ;189626|ADFF18  |0018FF;  
                        STA.W $062B                          ;189629|8D2B06  |00062B;  
                        LDA.W #$FFFF                         ;18962C|A9FFFF  |      ;  
                        STA.W $062D                          ;18962F|8D2D06  |00062D;  
@@ -3996,9 +3996,9 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        LDX.W #$0000                         ;189638|A20000  |      ;  
                        LDY.W #$0000                         ;18963B|A00000  |      ;  
                        LDA.W #$0012                         ;18963E|A91200  |      ;  
-                       JSL.L Way more stuff                 ;189641|22248D00|008D24;  
+                       JSL.L Way_more_stuff                 ;189641|22248D00|008D24;  
                        INC.W $1901                          ;189645|EE0119  |001901;  
-                       INC.W Event Byte                     ;189648|EEFF18  |0018FF;  
+                       INC.W Story_Progress                 ;189648|EEFF18  |0018FF;  
                        STZ.W $1091                          ;18964B|9C9110  |001091;  
                                                             ;      |        |      ;  
           CODE_18964E: RTL                                  ;18964E|6B      |      ;  
@@ -4076,10 +4076,10 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
        ASM_Ch01_start: db $07                               ;1896CC|        |      ;  
-                       dl Sound byte (1b)                   ;1896CD|        |009C0A;  
+                       dl Sound_byte_1b                     ;1896CD|        |009C0A;  
                        db $FF                               ;1896D0|        |      ;  
                        db $07                               ;1896D1|        |      ; Play Rooks' theme
-                       dl Sub: Get/Set Music                ;1896D2|        |009C3C;  
+                       dl GetSet_Music                      ;1896D2|        |009C3C;  
                        db $47                               ;1896D5|        |      ;  
                        db $1B                               ;1896D6|        |      ;  
                        dw Sub_LoadSomething                 ;1896D7|        |18D44D;  
@@ -4095,7 +4095,7 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        db $01                               ;1896E6|        |      ;  
                        db $10                               ;1896E7|        |      ;  
                        db $07                               ;1896E8|        |      ;  
-                       dl Unfade from black                 ;1896E9|        |00A0CB;  
+                       dl Unfade                            ;1896E9|        |00A0CB;  
                        db $06                               ;1896EC|        |      ;  
                        db $03                               ;1896ED|        |      ;  
                        db $02                               ;1896EE|        |      ;  
@@ -4117,7 +4117,7 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        db $1B                               ;189708|        |      ;  
                        dw Sub_Turn_off_sound                ;189709|        |18D3F6;  
                        db $07                               ;18970B|        |      ; Play "Crowded Marketplace"
-                       dl Sub: Get/Set Music                ;18970C|        |009C3C;  
+                       dl GetSet_Music                      ;18970C|        |009C3C;  
                        db $59                               ;18970F|        |      ;  
                        db $16                               ;189710|        |      ;  
                        dw $1901                             ;189711|        |      ;  
@@ -4155,7 +4155,7 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        AND.W #$FFFE                         ;189743|29FEFF  |      ;  
                        STA.W Pause_status                   ;189746|8D9510  |001095; Remove bit 1 from pause byte
                        LDA.W #$0011                         ;189749|A91100  |      ;  
-                       JSL.L Play SFX                       ;18974C|22479C00|009C47; Play Confirm SFX
+                       JSL.L Play_SFX                       ;18974C|22479C00|009C47; Play Confirm SFX
                                                             ;      |        |      ;  
           CODE_189750: LDX.W Selection                      ;189750|AE3F10  |00103F;  
                        LDA.W Portrait_offset                ;189753|AD8F10  |00108F;  
@@ -4184,7 +4184,7 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        RTL                                  ;189778|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-     EVENT_01_(Ariel): LDA.W Current map                    ;189779|AD7315  |001573; Meeting Ariel
+     EVENT_01_(Ariel): LDA.W Curr_map                       ;189779|AD7315  |001573; Meeting Ariel
                        BNE CODE_189793                      ;18977C|D015    |189793; Is map 0000? (Galia Chapter 1)
                        LDA.W TownCompass                    ;18977E|ADF10F  |000FF1; Check compass direction
                        CMP.W #$0200                         ;189781|C90002  |      ; Facing south?
@@ -4226,19 +4226,19 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        db $1B                               ;1897B8|        |      ;  
                        dw ASM_Make_Animation_Loop           ;1897B9|        |18D4B9;  
                        db $07                               ;1897BB|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1897BC|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1897BC|        |00A140;  
                        dl Popular_data                      ;1897BF|        |198A6B;  
                        db $90                               ;1897C2|        |      ;  
                        dw $0040                             ;1897C3|        |      ;  
                        db $07                               ;1897C5|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1897C6|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1897C6|        |00A140;  
                        dl $18C724_data                      ;1897C9|        |198AB2;  
                        db $B0                               ;1897CC|        |      ;  
                        dw $0040                             ;1897CD|        |      ;  
                        db $1B                               ;1897CF|        |      ;  
                        dw Loop_until_$1091=FF               ;1897D0|        |18D4C3;  
                        db $07                               ;1897D2|        |      ;  
-                       dl Load_Sprite(14b)                  ;1897D3|        |009CAE;  
+                       dl Load_Sprite_14b                   ;1897D3|        |009CAE;  
                        db $08                               ;1897D6|        |      ;  
                        db $24                               ;1897D7|        |      ;  
                        db $12                               ;1897D8|        |      ;  
@@ -4261,7 +4261,7 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        db $1B                               ;1897EC|        |      ;  
                        dw Loop_until_$1091=FF               ;1897ED|        |18D4C3;  
                        db $07                               ;1897EF|        |      ;  
-                       dl Load_Sprite(14b)                  ;1897F0|        |009CAE;  
+                       dl Load_Sprite_14b                   ;1897F0|        |009CAE;  
                        db $08                               ;1897F3|        |      ;  
                        db $24                               ;1897F4|        |      ;  
                        db $12                               ;1897F5|        |      ;  
@@ -4287,14 +4287,14 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        dw Loop_until_$1091=FF               ;18980C|        |18D4C3;  
                                                             ;      |        |      ;  
        Join_TeefaCh01: db $07                               ;18980E|        |      ; Play "Trusted Circle"
-                       dl Sub: Get/Set Music                ;18980F|        |009C3C;  
+                       dl GetSet_Music                      ;18980F|        |009C3C;  
                        db $56                               ;189812|        |      ;  
                        db $06                               ;189813|        |      ; Delay F0
                        db $F0                               ;189814|        |      ;  
                        db $06                               ;189815|        |      ; Delay C8
                        db $C8                               ;189816|        |      ;  
                        db $07                               ;189817|        |      ; Play "Crowded Marketplace"
-                       dl Sub: Get/Set Music                ;189818|        |009C3C;  
+                       dl GetSet_Music                      ;189818|        |009C3C;  
                        db $59                               ;18981B|        |      ;  
                        db $07                               ;18981C|        |      ;  
                        dl Check_Party                       ;18981D|        |18D4D9;  
@@ -4304,7 +4304,7 @@ Formation_Zone_0B_Layout_0F: db $03                               ;189547|      
                        dw $157B                             ;189824|        |      ;  
                        dw $0001                             ;189826|        |      ;  
                        db $07                               ;189828|        |      ;  
-                       dl 8698 setup (3b)                   ;189829|        |009D07;  
+                       dl 8698_setup_3b                     ;189829|        |009D07;  
                        dl $9D07_data2                       ;18982C|        |01B674;  
                        db $16                               ;18982F|        |      ; 16: $1901 0000
                        dw $1901                             ;189830|        |      ;  
@@ -4334,7 +4334,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        dw $0000                             ;189846|        |      ;  
                        db $00                               ;189848|        |      ;  
                                                             ;      |        |      ;  
-     EVENT_03_(Stung): LDA.W Current map                    ;189849|AD7315  |001573; Ch01 Teefa door
+     EVENT_03_(Stung): LDA.W Curr_map                       ;189849|AD7315  |001573; Ch01 Teefa door
                        CMP.W #$0101                         ;18984C|C90101  |      ;  
                        BNE CODE_18985B                      ;18984F|D00A    |18985B;  
                        LDA.W FloorTileValue                 ;189851|ADF516  |0016F5;  
@@ -4361,7 +4361,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        dw Ch1_End_pt6                       ;18986B|        |189D6D;  
                        dw Ch1_End_pt7                       ;18986D|        |189D41;  
                        db $07                               ;18986F|        |      ;  
-                       dl Sub: Get/Set SFX                  ;189870|        |009C44;  
+                       dl GetSet_SFX                        ;189870|        |009C44;  
                        db $07                               ;189873|        |      ;  
                        db $1B                               ;189874|        |      ;  
                        dw Sub_Sting_Flash                   ;189875|        |18D480;  
@@ -4378,7 +4378,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        dw Loop_until_$1091=FF               ;189886|        |18D4C3;  
                                                             ;      |        |      ;  
    Enter_Crystal_Room: db $07                               ;189888|        |      ; Door open SFX
-                       dl Sub: Get/Set SFX                  ;189889|        |009C44;  
+                       dl GetSet_SFX                        ;189889|        |009C44;  
                        db $2D                               ;18988C|        |      ;  
                        db $0F                               ;18988D|        |      ; 0F 00 0002
                        db $00                               ;18988E|        |      ;  
@@ -4386,7 +4386,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $1B                               ;189891|        |      ;  
                        dw SetB6_FadeOut                     ;189892|        |18D416;  
                        db $07                               ;189894|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;189895|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;189895|        |009D6F;  
                        db $01                               ;189898|        |      ;  
                        db $00                               ;189899|        |      ;  
                        dw $3000                             ;18989A|        |      ;  
@@ -4402,32 +4402,32 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $1B                               ;1898AE|        |      ;  
                        dw ASM_Make_Animation_Loop           ;1898AF|        |18D4B9;  
                        db $07                               ;1898B1|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1898B2|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1898B2|        |00A140;  
                        dl $1898B5_data                      ;1898B5|        |189BDB;  
                        db $20                               ;1898B8|        |      ;  
                        dw $0020                             ;1898B9|        |      ;  
                        db $07                               ;1898BB|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1898BC|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1898BC|        |00A140;  
                        dl $1898BF_data                      ;1898BF|        |189BFB;  
                        db $E0                               ;1898C2|        |      ;  
                        dw $0020                             ;1898C3|        |      ;  
                        db $07                               ;1898C5|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1898C6|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1898C6|        |00A140;  
                        dl $1898C9_data                      ;1898C9|        |189B7B;  
                        db $D0                               ;1898CC|        |      ;  
                        dw $0020                             ;1898CD|        |      ;  
                        db $07                               ;1898CF|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1898D0|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1898D0|        |00A140;  
                        dl $18C59A_data                      ;1898D3|        |189B9B;  
                        db $90                               ;1898D6|        |      ;  
                        dw $0040                             ;1898D7|        |      ;  
                        db $07                               ;1898D9|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;1898DA|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1898DA|        |00A140;  
                        dl $1898DD_data                      ;1898DD|        |189BBB;  
                        db $C0                               ;1898E0|        |      ;  
                        dw $0020                             ;1898E1|        |      ;  
                        db $07                               ;1898E3|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;1898E4|        |009CAE;  
+                       dl Load_Sprite_14b                   ;1898E4|        |009CAE;  
                        db $08                               ;1898E7|        |      ;  
                        db $24                               ;1898E8|        |      ;  
                        db $12                               ;1898E9|        |      ;  
@@ -4443,7 +4443,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $02                               ;1898F3|        |      ;  
                        db $00                               ;1898F4|        |      ;  
                        db $07                               ;1898F5|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;1898F6|        |009CAE;  
+                       dl Load_Sprite_14b                   ;1898F6|        |009CAE;  
                        db $08                               ;1898F9|        |      ;  
                        db $24                               ;1898FA|        |      ;  
                        db $12                               ;1898FB|        |      ;  
@@ -4461,12 +4461,12 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $1B                               ;189907|        |      ; Turn off sound
                        dw Sub_Turn_off_sound                ;189908|        |18D3F6;  
                        db $07                               ;18990A|        |      ; Play "Crystal Sword"
-                       dl Sub: Get/Set Music                ;18990B|        |009C3C;  
+                       dl GetSet_Music                      ;18990B|        |009C3C;  
                        db $45                               ;18990E|        |      ;  
                        db $1B                               ;18990F|        |      ;  
                        dw Sub_FadeIn                        ;189910|        |18D435;  
                        db $07                               ;189912|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;189913|        |009CAE;  
+                       dl Load_Sprite_14b                   ;189913|        |009CAE;  
                        db $08                               ;189916|        |      ;  
                        db $24                               ;189917|        |      ;  
                        db $12                               ;189918|        |      ;  
@@ -4500,14 +4500,14 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $00                               ;18993C|        |      ;  
                                                             ;      |        |      ;  
      Wait_for_$1091=2: db $07                               ;18993D|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18993E|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18993E|        |00A051;  
                        dw $1091                             ;189941|        |      ;  
                        dw $0002                             ;189943|        |      ;  
                        db $16                               ;189945|        |      ; 16: $1127 = 0058
                        dw $1127                             ;189946|        |      ;  
                        dw $0058                             ;189948|        |      ;  
                        db $07                               ;18994A|        |      ;  
-                       dl Some_Setup(12b?)                  ;18994B|        |009C5D;  
+                       dl Some_Setup_12b                    ;18994B|        |009C5D;  
                        db $11                               ;18994E|        |      ;  
                        db $00                               ;18994F|        |      ;  
                        db $00                               ;189950|        |      ;  
@@ -4522,7 +4522,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $00                               ;189959|        |      ;  
                                                             ;      |        |      ;  
      Wait_for_$1091=3: db $07                               ;18995A|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18995B|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18995B|        |00A051;  
                        dw $1091                             ;18995E|        |      ;  
                        dw $0003                             ;189960|        |      ;  
                        db $06                               ;189962|        |      ; 06: Delay $01
@@ -4534,7 +4534,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $00                               ;18996B|        |      ;  
                                                             ;      |        |      ;  
      Wait_for_$1091=4: db $07                               ;18996C|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18996D|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18996D|        |00A051;  
                        dw $1091                             ;189970|        |      ;  
                        dw $0004                             ;189972|        |      ;  
                        db $06                               ;189974|        |      ; 06: Delay $01
@@ -4552,7 +4552,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        dl SCRIPT_010                        ;189984|        |0CA933;  
                        db $00                               ;189987|        |      ;  
                        db $07                               ;189988|        |      ; Victory theme
-                       dl Sub: Get/Set Music                ;189989|        |009C3C;  
+                       dl GetSet_Music                      ;189989|        |009C3C;  
                        db $55                               ;18998C|        |      ;  
                        db $1B                               ;18998D|        |      ; Loop until $1091=FF
                        dw Loop_until_$1091=FF               ;18998E|        |18D4C3;  
@@ -4567,7 +4567,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $06                               ;18999E|        |      ; Delay $28
                        db $28                               ;18999F|        |      ;  
                        db $07                               ;1899A0|        |      ; Play "Trickery"
-                       dl Sub: Get/Set Music                ;1899A1|        |009C3C;  
+                       dl GetSet_Music                      ;1899A1|        |009C3C;  
                        db $42                               ;1899A4|        |      ;  
                        db $07                               ;1899A5|        |      ; Set up decompressor: Teefa battle sprite?
                        dl Compressed_Setup(3b)(2b)          ;1899A6|        |18D4F7;  
@@ -4576,7 +4576,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $1B                               ;1899AE|        |      ; Play animation?
                        dw ASM_Make_Animation_Loop           ;1899AF|        |18D4B9;  
                        db $07                               ;1899B1|        |      ; Popular data
-                       dl Transfer_Data(3b)(1b)(2b)         ;1899B2|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;1899B2|        |00A140;  
                        dl $18C724_data                      ;1899B5|        |198AB2;  
                        db $B0                               ;1899B8|        |      ;  
                        dw $0040                             ;1899B9|        |      ;  
@@ -4585,7 +4585,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $06                               ;1899BE|        |      ;  
                        db $1E                               ;1899BF|        |      ;  
                        db $07                               ;1899C0|        |      ; Draw Teefa battle sprite?
-                       dl Load_Sprite(14b)                  ;1899C1|        |009CAE;  
+                       dl Load_Sprite_14b                   ;1899C1|        |009CAE;  
                        db $08                               ;1899C4|        |      ;  
                        db $24                               ;1899C5|        |      ;  
                        db $12                               ;1899C6|        |      ;  
@@ -4608,7 +4608,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        dl SCRIPT_011                        ;1899D8|        |0CA953;  
                        db $00                               ;1899DB|        |      ;  
                        db $07                               ;1899DC|        |      ; Loop until $1091=0B
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;1899DD|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;1899DD|        |00A051;  
                        dw $1091                             ;1899E0|        |      ;  
                        dw $000B                             ;1899E2|        |      ;  
                        db $0F                               ;1899E4|        |      ; 0F: $09A3,x = 0
@@ -4618,7 +4618,7 @@ EVENT_02_(Galia_open): SEC                                  ;189841|38      |   
                        db $04                               ;1899E9|        |      ;  
                                                             ;      |        |      ;  
 Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |      ;  
-                       dl Confusing_RAM_Xfer(3b)(4b)        ;1899EB|        |00A162;  
+                       dl Confusing_RAM_Xfer_3b_4b          ;1899EB|        |00A162;  
                        dl $1899EE_data                      ;1899EE|        |189C1B; p1-3 Source address
                        db $21                               ;1899F1|        |      ; p4 Destination (RAM $462)
                        db $06                               ;1899F2|        |      ; p5 Copy 6 words?
@@ -4641,7 +4641,7 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        db $1B                               ;189A0C|        |      ; Loop $18FD
                        dw ASM_Make_Animation_Loop           ;189A0D|        |18D4B9;  
                        db $07                               ;189A0F|        |      ; Load popular data
-                       dl Transfer_Data(3b)(1b)(2b)         ;189A10|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;189A10|        |00A140;  
                        dl Popular_data                      ;189A13|        |198A6B;  
                        db $90                               ;189A16|        |      ;  
                        dw $0040                             ;189A17|        |      ;  
@@ -4651,11 +4651,11 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        dl SCRIPT_013                        ;189A1D|        |0CAA39;  
                        db $00                               ;189A20|        |      ;  
                        db $07                               ;189A21|        |      ; Loop til $1091=0C
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189A22|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189A22|        |00A051;  
                        dw $1091                             ;189A25|        |      ;  
                        dw $000C                             ;189A27|        |      ;  
                        db $07                               ;189A29|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;189A2A|        |009CAE;  
+                       dl Load_Sprite_14b                   ;189A2A|        |009CAE;  
                        db $08                               ;189A2D|        |      ;  
                        db $24                               ;189A2E|        |      ;  
                        db $12                               ;189A2F|        |      ;  
@@ -4673,7 +4673,7 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        db $1B                               ;189A3B|        |      ; Loop til $1091=FF
                        dw Loop_until_$1091=FF               ;189A3C|        |18D4C3;  
                        db $07                               ;189A3E|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;189A3F|        |009CAE;  
+                       dl Load_Sprite_14b                   ;189A3F|        |009CAE;  
                        db $08                               ;189A42|        |      ;  
                        db $24                               ;189A43|        |      ;  
                        db $12                               ;189A44|        |      ;  
@@ -4689,7 +4689,7 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        db $07                               ;189A4E|        |      ;  
                        db $00                               ;189A4F|        |      ;  
                        db $07                               ;189A50|        |      ; Loop til $1091=64
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189A51|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189A51|        |00A051;  
                        dw $1091                             ;189A54|        |      ;  
                        dw $0064                             ;189A56|        |      ;  
                        db $1B                               ;189A58|        |      ; Battle start
@@ -4707,12 +4707,12 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        dl SCRIPT_017                        ;189A6A|        |0CAF25;  
                        db $00                               ;189A6D|        |      ;  
                        db $07                               ;189A6E|        |      ; Loop until $1091=14
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189A6F|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189A6F|        |00A051;  
                        dw $1091                             ;189A72|        |      ;  
                        dw $0014                             ;189A74|        |      ;  
                                                             ;      |        |      ;  
       Rooks_Paralyzed: db $07                               ;189A76|        |      ; Damage sfx
-                       dl Sub: Get/Set SFX                  ;189A77|        |009C44;  
+                       dl GetSet_SFX                        ;189A77|        |009C44;  
                        db $07                               ;189A7A|        |      ;  
                        db $1B                               ;189A7B|        |      ;  
                        dw Sub_Sting_Flash                   ;189A7C|        |18D480;  
@@ -4720,7 +4720,7 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        dw Loop_until_$1091=FF               ;189A7F|        |18D4C3;  
                                                             ;      |        |      ;  
      Transfer_2_bytes: db $07                               ;189A81|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;189A82|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;189A82|        |00A140;  
                        dl $189A85_2_bytes                   ;189A85|        |0D958C;  
                        db $02                               ;189A88|        |      ;  
                        dw $0002                             ;189A89|        |      ;  
@@ -4749,7 +4749,7 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        db $06                               ;189AAD|        |      ;  
                        db $14                               ;189AAE|        |      ;  
                        db $07                               ;189AAF|        |      ; Attack SFX
-                       dl Sub: Get/Set SFX                  ;189AB0|        |009C44;  
+                       dl GetSet_SFX                        ;189AB0|        |009C44;  
                        db $01                               ;189AB3|        |      ;  
                        db $06                               ;189AB4|        |      ;  
                        db $3C                               ;189AB5|        |      ;  
@@ -4772,7 +4772,7 @@ Transfer_Bytes_Weirdly: db $07                               ;1899EA|        |  
                        dw DATA8_189AA2                      ;189ACC|        |189AA2;  
                                                             ;      |        |      ;  
 Finished_Beating_Rooks: db $07                               ;189ACE|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;189ACF|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;189ACF|        |00A140;  
                        dl $189AD2_2_bytes                   ;189AD2|        |0D958E;  
                        db $02                               ;189AD5|        |      ;  
                        dw $0002                             ;189AD6|        |      ;  
@@ -4789,11 +4789,11 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        dl SCRIPT_018                        ;189AE8|        |0CB00D;  
                        db $00                               ;189AEB|        |      ;  
                        db $07                               ;189AEC|        |      ; Loop til $1091 = 29
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189AED|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189AED|        |00A051;  
                        dw $1091                             ;189AF0|        |      ;  
                        dw $0029                             ;189AF2|        |      ;  
                        db $07                               ;189AF4|        |      ;  
-                       dl Load_Sprite(14b)                  ;189AF5|        |009CAE;  
+                       dl Load_Sprite_14b                   ;189AF5|        |009CAE;  
                        db $08                               ;189AF8|        |      ;  
                        db $24                               ;189AF9|        |      ;  
                        db $12                               ;189AFA|        |      ;  
@@ -4809,7 +4809,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $06                               ;189B04|        |      ;  
                        db $00                               ;189B05|        |      ;  
                        db $07                               ;189B06|        |      ; Loop til $1091 = 2A
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189B07|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189B07|        |00A051;  
                        db $91                               ;189B0A|        |      ;  
                        db $10                               ;189B0B|        |      ;  
                        db $2A                               ;189B0C|        |      ;  
@@ -4820,7 +4820,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $57                               ;189B11|        |      ;  
                        db $00                               ;189B12|        |      ;  
                        db $07                               ;189B13|        |      ; Some setup
-                       dl Some_Setup(12b?)                  ;189B14|        |009C5D;  
+                       dl Some_Setup_12b                    ;189B14|        |009C5D;  
                        db $11                               ;189B17|        |      ;  
                        db $00                               ;189B18|        |      ;  
                        db $00                               ;189B19|        |      ;  
@@ -4834,7 +4834,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $00                               ;189B21|        |      ;  
                        db $00                               ;189B22|        |      ;  
                        db $07                               ;189B23|        |      ; Loop til $1091 = 32
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189B24|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189B24|        |00A051;  
                        db $91                               ;189B27|        |      ;  
                        db $10                               ;189B28|        |      ;  
                        db $32                               ;189B29|        |      ;  
@@ -4845,7 +4845,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        dl SCRIPT_019                        ;189B2F|        |0CB09E;  
                        db $00                               ;189B32|        |      ;  
                        db $07                               ;189B33|        |      ; Loop til $1091 = 33
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189B34|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189B34|        |00A051;  
                        db $91                               ;189B37|        |      ;  
                        db $10                               ;189B38|        |      ;  
                        db $33                               ;189B39|        |      ;  
@@ -4863,14 +4863,14 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $01                               ;189B48|        |      ; Loop $0A: fade
                        db $0A                               ;189B49|        |      ;  
                        db $07                               ;189B4A|        |      ; Fade screen
-                       dl Fade to black                     ;189B4B|        |00A0DB;  
+                       dl Fade                              ;189B4B|        |00A0DB;  
                        db $06                               ;189B4E|        |      ; 06 06
                        db $06                               ;189B4F|        |      ;  
                        db $02                               ;189B50|        |      ; End inner loop
                        db $01                               ;189B51|        |      ; Loop $08: unfade
                        db $08                               ;189B52|        |      ;  
                        db $07                               ;189B53|        |      ; Unfade screen
-                       dl Unfade from black                 ;189B54|        |00A0CB;  
+                       dl Unfade                            ;189B54|        |00A0CB;  
                        db $06                               ;189B57|        |      ; 06 03
                        db $03                               ;189B58|        |      ;  
                        db $02                               ;189B59|        |      ; End inner loop
@@ -4878,15 +4878,15 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $01                               ;189B5B|        |      ;  
                        db $10                               ;189B5C|        |      ; Loop $10: fade all the way
                        db $07                               ;189B5D|        |      ; Fade screen
-                       dl Fade to black                     ;189B5E|        |00A0DB;  
+                       dl Fade                              ;189B5E|        |00A0DB;  
                        db $07                               ;189B61|        |      ; Sound stuff
-                       dl Sound stuff (1b)                  ;189B62|        |009C19;  
+                       dl Sound_stuff_1b                    ;189B62|        |009C19;  
                        db $F0                               ;189B65|        |      ;  
                        db $06                               ;189B66|        |      ; 06 06
                        db $06                               ;189B67|        |      ;  
                        db $02                               ;189B68|        |      ; End loop
                        db $07                               ;189B69|        |      ; Music off
-                       dl Sub: Get/Set Music                ;189B6A|        |009C3C;  
+                       dl GetSet_Music                      ;189B6A|        |009C3C;  
                        db $00                               ;189B6D|        |      ;  
                        db $07                               ;189B6E|        |      ; Check party
                        dl Check_Party                       ;189B6F|        |18D4D9;  
@@ -5123,13 +5123,13 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
          DATA8_189C54: db $1B                               ;189C54|        |      ;  
                        dw CrystalSword_anims?               ;189C55|        |189C88;  
                        db $07                               ;189C57|        |      ;  
-                       dl RAM_subtract(2b)(2b)              ;189C58|        |00A06F;  
+                       dl RAM_minus_val_2b_2b               ;189C58|        |00A06F;  
                        dw $1091                             ;189C5B|        |      ;  
                        dw $000A                             ;189C5D|        |      ;  
                        db $0C                               ;189C5F|        |      ;  
                        dw DATA8_189C54                      ;189C60|        |189C54;  
                        db $07                               ;189C62|        |      ; Play Crystal Sword Get sfx
-                       dl Sub: Get/Set SFX                  ;189C63|        |009C44;  
+                       dl GetSet_SFX                        ;189C63|        |009C44;  
                        db $10                               ;189C66|        |      ;  
                        db $60                               ;189C67|        |      ; 60 40 00
                        dw $0040                             ;189C68|        |      ;  
@@ -5150,7 +5150,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $30                               ;189C7B|        |      ; 30 FF
                        db $FF                               ;189C7C|        |      ;  
                        db $07                               ;189C7D|        |      ; Yoink SFX
-                       dl Sub: Get/Set SFX                  ;189C7E|        |009C44;  
+                       dl GetSet_SFX                        ;189C7E|        |009C44;  
                        db $0A                               ;189C81|        |      ;  
                        db $16                               ;189C82|        |      ; 16:$1091 = 0B
                        dw $1091                             ;189C83|        |      ;  
@@ -5181,7 +5181,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $1C                               ;189C9D|        |      ; Return
                                                             ;      |        |      ;  
          DMA_transfer: db $07                               ;189C9E|        |      ;  
-                       dl DMA xfer (6b)                     ;189C9F|        |009EE0;  
+                       dl DMA_xfer_6b                       ;189C9F|        |009EE0;  
                        db $07                               ;189CA2|        |      ;  
                        db $01                               ;189CA3|        |      ;  
                        db $26                               ;189CA4|        |      ;  
@@ -5196,21 +5196,21 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        dl Color_Setup                       ;189CAF|        |189F7C;  
                                                             ;      |        |      ;  
              RGB_loop: db $07                               ;189CB2|        |      ; Set RGB 0,0,0
-                       dl Set RGB(3b)                       ;189CB3|        |009F83;  
+                       dl Set_RGB_3b                        ;189CB3|        |009F83;  
                        db $00                               ;189CB6|        |      ;  
                        db $00                               ;189CB7|        |      ;  
                        db $0E                               ;189CB8|        |      ;  
                        db $06                               ;189CB9|        |      ; 06 02
                        db $02                               ;189CBA|        |      ;  
                        db $07                               ;189CBB|        |      ; RGB 0,0,1F
-                       dl Set RGB(3b)                       ;189CBC|        |009F83;  
+                       dl Set_RGB_3b                        ;189CBC|        |009F83;  
                        db $00                               ;189CBF|        |      ;  
                        db $00                               ;189CC0|        |      ;  
                        db $1F                               ;189CC1|        |      ;  
                        db $06                               ;189CC2|        |      ;  
                        db $02                               ;189CC3|        |      ;  
                        db $07                               ;189CC4|        |      ; ($1091) - 0A
-                       dl RAM_subtract(2b)(2b)              ;189CC5|        |00A06F;  
+                       dl RAM_minus_val_2b_2b               ;189CC5|        |00A06F;  
                        db $91                               ;189CC8|        |      ;  
                        db $10                               ;189CC9|        |      ;  
                        db $0A                               ;189CCA|        |      ;  
@@ -5220,14 +5220,14 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $01                               ;189CCF|        |      ; Loop $0A
                        db $0A                               ;189CD0|        |      ;  
                        db $07                               ;189CD1|        |      ; RGB 0,0,10
-                       dl Set RGB(3b)                       ;189CD2|        |009F83;  
+                       dl Set_RGB_3b                        ;189CD2|        |009F83;  
                        db $00                               ;189CD5|        |      ;  
                        db $00                               ;189CD6|        |      ;  
                        db $10                               ;189CD7|        |      ;  
                        db $06                               ;189CD8|        |      ; 06 02
                        db $02                               ;189CD9|        |      ;  
                        db $07                               ;189CDA|        |      ; RGB 0,0,1A
-                       dl Set RGB(3b)                       ;189CDB|        |009F83;  
+                       dl Set_RGB_3b                        ;189CDB|        |009F83;  
                        db $00                               ;189CDE|        |      ;  
                        db $00                               ;189CDF|        |      ;  
                        db $1A                               ;189CE0|        |      ;  
@@ -5237,14 +5237,14 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $01                               ;189CE4|        |      ; Loop $0A
                        db $0A                               ;189CE5|        |      ;  
                        db $07                               ;189CE6|        |      ; RGB 0,0,0C
-                       dl Set RGB(3b)                       ;189CE7|        |009F83;  
+                       dl Set_RGB_3b                        ;189CE7|        |009F83;  
                        db $00                               ;189CEA|        |      ;  
                        db $00                               ;189CEB|        |      ;  
                        db $0C                               ;189CEC|        |      ;  
                        db $06                               ;189CED|        |      ; 06 02
                        db $02                               ;189CEE|        |      ;  
                        db $07                               ;189CEF|        |      ; RGB 0,0,14
-                       dl Set RGB(3b)                       ;189CF0|        |009F83;  
+                       dl Set_RGB_3b                        ;189CF0|        |009F83;  
                        db $00                               ;189CF3|        |      ;  
                        db $00                               ;189CF4|        |      ;  
                        db $14                               ;189CF5|        |      ;  
@@ -5254,14 +5254,14 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $01                               ;189CF9|        |      ; Loop $0A
                        db $0A                               ;189CFA|        |      ;  
                        db $07                               ;189CFB|        |      ; RGB 0,0,8
-                       dl Set RGB(3b)                       ;189CFC|        |009F83;  
+                       dl Set_RGB_3b                        ;189CFC|        |009F83;  
                        db $00                               ;189CFF|        |      ;  
                        db $00                               ;189D00|        |      ;  
                        db $08                               ;189D01|        |      ;  
                        db $06                               ;189D02|        |      ; 06 02
                        db $02                               ;189D03|        |      ;  
                        db $07                               ;189D04|        |      ; RGB 0,0,E
-                       dl Set RGB(3b)                       ;189D05|        |009F83;  
+                       dl Set_RGB_3b                        ;189D05|        |009F83;  
                        db $00                               ;189D08|        |      ;  
                        db $00                               ;189D09|        |      ;  
                        db $0E                               ;189D0A|        |      ;  
@@ -5271,14 +5271,14 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $01                               ;189D0E|        |      ; Loop $0A
                        db $0A                               ;189D0F|        |      ;  
                        db $07                               ;189D10|        |      ; RGB 0,0,4
-                       dl Set RGB(3b)                       ;189D11|        |009F83;  
+                       dl Set_RGB_3b                        ;189D11|        |009F83;  
                        db $00                               ;189D14|        |      ;  
                        db $00                               ;189D15|        |      ;  
                        db $04                               ;189D16|        |      ;  
                        db $06                               ;189D17|        |      ; 06 02
                        db $02                               ;189D18|        |      ;  
                        db $07                               ;189D19|        |      ; RGB 0,0,8
-                       dl Set RGB(3b)                       ;189D1A|        |009F83;  
+                       dl Set_RGB_3b                        ;189D1A|        |009F83;  
                        db $00                               ;189D1D|        |      ;  
                        db $00                               ;189D1E|        |      ;  
                        db $08                               ;189D1F|        |      ;  
@@ -5286,12 +5286,12 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        db $02                               ;189D21|        |      ;  
                        db $02                               ;189D22|        |      ; End loop
                        db $07                               ;189D23|        |      ; RGB 0,0,0
-                       dl Set RGB(3b)                       ;189D24|        |009F83;  
+                       dl Set_RGB_3b                        ;189D24|        |009F83;  
                        db $00                               ;189D27|        |      ;  
                        db $00                               ;189D28|        |      ;  
                        db $00                               ;189D29|        |      ;  
                        db $07                               ;189D2A|        |      ; Drop HDMA 7
-                       dl Remove HDMA channel(1b)           ;189D2B|        |009F1F;  
+                       dl Rem_HDMA_ch_1b                    ;189D2B|        |009F1F;  
                        db $07                               ;189D2E|        |      ;  
                        db $07                               ;189D2F|        |      ; Zero Winmask stuff
                        dl Zero_WinMask_stuff                ;189D30|        |189F90;  
@@ -5404,7 +5404,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
           Ch1_End_pt4: db $30                               ;189DC9|        |      ;  
                        db $33                               ;189DCA|        |      ;  
                        db $07                               ;189DCB|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189DCC|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189DCC|        |00A051;  
                        dw $1091                             ;189DCF|        |      ;  
                        dw $0028                             ;189DD1|        |      ;  
                                                             ;      |        |      ;  
@@ -5434,7 +5434,7 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        dw DATA8_189DD3                      ;189DF0|        |189DD3;  
                                                             ;      |        |      ;  
          DATA8_189DF2: db $07                               ;189DF2|        |      ; Play "Escape" sfx
-                       dl Sub: Get/Set SFX                  ;189DF3|        |009C44;  
+                       dl GetSet_SFX                        ;189DF3|        |009C44;  
                        db $28                               ;189DF6|        |      ;  
                        db $00                               ;189DF7|        |      ; End section
                                                             ;      |        |      ;  
@@ -5454,13 +5454,13 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
           Ch1_End_pt2: db $30                               ;189E0C|        |      ;  
                        db $3F                               ;189E0D|        |      ;  
                        db $07                               ;189E0E|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189E0F|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189E0F|        |00A051;  
                        dw $1091                             ;189E12|        |      ; $1091=1
                        dw $0001                             ;189E14|        |      ;  
                        db $30                               ;189E16|        |      ; 30 40
                        db $40                               ;189E17|        |      ;  
                        db $07                               ;189E18|        |      ; Loop until $1091=4
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189E19|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189E19|        |00A051;  
                        dw $1091                             ;189E1C|        |      ;  
                        dw $0004                             ;189E1E|        |      ;  
                        db $00                               ;189E20|        |      ; Return
@@ -5468,19 +5468,19 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
           Ch1_End_pt3: db $30                               ;189E21|        |      ; 30 3B
                        db $3B                               ;189E22|        |      ;  
                        db $07                               ;189E23|        |      ; Loop until $1091=1
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189E24|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189E24|        |00A051;  
                        dw $1091                             ;189E27|        |      ;  
                        dw $0001                             ;189E29|        |      ;  
                        db $30                               ;189E2B|        |      ; 30 3C
                        db $3C                               ;189E2C|        |      ;  
                        db $07                               ;189E2D|        |      ; Loop until $1091=3
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;189E2E|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;189E2E|        |00A051;  
                        dw $1091                             ;189E31|        |      ;  
                        dw $0003                             ;189E33|        |      ;  
                        db $00                               ;189E35|        |      ; Return
                                                             ;      |        |      ;  
      BeatUp_end_check: LDX.W Selection                      ;189E36|AE3F10  |00103F;  
-                       LDA.W Spirit Condition               ;189E39|ADC511  |0011C5; Checks if spirit is Not Here
+                       LDA.W Spirit_Condition               ;189E39|ADC511  |0011C5; Checks if spirit is Not Here
                        AND.W #$00FF                         ;189E3C|29FF00  |      ;  
                        CMP.W #$0002                         ;189E3F|C90200  |      ;  
                        BEQ CODE_189E4E                      ;189E42|F00A    |189E4E;  
@@ -5490,13 +5490,13 @@ Finished_Beating_Rooks: db $07                               ;189ACE|        |  
                        BRA CODE_189E59                      ;189E4C|800B    |189E59;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_189E4E: LDA.W Current HP                     ;189E4E|ADF312  |0012F3; Checks if Rooks has <4 HP
+          CODE_189E4E: LDA.W Current_HP                     ;189E4E|ADF312  |0012F3; Checks if Rooks has <4 HP
                                                             ;      |        |      ;  
 Stop_Hitting_Yourself: CMP.W #$0004                         ;189E51|C90400  |      ;  
                        BCC CODE_189E68                      ;189E54|9012    |189E68;  
                        LDA.W #$0000                         ;189E56|A90000  |      ;  
                                                             ;      |        |      ;  
-          CODE_189E59: STA.W Selection value,X              ;189E59|9DEB09  |0009EB;  
+          CODE_189E59: STA.W Selection_value,X              ;189E59|9DEB09  |0009EB;  
                        LDA.W $0A0F,X                        ;189E5C|BD0F0A  |000A0F; Switch between Teefa and Ariel
                        EOR.W #$0002                         ;189E5F|490200  |      ;  
                        STA.W $0A0F,X                        ;189E62|9D0F0A  |000A0F;  
@@ -5568,29 +5568,29 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        db $00                               ;189F2F|        |      ;  
                                                             ;      |        |      ;  
      Beaten_Up_Attack: LDY.W Selection                      ;189F30|AC3F10  |00103F; Either halves Rooks' HP or kills Sylph
-                       LDX.W Selection value,Y              ;189F33|BEEB09  |0009EB;  
+                       LDX.W Selection_value,Y              ;189F33|BEEB09  |0009EB;  
                        BEQ CODE_189F41                      ;189F36|F009    |189F41;  
                        JSL.L Spirit_stuff_far               ;189F38|22EE8C07|078CEE;  
-                       LDA.W Current HP,X                   ;189F3C|BDF312  |0012F3;  
+                       LDA.W Current_HP,X                   ;189F3C|BDF312  |0012F3;  
                        BRA CODE_189F45                      ;189F3F|8004    |189F45;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_189F41: LDA.W Current HP,X                   ;189F41|BDF312  |0012F3; Do half damage
+          CODE_189F41: LDA.W Current_HP,X                   ;189F41|BDF312  |0012F3; Do half damage
                        LSR A                                ;189F44|4A      |      ;  
                                                             ;      |        |      ;  
           CODE_189F45: STA.W $1903                          ;189F45|8D0319  |001903;  
                        LDY.W Selection                      ;189F48|AC3F10  |00103F;  
-                       LDX.W Selection value,Y              ;189F4B|BEEB09  |0009EB;  
-                       LDA.W Current HP,X                   ;189F4E|BDF312  |0012F3;  
+                       LDX.W Selection_value,Y              ;189F4B|BEEB09  |0009EB;  
+                       LDA.W Current_HP,X                   ;189F4E|BDF312  |0012F3;  
                        SEC                                  ;189F51|38      |      ;  
                        SBC.W $1903                          ;189F52|ED0319  |001903;  
-                       STA.W Current HP,X                   ;189F55|9DF312  |0012F3;  
+                       STA.W Current_HP,X                   ;189F55|9DF312  |0012F3;  
                        BNE CODE_189F60                      ;189F58|D006    |189F60;  
                        LDA.W #$0001                         ;189F5A|A90100  |      ;  
                        STA.W Condition,X                    ;189F5D|9DC311  |0011C3;  
                                                             ;      |        |      ;  
           CODE_189F60: LDY.W Selection                      ;189F60|AC3F10  |00103F;  
-                       LDX.W Selection value,Y              ;189F63|BEEB09  |0009EB;  
+                       LDX.W Selection_value,Y              ;189F63|BEEB09  |0009EB;  
                        LDA.L Tbl_Paralyze_Targets,X         ;189F66|BF789F18|189F78;  
                        STA.B $00                            ;189F6A|8500    |000000;  
                        LDA.W #$0018                         ;189F6C|A91800  |      ;  
@@ -5604,31 +5604,31 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                                                             ;      |        |      ;  
           Color_Setup: SEP #$20                             ;189F7C|E220    |      ;  
                        LDA.B #$20                           ;189F7E|A920    |      ;  
-                       STA.W OBJ/Color Window Mask Settings ;189F80|8D2521  |002125;  
+                       STA.W OBJcolor_Winmask               ;189F80|8D2521  |002125;  
                        LDA.B #$00                           ;189F83|A900    |      ;  
-                       STA.W OBJ/Color Window mask logic    ;189F85|8D2B21  |00212B;  
+                       STA.W OBJcolor_Winmask_logic         ;189F85|8D2B21  |00212B;  
                        LDA.B #$10                           ;189F88|A910    |      ;  
-                       STA.W Color Addition Select          ;189F8A|8D3021  |002130;  
+                       STA.W Color_add_select               ;189F8A|8D3021  |002130;  
                        REP #$20                             ;189F8D|C220    |      ;  
                        RTL                                  ;189F8F|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
    Zero_WinMask_stuff: SEP #$20                             ;189F90|E220    |      ;  
-                       STZ.W OBJ/Color Window Mask Settings ;189F92|9C2521  |002125;  
-                       STZ.W Color Addition Select          ;189F95|9C3021  |002130;  
+                       STZ.W OBJcolor_Winmask               ;189F92|9C2521  |002125;  
+                       STZ.W Color_add_select               ;189F95|9C3021  |002130;  
                        REP #$20                             ;189F98|C220    |      ;  
                        RTL                                  ;189F9A|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
      Get_YesNo_Answer: LDY.W Selection                      ;189F9B|AC3F10  |00103F;  
-                       LDA.W Input (0031)                   ;189F9E|AD3100  |000031;  
+                       LDA.W Input_0031                     ;189F9E|AD3100  |000031;  
                        AND.W #$0200                         ;189FA1|290002  |      ;  
                        BEQ CODE_189FAB                      ;189FA4|F005    |189FAB;  
                        LDA.W #$0000                         ;189FA6|A90000  |      ;  
                        BRA CODE_189FB6                      ;189FA9|800B    |189FB6;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_189FAB: LDA.W Input (0031)                   ;189FAB|AD3100  |000031;  
+          CODE_189FAB: LDA.W Input_0031                     ;189FAB|AD3100  |000031;  
                        AND.W #$0100                         ;189FAE|290001  |      ;  
                        BEQ CODE_189FB9                      ;189FB1|F006    |189FB9;  
                        LDA.W #$0001                         ;189FB3|A90100  |      ;  
@@ -5644,7 +5644,7 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        STA.W $07AB,Y                        ;189FC8|99AB07  |0007AB;  
                        LDA.W #$005B                         ;189FCB|A95B00  |      ;  
                        STA.W Anim_ID,Y                      ;189FCE|997B0A  |000A7B;  
-                       LDA.W Input (0031)                   ;189FD1|AD3100  |000031;  
+                       LDA.W Input_0031                     ;189FD1|AD3100  |000031;  
                        AND.W #$0080                         ;189FD4|298000  |      ;  
                        BNE CODE_189FDD                      ;189FD7|D004    |189FDD;  
                        LDA.W #$0000                         ;189FD9|A90000  |      ;  
@@ -5652,7 +5652,7 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_189FDD: LDA.W #$0011                         ;189FDD|A91100  |      ;  
-                       JSL.L Play SFX                       ;189FE0|22479C00|009C47;  
+                       JSL.L Play_SFX                       ;189FE0|22479C00|009C47;  
                        LDY.W Selection                      ;189FE4|AC3F10  |00103F;  
                        LDA.W #$FFFF                         ;189FE7|A9FFFF  |      ;  
                        STA.W Anim_ID,Y                      ;189FEA|997B0A  |000A7B;  
@@ -5664,7 +5664,7 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
       Question_Yes/No: dw $003E                             ;189FF2|        |      ;  
                        dw $0086                             ;189FF4|        |      ;  
                                                             ;      |        |      ;  
-       EVENT_04_(Ch2): LDA.W Chapter #                      ;189FF6|ADCD18  |0018CD; Is it Ch2? (sets carry)
+       EVENT_04_(Ch2): LDA.W Chapter_num                    ;189FF6|ADCD18  |0018CD; Is it Ch2? (sets carry)
                        CMP.W #$0002                         ;189FF9|C90200  |      ;  
                        BNE CODE_18A000                      ;189FFC|D002    |18A000;  
                        SEC                                  ;189FFE|38      |      ;  
@@ -5685,19 +5685,19 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        dw $1893                             ;18A00B|        |      ;  
                        db $B6                               ;18A00D|        |      ;  
                        db $07                               ;18A00E|        |      ;  
-                       dl Set RGB(3b)                       ;18A00F|        |009F83;  
+                       dl Set_RGB_3b                        ;18A00F|        |009F83;  
                        db $1F                               ;18A012|        |      ;  
                        db $1F                               ;18A013|        |      ;  
                        db $1F                               ;18A014|        |      ;  
                        db $01                               ;18A015|        |      ;  
                        db $10                               ;18A016|        |      ;  
                        db $07                               ;18A017|        |      ;  
-                       dl Unfade from black                 ;18A018|        |00A0CB;  
+                       dl Unfade                            ;18A018|        |00A0CB;  
                        db $06                               ;18A01B|        |      ;  
                        db $03                               ;18A01C|        |      ;  
                        db $02                               ;18A01D|        |      ;  
                        db $07                               ;18A01E|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18A01F|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18A01F|        |009D6F;  
                        db $01                               ;18A022|        |      ;  
                        db $00                               ;18A023|        |      ;  
                        dw $3000                             ;18A024|        |      ;  
@@ -5720,25 +5720,25 @@ ArielTeefa_Attack_Text: LDY.W Selection                      ;189E69|AC3F10  |00
                        db $1B                               ;18A03D|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A03E|        |18D4B9;  
                        db $07                               ;18A040|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18A041|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18A041|        |00A035;  
                        dl $18A044_Decomp_data               ;18A044|        |18A151;  
                        dl $000460                           ;18A047|        |000460;  
                        db $07                               ;18A04A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A04B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A04B|        |00A140;  
                        dl $18C59A_data                      ;18A04E|        |189B9B;  
                        db $90                               ;18A051|        |      ;  
                        dw $0040                             ;18A052|        |      ;  
                        db $07                               ;18A054|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A055|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A055|        |00A140;  
                        dl $18/C5A4_data                     ;18A058|        |18A131;  
                        db $D0                               ;18A05B|        |      ;  
                        dw $0020                             ;18A05C|        |      ;  
                        db $07                               ;18A05E|        |      ;  
-                       dl Sound byte (1b)                   ;18A05F|        |009C0A;  
+                       dl Sound_byte_1b                     ;18A05F|        |009C0A;  
                        db $FF                               ;18A062|        |      ;  
                                                             ;      |        |      ;  
 The_Legend_(Ch2_start): db $07                               ;18A063|        |      ;  
-                       dl Sub: Get/Set Music                ;18A064|        |009C3C;  
+                       dl GetSet_Music                      ;18A064|        |009C3C;  
                        db $40                               ;18A067|        |      ;  
                        db $0F                               ;18A068|        |      ;  
                        db $00                               ;18A069|        |      ;  
@@ -5748,7 +5748,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $01                               ;18A06E|        |      ;  
                        db $0A                               ;18A06F|        |      ;  
                        db $07                               ;18A070|        |      ;  
-                       dl Add_RGB(3b)                       ;18A071|        |009FE2;  
+                       dl Add_RGB_3b                        ;18A071|        |009FE2;  
                        db $FE                               ;18A074|        |      ;  
                        db $FE                               ;18A075|        |      ;  
                        db $FE                               ;18A076|        |      ;  
@@ -5758,7 +5758,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $01                               ;18A07A|        |      ;  
                        db $06                               ;18A07B|        |      ;  
                        db $07                               ;18A07C|        |      ;  
-                       dl Add_RGB(3b)                       ;18A07D|        |009FE2;  
+                       dl Add_RGB_3b                        ;18A07D|        |009FE2;  
                        db $02                               ;18A080|        |      ;  
                        db $02                               ;18A081|        |      ;  
                        db $02                               ;18A082|        |      ;  
@@ -5769,7 +5769,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $01                               ;18A087|        |      ;  
                        db $08                               ;18A088|        |      ;  
                        db $07                               ;18A089|        |      ;  
-                       dl Add_RGB(3b)                       ;18A08A|        |009FE2;  
+                       dl Add_RGB_3b                        ;18A08A|        |009FE2;  
                        db $FE                               ;18A08D|        |      ;  
                        db $FE                               ;18A08E|        |      ;  
                        db $FE                               ;18A08F|        |      ;  
@@ -5788,7 +5788,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $00                               ;18A0A0|        |      ;  
                        db $03                               ;18A0A1|        |      ;  
                        db $07                               ;18A0A2|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A0A3|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A0A3|        |009CAE;  
                        db $08                               ;18A0A6|        |      ;  
                        db $24                               ;18A0A7|        |      ;  
                        db $12                               ;18A0A8|        |      ;  
@@ -5817,7 +5817,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $1B                               ;18A0C4|        |      ;  
                        dw Loop_until_$1091=FF               ;18A0C5|        |18D4C3;  
                        db $07                               ;18A0C7|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A0C8|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A0C8|        |009CAE;  
                        db $08                               ;18A0CB|        |      ;  
                        db $24                               ;18A0CC|        |      ;  
                        db $12                               ;18A0CD|        |      ;  
@@ -5845,14 +5845,14 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        dw Loop_until_$1091=FF               ;18A0E8|        |18D4C3;  
                                                             ;      |        |      ;  
       Ch2_Salah_joins: db $07                               ;18A0EA|        |      ; Salah joins music
-                       dl Sub: Get/Set Music                ;18A0EB|        |009C3C;  
+                       dl GetSet_Music                      ;18A0EB|        |009C3C;  
                        db $56                               ;18A0EE|        |      ;  
                        db $06                               ;18A0EF|        |      ;  
                        db $F0                               ;18A0F0|        |      ;  
                        db $06                               ;18A0F1|        |      ;  
                        db $C8                               ;18A0F2|        |      ;  
                        db $07                               ;18A0F3|        |      ; Crowded Marketplace music
-                       dl Sub: Get/Set Music                ;18A0F4|        |009C3C;  
+                       dl GetSet_Music                      ;18A0F4|        |009C3C;  
                        db $59                               ;18A0F7|        |      ;  
                        db $07                               ;18A0F8|        |      ;  
                        dl Check_Party                       ;18A0F9|        |18D4D9;  
@@ -6001,13 +6001,13 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $D0                               ;18A199|        |18A1A5;  
                        db $0A                               ;18A19A|        |      ;  
                                                             ;      |        |      ;  
-    EVENT_05_(TheMan): LDA.W Current map                    ;18A19B|AD7315  |001573; Ch 2 Darwin vs Monsters scene
+    EVENT_05_(TheMan): LDA.W Curr_map                       ;18A19B|AD7315  |001573; Ch 2 Darwin vs Monsters scene
                        CMP.W #$0102                         ;18A19E|C90201  |      ; Check if map is Draven Pass
                        BNE CODE_18A1B5                      ;18A1A1|D012    |18A1B5;  
-                       LDA.W Map X pos                      ;18A1A3|ADF716  |0016F7;  
+                       LDA.W Map_X                          ;18A1A3|ADF716  |0016F7;  
                        CMP.W #$000C                         ;18A1A6|C90C00  |      ; Check if X coordinate is C
                        BNE CODE_18A1B5                      ;18A1A9|D00A    |18A1B5;  
-                       LDA.W Map Y pos                      ;18A1AB|ADF916  |0016F9; Check if Y coordinate is 1A
+                       LDA.W Map_Y                          ;18A1AB|ADF916  |0016F9; Check if Y coordinate is 1A
                        CMP.W #$001A                         ;18A1AE|C91A00  |      ;  
                        BNE CODE_18A1B5                      ;18A1B1|D002    |18A1B5;  
                        SEC                                  ;18A1B3|38      |      ; If true, return carry set
@@ -6032,12 +6032,12 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $00                               ;18A1C4|        |      ;  
                        db $00                               ;18A1C5|        |      ;  
                        db $07                               ;18A1C6|        |      ; Attack SFX
-                       dl Sub: Get/Set SFX                  ;18A1C7|        |009C44;  
+                       dl GetSet_SFX                        ;18A1C7|        |009C44;  
                        db $01                               ;18A1CA|        |      ;  
                        db $06                               ;18A1CB|        |      ; Delay $28
                        db $28                               ;18A1CC|        |      ;  
                        db $07                               ;18A1CD|        |      ; Damage SFX
-                       dl Sub: Get/Set SFX                  ;18A1CE|        |009C44;  
+                       dl GetSet_SFX                        ;18A1CE|        |009C44;  
                        db $07                               ;18A1D1|        |      ;  
                        db $06                               ;18A1D2|        |      ; Delay $28
                        db $28                               ;18A1D3|        |      ;  
@@ -6063,29 +6063,29 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $1B                               ;18A1F2|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A1F3|        |18D4B9;  
                        db $07                               ;18A1F5|        |      ; Transfer data
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A1F6|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A1F6|        |00A140;  
                        dl $18C72E_data                      ;18A1F9|        |18A2B0;  
                        db $90                               ;18A1FC|        |      ;  
                        db $40                               ;18A1FD|        |      ;  
                        db $00                               ;18A1FE|        |      ;  
                        db $07                               ;18A1FF|        |      ; Transfer data
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A200|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A200|        |00A140;  
                        dl $18A203_data                      ;18A203|        |19827B;  
                        db $D0                               ;18A206|        |      ;  
                        db $20                               ;18A207|        |      ;  
                        db $00                               ;18A208|        |      ;  
                        db $07                               ;18A209|        |      ; Spellcast SFX
-                       dl Sub: Get/Set SFX                  ;18A20A|        |009C44;  
+                       dl GetSet_SFX                        ;18A20A|        |009C44;  
                        db $19                               ;18A20D|        |      ;  
                        db $06                               ;18A20E|        |      ;  
                        db $28                               ;18A20F|        |      ;  
                        db $07                               ;18A210|        |      ; Flame SFX
-                       dl Sub: Get/Set SFX                  ;18A211|        |009C44;  
+                       dl GetSet_SFX                        ;18A211|        |009C44;  
                        db $1D                               ;18A214|        |      ;  
                        db $06                               ;18A215|        |      ;  
                        db $28                               ;18A216|        |      ;  
                        db $07                               ;18A217|        |      ; Damage SFX
-                       dl Sub: Get/Set SFX                  ;18A218|        |009C44;  
+                       dl GetSet_SFX                        ;18A218|        |009C44;  
                        db $07                               ;18A21B|        |      ;  
                        db $06                               ;18A21C|        |      ;  
                        db $28                               ;18A21D|        |      ;  
@@ -6095,10 +6095,10 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $1B                               ;18A221|        |      ;  
                        dw Dungeon_loop?                     ;18A222|        |18D392;  
                        db $07                               ;18A224|        |      ; Play "Conflict"
-                       dl Sub: Get/Set Music                ;18A225|        |009C3C;  
+                       dl GetSet_Music                      ;18A225|        |009C3C;  
                        db $4F                               ;18A228|        |      ;  
                        db $07                               ;18A229|        |      ; Load sprite data (The Man?)
-                       dl Load_Sprite(14b)                  ;18A22A|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A22A|        |009CAE;  
                        db $08                               ;18A22D|        |      ;  
                        db $24                               ;18A22E|        |      ;  
                        db $12                               ;18A22F|        |      ;  
@@ -6114,7 +6114,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $01                               ;18A239|        |      ;  
                        db $00                               ;18A23A|        |      ;  
                        db $07                               ;18A23B|        |      ; Load sprite data
-                       dl Load_Sprite(14b)                  ;18A23C|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A23C|        |009CAE;  
                        db $08                               ;18A23F|        |      ;  
                        db $24                               ;18A240|        |      ;  
                        db $12                               ;18A241|        |      ;  
@@ -6130,7 +6130,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $02                               ;18A24B|        |      ;  
                        db $00                               ;18A24C|        |      ;  
                        db $07                               ;18A24D|        |      ; Load sprite data
-                       dl Load_Sprite(14b)                  ;18A24E|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A24E|        |009CAE;  
                        db $08                               ;18A251|        |      ;  
                        db $24                               ;18A252|        |      ;  
                        db $12                               ;18A253|        |      ;  
@@ -6153,7 +6153,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        dl SCRIPT_024                        ;18A265|        |0CB990;  
                        db $00                               ;18A268|        |      ;  
                        db $07                               ;18A269|        |      ; Loop til $1091 = 01
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A26A|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A26A|        |00A051;  
                        db $91                               ;18A26D|        |      ;  
                        db $10                               ;18A26E|        |      ;  
                        db $01                               ;18A26F|        |      ;  
@@ -6161,19 +6161,19 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $1B                               ;18A271|        |      ; Battle poses on
                        dw Battle_Poses_On                   ;18A272|        |18D4A9;  
                        db $07                               ;18A274|        |      ; Transfer 2 bytes
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A275|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A275|        |00A140;  
                        dl $189AD2_2_bytes                   ;18A278|        |0D958E;  
                        db $02                               ;18A27B|        |      ;  
                        db $02                               ;18A27C|        |      ;  
                        db $00                               ;18A27D|        |      ;  
                        db $07                               ;18A27E|        |      ; Loop until $1091=0D
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A27F|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A27F|        |00A051;  
                        db $91                               ;18A282|        |      ;  
                        db $10                               ;18A283|        |      ;  
                        db $0D                               ;18A284|        |      ;  
                        db $00                               ;18A285|        |      ;  
                        db $07                               ;18A286|        |      ; Play "Fanfare"
-                       dl Sub: Get/Set Music                ;18A287|        |009C3C;  
+                       dl GetSet_Music                      ;18A287|        |009C3C;  
                        db $55                               ;18A28A|        |      ;  
                        db $1B                               ;18A28B|        |      ;  
                        dw Loop_until_$1091=FF               ;18A28C|        |18D4C3;  
@@ -6272,7 +6272,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $01                               ;18A2F2|        |      ; Loop $02
                        db $02                               ;18A2F3|        |      ;  
                        db $07                               ;18A2F4|        |      ; Loop until $1091=2
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A2F5|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A2F5|        |00A051;  
                        db $91                               ;18A2F8|        |      ;  
                        db $10                               ;18A2F9|        |      ;  
                        db $02                               ;18A2FA|        |      ;  
@@ -6283,7 +6283,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $00                               ;18A2FF|        |      ;  
                        db $00                               ;18A300|        |      ;  
                        db $07                               ;18A301|        |      ; SFX 1 (Attack)
-                       dl Sub: Get/Set SFX                  ;18A302|        |009C44;  
+                       dl GetSet_SFX                        ;18A302|        |009C44;  
                        db $01                               ;18A305|        |      ;  
                        db $30                               ;18A306|        |      ; 30 4A
                        db $4A                               ;18A307|        |      ;  
@@ -6293,7 +6293,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $49                               ;18A30B|        |      ;  
                        db $02                               ;18A30C|        |      ; End loop
                        db $07                               ;18A30D|        |      ; Loop until $1091=14
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A30E|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A30E|        |00A051;  
                        db $91                               ;18A311|        |      ;  
                        db $10                               ;18A312|        |      ;  
                        db $14                               ;18A313|        |      ;  
@@ -6310,7 +6310,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
          Ch2_Darwin_2: db $08                               ;18A31E|        |      ; Call unknown sub
                        dw Sub_Unknown                       ;18A31F|        |18A343;  
                        db $07                               ;18A321|        |      ; Loop til $1091=0B
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A322|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A322|        |00A051;  
                        db $91                               ;18A325|        |      ;  
                        db $10                               ;18A326|        |      ;  
                        db $0B                               ;18A327|        |      ;  
@@ -6321,14 +6321,14 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $04                               ;18A32B|        |      ; Enemy death anim
                        dl Sub: Enemy death anim             ;18A32C|        |028F24;  
                        db $07                               ;18A32F|        |      ; Chimera death sfx
-                       dl Sub: Get/Set SFX                  ;18A330|        |009C44;  
+                       dl GetSet_SFX                        ;18A330|        |009C44;  
                        db $2F                               ;18A333|        |      ;  
                        db $00                               ;18A334|        |      ; End Darwin 2
                                                             ;      |        |      ;  
          Ch2_Darwin_3: db $08                               ;18A335|        |      ;  
                        dw PTR24_00A343                      ;18A336|        |00A343;  
                        db $07                               ;18A338|        |      ; Loop until $1091=0C
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A339|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A339|        |00A051;  
                        db $91                               ;18A33C|        |      ;  
                        db $10                               ;18A33D|        |      ;  
                        db $0C                               ;18A33E|        |      ;  
@@ -6383,13 +6383,13 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $1B                               ;18A37E|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A37F|        |18D4B9;  
                        db $07                               ;18A381|        |      ; Transfer 40 bytes
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A382|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A382|        |00A140;  
                        dl $18C72E_data                      ;18A385|        |18A2B0;  
                        db $90                               ;18A388|        |      ;  
                        db $40                               ;18A389|        |      ;  
                        db $00                               ;18A38A|        |      ;  
                        db $07                               ;18A38B|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;18A38C|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A38C|        |009CAE;  
                        db $08                               ;18A38F|        |      ;  
                        db $24                               ;18A390|        |      ;  
                        db $12                               ;18A391|        |      ;  
@@ -6416,7 +6416,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $1B                               ;18A3AB|        |      ;  
                        dw Loop_until_$1091=FF               ;18A3AC|        |18D4C3;  
                        db $07                               ;18A3AE|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;18A3AF|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A3AF|        |009CAE;  
                        db $08                               ;18A3B2|        |      ;  
                        db $24                               ;18A3B3|        |      ;  
                        db $12                               ;18A3B4|        |      ;  
@@ -6432,7 +6432,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        db $02                               ;18A3BE|        |      ;  
                        db $00                               ;18A3BF|        |      ;  
                        db $07                               ;18A3C0|        |      ; Loop til $1091=64
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A3C1|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A3C1|        |00A051;  
                        db $91                               ;18A3C4|        |      ;  
                        db $10                               ;18A3C5|        |      ;  
                        db $64                               ;18A3C6|        |      ;  
@@ -6443,7 +6443,7 @@ The_Legend_(Ch2_start): db $07                               ;18A063|        |  
                        dl SCRIPT_029                        ;18A3CC|        |0CBE52;  
                        db $00                               ;18A3CF|        |      ;  
                        db $07                               ;18A3D0|        |      ; Play "Trusted Circle"
-                       dl Sub: Get/Set Music                ;18A3D1|        |009C3C;  
+                       dl GetSet_Music                      ;18A3D1|        |009C3C;  
                        db $56                               ;18A3D4|        |      ;  
                        db $06                               ;18A3D5|        |      ; 06: Delay $F0 + $C8
                        db $F0                               ;18A3D6|        |      ;  
@@ -6532,7 +6532,7 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        db $1B                               ;18A443|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A444|        |18D4B9;  
                        db $07                               ;18A446|        |      ; Transfer 40 bytes
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A447|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A447|        |00A140;  
                        dl $18C72E_data                      ;18A44A|        |18A2B0;  
                        db $90                               ;18A44D|        |      ;  
                        db $40                               ;18A44E|        |      ;  
@@ -6560,7 +6560,7 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        db $06                               ;18A46F|        |      ;  
                        db $1E                               ;18A470|        |      ;  
                        db $07                               ;18A471|        |      ; Draw Darwin sprite
-                       dl Load_Sprite(14b)                  ;18A472|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A472|        |009CAE;  
                        db $08                               ;18A475|        |      ;  
                        db $24                               ;18A476|        |      ;  
                        db $12                               ;18A477|        |      ;  
@@ -6593,7 +6593,7 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        db $1B                               ;18A497|        |      ; Turn off sound
                        dw Sub_Turn_off_sound                ;18A498|        |18D3F6;  
                        db $07                               ;18A49A|        |      ; Play "Draven's Valley Pass"
-                       dl Sub: Get/Set Music                ;18A49B|        |009C3C;  
+                       dl GetSet_Music                      ;18A49B|        |009C3C;  
                        db $4A                               ;18A49E|        |      ;  
                        db $1B                               ;18A49F|        |      ;  
                        dw Some_sub                          ;18A4A0|        |18D45C;  
@@ -6610,7 +6610,7 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        db $46                               ;18A4AD|        |      ;  
                        db $0A                               ;18A4AE|        |      ;  
                                                             ;      |        |      ;  
-   EVENT_08_(Reinoll): LDA.W Current map                    ;18A4AF|AD7315  |001573; Checks if you're at Reinoll's house
+   EVENT_08_(Reinoll): LDA.W Curr_map                       ;18A4AF|AD7315  |001573; Checks if you're at Reinoll's house
                        CMP.W #$0104                         ;18A4B2|C90401  |      ; Check if map is Forest of Doubt
                        BNE CODE_18A4C1                      ;18A4B5|D00A    |18A4C1;  
                        LDA.W FloorTileValue                 ;18A4B7|ADF516  |0016F5;  
@@ -6642,10 +6642,10 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        db $1B                               ;18A4DA|        |      ;  
                        dw DATA8_18D40F                      ;18A4DB|        |18D40F;  
                        db $07                               ;18A4DD|        |      ;  
-                       dl Battle_related(1b)                ;18A4DE|        |009CDD;  
+                       dl Battle_related1b                  ;18A4DE|        |009CDD;  
                        db $08                               ;18A4E1|        |      ;  
                        db $07                               ;18A4E2|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18A4E3|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18A4E3|        |009D6F;  
                        db $01                               ;18A4E6|        |      ;  
                        db $01                               ;18A4E7|        |      ;  
                        dw $3000                             ;18A4E8|        |      ;  
@@ -6655,7 +6655,7 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        db $1B                               ;18A4EF|        |      ;  
                        dw LOOSE_OP_00A7E3                   ;18A4F0|        |00A7E3;  
                        db $07                               ;18A4F2|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A4F3|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A4F3|        |00A140;  
                        dl $18A4F6_data                      ;18A4F6|        |18A839;  
                        db $C0                               ;18A4F9|        |      ;  
                        dw $0020                             ;18A4FA|        |      ;  
@@ -6678,10 +6678,10 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        dw Sub_Turn_off_sound                ;18A513|        |18D3F6;  
                                                             ;      |        |      ;  
       Reinoll's theme: db $07                               ;18A515|        |      ;  
-                       dl Sub: Get/Set Music                ;18A516|        |009C3C;  
+                       dl GetSet_Music                      ;18A516|        |009C3C;  
                        db $3E                               ;18A519|        |      ;  
                        db $07                               ;18A51A|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A51B|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A51B|        |009CAE;  
                        db $08                               ;18A51E|        |      ;  
                        db $24                               ;18A51F|        |      ;  
                        db $12                               ;18A520|        |      ;  
@@ -6725,7 +6725,7 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        db $1B                               ;18A553|        |      ;  
                        dw Sub_Turn_off_sound                ;18A554|        |18D3F6;  
                        db $07                               ;18A556|        |      ; BGM "The Legend"
-                       dl Sub: Get/Set Music                ;18A557|        |009C3C;  
+                       dl GetSet_Music                      ;18A557|        |009C3C;  
                        db $40                               ;18A55A|        |      ;  
                        db $04                               ;18A55B|        |      ;  
                        dl Sub_Disable_HDMA                  ;18A55C|        |0189F1;  
@@ -6735,13 +6735,13 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        dl Setup_Reinoll_Scene               ;18A562|        |18AA53;  
                                                             ;      |        |      ;  
      Draw_Spirits_Rei: db $07                               ;18A565|        |      ;  
-                       dl DMA xfer (6b)                     ;18A566|        |009EE0;  
+                       dl DMA_xfer_6b                       ;18A566|        |009EE0;  
                        db $07                               ;18A569|        |      ;  
                        db $01                               ;18A56A|        |      ;  
                        db $26                               ;18A56B|        |      ;  
                        dl $18CA79_DMA                       ;18A56C|        |18A82C;  
                        db $07                               ;18A56F|        |      ;  
-                       dl Color_Add_Select(2b)              ;18A570|        |009F3C;  
+                       dl Color_Add_Select_2b               ;18A570|        |009F3C;  
                        db $33                               ;18A573|        |      ;  
                        db $02                               ;18A574|        |      ;  
                        db $0F                               ;18A575|        |      ; 0F: Set $09A3,x to 1
@@ -6765,13 +6765,13 @@ ASM_Ch2_Darwin_leaves: db $24                               ;18A430|        |   
                        dw ASM_Make_Animation_Loop           ;18A58E|        |18D4B9;  
                                                             ;      |        |      ;  
 Load_Card_Palette_Data: db $07                               ;18A590|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A591|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A591|        |00A140;  
                        dl $18/A594_data                     ;18A594|        |18A927;  
                        db $10                               ;18A597|        |      ;  
                        dw $0040                             ;18A598|        |      ;  
                                                             ;      |        |      ;  
 Load_Treasure_Shimmer_Palette: db $07                               ;18A59A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A59B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A59B|        |00A140;  
                        dl $18/A59E_data                     ;18A59E|        |18A987;  
                        db $F0                               ;18A5A1|        |      ;  
                        dw $0020                             ;18A5A2|        |      ;  
@@ -6784,7 +6784,7 @@ Load_Treasure_Shimmer_Palette: db $07                               ;18A59A|    
                        dw $0000                             ;18A5AD|        |      ;  
                                                             ;      |        |      ;  
 Load_Four_Cards_Shine: db $07                               ;18A5AF|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A5B0|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A5B0|        |009CAE;  
                        db $08                               ;18A5B3|        |      ;  
                        db $24                               ;18A5B4|        |      ;  
                        db $12                               ;18A5B5|        |      ;  
@@ -6800,7 +6800,7 @@ Load_Four_Cards_Shine: db $07                               ;18A5AF|        |   
                        db $02                               ;18A5BF|        |      ;  
                        db $00                               ;18A5C0|        |      ;  
                        db $07                               ;18A5C1|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A5C2|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A5C2|        |009CAE;  
                        db $08                               ;18A5C5|        |      ;  
                        db $24                               ;18A5C6|        |      ;  
                        db $12                               ;18A5C7|        |      ;  
@@ -6816,7 +6816,7 @@ Load_Four_Cards_Shine: db $07                               ;18A5AF|        |   
                        db $02                               ;18A5D1|        |      ;  
                        db $00                               ;18A5D2|        |      ;  
                        db $07                               ;18A5D3|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A5D4|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A5D4|        |009CAE;  
                        db $08                               ;18A5D7|        |      ;  
                        db $24                               ;18A5D8|        |      ;  
                        db $12                               ;18A5D9|        |      ;  
@@ -6832,7 +6832,7 @@ Load_Four_Cards_Shine: db $07                               ;18A5AF|        |   
                        db $02                               ;18A5E3|        |      ;  
                        db $00                               ;18A5E4|        |      ;  
                        db $07                               ;18A5E5|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A5E6|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A5E6|        |009CAE;  
                        db $08                               ;18A5E9|        |      ;  
                        db $24                               ;18A5EA|        |      ;  
                        db $12                               ;18A5EB|        |      ;  
@@ -6861,7 +6861,7 @@ Load_Four_Cards_Shine: db $07                               ;18A5AF|        |   
                        db $1B                               ;18A607|        |      ;  
                        dw Sub_FadeOut                       ;18A608|        |18D41A;  
                        db $07                               ;18A60A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A60B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A60B|        |00A140;  
                        dl $18/A60E_data                     ;18A60E|        |18A967;  
                        db $30                               ;18A611|        |      ;  
                        dw $0020                             ;18A612|        |      ;  
@@ -6873,7 +6873,7 @@ Load_Four_Cards_Shine: db $07                               ;18A5AF|        |   
                        dl Check_Party                       ;18A619|        |18D4D9;  
                                                             ;      |        |      ;  
 Load_3_Treasures_Shine: db $07                               ;18A61C|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A61D|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A61D|        |009CAE;  
                        db $08                               ;18A620|        |      ;  
                        db $24                               ;18A621|        |      ;  
                        db $12                               ;18A622|        |      ;  
@@ -6889,7 +6889,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $03                               ;18A62C|        |      ;  
                        db $00                               ;18A62D|        |      ;  
                        db $07                               ;18A62E|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A62F|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A62F|        |009CAE;  
                        db $08                               ;18A632|        |      ;  
                        db $24                               ;18A633|        |      ;  
                        db $12                               ;18A634|        |      ;  
@@ -6905,7 +6905,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $03                               ;18A63E|        |      ;  
                        db $00                               ;18A63F|        |      ;  
                        db $07                               ;18A640|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A641|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A641|        |009CAE;  
                        db $08                               ;18A644|        |      ;  
                        db $24                               ;18A645|        |      ;  
                        db $12                               ;18A646|        |      ;  
@@ -6943,7 +6943,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18A672|        |      ;  
                        dw DATA8_18D439                      ;18A673|        |18D439;  
                        db $07                               ;18A675|        |      ;  
-                       dl Remove HDMA channel(1b)           ;18A676|        |009F1F;  
+                       dl Rem_HDMA_ch_1b                    ;18A676|        |009F1F;  
                        db $07                               ;18A679|        |      ;  
                        db $04                               ;18A67A|        |      ;  
                        dl Sub_Transfer_stuff                ;18A67B|        |0189CD;  
@@ -6958,7 +6958,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        dw DATA8_18A7D8                      ;18A68A|        |18A7D8;  
                                                             ;      |        |      ;  
          Pen_Drop_SFX: db $07                               ;18A68C|        |      ;  
-                       dl Sub: Get/Set SFX                  ;18A68D|        |009C44;  
+                       dl GetSet_SFX                        ;18A68D|        |009C44;  
                        db $27                               ;18A690|        |      ;  
                        db $06                               ;18A691|        |      ;  
                        db $5A                               ;18A692|        |      ;  
@@ -6983,17 +6983,17 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $14                               ;18A6AE|        |      ;  
                        db $01                               ;18A6AF|        |      ;  
                        db $07                               ;18A6B0|        |      ; SFX 32? (nothing)
-                       dl Sub: Get/Set Music                ;18A6B1|        |009C3C;  
+                       dl GetSet_Music                      ;18A6B1|        |009C3C;  
                        db $32                               ;18A6B4|        |      ;  
                        db $06                               ;18A6B5|        |      ;  
                        db $01                               ;18A6B6|        |      ;  
                        db $07                               ;18A6B7|        |      ; Sound byte FF
-                       dl Sound byte (1b)                   ;18A6B8|        |009C0A;  
+                       dl Sound_byte_1b                     ;18A6B8|        |009C0A;  
                        db $FF                               ;18A6BB|        |      ;  
                        db $06                               ;18A6BC|        |      ; 06 01
                        db $01                               ;18A6BD|        |      ;  
                        db $07                               ;18A6BE|        |      ; Galneon's theme
-                       dl Sub: Get/Set Music                ;18A6BF|        |009C3C;  
+                       dl GetSet_Music                      ;18A6BF|        |009C3C;  
                        db $46                               ;18A6C2|        |      ;  
                        db $1B                               ;18A6C3|        |      ;  
                        dw SetB6_FadeOut                     ;18A6C4|        |18D416;  
@@ -7005,27 +7005,27 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18A6CF|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A6D0|        |18D4B9;  
                        db $07                               ;18A6D2|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18A6D3|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18A6D3|        |00A035;  
                        dl $18/A6D6_decomp_data              ;18A6D6|        |18A8EC;  
                        dw $0460                             ;18A6D9|        |      ;  
                        db $00                               ;18A6DB|        |      ;  
                        db $07                               ;18A6DC|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A6DD|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A6DD|        |00A140;  
                        dl Popular_data                      ;18A6E0|        |198A6B;  
                        db $90                               ;18A6E3|        |      ;  
                        dw $0040                             ;18A6E4|        |      ;  
                        db $07                               ;18A6E6|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A6E7|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A6E7|        |00A140;  
                        dl $18/A6EA_data                     ;18A6EA|        |18A9A7;  
                        db $B0                               ;18A6ED|        |      ;  
                        dw $0020                             ;18A6EE|        |      ;  
                        db $07                               ;18A6F0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A6F1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A6F1|        |00A140;  
                        dl $18/A6F4_data                     ;18A6F4|        |18A9C7;  
                        db $C0                               ;18A6F7|        |      ;  
                        dw $0040                             ;18A6F8|        |      ;  
                        db $07                               ;18A6FA|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A6FB|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A6FB|        |00A140;  
                        dl $18/A6FE_data                     ;18A6FE|        |1986BF;  
                        db $E0                               ;18A701|        |      ;  
                        dw $0020                             ;18A702|        |      ;  
@@ -7039,7 +7039,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $7C                               ;18A70D|        |      ;  
                        db $00                               ;18A70E|        |      ;  
                        db $07                               ;18A70F|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A710|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A710|        |009CAE;  
                        db $08                               ;18A713|        |      ;  
                        db $24                               ;18A714|        |      ;  
                        db $12                               ;18A715|        |      ;  
@@ -7066,7 +7066,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        dw $1091                             ;18A72B|        |      ;  
                        dw $0001                             ;18A72D|        |      ;  
                        db $07                               ;18A72F|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18A730|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18A730|        |00A051;  
                        dw $1091                             ;18A733|        |      ;  
                        dw $0065                             ;18A735|        |      ;  
                                                             ;      |        |      ;  
@@ -7077,7 +7077,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18A73F|        |      ;  
                        dw Loop_until_$1091=FF               ;18A740|        |18D4C3;  
                        db $07                               ;18A742|        |      ; Escape SFX
-                       dl Sub: Get/Set SFX                  ;18A743|        |009C44;  
+                       dl GetSet_SFX                        ;18A743|        |009C44;  
                        db $28                               ;18A746|        |      ;  
                        db $07                               ;18A747|        |      ;  
                        dl Check_Party                       ;18A748|        |18D4D9;  
@@ -7104,12 +7104,12 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18A769|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A76A|        |18D4B9;  
                        db $07                               ;18A76C|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A76D|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A76D|        |00A140;  
                        dl $18/A770_data                     ;18A770|        |198401;  
                        db $90                               ;18A773|        |      ;  
                        dw $0020                             ;18A774|        |      ;  
                        db $07                               ;18A776|        |      ;  
-                       dl Load_Sprite(14b)                  ;18A777|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18A777|        |009CAE;  
                        db $08                               ;18A77A|        |      ;  
                        db $24                               ;18A77B|        |      ;  
                        db $12                               ;18A77C|        |      ;  
@@ -7168,9 +7168,9 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $01                               ;18A7C4|        |      ;  
                        db $10                               ;18A7C5|        |      ;  
                        db $07                               ;18A7C6|        |      ;  
-                       dl Fade to black                     ;18A7C7|        |00A0DB;  
+                       dl Fade                              ;18A7C7|        |00A0DB;  
                        db $07                               ;18A7CA|        |      ;  
-                       dl Sound stuff (1b)                  ;18A7CB|        |009C19;  
+                       dl Sound_stuff_1b                    ;18A7CB|        |009C19;  
                        db $F0                               ;18A7CE|        |      ;  
                        db $06                               ;18A7CF|        |      ; 06 06
                        db $06                               ;18A7D0|        |      ;  
@@ -7183,7 +7183,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
          DATA8_18A7D8: db $01                               ;18A7D8|        |      ; Loop $FF (??)
                        db $FF                               ;18A7D9|        |      ;  
                        db $07                               ;18A7DA|        |      ; Sound byte FF
-                       dl Sound stuff (1b)                  ;18A7DB|        |009C19;  
+                       dl Sound_stuff_1b                    ;18A7DB|        |009C19;  
                        db $FF                               ;18A7DE|        |      ;  
                        db $06                               ;18A7DF|        |      ; Delay $04
                        db $04                               ;18A7E0|        |      ;  
@@ -7200,7 +7200,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18A7F0|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A7F1|        |18D4B9;  
                        db $07                               ;18A7F3|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18A7F4|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18A7F4|        |00A035;  
                        dl $18/A7F7_decomp_data              ;18A7F7|        |18A879;  
                        dw $0460                             ;18A7FA|        |      ;  
                        db $00                               ;18A7FC|        |      ;  
@@ -7213,12 +7213,12 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18A807|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18A808|        |18D4B9;  
                        db $07                               ;18A80A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18A80B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18A80B|        |00A140;  
                        dl $18/A80E_data                     ;18A80E|        |18A859;  
                        db $C0                               ;18A811|        |      ;  
                        dw $0020                             ;18A812|        |      ;  
                        db $07                               ;18A814|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18A815|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18A815|        |00A035;  
                        dl $18/A818_decomp_data              ;18A818|        |18A8AC;  
                        dl $000460                           ;18A81B|        |000460;  
                        db $16                               ;18A81E|        |      ; 16: $108F = 19
@@ -7753,11 +7753,11 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
        Event_Reinoll4: db $30                               ;18AA24|        |      ;  
                        db $69                               ;18AA25|        |      ;  
                        db $07                               ;18AA26|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18AA27|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18AA27|        |00A051;  
                        dw $1091                             ;18AA2A|        |001091;  
                        dw $0001                             ;18AA2C|        |      ;  
                        db $07                               ;18AA2E|        |      ; Whoosh SFX
-                       dl Sub: Get/Set SFX                  ;18AA2F|        |009C44;  
+                       dl GetSet_SFX                        ;18AA2F|        |009C44;  
                        db $12                               ;18AA32|        |      ;  
                        db $AC                               ;18AA33|        |      ;  
                        db $AC                               ;18AA34|        |      ;  
@@ -7780,7 +7780,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $0A                               ;18AA47|        |      ;  
                                                             ;      |        |      ;  
        Event_Reinoll5: db $07                               ;18AA48|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18AA49|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18AA49|        |00A051;  
                        dw $1091                             ;18AA4C|        |001091;  
                        dw $0002                             ;18AA4E|        |      ;  
                        db $30                               ;18AA50|        |      ;  
@@ -7789,21 +7789,21 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                                                             ;      |        |      ;  
   Setup_Reinoll_Scene: SEP #$20                             ;18AA53|E220    |      ;  
                        LDA.B #$30                           ;18AA55|A930    |      ;  
-                       STA.W OBJ/Color Window Mask Settings ;18AA57|8D2521  |002125;  
+                       STA.W OBJcolor_Winmask               ;18AA57|8D2521  |002125;  
                        LDA.B #$34                           ;18AA5A|A934    |      ;  
-                       STA.W Window 1 left position         ;18AA5C|8D2621  |002126;  
+                       STA.W Win1_left                      ;18AA5C|8D2621  |002126;  
                        LDA.B #$CC                           ;18AA5F|A9CC    |      ;  
-                       STA.W Window 1 right position        ;18AA61|8D2721  |002127;  
-                       LDA.W Color Add temp                 ;18AA64|AD6110  |001061;  
+                       STA.W Win1_right                     ;18AA61|8D2721  |002127;  
+                       LDA.W Color_Add_temp                 ;18AA64|AD6110  |001061;  
                        AND.B #$0F                           ;18AA67|290F    |      ;  
                        ORA.B #$10                           ;18AA69|0910    |      ;  
-                       STA.W Color Add temp                 ;18AA6B|8D6110  |001061;  
-                       STA.W Color Addition Select          ;18AA6E|8D3021  |002130;  
+                       STA.W Color_Add_temp                 ;18AA6B|8D6110  |001061;  
+                       STA.W Color_add_select               ;18AA6E|8D3021  |002130;  
                        REP #$20                             ;18AA71|C220    |      ;  
                        RTL                                  ;18AA73|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-       EVENT_09_(Ch3): LDA.W Chapter #                      ;18AA74|ADCD18  |0018CD; Returns carry set if in Chapter 3
+       EVENT_09_(Ch3): LDA.W Chapter_num                    ;18AA74|ADCD18  |0018CD; Returns carry set if in Chapter 3
                        CMP.W #$0003                         ;18AA77|C90300  |      ;  
                        BNE CODE_18AA7E                      ;18AA7A|D002    |18AA7E;  
                        SEC                                  ;18AA7C|38      |      ;  
@@ -7823,19 +7823,19 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        dw $1893                             ;18AA87|        |      ;  
                        db $B6                               ;18AA89|        |      ;  
                        db $07                               ;18AA8A|        |      ;  
-                       dl Set RGB(3b)                       ;18AA8B|        |009F83;  
+                       dl Set_RGB_3b                        ;18AA8B|        |009F83;  
                        db $1F                               ;18AA8E|        |      ;  
                        db $1F                               ;18AA8F|        |      ;  
                        db $1F                               ;18AA90|        |      ;  
                        db $01                               ;18AA91|        |      ;  
                        db $10                               ;18AA92|        |      ;  
                        db $07                               ;18AA93|        |      ;  
-                       dl Unfade from black                 ;18AA94|        |00A0CB;  
+                       dl Unfade                            ;18AA94|        |00A0CB;  
                        db $06                               ;18AA97|        |      ;  
                        db $03                               ;18AA98|        |      ;  
                        db $02                               ;18AA99|        |      ;  
                        db $07                               ;18AA9A|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18AA9B|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18AA9B|        |009D6F;  
                        db $01                               ;18AA9E|        |      ;  
                        db $00                               ;18AA9F|        |      ;  
                        dw $3000                             ;18AAA0|        |      ;  
@@ -7861,17 +7861,17 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18AAC0|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18AAC1|        |18D4B9;  
                        db $07                               ;18AAC3|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18AAC4|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18AAC4|        |00A140;  
                        dl $18AAC7_data                      ;18AAC7|        |18AB80;  
                        db $90                               ;18AACA|        |      ;  
                        dw $0020                             ;18AACB|        |      ;  
                        db $07                               ;18AACD|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18AACE|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18AACE|        |00A035;  
                        dl $18A044_Decomp_data               ;18AAD1|        |18A151;  
                        dw $0460                             ;18AAD4|        |      ;  
                        db $00                               ;18AAD6|        |      ;  
                        db $07                               ;18AAD7|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AAD8|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AAD8|        |009CAE;  
                        db $08                               ;18AADB|        |      ;  
                        db $24                               ;18AADC|        |      ;  
                        db $12                               ;18AADD|        |      ;  
@@ -7887,11 +7887,11 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $01                               ;18AAE7|        |      ;  
                        db $00                               ;18AAE8|        |      ;  
                        db $07                               ;18AAE9|        |      ;  
-                       dl Sound byte (1b)                   ;18AAEA|        |009C0A;  
+                       dl Sound_byte_1b                     ;18AAEA|        |009C0A;  
                        db $FF                               ;18AAED|        |      ;  
                                                             ;      |        |      ;  
   Axs_House_TheLegend: db $07                               ;18AAEE|        |      ;  
-                       dl Sub: Get/Set Music                ;18AAEF|        |009C3C;  
+                       dl GetSet_Music                      ;18AAEF|        |009C3C;  
                        db $40                               ;18AAF2|        |      ;  
                        db $0F                               ;18AAF3|        |      ;  
                        db $00                               ;18AAF4|        |      ;  
@@ -7984,7 +7984,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18AB6D|        |      ;  
                        dw Sub_Turn_off_sound                ;18AB6E|        |18D3F6;  
                        db $07                               ;18AB70|        |      ;  
-                       dl Sub: Get/Set Music                ;18AB71|        |009C3C;  
+                       dl GetSet_Music                      ;18AB71|        |009C3C;  
                        db $59                               ;18AB74|        |      ;  
                        db $16                               ;18AB75|        |      ;  
                        dw $1901                             ;18AB76|        |      ;  
@@ -8032,7 +8032,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $21                               ;18ABA2|        |      ; 21 01
                        db $01                               ;18ABA3|        |      ;  
                        db $07                               ;18ABA4|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18ABA5|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18ABA5|        |00A051;  
                        dw $1091                             ;18ABA8|        |      ;  
                        dw $0001                             ;18ABAA|        |      ;  
                        db $A8                               ;18ABAC|        |      ; A8
@@ -8044,18 +8044,18 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $82                               ;18ABB2|        |      ;  
                        db $00                               ;18ABB3|        |      ;  
                        db $07                               ;18ABB4|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18ABB5|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18ABB5|        |00A051;  
                        dw $1091                             ;18ABB8|        |      ;  
                        dw $0002                             ;18ABBA|        |      ;  
                        db $00                               ;18ABBC|        |      ; End section
                                                             ;      |        |      ;  
-    EVENT_0A_(Stoned): LDA.W Current map                    ;18ABBD|AD7315  |001573; Axs is stoned event
+    EVENT_0A_(Stoned): LDA.W Curr_map                       ;18ABBD|AD7315  |001573; Axs is stoned event
                        CMP.W #$0105                         ;18ABC0|C90501  |      ; Check if map = Ice Mine
                        BNE CODE_18ABD7                      ;18ABC3|D012    |18ABD7;  
-                       LDA.W Map X pos                      ;18ABC5|ADF716  |0016F7;  
+                       LDA.W Map_X                          ;18ABC5|ADF716  |0016F7;  
                        CMP.W #$0017                         ;18ABC8|C91700  |      ; Confirm X = 17
                        BNE CODE_18ABD7                      ;18ABCB|D00A    |18ABD7;  
-                       LDA.W Map Y pos                      ;18ABCD|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18ABCD|ADF916  |0016F9;  
                        CMP.W #$0019                         ;18ABD0|C91900  |      ; Confirm Y = 19
                        BNE CODE_18ABD7                      ;18ABD3|D002    |18ABD7;  
                        SEC                                  ;18ABD5|38      |      ;  
@@ -8081,20 +8081,20 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18ABEC|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18ABED|        |18D4B9;  
                        db $07                               ;18ABEF|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18ABF0|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18ABF0|        |00A140;  
                        dl $18C59A_data                      ;18ABF3|        |189B9B;  
                        db $90                               ;18ABF6|        |      ;  
                        db $40                               ;18ABF7|        |      ;  
                        db $00                               ;18ABF8|        |      ;  
                        db $07                               ;18ABF9|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18ABFA|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18ABFA|        |00A140;  
                        dl $18ABFD_data                      ;18ABFD|        |18AC87;  
                        db $A5                               ;18AC00|        |      ;  
                        db $14                               ;18AC01|        |      ;  
                        db $00                               ;18AC02|        |      ;  
                                                             ;      |        |      ;  
       Draw_Stoned_Axs: db $07                               ;18AC03|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AC04|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AC04|        |009CAE;  
                        db $08                               ;18AC07|        |      ;  
                        db $24                               ;18AC08|        |      ;  
                        db $12                               ;18AC09|        |      ;  
@@ -8128,7 +8128,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $5D                               ;18AC2B|        |      ;  
                        db $00                               ;18AC2C|        |      ;  
                        db $07                               ;18AC2D|        |      ;  
-                       dl Some_Setup(12b?)                  ;18AC2E|        |009C5D;  
+                       dl Some_Setup_12b                    ;18AC2E|        |009C5D;  
                        db $11                               ;18AC31|        |      ;  
                        db $00                               ;18AC32|        |      ;  
                        db $00                               ;18AC33|        |      ;  
@@ -8142,7 +8142,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $00                               ;18AC3B|        |      ;  
                        db $00                               ;18AC3C|        |      ;  
                        db $07                               ;18AC3D|        |      ; Loop til $1091 = 1
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18AC3E|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18AC3E|        |00A051;  
                        db $91                               ;18AC41|        |      ;  
                        db $10                               ;18AC42|        |      ;  
                        db $01                               ;18AC43|        |      ;  
@@ -8154,7 +8154,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $01                               ;18AC49|        |      ; Loop $05
                        db $05                               ;18AC4A|        |      ;  
                        db $07                               ;18AC4B|        |      ; Some compressed load
-                       dl Confusing_RAM_Xfer(3b)(4b)        ;18AC4C|        |00A162;  
+                       dl Confusing_RAM_Xfer_3b_4b          ;18AC4C|        |00A162;  
                        dl $18AC4F_data                      ;18AC4F|        |18AC9B;  
                        db $A5                               ;18AC52|        |      ;  
                        db $0A                               ;18AC53|        |      ;  
@@ -8173,7 +8173,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18AC63|        |      ;  
                        dw UNREACH_00D4C3                    ;18AC64|        |00D4C3;  
                        db $07                               ;18AC66|        |      ; Play "Trusted Circle"
-                       dl Sub: Get/Set Music                ;18AC67|        |009C3C;  
+                       dl GetSet_Music                      ;18AC67|        |009C3C;  
                        db $56                               ;18AC6A|        |      ;  
                        db $06                               ;18AC6B|        |      ; Delay $F0 + $C8
                        db $F0                               ;18AC6C|        |      ;  
@@ -8395,7 +8395,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        dw Event_Lava7                       ;18AD61|        |18B23E;  
                        dw Event_Lava8                       ;18AD63|        |18B243;  
                        db $07                               ;18AD65|        |      ; Door open SFX
-                       dl Sub: Get/Set SFX                  ;18AD66|        |009C44;  
+                       dl GetSet_SFX                        ;18AD66|        |009C44;  
                        db $2D                               ;18AD69|        |      ;  
                        db $0F                               ;18AD6A|        |      ; $09A3,x = 2
                        db $00                               ;18AD6B|        |      ;  
@@ -8404,7 +8404,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18AD6E|        |      ; Sub: Fade out
                        dw SetB6_FadeOut                     ;18AD6F|        |18D416;  
                        db $07                               ;18AD71|        |      ; Set main screen
-                       dl Main screen AND (1b)              ;18AD72|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18AD72|        |009DB6;  
                        db $02                               ;18AD75|        |      ;  
                        db $07                               ;18AD76|        |      ; Set Window1
                        dl Set_Window_1(3b)                  ;18AD77|        |18D54C;  
@@ -8418,7 +8418,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $00                               ;18AD83|        |      ;  
                        db $83                               ;18AD84|        |      ;  
                        db $07                               ;18AD85|        |      ; Do stuff
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18AD86|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18AD86|        |009D6F;  
                        db $01                               ;18AD89|        |      ;  
                        db $01                               ;18AD8A|        |      ;  
                        db $00                               ;18AD8B|        |      ;  
@@ -8441,19 +8441,19 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
      Decompress_stuff: db $1B                               ;18ADA0|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18ADA1|        |18D4B9;  
                        db $07                               ;18ADA3|        |      ; Load decomp data
-                       dl Decomp_Setup2(3b)(3b)             ;18ADA4|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18ADA4|        |00A035;  
                        dl $18ADA7_data                      ;18ADA7|        |18AFEC;  
                        db $40                               ;18ADAA|        |      ;  
                        db $04                               ;18ADAB|        |      ;  
                        db $00                               ;18ADAC|        |      ;  
                        db $07                               ;18ADAD|        |      ; Load popular data
-                       dl Transfer_Data(3b)(1b)(2b)         ;18ADAE|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18ADAE|        |00A140;  
                        dl Popular_data                      ;18ADB1|        |198A6B;  
                        db $90                               ;18ADB4|        |      ;  
                        db $40                               ;18ADB5|        |      ;  
                        db $00                               ;18ADB6|        |      ;  
                        db $07                               ;18ADB7|        |      ; Load more popular data
-                       dl Transfer_Data(3b)(1b)(2b)         ;18ADB8|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18ADB8|        |00A140;  
                        dl $18C59A_data                      ;18ADBB|        |189B9B;  
                        db $B0                               ;18ADBE|        |      ;  
                        db $40                               ;18ADBF|        |      ;  
@@ -8461,12 +8461,12 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $09                               ;18ADC1|        |      ; Move lots of data
                        dl Move_Lots_of_Data                 ;18ADC2|        |18B04D;  
                        db $07                               ;18ADC5|        |      ; Combine main screen
-                       dl Main screen OR (1b)               ;18ADC6|        |009DA8;  
+                       dl MainScr_OR_1b                     ;18ADC6|        |009DA8;  
                        db $02                               ;18ADC9|        |      ;  
                        db $1B                               ;18ADCA|        |      ; Sub:Turn off sound
                        dw Sub_Turn_off_sound                ;18ADCB|        |18D3F6;  
                        db $07                               ;18ADCD|        |      ; Play "Crystal Sword"
-                       dl Sub: Get/Set Music                ;18ADCE|        |009C3C;  
+                       dl GetSet_Music                      ;18ADCE|        |009C3C;  
                        db $45                               ;18ADD1|        |      ;  
                        db $1B                               ;18ADD2|        |      ; Sub: Fade in
                        dw Sub_FadeIn                        ;18ADD3|        |18D435;  
@@ -8482,7 +8482,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $1B                               ;18ADE3|        |      ;  
                        dw Loop_until_$1091=FF               ;18ADE4|        |18D4C3;  
                        db $07                               ;18ADE6|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;18ADE7|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18ADE7|        |009CAE;  
                        db $08                               ;18ADEA|        |      ;  
                        db $24                               ;18ADEB|        |      ;  
                        db $12                               ;18ADEC|        |      ;  
@@ -8498,7 +8498,7 @@ Load_3_Treasures_Shine: db $07                               ;18A61C|        |  
                        db $01                               ;18ADF6|        |      ;  
                        db $00                               ;18ADF7|        |      ;  
                        db $07                               ;18ADF8|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18ADF9|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18ADF9|        |00A140;  
                        dl $18/A6EA_data                     ;18ADFC|        |18A9A7;  
                        db $D0                               ;18ADFF|        |      ;  
                        db $20                               ;18AE00|        |      ;  
@@ -8537,7 +8537,7 @@ LavaRoom_Looking_Around: db $88                               ;18AE02|        | 
                        db $1B                               ;18AE26|        |      ; Turn off sound
                        dw Sub_Turn_off_sound                ;18AE27|        |18D3F6;  
                        db $07                               ;18AE29|        |      ; Galneon's theme
-                       dl Sub: Get/Set Music                ;18AE2A|        |009C3C;  
+                       dl GetSet_Music                      ;18AE2A|        |009C3C;  
                        db $46                               ;18AE2D|        |      ;  
                                                             ;      |        |      ;  
        Text_SCRIPT057: db $07                               ;18AE2E|        |      ; "A persistent guy!" "You!"
@@ -8549,7 +8549,7 @@ LavaRoom_Looking_Around: db $88                               ;18AE02|        | 
                        db $1B                               ;18AE39|        |      ; Unequimp Axs
                        dw Sub_Unequip_Axs                   ;18AE3A|        |18D31E;  
                        db $07                               ;18AE3C|        |      ; Load sprite
-                       dl Load_Sprite(14b)                  ;18AE3D|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AE3D|        |009CAE;  
                        db $08                               ;18AE40|        |      ;  
                        db $24                               ;18AE41|        |      ;  
                        db $12                               ;18AE42|        |      ;  
@@ -8581,14 +8581,14 @@ LavaRoom_Looking_Around: db $88                               ;18AE02|        | 
                        db $06                               ;18AE5D|        |      ; 06 14
                        db $14                               ;18AE5E|        |      ;  
                        db $07                               ;18AE5F|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18AE60|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18AE60|        |00A140;  
                        dl $18/A6FE_data                     ;18AE63|        |1986BF;  
                        db $E0                               ;18AE66|        |      ;  
                        db $20                               ;18AE67|        |      ;  
                        db $00                               ;18AE68|        |      ;  
                                                             ;      |        |      ;  
 LavaRoom_Load_2_sprites: db $07                               ;18AE69|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AE6A|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AE6A|        |009CAE;  
                        db $08                               ;18AE6D|        |      ;  
                        db $24                               ;18AE6E|        |      ;  
                        db $12                               ;18AE6F|        |      ;  
@@ -8604,7 +8604,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $03                               ;18AE79|        |      ;  
                        db $00                               ;18AE7A|        |      ;  
                        db $07                               ;18AE7B|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AE7C|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AE7C|        |009CAE;  
                        db $08                               ;18AE7F|        |      ;  
                        db $24                               ;18AE80|        |      ;  
                        db $12                               ;18AE81|        |      ;  
@@ -8639,7 +8639,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $01                               ;18AEA4|        |      ;  
                        db $00                               ;18AEA5|        |      ;  
                        db $07                               ;18AEA6|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AEA7|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AEA7|        |009CAE;  
                        db $08                               ;18AEAA|        |      ;  
                        db $24                               ;18AEAB|        |      ;  
                        db $12                               ;18AEAC|        |      ;  
@@ -8726,14 +8726,14 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dw $D4B9                             ;18AF11|        |      ;  
                                                             ;      |        |      ;  
    Transfer_Sauza_Gfx: db $07                               ;18AF13|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18AF14|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18AF14|        |00A140;  
                        dl $18AF17_data                      ;18AF17|        |1986E6;  
                        db $C0                               ;18AF1A|        |      ;  
                        db $40                               ;18AF1B|        |      ;  
                        db $00                               ;18AF1C|        |      ;  
                                                             ;      |        |      ;  
        Load_Sauza_Gfx: db $07                               ;18AF1D|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AF1E|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AF1E|        |009CAE;  
                        db $08                               ;18AF21|        |      ;  
                        db $24                               ;18AF22|        |      ;  
                        db $12                               ;18AF23|        |      ;  
@@ -8793,19 +8793,19 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $1B                               ;18AF6D|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18AF6E|        |18D4B9;  
                        db $07                               ;18AF70|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18AF71|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18AF71|        |00A140;  
                        dl $18C59A_data                      ;18AF74|        |189B9B;  
                        db $B0                               ;18AF77|        |      ;  
                        db $40                               ;18AF78|        |      ;  
                        db $00                               ;18AF79|        |      ;  
                        db $07                               ;18AF7A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18AF7B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18AF7B|        |00A140;  
                        dl $18/A6EA_data                     ;18AF7E|        |18A9A7;  
                        db $D0                               ;18AF81|        |      ;  
                        db $20                               ;18AF82|        |      ;  
                        db $00                               ;18AF83|        |      ;  
                        db $07                               ;18AF84|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AF85|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AF85|        |009CAE;  
                        db $08                               ;18AF88|        |      ;  
                        db $24                               ;18AF89|        |      ;  
                        db $12                               ;18AF8A|        |      ;  
@@ -8821,7 +8821,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $07                               ;18AF94|        |      ;  
                        db $00                               ;18AF95|        |      ;  
                        db $07                               ;18AF96|        |      ;  
-                       dl Load_Sprite(14b)                  ;18AF97|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18AF97|        |009CAE;  
                        db $08                               ;18AF9A|        |      ;  
                        db $24                               ;18AF9B|        |      ;  
                        db $12                               ;18AF9C|        |      ;  
@@ -8872,9 +8872,9 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $01                               ;18AFD4|        |      ; Loop $10
                        db $10                               ;18AFD5|        |      ;  
                        db $07                               ;18AFD6|        |      ; Fade to black
-                       dl Fade to black                     ;18AFD7|        |00A0DB;  
+                       dl Fade                              ;18AFD7|        |00A0DB;  
                        db $07                               ;18AFDA|        |      ; Sound stuff
-                       dl Sound stuff (1b)                  ;18AFDB|        |009C19;  
+                       dl Sound_stuff_1b                    ;18AFDB|        |009C19;  
                        db $F0                               ;18AFDE|        |      ;  
                        db $06                               ;18AFDF|        |      ;  
                        db $06                               ;18AFE0|        |      ;  
@@ -8988,26 +8988,26 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $FF                               ;18B04C|        |103FAE;  
                                                             ;      |        |      ;  
     Move_Lots_of_Data: LDX.W Selection                      ;18B04D|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;18B050|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;18B050|BDEB09  |0009EB;  
                        INC A                                ;18B053|1A      |      ;  
                        CMP.W #$0038                         ;18B054|C93800  |      ;  
                        BCC CODE_18B05C                      ;18B057|9003    |18B05C;  
                        LDA.W #$0000                         ;18B059|A90000  |      ;  
                                                             ;      |        |      ;  
-          CODE_18B05C: STA.W Selection value,X              ;18B05C|9DEB09  |0009EB;  
+          CODE_18B05C: STA.W Selection_value,X              ;18B05C|9DEB09  |0009EB;  
                        LSR A                                ;18B05F|4A      |      ;  
                        LSR A                                ;18B060|4A      |      ;  
                        LSR A                                ;18B061|4A      |      ;  
                        PHA                                  ;18B062|48      |      ;  
                        PHA                                  ;18B063|48      |      ;  
                        SEP #$20                             ;18B064|E220    |      ;  
-                       STA.W Mult. Lo byte                  ;18B066|8D0242  |004202;  
+                       STA.W Multiply_lo                    ;18B066|8D0242  |004202;  
                        LDA.B #$0E                           ;18B069|A90E    |      ;  
-                       STA.W Mult. Hi byte                  ;18B06B|8D0342  |004203;  
+                       STA.W Multiply_hi                    ;18B06B|8D0342  |004203;  
                        CLC                                  ;18B06E|18      |      ;  
                        REP #$20                             ;18B06F|C220    |      ;  
                        LDA.W #$B0A8                         ;18B071|A9A8B0  |      ;  
-                       ADC.W Mult/Div Result                ;18B074|6D1642  |004216;  
+                       ADC.W Mult_Divide_Result             ;18B074|6D1642  |004216;  
                        TAX                                  ;18B077|AA      |      ;  
                        LDY.W #$0452                         ;18B078|A05204  |      ;  
                        LDA.W #$000D                         ;18B07B|A90D00  |      ;  
@@ -9198,13 +9198,13 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $30                               ;18B147|        |      ;  
                        db $43                               ;18B148|        |      ;  
                        db $07                               ;18B149|        |      ; Loop until $1091=1
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B14A|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B14A|        |00A051;  
                        dw $1091                             ;18B14D|        |      ;  
                        dw $0001                             ;18B14F|        |      ;  
                        db $14                               ;18B151|        |      ; 14 01
                        db $01                               ;18B152|        |      ;  
                        db $07                               ;18B153|        |      ; Remove HDMA 7
-                       dl Remove HDMA channel(1b)           ;18B154|        |009F1F;  
+                       dl Rem_HDMA_ch_1b                    ;18B154|        |009F1F;  
                        db $07                               ;18B157|        |      ;  
                        db $10                               ;18B158|        |18B161;  
                        db $07                               ;18B159|        |      ; Set Window (01, FF, 00)
@@ -9216,7 +9216,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $60                               ;18B161|        |      ;  
                        db $00                               ;18B162|        |      ;  
                        db $07                               ;18B163|        |      ; Loop until $1091=2
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B164|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B164|        |00A051;  
                        dw $1091                             ;18B167|        |      ;  
                        dw $0002                             ;18B169|        |      ;  
                        db $00                               ;18B16B|        |      ; 00
@@ -9232,13 +9232,13 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $09                               ;18B174|        |      ;  
                        dl Zeros_$190X_vars                  ;18B175|        |18B1A5;  
                        db $07                               ;18B178|        |      ; RGB 14,14,14
-                       dl Set RGB(3b)                       ;18B179|        |009F83;  
+                       dl Set_RGB_3b                        ;18B179|        |009F83;  
                        db $14                               ;18B17C|        |      ;  
                        db $14                               ;18B17D|        |      ;  
                        db $14                               ;18B17E|        |      ;  
                                                             ;      |        |      ;  
           Transfer_7b: db $07                               ;18B17F|        |      ;  
-                       dl DMA xfer (6b)                     ;18B180|        |009EE0;  
+                       dl DMA_xfer_6b                       ;18B180|        |009EE0;  
                        db $07                               ;18B183|        |      ;  
                        db $41                               ;18B184|        |      ;  
                        db $28                               ;18B185|        |      ;  
@@ -9247,14 +9247,14 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
          DATA8_18B189: db $06                               ;18B189|        |      ; 06 02
                        db $02                               ;18B18A|        |      ;  
                        db $07                               ;18B18B|        |      ; RGB 0,E,0
-                       dl Set RGB(3b)                       ;18B18C|        |009F83;  
+                       dl Set_RGB_3b                        ;18B18C|        |009F83;  
                        db $00                               ;18B18F|        |      ;  
                        db $0E                               ;18B190|        |      ;  
                        db $00                               ;18B191|        |      ;  
                        db $06                               ;18B192|        |      ; 06 02
                        db $02                               ;18B193|        |      ;  
                        db $07                               ;18B194|        |      ; RGB 0,1F,0
-                       dl Set RGB(3b)                       ;18B195|        |009F83;  
+                       dl Set_RGB_3b                        ;18B195|        |009F83;  
                        db $00                               ;18B198|        |      ;  
                        db $1F                               ;18B199|        |      ;  
                        db $00                               ;18B19A|        |      ;  
@@ -9313,13 +9313,13 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $30                               ;18B1F8|        |      ; 30 2E
                        db $2E                               ;18B1F9|        |      ;  
                        db $07                               ;18B1FA|        |      ; Loop til $1091=3
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B1FB|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B1FB|        |00A051;  
                        db $91                               ;18B1FE|        |      ;  
                        db $10                               ;18B1FF|        |      ;  
                        db $03                               ;18B200|        |      ;  
                        db $00                               ;18B201|        |      ;  
                        db $07                               ;18B202|        |      ; Escape SFX (?)
-                       dl Sub: Get/Set SFX                  ;18B203|        |009C44;  
+                       dl GetSet_SFX                        ;18B203|        |009C44;  
                        db $28                               ;18B206|        |      ;  
                        db $00                               ;18B207|        |      ; Return section
                                                             ;      |        |      ;  
@@ -9368,7 +9368,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $30                               ;18B230|        |      ; 30 3D
                        db $3D                               ;18B231|        |      ;  
                        db $07                               ;18B232|        |      ; Loop til $1091=2
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B233|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B233|        |00A051;  
                        db $91                               ;18B236|        |      ;  
                        db $10                               ;18B237|        |      ;  
                        db $02                               ;18B238|        |      ;  
@@ -9391,7 +9391,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $43                               ;18B246|        |      ;  
                        db $0A                               ;18B247|        |      ; 0A
                                                             ;      |        |      ;  
-       EVENT_0D_(Ch4): LDA.W Chapter #                      ;18B248|ADCD18  |0018CD;  
+       EVENT_0D_(Ch4): LDA.W Chapter_num                    ;18B248|ADCD18  |0018CD;  
                        CMP.W #$0004                         ;18B24B|C90400  |      ;  
                        BNE CODE_18B252                      ;18B24E|D002    |18B252;  
                        SEC                                  ;18B250|38      |      ;  
@@ -9412,19 +9412,19 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dw $1893                             ;18B25D|        |      ;  
                        db $B6                               ;18B25F|        |      ;  
                        db $07                               ;18B260|        |      ;  
-                       dl Set RGB(3b)                       ;18B261|        |009F83;  
+                       dl Set_RGB_3b                        ;18B261|        |009F83;  
                        db $1F                               ;18B264|        |      ;  
                        db $1F                               ;18B265|        |      ;  
                        db $1F                               ;18B266|        |      ;  
                        db $01                               ;18B267|        |      ; 01: Loop $10
                        db $10                               ;18B268|        |      ;  
                        db $07                               ;18B269|        |      ; Unfade
-                       dl Unfade from black                 ;18B26A|        |00A0CB;  
+                       dl Unfade                            ;18B26A|        |00A0CB;  
                        db $06                               ;18B26D|        |      ; Delay $03
                        db $03                               ;18B26E|        |      ;  
                        db $02                               ;18B26F|        |      ; End loop
                        db $07                               ;18B270|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18B271|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18B271|        |009D6F;  
                        db $01                               ;18B274|        |      ;  
                        db $00                               ;18B275|        |      ;  
                        dw $3000                             ;18B276|        |      ;  
@@ -9451,28 +9451,28 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $1B                               ;18B299|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18B29A|        |18D4B9;  
                        db $07                               ;18B29C|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B29D|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B29D|        |00A140;  
                        dl DATA8_18B3A5                      ;18B2A0|        |18B3A5;  
                        db $10                               ;18B2A3|        |      ;  
                        dw $0060                             ;18B2A4|        |      ;  
                        db $07                               ;18B2A6|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B2A7|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B2A7|        |00A140;  
                        dl $18C59A_data                      ;18B2AA|        |189B9B;  
                        db $90                               ;18B2AD|        |      ;  
                        dw $0040                             ;18B2AE|        |      ;  
                        db $07                               ;18B2B0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B2B1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B2B1|        |00A140;  
                        dl DATA8_18B385                      ;18B2B4|        |18B385;  
                        db $E0                               ;18B2B7|        |      ;  
                        dw $0020                             ;18B2B8|        |      ;  
                        db $07                               ;18B2BA|        |      ;  
-                       dl Sound byte (1b)                   ;18B2BB|        |009C0A;  
+                       dl Sound_byte_1b                     ;18B2BB|        |009C0A;  
                        db $FF                               ;18B2BE|        |      ;  
                        db $07                               ;18B2BF|        |      ; BGM "The Legend"
-                       dl Sub: Get/Set Music                ;18B2C0|        |009C3C;  
+                       dl GetSet_Music                      ;18B2C0|        |009C3C;  
                        db $40                               ;18B2C3|        |      ;  
                        db $07                               ;18B2C4|        |      ;  
-                       dl Main screen AND (1b)              ;18B2C5|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18B2C5|        |009DB6;  
                        db $04                               ;18B2C8|        |      ;  
                        db $16                               ;18B2C9|        |      ;  
                        dw $0420                             ;18B2CA|        |      ;  
@@ -9485,7 +9485,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $06                               ;18B2D5|        |      ;  
                        db $3C                               ;18B2D6|        |      ;  
                        db $07                               ;18B2D7|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B2D8|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B2D8|        |009CAE;  
                        db $08                               ;18B2DB|        |      ;  
                        db $24                               ;18B2DC|        |      ;  
                        db $12                               ;18B2DD|        |      ;  
@@ -9501,7 +9501,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $01                               ;18B2E7|        |      ;  
                        db $00                               ;18B2E8|        |      ;  
                        db $07                               ;18B2E9|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B2EA|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B2EA|        |00A051;  
                        dw $1091                             ;18B2ED|        |      ;  
                        dw $0001                             ;18B2EF|        |      ;  
                        db $1B                               ;18B2F1|        |      ;  
@@ -9516,7 +9516,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $1B                               ;18B2FF|        |      ;  
                        dw UNREACH_00D4C3                    ;18B300|        |00D4C3;  
                        db $07                               ;18B302|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B303|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B303|        |009CAE;  
                        db $08                               ;18B306|        |      ;  
                        db $24                               ;18B307|        |      ;  
                        db $12                               ;18B308|        |      ;  
@@ -9532,7 +9532,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $02                               ;18B312|        |      ;  
                        db $00                               ;18B313|        |      ;  
                        db $07                               ;18B314|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B315|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B315|        |00A051;  
                        dw $1091                             ;18B318|        |      ;  
                        dw $0002                             ;18B31A|        |      ;  
                                                             ;      |        |      ;  
@@ -9548,7 +9548,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dw $1091                             ;18B32A|        |      ;  
                        dw $0003                             ;18B32C|        |      ;  
                        db $07                               ;18B32E|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B32F|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B32F|        |00A051;  
                        dw $1091                             ;18B332|        |      ;  
                        dw $0004                             ;18B334|        |      ;  
                                                             ;      |        |      ;  
@@ -9583,14 +9583,14 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $07                               ;18B366|        |      ;  
                        dl More_Town_Loading                 ;18B367|        |03B3FD;  
                        db $07                               ;18B36A|        |      ;  
-                       dl Main screen OR (1b)               ;18B36B|        |009DA8;  
+                       dl MainScr_OR_1b                     ;18B36B|        |009DA8;  
                        db $04                               ;18B36E|        |      ;  
                        db $1B                               ;18B36F|        |      ;  
                        dw Sub_FadeIn                        ;18B370|        |18D435;  
                        db $1B                               ;18B372|        |      ;  
                        dw Sub_Turn_off_sound                ;18B373|        |18D3F6;  
                        db $07                               ;18B375|        |      ; BGM "Crowded Marketplace"
-                       dl Sub: Get/Set Music                ;18B376|        |009C3C;  
+                       dl GetSet_Music                      ;18B376|        |009C3C;  
                        db $59                               ;18B379|        |      ;  
                        db $16                               ;18B37A|        |      ;  
                        dw $1901                             ;18B37B|        |      ;  
@@ -9758,7 +9758,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dw $1091                             ;18B41E|        |      ;  
                        dw $0002                             ;18B420|        |      ;  
                        db $07                               ;18B422|        |      ; Loop until $1091=3
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B423|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B423|        |00A051;  
                        dw $1091                             ;18B426|        |      ;  
                        dw $0003                             ;18B428|        |      ;  
                        db $58                               ;18B42A|        |      ; 58 00 01
@@ -9771,13 +9771,13 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        dw $0004                             ;18B432|        |      ;  
                        db $00                               ;18B434|        |      ; 00
                                                             ;      |        |      ;  
-     EVENT_0E_(Dao_1): LDA.W Current map                    ;18B435|AD7315  |001573; Darah event
+     EVENT_0E_(Dao_1): LDA.W Curr_map                       ;18B435|AD7315  |001573; Darah event
                        CMP.W #$0108                         ;18B438|C90801  |      ; Confirm map = Ch 4 Stavery 1-4F
                        BNE CODE_18B44F                      ;18B43B|D012    |18B44F;  
-                       LDA.W Map X pos                      ;18B43D|ADF716  |0016F7;  
+                       LDA.W Map_X                          ;18B43D|ADF716  |0016F7;  
                        CMP.W #$000B                         ;18B440|C90B00  |      ; Confirm X position
                        BNE CODE_18B44F                      ;18B443|D00A    |18B44F;  
-                       LDA.W Map Y pos                      ;18B445|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18B445|ADF916  |0016F9;  
                        CMP.W #$000A                         ;18B448|C90A00  |      ; Confirm Y position
                        BNE CODE_18B44F                      ;18B44B|D002    |18B44F;  
                        SEC                                  ;18B44D|38      |      ;  
@@ -9802,7 +9802,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $1B                               ;18B464|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18B465|        |18D4B9;  
                        db $07                               ;18B467|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B468|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B468|        |00A140;  
                        dl Data_Pre_Darah                    ;18B46B|        |19899D;  
                        db $90                               ;18B46E|        |      ;  
                        dw $0060                             ;18B46F|        |      ;  
@@ -9818,7 +9818,7 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $1B                               ;18B47F|        |      ;  
                        dw Loop_until_$1091=FF               ;18B480|        |18D4C3;  
                        db $07                               ;18B482|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B483|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B483|        |009CAE;  
                        db $08                               ;18B486|        |      ;  
                        db $24                               ;18B487|        |      ;  
                        db $12                               ;18B488|        |      ;  
@@ -9885,16 +9885,16 @@ LavaRoom_Load_2_sprites: db $07                               ;18AE69|        | 
                        db $4F                               ;18B4DB|        |      ;  
                        db $0A                               ;18B4DC|        |      ; 0A
                                                             ;      |        |      ;  
-EVENT_0F_(Door_closed): LDA.W Current map                    ;18B4DD|AD7315  |001573; Royal Tears door locked
+EVENT_0F_(Door_closed): LDA.W Curr_map                       ;18B4DD|AD7315  |001573; Royal Tears door locked
                        CMP.W #$0109                         ;18B4E0|C90901  |      ;  
                        BNE CODE_18B4FC                      ;18B4E3|D017    |18B4FC;  
-                       LDA.W Map X pos                      ;18B4E5|ADF716  |0016F7;  
+                       LDA.W Map_X                          ;18B4E5|ADF716  |0016F7;  
                        CMP.W #$0017                         ;18B4E8|C91700  |      ;  
                        BNE CODE_18B4FC                      ;18B4EB|D00F    |18B4FC;  
-                       LDA.W Map Y pos                      ;18B4ED|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18B4ED|ADF916  |0016F9;  
                        CMP.W #$0008                         ;18B4F0|C90800  |      ; Confirm Y=8
                        BNE CODE_18B4FC                      ;18B4F3|D007    |18B4FC;  
-                       LDA.W Facing                         ;18B4F5|ADFB16  |0016FB; Facing north
+                       LDA.W Map_Dir                        ;18B4F5|ADFB16  |0016FB; Facing north
                        BNE CODE_18B4FC                      ;18B4F8|D002    |18B4FC;  
                        SEC                                  ;18B4FA|38      |      ;  
                        RTS                                  ;18B4FB|60      |      ;  
@@ -9922,7 +9922,7 @@ EVENT_0F_(Door_closed): LDA.W Current map                    ;18B4DD|AD7315  |00
                        dw $0000                             ;18B515|        |      ;  
                        db $00                               ;18B517|        |      ;  
                                                             ;      |        |      ;  
-EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |001573; Entering Icorina's house
+EVENT_10_(Salah wakes): LDA.W Curr_map                       ;18B518|AD7315  |001573; Entering Icorina's house
                        CMP.W #$0003                         ;18B51B|C90300  |      ; Current map = Elf Village?
                        BNE CODE_18B535                      ;18B51E|D015    |18B535;  
                        LDA.W TownCompass                    ;18B520|ADF10F  |000FF1;  
@@ -9950,9 +9950,9 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $00                               ;18B540|        |      ;  
                        dw $0002                             ;18B541|        |      ;  
                        db $1B                               ;18B543|        |      ;  
-                       dw Playing sound test                ;18B544|        |00D416;  
+                       dw Playing_sound_test                ;18B544|        |00D416;  
                        db $07                               ;18B546|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18B547|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18B547|        |009D6F;  
                        db $01                               ;18B54A|        |      ;  
                        db $00                               ;18B54B|        |      ;  
                        dw $3000                             ;18B54C|        |      ;  
@@ -9968,22 +9968,22 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B560|        |      ;  
                        dw UNREACH_00D4B9                    ;18B561|        |00D4B9;  
                        db $07                               ;18B563|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B564|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B564|        |00A140;  
                        dl DATA8_18B3A5                      ;18B567|        |18B3A5;  
                        db $10                               ;18B56A|        |      ;  
                        dw $0060                             ;18B56B|        |      ;  
                        db $07                               ;18B56D|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B56E|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B56E|        |00A140;  
                        dl $18/C5A4_data                     ;18B571|        |18A131;  
                        db $D0                               ;18B574|        |      ;  
                        dw $0020                             ;18B575|        |      ;  
                        db $07                               ;18B577|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B578|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B578|        |00A140;  
                        dl DATA8_18B385                      ;18B57B|        |18B385;  
                        db $E0                               ;18B57E|        |      ;  
                        dw $0020                             ;18B57F|        |      ;  
                        db $07                               ;18B581|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B582|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B582|        |009CAE;  
                        db $08                               ;18B585|        |      ;  
                        db $24                               ;18B586|        |      ;  
                        db $12                               ;18B587|        |      ;  
@@ -9999,7 +9999,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $01                               ;18B591|        |      ;  
                        db $00                               ;18B592|        |      ;  
                        db $07                               ;18B593|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B594|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B594|        |009CAE;  
                        db $08                               ;18B597|        |      ;  
                        db $24                               ;18B598|        |      ;  
                        db $12                               ;18B599|        |      ;  
@@ -10015,7 +10015,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $02                               ;18B5A3|        |      ;  
                        db $00                               ;18B5A4|        |      ;  
                        db $07                               ;18B5A5|        |      ;  
-                       dl Main screen AND (1b)              ;18B5A6|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18B5A6|        |009DB6;  
                        db $04                               ;18B5A9|        |      ;  
                        db $16                               ;18B5AA|        |      ;  
                        dw $0420                             ;18B5AB|        |      ;  
@@ -10023,7 +10023,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B5AF|        |      ;  
                        dw DATA8_00D3F6                      ;18B5B0|        |00D3F6;  
                        db $07                               ;18B5B2|        |      ; BGM: Rooks' theme (when is this??)
-                       dl Sub: Get/Set Music                ;18B5B3|        |009C3C;  
+                       dl GetSet_Music                      ;18B5B3|        |009C3C;  
                        db $47                               ;18B5B6|        |      ;  
                        db $1B                               ;18B5B7|        |      ;  
                        dw LOOSE_OP_00D435                   ;18B5B8|        |00D435;  
@@ -10043,7 +10043,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B5CE|        |      ;  
                        dw LOOSE_OP_00D2C1                   ;18B5CF|        |00D2C1;  
                        db $1B                               ;18B5D1|        |      ;  
-                       dw Playing sound test                ;18B5D2|        |00D416;  
+                       dw Playing_sound_test                ;18B5D2|        |00D416;  
                        db $07                               ;18B5D4|        |      ;  
                        dl Check_Party                       ;18B5D5|        |18D4D9;  
                        db $07                               ;18B5D8|        |      ;  
@@ -10059,12 +10059,12 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $07                               ;18B5EA|        |      ;  
                        dl More_Town_Loading                 ;18B5EB|        |03B3FD;  
                        db $07                               ;18B5EE|        |      ;  
-                       dl Main screen OR (1b)               ;18B5EF|        |009DA8;  
+                       dl MainScr_OR_1b                     ;18B5EF|        |009DA8;  
                        db $04                               ;18B5F2|        |      ;  
                        db $1B                               ;18B5F3|        |      ;  
                        dw DATA8_00D3F6                      ;18B5F4|        |00D3F6;  
                        db $07                               ;18B5F6|        |      ; BGM "Crowded Marketplace"
-                       dl Sub: Get/Set Music                ;18B5F7|        |009C3C;  
+                       dl GetSet_Music                      ;18B5F7|        |009C3C;  
                        db $59                               ;18B5FA|        |      ;  
                        db $1B                               ;18B5FB|        |      ;  
                        dw LOOSE_OP_00D435                   ;18B5FC|        |00D435;  
@@ -10075,7 +10075,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $30                               ;18B604|        |      ;  
                        db $42                               ;18B605|        |      ;  
                        db $07                               ;18B606|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B607|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B607|        |00A051;  
                        dw $1091                             ;18B60A|        |      ;  
                        dw $00FF                             ;18B60C|        |      ;  
                        db $00                               ;18B60E|        |      ;  
@@ -10083,16 +10083,16 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $4E                               ;18B610|        |      ;  
                        db $0A                               ;18B611|        |      ;  
                                                             ;      |        |      ;  
- EVENT_11_(Door_open): LDA.W Current map                    ;18B612|AD7315  |001573; Royal Tears door open
+ EVENT_11_(Door_open): LDA.W Curr_map                       ;18B612|AD7315  |001573; Royal Tears door open
                        CMP.W #$0109                         ;18B615|C90901  |      ; Current map is Ch 4 Stavery 2F?
                        BNE CODE_18B631                      ;18B618|D017    |18B631;  
-                       LDA.W Map X pos                      ;18B61A|ADF716  |0016F7;  
+                       LDA.W Map_X                          ;18B61A|ADF716  |0016F7;  
                        CMP.W #$0017                         ;18B61D|C91700  |      ; Royal Tears door
                        BNE CODE_18B631                      ;18B620|D00F    |18B631;  
-                       LDA.W Map Y pos                      ;18B622|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18B622|ADF916  |0016F9;  
                        CMP.W #$0008                         ;18B625|C90800  |      ;  
                        BNE CODE_18B631                      ;18B628|D007    |18B631;  
-                       LDA.W Facing                         ;18B62A|ADFB16  |0016FB;  
+                       LDA.W Map_Dir                        ;18B62A|ADFB16  |0016FB;  
                        BNE CODE_18B631                      ;18B62D|D002    |18B631; Facing right
                        SEC                                  ;18B62F|38      |      ;  
                        RTS                                  ;18B630|60      |      ;  
@@ -10116,7 +10116,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B646|        |      ;  
                        dw UNREACH_00D4B9                    ;18B647|        |00D4B9;  
                        db $07                               ;18B649|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B64A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B64A|        |00A140;  
                        dl $18/C5A4_data                     ;18B64D|        |18A131;  
                        db $D0                               ;18B650|        |      ;  
                        dw $0020                             ;18B651|        |      ;  
@@ -10132,7 +10132,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B661|        |      ;  
                        dw UNREACH_00D4C3                    ;18B662|        |00D4C3;  
                        db $07                               ;18B664|        |      ; BGM "Crystal Sword"
-                       dl Sub: Get/Set Music                ;18B665|        |009C3C;  
+                       dl GetSet_Music                      ;18B665|        |009C3C;  
                        db $45                               ;18B668|        |      ;  
                                                             ;      |        |      ;  
        Text_SCRIPT072: db $07                               ;18B669|        |      ; Opening the door with royal tears
@@ -10142,10 +10142,10 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B671|        |      ;  
                        dw UNREACH_00D4C3                    ;18B672|        |00D4C3;  
                        db $07                               ;18B674|        |      ;  
-                       dl Battle_related(1b)                ;18B675|        |009CDD;  
+                       dl Battle_related1b                  ;18B675|        |009CDD;  
                        db $10                               ;18B678|        |      ;  
                        db $07                               ;18B679|        |      ;  
-                       dl Character_Join(13b)               ;18B67A|        |009CBC;  
+                       dl Character_Join_13b                ;18B67A|        |009CBC;  
                        db $10                               ;18B67D|        |      ;  
                        db $0E                               ;18B67E|        |      ;  
                        db $00                               ;18B67F|        |      ;  
@@ -10162,7 +10162,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $06                               ;18B68A|        |      ;  
                        db $28                               ;18B68B|        |      ;  
                        db $07                               ;18B68C|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B68D|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B68D|        |009CAE;  
                        db $08                               ;18B690|        |      ;  
                        db $24                               ;18B691|        |      ;  
                        db $12                               ;18B692|        |      ;  
@@ -10204,7 +10204,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        dw $1893                             ;18B6C0|        |      ;  
                        db $02                               ;18B6C2|        |      ;  
                        db $07                               ;18B6C3|        |      ;  
-                       dl Set RGB(3b)                       ;18B6C4|        |009F83;  
+                       dl Set_RGB_3b                        ;18B6C4|        |009F83;  
                        db $00                               ;18B6C7|        |      ;  
                        db $00                               ;18B6C8|        |      ;  
                        db $00                               ;18B6C9|        |      ;  
@@ -10213,7 +10213,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $01                               ;18B6CC|        |      ;  
                        db $04                               ;18B6CD|        |      ;  
                        db $07                               ;18B6CE|        |      ;  
-                       dl Add_RGB(3b)                       ;18B6CF|        |009FE2;  
+                       dl Add_RGB_3b                        ;18B6CF|        |009FE2;  
                        db $06                               ;18B6D2|        |      ;  
                        db $03                               ;18B6D3|        |      ;  
                        db $01                               ;18B6D4|        |      ;  
@@ -10223,7 +10223,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $01                               ;18B6D8|        |      ;  
                        db $04                               ;18B6D9|        |      ;  
                        db $07                               ;18B6DA|        |      ;  
-                       dl Add_RGB(3b)                       ;18B6DB|        |009FE2;  
+                       dl Add_RGB_3b                        ;18B6DB|        |009FE2;  
                        db $FA                               ;18B6DE|        |      ;  
                        db $FD                               ;18B6DF|        |      ;  
                        db $FF                               ;18B6E0|        |      ;  
@@ -10245,10 +10245,10 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $06                               ;18B6F6|        |      ;  
                        db $1E                               ;18B6F7|        |      ;  
                        db $07                               ;18B6F8|        |      ;  
-                       dl Battle_related(1b)                ;18B6F9|        |009CDD;  
+                       dl Battle_related1b                  ;18B6F9|        |009CDD;  
                        db $10                               ;18B6FC|        |      ;  
                        db $07                               ;18B6FD|        |      ;  
-                       dl Character_Join(13b)               ;18B6FE|        |009CBC;  
+                       dl Character_Join_13b                ;18B6FE|        |009CBC;  
                        db $10                               ;18B701|        |      ;  
                        db $0A                               ;18B702|        |      ;  
                        db $00                               ;18B703|        |      ;  
@@ -10277,26 +10277,26 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $30                               ;18B720|        |      ;  
                        db $42                               ;18B721|        |      ;  
                        db $07                               ;18B722|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B723|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B723|        |00A051;  
                        dw $1091                             ;18B726|        |      ;  
                        dw $0001                             ;18B728|        |      ;  
                        db $30                               ;18B72A|        |      ;  
                        db $44                               ;18B72B|        |      ;  
                        db $07                               ;18B72C|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B72D|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B72D|        |00A051;  
                        dw $1091                             ;18B730|        |      ;  
                        dw $0002                             ;18B732|        |      ;  
                        db $30                               ;18B734|        |      ;  
                        db $42                               ;18B735|        |      ;  
                        db $0A                               ;18B736|        |      ;  
                                                             ;      |        |      ;  
-     EVENT_12_(Dao_2): LDA.W Current map                    ;18B737|AD7315  |001573; Vs Darah and Barah
+     EVENT_12_(Dao_2): LDA.W Curr_map                       ;18B737|AD7315  |001573; Vs Darah and Barah
                        CMP.W #$010B                         ;18B73A|C90B01  |      ; Current map = Stavery 4F (Ch 4)?
                        BNE CODE_18B751                      ;18B73D|D012    |18B751;  
-                       LDA.W Map X pos                      ;18B73F|ADF716  |0016F7; Position (11, 17) ?
+                       LDA.W Map_X                          ;18B73F|ADF716  |0016F7; Position (11, 17) ?
                        CMP.W #$0011                         ;18B742|C91100  |      ;  
                        BNE CODE_18B751                      ;18B745|D00A    |18B751;  
-                       LDA.W Map Y pos                      ;18B747|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18B747|ADF916  |0016F9;  
                        CMP.W #$0017                         ;18B74A|C91700  |      ;  
                        BNE CODE_18B751                      ;18B74D|D002    |18B751;  
                        SEC                                  ;18B74F|38      |      ;  
@@ -10322,12 +10322,12 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B768|        |      ;  
                        dw UNREACH_00D4B9                    ;18B769|        |00D4B9;  
                        db $07                               ;18B76B|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B76C|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B76C|        |00A140;  
                        dl Data_Pre_Darah                    ;18B76F|        |19899D;  
                        db $90                               ;18B772|        |      ;  
                        dw $0060                             ;18B773|        |      ;  
                        db $07                               ;18B775|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B776|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B776|        |00A140;  
                        dl DATA8_18B827                      ;18B779|        |18B827;  
                        db $C0                               ;18B77C|        |      ;  
                        dw $0020                             ;18B77D|        |      ;  
@@ -10337,10 +10337,10 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $0B                               ;18B784|        |      ; Jump if 0
                        dw DATA8_18B79D                      ;18B785|        |18B79D;  
                        db $07                               ;18B787|        |      ;  
-                       dl Battle_related(1b)                ;18B788|        |009CDD;  
+                       dl Battle_related1b                  ;18B788|        |009CDD;  
                        db $0E                               ;18B78B|        |      ;  
                        db $07                               ;18B78C|        |      ;  
-                       dl Character_Join(13b)               ;18B78D|        |009CBC;  
+                       dl Character_Join_13b                ;18B78D|        |009CBC;  
                        db $0E                               ;18B790|        |      ;  
                        db $0D                               ;18B791|        |      ;  
                        db $00                               ;18B792|        |      ;  
@@ -10360,7 +10360,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $01                               ;18B7A0|        |      ;  
                        dw $0002                             ;18B7A1|        |      ;  
                        db $07                               ;18B7A3|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B7A4|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B7A4|        |009CAE;  
                        db $08                               ;18B7A7|        |      ;  
                        db $24                               ;18B7A8|        |      ;  
                        db $12                               ;18B7A9|        |      ;  
@@ -10394,7 +10394,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $06                               ;18B7CD|        |      ;  
                        db $78                               ;18B7CE|        |      ;  
                        db $07                               ;18B7CF|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B7D0|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B7D0|        |009CAE;  
                        db $08                               ;18B7D3|        |      ;  
                        db $24                               ;18B7D4|        |      ;  
                        db $12                               ;18B7D5|        |      ;  
@@ -10494,7 +10494,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
          DATA8_18B847: db $30                               ;18B847|        |      ; Post Dao2 event section
                        db $70                               ;18B848|        |      ;  
                        db $07                               ;18B849|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B84A|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B84A|        |00A051;  
                        dw $1091                             ;18B84D|        |      ;  
                        dw $0001                             ;18B84F|        |      ;  
                        db $01                               ;18B851|        |      ;  
@@ -10547,13 +10547,13 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $4F                               ;18B87F|        |      ;  
                        db $0A                               ;18B880|        |      ;  
                                                             ;      |        |      ;  
-      EVENT_13_(Trap): LDA.W Current map                    ;18B881|AD7315  |001573; If it's a trap...
+      EVENT_13_(Trap): LDA.W Curr_map                       ;18B881|AD7315  |001573; If it's a trap...
                        CMP.W #$010E                         ;18B884|C90E01  |      ; Current map = Stavery 7F (Ch 4)?
                        BNE CODE_18B89B                      ;18B887|D012    |18B89B;  
-                       LDA.W Map X pos                      ;18B889|ADF716  |0016F7; Position = (07, 15)?
+                       LDA.W Map_X                          ;18B889|ADF716  |0016F7; Position = (07, 15)?
                        CMP.W #$0007                         ;18B88C|C90700  |      ;  
                        BNE CODE_18B89B                      ;18B88F|D00A    |18B89B;  
-                       LDA.W Map Y pos                      ;18B891|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18B891|ADF916  |0016F9;  
                        CMP.W #$0015                         ;18B894|C91500  |      ;  
                        BNE CODE_18B89B                      ;18B897|D002    |18B89B;  
                        SEC                                  ;18B899|38      |      ; Return true
@@ -10585,7 +10585,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B8B7|        |      ;  
                        dw Loop_until_$1091=FF               ;18B8B8|        |18D4C3;  
                        db $07                               ;18B8BA|        |      ; Load ($16FB) - 2
-                       dl RAM_subtract(2b)(2b)              ;18B8BB|        |00A06F;  
+                       dl RAM_minus_val_2b_2b               ;18B8BB|        |00A06F;  
                        dw $16FB                             ;18B8BE|        |      ;  
                        dw $0002                             ;18B8C0|        |      ;  
                        db $0B                               ;18B8C2|        |      ;  
@@ -10609,7 +10609,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B8DC|        |      ;  
                        dw Loop_until_$1091=FF               ;18B8DD|        |18D4C3;  
                        db $07                               ;18B8DF|        |      ; SFX "Door open"
-                       dl Sub: Get/Set SFX                  ;18B8E0|        |009C44;  
+                       dl GetSet_SFX                        ;18B8E0|        |009C44;  
                        db $2D                               ;18B8E3|        |      ;  
                        db $0F                               ;18B8E4|        |      ;  
                        db $00                               ;18B8E5|        |      ;  
@@ -10628,7 +10628,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $00                               ;18B8F8|        |      ;  
                        db $03                               ;18B8F9|        |      ;  
                        db $07                               ;18B8FA|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18B8FB|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18B8FB|        |009D6F;  
                        db $01                               ;18B8FE|        |      ;  
                        db $01                               ;18B8FF|        |      ;  
                        dw $3000                             ;18B900|        |      ;  
@@ -10644,24 +10644,24 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B914|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18B915|        |18D4B9;  
                        db $07                               ;18B917|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B918|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B918|        |00A140;  
                        dl DATA8_18BA58                      ;18B91B|        |18BA58;  
                        db $10                               ;18B91E|        |      ;  
                        dw $0060                             ;18B91F|        |      ;  
                        db $07                               ;18B921|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B922|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B922|        |00A140;  
                        dl Popular_data                      ;18B925|        |198A6B;  
                        db $90                               ;18B928|        |      ;  
                        dw $0040                             ;18B929|        |      ;  
                        db $1B                               ;18B92B|        |      ;  
                        dw Sub_Turn_off_sound                ;18B92C|        |18D3F6;  
                        db $07                               ;18B92E|        |      ; BGM "Ariel's theme"
-                       dl Sub: Get/Set Music                ;18B92F|        |009C3C;  
+                       dl GetSet_Music                      ;18B92F|        |009C3C;  
                        db $3F                               ;18B932|        |      ;  
                        db $1B                               ;18B933|        |      ;  
                        dw Sub_FadeIn                        ;18B934|        |18D435;  
                        db $07                               ;18B936|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B937|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B937|        |009CAE;  
                        db $08                               ;18B93A|        |      ;  
                        db $24                               ;18B93B|        |      ;  
                        db $12                               ;18B93C|        |      ;  
@@ -10677,7 +10677,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $01                               ;18B946|        |      ;  
                        db $00                               ;18B947|        |      ;  
                        db $07                               ;18B948|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18B949|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18B949|        |00A051;  
                        dw $1091                             ;18B94C|        |      ;  
                        dw $0002                             ;18B94E|        |      ;  
                        db $07                               ;18B950|        |      ;  
@@ -10730,12 +10730,12 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B99D|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18B99E|        |18D4B9;  
                        db $07                               ;18B9A0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B9A1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B9A1|        |00A140;  
                        dl $18BBEE_data                      ;18B9A4|        |18BAB8;  
                        db $D0                               ;18B9A7|        |      ;  
                        dw $0040                             ;18B9A8|        |      ;  
                        db $07                               ;18B9AA|        |      ;  
-                       dl Load_Sprite(14b)                  ;18B9AB|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B9AB|        |009CAE;  
                        db $08                               ;18B9AE|        |      ;  
                        db $24                               ;18B9AF|        |      ;  
                        db $12                               ;18B9B0|        |      ;  
@@ -10760,7 +10760,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B9C7|        |      ;  
                        dw Loop_until_$1091=FF               ;18B9C8|        |18D4C3;  
                        db $07                               ;18B9CA|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18B9CB|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18B9CB|        |00A140;  
                        dl $189A85_2_bytes                   ;18B9CE|        |0D958C;  
                        db $02                               ;18B9D1|        |      ;  
                        dw $0002                             ;18B9D2|        |      ;  
@@ -10768,7 +10768,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        dw $1127                             ;18B9D5|        |      ;  
                        dw $005E                             ;18B9D7|        |      ;  
                        db $07                               ;18B9D9|        |      ;  
-                       dl Some_Setup(12b?)                  ;18B9DA|        |009C5D;  
+                       dl Some_Setup_12b                    ;18B9DA|        |009C5D;  
                        db $11                               ;18B9DD|        |      ;  
                        db $00                               ;18B9DE|        |      ;  
                        db $00                               ;18B9DF|        |      ;  
@@ -10791,7 +10791,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18B9F3|        |      ;  
                        dw Loop_until_$1091=FF               ;18B9F4|        |18D4C3;  
                        db $07                               ;18B9F6|        |      ; Draw Galneon?
-                       dl Load_Sprite(14b)                  ;18B9F7|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18B9F7|        |009CAE;  
                        db $08                               ;18B9FA|        |      ;  
                        db $24                               ;18B9FB|        |      ;  
                        db $12                               ;18B9FC|        |      ;  
@@ -10809,7 +10809,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BA08|        |      ;  
                        dw Sub_Turn_off_sound                ;18BA09|        |18D3F6;  
                        db $07                               ;18BA0B|        |      ; BGM "Galneon's theme"
-                       dl Sub: Get/Set Music                ;18BA0C|        |009C3C;  
+                       dl GetSet_Music                      ;18BA0C|        |009C3C;  
                        db $46                               ;18BA0F|        |      ;  
                                                             ;      |        |      ;  
        Text_SCRIPT084: db $07                               ;18BA10|        |      ; Ariel was the betrayer
@@ -10831,7 +10831,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BA2A|        |      ;  
                        dw Loop_until_$1091=FF               ;18BA2B|        |18D4C3;  
                        db $07                               ;18BA2D|        |      ; SFX "Escape"
-                       dl Sub: Get/Set SFX                  ;18BA2E|        |009C44;  
+                       dl GetSet_SFX                        ;18BA2E|        |009C44;  
                        db $28                               ;18BA31|        |      ;  
                        db $0F                               ;18BA32|        |      ;  
                        db $00                               ;18BA33|        |      ;  
@@ -11036,7 +11036,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
          DATA8_18BB06: db $30                               ;18BB06|        |      ;  
                        db $31                               ;18BB07|        |      ;  
                        db $07                               ;18BB08|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18BB09|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18BB09|        |00A051;  
                        dw $1091                             ;18BB0C|        |      ;  
                        dw $0001                             ;18BB0E|        |      ;  
                        db $00                               ;18BB10|        |      ;  
@@ -11050,7 +11050,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $12                               ;18BB17|        |      ;  
                        db $D0                               ;18BB18|        |      ;  
                        db $07                               ;18BB19|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18BB1A|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18BB1A|        |00A051;  
                        dw $1091                             ;18BB1D|        |      ;  
                        dw $0066                             ;18BB1F|        |      ;  
                        db $60                               ;18BB21|        |      ;  
@@ -11060,13 +11060,13 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $12                               ;18BB25|        |      ;  
                        db $00                               ;18BB26|        |      ;  
                                                             ;      |        |      ;  
- EVENT_14_(DarwinCh4): LDA.W Current map                    ;18BB27|AD7315  |001573; Darwin Ch4
+ EVENT_14_(DarwinCh4): LDA.W Curr_map                       ;18BB27|AD7315  |001573; Darwin Ch4
                        CMP.W #$010F                         ;18BB2A|C90F01  |      ; Current map = Stavery 8F (Ch 4)?
                        BNE CODE_18BB41                      ;18BB2D|D012    |18BB41;  
-                       LDA.W Map X pos                      ;18BB2F|ADF716  |0016F7; Position = (17, 18)?
+                       LDA.W Map_X                          ;18BB2F|ADF716  |0016F7; Position = (17, 18)?
                        CMP.W #$0017                         ;18BB32|C91700  |      ;  
                        BNE CODE_18BB41                      ;18BB35|D00A    |18BB41;  
-                       LDA.W Map Y pos                      ;18BB37|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18BB37|ADF916  |0016F9;  
                        CMP.W #$0018                         ;18BB3A|C91800  |      ;  
                        BNE CODE_18BB41                      ;18BB3D|D002    |18BB41;  
                        SEC                                  ;18BB3F|38      |      ;  
@@ -11091,12 +11091,12 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BB56|        |      ;  
                        dw UNREACH_00D4B9                    ;18BB57|        |00D4B9;  
                        db $07                               ;18BB59|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18BB5A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18BB5A|        |00A140;  
                        dl $18C72E_data                      ;18BB5D|        |18A2B0;  
                        db $90                               ;18BB60|        |      ;  
                        dw $0040                             ;18BB61|        |      ;  
                        db $07                               ;18BB63|        |      ; Draw Darwin NPC?
-                       dl Load_Sprite(14b)                  ;18BB64|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BB64|        |009CAE;  
                        db $08                               ;18BB67|        |      ;  
                        db $24                               ;18BB68|        |      ;  
                        db $12                               ;18BB69|        |      ;  
@@ -11125,7 +11125,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BB85|        |      ;  
                        dw UNREACH_00D4C3                    ;18BB86|        |00D4C3;  
                        db $07                               ;18BB88|        |      ; BGM "Trusted Circle"
-                       dl Sub: Get/Set Music                ;18BB89|        |009C3C;  
+                       dl GetSet_Music                      ;18BB89|        |009C3C;  
                        db $56                               ;18BB8C|        |      ;  
                        db $06                               ;18BB8D|        |      ;  
                        db $F0                               ;18BB8E|        |      ;  
@@ -11136,9 +11136,9 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $07                               ;18BB95|        |      ;  
                        dl Sub_Default_BGM                   ;18BB96|        |03A520;  
                        db $1B                               ;18BB99|        |      ;  
-                       dw CODE_00D33D                       ;18BB9A|        |00D33D;  
+                       dw Darwin_joins                      ;18BB9A|        |18D33D;  
                        db $1B                               ;18BB9C|        |      ;  
-                       dw LOOSE_OP_00D45C                   ;18BB9D|        |00D45C;  
+                       dw Some_sub                          ;18BB9D|        |18D45C;  
                        db $16                               ;18BB9F|        |      ;  
                        dw $1901                             ;18BBA0|        |      ;  
                        dw $0000                             ;18BBA2|        |      ;  
@@ -11148,13 +11148,13 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $46                               ;18BBA6|        |      ;  
                        db $0A                               ;18BBA7|        |      ;  
                                                             ;      |        |      ;  
-  EVENT_15_(TeefaCh4): LDA.W Current map                    ;18BBA8|AD7315  |001573; Teefa rematch
+  EVENT_15_(TeefaCh4): LDA.W Curr_map                       ;18BBA8|AD7315  |001573; Teefa rematch
                        CMP.W #$0112                         ;18BBAB|C91201  |      ; Map = Stavery 11F (Ch 4)?
                        BNE CODE_18BBC2                      ;18BBAE|D012    |18BBC2;  
-                       LDA.W Map X pos                      ;18BBB0|ADF716  |0016F7; Position = (07, 17)?
+                       LDA.W Map_X                          ;18BBB0|ADF716  |0016F7; Position = (07, 17)?
                        CMP.W #$0007                         ;18BBB3|C90700  |      ;  
                        BNE CODE_18BBC2                      ;18BBB6|D00A    |18BBC2;  
-                       LDA.W Map Y pos                      ;18BBB8|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18BBB8|ADF916  |0016F9;  
                        CMP.W #$0017                         ;18BBBB|C91700  |      ;  
                        BNE CODE_18BBC2                      ;18BBBE|D002    |18BBC2;  
                        SEC                                  ;18BBC0|38      |      ;  
@@ -11183,19 +11183,19 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BBDD|        |      ;  
                        dw UNREACH_00D4B9                    ;18BBDE|        |00D4B9;  
                        db $07                               ;18BBE0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18BBE1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18BBE1|        |00A140;  
                        dl $18C724_data                      ;18BBE4|        |198AB2;  
                        db $B0                               ;18BBE7|        |      ;  
                        db $40                               ;18BBE8|        |      ;  
                        db $00                               ;18BBE9|        |      ;  
                        db $07                               ;18BBEA|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18BBEB|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18BBEB|        |00A140;  
                        dl $18BBEE_data                      ;18BBEE|        |18BAB8;  
                        db $D0                               ;18BBF1|        |      ;  
                        db $40                               ;18BBF2|        |      ;  
                        db $00                               ;18BBF3|        |      ;  
                        db $07                               ;18BBF4|        |      ;  
-                       dl Load_Sprite(14b)                  ;18BBF5|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BBF5|        |009CAE;  
                        db $08                               ;18BBF8|        |      ;  
                        db $24                               ;18BBF9|        |      ;  
                        db $12                               ;18BBFA|        |      ;  
@@ -11211,7 +11211,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $01                               ;18BC04|        |      ;  
                        db $00                               ;18BC05|        |      ;  
                        db $07                               ;18BC06|        |      ;  
-                       dl Load_Sprite(14b)                  ;18BC07|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BC07|        |009CAE;  
                        db $08                               ;18BC0A|        |      ;  
                        db $24                               ;18BC0B|        |      ;  
                        db $12                               ;18BC0C|        |      ;  
@@ -11285,7 +11285,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BC66|        |      ;  
                        dw UNREACH_00D4B9                    ;18BC67|        |00D4B9;  
                        db $07                               ;18BC69|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18BC6A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18BC6A|        |00A140;  
                        dl $18C72E_data                      ;18BC6D|        |18A2B0;  
                        db $90                               ;18BC70|        |      ;  
                        db $40                               ;18BC71|        |      ;  
@@ -11293,7 +11293,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $06                               ;18BC73|        |      ; 06 1E
                        db $1E                               ;18BC74|        |      ;  
                        db $07                               ;18BC75|        |      ;  
-                       dl Load_Sprite(14b)                  ;18BC76|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BC76|        |009CAE;  
                        db $08                               ;18BC79|        |      ;  
                        db $24                               ;18BC7A|        |      ;  
                        db $12                               ;18BC7B|        |      ;  
@@ -11311,7 +11311,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BC87|        |      ;  
                        dw DATA8_00D3F6                      ;18BC88|        |00D3F6;  
                        db $07                               ;18BC8A|        |      ; Crystal Sword bgm
-                       dl Sub: Get/Set Music                ;18BC8B|        |009C3C;  
+                       dl GetSet_Music                      ;18BC8B|        |009C3C;  
                        db $45                               ;18BC8E|        |      ;  
                        db $06                               ;18BC8F|        |      ; 06 28
                        db $28                               ;18BC90|        |      ;  
@@ -11339,7 +11339,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $1B                               ;18BCAB|        |      ;  
                        dw CODE_00D35C                       ;18BCAC|        |00D35C;  
                        db $07                               ;18BCAE|        |      ;  
-                       dl Load_Sprite(14b)                  ;18BCAF|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BCAF|        |009CAE;  
                        db $08                               ;18BCB2|        |      ;  
                        db $24                               ;18BCB3|        |      ;  
                        db $12                               ;18BCB4|        |      ;  
@@ -11381,7 +11381,7 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
          DATA8_18BCE1: db $30                               ;18BCE1|        |      ;  
                        db $51                               ;18BCE2|        |      ;  
                        db $07                               ;18BCE3|        |      ; Loop until $1091 = 66
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18BCE4|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18BCE4|        |00A051;  
                        db $91                               ;18BCE7|        |      ;  
                        db $10                               ;18BCE8|        |      ;  
                        db $66                               ;18BCE9|        |      ;  
@@ -11405,16 +11405,16 @@ EVENT_10_(Salah wakes): LDA.W Current map                    ;18B518|AD7315  |00
                        db $46                               ;18BCF8|        |      ;  
                        db $0A                               ;18BCF9|        |      ; 0A: End section?
                                                             ;      |        |      ;  
-EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001573; Galneon Ch4
+EVENT_16_(GalneonCh4): LDA.W Curr_map                       ;18BCFA|AD7315  |001573; Galneon Ch4
                        CMP.W #$0113                         ;18BCFD|C91301  |      ; Map = Stavery 12F (Ch 4)?
                        BNE CODE_18BD24                      ;18BD00|D022    |18BD24;  
-                       LDA.W Map X pos                      ;18BD02|ADF716  |0016F7; Position = (17, 15)?
+                       LDA.W Map_X                          ;18BD02|ADF716  |0016F7; Position = (17, 15)?
                        CMP.W #$0017                         ;18BD05|C91700  |      ;  
                        BNE CODE_18BD24                      ;18BD08|D01A    |18BD24;  
-                       LDA.W Map Y pos                      ;18BD0A|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18BD0A|ADF916  |0016F9;  
                        CMP.W #$0015                         ;18BD0D|C91500  |      ;  
                        BNE CODE_18BD24                      ;18BD10|D012    |18BD24;  
-                       LDA.W Facing                         ;18BD12|ADFB16  |0016FB; Facing north?
+                       LDA.W Map_Dir                        ;18BD12|ADFB16  |0016FB; Facing north?
                        BNE CODE_18BD24                      ;18BD15|D00D    |18BD24;  
                        LDA.W $0021                          ;18BD17|AD2100  |000021;  
                        AND.W #$0B00                         ;18BD1A|29000B  |      ;  
@@ -11436,15 +11436,15 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        dw DATA8_18C0DC                      ;18BD2C|        |18C0DC;  
                        dw Roll_for_Door_SFX                 ;18BD2E|        |18C1B3;  
                        db $07                               ;18BD30|        |      ;  
-                       dl Sub: Get/Set SFX                  ;18BD31|        |009C44;  
+                       dl GetSet_SFX                        ;18BD31|        |009C44;  
                        db $2D                               ;18BD34|        |      ;  
                        db $0F                               ;18BD35|        |      ;  
                        db $00                               ;18BD36|        |      ;  
                        dw $0002                             ;18BD37|        |      ;  
                        db $1B                               ;18BD39|        |      ;  
-                       dw Playing sound test                ;18BD3A|        |00D416;  
+                       dw Playing_sound_test                ;18BD3A|        |00D416;  
                        db $07                               ;18BD3C|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18BD3D|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18BD3D|        |009D6F;  
                        db $01                               ;18BD40|        |      ;  
                        db $00                               ;18BD41|        |      ;  
                        dw $3000                             ;18BD42|        |      ;  
@@ -11460,21 +11460,21 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18BD56|        |      ;  
                        dw UNREACH_00D4B9                    ;18BD57|        |00D4B9;  
                        db $07                               ;18BD59|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18BD5A|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18BD5A|        |00A035;  
                        dl Data_Post_Lightning               ;18BD5D|        |18BEE6;  
                        dl $000440                           ;18BD60|        |000440;  
                        db $07                               ;18BD63|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18BD64|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18BD64|        |00A140;  
                        dl $18C59A_data                      ;18BD67|        |189B9B;  
                        db $90                               ;18BD6A|        |      ;  
                        dw $0040                             ;18BD6B|        |      ;  
                        db $07                               ;18BD6D|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18BD6E|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18BD6E|        |00A140;  
                        dl $18BBEE_data                      ;18BD71|        |18BAB8;  
                        db $D0                               ;18BD74|        |      ;  
                        dw $0040                             ;18BD75|        |      ;  
                        db $07                               ;18BD77|        |      ;  
-                       dl Load_Sprite(14b)                  ;18BD78|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BD78|        |009CAE;  
                        db $08                               ;18BD7B|        |      ;  
                        db $24                               ;18BD7C|        |      ;  
                        db $12                               ;18BD7D|        |      ;  
@@ -11492,7 +11492,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18BD89|        |      ;  
                        dw DATA8_00D3F6                      ;18BD8A|        |00D3F6;  
                        db $07                               ;18BD8C|        |      ; BGM "Trickery"
-                       dl Sub: Get/Set Music                ;18BD8D|        |009C3C;  
+                       dl GetSet_Music                      ;18BD8D|        |009C3C;  
                        db $42                               ;18BD90|        |      ;  
                        db $1B                               ;18BD91|        |      ;  
                        dw LOOSE_OP_00D435                   ;18BD92|        |00D435;  
@@ -11525,7 +11525,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18BDBA|        |      ;  
                        dw DATA8_00D3F6                      ;18BDBB|        |00D3F6;  
                        db $07                               ;18BDBD|        |      ; BGM (Rocket ship?)
-                       dl Sub: Get/Set Music                ;18BDBE|        |009C3C;  
+                       dl GetSet_Music                      ;18BDBE|        |009C3C;  
                        db $3A                               ;18BDC1|        |      ;  
                        db $04                               ;18BDC2|        |      ;  
                        dl Sub_Disable_HDMA                  ;18BDC3|        |0189F1;  
@@ -11549,7 +11549,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $14                               ;18BDDD|        |      ;  
                        db $01                               ;18BDDE|        |      ;  
                        db $07                               ;18BDDF|        |      ;  
-                       dl Remove HDMA channel(1b)           ;18BDE0|        |009F1F;  
+                       dl Rem_HDMA_ch_1b                    ;18BDE0|        |009F1F;  
                        db $07                               ;18BDE3|        |      ;  
                        db $04                               ;18BDE4|        |      ;  
                        dl Sub_Transfer_stuff                ;18BDE5|        |0189CD;  
@@ -11562,14 +11562,14 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        dw $2130                             ;18BDEF|        |      ;  
                        db $00                               ;18BDF1|        |      ;  
                        db $07                               ;18BDF2|        |      ;  
-                       dl Set RGB(3b)                       ;18BDF3|        |009F83;  
+                       dl Set_RGB_3b                        ;18BDF3|        |009F83;  
                        db $1F                               ;18BDF6|        |      ;  
                        db $1F                               ;18BDF7|        |      ;  
                        db $1F                               ;18BDF8|        |      ;  
                        db $06                               ;18BDF9|        |      ;  
                        db $01                               ;18BDFA|        |      ;  
                        db $07                               ;18BDFB|        |      ; SFX "Escape"
-                       dl Sub: Get/Set SFX                  ;18BDFC|        |009C44;  
+                       dl GetSet_SFX                        ;18BDFC|        |009C44;  
                        db $28                               ;18BDFF|        |      ;  
                        db $07                               ;18BE00|        |      ;  
                        dl Check_Party                       ;18BE01|        |18D4D9;  
@@ -11593,12 +11593,12 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $08                               ;18BE20|        |      ;  
                        dw CODE_00BFBE                       ;18BE21|        |00BFBE;  
                        db $07                               ;18BE23|        |      ; SFX Rumbling 1
-                       dl Sub: Get/Set SFX                  ;18BE24|        |009C44;  
+                       dl GetSet_SFX                        ;18BE24|        |009C44;  
                        db $0B                               ;18BE27|        |      ;  
                        db $06                               ;18BE28|        |      ;  
                        db $01                               ;18BE29|        |      ;  
                        db $07                               ;18BE2A|        |      ; SFX Rumbling 2
-                       dl Sub: Get/Set SFX                  ;18BE2B|        |009C44;  
+                       dl GetSet_SFX                        ;18BE2B|        |009C44;  
                        db $0C                               ;18BE2E|        |      ;  
                        db $06                               ;18BE2F|        |      ;  
                        db $F0                               ;18BE30|        |      ;  
@@ -11614,7 +11614,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $01                               ;18BE3D|        |      ; 01 1F
                        db $1F                               ;18BE3E|        |      ;  
                        db $07                               ;18BE3F|        |      ;  
-                       dl Add_RGB(3b)                       ;18BE40|        |009FE2;  
+                       dl Add_RGB_3b                        ;18BE40|        |009FE2;  
                        db $01                               ;18BE43|        |      ;  
                        db $01                               ;18BE44|        |      ;  
                        db $01                               ;18BE45|        |      ;  
@@ -11626,7 +11626,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $14                               ;18BE4B|        |      ;  
                        db $01                               ;18BE4C|        |      ;  
                        db $07                               ;18BE4D|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18BE4E|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18BE4E|        |009D6F;  
                        db $01                               ;18BE51|        |      ;  
                        db $00                               ;18BE52|        |      ;  
                        dw $3000                             ;18BE53|        |      ;  
@@ -11640,23 +11640,23 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18BE63|        |      ;  
                        dw UNREACH_00D4B9                    ;18BE64|        |00D4B9;  
                        db $07                               ;18BE66|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18BE67|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18BE67|        |00A035;  
                        dl $18CC36_comp_data                 ;18BE6A|        |18BF43;  
                        dl $000440                           ;18BE6D|        |000440;  
                        db $07                               ;18BE70|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18BE71|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18BE71|        |00A140;  
                        dl DATA8_18BF9E                      ;18BE74|        |18BF9E;  
                        db $C0                               ;18BE77|        |      ;  
                        dw $0020                             ;18BE78|        |      ;  
                        db $07                               ;18BE7A|        |      ;  
-                       dl Main screen AND (1b)              ;18BE7B|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18BE7B|        |009DB6;  
                        db $0D                               ;18BE7E|        |      ;  
                        db $06                               ;18BE7F|        |      ; 06 3C
                        db $3C                               ;18BE80|        |      ;  
                        db $01                               ;18BE81|        |      ; 01 1F
                        db $1F                               ;18BE82|        |      ;  
                        db $07                               ;18BE83|        |      ;  
-                       dl Add_RGB(3b)                       ;18BE84|        |009FE2;  
+                       dl Add_RGB_3b                        ;18BE84|        |009FE2;  
                        db $FF                               ;18BE87|        |      ;  
                        db $FF                               ;18BE88|        |      ;  
                        db $FF                               ;18BE89|        |      ;  
@@ -11666,7 +11666,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $06                               ;18BE8D|        |      ;  
                        db $3C                               ;18BE8E|        |      ;  
                        db $07                               ;18BE8F|        |      ;  
-                       dl Load_Sprite(14b)                  ;18BE90|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BE90|        |009CAE;  
                        db $08                               ;18BE93|        |      ;  
                        db $24                               ;18BE94|        |      ;  
                        db $12                               ;18BE95|        |      ;  
@@ -11687,7 +11687,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $07                               ;18BEA3|        |      ; Weird ass RNG call
                        dl RNG (2D) + 0F                     ;18BEA4|        |18C0BF;  
                        db $07                               ;18BEA7|        |      ;  
-                       dl Load_Sprite(14b)                  ;18BEA8|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18BEA8|        |009CAE;  
                        db $08                               ;18BEAB|        |      ;  
                        db $24                               ;18BEAC|        |      ;  
                        db $12                               ;18BEAD|        |      ;  
@@ -11706,7 +11706,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $01                               ;18BEBA|        |      ; 01 1F
                        db $1F                               ;18BEBB|        |      ;  
                        db $07                               ;18BEBC|        |      ;  
-                       dl Add_RGB(3b)                       ;18BEBD|        |009FE2;  
+                       dl Add_RGB_3b                        ;18BEBD|        |009FE2;  
                        db $01                               ;18BEC0|        |      ;  
                        db $01                               ;18BEC1|        |      ;  
                        db $01                               ;18BEC2|        |      ;  
@@ -11716,12 +11716,12 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $06                               ;18BEC6|        |      ;  
                        db $3C                               ;18BEC7|        |      ;  
                        db $07                               ;18BEC8|        |      ;  
-                       dl Main screen AND (1b)              ;18BEC9|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18BEC9|        |009DB6;  
                        db $1F                               ;18BECC|        |      ;  
                        db $01                               ;18BECD|        |      ; 01 1F
                        db $1F                               ;18BECE|        |      ;  
                        db $07                               ;18BECF|        |      ;  
-                       dl Add_RGB(3b)                       ;18BED0|        |009FE2;  
+                       dl Add_RGB_3b                        ;18BED0|        |009FE2;  
                        db $FF                               ;18BED3|        |      ;  
                        db $FF                               ;18BED4|        |      ;  
                        db $FF                               ;18BED5|        |      ;  
@@ -12215,7 +12215,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                                                             ;      |        |      ;  
         RNG (2D) + 0F: LDA.W #$002D                         ;18C0BF|A92D00  |      ;  
                        JSL.L RNG                            ;18C0C2|22F18900|0089F1;  
-                       LDX.W Function results               ;18C0C6|AE4110  |001041;  
+                       LDX.W Function_results               ;18C0C6|AE4110  |001041;  
                        CLC                                  ;18C0C9|18      |      ;  
                        ADC.W #$000F                         ;18C0CA|690F00  |      ;  
                        STA.W Anim_Loopvar,X                 ;18C0CD|9D9F0B  |000B9F;  
@@ -12225,7 +12225,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
          DATA8_18C0D1: db $30                               ;18C0D1|        |      ;  
                        db $51                               ;18C0D2|        |      ;  
                        db $07                               ;18C0D3|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18C0D4|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18C0D4|        |00A051;  
                        dw $1091                             ;18C0D7|        |      ;  
                        dw $0066                             ;18C0D9|        |      ;  
                        db $00                               ;18C0DB|        |      ;  
@@ -12235,14 +12235,14 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $AC                               ;18C0DE|        |      ;  
                        db $A8                               ;18C0DF|        |      ;  
                        db $07                               ;18C0E0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C0E1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C0E1|        |00A140;  
                        dl DATA8_18C0F7                      ;18C0E4|        |18C0F7;  
                        db $11                               ;18C0E7|        |      ;  
                        dw $005E                             ;18C0E8|        |      ;  
                        db $06                               ;18C0EA|        |      ;  
                        db $06                               ;18C0EB|        |      ;  
                        db $07                               ;18C0EC|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C0ED|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C0ED|        |00A140;  
                        dl DATA8_18C155                      ;18C0F0|        |18C155;  
                        db $11                               ;18C0F3|        |      ;  
                        dw $005E                             ;18C0F4|        |      ;  
@@ -12446,7 +12446,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        dw DATA8_18C1C9                      ;18C1BB|        |18C1C9;  
                                                             ;      |        |      ;  
          DATA8_18C1BD: db $07                               ;18C1BD|        |      ;  
-                       dl Sub: Get/Set SFX                  ;18C1BE|        |009C44;  
+                       dl GetSet_SFX                        ;18C1BE|        |009C44;  
                        db $0E                               ;18C1C1|        |      ; SFX "Door slam"
                        db $32                               ;18C1C2|        |      ;  
                        db $74                               ;18C1C3|        |      ;  
@@ -12457,7 +12457,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $00                               ;18C1C8|        |      ; 00
                                                             ;      |        |      ;  
          DATA8_18C1C9: db $07                               ;18C1C9|        |      ; SFX "Low Door slam"
-                       dl Sub: Get/Set SFX                  ;18C1CA|        |009C44;  
+                       dl GetSet_SFX                        ;18C1CA|        |009C44;  
                        db $0F                               ;18C1CD|        |      ;  
                        db $32                               ;18C1CE|        |      ;  
                        db $77                               ;18C1CF|        |      ;  
@@ -12499,7 +12499,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        dw $0040                             ;18C216|        |      ;  
                        dw $0050                             ;18C218|        |      ;  
                                                             ;      |        |      ;  
-       EVENT_17_(Ch5): LDA.W Chapter #                      ;18C21A|ADCD18  |0018CD;  
+       EVENT_17_(Ch5): LDA.W Chapter_num                    ;18C21A|ADCD18  |0018CD;  
                        CMP.W #$0005                         ;18C21D|C90500  |      ;  
                        BNE CODE_18C224                      ;18C220|D002    |18C224;  
                        SEC                                  ;18C222|38      |      ;  
@@ -12522,19 +12522,19 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        dw $1893                             ;18C232|        |      ;  
                        db $B6                               ;18C234|        |      ;  
                        db $07                               ;18C235|        |      ;  
-                       dl Set RGB(3b)                       ;18C236|        |009F83;  
+                       dl Set_RGB_3b                        ;18C236|        |009F83;  
                        db $1F                               ;18C239|        |      ;  
                        db $1F                               ;18C23A|        |      ;  
                        db $1F                               ;18C23B|        |      ;  
                        db $01                               ;18C23C|        |      ; 01 10
                        db $10                               ;18C23D|        |      ;  
                        db $07                               ;18C23E|        |      ;  
-                       dl Unfade from black                 ;18C23F|        |00A0CB;  
+                       dl Unfade                            ;18C23F|        |00A0CB;  
                        db $06                               ;18C242|        |      ;  
                        db $03                               ;18C243|        |      ;  
                        db $02                               ;18C244|        |      ; 02
                        db $07                               ;18C245|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18C246|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18C246|        |009D6F;  
                        db $01                               ;18C249|        |      ;  
                        db $00                               ;18C24A|        |      ;  
                        dw $3000                             ;18C24B|        |      ;  
@@ -12559,25 +12559,25 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18C26B|        |      ;  
                        dw UNREACH_00D4B9                    ;18C26C|        |00D4B9;  
                        db $07                               ;18C26E|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C26F|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C26F|        |00A140;  
                        dl DATA8_18B3A5                      ;18C272|        |18B3A5;  
                        db $10                               ;18C275|        |      ;  
                        dw $0060                             ;18C276|        |      ;  
                        db $07                               ;18C278|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C279|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C279|        |00A140;  
                        dl $18C724_data                      ;18C27C|        |198AB2;  
                        db $B0                               ;18C27F|        |      ;  
                        dw $0040                             ;18C280|        |      ;  
                        db $07                               ;18C282|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C283|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C283|        |00A140;  
                        dl $18C72E_data                      ;18C286|        |18A2B0;  
                        db $90                               ;18C289|        |      ;  
                        dw $0040                             ;18C28A|        |      ;  
                        db $07                               ;18C28C|        |      ;  
-                       dl Sound byte (1b)                   ;18C28D|        |009C0A;  
+                       dl Sound_byte_1b                     ;18C28D|        |009C0A;  
                        db $FF                               ;18C290|        |      ;  
                        db $07                               ;18C291|        |      ; BGM "The Legend"
-                       dl Sub: Get/Set Music                ;18C292|        |009C3C;  
+                       dl GetSet_Music                      ;18C292|        |009C3C;  
                        db $40                               ;18C295|        |      ;  
                        db $0F                               ;18C296|        |      ;  
                        db $00                               ;18C297|        |      ;  
@@ -12587,7 +12587,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $06                               ;18C29D|        |      ;  
                        db $3C                               ;18C29E|        |      ;  
                        db $07                               ;18C29F|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C2A0|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C2A0|        |009CAE;  
                        db $08                               ;18C2A3|        |      ;  
                        db $24                               ;18C2A4|        |      ;  
                        db $12                               ;18C2A5|        |      ;  
@@ -12603,7 +12603,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $01                               ;18C2AF|        |      ;  
                        db $00                               ;18C2B0|        |      ;  
                        db $07                               ;18C2B1|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18C2B2|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18C2B2|        |00A051;  
                        dw $1091                             ;18C2B5|        |      ;  
                        dw $0001                             ;18C2B7|        |      ;  
                        db $1B                               ;18C2B9|        |      ;  
@@ -12623,7 +12623,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $3C                               ;18C2CF|        |      ;  
                        db $C4                               ;18C2D0|        |      ;  
                        db $07                               ;18C2D1|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C2D2|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C2D2|        |009CAE;  
                        db $08                               ;18C2D5|        |      ;  
                        db $24                               ;18C2D6|        |      ;  
                        db $12                               ;18C2D7|        |      ;  
@@ -12639,7 +12639,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $02                               ;18C2E1|        |      ;  
                        db $00                               ;18C2E2|        |      ;  
                        db $07                               ;18C2E3|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18C2E4|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18C2E4|        |00A051;  
                        dw $1091                             ;18C2E7|        |      ;  
                        dw $0002                             ;18C2E9|        |      ;  
                        db $07                               ;18C2EB|        |      ;  
@@ -12668,7 +12668,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $00                               ;18C30F|        |      ;  
                        dw $0002                             ;18C310|        |      ;  
                        db $1B                               ;18C312|        |      ;  
-                       dw Playing sound test                ;18C313|        |00D416;  
+                       dw Playing_sound_test                ;18C313|        |00D416;  
                        db $80                               ;18C315|        |      ;  
                        db $01                               ;18C316|        |      ;  
                        db $00                               ;18C317|        |      ;  
@@ -12684,7 +12684,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18C328|        |      ;  
                        dw DATA8_00D3F6                      ;18C329|        |00D3F6;  
                        db $07                               ;18C32B|        |      ;  
-                       dl Sub: Get/Set Music                ;18C32C|        |009C3C;  
+                       dl GetSet_Music                      ;18C32C|        |009C3C;  
                        db $59                               ;18C32F|        |      ;  
                        db $16                               ;18C330|        |      ;  
                        dw $1901                             ;18C331|        |      ;  
@@ -12720,13 +12720,13 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        dw $0002                             ;18C354|        |      ;  
                        db $0A                               ;18C356|        |      ;  
                                                             ;      |        |      ;  
-     EVENT_18_(Karul): LDA.W Current map                    ;18C357|AD7315  |001573; Vs Karul
+     EVENT_18_(Karul): LDA.W Curr_map                       ;18C357|AD7315  |001573; Vs Karul
                        CMP.W #$0114                         ;18C35A|C91401  |      ; Map = Bintel Castle?
                        BNE CODE_18C371                      ;18C35D|D012    |18C371;  
-                       LDA.W Map X pos                      ;18C35F|ADF716  |0016F7; Position = (1B, 0D)?
+                       LDA.W Map_X                          ;18C35F|ADF716  |0016F7; Position = (1B, 0D)?
                        CMP.W #$001B                         ;18C362|C91B00  |      ;  
                        BNE CODE_18C371                      ;18C365|D00A    |18C371;  
-                       LDA.W Map Y pos                      ;18C367|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18C367|ADF916  |0016F9;  
                        CMP.W #$000D                         ;18C36A|C90D00  |      ;  
                        BNE CODE_18C371                      ;18C36D|D002    |18C371;  
                        SEC                                  ;18C36F|38      |      ; Return true (carry set)
@@ -12752,12 +12752,12 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18C386|        |      ;  
                        dw UNREACH_00D4B9                    ;18C387|        |00D4B9;  
                        db $07                               ;18C389|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C38A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C38A|        |00A140;  
                        dl $18C38D_data                      ;18C38D|        |198D42;  
                        db $90                               ;18C390|        |      ;  
                        dw $0040                             ;18C391|        |      ;  
                        db $07                               ;18C393|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C394|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C394|        |009CAE;  
                        db $08                               ;18C397|        |      ;  
                        db $24                               ;18C398|        |      ;  
                        db $12                               ;18C399|        |      ;  
@@ -12857,18 +12857,18 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
       Sub_Karul_macro: db $30                               ;18C41F|        |      ;  
                        db $55                               ;18C420|        |      ;  
                        db $07                               ;18C421|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18C422|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18C422|        |00A051;  
                        dw $1091                             ;18C425|        |001091;  
                        dw $0001                             ;18C427|        |      ;  
                        db $00                               ;18C429|        |      ; End section
                                                             ;      |        |      ;  
- EVENT_19_(vsGalneon): LDA.W Current map                    ;18C42A|AD7315  |001573; Vs Galneon
+ EVENT_19_(vsGalneon): LDA.W Curr_map                       ;18C42A|AD7315  |001573; Vs Galneon
                        CMP.W #$0115                         ;18C42D|C91501  |      ; Map = A Tunnel?
                        BNE CODE_18C444                      ;18C430|D012    |18C444;  
-                       LDA.W Map X pos                      ;18C432|ADF716  |0016F7; Position = (07, 09)?
+                       LDA.W Map_X                          ;18C432|ADF716  |0016F7; Position = (07, 09)?
                        CMP.W #$0007                         ;18C435|C90700  |      ;  
                        BNE CODE_18C444                      ;18C438|D00A    |18C444;  
-                       LDA.W Map Y pos                      ;18C43A|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18C43A|ADF916  |0016F9;  
                        CMP.W #$0009                         ;18C43D|C90900  |      ;  
                        BNE CODE_18C444                      ;18C440|D002    |18C444;  
                        SEC                                  ;18C442|38      |      ; Return true (carry set)
@@ -12895,12 +12895,12 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18C45B|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18C45C|        |18D4B9;  
                        db $07                               ;18C45E|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C45F|        |00A140;  
-                       dl A140 $18C462                      ;18C462|        |198D89;  
+                       dl Transfer_Data_3b_1b_2b            ;18C45F|        |00A140;  
+                       dl A140_$18C462                      ;18C462|        |198D89;  
                        db $C0                               ;18C465|        |      ;  
                        dw $0060                             ;18C466|        |      ;  
                        db $07                               ;18C468|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C469|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C469|        |009CAE;  
                        db $08                               ;18C46C|        |      ;  
                        db $24                               ;18C46D|        |      ;  
                        db $12                               ;18C46E|        |      ;  
@@ -12949,7 +12949,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18C4A8|        |      ;  
                        dw Sub_Sauza_2                       ;18C4A9|        |18D3E0;  
                        db $07                               ;18C4AB|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C4AC|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C4AC|        |009CAE;  
                        db $08                               ;18C4AF|        |      ;  
                        db $24                               ;18C4B0|        |      ;  
                        db $12                               ;18C4B1|        |      ;  
@@ -13046,7 +13046,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
          DATA8_18C532: db $30                               ;18C532|        |      ;  
                        db $53                               ;18C533|        |      ;  
                        db $07                               ;18C534|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18C535|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18C535|        |00A051;  
                        dw $1091                             ;18C538|        |001091;  
                        dw $0001                             ;18C53A|        |      ;  
                        db $01                               ;18C53C|        |      ; Loop $0A
@@ -13071,13 +13071,13 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1A                               ;18C54E|        |      ; Loop always
                        dw DATA8_18C54A                      ;18C54F|        |18C54A;  
                                                             ;      |        |      ;  
-       EVENT_1A_(R&B): LDA.W Current map                    ;18C551|AD7315  |001573; Vs Red and Blue Guardian
+       EVENT_1A_(R&B): LDA.W Curr_map                       ;18C551|AD7315  |001573; Vs Red and Blue Guardian
                        CMP.W #$011F                         ;18C554|C91F01  |      ; Map = Stavery 10F (Ch 5)?
                        BNE CODE_18C56B                      ;18C557|D012    |18C56B;  
-                       LDA.W Map X pos                      ;18C559|ADF716  |0016F7; Position = (10, 19)?
+                       LDA.W Map_X                          ;18C559|ADF716  |0016F7; Position = (10, 19)?
                        CMP.W #$0010                         ;18C55C|C91000  |      ;  
                        BNE CODE_18C56B                      ;18C55F|D00A    |18C56B;  
-                       LDA.W Map Y pos                      ;18C561|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18C561|ADF916  |0016F9;  
                        CMP.W #$0019                         ;18C564|C91900  |      ;  
                        BNE CODE_18C56B                      ;18C567|D002    |18C56B;  
                        SEC                                  ;18C569|38      |      ; Return true (carry set)
@@ -13109,22 +13109,22 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18C589|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18C58A|        |18D4B9;  
                        db $07                               ;18C58C|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C58D|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C58D|        |00A140;  
                        dl $18C590_data                      ;18C590|        |18C665;  
                        db $D0                               ;18C593|        |      ;  
                        dw $0040                             ;18C594|        |      ;  
                        db $07                               ;18C596|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C597|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C597|        |00A140;  
                        dl $18C59A_data                      ;18C59A|        |189B9B;  
                        db $90                               ;18C59D|        |      ;  
                        dw $0040                             ;18C59E|        |      ;  
                        db $07                               ;18C5A0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C5A1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C5A1|        |00A140;  
                        dl $18/C5A4_data                     ;18C5A4|        |18A131;  
                        db $B0                               ;18C5A7|        |      ;  
                        dw $0020                             ;18C5A8|        |      ;  
                        db $07                               ;18C5AA|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C5AB|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C5AB|        |009CAE;  
                        db $08                               ;18C5AE|        |      ;  
                        db $24                               ;18C5AF|        |      ;  
                        db $12                               ;18C5B0|        |      ;  
@@ -13140,7 +13140,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $01                               ;18C5BA|        |      ;  
                        db $00                               ;18C5BB|        |      ;  
                        db $07                               ;18C5BC|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C5BD|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C5BD|        |009CAE;  
                        db $08                               ;18C5C0|        |      ;  
                        db $24                               ;18C5C1|        |      ;  
                        db $12                               ;18C5C2|        |      ;  
@@ -13158,7 +13158,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $1B                               ;18C5CE|        |      ;  
                        dw Battle_Poses_On                   ;18C5CF|        |18D4A9;  
                        db $07                               ;18C5D1|        |      ; Boss music
-                       dl Sub: Get/Set Music                ;18C5D2|        |009C3C;  
+                       dl GetSet_Music                      ;18C5D2|        |009C3C;  
                        db $50                               ;18C5D5|        |      ;  
                        db $1B                               ;18C5D6|        |      ;  
                        dw Sub_LoadSomething                 ;18C5D7|        |18D44D;  
@@ -13185,7 +13185,7 @@ EVENT_16_(GalneonCh4): LDA.W Current map                    ;18BCFA|AD7315  |001
                        db $01                               ;18C5F7|        |      ;  
                                                             ;      |        |      ;  
 Draw Salah/Axs entrance: db $07                               ;18C5F8|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C5F9|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C5F9|        |009CAE;  
                        db $08                               ;18C5FC|        |      ;  
                        db $24                               ;18C5FD|        |      ;  
                        db $12                               ;18C5FE|        |      ;  
@@ -13201,7 +13201,7 @@ Draw Salah/Axs entrance: db $07                               ;18C5F8|        | 
                        db $03                               ;18C608|        |      ;  
                        db $00                               ;18C609|        |      ;  
                        db $07                               ;18C60A|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C60B|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C60B|        |009CAE;  
                        db $08                               ;18C60E|        |      ;  
                        db $24                               ;18C60F|        |      ;  
                        db $12                               ;18C610|        |      ;  
@@ -13375,13 +13375,13 @@ Draw Salah/Axs entrance: db $07                               ;18C5F8|        | 
                        db $D0                               ;18C6CF|        |      ; D0: Zeros some stuff
                        db $0A                               ;18C6D0|        |      ; 0A
                                                             ;      |        |      ;  
-    EVENT_1B_(Tiamat): LDA.W Current map                    ;18C6D1|AD7315  |001573; Vs Tiamat
+    EVENT_1B_(Tiamat): LDA.W Curr_map                       ;18C6D1|AD7315  |001573; Vs Tiamat
                        CMP.W #$0120                         ;18C6D4|C92001  |      ; Map = Stavery 11F (Ch 5)?
                        BNE CODE_18C6EB                      ;18C6D7|D012    |18C6EB;  
-                       LDA.W Map X pos                      ;18C6D9|ADF716  |0016F7; Position = (15, 1A)?
+                       LDA.W Map_X                          ;18C6D9|ADF716  |0016F7; Position = (15, 1A)?
                        CMP.W #$0015                         ;18C6DC|C91500  |      ;  
                        BNE CODE_18C6EB                      ;18C6DF|D00A    |18C6EB;  
-                       LDA.W Map Y pos                      ;18C6E1|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18C6E1|ADF916  |0016F9;  
                        CMP.W #$001A                         ;18C6E4|C91A00  |      ;  
                        BNE CODE_18C6EB                      ;18C6E7|D002    |18C6EB;  
                        SEC                                  ;18C6E9|38      |      ; Return true (carry set)
@@ -13418,22 +13418,22 @@ Draw Salah/Axs entrance: db $07                               ;18C5F8|        | 
                        db $1B                               ;18C713|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18C714|        |18D4B9;  
                        db $07                               ;18C716|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C717|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C717|        |00A140;  
                        dl $18C71A_data                      ;18C71A|        |18C7D5;  
                        db $E0                               ;18C71D|        |      ;  
                        dw $0020                             ;18C71E|        |      ;  
                        db $07                               ;18C720|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C721|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C721|        |00A140;  
                        dl $18C724_data                      ;18C724|        |198AB2;  
                        db $B0                               ;18C727|        |      ;  
                        dw $0040                             ;18C728|        |      ;  
                        db $07                               ;18C72A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C72B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C72B|        |00A140;  
                        dl $18C72E_data                      ;18C72E|        |18A2B0;  
                        db $90                               ;18C731|        |      ;  
                        dw $0040                             ;18C732|        |      ;  
                        db $07                               ;18C734|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C735|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C735|        |009CAE;  
                        db $08                               ;18C738|        |      ;  
                        db $24                               ;18C739|        |      ;  
                        db $12                               ;18C73A|        |      ;  
@@ -13451,7 +13451,7 @@ Draw Salah/Axs entrance: db $07                               ;18C5F8|        | 
                        db $1B                               ;18C746|        |      ; 1B: Subroutine D4A9
                        dw Battle_Poses_On                   ;18C747|        |18D4A9;  
                        db $07                               ;18C749|        |      ; Why do I hear boss music?
-                       dl Sub: Get/Set Music                ;18C74A|        |009C3C;  
+                       dl GetSet_Music                      ;18C74A|        |009C3C;  
                        db $50                               ;18C74D|        |      ;  
                        db $1B                               ;18C74E|        |      ;  
                        dw Sub_LoadSomething                 ;18C74F|        |18D44D;  
@@ -13479,7 +13479,7 @@ Draw Salah/Axs entrance: db $07                               ;18C5F8|        | 
                        db $1B                               ;18C771|        |      ;  
                        dw Teefa_leaves?                     ;18C772|        |18D2A2;  
                        db $07                               ;18C774|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C775|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C775|        |009CAE;  
                        db $08                               ;18C778|        |      ;  
                        db $24                               ;18C779|        |      ;  
                        db $12                               ;18C77A|        |      ;  
@@ -13495,7 +13495,7 @@ Draw Salah/Axs entrance: db $07                               ;18C5F8|        | 
                        db $02                               ;18C784|        |      ;  
                        db $00                               ;18C785|        |      ;  
                        db $07                               ;18C786|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C787|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C787|        |009CAE;  
                        db $08                               ;18C78A|        |      ;  
                        db $24                               ;18C78B|        |      ;  
                        db $12                               ;18C78C|        |      ;  
@@ -13617,16 +13617,16 @@ Draw Salah/Axs entrance: db $07                               ;18C5F8|        | 
                        db $D0                               ;18C812|        |      ; D0
                        db $0A                               ;18C813|        |      ; 0A
                                                             ;      |        |      ;  
-EVENT_1C_(Final_door): LDA.W Current map                    ;18C814|AD7315  |001573; Final door check
+EVENT_1C_(Final_door): LDA.W Curr_map                       ;18C814|AD7315  |001573; Final door check
                        CMP.W #$0121                         ;18C817|C92101  |      ; Map = Stavery 12F (Ch 5)?
                        BNE CODE_18C83E                      ;18C81A|D022    |18C83E;  
-                       LDA.W Map X pos                      ;18C81C|ADF716  |0016F7; Position = (1B, 12)?
+                       LDA.W Map_X                          ;18C81C|ADF716  |0016F7; Position = (1B, 12)?
                        CMP.W #$001B                         ;18C81F|C91B00  |      ;  
                        BNE CODE_18C83E                      ;18C822|D01A    |18C83E;  
-                       LDA.W Map Y pos                      ;18C824|ADF916  |0016F9;  
+                       LDA.W Map_Y                          ;18C824|ADF916  |0016F9;  
                        CMP.W #$0012                         ;18C827|C91200  |      ;  
                        BNE CODE_18C83E                      ;18C82A|D012    |18C83E;  
-                       LDA.W Facing                         ;18C82C|ADFB16  |0016FB; Facing north?
+                       LDA.W Map_Dir                        ;18C82C|ADFB16  |0016FB; Facing north?
                        BNE CODE_18C83E                      ;18C82F|D00D    |18C83E;  
                        LDA.W $0021                          ;18C831|AD2100  |000021; Get controller input
                        AND.W #$0B00                         ;18C834|29000B  |      ;  
@@ -13655,20 +13655,20 @@ EVENT_1C_(Final_door): LDA.W Current map                    ;18C814|AD7315  |001
                        dw Final_Door8                       ;18C854|        |18CF64;  
                        dw Final_Door9                       ;18C856|        |18CF98;  
                        db $07                               ;18C858|        |      ; Door it open
-                       dl Sub: Get/Set SFX                  ;18C859|        |009C44;  
+                       dl GetSet_SFX                        ;18C859|        |009C44;  
                        db $2D                               ;18C85C|        |      ;  
                                                             ;      |        |      ;  
      Loop_FadeToBlack: db $01                               ;18C85D|        |      ; Loop sixteen times
                        db $10                               ;18C85E|        |      ;  
                        db $07                               ;18C85F|        |      ; Fade one notch
-                       dl Fade to black                     ;18C860|        |00A0DB;  
+                       dl Fade                              ;18C860|        |00A0DB;  
                        db $06                               ;18C863|        |      ; Delay $04
                        db $04                               ;18C864|        |      ;  
                        db $02                               ;18C865|        |      ; End loop
                        db $04                               ;18C866|        |      ;  
                        dl Sub_Disable_HDMA                  ;18C867|        |0189F1;  
                        db $07                               ;18C86A|        |      ; DMA xfer (6 bytes)
-                       dl DMA xfer (6b)                     ;18C86B|        |009EE0;  
+                       dl DMA_xfer_6b                       ;18C86B|        |009EE0;  
                        db $07                               ;18C86E|        |      ;  
                        db $40                               ;18C86F|        |      ;  
                        db $2C                               ;18C870|        |      ;  
@@ -13677,10 +13677,10 @@ EVENT_1C_(Final_door): LDA.W Current map                    ;18C814|AD7315  |001
                        db $06                               ;18C874|        |      ;  
                        db $01                               ;18C875|        |      ;  
                        db $07                               ;18C876|        |      ;  
-                       dl Main screen AND (1b)              ;18C877|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18C877|        |009DB6;  
                        db $14                               ;18C87A|        |      ;  
                        db $07                               ;18C87B|        |      ;  
-                       dl Subscreen OR (1b)                 ;18C87C|        |009DC6;  
+                       dl SubScr_OR_1b                      ;18C87C|        |009DC6;  
                        db $10                               ;18C87F|        |      ;  
                        db $13                               ;18C880|        |      ; 13: $2130 = 02
                        dw $2130                             ;18C881|        |002130;  
@@ -13689,7 +13689,7 @@ EVENT_1C_(Final_door): LDA.W Current map                    ;18C814|AD7315  |001
                        dw $2131                             ;18C885|        |002131;  
                        db $42                               ;18C887|        |      ;  
                        db $07                               ;18C888|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18C889|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18C889|        |009D6F;  
                        db $01                               ;18C88C|        |      ;  
                        db $00                               ;18C88D|        |      ;  
                        dw $3000                             ;18C88E|        |      ;  
@@ -13706,18 +13706,18 @@ EVENT_1C_(Final_door): LDA.W Current map                    ;18C814|AD7315  |001
                        db $1B                               ;18C8A2|        |      ;  
                        dw UNREACH_00D4B9                    ;18C8A3|        |00D4B9;  
                        db $07                               ;18C8A5|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18C8A6|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18C8A6|        |00A035;  
                        dw $BEE6                             ;18C8A9|        |      ;  
                        db $18                               ;18C8AB|        |      ;  
                        dw $0440                             ;18C8AC|        |      ;  
                        db $00                               ;18C8AE|        |      ;  
                        db $07                               ;18C8AF|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18C8B0|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18C8B0|        |00A140;  
                        dl $18C8B3_data                      ;18C8B3|        |198E57;  
                        db $C0                               ;18C8B6|        |      ;  
                        dw $0060                             ;18C8B7|        |      ;  
                        db $07                               ;18C8B9|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C8BA|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C8BA|        |009CAE;  
                        db $08                               ;18C8BD|        |      ;  
                        db $24                               ;18C8BE|        |      ;  
                        db $12                               ;18C8BF|        |      ;  
@@ -13736,13 +13736,13 @@ EVENT_1C_(Final_door): LDA.W Current map                    ;18C814|AD7315  |001
                        dw DATA8_00D3F6                      ;18C8CC|        |00D3F6;  
                                                             ;      |        |      ;  
 Play_SealedRimsala_Theme: db $07                               ;18C8CE|        |      ;  
-                       dl Sub: Get/Set Music                ;18C8CF|        |009C3C;  
+                       dl GetSet_Music                      ;18C8CF|        |009C3C;  
                        db $3D                               ;18C8D2|        |      ;  
                                                             ;      |        |      ;  
           Loop_Unfade: db $01                               ;18C8D3|        |      ;  
                        db $10                               ;18C8D4|        |      ;  
                        db $07                               ;18C8D5|        |      ;  
-                       dl Unfade from black                 ;18C8D6|        |00A0CB;  
+                       dl Unfade                            ;18C8D6|        |00A0CB;  
                        db $06                               ;18C8D9|        |      ;  
                        db $04                               ;18C8DA|        |      ;  
                        db $02                               ;18C8DB|        |      ; End loop
@@ -13776,7 +13776,7 @@ Play_SealedRimsala_Theme: db $07                               ;18C8CE|        |
                        db $01                               ;18C902|        |      ;  
                                                             ;      |        |      ;  
       Egg_Awakens_SFX: db $07                               ;18C903|        |      ;  
-                       dl Sub: Get/Set SFX                  ;18C904|        |009C44;  
+                       dl GetSet_SFX                        ;18C904|        |009C44;  
                        db $15                               ;18C907|        |      ;  
                        db $01                               ;18C908|        |      ; 01: Loop $28
                        db $28                               ;18C909|        |      ;  
@@ -13792,7 +13792,7 @@ Play_SealedRimsala_Theme: db $07                               ;18C8CE|        |
                        db $02                               ;18C915|        |      ;  
                        db $02                               ;18C916|        |      ; End loop
                        db $07                               ;18C917|        |      ; SFX 16 (Racecar??)
-                       dl Sub: Get/Set SFX                  ;18C918|        |009C44;  
+                       dl GetSet_SFX                        ;18C918|        |009C44;  
                        db $16                               ;18C91B|        |      ;  
                        db $13                               ;18C91C|        |      ; $2130 = 00
                        dw $2130                             ;18C91D|        |      ;  
@@ -13801,13 +13801,13 @@ Play_SealedRimsala_Theme: db $07                               ;18C8CE|        |
                        dw $2131                             ;18C921|        |      ;  
                        db $32                               ;18C923|        |      ;  
                        db $07                               ;18C924|        |      ;  
-                       dl Main screen OR (1b)               ;18C925|        |009DA8;  
+                       dl MainScr_OR_1b                     ;18C925|        |009DA8;  
                        db $10                               ;18C928|        |      ;  
                        db $07                               ;18C929|        |      ;  
-                       dl Subscreen AND (1b)                ;18C92A|        |009DD7;  
+                       dl SubScr_AND_1b                     ;18C92A|        |009DD7;  
                        db $1F                               ;18C92D|        |      ;  
                        db $07                               ;18C92E|        |      ;  
-                       dl Set RGB(3b)                       ;18C92F|        |009F83;  
+                       dl Set_RGB_3b                        ;18C92F|        |009F83;  
                        db $1F                               ;18C932|        |      ;  
                        db $1F                               ;18C933|        |      ;  
                        db $1F                               ;18C934|        |      ;  
@@ -13815,7 +13815,7 @@ Play_SealedRimsala_Theme: db $07                               ;18C8CE|        |
  Loop_ThirtyOne_Times: db $01                               ;18C935|        |      ; 01 1F
                        db $1F                               ;18C936|        |      ;  
                        db $07                               ;18C937|        |      ;  
-                       dl Add_RGB(3b)                       ;18C938|        |009FE2;  
+                       dl Add_RGB_3b                        ;18C938|        |009FE2;  
                        db $FF                               ;18C93B|        |      ;  
                        db $FF                               ;18C93C|        |      ;  
                        db $FF                               ;18C93D|        |      ;  
@@ -13854,7 +13854,7 @@ Roll_Encounter(Rimsala1): db $07                               ;18C95B|        |
                        db $1B                               ;18C965|        |      ;  
                        dw Sub_Sauza_2                       ;18C966|        |18D3E0;  
                        db $07                               ;18C968|        |      ;  
-                       dl Load_Sprite(14b)                  ;18C969|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18C969|        |009CAE;  
                        db $08                               ;18C96C|        |      ;  
                        db $24                               ;18C96D|        |      ;  
                        db $12                               ;18C96E|        |      ;  
@@ -13877,7 +13877,7 @@ Roll_Encounter(Rimsala1): db $07                               ;18C95B|        |
 Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |      ;  
                        dw FinalFight_CompressedData         ;18C97F|        |18CD59;  
                        db $07                               ;18C981|        |      ; Sealing SFX
-                       dl Sub: Get/Set SFX                  ;18C982|        |009C44;  
+                       dl GetSet_SFX                        ;18C982|        |009C44;  
                        db $09                               ;18C985|        |      ;  
                        db $13                               ;18C986|        |      ; 13: $2131 = 10
                        dw $2131                             ;18C987|        |      ;  
@@ -13885,7 +13885,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18C98A|        |      ; Loop $08
                        db $08                               ;18C98B|        |      ;  
                        db $07                               ;18C98C|        |      ; RGB 04 04 04
-                       dl Add_RGB(3b)                       ;18C98D|        |009FE2;  
+                       dl Add_RGB_3b                        ;18C98D|        |009FE2;  
                        db $04                               ;18C990|        |      ;  
                        db $04                               ;18C991|        |      ;  
                        db $04                               ;18C992|        |      ;  
@@ -13895,7 +13895,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18C996|        |      ; Loop $08
                        db $08                               ;18C997|        |      ;  
                        db $07                               ;18C998|        |      ; RGB add FC FC FC
-                       dl Add_RGB(3b)                       ;18C999|        |009FE2;  
+                       dl Add_RGB_3b                        ;18C999|        |009FE2;  
                        db $FC                               ;18C99C|        |      ;  
                        db $FC                               ;18C99D|        |      ;  
                        db $FC                               ;18C99E|        |      ;  
@@ -13916,7 +13916,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $1B                               ;18C9B1|        |      ;  
                        dw Sub_Turn_off_sound                ;18C9B2|        |18D3F6;  
                        db $07                               ;18C9B4|        |      ; SFX: Fucking independence day
-                       dl Sub: Get/Set Music                ;18C9B5|        |009C3C;  
+                       dl GetSet_Music                      ;18C9B5|        |009C3C;  
                        db $41                               ;18C9B8|        |      ;  
                                                             ;      |        |      ;  
          420 blaze it: db $16                               ;18C9B9|        |      ; 16: $0420 = 0
@@ -13926,7 +13926,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        dw $2131                             ;18C9BF|        |      ;  
                        db $32                               ;18C9C1|        |      ;  
                        db $07                               ;18C9C2|        |      ; RGB 0 0 0
-                       dl Set RGB(3b)                       ;18C9C3|        |009F83;  
+                       dl Set_RGB_3b                        ;18C9C3|        |009F83;  
                        db $00                               ;18C9C6|        |      ;  
                        db $00                               ;18C9C7|        |      ;  
                        db $00                               ;18C9C8|        |      ;  
@@ -13936,7 +13936,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18C9CB|        |      ;  
                        db $08                               ;18C9CC|        |      ;  
                        db $07                               ;18C9CD|        |      ;  
-                       dl Add_RGB(3b)                       ;18C9CE|        |009FE2;  
+                       dl Add_RGB_3b                        ;18C9CE|        |009FE2;  
                        db $04                               ;18C9D1|        |      ;  
                        db $04                               ;18C9D2|        |      ;  
                        db $04                               ;18C9D3|        |      ;  
@@ -13946,7 +13946,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18C9D7|        |      ;  
                        db $20                               ;18C9D8|        |      ;  
                        db $07                               ;18C9D9|        |      ;  
-                       dl Add_RGB(3b)                       ;18C9DA|        |009FE2;  
+                       dl Add_RGB_3b                        ;18C9DA|        |009FE2;  
                        db $FF                               ;18C9DD|        |      ;  
                        db $FF                               ;18C9DE|        |      ;  
                        db $FF                               ;18C9DF|        |      ;  
@@ -13960,7 +13960,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18C9E8|        |      ;  
                        db $08                               ;18C9E9|        |      ;  
                        db $07                               ;18C9EA|        |      ;  
-                       dl Add_RGB(3b)                       ;18C9EB|        |009FE2;  
+                       dl Add_RGB_3b                        ;18C9EB|        |009FE2;  
                        db $04                               ;18C9EE|        |      ;  
                        db $04                               ;18C9EF|        |      ;  
                        db $04                               ;18C9F0|        |      ;  
@@ -13970,7 +13970,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $07                               ;18C9F4|        |      ;  
                        dl Check_Party                       ;18C9F5|        |18D4D9;  
                        db $07                               ;18C9F8|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18C9F9|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18C9F9|        |009D6F;  
                        db $01                               ;18C9FC|        |      ;  
                        db $03                               ;18C9FD|        |      ;  
                        dw $3000                             ;18C9FE|        |      ;  
@@ -13983,12 +13983,12 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $1B                               ;18CA0B|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18CA0C|        |18D4B9;  
                        db $07                               ;18CA0E|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18CA0F|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18CA0F|        |00A140;  
                        dl $18CA12_data                      ;18CA12|        |198EBE;  
                        db $10                               ;18CA15|        |      ;  
                        dw $0060                             ;18CA16|        |      ;  
                        db $07                               ;18CA18|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CA19|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CA19|        |009CAE;  
                        db $08                               ;18CA1C|        |      ;  
                        db $24                               ;18CA1D|        |      ;  
                        db $12                               ;18CA1E|        |      ;  
@@ -14008,7 +14008,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18CA2C|        |      ;  
                        db $20                               ;18CA2D|        |      ;  
                        db $07                               ;18CA2E|        |      ;  
-                       dl Add_RGB(3b)                       ;18CA2F|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CA2F|        |009FE2;  
                        db $FF                               ;18CA32|        |      ;  
                        db $FF                               ;18CA33|        |      ;  
                        db $FF                               ;18CA34|        |      ;  
@@ -14017,7 +14017,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $02                               ;18CA37|        |      ;  
                                                             ;      |        |      ;  
       Play_TheGoddess: db $07                               ;18CA38|        |      ;  
-                       dl Sub: Get/Set Music                ;18CA39|        |009C3C;  
+                       dl GetSet_Music                      ;18CA39|        |009C3C;  
                        db $52                               ;18CA3C|        |      ;  
                        db $06                               ;18CA3D|        |      ;  
                        db $5A                               ;18CA3E|        |      ;  
@@ -14038,7 +14038,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $06                               ;18CA54|        |      ;  
                        db $14                               ;18CA55|        |      ;  
                        db $07                               ;18CA56|        |      ; Attack SFX
-                       dl Sub: Get/Set SFX                  ;18CA57|        |009C44;  
+                       dl GetSet_SFX                        ;18CA57|        |009C44;  
                        db $01                               ;18CA5A|        |      ;  
                        db $16                               ;18CA5B|        |      ;  
                        dw $1091                             ;18CA5C|        |      ;  
@@ -14058,7 +14058,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $06                               ;18CA70|        |      ;  
                        db $3C                               ;18CA71|        |      ;  
                        db $07                               ;18CA72|        |      ;  
-                       dl DMA xfer (6b)                     ;18CA73|        |009EE0;  
+                       dl DMA_xfer_6b                       ;18CA73|        |009EE0;  
                        db $06                               ;18CA76|        |      ;  
                        db $01                               ;18CA77|        |      ;  
                        db $26                               ;18CA78|        |      ;  
@@ -14080,7 +14080,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18CA8E|        |      ;  
                        db $20                               ;18CA8F|        |      ;  
                        db $07                               ;18CA90|        |      ;  
-                       dl Add_RGB(3b)                       ;18CA91|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CA91|        |009FE2;  
                        db $01                               ;18CA94|        |      ;  
                        db $01                               ;18CA95|        |      ;  
                        db $01                               ;18CA96|        |      ;  
@@ -14090,7 +14090,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $1B                               ;18CA9A|        |      ;  
                        dw Sub_Turn_off_sound                ;18CA9B|        |18D3F6;  
                        db $07                               ;18CA9D|        |      ; Song: Birth of a Hero
-                       dl Sub: Get/Set Music                ;18CA9E|        |009C3C;  
+                       dl GetSet_Music                      ;18CA9E|        |009C3C;  
                        db $48                               ;18CAA1|        |      ;  
                                                             ;      |        |      ;  
        Text_SCRIPT117: db $07                               ;18CAA2|        |      ; From somewhere in the distance...
@@ -14109,7 +14109,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $1B                               ;18CAB8|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18CAB9|        |18D4B9;  
                        db $07                               ;18CABB|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18CABC|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18CABC|        |00A140;  
                        dl $18CABF_data                      ;18CABF|        |18CC8A;  
                        db $C0                               ;18CAC2|        |      ;  
                        dw $0080                             ;18CAC3|        |      ;  
@@ -14120,7 +14120,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $03                               ;18CACB|        |      ;  
                        db $30                               ;18CACC|        |      ;  
                        db $07                               ;18CACD|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CACE|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CACE|        |009CAE;  
                        db $08                               ;18CAD1|        |      ;  
                        db $24                               ;18CAD2|        |      ;  
                        db $12                               ;18CAD3|        |      ;  
@@ -14136,7 +14136,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $08                               ;18CADD|        |      ;  
                        db $00                               ;18CADE|        |      ;  
                        db $07                               ;18CADF|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CAE0|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CAE0|        |009CAE;  
                        db $08                               ;18CAE3|        |      ;  
                        db $24                               ;18CAE4|        |      ;  
                        db $12                               ;18CAE5|        |      ;  
@@ -14152,7 +14152,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $09                               ;18CAEF|        |      ;  
                        db $00                               ;18CAF0|        |      ;  
                        db $07                               ;18CAF1|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CAF2|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CAF2|        |009CAE;  
                        db $08                               ;18CAF5|        |      ;  
                        db $24                               ;18CAF6|        |      ;  
                        db $12                               ;18CAF7|        |      ;  
@@ -14170,7 +14170,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18CB03|        |      ; 01 20
                        db $20                               ;18CB04|        |      ;  
                        db $07                               ;18CB05|        |      ;  
-                       dl Add_RGB(3b)                       ;18CB06|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CB06|        |009FE2;  
                        db $FF                               ;18CB09|        |      ;  
                        db $FF                               ;18CB0A|        |      ;  
                        db $FF                               ;18CB0B|        |      ;  
@@ -14178,7 +14178,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $04                               ;18CB0D|        |      ;  
                        db $02                               ;18CB0E|        |      ;  
                        db $07                               ;18CB0F|        |      ; CMP $1091 to 2
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18CB10|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18CB10|        |00A051;  
                        dw $1091                             ;18CB13|        |      ;  
                        dw $0002                             ;18CB15|        |      ;  
                        db $13                               ;18CB17|        |      ; $2131 = 30
@@ -14187,7 +14187,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18CB1B|        |      ;  
                        db $04                               ;18CB1C|        |      ;  
                        db $07                               ;18CB1D|        |      ;  
-                       dl Add_RGB(3b)                       ;18CB1E|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CB1E|        |009FE2;  
                        db $08                               ;18CB21|        |      ;  
                        db $08                               ;18CB22|        |      ;  
                        db $08                               ;18CB23|        |      ;  
@@ -14207,7 +14207,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18CB38|        |      ;  
                        db $10                               ;18CB39|        |      ;  
                        db $07                               ;18CB3A|        |      ;  
-                       dl Add_RGB(3b)                       ;18CB3B|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CB3B|        |009FE2;  
                        db $FE                               ;18CB3E|        |      ;  
                        db $FE                               ;18CB3F|        |      ;  
                        db $FE                               ;18CB40|        |      ;  
@@ -14222,7 +14222,7 @@ Attempted_Rimsala_Seal: db $1B                               ;18C97E|        |  
                        db $01                               ;18CB4A|        |      ;  
                        db $20                               ;18CB4B|        |      ;  
                        db $07                               ;18CB4C|        |      ;  
-                       dl Add_RGB(3b)                       ;18CB4D|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CB4D|        |009FE2;  
                        db $01                               ;18CB50|        |      ;  
                        db $01                               ;18CB51|        |      ;  
                        db $01                               ;18CB52|        |      ;  
@@ -14252,7 +14252,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $01                               ;18CB72|        |      ; 01 20
                        db $20                               ;18CB73|        |      ;  
                        db $07                               ;18CB74|        |      ;  
-                       dl Add_RGB(3b)                       ;18CB75|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CB75|        |009FE2;  
                        db $FF                               ;18CB78|        |      ;  
                        db $FF                               ;18CB79|        |      ;  
                        db $FF                               ;18CB7A|        |      ;  
@@ -14260,7 +14260,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $06                               ;18CB7C|        |      ;  
                        db $02                               ;18CB7D|        |      ; 02
                        db $07                               ;18CB7E|        |      ;  
-                       dl Remove HDMA channel(1b)           ;18CB7F|        |009F1F;  
+                       dl Rem_HDMA_ch_1b                    ;18CB7F|        |009F1F;  
                        db $06                               ;18CB82|        |      ;  
                        db $07                               ;18CB83|        |      ;  
                        dl Clear_Winmask_Lo                  ;18CB84|        |18D544;  
@@ -14291,7 +14291,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $14                               ;18CBAC|        |      ;  
                        db $01                               ;18CBAD|        |      ;  
                        db $07                               ;18CBAE|        |      ; Play "Rocket ship falling back down"
-                       dl Sub: Get/Set Music                ;18CBAF|        |009C3C;  
+                       dl GetSet_Music                      ;18CBAF|        |009C3C;  
                        db $3B                               ;18CBB2|        |      ;  
                        db $13                               ;18CBB3|        |      ; 13: $2131 = A5
                        db $31                               ;18CBB4|        |      ;  
@@ -14300,7 +14300,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $01                               ;18CBB7|        |      ; 01 20
                        db $20                               ;18CBB8|        |      ;  
                        db $07                               ;18CBB9|        |      ;  
-                       dl Add_RGB(3b)                       ;18CBBA|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CBBA|        |009FE2;  
                        db $01                               ;18CBBD|        |      ;  
                        db $01                               ;18CBBE|        |      ;  
                        db $01                               ;18CBBF|        |      ;  
@@ -14308,13 +14308,13 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $01                               ;18CBC1|        |      ;  
                        db $02                               ;18CBC2|        |      ; 02
                        db $07                               ;18CBC3|        |      ;  
-                       dl Remove HDMA channel(1b)           ;18CBC4|        |009F1F;  
+                       dl Rem_HDMA_ch_1b                    ;18CBC4|        |009F1F;  
                        db $07                               ;18CBC7|        |      ;  
                        db $07                               ;18CBC8|        |      ;  
-                       dl Main screen AND (1b)              ;18CBC9|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18CBC9|        |009DB6;  
                        db $05                               ;18CBCC|        |      ;  
                        db $07                               ;18CBCD|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18CBCE|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18CBCE|        |009D6F;  
                        db $00                               ;18CBD1|        |      ;  
                        db $01                               ;18CBD2|        |      ;  
                        dw $7000                             ;18CBD3|        |      ;  
@@ -14326,12 +14326,12 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $1B                               ;18CBE0|        |      ;  
                        dw $D4B9                             ;18CBE1|        |      ;  
                        db $07                               ;18CBE3|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18CBE4|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18CBE4|        |00A140;  
                        dl Data_$18CBE7                      ;18CBE7|        |18CC6A;  
                        db $40                               ;18CBEA|        |      ;  
                        dw $0020                             ;18CBEB|        |      ;  
                        db $07                               ;18CBED|        |      ;  
-                       dl Set RGB(3b)                       ;18CBEE|        |009F83;  
+                       dl Set_RGB_3b                        ;18CBEE|        |009F83;  
                        db $00                               ;18CBF1|        |      ;  
                        db $00                               ;18CBF2|        |      ;  
                        db $00                               ;18CBF3|        |      ;  
@@ -14350,22 +14350,22 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $01                               ;18CC02|        |      ;  
                        db $10                               ;18CC03|        |      ;  
                        db $07                               ;18CC04|        |      ;  
-                       dl Fade to black                     ;18CC05|        |00A0DB;  
+                       dl Fade                              ;18CC05|        |00A0DB;  
                        db $06                               ;18CC08|        |      ;  
                        db $04                               ;18CC09|        |      ;  
                        db $02                               ;18CC0A|        |      ;  
                        db $14                               ;18CC0B|        |      ;  
                        db $01                               ;18CC0C|        |      ;  
                        db $07                               ;18CC0D|        |      ;  
-                       dl Set RGB(3b)                       ;18CC0E|        |009F83;  
+                       dl Set_RGB_3b                        ;18CC0E|        |009F83;  
                        db $00                               ;18CC11|        |      ;  
                        db $00                               ;18CC12|        |      ;  
                        db $00                               ;18CC13|        |      ;  
                        db $07                               ;18CC14|        |      ;  
-                       dl Main screen AND (1b)              ;18CC15|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18CC15|        |009DB6;  
                        db $11                               ;18CC18|        |      ;  
                        db $07                               ;18CC19|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18CC1A|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18CC1A|        |009D6F;  
                        db $01                               ;18CC1D|        |      ;  
                        db $00                               ;18CC1E|        |      ;  
                        dw $3000                             ;18CC1F|        |      ;  
@@ -14379,7 +14379,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $1B                               ;18CC2F|        |      ;  
                        dw UNREACH_00D4B9                    ;18CC30|        |00D4B9;  
                        db $07                               ;18CC32|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;18CC33|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;18CC33|        |00A035;  
                        dl $18CC36_comp_data                 ;18CC36|        |18BF43;  
                        dw $0440                             ;18CC39|        |      ;  
                        db $00                               ;18CC3B|        |      ;  
@@ -14388,12 +14388,12 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $1B                               ;18CC3E|        |      ;  
                        dw DATA8_00D3F6                      ;18CC3F|        |00D3F6;  
                        db $07                               ;18CC41|        |      ; Boom SFX
-                       dl Sub: Get/Set Music                ;18CC42|        |009C3C;  
+                       dl GetSet_Music                      ;18CC42|        |009C3C;  
                        db $3C                               ;18CC45|        |      ;  
                        db $01                               ;18CC46|        |      ;  
                        db $10                               ;18CC47|        |      ;  
                        db $07                               ;18CC48|        |      ;  
-                       dl Unfade from black                 ;18CC49|        |00A0CB;  
+                       dl Unfade                            ;18CC49|        |00A0CB;  
                        db $06                               ;18CC4C|        |      ;  
                        db $04                               ;18CC4D|        |      ;  
                        db $02                               ;18CC4E|        |      ;  
@@ -14404,9 +14404,9 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $01                               ;18CC53|        |      ;  
                        db $10                               ;18CC54|        |      ;  
                        db $07                               ;18CC55|        |      ;  
-                       dl Fade to black                     ;18CC56|        |00A0DB;  
+                       dl Fade                              ;18CC56|        |00A0DB;  
                        db $07                               ;18CC59|        |      ;  
-                       dl Sound stuff (1b)                  ;18CC5A|        |009C19;  
+                       dl Sound_stuff_1b                    ;18CC5A|        |009C19;  
                        db $F0                               ;18CC5D|        |      ;  
                        db $06                               ;18CC5E|        |      ;  
                        db $04                               ;18CC5F|        |      ;  
@@ -14591,7 +14591,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $00                               ;18CD13|        |      ;  
                        db $15                               ;18CD14|        |000007;  
                        db $07                               ;18CD15|        |      ; Sss SFX
-                       dl Sub: Get/Set SFX                  ;18CD16|        |009C44;  
+                       dl GetSet_SFX                        ;18CD16|        |009C44;  
                        db $26                               ;18CD19|        |      ;  
                        db $06                               ;18CD1A|        |      ;  
                        db $18                               ;18CD1B|        |      ;  
@@ -14604,7 +14604,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $01                               ;18CD23|        |      ;  
                        db $10                               ;18CD24|        |      ;  
                        db $07                               ;18CD25|        |      ;  
-                       dl Add_RGB(3b)                       ;18CD26|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CD26|        |009FE2;  
                        db $02                               ;18CD29|        |      ;  
                        db $02                               ;18CD2A|        |      ;  
                        db $02                               ;18CD2B|        |      ;  
@@ -14614,7 +14614,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $01                               ;18CD2F|        |      ;  
                        db $04                               ;18CD30|        |      ;  
                        db $07                               ;18CD31|        |      ;  
-                       dl Add_RGB(3b)                       ;18CD32|        |009FE2;  
+                       dl Add_RGB_3b                        ;18CD32|        |009FE2;  
                        db $F8                               ;18CD35|        |      ;  
                        db $F8                               ;18CD36|        |      ;  
                        db $F8                               ;18CD37|        |      ;  
@@ -14625,7 +14625,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        dw CODE_00CD23                       ;18CD3C|        |00CD23;  
                                                             ;      |        |      ;  
          DATA8_18CD3E: db $07                               ;18CD3E|        |      ;  
-                       dl Main screen OR (1b)               ;18CD3F|        |009DA8;  
+                       dl MainScr_OR_1b                     ;18CD3F|        |009DA8;  
                        db $01                               ;18CD42|        |      ;  
                        db $78                               ;18CD43|        |      ;  
                        db $00                               ;18CD44|        |      ;  
@@ -14638,7 +14638,7 @@ Final Boss "full" heal: db $07                               ;18CB60|        |  
                        db $06                               ;18CD4D|        |      ;  
                        db $03                               ;18CD4E|        |      ;  
                        db $07                               ;18CD4F|        |      ;  
-                       dl Main screen AND (1b)              ;18CD50|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18CD50|        |009DB6;  
                        db $01                               ;18CD53|        |      ;  
                        db $06                               ;18CD54|        |      ;  
                        db $03                               ;18CD55|        |      ;  
@@ -14652,7 +14652,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $1B                               ;18CD62|        |      ;  
                        dw ASM_Make_Animation_Loop           ;18CD63|        |18D4B9;  
                        db $07                               ;18CD65|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;18CD66|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18CD66|        |00A140;  
                        dl $18CD69_data                      ;18CD69|        |18CDCD;  
                        db $90                               ;18CD6C|        |      ;  
                        dw $0040                             ;18CD6D|        |      ;  
@@ -14666,7 +14666,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $1B                               ;18CD7A|        |      ;  
                        dw Loop_until_$1091=FF               ;18CD7B|        |18D4C3;  
                        db $07                               ;18CD7D|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CD7E|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CD7E|        |009CAE;  
                        db $08                               ;18CD81|        |      ;  
                        db $24                               ;18CD82|        |      ;  
                        db $12                               ;18CD83|        |      ;  
@@ -14682,7 +14682,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $03                               ;18CD8D|        |      ;  
                        db $00                               ;18CD8E|        |      ;  
                        db $07                               ;18CD8F|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CD90|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CD90|        |009CAE;  
                        db $08                               ;18CD93|        |      ;  
                        db $24                               ;18CD94|        |      ;  
                        db $12                               ;18CD95|        |      ;  
@@ -14698,7 +14698,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $04                               ;18CD9F|        |      ;  
                        db $00                               ;18CDA0|        |      ;  
                        db $07                               ;18CDA1|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CDA2|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CDA2|        |009CAE;  
                        db $08                               ;18CDA5|        |      ;  
                        db $24                               ;18CDA6|        |      ;  
                        db $12                               ;18CDA7|        |      ;  
@@ -14714,7 +14714,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $05                               ;18CDB1|        |      ;  
                        db $00                               ;18CDB2|        |      ;  
                        db $07                               ;18CDB3|        |      ;  
-                       dl Load_Sprite(14b)                  ;18CDB4|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18CDB4|        |009CAE;  
                        db $08                               ;18CDB7|        |      ;  
                        db $24                               ;18CDB8|        |      ;  
                        db $12                               ;18CDB9|        |      ;  
@@ -14730,7 +14730,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $06                               ;18CDC3|        |      ;  
                        db $00                               ;18CDC4|        |      ;  
                        db $07                               ;18CDC5|        |      ; Rip SFX
-                       dl Sub: Get/Set SFX                  ;18CDC6|        |009C44;  
+                       dl GetSet_SFX                        ;18CDC6|        |009C44;  
                        db $08                               ;18CDC9|        |      ;  
                        db $06                               ;18CDCA|        |      ; Delay $14
                        db $14                               ;18CDCB|        |      ;  
@@ -14802,31 +14802,31 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $00                               ;18CE0C|        |      ;  
                                                             ;      |        |      ;  
 "Full" Heal Rooks/Spirits: LDA.W MaxHP                          ;18CE0D|AD9313  |001393; This heals every spirit up to the current spirit's max HP/MP. Hmm...
-                       STA.W Current HP                     ;18CE10|8DF312  |0012F3;  
+                       STA.W Current_HP                     ;18CE10|8DF312  |0012F3;  
                        LDA.W MaxMP                          ;18CE13|AD9B13  |00139B;  
-                       STA.W Current MP                     ;18CE16|8D2313  |001323;  
-                       STZ.W Spirit Condition               ;18CE19|9CC511  |0011C5;  
+                       STA.W Current_MP                     ;18CE16|8D2313  |001323;  
+                       STZ.W Spirit_Condition               ;18CE19|9CC511  |0011C5;  
                        STZ.W Spirits_Owned                  ;18CE1C|9CA713  |0013A7;  
                        LDA.W SpiritMaxHP                    ;18CE1F|AD9513  |001395;  
-                       STA.W Spirit Current HP              ;18CE22|8DF512  |0012F5;  
-                       STA.W Sylph Current HP               ;18CE25|8D5313  |001353;  
-                       STA.W Dao Current HP                 ;18CE28|8D5513  |001355;  
-                       STA.W Marid Current HP               ;18CE2B|8D5713  |001357;  
-                       STA.W Efrite Current HP              ;18CE2E|8D5913  |001359;  
+                       STA.W Spirit_Current_HP              ;18CE22|8DF512  |0012F5;  
+                       STA.W Sylph_currHP                   ;18CE25|8D5313  |001353;  
+                       STA.W Dao_currHP                     ;18CE28|8D5513  |001355;  
+                       STA.W Marid_currHP                   ;18CE2B|8D5713  |001357;  
+                       STA.W Efrite_currHP                  ;18CE2E|8D5913  |001359;  
                        LDA.W SpiritMaxMP                    ;18CE31|AD9D13  |00139D;  
-                       STA.W Spirit Current MP              ;18CE34|8D2513  |001325;  
-                       STA.W Sylph Current MP               ;18CE37|8D5B13  |00135B;  
-                       STA.W Dao Current MP                 ;18CE3A|8D5D13  |00135D;  
-                       STA.W Marid Current MP               ;18CE3D|8D5F13  |00135F;  
-                       STA.W Efrite Current MP              ;18CE40|8D6113  |001361;  
+                       STA.W Spirit_Current_MP              ;18CE34|8D2513  |001325;  
+                       STA.W Sylph_currMP                   ;18CE37|8D5B13  |00135B;  
+                       STA.W Dao_currMP                     ;18CE3A|8D5D13  |00135D;  
+                       STA.W Marid_currMP                   ;18CE3D|8D5F13  |00135F;  
+                       STA.W Efrite_currMP                  ;18CE40|8D6113  |001361;  
                        RTL                                  ;18CE43|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-      Rooks gets KTFO: LDA.W Current HP                     ;18CE44|ADF312  |0012F3;  
+      Rooks gets KTFO: LDA.W Current_HP                     ;18CE44|ADF312  |0012F3;  
                        DEC A                                ;18CE47|3A      |      ;  
                        STA.W $1903                          ;18CE48|8D0319  |001903; Damage = current HP-1
                        LDA.W #$0001                         ;18CE4B|A90100  |      ;  
-                       STA.W Current HP                     ;18CE4E|8DF312  |0012F3;  
+                       STA.W Current_HP                     ;18CE4E|8DF312  |0012F3;  
                        LDA.W #$9EB9                         ;18CE51|A9B99E  |      ; Pointer to "Rooks has taken X points damage."
                        STA.B $00                            ;18CE54|8500    |000000;  
                        LDA.W #$0018                         ;18CE56|A91800  |      ;  
@@ -14973,14 +14973,14 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        dw DATA8_18CF47                      ;18CF15|        |18CF47;  
                                                             ;      |        |      ;  
          DATA8_18CF17: db $07                               ;18CF17|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18CF18|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18CF18|        |00A051;  
                        dw $1091                             ;18CF1B|        |001091;  
                        dw $0001                             ;18CF1D|        |      ;  
                        db $16                               ;18CF1F|        |      ;  
                        dw $1091                             ;18CF20|        |001091;  
                        dw $0000                             ;18CF22|        |      ;  
                        db $07                               ;18CF24|        |      ; Rimsala laugh SFX (?)
-                       dl Sub: Get/Set SFX                  ;18CF25|        |009C44;  
+                       dl GetSet_SFX                        ;18CF25|        |009C44;  
                        db $17                               ;18CF28|        |      ;  
                        db $14                               ;18CF29|        |      ;  
                        db $01                               ;18CF2A|        |      ;  
@@ -15040,7 +15040,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $F0                               ;18CF67|        |      ;  
                                                             ;      |        |      ;  
    Rimsala sealed SFX: db $07                               ;18CF68|        |      ;  
-                       dl Sub: Get/Set SFX                  ;18CF69|        |009C44;  
+                       dl GetSet_SFX                        ;18CF69|        |009C44;  
                        db $29                               ;18CF6C|        |      ;  
                        db $06                               ;18CF6D|        |      ;  
                        db $C0                               ;18CF6E|        |      ;  
@@ -15051,7 +15051,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $02                               ;18CF74|        |      ;  
                        db $00                               ;18CF75|        |      ; End section
                        db $07                               ;18CF76|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18CF77|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18CF77|        |00A051;  
                        dw $1091                             ;18CF7A|        |001091;  
                        dw $0003                             ;18CF7C|        |      ;  
                        db $30                               ;18CF7E|        |      ;  
@@ -15072,7 +15072,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $30                               ;18CF8D|        |      ;  
                        db $98                               ;18CF8E|        |      ;  
                        db $07                               ;18CF8F|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18CF90|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18CF90|        |00A051;  
                        dw $1091                             ;18CF93|        |001091;  
                        dw $0004                             ;18CF95|        |      ;  
                        db $00                               ;18CF97|        |      ; End section
@@ -15090,45 +15090,45 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
    Maybe_Rimsala_beat: db $06                               ;18CFA2|        |      ;  
                        db $78                               ;18CFA3|        |      ;  
                        db $07                               ;18CFA4|        |      ;  
-                       dl Screen display or80_far           ;18CFA5|        |008177;  
+                       dl Display_or_80_far                 ;18CFA5|        |008177;  
                        db $07                               ;18CFA8|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18CFA9|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18CFA9|        |009D6F;  
                        db $02                               ;18CFAC|        |      ;  
                        db $00                               ;18CFAD|        |      ;  
                        dw $5000                             ;18CFAE|        |      ;  
                        dw $0C00                             ;18CFB0|        |      ;  
                        db $07                               ;18CFB2|        |      ;  
-                       dl Main screen AND (1b)              ;18CFB3|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18CFB3|        |009DB6;  
                        db $1F                               ;18CFB6|        |      ;  
                        db $07                               ;18CFB7|        |      ;  
-                       dl Main screen OR (1b)               ;18CFB8|        |009DA8;  
+                       dl MainScr_OR_1b                     ;18CFB8|        |009DA8;  
                        db $04                               ;18CFBB|        |      ;  
                        db $07                               ;18CFBC|        |      ; Transfer 8 bytes from 18/D011 to RAM $420
-                       dl Transfer_Data(3b)(1b)(2b)         ;18CFBD|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;18CFBD|        |00A140;  
                        dl $A140 data                        ;18CFC0|        |18D011;  
                        db $00                               ;18CFC3|        |      ;  
                        dw $0008                             ;18CFC4|        |      ;  
                        db $07                               ;18CFC6|        |      ;  
-                       dl Read Ptr (3b), stuff (1b)         ;18CFC7|        |00A097;  
+                       dl GetPtr_3b_Do_stuff_1b             ;18CFC7|        |00A097;  
                        dl $A5EB data                        ;18CFCA|        |18D007;  
                        db $00                               ;18CFCD|        |      ;  
                        db $07                               ;18CFCE|        |      ;  
-                       dl Read Ptr (3b), stuff (1b)         ;18CFCF|        |00A097;  
+                       dl GetPtr_3b_Do_stuff_1b             ;18CFCF|        |00A097;  
                        dl $A5EB data                        ;18CFD2|        |18D00C;  
                        db $01                               ;18CFD5|        |      ;  
                                                             ;      |        |      ;  
        Set up display: db $07                               ;18CFD6|        |      ;  
                        dl Do_Stuff_far                      ;18CFD7|        |00A0A8;  
                        db $07                               ;18CFDA|        |      ;  
-                       dl Screen display_far                ;18CFDB|        |00818B;  
+                       dl Set_Display_far                   ;18CFDB|        |00818B;  
                        db $0F                               ;18CFDE|        |      ;  
                        db $00                               ;18CFDF|        |      ;  
                        dw $0000                             ;18CFE0|        |      ;  
                        db $01                               ;18CFE2|        |      ;  
                        db $07                               ;18CFE3|        |      ;  
                                                             ;      |        |      ;  
-      Set up epilogue: db $07                               ;18CFE4|        |      ;  
-                       dl Epilogue text setup               ;18CFE5|        |18D019;  
+       Setup_Epilogue: db $07                               ;18CFE4|        |      ;  
+                       dl Epilogue_text_setup               ;18CFE5|        |18D019;  
                        db $15                               ;18CFE8|        |      ; $09A3,x ADC 0001
                        db $00                               ;18CFE9|        |      ;  
                        db $02                               ;18CFEA|        |      ;  
@@ -15138,7 +15138,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $01                               ;18CFEF|        |      ; Loop brightness $10 times (max)
                        db $10                               ;18CFF0|        |      ;  
                        db $07                               ;18CFF1|        |      ; Increase brightness 1 level
-                       dl Unfade from black                 ;18CFF2|        |00A0CB;  
+                       dl Unfade                            ;18CFF2|        |00A0CB;  
                        db $06                               ;18CFF5|        |      ; Delay $06 between brightness
                        db $06                               ;18CFF6|        |      ;  
                        db $02                               ;18CFF7|        |      ;  
@@ -15147,7 +15147,7 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $01                               ;18CFFA|        |      ; Loop brightness $10 times (max)
                        db $10                               ;18CFFB|        |      ;  
                        db $07                               ;18CFFC|        |      ; Decrease brightness 1 level
-                       dl Fade to black                     ;18CFFD|        |00A0DB;  
+                       dl Fade                              ;18CFFD|        |00A0DB;  
                        db $06                               ;18D000|        |      ; Delay $06 between brightness
                        db $06                               ;18D001|        |      ;  
                        db $02                               ;18D002|        |      ;  
@@ -15177,12 +15177,12 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        db $00                               ;18D017|        |      ;  
                        db $00                               ;18D018|        |      ;  
                                                             ;      |        |      ;  
-  Epilogue text setup: LDY.W Selection                      ;18D019|AC3F10  |00103F;  
+  Epilogue_text_setup: LDY.W Selection                      ;18D019|AC3F10  |00103F;  
                        LDA.W $09A3,Y                        ;18D01C|B9A309  |0009A3;  
                        ASL A                                ;18D01F|0A      |      ;  
                        TAX                                  ;18D020|AA      |      ;  
                        PHX                                  ;18D021|DA      |      ;  
-                       LDA.L Epilogue text sections,X       ;18D022|BF4ED018|18D04E;  
+                       LDA.L Tbl_Epilogue_Text,X            ;18D022|BF4ED018|18D04E;  
                        STA.B $00                            ;18D026|8500    |000000;  
                        LDA.W #$0018                         ;18D028|A91800  |      ;  
                        STA.B $02                            ;18D02B|8502    |000002;  
@@ -15190,12 +15190,12 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        JSL.L Set_Text_Parser_long           ;18D030|2288A600|00A688;  
                        LDY.W Selection                      ;18D034|AC3F10  |00103F;  
                        PLX                                  ;18D037|FA      |      ;  
-                       LDA.L Epilogue text delays,X         ;18D038|BF40D018|18D040;  
-                       STA.W Treasure type,Y                ;18D03C|99C709  |0009C7;  
+                       LDA.L Epilogue_text_delays,X         ;18D038|BF40D018|18D040;  
+                       STA.W Temp_09C7,Y                    ;18D03C|99C709  |0009C7;  
                        RTL                                  ;18D03F|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
- Epilogue text delays: dw $00F0                             ;18D040|        |      ;  
+ Epilogue_text_delays: dw $00F0                             ;18D040|        |      ;  
                        dw $00F0                             ;18D042|        |      ;  
                        dw $0168                             ;18D044|        |      ;  
                        dw $012C                             ;18D046|        |      ;  
@@ -15203,15 +15203,15 @@ FinalFight_CompressedData: db $07                               ;18CD59|        
                        dw $01A4                             ;18D04A|        |      ;  
                        dw $012C                             ;18D04C|        |      ;  
                                                             ;      |        |      ;  
-Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00D066;  
-                       dw LOOSE_OP_00D0A3                   ;18D050|        |00D0A3;  
-                       dw LOOSE_OP_00D0EC                   ;18D052|        |00D0EC;  
-                       dw LOOSE_OP_00D159                   ;18D054|        |00D159;  
-                       dw LOOSE_OP_00D196                   ;18D056|        |00D196;  
-                       dw CODE_00D1E1                       ;18D058|        |00D1E1;  
-                       dw DATA16_00D24F                     ;18D05A|        |00D24F;  
+    Tbl_Epilogue_Text: dw Epilogue_1                        ;18D04E|        |18D066;  
+                       dw Epilogue_2                        ;18D050|        |18D0A3;  
+                       dw Epilogue_3                        ;18D052|        |18D0EC;  
+                       dw Epilogue_4                        ;18D054|        |18D159;  
+                       dw Epilogue_5                        ;18D056|        |18D196;  
+                       dw Epilogue_6                        ;18D058|        |18D1E1;  
+                       dw Epilogue_7                        ;18D05A|        |18D24F;  
                                                             ;      |        |      ;  
-  Epilogue formatting: db $06                               ;18D05C|        |      ; Font color: white
+    Sub_Epilogue_Text: db $06                               ;18D05C|        |      ; Font color: white
                        db $0D                               ;18D05D|        |      ;  
                        db $0C                               ;18D05E|        |      ; idk
                        db $01                               ;18D05F|        |      ; Move cursor to (00, 06)
@@ -15222,8 +15222,8 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D064|        |      ; Text appears immediately
                        db $00                               ;18D065|        |      ; Return from subroutine
                                                             ;      |        |      ;  
-        Epilogue pt 1: db $10                               ;18D066|        |      ; Subroutine $18/D05C (Set up formatting)
-                       dl Epilogue formatting               ;18D067|        |18D05C;  
+           Epilogue_1: db $10                               ;18D066|        |      ; Subroutine $18/D05C (Set up formatting)
+                       dl Sub_Epilogue_Text                 ;18D067|        |18D05C;  
                        db $08                               ;18D06A|        |      ; Text X position: 28
                        db $28                               ;18D06B|        |      ;  
                        db "Ten years have passed"           ;18D06C|        |      ;  
@@ -15231,116 +15231,91 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $08                               ;18D082|        |      ; X position: 28
                        db $28                               ;18D083|        |      ;  
                        db "since these events to"           ;18D084|        |      ;  
-                       db "ok place."                       ;18D099|        |      ;  
-                       db $00                               ;18D0A2|        |      ; Return from subroutine
+                       db "ok place.", $00                  ;18D099|        |      ;  
                                                             ;      |        |      ;  
-        Epilogue pt 2: db $10                               ;18D0A3|        |      ; Subroutine $18/D05C
-                       db $5C                               ;18D0A4|        |      ;  
-                       db $D0                               ;18D0A5|        |      ;  
-                       db $18                               ;18D0A6|        |      ;  
+           Epilogue_2: db $10                               ;18D0A3|        |      ; Subroutine $18/D05C
+                       dl Sub_Epilogue_Text                 ;18D0A4|        |18D05C;  
                        db $08                               ;18D0A7|        |      ; X position: 14
                        db $14                               ;18D0A8|        |      ;  
                        db "The land that was bla"           ;18D0A9|        |      ;  
-                       db "ckened by conflict"              ;18D0BE|        |      ;  
-                       db $0D                               ;18D0D0|        |      ; Newline
+                       db "ckened by conflict", $0D         ;18D0BE|        |      ;  
                        db $08                               ;18D0D1|        |      ; X position: 14
                        db $14                               ;18D0D2|        |      ;  
                        db "has now turned to gre"           ;18D0D3|        |      ;  
-                       db "en."                             ;18D0E8|        |      ;  
-                       db $00                               ;18D0EB|        |      ; Return from subroutine
+                       db "en.", $00                        ;18D0E8|        |      ;  
                                                             ;      |        |      ;  
-        Epilogue pt 3: db $10                               ;18D0EC|        |      ; Subroutine $18/D05C
-                       db $5C                               ;18D0ED|        |      ;  
-                       db $D0                               ;18D0EE|        |      ;  
-                       db $18                               ;18D0EF|        |      ;  
+           Epilogue_3: db $10                               ;18D0EC|        |      ; Subroutine $18/D05C
+                       dl Sub_Epilogue_Text                 ;18D0ED|        |18D05C;  
                        db $08                               ;18D0F0|        |      ; X position: 14
                        db $14                               ;18D0F1|        |      ;  
                        db "The searing winds of "           ;18D0F2|        |      ;  
-                       db "battle have changed"             ;18D107|        |      ;  
-                       db $0D                               ;18D11A|        |      ; Newline
+                       db "battle have changed", $0D        ;18D107|        |      ;  
                        db $08                               ;18D11B|        |      ; X position: 14
                        db $14                               ;18D11C|        |      ;  
                        db "to soft breezes, and "           ;18D11D|        |      ;  
-                       db "flowing water"                   ;18D132|        |      ;  
-                       db $0D                               ;18D13F|        |      ; Newline
+                       db "flowing water", $0D              ;18D132|        |      ;  
                        db $08                               ;18D140|        |      ; X position: 14
                        db $14                               ;18D141|        |      ;  
                        db "has purified the land"           ;18D142|        |      ;  
-                       db "."                               ;18D157|        |      ;  
-                       db $00                               ;18D158|        |      ; Return from subroutine
+                       db ".", $00                          ;18D157|        |      ;  
                                                             ;      |        |      ;  
-        Epilogue pt 4: db $10                               ;18D159|        |      ; Subroutine $18/D05C
-                       db $5C                               ;18D15A|        |      ;  
-                       db $D0                               ;18D15B|        |      ;  
-                       db $18                               ;18D15C|        |      ;  
+           Epilogue_4: db $10                               ;18D159|        |      ; Subroutine $18/D05C
+                       dl Sub_Epilogue_Text                 ;18D15A|        |18D05C;  
                        db $08                               ;18D15D|        |      ; X position: 28
                        db $28                               ;18D15E|        |      ;  
                        db "A feeling of hope has"           ;18D15F|        |      ;  
-                       db " returned"                       ;18D174|        |      ;  
-                       db $0D                               ;18D17D|        |      ; Newline
+                       db " returned", $0D                  ;18D174|        |      ;  
                        db $08                               ;18D17E|        |      ; X position: 28
                        db $28                               ;18D17F|        |      ;  
                        db "to the hearts of all."           ;18D180|        |      ;  
                        db $00                               ;18D195|        |      ; Return from subroutine
                                                             ;      |        |      ;  
-        Epilogue pt 5: db $10                               ;18D196|        |      ; Subroutine: $18/D05C
-                       db $5C                               ;18D197|        |      ;  
-                       db $D0                               ;18D198|        |      ;  
-                       db $18                               ;18D199|        |      ;  
+           Epilogue_5: db $10                               ;18D196|        |      ; Subroutine: $18/D05C
+                       dl Sub_Epilogue_Text                 ;18D197|        |18D05C;  
                        db $08                               ;18D19A|        |      ; X position: 14
                        db $14                               ;18D19B|        |      ;  
                        db "The passage of time h"           ;18D19C|        |      ;  
-                       db "as washed away"                  ;18D1B1|        |      ;  
-                       db $0D                               ;18D1BF|        |      ; Newline
+                       db "as washed away", $0D             ;18D1B1|        |      ;  
                        db $08                               ;18D1C0|        |      ; X position: 14
                        db $14                               ;18D1C1|        |      ;  
                        db "the memories of that "           ;18D1C2|        |      ;  
-                       db "dark era."                       ;18D1D7|        |      ;  
-                       db $00                               ;18D1E0|        |      ; Return from subroutine
+                       db "dark era.", $00                  ;18D1D7|        |      ;  
                                                             ;      |        |      ;  
-        Epilogue pt 6: db $10                               ;18D1E1|        |      ; Subroutine: $18/D05C
-                       db $5C                               ;18D1E2|        |      ;  
-                       db $D0                               ;18D1E3|        |      ;  
-                       db $18                               ;18D1E4|        |      ;  
+           Epilogue_6: db $10                               ;18D1E1|        |      ; Subroutine: $18/D05C
+                       dl Sub_Epilogue_Text                 ;18D1E2|        |18D05C;  
                        db $08                               ;18D1E5|        |      ; X position: 1E
                        db $1E                               ;18D1E6|        |      ;  
                        db "The time of trial liv"           ;18D1E7|        |      ;  
-                       db "es on only"                      ;18D1FC|        |      ;  
-                       db $0D                               ;18D206|        |      ; Newline
+                       db "es on only", $0D                 ;18D1FC|        |      ;  
                        db $08                               ;18D207|        |      ; X position: 1E
                        db $1E                               ;18D208|        |      ;  
                        db "in the memories of on"           ;18D209|        |      ;  
-                       db "e gallant man"                   ;18D21E|        |      ;  
-                       db $0D                               ;18D22B|        |      ; Newline
+                       db "e gallant man", $0D              ;18D21E|        |      ;  
                        db $08                               ;18D22C|        |      ; X position: 1E
                        db $1E                               ;18D22D|        |      ;  
                        db "and those of his trus"           ;18D22E|        |      ;  
-                       db "ted circle."                     ;18D243|        |      ;  
-                       db $00                               ;18D24E|        |      ; RTS
+                       db "ted circle.", $00                ;18D243|        |      ;  
                                                             ;      |        |      ;  
-        Epilogue pt 7: db $10                               ;18D24F|        |      ; Subroutine: $18/D05C
-                       db $5C                               ;18D250|        |      ;  
-                       db $D0                               ;18D251|        |      ;  
-                       db $18                               ;18D252|        |      ;  
+           Epilogue_7: db $10                               ;18D24F|        |      ; Subroutine: $18/D05C
+                       dl Sub_Epilogue_Text                 ;18D250|        |18D05C;  
                        db $08                               ;18D253|        |      ; X position: 0A
                        db $0A                               ;18D254|        |      ;  
                        db "The sun shines again "           ;18D255|        |      ;  
                        db "on the land of Elemen"           ;18D26A|        |      ;  
-                       db "."                               ;18D27F|        |      ;  
-                       db $00                               ;18D280|        |      ; RTS
+                       db ".", $00                          ;18D27F|        |      ;  
                                                             ;      |        |      ;  
    EVENT_1D_(Credits): CLC                                  ;18D281|18      |      ; You win!
                        RTS                                  ;18D282|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           Teefa_joins: db $07                               ;18D283|        |      ;  
-                       dl Battle_related(1b)                ;18D284|        |009CDD;  
+                       dl Battle_related1b                  ;18D284|        |009CDD;  
                        db $10                               ;18D287|        |      ;  
                        db $07                               ;18D288|        |      ;  
                        dl Unequip character                 ;18D289|        |07AC6E;  
                        dw $0010                             ;18D28C|        |      ;  
                        db $07                               ;18D28E|        |      ;  
-                       dl Character_Join(13b)               ;18D28F|        |009CBC;  
+                       dl Character_Join_13b                ;18D28F|        |009CBC;  
                        db $10                               ;18D292|        |      ;  
                        db $09                               ;18D293|        |      ;  
                        db $00                               ;18D294|        |      ;  
@@ -15359,13 +15334,13 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D2A1|        |      ; RTL ?
                                                             ;      |        |      ;  
         Teefa_leaves?: db $07                               ;18D2A2|        |      ;  
-                       dl Battle_related(1b)                ;18D2A3|        |009CDD;  
+                       dl Battle_related1b                  ;18D2A3|        |009CDD;  
                        db $10                               ;18D2A6|        |      ;  
                        db $07                               ;18D2A7|        |      ;  
                        dl Unequip character                 ;18D2A8|        |07AC6E;  
                        dw $0010                             ;18D2AB|        |      ;  
                        db $07                               ;18D2AD|        |      ;  
-                       dl Character_Join(13b)               ;18D2AE|        |009CBC;  
+                       dl Character_Join_13b                ;18D2AE|        |009CBC;  
                        db $10                               ;18D2B1|        |      ;  
                        db $0E                               ;18D2B2|        |      ;  
                        db $00                               ;18D2B3|        |      ;  
@@ -15384,13 +15359,13 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D2C0|        |      ; RTL ?
                                                             ;      |        |      ;  
           Salah_joins: db $07                               ;18D2C1|        |      ;  
-                       dl Battle_related(1b)                ;18D2C2|        |009CDD;  
+                       dl Battle_related1b                  ;18D2C2|        |009CDD;  
                        db $10                               ;18D2C5|        |      ;  
                        db $07                               ;18D2C6|        |      ;  
                        dl Unequip character                 ;18D2C7|        |07AC6E;  
                        dw $0010                             ;18D2CA|        |      ;  
                        db $07                               ;18D2CC|        |      ;  
-                       dl Character_Join(13b)               ;18D2CD|        |009CBC;  
+                       dl Character_Join_13b                ;18D2CD|        |009CBC;  
                        db $10                               ;18D2D0|        |      ;  
                        db $0A                               ;18D2D1|        |      ;  
                        db $00                               ;18D2D2|        |      ;  
@@ -15409,13 +15384,13 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D2DF|        |      ; RTL ?
                                                             ;      |        |      ;  
         Salah_leaves?: db $07                               ;18D2E0|        |      ;  
-                       dl Battle_related(1b)                ;18D2E1|        |009CDD;  
+                       dl Battle_related1b                  ;18D2E1|        |009CDD;  
                        db $10                               ;18D2E4|        |      ;  
                        db $07                               ;18D2E5|        |      ;  
                        dl Unequip character                 ;18D2E6|        |07AC6E;  
                        dw $0010                             ;18D2E9|        |      ;  
                        db $07                               ;18D2EB|        |      ;  
-                       dl Character_Join(13b)               ;18D2EC|        |009CBC;  
+                       dl Character_Join_13b                ;18D2EC|        |009CBC;  
                        db $10                               ;18D2EF|        |      ;  
                        db $0E                               ;18D2F0|        |      ;  
                        db $00                               ;18D2F1|        |      ;  
@@ -15434,13 +15409,13 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D2FE|        |      ; RTL ?
                                                             ;      |        |      ;  
     Sub_Axs_joins_Ch3: db $07                               ;18D2FF|        |      ;  
-                       dl Battle_related(1b)                ;18D300|        |009CDD;  
+                       dl Battle_related1b                  ;18D300|        |009CDD;  
                        db $12                               ;18D303|        |      ;  
                        db $07                               ;18D304|        |      ; Unequip Axs (12)
                        dl Unequip character                 ;18D305|        |07AC6E;  
                        dw $0012                             ;18D308|        |      ;  
                        db $07                               ;18D30A|        |      ; Axs joins (12)
-                       dl Character_Join(13b)               ;18D30B|        |009CBC;  
+                       dl Character_Join_13b                ;18D30B|        |009CBC;  
                        db $12                               ;18D30E|        |      ;  
                        db $0C                               ;18D30F|        |      ;  
                        db $00                               ;18D310|        |      ;  
@@ -15459,14 +15434,14 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D31D|        |      ; RTL
                                                             ;      |        |      ;  
       Sub_Unequip_Axs: db $07                               ;18D31E|        |      ;  
-                       dl Battle_related(1b)                ;18D31F|        |009CDD;  
+                       dl Battle_related1b                  ;18D31F|        |009CDD;  
                        db $12                               ;18D322|        |      ;  
                        db $07                               ;18D323|        |      ; Unequip Axs again
                        dl Unequip character                 ;18D324|        |07AC6E;  
                        dw $0012                             ;18D327|        |      ;  
                                                             ;      |        |      ;  
       Sub_Axs_leaves?: db $07                               ;18D329|        |      ;  
-                       dl Character_Join(13b)               ;18D32A|        |009CBC;  
+                       dl Character_Join_13b                ;18D32A|        |009CBC;  
                        db $12                               ;18D32D|        |      ;  
                        db $0F                               ;18D32E|        |      ;  
                        db $00                               ;18D32F|        |      ;  
@@ -15485,13 +15460,13 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D33C|        |      ;  
                                                             ;      |        |      ;  
          Darwin_joins: db $07                               ;18D33D|        |      ;  
-                       dl Battle_related(1b)                ;18D33E|        |009CDD;  
+                       dl Battle_related1b                  ;18D33E|        |009CDD;  
                        db $12                               ;18D341|        |      ;  
                        db $07                               ;18D342|        |      ;  
                        dl Unequip character                 ;18D343|        |07AC6E;  
                        dw $0012                             ;18D346|        |      ;  
                        db $07                               ;18D348|        |      ;  
-                       dl Character_Join(13b)               ;18D349|        |009CBC;  
+                       dl Character_Join_13b                ;18D349|        |009CBC;  
                        db $12                               ;18D34C|        |      ;  
                        db $0B                               ;18D34D|        |      ;  
                        db $00                               ;18D34E|        |      ;  
@@ -15510,13 +15485,13 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D35B|        |      ;  
                                                             ;      |        |      ;  
        Darwin_leaves?: db $07                               ;18D35C|        |      ;  
-                       dl Battle_related(1b)                ;18D35D|        |009CDD;  
+                       dl Battle_related1b                  ;18D35D|        |009CDD;  
                        db $12                               ;18D360|        |      ;  
                        db $07                               ;18D361|        |      ;  
                        dl Unequip character                 ;18D362|        |07AC6E;  
                        dw $0012                             ;18D365|        |      ;  
                        db $07                               ;18D367|        |      ;  
-                       dl Character_Join(13b)               ;18D368|        |009CBC;  
+                       dl Character_Join_13b                ;18D368|        |009CBC;  
                        db $12                               ;18D36B|        |      ;  
                        db $0F                               ;18D36C|        |      ;  
                        db $00                               ;18D36D|        |      ;  
@@ -15535,7 +15510,7 @@ Epilogue text sections: dw CODE_00D066                       ;18D04E|        |00
                        db $1C                               ;18D37A|        |      ;  
                                                             ;      |        |      ;  
 Fanfare_+_Refresh_Music: db $07                               ;18D37B|        |      ;  
-                       dl Sub: Get/Set Music                ;18D37C|        |009C3C;  
+                       dl GetSet_Music                      ;18D37C|        |009C3C;  
                        db $54                               ;18D37F|        |      ;  
                        db $06                               ;18D380|        |      ;  
                        db $F0                               ;18D381|        |      ;  
@@ -15567,14 +15542,14 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        dw $1893                             ;18D3A0|        |001893;  
                        db $06                               ;18D3A2|        |      ;  
                        db $07                               ;18D3A3|        |      ;  
-                       dl Set RGB(3b)                       ;18D3A4|        |009F83;  
+                       dl Set_RGB_3b                        ;18D3A4|        |009F83;  
                        db $00                               ;18D3A7|        |      ;  
                        db $00                               ;18D3A8|        |      ;  
                        db $00                               ;18D3A9|        |      ;  
                        db $01                               ;18D3AA|        |      ;  
                        db $08                               ;18D3AB|        |      ;  
                        db $07                               ;18D3AC|        |      ;  
-                       dl Add_RGB(3b)                       ;18D3AD|        |009FE2;  
+                       dl Add_RGB_3b                        ;18D3AD|        |009FE2;  
                        db $04                               ;18D3B0|        |      ;  
                        db $04                               ;18D3B1|        |      ;  
                        db $04                               ;18D3B2|        |      ;  
@@ -15584,7 +15559,7 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $01                               ;18D3B6|        |      ;  
                        db $08                               ;18D3B7|        |      ;  
                        db $07                               ;18D3B8|        |      ;  
-                       dl Add_RGB(3b)                       ;18D3B9|        |009FE2;  
+                       dl Add_RGB_3b                        ;18D3B9|        |009FE2;  
                        db $FC                               ;18D3BC|        |      ;  
                        db $FC                               ;18D3BD|        |      ;  
                        db $FC                               ;18D3BE|        |      ;  
@@ -15594,11 +15569,11 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $1C                               ;18D3C2|        |      ; Return
                                                             ;      |        |      ;  
        Sub_Check_11C1: db $07                               ;18D3C3|        |      ; Loop until in a battle
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18D3C4|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18D3C4|        |00A051;  
                        dw $11C1                             ;18D3C7|        |0011C1;  
                        dw $0002                             ;18D3C9|        |      ;  
                        db $07                               ;18D3CB|        |      ; Loop until not in a battle
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18D3CC|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18D3CC|        |00A051;  
                        dw $11C1                             ;18D3CF|        |0011C1;  
                        dw $0000                             ;18D3D1|        |      ;  
                        db $1C                               ;18D3D3|        |      ; Return
@@ -15635,18 +15610,18 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
    Sub_Turn_off_sound: db $01                               ;18D3F6|        |      ; Loop $20
                        db $20                               ;18D3F7|        |      ;  
                        db $07                               ;18D3F8|        |      ; Sound Stuff (F8)
-                       dl Sound stuff (1b)                  ;18D3F9|        |009C19;  
+                       dl Sound_stuff_1b                    ;18D3F9|        |009C19;  
                        db $F8                               ;18D3FC|        |      ;  
                        db $06                               ;18D3FD|        |      ; Delay $01
                        db $01                               ;18D3FE|        |      ;  
                        db $02                               ;18D3FF|        |      ; End loop
                        db $07                               ;18D400|        |      ;  
-                       dl Sub: Get/Set Music                ;18D401|        |009C3C;  
+                       dl GetSet_Music                      ;18D401|        |009C3C;  
                        db $00                               ;18D404|        |      ;  
                        db $06                               ;18D405|        |      ;  
                        db $01                               ;18D406|        |      ;  
                        db $07                               ;18D407|        |      ;  
-                       dl Sound byte (1b)                   ;18D408|        |009C0A;  
+                       dl Sound_byte_1b                     ;18D408|        |009C0A;  
                        db $FF                               ;18D40B|        |      ;  
                        db $06                               ;18D40C|        |      ;  
                        db $01                               ;18D40D|        |      ;  
@@ -15663,14 +15638,14 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $B6                               ;18D419|        |      ;  
                                                             ;      |        |      ;  
           Sub_FadeOut: db $07                               ;18D41A|        |      ;  
-                       dl Set RGB(3b)                       ;18D41B|        |009F83;  
+                       dl Set_RGB_3b                        ;18D41B|        |009F83;  
                        db $00                               ;18D41E|        |      ;  
                        db $00                               ;18D41F|        |      ;  
                        db $00                               ;18D420|        |      ;  
                        db $01                               ;18D421|        |      ; Loop $1F
                        db $1F                               ;18D422|        |      ;  
                        db $07                               ;18D423|        |      ; RGB add 1,1,1
-                       dl Add_RGB(3b)                       ;18D424|        |009FE2;  
+                       dl Add_RGB_3b                        ;18D424|        |009FE2;  
                        db $01                               ;18D427|        |      ;  
                        db $01                               ;18D428|        |      ;  
                        db $01                               ;18D429|        |      ;  
@@ -15690,14 +15665,14 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $B6                               ;18D438|        |      ;  
                                                             ;      |        |      ;  
          DATA8_18D439: db $07                               ;18D439|        |      ;  
-                       dl Set RGB(3b)                       ;18D43A|        |009F83;  
+                       dl Set_RGB_3b                        ;18D43A|        |009F83;  
                        db $1F                               ;18D43D|        |      ;  
                        db $1F                               ;18D43E|        |      ;  
                        db $1F                               ;18D43F|        |      ;  
                        db $01                               ;18D440|        |      ; Loop $1F
                        db $1F                               ;18D441|        |      ;  
                        db $07                               ;18D442|        |      ;  
-                       dl Add_RGB(3b)                       ;18D443|        |009FE2;  
+                       dl Add_RGB_3b                        ;18D443|        |009FE2;  
                        db $FF                               ;18D446|        |      ;  
                        db $FF                               ;18D447|        |      ;  
                        db $FF                               ;18D448|        |      ;  
@@ -15712,7 +15687,7 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $06                               ;18D452|        |      ;  
                        db $01                               ;18D453|        |      ;  
                        db $07                               ;18D454|        |      ;  
-                       dl 8698 setup (3b)                   ;18D455|        |009D07;  
+                       dl 8698_setup_3b                     ;18D455|        |009D07;  
                        dl $9D07_data                        ;18D458|        |01B52F;  
                        db $1C                               ;18D45B|        |      ; Return
                                                             ;      |        |      ;  
@@ -15723,7 +15698,7 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        dw $0001                             ;18D461|        |      ;  
                                                             ;      |        |      ;  
          Unknown_join: db $07                               ;18D463|        |      ;  
-                       dl Character_Join(13b)               ;18D464|        |009CBC;  
+                       dl Character_Join_13b                ;18D464|        |009CBC;  
                        db $04                               ;18D467|        |      ;  
                        db $13                               ;18D468|        |      ;  
                        db $00                               ;18D469|        |      ;  
@@ -15740,7 +15715,7 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $06                               ;18D474|        |      ;  
                        db $02                               ;18D475|        |      ;  
                        db $07                               ;18D476|        |      ;  
-                       dl 8698 setup (3b)                   ;18D477|        |009D07;  
+                       dl 8698_setup_3b                     ;18D477|        |009D07;  
                        dl $9D07_data2                       ;18D47A|        |01B674;  
                        db $06                               ;18D47D|        |      ;  
                        db $05                               ;18D47E|        |      ;  
@@ -15750,14 +15725,14 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        dw $1893                             ;18D481|        |001893;  
                        db $22                               ;18D483|        |      ;  
                        db $07                               ;18D484|        |      ;  
-                       dl Set RGB(3b)                       ;18D485|        |009F83;  
+                       dl Set_RGB_3b                        ;18D485|        |009F83;  
                        db $00                               ;18D488|        |      ;  
                        db $00                               ;18D489|        |      ;  
                        db $00                               ;18D48A|        |      ;  
                        db $01                               ;18D48B|        |      ; 01 04
                        db $04                               ;18D48C|        |      ;  
                        db $07                               ;18D48D|        |      ;  
-                       dl Add_RGB(3b)                       ;18D48E|        |009FE2;  
+                       dl Add_RGB_3b                        ;18D48E|        |009FE2;  
                        db $03                               ;18D491|        |      ;  
                        db $06                               ;18D492|        |      ;  
                        db $01                               ;18D493|        |      ;  
@@ -15767,7 +15742,7 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $01                               ;18D497|        |      ; 01 04
                        db $04                               ;18D498|        |      ;  
                        db $07                               ;18D499|        |      ;  
-                       dl Add_RGB(3b)                       ;18D49A|        |009FE2;  
+                       dl Add_RGB_3b                        ;18D49A|        |009FE2;  
                        db $FD                               ;18D49D|        |      ;  
                        db $FA                               ;18D49E|        |      ;  
                        db $FF                               ;18D49F|        |      ;  
@@ -15777,7 +15752,7 @@ Fanfare_+_Refresh_Music: db $07                               ;18D37B|        | 
                        db $1C                               ;18D4A3|        |      ; Return
                                                             ;      |        |      ;  
       Sub_Mock_Battle: db $07                               ;18D4A4|        |      ; Play Conflict SFX
-                       dl Sub: Get/Set Music                ;18D4A5|        |009C3C;  
+                       dl GetSet_Music                      ;18D4A5|        |009C3C;  
                        db $4F                               ;18D4A8|        |      ;  
                                                             ;      |        |      ;  
       Battle_Poses_On: db $16                               ;18D4A9|        |      ; Turn on battle poses
@@ -15803,7 +15778,7 @@ ASM_Make_Animation_Loop: db $06                               ;18D4B9|        | 
                        db $1C                               ;18D4C2|        |      ;  
                                                             ;      |        |      ;  
   Loop_until_$1091=FF: db $07                               ;18D4C3|        |      ;  
-                       dl Loop_til_RAM_Equals(2b)(2b)       ;18D4C4|        |00A051;  
+                       dl Loop_til_RAM_is_val_2b_2b         ;18D4C4|        |00A051;  
                        dw $1091                             ;18D4C7|        |      ;  
                        dw $00FF                             ;18D4C9|        |      ;  
                        db $1C                               ;18D4CB|        |      ;  
@@ -15812,18 +15787,18 @@ ASM_Make_Animation_Loop: db $06                               ;18D4B9|        | 
                        STA.W Portrait_offset                ;18D4CF|8D8F10  |00108F;  
                                                             ;      |        |      ;  
 Load_Event_Text_NoClear: STZ.W $1091                          ;18D4D2|9C9110  |001091;  
-                       JML.L Read (3b) into text parser     ;18D4D5|5CACA000|00A0AC;  
+                       JML.L Setup_Text_Parser_3b           ;18D4D5|5CACA000|00A0AC;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           Check_Party: LDX.W #$0000                         ;18D4D9|A20000  |      ; ?? Called before a fight and many other places
                                                             ;      |        |      ;  
-          CODE_18D4DC: LDA.W Battle Enemy ID,X              ;18D4DC|BD4306  |000643;  
+          CODE_18D4DC: LDA.W Battle_Enemy_ID,X              ;18D4DC|BD4306  |000643;  
                        CMP.W #$0012                         ;18D4DF|C91200  |      ;  
                        BNE CODE_18D4EF                      ;18D4E2|D00B    |18D4EF;  
                        CPX.W Selection                      ;18D4E4|EC3F10  |00103F;  
                        BEQ CODE_18D4EF                      ;18D4E7|F006    |18D4EF;  
                        PHX                                  ;18D4E9|DA      |      ;  
-                       JSL.L A buncha stuff_far             ;18D4EA|225C9900|00995C;  
+                       JSL.L A_buncha_stuff_far             ;18D4EA|225C9900|00995C;  
                        PLX                                  ;18D4EE|FA      |      ;  
                                                             ;      |        |      ;  
           CODE_18D4EF: INX                                  ;18D4EF|E8      |      ;  
@@ -15833,11 +15808,11 @@ Load_Event_Text_NoClear: STZ.W $1091                          ;18D4D2|9C9110  |0
                        RTL                                  ;18D4F6|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|009B07; Loads gfx. Well, loads the pointer to the data/pointer to the compressed data
+Compressed_Setup(3b)(2b): JSL.L GetEventCode_2b_far            ;18D4F7|22079B00|009B07; Loads gfx. Well, loads the pointer to the data/pointer to the compressed data
                        PHA                                  ;18D4FB|48      |      ;  
-                       JSL.L ReadNextScript(1b)_far         ;18D4FC|22F89A00|009AF8; Save long ptr
+                       JSL.L GetEventCode_1b_far            ;18D4FC|22F89A00|009AF8; Save long ptr
                        TAX                                  ;18D500|AA      |      ;  
-                       JSL.L ReadNextScript(2b)_far         ;18D501|22079B00|009B07;  
+                       JSL.L GetEventCode_2b_far            ;18D501|22079B00|009B07;  
                        TAY                                  ;18D505|A8      |      ;  
                        PLA                                  ;18D506|68      |      ;  
                        JSL.L DC_Setup                       ;18D507|22258318|188325;  
@@ -15859,16 +15834,16 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
    Set_WindowMask(4b): SEP #$20                             ;18D51D|E220    |      ;  
                        LDY.W #$0001                         ;18D51F|A00100  |      ;  
                        LDA.B [$10],Y                        ;18D522|B710    |000010;  
-                       STA.W Main screen window mask        ;18D524|8D2E21  |00212E;  
+                       STA.W Main_scr_Winmask               ;18D524|8D2E21  |00212E;  
                        INY                                  ;18D527|C8      |      ;  
                        LDA.B [$10],Y                        ;18D528|B710    |000010;  
-                       STA.W BG1+2 Window Mask Settings     ;18D52A|8D2321  |002123;  
+                       STA.W BG12_Winmask                   ;18D52A|8D2321  |002123;  
                        INY                                  ;18D52D|C8      |      ;  
                        LDA.B [$10],Y                        ;18D52E|B710    |000010;  
-                       STA.W BG3+4 Window Mask Settings     ;18D530|8D2421  |002124;  
+                       STA.W BG34_Winmask                   ;18D530|8D2421  |002124;  
                        INY                                  ;18D533|C8      |      ;  
                        LDA.B [$10],Y                        ;18D534|B710    |000010;  
-                       STA.W OBJ/Color Window Mask Settings ;18D536|8D2521  |002125;  
+                       STA.W OBJcolor_Winmask               ;18D536|8D2521  |002125;  
                        REP #$20                             ;18D539|C220    |      ;  
                        LDA.B $10                            ;18D53B|A510    |000010;  
                        CLC                                  ;18D53D|18      |      ;  
@@ -15878,7 +15853,7 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
      Clear_Winmask_Lo: SEP #$20                             ;18D544|E220    |      ;  
-                       STZ.W Main screen window mask        ;18D546|9C2E21  |00212E;  
+                       STZ.W Main_scr_Winmask               ;18D546|9C2E21  |00212E;  
                        REP #$20                             ;18D549|C220    |      ;  
                        RTL                                  ;18D54B|6B      |      ;  
                                                             ;      |        |      ;  
@@ -15890,7 +15865,7 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
                        TAX                                  ;18D554|AA      |      ;  
                        INC.B $10                            ;18D555|E610    |000010;  
                        LDA.B [$10]                          ;18D557|A710    |000010; (2b) Load $2126 position
-                       STA.W Window 1 left position,X       ;18D559|9D2621  |002126; Store position + offset
+                       STA.W Win1_left,X                    ;18D559|9D2621  |002126; Store position + offset
                        INC.B $10                            ;18D55C|E610    |000010;  
                        RTL                                  ;18D55E|6B      |      ;  
                                                             ;      |        |      ;  
@@ -15898,7 +15873,7 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
         Travel subasm: db $01                               ;18D55F|        |      ; 01: Loop $10 times
                        db $10                               ;18D560|        |      ;  
                        db $07                               ;18D561|        |      ; 07: Decrease brightness
-                       dl Fade to black                     ;18D562|        |00A0DB;  
+                       dl Fade                              ;18D562|        |00A0DB;  
                        db $06                               ;18D565|        |      ; 06: Wait 1F
                        db $01                               ;18D566|        |      ;  
                        db $02                               ;18D567|        |      ; 02: End loop
@@ -15907,9 +15882,9 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
                        db $06                               ;18D56C|        |      ; 06: Wait 1F
                        db $01                               ;18D56D|        |      ;  
                        db $07                               ;18D56E|        |      ; Screen stuff
-                       dl Screen display or80_far           ;18D56F|        |008177;  
+                       dl Display_or_80_far                 ;18D56F|        |008177;  
                        db $07                               ;18D572|        |      ; Do stuff
-                       dl Do stuff (4b)                     ;18D573|        |009D93;  
+                       dl Do_stuff_1b_2b_1b                 ;18D573|        |009D93;  
                        db $00                               ;18D576|        |      ;  
                        dw $6000                             ;18D577|        |      ;  
                        db $00                               ;18D579|        |      ;  
@@ -15918,26 +15893,26 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
                        db $01                               ;18D57E|        |      ;  
                                                             ;      |        |      ;  
            Setup BG1?: db $07                               ;18D57F|        |      ; Do stuff (6b)
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18D580|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18D580|        |009D6F;  
                        db $00                               ;18D583|        |      ;  
                        db $03                               ;18D584|        |      ;  
                        dw $1000                             ;18D585|        |      ;  
                        dw $3000                             ;18D587|        |      ;  
                                                             ;      |        |      ;  
            Setup BG2?: db $07                               ;18D589|        |      ;  
-                       dl Do stuff (1b)(1b)(2b)(2b)         ;18D58A|        |009D6F;  
+                       dl Do_stuff_1b_1b_2b_2b              ;18D58A|        |009D6F;  
                        db $01                               ;18D58D|        |      ;  
                        db $03                               ;18D58E|        |      ;  
                        dw $1000                             ;18D58F|        |      ;  
                        dw $4000                             ;18D591|        |      ;  
                        db $07                               ;18D593|        |      ; Screen stuff
-                       dl Main screen AND (1b)              ;18D594|        |009DB6;  
+                       dl MainScr_AND_1b                    ;18D594|        |009DB6;  
                        db $1F                               ;18D597|        |      ;  
                        db $07                               ;18D598|        |      ; Screen stuff
-                       dl Main screen OR (1b)               ;18D599|        |009DA8;  
+                       dl MainScr_OR_1b                     ;18D599|        |009DA8;  
                        db $13                               ;18D59C|        |      ;  
                        db $07                               ;18D59D|        |      ; Decomp
-                       dl Decomp setup (3b)                 ;18D59E|        |009CF9;  
+                       dl Decomp_setup_3b                   ;18D59E|        |009CF9;  
                        dl Travel_Decomp_Setup               ;18D5A1|        |18D666;  
                                                             ;      |        |      ;  
    Chapter based shit: db $07                               ;18D5A4|        |      ;  
@@ -15952,11 +15927,11 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
    World map position: db $07                               ;18D5B1|        |      ;  
                        dl World map Position                ;18D5B2|        |18D6A8;  
                        db $07                               ;18D5B5|        |      ; Screen display
-                       dl Screen display_far                ;18D5B6|        |00818B;  
+                       dl Set_Display_far                   ;18D5B6|        |00818B;  
                        db $1B                               ;18D5B9|        |      ; Play walking sounds
                        dw SPC stuff                         ;18D5BA|        |18D64D;  
                        db $07                               ;18D5BC|        |      ; Play Journey music
-                       dl Sub: Get/Set Music                ;18D5BD|        |009C3C;  
+                       dl GetSet_Music                      ;18D5BD|        |009C3C;  
                        db $49                               ;18D5C0|        |      ;  
                        db $06                               ;18D5C1|        |      ; 06: Wait 1F
                        db $01                               ;18D5C2|        |      ;  
@@ -15966,7 +15941,7 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
                        db $01                               ;18D5C8|        |      ; 01: Loop $10 times
                        db $10                               ;18D5C9|        |      ;  
                        db $07                               ;18D5CA|        |      ; Unfade
-                       dl Unfade from black                 ;18D5CB|        |00A0CB;  
+                       dl Unfade                            ;18D5CB|        |00A0CB;  
                        db $06                               ;18D5CE|        |      ; 06: Delay 2f
                        db $02                               ;18D5CF|        |      ;  
                        db $02                               ;18D5D0|        |      ; 02: End loop
@@ -15982,7 +15957,7 @@ Compressed_Setup(3b)(2b): JSL.L ReadNextScript(2b)_far         ;18D4F7|22079B00|
                        db $1E                               ;18D5D9|        |      ;  
                        dw $0000                             ;18D5DA|        |      ;  
                        db $07                               ;18D5DC|        |      ; Check for A input
-                       dl Check for button press            ;18D5DD|        |00A022;  
+                       dl WasBtnPressedX_2b                 ;18D5DD|        |00A022;  
                        dw $0080                             ;18D5E0|        |      ;  
                        db $0C                               ;18D5E2|        |      ; If true, fade out travel screen
                        dw Fade out travel screen            ;18D5E3|        |18D5ED;  
@@ -16002,7 +15977,7 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
                        db $01                               ;18D5F5|        |      ;  
                        db $10                               ;18D5F6|        |      ;  
                        db $07                               ;18D5F7|        |      ;  
-                       dl Fade to black                     ;18D5F8|        |00A0DB;  
+                       dl Fade                              ;18D5F8|        |00A0DB;  
                        db $06                               ;18D5FB|        |      ;  
                        db $02                               ;18D5FC|        |      ;  
                        db $02                               ;18D5FD|        |      ;  
@@ -16013,7 +15988,7 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
    Travel sprite data: db $06                               ;18D602|        |      ; 06: Delay 5f
                        db $05                               ;18D603|        |      ;  
                        db $07                               ;18D604|        |      ; Reads a LOT of bytes
-                       dl Load_Sprite(14b)                  ;18D605|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18D605|        |009CAE;  
                        db $08                               ;18D608|        |      ;  
                        db $24                               ;18D609|        |      ;  
                        db $17                               ;18D60A|        |      ;  
@@ -16031,7 +16006,7 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
                        db $06                               ;18D616|        |      ; Delay $40
                        db $40                               ;18D617|        |      ;  
                        db $07                               ;18D618|        |      ;  
-                       dl Load_Sprite(14b)                  ;18D619|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18D619|        |009CAE;  
                        db $08                               ;18D61C|        |      ;  
                        db $24                               ;18D61D|        |      ;  
                        db $17                               ;18D61E|        |      ;  
@@ -16049,7 +16024,7 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
                        db $06                               ;18D62A|        |      ; Delay $40
                        db $40                               ;18D62B|        |      ;  
                        db $07                               ;18D62C|        |      ;  
-                       dl Load_Sprite(14b)                  ;18D62D|        |009CAE;  
+                       dl Load_Sprite_14b                   ;18D62D|        |009CAE;  
                        db $08                               ;18D630|        |      ;  
                        db $24                               ;18D631|        |      ;  
                        db $17                               ;18D632|        |      ;  
@@ -16067,7 +16042,7 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
                        db $0A                               ;18D63E|        |      ; End section?
                                                             ;      |        |      ;  
   Play walking sounds: db $07                               ;18D63F|        |      ; Play Walking SFX
-                       dl Sub: Get/Set SFX                  ;18D640|        |009C44;  
+                       dl GetSet_SFX                        ;18D640|        |009C44;  
                        db $2E                               ;18D643|        |      ;  
                        db $06                               ;18D644|        |      ; 06: Delay 0F
                        db $0F                               ;18D645|        |      ;  
@@ -16080,18 +16055,18 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
             SPC stuff: db $01                               ;18D64D|        |      ; Loop $20 times
                        db $20                               ;18D64E|        |      ;  
                        db $07                               ;18D64F|        |      ;  
-                       dl Sound stuff (1b)                  ;18D650|        |009C19;  
+                       dl Sound_stuff_1b                    ;18D650|        |009C19;  
                        db $F8                               ;18D653|        |      ;  
                        db $06                               ;18D654|        |      ; 06: Wait 1F
                        db $01                               ;18D655|        |      ;  
                        db $02                               ;18D656|        |      ; Loop end
                        db $07                               ;18D657|        |      ; Stop music
-                       dl Sub: Get/Set Music                ;18D658|        |009C3C;  
+                       dl GetSet_Music                      ;18D658|        |009C3C;  
                        db $00                               ;18D65B|        |      ;  
                        db $06                               ;18D65C|        |      ;  
                        db $01                               ;18D65D|        |      ;  
                        db $07                               ;18D65E|        |      ; Sound stuff
-                       dl Sound byte (1b)                   ;18D65F|        |009C0A;  
+                       dl Sound_byte_1b                     ;18D65F|        |009C0A;  
                        db $FF                               ;18D662|        |      ;  
                        db $06                               ;18D663|        |      ;  
                        db $01                               ;18D664|        |      ;  
@@ -16131,11 +16106,11 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
                                                             ;      |        |      ;  
           CODE_18D68F: LDX.W #$0000                         ;18D68F|A20000  |      ;  
                                                             ;      |        |      ;  
-          CODE_18D692: LDA.W Battle Enemy ID,X              ;18D692|BD4306  |000643;  
+          CODE_18D692: LDA.W Battle_Enemy_ID,X              ;18D692|BD4306  |000643;  
                        CMP.W #$0017                         ;18D695|C91700  |      ;  
                        BNE CODE_18D6A0                      ;18D698|D006    |18D6A0;  
                        PHX                                  ;18D69A|DA      |      ;  
-                       JSL.L A buncha stuff_far             ;18D69B|225C9900|00995C;  
+                       JSL.L A_buncha_stuff_far             ;18D69B|225C9900|00995C;  
                        PLX                                  ;18D69F|FA      |      ;  
                                                             ;      |        |      ;  
           CODE_18D6A0: INX                                  ;18D6A0|E8      |      ;  
@@ -16145,7 +16120,7 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
                        RTL                                  ;18D6A7|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-   World map Position: LDA.W Chapter #                      ;18D6A8|ADCD18  |0018CD; Moves the map so characters are centered
+   World map Position: LDA.W Chapter_num                    ;18D6A8|ADCD18  |0018CD; Moves the map so characters are centered
                        DEC A                                ;18D6AB|3A      |      ;  
                        ASL A                                ;18D6AC|0A      |      ;  
                        TAX                                  ;18D6AD|AA      |      ;  
@@ -16170,7 +16145,7 @@ Fade out travel screen: db $14                               ;18D5ED|        |  
                        dw $0020                             ;18D6D3|        |      ;  
                        dw $0058                             ;18D6D5|        |      ;  
                                                             ;      |        |      ;  
-Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  |0018CD;  
+Transfers a bunch of shit: LDA.W Chapter_num                    ;18D6D7|ADCD18  |0018CD;  
                        CMP.W #$0005                         ;18D6DA|C90500  |      ;  
                        BEQ CODE_18D6E7                      ;18D6DD|F008    |18D6E7;  
                        LDX.W #$7DC8                         ;18D6DF|A2C87D  |      ;  
@@ -16516,7 +16491,7 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
   Loads travel chibis: LDA.W #$8000                         ;18D83D|A90080  |      ;  
                        STA.W $190F                          ;18D840|8D0F19  |00190F;  
                        LDA.W #$0520                         ;18D843|A92005  |      ;  
-                       STA.W Sprites end?                   ;18D846|8D1119  |001911;  
+                       STA.W Sprites_end                    ;18D846|8D1119  |001911;  
                        LDA.W #$0000                         ;18D849|A90000  |      ; Load slot 0
                        JSL.L Get character offset_far       ;18D84C|22F1B007|07B0F1; Get character ID 0
                        JSR.W Loads player chibi             ;18D850|20AED8  |18D8AE; Get their chibi
@@ -16551,7 +16526,7 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
                        BCC CODE_18D879                      ;18D89B|90DC    |18D879;  
                                                             ;      |        |      ;  
           CODE_18D89D: LDA.W #$D8A5                         ;18D89D|A9A5D8  |      ;  
-                       JSL.L Decomp_From_RAM?               ;18D8A0|22FE8400|0084FE;  
+                       JSL.L RAM_Decomp                     ;18D8A0|22FE8400|0084FE;  
                        RTL                                  ;18D8A4|6B      |      ;  
                                                             ;      |        |      ;  
                        db $00                               ;18D8A5|        |      ;  
@@ -16565,7 +16540,7 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
                        db $FF                               ;18D8AD|        |5BBDAA;  
                                                             ;      |        |      ;  
    Loads player chibi: TAX                                  ;18D8AE|AA      |      ; Runs on the Travel screen
-                       LDA.W Current party,X                ;18D8AF|BD5B15  |00155B;  
+                       LDA.W Curr_party,X                   ;18D8AF|BD5B15  |00155B;  
                        CMP.W #$0000                         ;18D8B2|C90000  |      ;  
                        BEQ CODE_18D8C1                      ;18D8B5|F00A    |18D8C1;  
                        CMP.W #$0005                         ;18D8B7|C90500  |      ;  
@@ -16595,15 +16570,15 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
                        PLX                                  ;18D8E7|FA      |      ;  
                        LDA.L DATA8_18D927,X                 ;18D8E8|BF27D918|18D927;  
                        TAX                                  ;18D8EC|AA      |      ;  
-                       LDY.W Sprites end?                   ;18D8ED|AC1119  |001911;  
+                       LDY.W Sprites_end                    ;18D8ED|AC1119  |001911;  
                        LDA.W #$001F                         ;18D8F0|A91F00  |      ;  
                        PHB                                  ;18D8F3|8B      |      ;  
                        MVN $00,$18                          ;18D8F4|540018  |      ;  
                        PLB                                  ;18D8F7|AB      |      ;  
-                       LDA.W Sprites end?                   ;18D8F8|AD1119  |001911;  
+                       LDA.W Sprites_end                    ;18D8F8|AD1119  |001911;  
                        CLC                                  ;18D8FB|18      |      ;  
                        ADC.W #$0020                         ;18D8FC|692000  |      ;  
-                       STA.W Sprites end?                   ;18D8FF|8D1119  |001911;  
+                       STA.W Sprites_end                    ;18D8FF|8D1119  |001911;  
                                                             ;      |        |      ;  
           CODE_18D902: RTS                                  ;18D902|60      |      ;  
                                                             ;      |        |      ;  
@@ -16850,12 +16825,12 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
                        db $D9                               ;18D9EF|        |000064;  
                        db $64                               ;18D9F0|        |000000;  
                        db $00                               ;18D9F1|        |      ;  
-                       LDA.W Current map                    ;18D9F2|AD7315  |001573;  
+                       LDA.W Curr_map                       ;18D9F2|AD7315  |001573;  
                        CMP.W #$0100                         ;18D9F5|C90001  |      ;  
                        BCC CODE_18D9FC                      ;18D9F8|9002    |18D9FC;  
                        INC.B $00                            ;18D9FA|E600    |000000;  
                                                             ;      |        |      ;  
-          CODE_18D9FC: LDA.W Chapter #                      ;18D9FC|ADCD18  |0018CD;  
+          CODE_18D9FC: LDA.W Chapter_num                    ;18D9FC|ADCD18  |0018CD;  
                        DEC A                                ;18D9FF|3A      |      ;  
                        ASL A                                ;18DA00|0A      |      ;  
                        ORA.B $00                            ;18DA01|0500    |000000;  
@@ -16878,7 +16853,7 @@ Transfers a bunch of shit: LDA.W Chapter #                      ;18D6D7|ADCD18  
                        STA.W $08EF,Y                        ;18DA33|99EF08  |0008EF;  
                        LDA.L UNREACH_18DAC0,X               ;18DA36|BFC0DA18|18DAC0;  
                        STA.W $0883,Y                        ;18DA3A|998308  |000883;  
-                       LDY.W Function results               ;18DA3D|AC4110  |001041;  
+                       LDY.W Function_results               ;18DA3D|AC4110  |001041;  
                        LDA.L UNREACH_18DAD4,X               ;18DA40|BFD4DA18|18DAD4;  
                        STA.W Anim_Loopvar,Y                 ;18DA44|999F0B  |000B9F;  
                        RTL                                  ;18DA47|6B      |      ;  

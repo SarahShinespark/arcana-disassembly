@@ -54,7 +54,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $00                               ;058046|        |      ;  
                        db $00                               ;058047|        |      ;  
                        db $07                               ;058048|        |      ; Transfers ROM to RAM
-                       dl Transfer_Data(3b)(1b)(2b)         ;058049|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058049|        |00A140;  
                        dl Data_3CF4A                        ;05804C|        |0D922A; 0D/922A -> Source
                        db $40                               ;05804F|        |      ; $0420+80 -> Target
                        dw $0020                             ;058050|        |      ; 20 -> Transfer 20 bytes
@@ -124,7 +124,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $04                               ;0580B6|        |      ;  
                        dl Some_Death_Check?                 ;0580B7|        |058449;  
                        db $07                               ;0580BA|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0580BB|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0580BB|        |00A035;  
                        dl DATA8_0E8191                      ;0580BE|        |0E8191;  
                        dl $7E8000                           ;0580C1|        |7E8000;  
                        db $06                               ;0580C4|        |      ;  
@@ -140,7 +140,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $04                               ;0580D1|        |      ;  
                        dl Some_Death_Check?                 ;0580D2|        |058449;  
                        db $07                               ;0580D5|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0580D6|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0580D6|        |00A035;  
                        dl DATA8_0E8551                      ;0580D9|        |0E8551;  
                        dl $7E8000                           ;0580DC|        |7E8000;  
                        db $06                               ;0580DF|        |      ;  
@@ -178,13 +178,13 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;05810B|        |      ;  
                        db $0A                               ;05810C|        |      ;  
                        db $07                               ;05810D|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;05810E|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;05810E|        |00A035;  
                        dl DATA8_0E8C1F                      ;058111|        |0E8C1F;  
                        dl $7E8000                           ;058114|        |7E8000;  
                        db $07                               ;058117|        |      ;  
                        dl RAM_Decomp_8009                   ;058118|        |0E8001;  
                        db $07                               ;05811B|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05811C|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05811C|        |00A140;  
                        dl Data_0D_9548                      ;05811F|        |0D9548;  
                        db $43                               ;058122|        |      ;  
                        dw $001A                             ;058123|        |      ;  
@@ -204,18 +204,18 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw DATA8_0580CD                      ;058138|        |0580CD;  
                                                             ;      |        |      ;  
          DATA8_05813A: db $07                               ;05813A|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;05813B|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;05813B|        |00A035;  
                        dl DATA8_0E88E5                      ;05813E|        |0E88E5;  
                        dl $7E8000                           ;058141|        |7E8000;  
                        db $07                               ;058144|        |      ;  
                        dl RAM_Decomp_8009                   ;058145|        |0E8001;  
                        db $07                               ;058148|        |      ;  
-                       dl Sub: Get/Set SFX                  ;058149|        |009C44;  
+                       dl GetSet_SFX                        ;058149|        |009C44;  
                        db $01                               ;05814C|        |      ;  
                        db $06                               ;05814D|        |      ;  
                        db $14                               ;05814E|        |      ;  
                        db $07                               ;05814F|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058150|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058150|        |00A035;  
                        dl DATA8_0E8551                      ;058153|        |0E8551;  
                        dl $7E8000                           ;058156|        |7E8000;  
                        db $07                               ;058159|        |      ;  
@@ -262,25 +262,25 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $05                               ;058196|        |      ;  
                                                             ;      |        |      ;  
          DATA8_058197: db $07                               ;058197|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;058198|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;058198|        |009D1F;  
                        dl DATA16_0E8045                     ;05819B|        |0E8045;  
                        dw $0061                             ;05819E|        |      ;  
                        db $1C                               ;0581A0|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0581A1: db $07                               ;0581A1|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0581A2|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0581A2|        |009D1F;  
                        dl DATA16_0E8045                     ;0581A5|        |0E8045;  
                        dw $007A                             ;0581A8|        |      ;  
                        db $1C                               ;0581AA|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0581AB: db $07                               ;0581AB|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0581AC|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0581AC|        |009D1F;  
                        dl DATA16_0E8045                     ;0581AF|        |0E8045;  
                        dw $0201                             ;0581B2|        |      ;  
                        db $1C                               ;0581B4|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0581B5: db $07                               ;0581B5|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0581B6|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0581B6|        |009D1F;  
                        dl DATA16_0E8045                     ;0581B9|        |0E8045;  
                        dw $021A                             ;0581BC|        |      ;  
                        db $1C                               ;0581BE|        |      ;  
@@ -299,7 +299,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_0581D7: LDX.W Selection                      ;0581D7|AE3F10  |00103F;  
                        LDA.W #$807A                         ;0581DA|A97A80  |      ;  
                        LDY.W #$0005                         ;0581DD|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0581E0|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0581E0|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0581E4: RTL                                  ;0581E4|6B      |      ;  
@@ -310,7 +310,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        LDX.W Selection                      ;0581EA|AE3F10  |00103F;  
                        LDA.W #$8126                         ;0581ED|A92681  |      ;  
                        LDY.W #$0005                         ;0581F0|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0581F3|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0581F3|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0581F7: RTL                                  ;0581F7|6B      |      ;  
@@ -371,30 +371,30 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058243: LDX.W Selection                      ;058243|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;058246|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;058246|BDEB09  |0009EB;  
                        ASL A                                ;058249|0A      |      ;  
                        TAX                                  ;05824A|AA      |      ;  
-                       LDA.W Copy of Current HP,X           ;05824B|BD0B13  |00130B;  
+                       LDA.W Current_HP_copy,X              ;05824B|BD0B13  |00130B;  
                        STA.B $20                            ;05824E|8520    |000020;  
-                       LDA.W Current HP,X                   ;058250|BDF312  |0012F3;  
+                       LDA.W Current_HP,X                   ;058250|BDF312  |0012F3;  
                        CMP.B $20                            ;058253|C520    |000020;  
                        BMI CODE_05826F                      ;058255|3018    |05826F;  
                        BCC CODE_05826F                      ;058257|9016    |05826F;  
                        BEQ CODE_05826B                      ;058259|F010    |05826B;  
-                       LDA.W Current HP,X                   ;05825B|BDF312  |0012F3;  
-                       STA.W Copy of Current HP,X           ;05825E|9D0B13  |00130B;  
+                       LDA.W Current_HP,X                   ;05825B|BDF312  |0012F3;  
+                       STA.W Current_HP_copy,X              ;05825E|9D0B13  |00130B;  
                        LDX.W Selection                      ;058261|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;058264|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;058264|BDEB09  |0009EB;  
                        JSL.L Death_Check(A)_1               ;058267|22468D07|078D46;  
                                                             ;      |        |      ;  
           CODE_05826B: LDA.W #$0000                         ;05826B|A90000  |      ;  
                        RTS                                  ;05826E|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_05826F: LDA.W Current HP,X                   ;05826F|BDF312  |0012F3;  
-                       STA.W Copy of Current HP,X           ;058272|9D0B13  |00130B;  
+          CODE_05826F: LDA.W Current_HP,X                   ;05826F|BDF312  |0012F3;  
+                       STA.W Current_HP_copy,X              ;058272|9D0B13  |00130B;  
                        LDX.W Selection                      ;058275|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;058278|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;058278|BDEB09  |0009EB;  
                        JSL.L Death_Check(A)_1               ;05827B|22468D07|078D46;  
                        JSL.L CODE_0783E5                    ;05827F|22E58307|0783E5;  
                        BEQ CODE_058289                      ;058283|F004    |058289;  
@@ -410,18 +410,18 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
       Error_Check_MP?: LDX.W Selection                      ;058291|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;058294|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;058294|BDEB09  |0009EB;  
                        ASL A                                ;058297|0A      |      ;  
                        TAX                                  ;058298|AA      |      ;  
-                       LDA.W Copy of Current MP,X           ;058299|BD3B13  |00133B;  
+                       LDA.W Current_MP_copy,X              ;058299|BD3B13  |00133B;  
                        STA.B $20                            ;05829C|8520    |000020;  
-                       LDA.W Current MP,X                   ;05829E|BD2313  |001323;  
+                       LDA.W Current_MP,X                   ;05829E|BD2313  |001323;  
                        CMP.B $20                            ;0582A1|C520    |000020;  
                        BEQ CODE_0582B5                      ;0582A3|F010    |0582B5;  
-                       LDA.W Current MP,X                   ;0582A5|BD2313  |001323;  
-                       STA.W Copy of Current MP,X           ;0582A8|9D3B13  |00133B;  
+                       LDA.W Current_MP,X                   ;0582A5|BD2313  |001323;  
+                       STA.W Current_MP_copy,X              ;0582A8|9D3B13  |00133B;  
                        LDX.W Selection                      ;0582AB|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;0582AE|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;0582AE|BDEB09  |0009EB;  
                        JSL.L Death_Check(A)_2               ;0582B1|22B08D07|078DB0;  
                                                             ;      |        |      ;  
           CODE_0582B5: RTS                                  ;0582B5|60      |      ;  
@@ -431,25 +431,25 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0582BA: LDX.W Selection                      ;0582BA|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;0582BD|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;0582BD|BDEB09  |0009EB;  
                        JSL.L CODE_0781F9                    ;0582C0|22F98107|0781F9;  
                        BEQ CODE_0582F7                      ;0582C4|F031    |0582F7;  
                        LDX.W Selection                      ;0582C6|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;0582C9|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;0582C9|BDEB09  |0009EB;  
                        ASL A                                ;0582CC|0A      |      ;  
                        TAX                                  ;0582CD|AA      |      ;  
                        LDA.W Condition,X                    ;0582CE|BDC311  |0011C3;  
                        AND.W #$00FF                         ;0582D1|29FF00  |      ;  
-                       STA.W Condition copy,X               ;0582D4|9DDB11  |0011DB;  
+                       STA.W Condition_copy,X               ;0582D4|9DDB11  |0011DB;  
                        LDA.W Condition,X                    ;0582D7|BDC311  |0011C3;  
                        AND.W #$00FF                         ;0582DA|29FF00  |      ;  
                        BNE CODE_0582E9                      ;0582DD|D00A    |0582E9;  
                        LDX.W Selection                      ;0582DF|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;0582E2|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;0582E2|BDEB09  |0009EB;  
                        JSL.L 07/906F_far                    ;0582E5|226B9007|07906B;  
                                                             ;      |        |      ;  
           CODE_0582E9: LDX.W Selection                      ;0582E9|AE3F10  |00103F;  
-                       LDA.W Selection value,X              ;0582EC|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;0582EC|BDEB09  |0009EB;  
                        JSL.L CODE_078DF0                    ;0582EF|22F08D07|078DF0;  
                        LDA.W #$0001                         ;0582F3|A90100  |      ;  
                        RTS                                  ;0582F6|60      |      ;  
@@ -463,14 +463,14 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        RTL                                  ;0582FE|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_0582FF: LDA.W Party slot two                 ;0582FF|AD5D15  |00155D;  
+          CODE_0582FF: LDA.W Party_slot2                    ;0582FF|AD5D15  |00155D;  
                        DEC A                                ;058302|3A      |      ;  
                        ASL A                                ;058303|0A      |      ;  
                        TAX                                  ;058304|AA      |      ;  
-                       LDA.W Spirit Current HP              ;058305|ADF512  |0012F5;  
-                       STA.W Sylph Current HP,X             ;058308|9D5313  |001353;  
-                       LDA.W Spirit Current MP              ;05830B|AD2513  |001325;  
-                       STA.W Sylph Current MP,X             ;05830E|9D5B13  |00135B;  
+                       LDA.W Spirit_Current_HP              ;058305|ADF512  |0012F5;  
+                       STA.W Sylph_currHP,X                 ;058308|9D5313  |001353;  
+                       LDA.W Spirit_Current_MP              ;05830B|AD2513  |001325;  
+                       STA.W Sylph_currMP,X                 ;05830E|9D5B13  |00135B;  
                        RTS                                  ;058311|60      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -504,35 +504,35 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw LOOSE_OP_00836C                   ;05833C|        |00836C;  
                        dw CODE_008376                       ;05833E|        |008376;  
                        db $07                               ;058340|        |      ; 07: Call 00/A105 (832E returned 0)
-                       dl Transfer_Setup2(6b)               ;058341|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058341|        |00A105;  
                        dl DATA8_0D9562                      ;058344|        |0D9562; Store $0D/9562 in $18
                        db $03                               ;058347|        |      ;  
                        db $04                               ;058348|        |      ;  
                        db $00                               ;058349|        |      ;  
                        db $1C                               ;05834A|        |      ; 1C: Do stuff, return from jump
                        db $07                               ;05834B|        |      ; 07: Call 00/A105 (832E returned 1)
-                       dl Transfer_Setup2(6b)               ;05834C|        |00A105;  
+                       dl Transfer_Setup2_6b                ;05834C|        |00A105;  
                        dl DATA8_0D9566                      ;05834F|        |0D9566; Store $0D/9566 in $18
                        db $03                               ;058352|        |      ;  
                        db $04                               ;058353|        |      ;  
                        db $00                               ;058354|        |      ;  
                        db $1C                               ;058355|        |      ; 1C: Do stuff, return from jump
                        db $07                               ;058356|        |      ; 07: Call 00/A105 (832E returned 02)
-                       dl Transfer_Setup2(6b)               ;058357|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058357|        |00A105;  
                        dl DATA8_0D956A                      ;05835A|        |0D956A; Store $0D/956A in $18
                        db $03                               ;05835D|        |      ;  
                        db $04                               ;05835E|        |      ;  
                        db $00                               ;05835F|        |      ;  
                        db $1C                               ;058360|        |      ; 1C: Do stuff, return from jump
                        db $07                               ;058361|        |      ; 07: Call 00/A105 (832E returned 03)
-                       dl Transfer_Setup2(6b)               ;058362|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058362|        |00A105;  
                        dl DATA8_0D956E                      ;058365|        |0D956E; Store $0D/956E in $18
                        db $03                               ;058368|        |      ;  
                        db $04                               ;058369|        |      ;  
                        db $00                               ;05836A|        |      ;  
                        db $1C                               ;05836B|        |      ; 1C: Do stuff, return from jump
                        db $07                               ;05836C|        |      ; 07: Call 00/A105 (832E returned 04)
-                       dl Transfer_Setup2(6b)               ;05836D|        |00A105;  
+                       dl Transfer_Setup2_6b                ;05836D|        |00A105;  
                        dl DATA8_0D9572                      ;058370|        |0D9572; Store $0D/9572 in $18
                        db $03                               ;058373|        |      ;  
                        db $04                               ;058374|        |      ;  
@@ -540,7 +540,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;058376|        |      ; 1C: Do stuff, return from jump (832E returned 5)
                                                             ;      |        |      ;  
          DATA8_058377: db $07                               ;058377|        |      ; Condition 00 / Call $00/A105
-                       dl Transfer_Setup2(6b)               ;058378|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058378|        |00A105;  
                        dl DATA8_0D9576                      ;05837B|        |0D9576; Store 0D/9576 in $18
                        db $01                               ;05837E|        |      ;  
                        db $02                               ;05837F|        |      ;  
@@ -548,7 +548,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;058381|        |      ; 1C: Do stuff, return from jump (->832C)
                                                             ;      |        |      ;  
          DATA8_058382: db $07                               ;058382|        |      ; 07: Call 00/A105 (8316 returned 1)
-                       dl Transfer_Setup2(6b)               ;058383|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058383|        |00A105;  
                        dl DATA8_0D9578                      ;058386|        |0D9578; Store 0D/9578 in $18
                        db $01                               ;058389|        |      ;  
                        db $02                               ;05838A|        |      ;  
@@ -556,7 +556,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;05838C|        |      ; 1C: Do stuff, return from jump
                                                             ;      |        |      ;  
          DATA8_05838D: db $07                               ;05838D|        |      ; 07: Call 00/A105 (8316 returned 2)
-                       dl Transfer_Setup2(6b)               ;05838E|        |00A105;  
+                       dl Transfer_Setup2_6b                ;05838E|        |00A105;  
                        dl DATA8_0D9578                      ;058391|        |0D9578; Store 0D/9578 in $18
                        db $01                               ;058394|        |      ;  
                        db $02                               ;058395|        |      ;  
@@ -564,7 +564,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;058397|        |      ; 1C: Do stuff, return from jump
                                                             ;      |        |      ;  
          DATA8_058398: db $07                               ;058398|        |      ; 07: Call 00/A105 (8316 returned 3)
-                       dl Transfer_Setup2(6b)               ;058399|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058399|        |00A105;  
                        dl DATA8_0D957A                      ;05839C|        |0D957A; Store 0D/957A in $18
                        db $01                               ;05839F|        |      ;  
                        db $02                               ;0583A0|        |      ;  
@@ -572,7 +572,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;0583A2|        |      ; 1C: Do stuff, return from jump
                                                             ;      |        |      ;  
          DATA8_0583A3: db $07                               ;0583A3|        |      ; 07: Call 00/A105 (8316 returned 4)
-                       dl Transfer_Setup2(6b)               ;0583A4|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583A4|        |00A105;  
                        dl DATA8_0D957C                      ;0583A7|        |0D957C; Store 0D/957C in $18
                        db $01                               ;0583AA|        |      ;  
                        db $02                               ;0583AB|        |      ;  
@@ -580,7 +580,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;0583AD|        |      ; 1C: Do stuff, return from jump
                                                             ;      |        |      ;  
          DATA8_0583AE: db $07                               ;0583AE|        |      ; 07: Call 00/A105 (8316 returned 5)
-                       dl Transfer_Setup2(6b)               ;0583AF|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583AF|        |00A105;  
                        dl DATA8_0D957E                      ;0583B2|        |0D957E; Store 0D/957E in $18
                        db $01                               ;0583B5|        |      ;  
                        db $02                               ;0583B6|        |      ;  
@@ -588,7 +588,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;0583B8|        |      ; 1C: Do stuff, return from jump
                                                             ;      |        |      ;  
          DATA8_0583B9: db $07                               ;0583B9|        |      ; 07: Call 00/A105 (8316 returned 6)
-                       dl Transfer_Setup2(6b)               ;0583BA|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583BA|        |00A105;  
                        dl DATA8_0D9580                      ;0583BD|        |0D9580; Store 0D/9580 in $18
                        db $01                               ;0583C0|        |      ;  
                        db $02                               ;0583C1|        |      ;  
@@ -596,7 +596,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1C                               ;0583C3|        |      ; 1C: Do stuff, return from jump
                                                             ;      |        |      ;  
          DATA8_0583C4: db $07                               ;0583C4|        |      ; 07: Call 00/A105 (8316 returned 7)
-                       dl Transfer_Setup2(6b)               ;0583C5|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583C5|        |00A105;  
                        dl DATA8_0D9582                      ;0583C8|        |0D9582; Store 0D/9582 in $18
                        db $01                               ;0583CB|        |      ;  
                        db $02                               ;0583CC|        |      ;  
@@ -604,7 +604,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;0583CE|        |      ; Delay 07
                        db $07                               ;0583CF|        |      ;  
                        db $07                               ;0583D0|        |      ;  
-                       dl Transfer_Setup2(6b)               ;0583D1|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583D1|        |00A105;  
                        dl DATA8_0D9584                      ;0583D4|        |0D9584;  
                        db $01                               ;0583D7|        |      ;  
                        db $02                               ;0583D8|        |      ;  
@@ -612,7 +612,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;0583DA|        |      ;  
                        db $07                               ;0583DB|        |      ;  
                        db $07                               ;0583DC|        |      ;  
-                       dl Transfer_Setup2(6b)               ;0583DD|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583DD|        |00A105;  
                        dl DATA8_0D9586                      ;0583E0|        |0D9586;  
                        db $01                               ;0583E3|        |      ;  
                        db $02                               ;0583E4|        |      ;  
@@ -620,7 +620,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;0583E6|        |      ;  
                        db $07                               ;0583E7|        |      ;  
                        db $07                               ;0583E8|        |      ;  
-                       dl Transfer_Setup2(6b)               ;0583E9|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583E9|        |00A105;  
                        dl DATA8_0D9588                      ;0583EC|        |0D9588;  
                        db $01                               ;0583EF|        |      ;  
                        db $02                               ;0583F0|        |      ;  
@@ -628,7 +628,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;0583F2|        |      ;  
                        db $07                               ;0583F3|        |      ;  
                        db $07                               ;0583F4|        |      ;  
-                       dl Transfer_Setup2(6b)               ;0583F5|        |00A105;  
+                       dl Transfer_Setup2_6b                ;0583F5|        |00A105;  
                        dl DATA8_0D958A                      ;0583F8|        |0D958A;  
                        db $01                               ;0583FB|        |      ;  
                        db $02                               ;0583FC|        |      ;  
@@ -636,7 +636,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;0583FE|        |      ;  
                        db $07                               ;0583FF|        |      ;  
                        db $07                               ;058400|        |      ;  
-                       dl Transfer_Setup2(6b)               ;058401|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058401|        |00A105;  
                        dl DATA8_0D9588                      ;058404|        |0D9588;  
                        db $01                               ;058407|        |      ;  
                        db $02                               ;058408|        |      ;  
@@ -644,7 +644,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;05840A|        |      ;  
                        db $07                               ;05840B|        |      ;  
                        db $07                               ;05840C|        |      ;  
-                       dl Transfer_Setup2(6b)               ;05840D|        |00A105;  
+                       dl Transfer_Setup2_6b                ;05840D|        |00A105;  
                        dl DATA8_0D9586                      ;058410|        |0D9586;  
                        db $01                               ;058413|        |      ;  
                        db $02                               ;058414|        |      ;  
@@ -652,7 +652,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;058416|        |      ;  
                        db $07                               ;058417|        |      ;  
                        db $07                               ;058418|        |      ;  
-                       dl Transfer_Setup2(6b)               ;058419|        |00A105;  
+                       dl Transfer_Setup2_6b                ;058419|        |00A105;  
                        dl DATA8_0D9584                      ;05841C|        |0D9584;  
                        db $01                               ;05841F|        |      ;  
                        db $02                               ;058420|        |      ;  
@@ -676,7 +676,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $07                               ;058435|        |      ;  
                        dl CODE_1882E6                       ;058436|        |1882E6;  
                        db $07                               ;058439|        |      ; Damage SFX
-                       dl Sub: Get/Set SFX                  ;05843A|        |009C44;  
+                       dl GetSet_SFX                        ;05843A|        |009C44;  
                        db $07                               ;05843D|        |      ;  
                        db $31                               ;05843E|        |      ;  
                        db $0B                               ;05843F|        |      ;  
@@ -716,56 +716,56 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw DATA8_058494                      ;058471|        |058494;  
                                                             ;      |        |      ;  
          DATA8_058473: db $07                               ;058473|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058474|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058474|        |00A140;  
                        dl $05/8477_data                     ;058477|        |0D9322;  
                        db $45                               ;05847A|        |      ;  
                        dw $0016                             ;05847B|        |      ;  
                        db $05                               ;05847D|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_05847E: db $07                               ;05847E|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05847F|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05847F|        |00A140;  
                        dl UNREACH_0D9456                    ;058482|        |0D9456;  
                        db $45                               ;058485|        |      ;  
                        dw $0016                             ;058486|        |      ;  
                        db $05                               ;058488|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_058489: db $07                               ;058489|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05848A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05848A|        |00A140;  
                        dl UNREACH_0D93E8                    ;05848D|        |0D93E8;  
                        db $45                               ;058490|        |      ;  
                        dw $0016                             ;058491|        |      ;  
                        db $05                               ;058493|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_058494: db $07                               ;058494|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058495|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058495|        |00A140;  
                        dl UNREACH_0D94DA                    ;058498|        |0D94DA;  
                        db $45                               ;05849B|        |      ;  
                        dw $0016                             ;05849C|        |      ;  
                        db $05                               ;05849E|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_05849F: db $07                               ;05849F|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584A0|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584A0|        |00A140;  
                        dl DATA8_0D9338                      ;0584A3|        |0D9338;  
                        db $75                               ;0584A6|        |      ;  
                        dw $0016                             ;0584A7|        |      ;  
                        db $05                               ;0584A9|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_0584AA: db $07                               ;0584AA|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584AB|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584AB|        |00A140;  
                        dl DATA8_0D934E                      ;0584AE|        |0D934E;  
                        db $75                               ;0584B1|        |      ;  
                        dw $0016                             ;0584B2|        |      ;  
                        db $05                               ;0584B4|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_0584B5: db $07                               ;0584B5|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584B6|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584B6|        |00A140;  
                        dl DATA8_0D9364                      ;0584B9|        |0D9364;  
                        db $75                               ;0584BC|        |      ;  
                        dw $0016                             ;0584BD|        |      ;  
                        db $05                               ;0584BF|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_0584C0: db $07                               ;0584C0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584C1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584C1|        |00A140;  
                        dl $058BE6_data                      ;0584C4|        |0D937A;  
                        db $75                               ;0584C7|        |      ;  
                        dw $0016                             ;0584C8|        |      ;  
@@ -783,28 +783,28 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw DATA8_0584FC                      ;0584D9|        |0584FC;  
                                                             ;      |        |      ;  
          DATA8_0584DB: db $07                               ;0584DB|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584DC|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584DC|        |00A140;  
                        dl UNREACH_0D9390                    ;0584DF|        |0D9390;  
                        db $55                               ;0584E2|        |      ;  
                        dw $0016                             ;0584E3|        |      ;  
                        db $05                               ;0584E5|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0584E6: db $07                               ;0584E6|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584E7|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584E7|        |00A140;  
                        dl UNREACH_0D9482                    ;0584EA|        |0D9482;  
                        db $55                               ;0584ED|        |      ;  
                        dw $0016                             ;0584EE|        |      ;  
                        db $05                               ;0584F0|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0584F1: db $07                               ;0584F1|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584F2|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584F2|        |00A140;  
                        dl UNREACH_0D93FE                    ;0584F5|        |0D93FE;  
                        db $55                               ;0584F8|        |      ;  
                        dw $0016                             ;0584F9|        |      ;  
                        db $05                               ;0584FB|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0584FC: db $07                               ;0584FC|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0584FD|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0584FD|        |00A140;  
                        dl UNREACH_0D94F0                    ;058500|        |0D94F0;  
                        db $55                               ;058503|        |      ;  
                        dw $0016                             ;058504|        |      ;  
@@ -821,25 +821,25 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw CODE_00852D                       ;058513|        |00852D;  
                        dw CODE_008538                       ;058515|        |008538;  
                        db $07                               ;058517|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058518|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058518|        |00A140;  
                        dl UNREACH_0D93A6                    ;05851B|        |0D93A6;  
                        db $55                               ;05851E|        |      ;  
                        dw $0016                             ;05851F|        |      ;  
                        db $05                               ;058521|        |      ;  
                        db $07                               ;058522|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058523|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058523|        |00A140;  
                        dl UNREACH_0D9498                    ;058526|        |0D9498;  
                        db $55                               ;058529|        |      ;  
                        dw $0016                             ;05852A|        |      ;  
                        db $05                               ;05852C|        |      ;  
                        db $07                               ;05852D|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05852E|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05852E|        |00A140;  
                        dl UNREACH_0D9414                    ;058531|        |0D9414;  
                        db $55                               ;058534|        |      ;  
                        dw $0016                             ;058535|        |      ;  
                        db $05                               ;058537|        |      ;  
                        db $07                               ;058538|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058539|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058539|        |00A140;  
                        dl UNREACH_0D9506                    ;05853C|        |0D9506;  
                        db $55                               ;05853F|        |      ;  
                        dw $0016                             ;058540|        |      ;  
@@ -856,25 +856,25 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw CODE_008569                       ;05854F|        |008569;  
                        dw LOOSE_OP_008574                   ;058551|        |008574;  
                        db $07                               ;058553|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058554|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058554|        |00A140;  
                        dl UNREACH_0D93BC                    ;058557|        |0D93BC;  
                        db $65                               ;05855A|        |      ;  
                        dw $0016                             ;05855B|        |      ;  
                        db $05                               ;05855D|        |      ;  
                        db $07                               ;05855E|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05855F|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05855F|        |00A140;  
                        dl UNREACH_0D94AE                    ;058562|        |0D94AE;  
                        db $65                               ;058565|        |      ;  
                        dw $0016                             ;058566|        |      ;  
                        db $05                               ;058568|        |      ;  
                        db $07                               ;058569|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05856A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05856A|        |00A140;  
                        dl UNREACH_0D942A                    ;05856D|        |0D942A;  
                        db $65                               ;058570|        |      ;  
                        dw $0016                             ;058571|        |      ;  
                        db $05                               ;058573|        |      ;  
                        db $07                               ;058574|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058575|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058575|        |00A140;  
                        dl UNREACH_0D951C                    ;058578|        |0D951C;  
                        db $65                               ;05857B|        |      ;  
                        dw $0016                             ;05857C|        |      ;  
@@ -892,28 +892,28 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw DATA8_0585B0                      ;05858D|        |0585B0;  
                                                             ;      |        |      ;  
          DATA8_05858F: db $07                               ;05858F|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058590|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058590|        |00A140;  
                        dl DATA8_0D93D2                      ;058593|        |0D93D2;  
                        db $65                               ;058596|        |      ;  
                        dw $0016                             ;058597|        |      ;  
                        db $05                               ;058599|        |      ;  
                                                             ;      |        |      ;  
          DATA8_05859A: db $07                               ;05859A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05859B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05859B|        |00A140;  
                        dl DATA8_0D94C4                      ;05859E|        |0D94C4;  
                        db $65                               ;0585A1|        |      ;  
                        dw $0016                             ;0585A2|        |      ;  
                        db $05                               ;0585A4|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0585A5: db $07                               ;0585A5|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0585A6|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0585A6|        |00A140;  
                        dl DATA8_0D9440                      ;0585A9|        |0D9440;  
                        db $65                               ;0585AC|        |      ;  
                        dw $0016                             ;0585AD|        |      ;  
                        db $05                               ;0585AF|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0585B0: db $07                               ;0585B0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0585B1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0585B1|        |00A140;  
                        dl DATA8_0D9532                      ;0585B4|        |0D9532;  
                        db $65                               ;0585B7|        |      ;  
                        dw $0016                             ;0585B8|        |      ;  
@@ -1068,12 +1068,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $09                               ;058693|        |      ;  
                        dl CODE_0587E9                       ;058694|        |0587E9;  
                        db $07                               ;058697|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058698|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058698|        |00A140;  
                        dl DATA8_0D9338                      ;05869B|        |0D9338;  
                        db $75                               ;05869E|        |      ;  
                        dw $0016                             ;05869F|        |      ;  
                        db $07                               ;0586A1|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0586A2|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0586A2|        |00A035;  
                        dl DATA8_0E95A3                      ;0586A5|        |0E95A3;  
                        dl $7E8500                           ;0586A8|        |7E8500;  
                        db $06                               ;0586AB|        |      ;  
@@ -1087,12 +1087,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
          DATA8_0586B4: db $09                               ;0586B4|        |      ;  
                        dl CODE_0587E3                       ;0586B5|        |0587E3;  
                        db $07                               ;0586B8|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0586B9|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0586B9|        |00A140;  
                        dl DATA8_0D9338                      ;0586BC|        |0D9338;  
                        db $75                               ;0586BF|        |      ;  
                        dw $0016                             ;0586C0|        |      ;  
                        db $07                               ;0586C2|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0586C3|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0586C3|        |00A035;  
                        dl DATA8_0E99D9                      ;0586C6|        |0E99D9;  
                        dl $7E8500                           ;0586C9|        |7E8500;  
                        db $06                               ;0586CC|        |      ;  
@@ -1117,7 +1117,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw DATA8_059683                      ;0586E8|        |059683;  
                                                             ;      |        |      ;  
          DATA8_0586EA: db $07                               ;0586EA|        |      ; Defeated enemy sfx
-                       dl Sub: Get/Set SFX                  ;0586EB|        |009C44;  
+                       dl GetSet_SFX                        ;0586EB|        |009C44;  
                        db $2F                               ;0586EE|        |      ;  
                        db $24                               ;0586EF|        |      ;  
                        db $02                               ;0586F0|        |      ;  
@@ -1151,12 +1151,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $07                               ;05871A|        |      ;  
                        dl CODE_078DF0                       ;05871B|        |078DF0;  
                        db $07                               ;05871E|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05871F|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05871F|        |00A140;  
                        dl DATA8_0D9338                      ;058722|        |0D9338;  
                        db $75                               ;058725|        |      ;  
                        dw $0016                             ;058726|        |      ;  
                        db $07                               ;058728|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058729|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058729|        |00A035;  
                        dl Gfx_Dead_Spirit                   ;05872C|        |0E8FCC;  
                        dl $7E8500                           ;05872F|        |7E8500;  
                        db $07                               ;058732|        |      ;  
@@ -1176,18 +1176,18 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw DATA8_058665                      ;058748|        |058665;  
                                                             ;      |        |      ;  
          DATA8_05874A: db $07                               ;05874A|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;05874B|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;05874B|        |00A035;  
                        dl UNREACH_0E9D79                    ;05874E|        |0E9D79;  
                        dl $7E8500                           ;058751|        |7E8500;  
                        db $07                               ;058754|        |      ;  
                        dl RAM_Decomp_801A                   ;058755|        |0E8012;  
                        db $07                               ;058758|        |      ;  
-                       dl Sub: Get/Set SFX                  ;058759|        |009C44;  
+                       dl GetSet_SFX                        ;058759|        |009C44;  
                        db $01                               ;05875C|        |      ;  
                        db $06                               ;05875D|        |      ;  
                        db $14                               ;05875E|        |      ;  
                        db $07                               ;05875F|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058760|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058760|        |00A035;  
                        dl DATA8_0E99D9                      ;058763|        |0E99D9;  
                        dl $7E8500                           ;058766|        |7E8500;  
                        db $07                               ;058769|        |      ;  
@@ -1247,25 +1247,25 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $05                               ;0587BA|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0587BB: db $07                               ;0587BB|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0587BC|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0587BC|        |009D1F;  
                        dl Called_by_9D1F                    ;0587BF|        |0E8098;  
                        dw $0061                             ;0587C2|        |      ;  
                        db $1C                               ;0587C4|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0587C5: db $07                               ;0587C5|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0587C6|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0587C6|        |009D1F;  
                        dl Called_by_9D1F                    ;0587C9|        |0E8098;  
                        dw $007A                             ;0587CC|        |      ;  
                        db $1C                               ;0587CE|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0587CF: db $07                               ;0587CF|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0587D0|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0587D0|        |009D1F;  
                        dl Called_by_9D1F                    ;0587D3|        |0E8098;  
                        dw $0201                             ;0587D6|        |      ;  
                        db $1C                               ;0587D8|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0587D9: db $07                               ;0587D9|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0587DA|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0587DA|        |009D1F;  
                        dl Called_by_9D1F                    ;0587DD|        |0E8098;  
                        dw $021A                             ;0587E0|        |      ;  
                        db $1C                               ;0587E2|        |      ;  
@@ -1284,7 +1284,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_0587FC: LDX.W Selection                      ;0587FC|AE3F10  |00103F;  
                        LDA.W #$8665                         ;0587FF|A96586  |      ;  
                        LDY.W #$0005                         ;058802|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058805|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058805|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058809: RTL                                  ;058809|6B      |      ;  
@@ -1293,7 +1293,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_05880A: LDX.W Selection                      ;05880A|AE3F10  |00103F;  
                        LDA.W #$876E                         ;05880D|A96E87  |      ;  
                        LDY.W #$0005                         ;058810|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058813|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058813|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058817: LDA.W #$0001                         ;058817|A90100  |      ;  
@@ -1304,7 +1304,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        LDX.W Selection                      ;058826|AE3F10  |00103F;  
                        LDA.W #$8737                         ;058829|A93787  |      ;  
                        LDY.W #$0005                         ;05882C|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;05882F|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;05882F|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058833: RTL                                  ;058833|6B      |      ;  
@@ -1394,12 +1394,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $09                               ;0588A4|        |      ;  
                        dl CODE_05899F                       ;0588A5|        |05899F;  
                        db $07                               ;0588A8|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0588A9|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0588A9|        |00A140;  
                        dl DATA8_0D934E                      ;0588AC|        |0D934E;  
                        db $75                               ;0588AF|        |      ;  
                        dw $0016                             ;0588B0|        |      ;  
                        db $07                               ;0588B2|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0588B3|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0588B3|        |00A035;  
                        dl Gfx_Marid                         ;0588B6|        |0EA12C;  
                        dl $7E8500                           ;0588B9|        |7E8500;  
                        db $06                               ;0588BC|        |      ;  
@@ -1413,12 +1413,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
          DATA8_0588C5: db $09                               ;0588C5|        |      ;  
                        dl CODE_058999                       ;0588C6|        |058999;  
                        db $07                               ;0588C9|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;0588CA|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;0588CA|        |00A140;  
                        dl DATA8_0D934E                      ;0588CD|        |0D934E;  
                        db $75                               ;0588D0|        |      ;  
                        dw $0016                             ;0588D1|        |      ;  
                        db $07                               ;0588D3|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0588D4|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0588D4|        |00A035;  
                        dl UNREACH_0EA4DF                    ;0588D7|        |0EA4DF;  
                        dl $7E8500                           ;0588DA|        |7E8500;  
                        db $06                               ;0588DD|        |      ;  
@@ -1442,7 +1442,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1A                               ;0588F8|        |      ;  
                        dw CODE_009683                       ;0588F9|        |009683;  
                        db $07                               ;0588FB|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0588FC|        |009C44;  
+                       dl GetSet_SFX                        ;0588FC|        |009C44;  
                        db $2F                               ;0588FF|        |      ;  
                        db $24                               ;058900|        |      ;  
                        db $02                               ;058901|        |      ;  
@@ -1475,12 +1475,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $07                               ;05892B|        |      ;  
                        dl CODE_078DF0                       ;05892C|        |078DF0;  
                        db $07                               ;05892F|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058930|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058930|        |00A140;  
                        dl DATA8_0D934E                      ;058933|        |0D934E;  
                        db $75                               ;058936|        |      ;  
                        dw $0016                             ;058937|        |      ;  
                        db $07                               ;058939|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;05893A|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;05893A|        |00A035;  
                        dl Gfx_Dead_Spirit                   ;05893D|        |0E8FCC;  
                        dl $7E8500                           ;058940|        |7E8500;  
                        db $07                               ;058943|        |      ;  
@@ -1500,18 +1500,18 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw LOOSE_OP_00886E                   ;058959|        |00886E;  
                                                             ;      |        |      ;  
          DATA8_05895B: db $07                               ;05895B|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;05895C|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;05895C|        |00A035;  
                        dl UNREACH_0EA8CD                    ;05895F|        |0EA8CD;  
                        dl $7E8500                           ;058962|        |7E8500;  
                        db $07                               ;058965|        |      ;  
                        dl RAM_Decomp_801A                   ;058966|        |0E8012;  
                        db $07                               ;058969|        |      ;  
-                       dl Sub: Get/Set SFX                  ;05896A|        |009C44;  
+                       dl GetSet_SFX                        ;05896A|        |009C44;  
                        db $01                               ;05896D|        |      ;  
                        db $06                               ;05896E|        |      ;  
                        db $14                               ;05896F|        |      ;  
                        db $07                               ;058970|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058971|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058971|        |00A035;  
                        dl UNREACH_0EA4DF                    ;058974|        |0EA4DF;  
                        dl $7E8500                           ;058977|        |7E8500;  
                        db $07                               ;05897A|        |      ;  
@@ -1549,7 +1549,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_0589B2: LDX.W Selection                      ;0589B2|AE3F10  |00103F;  
                        LDA.W #$886E                         ;0589B5|A96E88  |      ;  
                        LDY.W #$0005                         ;0589B8|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0589BB|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0589BB|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0589BF: RTL                                  ;0589BF|6B      |      ;  
@@ -1558,7 +1558,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_0589C0: LDX.W Selection                      ;0589C0|AE3F10  |00103F;  
                        LDA.W #$897F                         ;0589C3|A97F89  |      ;  
                        LDY.W #$0005                         ;0589C6|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0589C9|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0589C9|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                        RTL                                  ;0589CD|6B      |      ;  
                                                             ;      |        |      ;  
@@ -1571,7 +1571,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        LDX.W Selection                      ;0589DD|AE3F10  |00103F;  
                        LDA.W #$8948                         ;0589E0|A94889  |      ;  
                        LDY.W #$0005                         ;0589E3|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0589E6|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0589E6|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0589EA: RTL                                  ;0589EA|6B      |      ;  
@@ -1633,13 +1633,13 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $09                               ;058A41|        |      ;  
                        dl CODE_058B3C                       ;058A42|        |058B3C;  
                        db $07                               ;058A45|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058A46|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058A46|        |00A140;  
                        dw CODE_009364                       ;058A49|        |009364;  
                        db $0D                               ;058A4B|        |      ;  
                        dw $1675                             ;058A4C|        |001675;  
                        db $00                               ;058A4E|        |      ;  
                        db $07                               ;058A4F|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058A50|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058A50|        |00A035;  
                        dl Gfx_Dao                           ;058A53|        |0EAC91;  
                        dl $7E8500                           ;058A56|        |7E8500;  
                        db $06                               ;058A59|        |      ;  
@@ -1653,12 +1653,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
          DATA8_058A62: db $09                               ;058A62|        |      ;  
                        dl CODE_058B36                       ;058A63|        |058B36;  
                        db $07                               ;058A66|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058A67|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058A67|        |00A140;  
                        dl UNREACH_0D946C                    ;058A6A|        |0D946C;  
                        db $75                               ;058A6D|        |      ;  
                        dw $0016                             ;058A6E|        |      ;  
                        db $07                               ;058A70|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058A71|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058A71|        |00A035;  
                        dl UNREACH_0EB08D                    ;058A74|        |0EB08D;  
                        dl $7E8500                           ;058A77|        |7E8500;  
                        db $06                               ;058A7A|        |      ;  
@@ -1682,7 +1682,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1A                               ;058A95|        |      ;  
                        dw CODE_009683                       ;058A96|        |009683;  
                        db $07                               ;058A98|        |      ;  
-                       dl Sub: Get/Set SFX                  ;058A99|        |009C44;  
+                       dl GetSet_SFX                        ;058A99|        |009C44;  
                        db $2F                               ;058A9C|        |      ;  
                        db $24                               ;058A9D|        |      ;  
                        db $02                               ;058A9E|        |      ;  
@@ -1715,12 +1715,12 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $07                               ;058AC8|        |      ;  
                        dl CODE_078DF0                       ;058AC9|        |078DF0;  
                        db $07                               ;058ACC|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058ACD|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058ACD|        |00A140;  
                        dl DATA8_0D9364                      ;058AD0|        |0D9364;  
                        db $75                               ;058AD3|        |      ;  
                        dw $0016                             ;058AD4|        |      ;  
                        db $07                               ;058AD6|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058AD7|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058AD7|        |00A035;  
                        dl Gfx_Dead_Spirit                   ;058ADA|        |0E8FCC;  
                        dl $7E8500                           ;058ADD|        |7E8500;  
                        db $07                               ;058AE0|        |      ;  
@@ -1740,18 +1740,18 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw LOOSE_OP_008A0B                   ;058AF6|        |008A0B;  
                                                             ;      |        |      ;  
          DATA8_058AF8: db $07                               ;058AF8|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058AF9|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058AF9|        |00A035;  
                        dl UNREACH_0EB3D1                    ;058AFC|        |0EB3D1;  
                        dl $7E8500                           ;058AFF|        |7E8500;  
                        db $07                               ;058B02|        |      ;  
                        dl RAM_Decomp_801A                   ;058B03|        |0E8012;  
                        db $07                               ;058B06|        |      ;  
-                       dl Sub: Get/Set SFX                  ;058B07|        |009C44;  
+                       dl GetSet_SFX                        ;058B07|        |009C44;  
                        db $01                               ;058B0A|        |      ;  
                        db $06                               ;058B0B|        |      ;  
                        db $14                               ;058B0C|        |      ;  
                        db $07                               ;058B0D|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058B0E|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058B0E|        |00A035;  
                        dl UNREACH_0EB08D                    ;058B11|        |0EB08D;  
                        dl $7E8500                           ;058B14|        |7E8500;  
                        db $07                               ;058B17|        |      ;  
@@ -1789,7 +1789,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_058B4F: LDX.W Selection                      ;058B4F|AE3F10  |00103F;  
                        LDA.W #$8A0B                         ;058B52|A90B8A  |      ;  
                        LDY.W #$0005                         ;058B55|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058B58|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058B58|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058B5C: RTL                                  ;058B5C|6B      |      ;  
@@ -1798,7 +1798,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_058B5D: LDX.W Selection                      ;058B5D|AE3F10  |00103F;  
                        LDA.W #$8B1C                         ;058B60|A91C8B  |      ;  
                        LDY.W #$0005                         ;058B63|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058B66|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058B66|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                        RTL                                  ;058B6A|6B      |      ;  
                                                             ;      |        |      ;  
@@ -1811,7 +1811,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        LDX.W Selection                      ;058B7A|AE3F10  |00103F;  
                        LDA.W #$8AE5                         ;058B7D|A9E58A  |      ;  
                        LDY.W #$0005                         ;058B80|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058B83|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058B83|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058B87: RTL                                  ;058B87|6B      |      ;  
@@ -1886,13 +1886,13 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
          DATA8_058BDE: db $09                               ;058BDE|        |      ;  
                        dl CODE_058CD9                       ;058BDF|        |058CD9;  
                        db $07                               ;058BE2|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058BE3|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058BE3|        |00A140;  
                        dl $058BE6_data                      ;058BE6|        |0D937A;  
                        db $75                               ;058BE9|        |      ;  
                        db $16                               ;058BEA|        |      ;  
                        db $00                               ;058BEB|        |      ;  
                        db $07                               ;058BEC|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058BED|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058BED|        |00A035;  
                        dl Gfx_Efrite                        ;058BF0|        |0EB715;  
                        dl $7E8500                           ;058BF3|        |7E8500;  
                        db $06                               ;058BF6|        |      ;  
@@ -1906,13 +1906,13 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
          DATA8_058BFF: db $09                               ;058BFF|        |      ;  
                        dl CODE_058CD3                       ;058C00|        |058CD3;  
                        db $07                               ;058C03|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058C04|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058C04|        |00A140;  
                        dl $058BE6_data                      ;058C07|        |0D937A;  
                        db $75                               ;058C0A|        |      ;  
                        db $16                               ;058C0B|        |      ;  
                        db $00                               ;058C0C|        |      ;  
                        db $07                               ;058C0D|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058C0E|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058C0E|        |00A035;  
                        dl $058C11_compressed_data           ;058C11|        |0EBB0E;  
                        dl $7E8500                           ;058C14|        |7E8500;  
                        db $06                               ;058C17|        |      ;  
@@ -1939,7 +1939,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $1A                               ;058C32|        |      ;  
                        dw CODE_009683                       ;058C33|        |009683;  
                        db $07                               ;058C35|        |      ;  
-                       dl Sub: Get/Set SFX                  ;058C36|        |009C44;  
+                       dl GetSet_SFX                        ;058C36|        |009C44;  
                        db $2F                               ;058C39|        |      ;  
                        db $24                               ;058C3A|        |      ;  
                        db $02                               ;058C3B|        |      ;  
@@ -1972,13 +1972,13 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $07                               ;058C65|        |      ;  
                        dl CODE_078DF0                       ;058C66|        |078DF0;  
                        db $07                               ;058C69|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058C6A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058C6A|        |00A140;  
                        dl $058BE6_data                      ;058C6D|        |0D937A;  
                        db $75                               ;058C70|        |      ;  
                        db $16                               ;058C71|        |      ;  
                        db $00                               ;058C72|        |      ;  
                        db $07                               ;058C73|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058C74|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058C74|        |00A035;  
                        dl Gfx_Dead_Spirit                   ;058C77|        |0E8FCC;  
                        dl $7E8500                           ;058C7A|        |7E8500;  
                        db $07                               ;058C7D|        |      ;  
@@ -1998,18 +1998,18 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dw DATA8_008BA8                      ;058C93|        |008BA8;  
                                                             ;      |        |      ;  
          DATA8_058C95: db $07                               ;058C95|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058C96|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058C96|        |00A035;  
                        dl $058C99_compress_data             ;058C99|        |0EBEA9;  
                        dl $7E8500                           ;058C9C|        |7E8500;  
                        db $07                               ;058C9F|        |      ;  
                        dl RAM_Decomp_801A                   ;058CA0|        |0E8012;  
                        db $07                               ;058CA3|        |      ;  
-                       dl Sub: Get/Set SFX                  ;058CA4|        |009C44;  
+                       dl GetSet_SFX                        ;058CA4|        |009C44;  
                        db $01                               ;058CA7|        |      ;  
                        db $06                               ;058CA8|        |      ;  
                        db $14                               ;058CA9|        |      ;  
                        db $07                               ;058CAA|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058CAB|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058CAB|        |00A035;  
                        dl $058C11_compressed_data           ;058CAE|        |0EBB0E;  
                        dl $7E8500                           ;058CB1|        |7E8500;  
                        db $07                               ;058CB4|        |      ;  
@@ -2048,7 +2048,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_058CEC: LDX.W Selection                      ;058CEC|AE3F10  |00103F;  
                        LDA.W #$8BA8                         ;058CEF|A9A88B  |      ;  
                        LDY.W #$0005                         ;058CF2|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058CF5|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058CF5|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058CF9: RTL                                  ;058CF9|6B      |      ;  
@@ -2057,7 +2057,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_058CFA: LDX.W Selection                      ;058CFA|AE3F10  |00103F;  
                        LDA.W #$8CB9                         ;058CFD|A9B98C  |      ;  
                        LDY.W #$0005                         ;058D00|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058D03|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058D03|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                        RTL                                  ;058D07|6B      |      ;  
                                                             ;      |        |      ;  
@@ -2070,7 +2070,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        LDX.W Selection                      ;058D17|AE3F10  |00103F;  
                        LDA.W #$8C82                         ;058D1A|A9828C  |      ;  
                        LDY.W #$0005                         ;058D1D|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058D20|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058D20|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058D24: RTL                                  ;058D24|6B      |      ;  
@@ -2126,7 +2126,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dl OR element w/parameter            ;058D6B|        |07B169;  
                        dw $0000                             ;058D6E|        |      ;  
                        db $07                               ;058D70|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058D71|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058D71|        |00A140;  
                        dl Data_3CF82                        ;058D74|        |0D92A2;  
                        db $50                               ;058D77|        |      ;  
                        dw $0020                             ;058D78|        |      ;  
@@ -2200,13 +2200,13 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $0C                               ;058DE6|        |      ;  
                        dw CODE_008DF6                       ;058DE7|        |008DF6;  
                        db $07                               ;058DE9|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058DEA|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058DEA|        |00A035;  
                        dl Gfx_Red_Teefa                     ;058DED|        |0EC292;  
                        dl $7E8A00                           ;058DF0|        |7E8A00;  
                        db $1A                               ;058DF3|        |      ;  
                        dw LOOSE_OP_008E00                   ;058DF4|        |008E00;  
                        db $07                               ;058DF6|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058DF7|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058DF7|        |00A035;  
                        dl Gfx_Good_Teefa                    ;058DFA|        |0EC6AB;  
                        dl $7E8A00                           ;058DFD|        |7E8A00;  
                        db $06                               ;058E00|        |      ;  
@@ -2217,7 +2217,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $01                               ;058E07|        |      ;  
                        db $0A                               ;058E08|        |      ;  
                                                             ;      |        |      ;  
-       Chapter5_Check: LDA.W Chapter #                      ;058E09|ADCD18  |0018CD;  
+       Chapter5_Check: LDA.W Chapter_num                    ;058E09|ADCD18  |0018CD;  
                        CMP.W #$0005                         ;058E0C|C90500  |      ;  
                        BNE CODE_058E15                      ;058E0F|D004    |058E15;  
                        LDA.W #$0001                         ;058E11|A90100  |      ;  
@@ -2233,7 +2233,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $04                               ;058E1D|        |      ;  
                        dl Some_Death_Check?                 ;058E1E|        |058449;  
                        db $07                               ;058E21|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058E22|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058E22|        |00A035;  
                        dl DATA8_0ECAC5                      ;058E25|        |0ECAC5;  
                        dl $7E8A00                           ;058E28|        |7E8A00;  
                        db $06                               ;058E2B|        |      ;  
@@ -2268,31 +2268,31 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;058E55|        |      ;  
                        db $1E                               ;058E56|        |      ;  
                        db $07                               ;058E57|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058E58|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058E58|        |00A035;  
                        dl DATA8_0E8C1F                      ;058E5B|        |0E8C1F;  
                        dl $7E8A00                           ;058E5E|        |7E8A00;  
                        db $07                               ;058E61|        |      ;  
                        dl RAM_Decomp_802B                   ;058E62|        |0E8023;  
                        db $07                               ;058E65|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;058E66|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;058E66|        |00A140;  
                        dl Data_0D_9548                      ;058E69|        |0D9548;  
                        db $53                               ;058E6C|        |      ;  
                        dw $001A                             ;058E6D|        |      ;  
                        db $0A                               ;058E6F|        |      ; 0A
                                                             ;      |        |      ;  
          DATA8_058E70: db $07                               ;058E70|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058E71|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058E71|        |00A035;  
                        dl UNREACH_0ECE75                    ;058E74|        |0ECE75;  
                        dl $7E8A00                           ;058E77|        |7E8A00;  
                        db $07                               ;058E7A|        |      ;  
                        dl RAM_Decomp_802B                   ;058E7B|        |0E8023;  
                        db $07                               ;058E7E|        |      ; SFX 1
-                       dl Sub: Get/Set SFX                  ;058E7F|        |009C44;  
+                       dl GetSet_SFX                        ;058E7F|        |009C44;  
                        db $01                               ;058E82|        |      ;  
                        db $06                               ;058E83|        |      ;  
                        db $14                               ;058E84|        |      ;  
                        db $07                               ;058E85|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;058E86|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;058E86|        |00A035;  
                        dl DATA8_0ECAC5                      ;058E89|        |0ECAC5;  
                        dl $7E8A00                           ;058E8C|        |7E8A00;  
                        db $07                               ;058E8F|        |      ;  
@@ -2352,25 +2352,25 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $05                               ;058EE0|        |      ; RTL
                                                             ;      |        |      ;  
          DATA8_058EE1: db $07                               ;058EE1|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;058EE2|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;058EE2|        |009D1F;  
                        dl DATA8_0E80EB                      ;058EE5|        |0E80EB;  
                        dw $0061                             ;058EE8|        |      ;  
                        db $1C                               ;058EEA|        |      ; RTS
                                                             ;      |        |      ;  
          DATA8_058EEB: db $07                               ;058EEB|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;058EEC|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;058EEC|        |009D1F;  
                        dl DATA8_0E80EB                      ;058EEF|        |0E80EB;  
                        dw $007A                             ;058EF2|        |      ;  
                        db $1C                               ;058EF4|        |      ; RTS
                                                             ;      |        |      ;  
          DATA8_058EF5: db $07                               ;058EF5|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;058EF6|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;058EF6|        |009D1F;  
                        dl DATA8_0E80EB                      ;058EF9|        |0E80EB;  
                        dw $0201                             ;058EFC|        |      ;  
                        db $1C                               ;058EFE|        |      ; RTS
                                                             ;      |        |      ;  
          DATA8_058EFF: db $07                               ;058EFF|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;058F00|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;058F00|        |009D1F;  
                        dl DATA8_0E80EB                      ;058F03|        |0E80EB;  
                        db $1A                               ;058F06|        |      ;  
                        db $02                               ;058F07|        |      ;  
@@ -2390,7 +2390,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_058F21: LDX.W Selection                      ;058F21|AE3F10  |00103F;  
                        LDA.W #$8DA2                         ;058F24|A9A28D  |      ;  
                        LDY.W #$0005                         ;058F27|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058F2A|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058F2A|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_058F2E: RTL                                  ;058F2E|6B      |      ;  
@@ -2399,7 +2399,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_058F2F: LDX.W Selection                      ;058F2F|AE3F10  |00103F;  
                        LDA.W #$8E94                         ;058F32|A9948E  |      ;  
                        LDY.W #$0005                         ;058F35|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;058F38|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;058F38|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                        RTL                                  ;058F3C|6B      |      ;  
                                                             ;      |        |      ;  
@@ -2611,7 +2611,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $04                               ;059010|        |      ;  
                        dl Some_Death_Check?                 ;059011|        |058449;  
                        db $07                               ;059014|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059015|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059015|        |00A035;  
                        dl DATA8_0ED25C                      ;059018|        |0ED25C;  
                        dl $7E8A00                           ;05901B|        |7E8A00;  
                        db $06                               ;05901E|        |      ;  
@@ -2627,7 +2627,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $04                               ;05902B|        |      ;  
                        dl Some_Death_Check?                 ;05902C|        |058449;  
                        db $07                               ;05902F|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059030|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059030|        |00A035;  
                        dl UNREACH_0ED66F                    ;059033|        |0ED66F;  
                        dl $7E8A00                           ;059036|        |7E8A00;  
                        db $06                               ;059039|        |      ;  
@@ -2662,31 +2662,31 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;059063|        |      ;  
                        db $1E                               ;059064|        |      ;  
                        db $07                               ;059065|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059066|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059066|        |00A035;  
                        dl DATA8_0E8C1F                      ;059069|        |0E8C1F;  
                        dl $7E8A00                           ;05906C|        |7E8A00;  
                        db $07                               ;05906F|        |      ;  
                        dl RAM_Decomp_802B                   ;059070|        |0E8023;  
                        db $07                               ;059073|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059074|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059074|        |00A140;  
                        dl Data_0D_9548                      ;059077|        |0D9548;  
                        db $53                               ;05907A|        |      ;  
                        dw $001A                             ;05907B|        |      ;  
                        db $0A                               ;05907D|        |      ; 0A
                                                             ;      |        |      ;  
          DATA8_05907E: db $07                               ;05907E|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;05907F|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;05907F|        |00A035;  
                        dl UNREACH_0EDA31                    ;059082|        |0EDA31;  
                        dl $7E8A00                           ;059085|        |7E8A00;  
                        db $07                               ;059088|        |      ;  
                        dl RAM_Decomp_802B                   ;059089|        |0E8023;  
                        db $07                               ;05908C|        |      ; SFX 1
-                       dl Sub: Get/Set SFX                  ;05908D|        |009C44;  
+                       dl GetSet_SFX                        ;05908D|        |009C44;  
                        db $01                               ;059090|        |      ;  
                        db $06                               ;059091|        |      ;  
                        db $14                               ;059092|        |      ;  
                        db $07                               ;059093|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059094|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059094|        |00A035;  
                        dl UNREACH_0ED66F                    ;059097|        |0ED66F;  
                        dl $7E8A00                           ;05909A|        |7E8A00;  
                        db $07                               ;05909D|        |      ;  
@@ -2725,7 +2725,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_0590D4: LDX.W Selection                      ;0590D4|AE3F10  |00103F;  
                        LDA.W #$8FD4                         ;0590D7|A9D48F  |      ;  
                        LDY.W #$0005                         ;0590DA|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0590DD|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0590DD|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0590E1: RTL                                  ;0590E1|6B      |      ;  
@@ -2734,7 +2734,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
           CODE_0590E2: LDX.W Selection                      ;0590E2|AE3F10  |00103F;  
                        LDA.W #$90A2                         ;0590E5|A9A290  |      ;  
                        LDY.W #$0005                         ;0590E8|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0590EB|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0590EB|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                        RTL                                  ;0590EF|6B      |      ;  
                                                             ;      |        |      ;  
@@ -2803,7 +2803,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        dl OR element w/parameter            ;059150|        |07B169;  
                        dw $0000                             ;059153|        |      ;  
                        db $07                               ;059155|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059156|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059156|        |00A140;  
                        dl DATA8_0D92E2                      ;059159|        |0D92E2;  
                        db $60                               ;05915C|        |      ;  
                        dw $0020                             ;05915D|        |      ;  
@@ -2873,7 +2873,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $04                               ;0591C3|        |      ;  
                        dl Some_Death_Check?                 ;0591C4|        |058449;  
                        db $07                               ;0591C7|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0591C8|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0591C8|        |00A035;  
                        dl DATA8_0EDDF8                      ;0591CB|        |0EDDF8;  
                        dl $7E8F00                           ;0591CE|        |7E8F00;  
                        db $06                               ;0591D1|        |      ;  
@@ -2889,7 +2889,7 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $04                               ;0591DE|        |      ;  
                        dl Some_Death_Check?                 ;0591DF|        |058449;  
                        db $07                               ;0591E2|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0591E3|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0591E3|        |00A035;  
                        dl UNREACH_0EE1D3                    ;0591E6|        |0EE1D3;  
                        dl $7E8F00                           ;0591E9|        |7E8F00;  
                        db $06                               ;0591EC|        |      ;  
@@ -2923,31 +2923,31 @@ Bank_05_Stat_Handling: db $0F                               ;058001|        |   
                        db $06                               ;059216|        |      ;  
                        db $1E                               ;059217|        |      ;  
                        db $07                               ;059218|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059219|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059219|        |00A035;  
                        dl DATA8_0E8C1F                      ;05921C|        |0E8C1F;  
                        dl $7E8F00                           ;05921F|        |7E8F00;  
                        db $07                               ;059222|        |      ;  
                        dl RAM_Decomp_803C                   ;059223|        |0E8034;  
                        db $07                               ;059226|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059227|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059227|        |00A140;  
                        dl Data_0D_9548                      ;05922A|        |0D9548;  
                        db $63                               ;05922D|        |      ;  
                        dw $001A                             ;05922E|        |      ;  
                        db $0A                               ;059230|        |      ;  
                                                             ;      |        |      ;  
          DATA8_059231: db $07                               ;059231|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059232|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059232|        |00A035;  
                        dl UNREACH_0EE518                    ;059235|        |0EE518;  
                        dl $7E8F00                           ;059238|        |7E8F00;  
                        db $07                               ;05923B|        |      ;  
                        dl RAM_Decomp_803C                   ;05923C|        |0E8034;  
                        db $07                               ;05923F|        |      ;  
-                       dl Sub: Get/Set SFX                  ;059240|        |009C44;  
+                       dl GetSet_SFX                        ;059240|        |009C44;  
                        db $01                               ;059243|        |      ;  
                        db $06                               ;059244|        |      ;  
                        db $14                               ;059245|        |      ;  
                        db $07                               ;059246|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059247|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059247|        |00A035;  
                        dl UNREACH_0EE1D3                    ;05924A|        |0EE1D3;  
                        dl $7E8F00                           ;05924D|        |7E8F00;  
                        db $07                               ;059250|        |      ;  
@@ -3006,25 +3006,25 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $05                               ;0592A1|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0592A2: db $07                               ;0592A2|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0592A3|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0592A3|        |009D1F;  
                        dl UNREACH_0E813E                    ;0592A6|        |0E813E;  
                        dw $0061                             ;0592A9|        |      ;  
                        db $1C                               ;0592AB|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0592AC: db $07                               ;0592AC|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0592AD|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0592AD|        |009D1F;  
                        dl UNREACH_0E813E                    ;0592B0|        |0E813E;  
                        dw $007A                             ;0592B3|        |      ;  
                        db $1C                               ;0592B5|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0592B6: db $07                               ;0592B6|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0592B7|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0592B7|        |009D1F;  
                        dl UNREACH_0E813E                    ;0592BA|        |0E813E;  
                        dw $0201                             ;0592BD|        |      ;  
                        db $1C                               ;0592BF|        |      ;  
                                                             ;      |        |      ;  
          DATA8_0592C0: db $07                               ;0592C0|        |      ;  
-                       dl Setup_8698(3b)(2b)                ;0592C1|        |009D1F;  
+                       dl Setup_8698_3b_2b                  ;0592C1|        |009D1F;  
                        dl UNREACH_0E813E                    ;0592C4|        |0E813E;  
                        dw $021A                             ;0592C7|        |      ;  
                        db $1C                               ;0592C9|        |      ;  
@@ -3043,7 +3043,7 @@ Another setup sub again: db $07                               ;05926F|        | 
           CODE_0592E2: LDX.W Selection                      ;0592E2|AE3F10  |00103F;  
                        LDA.W #$9187                         ;0592E5|A98791  |      ;  
                        LDY.W #$0005                         ;0592E8|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0592EB|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0592EB|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0592EF: RTL                                  ;0592EF|6B      |      ;  
@@ -3052,7 +3052,7 @@ Another setup sub again: db $07                               ;05926F|        | 
           CODE_0592F0: LDX.W Selection                      ;0592F0|AE3F10  |00103F;  
                        LDA.W #$9255                         ;0592F3|A95592  |      ;  
                        LDY.W #$0005                         ;0592F6|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0592F9|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0592F9|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                        RTL                                  ;0592FD|6B      |      ;  
                                                             ;      |        |      ;  
@@ -3122,7 +3122,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dl OR element w/parameter            ;05935E|        |07B169;  
                        dw $0000                             ;059361|        |      ;  
                        db $07                               ;059363|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059364|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059364|        |00A140;  
                        dl DATA8_0D9302                      ;059367|        |0D9302;  
                        db $60                               ;05936A|        |      ;  
                        dw $0020                             ;05936B|        |      ;  
@@ -3192,7 +3192,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $04                               ;0593D1|        |      ;  
                        dl Some_Death_Check?                 ;0593D2|        |058449;  
                        db $07                               ;0593D5|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0593D6|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0593D6|        |00A035;  
                        dl DATA8_0EE863                      ;0593D9|        |0EE863;  
                        dl $7E8F00                           ;0593DC|        |7E8F00;  
                        db $06                               ;0593DF|        |      ;  
@@ -3208,7 +3208,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $04                               ;0593EC|        |      ;  
                        dl Some_Death_Check?                 ;0593ED|        |058449;  
                        db $07                               ;0593F0|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0593F1|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0593F1|        |00A035;  
                        dl UNREACH_0EEC0F                    ;0593F4|        |0EEC0F;  
                        dl $7E8F00                           ;0593F7|        |7E8F00;  
                        db $06                               ;0593FA|        |      ;  
@@ -3242,31 +3242,31 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $06                               ;059424|        |      ;  
                        db $1E                               ;059425|        |      ;  
                        db $07                               ;059426|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059427|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059427|        |00A035;  
                        dl DATA8_0E8C1F                      ;05942A|        |0E8C1F;  
                        dl $7E8F00                           ;05942D|        |7E8F00;  
                        db $07                               ;059430|        |      ;  
                        dl RAM_Decomp_803C                   ;059431|        |0E8034;  
                        db $07                               ;059434|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059435|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059435|        |00A140;  
                        dl Data_0D_9548                      ;059438|        |0D9548;  
                        db $63                               ;05943B|        |      ;  
                        dw $001A                             ;05943C|        |      ;  
                        db $0A                               ;05943E|        |      ; 0A
                                                             ;      |        |      ;  
          DATA8_05943F: db $07                               ;05943F|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059440|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059440|        |00A035;  
                        dl UNREACH_0EEF6B                    ;059443|        |0EEF6B;  
                        dl $7E8F00                           ;059446|        |7E8F00;  
                        db $07                               ;059449|        |      ;  
                        dl RAM_Decomp_803C                   ;05944A|        |0E8034;  
                        db $07                               ;05944D|        |      ;  
-                       dl Sub: Get/Set SFX                  ;05944E|        |009C44;  
+                       dl GetSet_SFX                        ;05944E|        |009C44;  
                        db $01                               ;059451|        |      ;  
                        db $06                               ;059452|        |      ;  
                        db $14                               ;059453|        |      ;  
                        db $07                               ;059454|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059455|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059455|        |00A035;  
                        dw EMPTY_00EC0F                      ;059458|        |00EC0F;  
                        db $0E                               ;05945A|        |      ;  
                        dw LOOSE_OP_008F00                   ;05945B|        |008F00;  
@@ -3306,7 +3306,7 @@ Another setup sub again: db $07                               ;05926F|        | 
           CODE_059495: LDX.W Selection                      ;059495|AE3F10  |00103F;  
                        LDA.W #$9395                         ;059498|A99593  |      ;  
                        LDY.W #$0005                         ;05949B|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;05949E|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;05949E|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_0594A2: RTL                                  ;0594A2|6B      |      ;  
@@ -3315,7 +3315,7 @@ Another setup sub again: db $07                               ;05926F|        | 
           CODE_0594A3: LDX.W Selection                      ;0594A3|AE3F10  |00103F;  
                        LDA.W #$9463                         ;0594A6|A96394  |      ;  
                        LDY.W #$0005                         ;0594A9|A00500  |      ;  
-                       JML.L Sub: Load Stuff                ;0594AC|5CB48D00|008DB4;  
+                       JML.L Sub_LoadStuff                  ;0594AC|5CB48D00|008DB4;  
                                                             ;      |        |      ;  
                        RTL                                  ;0594B0|6B      |      ;  
                                                             ;      |        |      ;  
@@ -3370,12 +3370,12 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dl OR element w/parameter            ;0594FE|        |07B169;  
                        dw $0F00                             ;059501|        |      ;  
                        db $07                               ;059503|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059504|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059504|        |00A140;  
                        dl Xfer_05_9507                      ;059507|        |0D920A;  
                        db $70                               ;05950A|        |      ;  
                        dw $0020                             ;05950B|        |      ;  
                        db $07                               ;05950D|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05950E|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05950E|        |00A140;  
                        dl $001577                           ;059511|        |001577;  
                        db $73                               ;059514|        |      ;  
                        dw $0002                             ;059515|        |      ;  
@@ -3397,7 +3397,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $07                               ;05952F|        |      ;  
                        dl 07/906F_far                       ;059530|        |07906B;  
                        db $07                               ;059533|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059534|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059534|        |00A035;  
                        dl Gfx_Rooks                         ;059537|        |0E92F9;  
                        dl $7E8500                           ;05953A|        |7E8500;  
                        db $07                               ;05953D|        |      ;  
@@ -3448,7 +3448,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dl OR element w/parameter            ;059585|        |07B169;  
                        dw $0F00                             ;059588|        |      ;  
                        db $07                               ;05958A|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05958B|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05958B|        |00A140;  
                        dl Xfer_05_9507                      ;05958E|        |0D920A;  
                        db $50                               ;059591|        |      ;  
                        dw $0020                             ;059592|        |      ;  
@@ -3472,7 +3472,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $07                               ;0595AE|        |      ;  
                        dl 07/906F_far                       ;0595AF|        |07906B;  
                        db $07                               ;0595B2|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;0595B3|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;0595B3|        |00A035;  
                        dl Gfx_Rooks                         ;0595B6|        |0E92F9;  
                        dl $7E8A00                           ;0595B9|        |7E8A00;  
                        db $07                               ;0595BC|        |      ;  
@@ -3523,7 +3523,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dl OR element w/parameter            ;059604|        |07B169;  
                        dw $0F00                             ;059607|        |      ;  
                        db $07                               ;059609|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05960A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05960A|        |00A140;  
                        dl Xfer_05_9507                      ;05960D|        |0D920A;  
                        db $60                               ;059610|        |      ;  
                        dw $0020                             ;059611|        |      ;  
@@ -3547,7 +3547,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $07                               ;05962D|        |      ;  
                        dl 07/906F_far                       ;05962E|        |07906B;  
                        db $07                               ;059631|        |      ;  
-                       dl Decomp_Setup2(3b)(3b)             ;059632|        |00A035;  
+                       dl Decomp_Setup2_3b_3b               ;059632|        |00A035;  
                        dl Gfx_Rooks                         ;059635|        |0E92F9;  
                        dl $7E8F00                           ;059638|        |7E8F00;  
                        db $07                               ;05963B|        |      ;  
@@ -3567,33 +3567,33 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $0C                               ;059654|        |      ;  
                        dw DATA8_059682                      ;059655|        |059682;  
                        db $07                               ;059657|        |      ;  
-                       dl Next byte AND $1059(1b)           ;059658|        |009E8A;  
+                       dl Pixellation_AND_1b                ;059658|        |009E8A;  
                        db $0F                               ;05965B|        |      ;  
                        db $07                               ;05965C|        |      ;  
-                       dl Screen_Pixelation(1b)             ;05965D|        |009E9D;  
+                       dl Set_Pixellation_hi_1b             ;05965D|        |009E9D;  
                        db $02                               ;059660|        |      ;  
                        db $07                               ;059661|        |      ;  
-                       dl Next byte OR $1059(1b)            ;059662|        |009E79;  
+                       dl Pixellation_OR_1b                 ;059662|        |009E79;  
                        db $02                               ;059665|        |      ;  
                        db $01                               ;059666|        |      ; 01: Loop $05
                        db $05                               ;059667|        |      ;  
                        db $07                               ;059668|        |      ;  
-                       dl Screen_Pixelation_2               ;059669|        |009EB8;  
+                       dl Incr_Pixellation_hi               ;059669|        |009EB8;  
                        db $06                               ;05966C|        |      ;  
                        db $01                               ;05966D|        |      ;  
                        db $02                               ;05966E|        |      ; 02: End loop
                        db $01                               ;05966F|        |      ; 01: Loop $05
                        db $05                               ;059670|        |      ;  
                        db $07                               ;059671|        |      ;  
-                       dl Screen_Pixelation_3               ;059672|        |009ECC;  
+                       dl Decr_Pixellation_hi               ;059672|        |009ECC;  
                        db $06                               ;059675|        |      ;  
                        db $01                               ;059676|        |      ;  
                        db $02                               ;059677|        |      ; 02: End loop
                        db $07                               ;059678|        |      ;  
-                       dl Next byte AND $1059(1b)           ;059679|        |009E8A;  
+                       dl Pixellation_AND_1b                ;059679|        |009E8A;  
                        db $02                               ;05967C|        |      ;  
                        db $07                               ;05967D|        |      ;  
-                       dl Screen_Pixelation(1b)             ;05967E|        |009E9D;  
+                       dl Set_Pixellation_hi_1b             ;05967E|        |009E9D;  
                        db $00                               ;059681|        |      ;  
                                                             ;      |        |      ;  
          DATA8_059682: db $05                               ;059682|        |      ; RTL
@@ -3605,7 +3605,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $06                               ;059689|        |      ;  
                        db $01                               ;05968A|        |      ;  
                        db $07                               ;05968B|        |      ;  
-                       dl Load_Sprite(14b)                  ;05968C|        |009CAE;  
+                       dl Load_Sprite_14b                   ;05968C|        |009CAE;  
                        db $08                               ;05968F|        |      ;  
                        db $0A                               ;059690|        |      ;  
                        db $02                               ;059691|        |      ;  
@@ -3642,14 +3642,14 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dw DATA8_059748                      ;0596BC|        |059748;  
                                                             ;      |        |      ;  
         ASM_Paralyzed: db $07                               ;0596BE|        |      ;  
-                       dl Read (3b) into text parser        ;0596BF|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;0596BF|        |00A0AC;  
                        dl IsParalyzed                       ;0596C2|        |088936;  
                        db $00                               ;0596C5|        |      ;  
                        db $1A                               ;0596C6|        |      ;  
                        dw DATA8_059933                      ;0596C7|        |059933;  
                                                             ;      |        |      ;  
         ASM_Petrified: db $07                               ;0596C9|        |      ;  
-                       dl Read (3b) into text parser        ;0596CA|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;0596CA|        |00A0AC;  
                        dl IsPetrified                       ;0596CD|        |08894E;  
                        db $00                               ;0596D0|        |      ;  
                        db $1F                               ;0596D1|        |      ;  
@@ -3670,7 +3670,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dw LOOSE_OP_009933                   ;0596E7|        |009933;  
                                                             ;      |        |      ;  
          ASM_Confused: db $07                               ;0596E9|        |      ;  
-                       dl Read (3b) into text parser        ;0596EA|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;0596EA|        |00A0AC;  
                        dl IsConfused                        ;0596ED|        |088966;  
                        db $00                               ;0596F0|        |      ;  
                        db $1B                               ;0596F1|        |      ;  
@@ -3687,28 +3687,28 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dw DATA8_05986F                      ;059704|        |05986F;  
                                                             ;      |        |      ;  
           CODE_059706: LDX.W Selection                      ;059706|AE3F10  |00103F;  
-                       LDA.W Treasure type,X                ;059709|BDC709  |0009C7;  
+                       LDA.W Temp_09C7,X                    ;059709|BDC709  |0009C7;  
                        TAX                                  ;05970C|AA      |      ;  
-                       LDA.W Selection value,X              ;05970D|BDEB09  |0009EB;  
+                       LDA.W Selection_value,X              ;05970D|BDEB09  |0009EB;  
                        ASL A                                ;059710|0A      |      ;  
                        TAX                                  ;059711|AA      |      ;  
-                       LDA.W Current party,X                ;059712|BD5B15  |00155B;  
+                       LDA.W Curr_party,X                   ;059712|BD5B15  |00155B;  
                        RTL                                  ;059715|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
            ASM_Asleep: db $07                               ;059716|        |      ;  
-                       dl Read (3b) into text parser        ;059717|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059717|        |00A0AC;  
                        dl IsAsleep                          ;05971A|        |08897D;  
                        db $00                               ;05971D|        |      ;  
                        db $1B                               ;05971E|        |      ;  
                        dw CODE_009942                       ;05971F|        |009942;  
                        db $07                               ;059721|        |      ;  
-                       dl RNG (1b), something               ;059722|        |00A0BD;  
+                       dl RNG_1b_something                  ;059722|        |00A0BD;  
                        db $04                               ;059725|        |      ;  
                        db $0C                               ;059726|        |      ;  
                        dw CODE_0097D0                       ;059727|        |0097D0;  
                        db $07                               ;059729|        |      ;  
-                       dl Read (3b) into text parser        ;05972A|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05972A|        |00A0AC;  
                        dl HasAwakened                       ;05972D|        |088992;  
                        db $00                               ;059730|        |      ;  
                        db $1B                               ;059731|        |      ;  
@@ -3718,7 +3718,7 @@ Another setup sub again: db $07                               ;05926F|        | 
                        db $23                               ;059737|        |      ;  
                        db $00                               ;059738|        |      ;  
                        db $07                               ;059739|        |      ;  
-                       dl Menu_Stuffs_(1b)                  ;05973A|        |009CC9;  
+                       dl Menu_Stuffs_1b                    ;05973A|        |009CC9;  
                        db $00                               ;05973D|        |      ;  
                        db $07                               ;05973E|        |      ;  
                        dl CODE_07B11C                       ;05973F|        |07B11C;  
@@ -3739,28 +3739,28 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dw Guest2BattleMenu                  ;059752|        |059775;  
                                                             ;      |        |      ;  
       RooksBattleMenu: db $07                               ;059754|        |      ; 08/82E5 -> $10B3
-                       dl Read (3b) into text parser        ;059755|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059755|        |00A0AC;  
                        dl Rooks' Battle menu                ;059758|        |0882E5;  
                        db $00                               ;05975B|        |      ;  
                        db $1A                               ;05975C|        |      ;  
                        dw BattleMenuLoop                    ;05975D|        |05977D;  
                                                             ;      |        |      ;  
      SpiritBattleMenu: db $07                               ;05975F|        |      ;  
-                       dl Read (3b) into text parser        ;059760|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059760|        |00A0AC;  
                        dl Spirit Battle menu                ;059763|        |088330;  
                        db $00                               ;059766|        |      ;  
                        db $1A                               ;059767|        |      ; Jump always to 977D
                        dw BattleMenuLoop                    ;059768|        |05977D;  
                                                             ;      |        |      ;  
      Guest1BattleMenu: db $07                               ;05976A|        |      ;  
-                       dl Read (3b) into text parser        ;05976B|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05976B|        |00A0AC;  
                        dl Guest Battle menu                 ;05976E|        |088354;  
                        db $00                               ;059771|        |      ;  
                        db $1A                               ;059772|        |      ; Jump always to 977D
                        dw BattleMenuLoop                    ;059773|        |05977D;  
                                                             ;      |        |      ;  
      Guest2BattleMenu: db $07                               ;059775|        |      ;  
-                       dl Read (3b) into text parser        ;059776|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059776|        |00A0AC;  
                        dl Guest Battle menu                 ;059779|        |088354;  
                        db $00                               ;05977C|        |      ;  
                                                             ;      |        |      ;  
@@ -3799,12 +3799,12 @@ Another setup sub again: db $07                               ;05926F|        | 
                        dw $0000                             ;0597AA|        |      ;  
                                                             ;      |        |      ;  
     BattleMenu_A_Loop: db $07                               ;0597AC|        |      ; 07: Call 00/A00F Check for user input
-                       dl Sub: Button Pressed? (2b)         ;0597AD|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;0597AD|        |00A00F;  
                        dw $0080                             ;0597B0|        |      ; 0080: Check for A press
                        db $0B                               ;0597B2|        |      ; 0B: Jump if false/nonzero to 977D
                        dw BattleMenuLoop                    ;0597B3|        |05977D;  
                        db $07                               ;0597B5|        |      ; 07: Call 00/9C44 (Play SFX)
-                       dl Sub: Get/Set SFX                  ;0597B6|        |009C44;  
+                       dl GetSet_SFX                        ;0597B6|        |009C44;  
                        db $11                               ;0597B9|        |      ; SFX Confirm
                        db $24                               ;0597BA|        |      ; Load $09A3,x (Battle command selection?)
                        db $00                               ;0597BB|        |      ;  
@@ -3826,7 +3826,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $23                               ;0597D3|        |      ;  
                        db $00                               ;0597D4|        |      ;  
                        db $07                               ;0597D5|        |      ;  
-                       dl Menu_Stuffs_(1b)                  ;0597D6|        |009CC9;  
+                       dl Menu_Stuffs_1b                    ;0597D6|        |009CC9;  
                        db $00                               ;0597D9|        |      ;  
                        db $0F                               ;0597DA|        |      ;  
                        db $01                               ;0597DB|        |      ;  
@@ -3857,7 +3857,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $01                               ;0597FF|        |      ;  
                        dw $0014                             ;059800|        |      ;  
                        db $07                               ;059802|        |      ; 07: Call 00/A140 (Store next 3b into $18)
-                       dl Transfer_Data(3b)(1b)(2b)         ;059803|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059803|        |00A140;  
                        dl $189AD2_2_bytes                   ;059806|        |0D958E; 0D/958E -> $18
                        db $02                               ;059809|        |      ; $420+2x2 -> $1C
                        dw $0002                             ;05980A|        |      ; Loop once (Store (0D/958E) -> $0424)
@@ -3903,7 +3903,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $00                               ;05983E|        |      ;  
                        db $00                               ;05983F|        |      ;  
                        db $07                               ;059840|        |      ; Was B pressed?
-                       dl Sub: Button Pressed? (2b)         ;059841|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;059841|        |00A00F;  
                        dw $8000                             ;059844|        |      ;  
                        db $0C                               ;059846|        |      ; If true, jump to 9858
                        dw DATA8_059858                      ;059847|        |059858;  
@@ -3911,7 +3911,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $00                               ;05984A|        |      ;  
                        db $00                               ;05984B|        |      ;  
                        db $07                               ;05984C|        |      ;  
-                       dl Sub: Button Pressed? (2b)         ;05984D|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;05984D|        |00A00F;  
                        dw $0080                             ;059850|        |      ; Was A pressed?
                        db $0C                               ;059852|        |      ; If true, jump to 9860
                        dw DATA8_059860                      ;059853|        |059860;  
@@ -3919,13 +3919,13 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw DATA8_059810                      ;059856|        |059810;  
                                                             ;      |        |      ;  
          DATA8_059858: db $07                               ;059858|        |      ; Play SFX 06
-                       dl Sub: Get/Set SFX                  ;059859|        |009C44;  
+                       dl GetSet_SFX                        ;059859|        |009C44;  
                        db $06                               ;05985C|        |      ;  
                        db $1A                               ;05985D|        |      ;  
                        dw BattleMenuLoop                    ;05985E|        |05977D;  
                                                             ;      |        |      ;  
          DATA8_059860: db $07                               ;059860|        |      ; Play SFX 11
-                       dl Sub: Get/Set SFX                  ;059861|        |009C44;  
+                       dl GetSet_SFX                        ;059861|        |009C44;  
                        db $11                               ;059864|        |      ;  
                        db $30                               ;059865|        |      ;  
                        db $FF                               ;059866|        |      ;  
@@ -3984,19 +3984,19 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw SaveResult                        ;0598B9|        |0597D0;  
                                                             ;      |        |      ;  
          DATA8_0598BB: db $07                               ;0598BB|        |      ;  
-                       dl RNG (1b), something               ;0598BC|        |00A0BD;  
+                       dl RNG_1b_something                  ;0598BC|        |00A0BD;  
                        db $02                               ;0598BF|        |      ;  
                        db $0B                               ;0598C0|        |      ; If 0, jump to 98CE
                        dw DATA8_0598CE                      ;0598C1|        |0598CE;  
                        db $07                               ;0598C3|        |      ; "X dodged"
-                       dl Read (3b) into text parser        ;0598C4|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;0598C4|        |00A0AC;  
                        dl X_dodged                          ;0598C7|        |0884B0;  
                        db $00                               ;0598CA|        |      ;  
                        db $1A                               ;0598CB|        |      ;  
                        dw DATA8_059933                      ;0598CC|        |059933;  
                                                             ;      |        |      ;  
          DATA8_0598CE: db $07                               ;0598CE|        |      ; "X dodged quickly"
-                       dl Read (3b) into text parser        ;0598CF|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;0598CF|        |00A0AC;  
                        dl X_dodged_quickly                  ;0598D2|        |0884BE;  
                        db $00                               ;0598D5|        |      ;  
                        db $1A                               ;0598D6|        |      ;  
@@ -4007,14 +4007,14 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $0C                               ;0598DD|        |      ; If so, jump to 98EB
                        dw DATA8_0598EB                      ;0598DE|        |0598EB;  
                        db $07                               ;0598E0|        |      ; X suffered damage, was defeated
-                       dl Read (3b) into text parser        ;0598E1|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;0598E1|        |00A0AC;  
                        dl X_damaged_defeated                ;0598E4|        |0884D4;  
                        db $00                               ;0598E7|        |      ;  
                        db $1A                               ;0598E8|        |      ;  
                        dw DATA8_059933                      ;0598E9|        |059933;  
                                                             ;      |        |      ;  
          DATA8_0598EB: db $07                               ;0598EB|        |      ; X suffered X damage
-                       dl Read (3b) into text parser        ;0598EC|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;0598EC|        |00A0AC;  
                        dl X_suffered_damage                 ;0598EF|        |088512;  
                        db $00                               ;0598F2|        |      ;  
                        db $1A                               ;0598F3|        |      ;  
@@ -4094,7 +4094,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1C                               ;05994E|        |      ;  
                                                             ;      |        |      ;  
          DATA8_05994F: db $07                               ;05994F|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059950|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059950|        |00A140;  
                        dl Weapons_Menu                      ;059953|        |0D9590;  
                        db $02                               ;059956|        |      ;  
                        dw $0002                             ;059957|        |      ;  
@@ -4118,7 +4118,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $07                               ;059974|        |      ;  
                        dl CODE_078944                       ;059975|        |078944;  
                        db $07                               ;059978|        |      ;  
-                       dl Read (3b) into text parser        ;059979|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059979|        |00A0AC;  
                        dl Battle_Items_Menu                 ;05997C|        |08846C;  
                        db $00                               ;05997F|        |      ;  
                                                             ;      |        |      ;  
@@ -4141,7 +4141,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $07                               ;059999|        |      ;  
                        dl CODE_078944                       ;05999A|        |078944;  
                        db $07                               ;05999D|        |      ;  
-                       dl Read (3b) into text parser        ;05999E|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05999E|        |00A0AC;  
                        dl Battle_Items_Menu                 ;0599A1|        |08846C;  
                        db $00                               ;0599A4|        |      ;  
                        db $06                               ;0599A5|        |      ;  
@@ -4152,14 +4152,14 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1E                               ;0599AB|        |      ;  
                        dw $0000                             ;0599AC|        |      ;  
                        db $07                               ;0599AE|        |      ;  
-                       dl Sub: Button Pressed? (2b)         ;0599AF|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;0599AF|        |00A00F;  
                        dw $0080                             ;0599B2|        |      ;  
                        db $0C                               ;0599B4|        |      ;  
                        dw DATA8_0599C6                      ;0599B5|        |0599C6;  
                        db $1E                               ;0599B7|        |      ;  
                        dw $0000                             ;0599B8|        |      ;  
                        db $07                               ;0599BA|        |      ;  
-                       dl Sub: Button Pressed? (2b)         ;0599BB|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;0599BB|        |00A00F;  
                        dw $8000                             ;0599BE|        |      ;  
                        db $0C                               ;0599C0|        |      ;  
                        dw DATA8_0599E6                      ;0599C1|        |0599E6;  
@@ -4167,7 +4167,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw DATA8_059980                      ;0599C4|        |059980;  
                                                             ;      |        |      ;  
          DATA8_0599C6: db $07                               ;0599C6|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0599C7|        |009C44;  
+                       dl GetSet_SFX                        ;0599C7|        |009C44;  
                        db $11                               ;0599CA|        |      ;  
                        db $07                               ;0599CB|        |      ;  
                        dl CODE_0789FC                       ;0599CC|        |0789FC;  
@@ -4190,7 +4190,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw DATA8_059A07                      ;0599E7|        |059A07;  
                                                             ;      |        |      ;  
          DATA8_0599E9: db $07                               ;0599E9|        |      ;  
-                       dl Sub: Get/Set SFX                  ;0599EA|        |009C44;  
+                       dl GetSet_SFX                        ;0599EA|        |009C44;  
                        db $06                               ;0599ED|        |      ;  
                        db $1A                               ;0599EE|        |      ;  
                        dw DATA8_059748                      ;0599EF|        |059748;  
@@ -4237,7 +4237,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $06                               ;059A26|        |      ;  
                        db $01                               ;059A27|        |      ;  
                        db $07                               ;059A28|        |      ;  
-                       dl Some_Setup(12b?)                  ;059A29|        |009C5D;  
+                       dl Some_Setup_12b                    ;059A29|        |009C5D;  
                        db $02                               ;059A2C|        |      ;  
                        db $00                               ;059A2D|        |      ;  
                        db $00                               ;059A2E|        |      ;  
@@ -4259,7 +4259,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1E                               ;059A3F|        |      ;  
                        dw $0000                             ;059A40|        |      ;  
                        db $07                               ;059A42|        |      ;  
-                       dl Sub: Button Pressed? (2b)         ;059A43|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;059A43|        |00A00F;  
                        dw $0080                             ;059A46|        |      ;  
                        db $0C                               ;059A48|        |      ;  
                        dw DATA8_059AF8                      ;059A49|        |059AF8;  
@@ -4276,10 +4276,10 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $07                               ;059A5C|        |      ;  
                        dl CODE_07B98A                       ;059A5D|        |07B98A;  
                        db $07                               ;059A60|        |      ;  
-                       dl Battle_related(1b)                ;059A61|        |009CDD;  
+                       dl Battle_related1b                  ;059A61|        |009CDD;  
                        db $0E                               ;059A64|        |      ;  
                        db $07                               ;059A65|        |      ; SFX 11
-                       dl Sub: Get/Set SFX                  ;059A66|        |009C44;  
+                       dl GetSet_SFX                        ;059A66|        |009C44;  
                        db $11                               ;059A69|        |      ;  
                        db $06                               ;059A6A|        |      ;  
                        db $06                               ;059A6B|        |      ;  
@@ -4298,7 +4298,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
          DATA8_059A7E: db $1B                               ;059A7E|        |      ;  
                        dw DATA8_059AE4                      ;059A7F|        |059AE4;  
                        db $07                               ;059A81|        |      ;  
-                       dl Character_Join(13b)               ;059A82|        |009CBC;  
+                       dl Character_Join_13b                ;059A82|        |009CBC;  
                        db $0E                               ;059A85|        |      ;  
                        db $05                               ;059A86|        |      ;  
                        db $00                               ;059A87|        |      ;  
@@ -4317,7 +4317,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
          DATA8_059A93: db $1B                               ;059A93|        |      ;  
                        dw DATA8_059AE4                      ;059A94|        |059AE4;  
                        db $07                               ;059A96|        |      ;  
-                       dl Character_Join(13b)               ;059A97|        |009CBC;  
+                       dl Character_Join_13b                ;059A97|        |009CBC;  
                        db $0E                               ;059A9A|        |      ;  
                        db $06                               ;059A9B|        |      ;  
                        db $00                               ;059A9C|        |      ;  
@@ -4336,7 +4336,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
          DATA8_059AA8: db $1B                               ;059AA8|        |      ;  
                        dw DATA8_059AE4                      ;059AA9|        |059AE4;  
                        db $07                               ;059AAB|        |      ;  
-                       dl Character_Join(13b)               ;059AAC|        |009CBC;  
+                       dl Character_Join_13b                ;059AAC|        |009CBC;  
                        db $0E                               ;059AAF|        |      ;  
                        db $07                               ;059AB0|        |      ;  
                        db $00                               ;059AB1|        |      ;  
@@ -4355,7 +4355,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
          DATA8_059ABD: db $1B                               ;059ABD|        |      ;  
                        dw DATA8_059AE4                      ;059ABE|        |059AE4;  
                        db $07                               ;059AC0|        |      ;  
-                       dl Character_Join(13b)               ;059AC1|        |009CBC;  
+                       dl Character_Join_13b                ;059AC1|        |009CBC;  
                        db $0E                               ;059AC4|        |      ;  
                        db $08                               ;059AC5|        |      ;  
                        db $00                               ;059AC6|        |      ;  
@@ -4372,7 +4372,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1C                               ;059AD1|        |      ; RTS
                                                             ;      |        |      ;  
          DATA8_059AD2: db $07                               ;059AD2|        |      ;  
-                       dl Character_Join(13b)               ;059AD3|        |009CBC;  
+                       dl Character_Join_13b                ;059AD3|        |009CBC;  
                        db $0E                               ;059AD6|        |      ;  
                        db $0D                               ;059AD7|        |      ;  
                        db $00                               ;059AD8|        |      ;  
@@ -4405,14 +4405,14 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1C                               ;059AF7|        |      ; RTS
                                                             ;      |        |      ;  
          DATA8_059AF8: db $07                               ;059AF8|        |      ; Play SFX 11
-                       dl Sub: Get/Set SFX                  ;059AF9|        |009C44;  
+                       dl GetSet_SFX                        ;059AF9|        |009C44;  
                        db $11                               ;059AFC|        |      ;  
                        db $1F                               ;059AFD|        |      ;  
                        dw $11B9                             ;059AFE|        |      ;  
                        db $23                               ;059B00|        |      ;  
                        db $01                               ;059B01|        |      ;  
                        db $07                               ;059B02|        |      ;  
-                       dl Menu_Stuffs_(1b)                  ;059B03|        |009CC9;  
+                       dl Menu_Stuffs_1b                    ;059B03|        |009CC9;  
                        db $01                               ;059B06|        |      ;  
                        db $07                               ;059B07|        |      ;  
                        dl CODE_059B1E                       ;059B08|        |059B1E;  
@@ -4421,17 +4421,17 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                                                             ;      |        |      ;  
            Set_11B5/7: LDX.W Selection                      ;059B0E|AE3F10  |00103F;  
                        LDA.W $09A3,X                        ;059B11|BDA309  |0009A3;  
-                       STA.W Tbl Offset                     ;059B14|8DB511  |0011B5;  
-                       LDA.W Treasure type,X                ;059B17|BDC709  |0009C7;  
+                       STA.W Tbl_Offset                     ;059B14|8DB511  |0011B5;  
+                       LDA.W Temp_09C7,X                    ;059B17|BDC709  |0009C7;  
                        STA.W $11B7                          ;059B1A|8DB711  |0011B7;  
                        RTL                                  ;059B1D|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
           CODE_059B1E: LDX.W Selection                      ;059B1E|AE3F10  |00103F;  
-                       LDA.W Tbl Offset                     ;059B21|ADB511  |0011B5;  
+                       LDA.W Tbl_Offset                     ;059B21|ADB511  |0011B5;  
                        STA.W $09A3,X                        ;059B24|9DA309  |0009A3;  
                        LDA.W $11B7                          ;059B27|ADB711  |0011B7;  
-                       STA.W Treasure type,X                ;059B2A|9DC709  |0009C7;  
+                       STA.W Temp_09C7,X                    ;059B2A|9DC709  |0009C7;  
                        RTL                                  ;059B2D|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
@@ -4443,7 +4443,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $0C                               ;059B35|        |      ;  
                        dw DATA8_059BDE                      ;059B36|        |059BDE;  
                        db $07                               ;059B38|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059B39|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059B39|        |00A140;  
                        dl Weapons_Menu                      ;059B3C|        |0D9590;  
                        db $02                               ;059B3F|        |      ;  
                        dw $0002                             ;059B40|        |      ;  
@@ -4461,7 +4461,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $07                               ;059B54|        |      ;  
                        dl CODE_07886F                       ;059B55|        |07886F;  
                        db $07                               ;059B58|        |      ;  
-                       dl Read (3b) into text parser        ;059B59|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059B59|        |00A0AC;  
                        dl BattleMagicMenu                   ;059B5C|        |088446;  
                        db $00                               ;059B5F|        |      ;  
                                                             ;      |        |      ;  
@@ -4484,7 +4484,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $07                               ;059B79|        |      ;  
                        dl CODE_07886F                       ;059B7A|        |07886F;  
                        db $07                               ;059B7D|        |      ;  
-                       dl Read (3b) into text parser        ;059B7E|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059B7E|        |00A0AC;  
                        dl BattleMagicMenu                   ;059B81|        |088446;  
                        db $00                               ;059B84|        |      ;  
                        db $06                               ;059B85|        |      ;  
@@ -4496,14 +4496,14 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $00                               ;059B8C|        |      ;  
                        db $00                               ;059B8D|        |      ;  
                        db $07                               ;059B8E|        |      ; A button pressed?
-                       dl Sub: Button Pressed? (2b)         ;059B8F|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;059B8F|        |00A00F;  
                        dw $0080                             ;059B92|        |      ;  
                        db $0C                               ;059B94|        |      ;  
                        dw DATA8_059BA6                      ;059B95|        |059BA6;  
                        db $1E                               ;059B97|        |      ;  
                        dw $0000                             ;059B98|        |      ;  
                        db $07                               ;059B9A|        |      ;  
-                       dl Sub: Button Pressed? (2b)         ;059B9B|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;059B9B|        |00A00F;  
                        dw $8000                             ;059B9E|        |      ;  
                        db $0C                               ;059BA0|        |      ;  
                        dw DATA8_059BD3                      ;059BA1|        |059BD3;  
@@ -4511,7 +4511,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw DATA8_059B60                      ;059BA4|        |059B60;  
                                                             ;      |        |      ;  
          DATA8_059BA6: db $07                               ;059BA6|        |      ; Play SFX 11
-                       dl Sub: Get/Set SFX                  ;059BA7|        |009C44;  
+                       dl GetSet_SFX                        ;059BA7|        |009C44;  
                        db $11                               ;059BAA|        |      ;  
                        db $07                               ;059BAB|        |      ;  
                        dl CODE_0789C2                       ;059BAC|        |0789C2;  
@@ -4547,7 +4547,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw DATA8_059BF4                      ;059BD4|        |059BF4;  
                                                             ;      |        |      ;  
          DATA8_059BD6: db $07                               ;059BD6|        |      ; Play SFX 06
-                       dl Sub: Get/Set SFX                  ;059BD7|        |009C44;  
+                       dl GetSet_SFX                        ;059BD7|        |009C44;  
                        db $06                               ;059BDA|        |      ;  
                        db $1A                               ;059BDB|        |      ;  
                        dw DATA8_059748                      ;059BDC|        |059748;  
@@ -4576,34 +4576,34 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1C                               ;059BF8|        |      ;  
                                                             ;      |        |      ;  
          DATA8_059BF9: db $07                               ;059BF9|        |      ;  
-                       dl 8698 setup (3b)                   ;059BFA|        |009D07;  
+                       dl 8698_setup_3b                     ;059BFA|        |009D07;  
                        dl MenuStuff2                        ;059BFD|        |059C3E;  
                        db $07                               ;059C00|        |      ;  
-                       dl 8698 setup (3b)                   ;059C01|        |009D07;  
+                       dl 8698_setup_3b                     ;059C01|        |009D07;  
                        dl MenuStuff1                        ;059C04|        |059C35;  
                        db $05                               ;059C07|        |      ;  
                                                             ;      |        |      ;  
          DATA8_059C08: db $07                               ;059C08|        |      ;  
-                       dl 8698 setup (3b)                   ;059C09|        |009D07;  
+                       dl 8698_setup_3b                     ;059C09|        |009D07;  
                        dl MenuStuff4                        ;059C0C|        |059C50;  
                        db $07                               ;059C0F|        |      ;  
-                       dl 8698 setup (3b)                   ;059C10|        |009D07;  
+                       dl 8698_setup_3b                     ;059C10|        |009D07;  
                        dl MenuStuff1                        ;059C13|        |059C35;  
                        db $05                               ;059C16|        |      ;  
                                                             ;      |        |      ;  
          DATA8_059C17: db $07                               ;059C17|        |      ;  
-                       dl 8698 setup (3b)                   ;059C18|        |009D07;  
+                       dl 8698_setup_3b                     ;059C18|        |009D07;  
                        dl MenuStuff2                        ;059C1B|        |059C3E;  
                        db $07                               ;059C1E|        |      ;  
-                       dl 8698 setup (3b)                   ;059C1F|        |009D07;  
+                       dl 8698_setup_3b                     ;059C1F|        |009D07;  
                        dl MenuStuff3                        ;059C22|        |059C47;  
                        db $05                               ;059C25|        |      ;  
                                                             ;      |        |      ;  
          DATA8_059C26: db $07                               ;059C26|        |      ; Call $00/9D07, do a bunch of shit. (Called from 04 at $05:F459)
-                       dl 8698 setup (3b)                   ;059C27|        |009D07;  
+                       dl 8698_setup_3b                     ;059C27|        |009D07;  
                        dl MenuStuff4                        ;059C2A|        |059C50; Store 05/9C50 in $00
                        db $07                               ;059C2D|        |      ; Call $00/9D07, do a bunch of shit.
-                       dl 8698 setup (3b)                   ;059C2E|        |009D07;  
+                       dl 8698_setup_3b                     ;059C2E|        |009D07;  
                        dl MenuStuff3                        ;059C31|        |059C47; Store 05/9C47 in $00
                        db $05                               ;059C34|        |      ; 05: RTL (instance $05/F45D)
                                                             ;      |        |      ;  
@@ -4648,7 +4648,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1C                               ;059C58|        |      ;  
                                                             ;      |        |      ;  
   Battle_Weapons_Menu: db $07                               ;059C59|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;059C5A|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;059C5A|        |00A140;  
                        dl Weapons_Menu                      ;059C5D|        |0D9590;  
                        db $02                               ;059C60|        |      ;  
                        dw $0002                             ;059C61|        |      ;  
@@ -4660,7 +4660,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $07                               ;059C69|        |      ;  
                        dl CODE_07A33C                       ;059C6A|        |07A33C;  
                        db $07                               ;059C6D|        |      ;  
-                       dl Read (3b) into text parser        ;059C6E|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059C6E|        |00A0AC;  
                        dl Weapons sub menu                  ;059C71|        |0880EC;  
                        db $00                               ;059C74|        |      ;  
                        db $30                               ;059C75|        |      ;  
@@ -4677,7 +4677,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $1E                               ;059C83|        |      ;  
                        dw $0000                             ;059C84|        |      ;  
                        db $07                               ;059C86|        |      ; Was A pressed?
-                       dl Sub: Button Pressed? (2b)         ;059C87|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;059C87|        |00A00F;  
                        dw $0080                             ;059C8A|        |      ;  
                        db $0C                               ;059C8C|        |      ; If true, jump to 9C9E
                        dw DATA8_059C9E                      ;059C8D|        |059C9E;  
@@ -4685,7 +4685,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $00                               ;059C90|        |      ;  
                        db $00                               ;059C91|        |      ;  
                        db $07                               ;059C92|        |      ; Was B pressed?
-                       dl Sub: Button Pressed? (2b)         ;059C93|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;059C93|        |00A00F;  
                        dw $8000                             ;059C96|        |      ;  
                        db $0C                               ;059C98|        |      ; If true, jump to 9CB8
                        dw DATA8_059CB8                      ;059C99|        |059CB8;  
@@ -4693,7 +4693,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw LOOSE_OP_009C77                   ;059C9C|        |009C77;  
                                                             ;      |        |      ;  
          DATA8_059C9E: db $07                               ;059C9E|        |      ; Play SFX 11
-                       dl Sub: Get/Set SFX                  ;059C9F|        |009C44;  
+                       dl GetSet_SFX                        ;059C9F|        |009C44;  
                        db $11                               ;059CA2|        |      ;  
                        db $24                               ;059CA3|        |      ;  
                        db $02                               ;059CA4|        |      ;  
@@ -4711,7 +4711,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw CODE_0097D0                       ;059CB6|        |0097D0;  
                                                             ;      |        |      ;  
          DATA8_059CB8: db $07                               ;059CB8|        |      ; Play SFX 06
-                       dl Sub: Get/Set SFX                  ;059CB9|        |009C44;  
+                       dl GetSet_SFX                        ;059CB9|        |009C44;  
                        db $06                               ;059CBC|        |      ;  
                        db $1A                               ;059CBD|        |      ;  
                        dw LOOSE_OP_009748                   ;059CBE|        |009748;  
@@ -4724,7 +4724,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw SaveResult                        ;059CC8|        |0597D0;  
                                                             ;      |        |      ;  
          DATA8_059CCA: db $07                               ;059CCA|        |      ; Play SFX 06
-                       dl Sub: Get/Set SFX                  ;059CCB|        |009C44;  
+                       dl GetSet_SFX                        ;059CCB|        |009C44;  
                        db $06                               ;059CCE|        |      ;  
                        db $1A                               ;059CCF|        |      ; Return to battle menu
                        dw DATA8_059748                      ;059CD0|        |059748;  
@@ -4736,7 +4736,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $31                               ;059CDA|        |      ;  
                        db $FF                               ;059CDB|        |      ;  
                        db $07                               ;059CDC|        |      ; X is defending
-                       dl Read (3b) into text parser        ;059CDD|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059CDD|        |00A0AC;  
                        dl X is defending                    ;059CE0|        |0880C9;  
                        db $00                               ;059CE3|        |      ;  
                                                             ;      |        |      ;  
@@ -4769,7 +4769,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $FF                               ;059D0A|        |      ;  
                                                             ;      |        |      ;  
        Text_NO_ESCAPE: db $07                               ;059D0B|        |      ;  
-                       dl Read (3b) into text parser        ;059D0C|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;059D0C|        |00A0AC;  
                        dl No escape                         ;059D0F|        |0882C3;  
                        db $00                               ;059D12|        |      ;  
                        db $1B                               ;059D13|        |      ;  
@@ -4778,33 +4778,33 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        dw LOOSE_OP_009D04                   ;059D17|        |009D04;  
                                                             ;      |        |      ;  
          Running away: db $07                               ;059D19|        |      ; Escape SFX
-                       dl Sub: Get/Set SFX                  ;059D1A|        |009C44;  
+                       dl GetSet_SFX                        ;059D1A|        |009C44;  
                        db $28                               ;059D1D|        |      ;  
                        db $07                               ;059D1E|        |      ;  
                        dl Init 11CB-11D9_far                ;059D1F|        |018154;  
                        db $07                               ;059D22|        |      ;  
-                       dl Battle_related(1b)                ;059D23|        |009CDD;  
+                       dl Battle_related1b                  ;059D23|        |009CDD;  
                        db $14                               ;059D26|        |      ;  
                        db $07                               ;059D27|        |      ;  
-                       dl Battle_related(1b)                ;059D28|        |009CDD;  
+                       dl Battle_related1b                  ;059D28|        |009CDD;  
                        db $16                               ;059D2B|        |      ;  
                        db $07                               ;059D2C|        |      ;  
-                       dl Battle_related(1b)                ;059D2D|        |009CDD;  
+                       dl Battle_related1b                  ;059D2D|        |009CDD;  
                        db $18                               ;059D30|        |      ;  
                        db $07                               ;059D31|        |      ;  
-                       dl Battle_related(1b)                ;059D32|        |009CDD;  
+                       dl Battle_related1b                  ;059D32|        |009CDD;  
                        db $1A                               ;059D35|        |      ;  
                        db $07                               ;059D36|        |      ;  
-                       dl Battle_related(1b)                ;059D37|        |009CDD;  
+                       dl Battle_related1b                  ;059D37|        |009CDD;  
                        db $1C                               ;059D3A|        |      ;  
                        db $07                               ;059D3B|        |      ;  
-                       dl Battle_related(1b)                ;059D3C|        |009CDD;  
+                       dl Battle_related1b                  ;059D3C|        |009CDD;  
                        db $1E                               ;059D3F|        |      ;  
                        db $07                               ;059D40|        |      ;  
-                       dl Battle_related(1b)                ;059D41|        |009CDD;  
+                       dl Battle_related1b                  ;059D41|        |009CDD;  
                        db $20                               ;059D44|        |      ;  
                        db $07                               ;059D45|        |      ;  
-                       dl Battle_related(1b)                ;059D46|        |009CDD;  
+                       dl Battle_related1b                  ;059D46|        |009CDD;  
                        db $22                               ;059D49|        |      ;  
                        db $05                               ;059D4A|        |      ; RTL
                                                             ;      |        |      ;  
@@ -5381,7 +5381,7 @@ PtrTable: Battle Commands: dw Selecting Attack                  ;0597BE|        
                        db $CE                               ;059F79|        |005233;  
                        db $33                               ;059F7A|        |000052;  
                                                             ;      |        |      ;  
-Character names (battle?): db "Rooks     "                      ;059F7B|        |      ;  
+           Char_names: db "Rooks     "                      ;059F7B|        |      ; Maybe for battle, unsure where
                        db $00                               ;059F85|        |      ;  
                                                             ;      |        |      ;  
                 Sylph: db "Sylph     "                      ;059F86|        |      ; Used for Spirit healer
@@ -5411,7 +5411,7 @@ Character names (battle?): db "Rooks     "                      ;059F7B|        
                 Blank: db "          "                      ;059FDE|        |      ;  
                        db $00                               ;059FE8|        |      ;  
                                                             ;      |        |      ;  
-          Enemy names: db "Slime           "                ;059FE9|        |      ;  
+          Enemy_names: db "Slime           "                ;059FE9|        |      ;  
                        db $00                               ;059FF9|        |      ;  
                        db "Pilferer        "                ;059FFA|        |      ;  
                        db $00                               ;05A00A|        |      ;  
@@ -5572,7 +5572,7 @@ Character names (battle?): db "Rooks     "                      ;059F7B|        
                        db "Rimsala         "                ;05A528|        |      ;  
                        db $00                               ;05A538|        |      ;  
                                                             ;      |        |      ;  
-      Enemy postfixes: db $81                               ;05A539|        |      ;  
+            Enemy_A_H: db $81                               ;05A539|        |      ;  
                        db $40                               ;05A53A|        |      ;  
                        db $00                               ;05A53B|        |      ;  
                        db " A"                              ;05A53C|        |      ;  
@@ -5592,7 +5592,7 @@ Character names (battle?): db "Rooks     "                      ;059F7B|        
                        db " H"                              ;05A551|        |      ;  
                        db $00                               ;05A553|        |      ;  
                                                             ;      |        |      ;  
-    Character classes: db "Card Master     "                ;05A554|        |      ;  
+           Job_titles: db "Card Master     "                ;05A554|        |      ;  
                        db $00                               ;05A564|        |      ;  
                        db "Spirit of Wind  "                ;05A565|        |      ;  
                        db $00                               ;05A575|        |      ;  
@@ -5613,7 +5613,7 @@ Character names (battle?): db "Rooks     "                      ;059F7B|        
                        db "----------------"                ;05A5ED|        |      ;  
                        db $00                               ;05A5FD|        |      ;  
                                                             ;      |        |      ;  
-       Location names: db "Galia"                           ;05A5FE|        |      ;  
+            Locations: db "Galia"                           ;05A5FE|        |      ;  
                        db $00                               ;05A603|        |      ;  
                        db $00                               ;05A604|        |      ;  
                        db $00                               ;05A605|        |      ;  
@@ -5917,7 +5917,7 @@ Character names (battle?): db "Rooks     "                      ;059F7B|        
                        db "------"                          ;05A8B8|        |      ;  
                        db $00                               ;05A8BE|        |      ;  
                                                             ;      |        |      ;  
-         Status names: db "Satisfactory"                    ;05A8BF|        |      ;  
+             Statuses: db "Satisfactory"                    ;05A8BF|        |      ;  
                        db $00                               ;05A8CB|        |      ;  
                        db "Deceased    "                    ;05A8CC|        |      ;  
                        db $00                               ;05A8D8|        |      ;  
@@ -5932,7 +5932,7 @@ Character names (battle?): db "Rooks     "                      ;059F7B|        
                        db "Sleeping    "                    ;05A90D|        |      ;  
                        db $00                               ;05A919|        |      ;  
                                                             ;      |        |      ;  
-EXP to next level (Rooks): dw $000A                             ;05A91A|        |      ;  
+  To_next_level_Rooks: dw $000A                             ;05A91A|        |      ;  
                        dw $0014                             ;05A91C|        |      ;  
                        dw $001E                             ;05A91E|        |      ;  
                        dw $0028                             ;05A920|        |      ;  
@@ -6480,14 +6480,14 @@ EXP to next level (Rooks): dw $000A                             ;05A91A|        
                        dw $000A                             ;05AD5A|        |      ;  
                        dw $000A                             ;05AD5C|        |      ;  
                                                             ;      |        |      ;  
-Blank stats (12 bytes): dw $0000                             ;05AD5E|        |      ;  
+          Blank_stats: dw $0000                             ;05AD5E|        |      ; 12 bytes each
                        dw $0000                             ;05AD60|        |      ;  
                        dw $0000                             ;05AD62|        |      ;  
                        dw $0000                             ;05AD64|        |      ;  
                        dw $0000                             ;05AD66|        |      ;  
                        dw $0000                             ;05AD68|        |      ;  
                                                             ;      |        |      ;  
-Rooks' level up stats: dw $000D                             ;05AD6A|        |      ;  
+  Levelup_stats_Rooks: dw $000D                             ;05AD6A|        |      ;  
                        dw $0005                             ;05AD6C|        |      ;  
                        dw $0002                             ;05AD6E|        |      ;  
                        dw $0004                             ;05AD70|        |      ;  
@@ -10975,7 +10975,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $000C                             ;05CDB1|        |      ;  
                        dw $000F                             ;05CDB3|        |      ;  
                                                             ;      |        |      ;  
-       Enemy EqAmulet: dw $0000                             ;05CDB5|        |      ;  
+       Enemy_EqAmulet: dw $0000                             ;05CDB5|        |      ;  
                        dw $0000                             ;05CDB7|        |      ;  
                        dw $0000                             ;05CDB9|        |      ;  
                        dw $0000                             ;05CDBB|        |      ;  
@@ -11573,7 +11573,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $05                               ;05D193|        |      ;  
                        db $05                               ;05D194|        |      ;  
                                                             ;      |        |      ;  
-     Enemy_Boss_music: db $00                               ;05D195|        |      ;  
+      Flag_Boss_music: db $00                               ;05D195|        |      ;  
                        db $00                               ;05D196|        |      ;  
                        db $00                               ;05D197|        |      ;  
                        db $00                               ;05D198|        |      ;  
@@ -11654,7 +11654,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $02                               ;05D1E3|        |      ;  
                        db $02                               ;05D1E4|        |      ;  
                                                             ;      |        |      ;  
-        Enemy_Boss_No: db $FF                               ;05D1E5|        |      ; FF is "not a boss", otherwise the bosses are numbered 00 to 0F.
+             Boss_Num: db $FF                               ;05D1E5|        |      ; FF is "not a boss", otherwise the bosses are numbered 00 to 0F.
                        db $FF                               ;05D1E6|        |      ; I wonder why...
                        db $FF                               ;05D1E7|        |      ;  
                        db $FF                               ;05D1E8|        |      ;  
@@ -12338,7 +12338,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db "       "                         ;05D675|        |      ;  
                        db $00                               ;05D67C|        |      ;  
                                                             ;      |        |      ;  
-      Equipment names: db "                "                ;05D67D|        |      ;  
+            Eqp_names: db "                "                ;05D67D|        |      ;  
                        db $00                               ;05D68D|        |      ;  
                        db "Dagger          "                ;05D68E|        |      ;  
                        db $00                               ;05D69E|        |      ;  
@@ -12581,7 +12581,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db "Ring 3          "                ;05DE75|        |      ;  
                        db $00                               ;05DE85|        |      ;  
                                                             ;      |        |      ;  
-      Prices: Weapons: dw $0000                             ;05DE86|        |      ; Weapon 0 is Unarmed, with a price of 0.
+       Prices_Weapons: dw $0000                             ;05DE86|        |      ; Weapon 0 is Unarmed, with a price of 0.
                        dw $0064                             ;05DE88|        |      ;  
                        dw $00C8                             ;05DE8A|        |      ;  
                        dw $01F4                             ;05DE8C|        |      ;  
@@ -12623,7 +12623,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0002                             ;05DED4|        |      ;  
                        dw $0002                             ;05DED6|        |      ;  
                                                             ;      |        |      ;  
-        Prices: Armor: dw $0064                             ;05DED8|        |      ;  
+         Prices_Armor: dw $0064                             ;05DED8|        |      ;  
                        dw $012C                             ;05DEDA|        |      ;  
                        dw $01F4                             ;05DEDC|        |      ;  
                        dw $02BC                             ;05DEDE|        |      ;  
@@ -12664,7 +12664,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0000                             ;05DF24|        |      ;  
                        dw $0000                             ;05DF26|        |      ;  
                                                             ;      |        |      ;  
-  Prices: Accessories: dw $00B4                             ;05DF28|        |      ;  
+       Prices_Amulets: dw $00B4                             ;05DF28|        |      ;  
                        dw $012C                             ;05DF2A|        |      ;  
                        dw $02EE                             ;05DF2C|        |      ;  
                        dw $03E8                             ;05DF2E|        |      ;  
@@ -12685,7 +12685,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        dw $0002                             ;05DF4C|        |      ;  
                        dw $0002                             ;05DF4E|        |      ;  
                                                             ;      |        |      ;  
-        Prices: Rings: dw $0000                             ;05DF50|        |      ; Rings are dummied, but they still have tables for their data.
+         Prices_Rings: dw $0000                             ;05DF50|        |      ; Rings are dummied, but they still have tables for their data.
                        dw $0000                             ;05DF52|        |      ;  
                        dw $0000                             ;05DF54|        |      ;  
                        dw $0000                             ;05DF56|        |      ;  
@@ -12748,7 +12748,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $00                               ;05DF9F|        |      ;  
                        db $00                               ;05DFA0|        |      ;  
                                                             ;      |        |      ;  
-   Equip flags: Armor: db $1F                               ;05DFA1|        |      ;  
+         EqFlag_Armor: db $1F                               ;05DFA1|        |      ;  
                        db $1F                               ;05DFA2|        |      ;  
                        db $15                               ;05DFA3|        |      ;  
                        db $1D                               ;05DFA4|        |      ;  
@@ -12789,7 +12789,7 @@ Darwin's levelup spells: db $00                               ;05C859|        | 
                        db $00                               ;05DFC7|        |      ;  
                        db $00                               ;05DFC8|        |      ;  
                                                             ;      |        |      ;  
-Equip flags: Accessories: db $15                               ;05DFC9|        |      ;  
+       EqFlag_Amulets: db $15                               ;05DFC9|        |      ;  
                        db $15                               ;05DFCA|        |      ;  
                        db $15                               ;05DFCB|        |      ;  
                        db $15                               ;05DFCC|        |      ;  
@@ -12810,7 +12810,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        db $00                               ;05DFDB|        |      ;  
                        db $00                               ;05DFDC|        |      ;  
                                                             ;      |        |      ;  
-   Equip flags: Rings: db $1F                               ;05DFDD|        |      ;  
+         EqFlag_Rings: db $1F                               ;05DFDD|        |      ;  
                        db $1F                               ;05DFDE|        |      ;  
                        db $1F                               ;05DFDF|        |      ;  
                        db $1F                               ;05DFE0|        |      ;  
@@ -12831,7 +12831,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        db $00                               ;05DFEF|        |      ;  
                        db $00                               ;05DFF0|        |      ;  
                                                             ;      |        |      ;  
-         Weapon power: dw $0000                             ;05DFF1|        |      ; Again the first weapon is "unarmed" with 0 power.
+         Weapon_power: dw $0000                             ;05DFF1|        |      ; Again the first weapon is "unarmed" with 0 power.
                        dw $0014                             ;05DFF3|        |      ;  
                        dw $0028                             ;05DFF5|        |      ;  
                        dw $003C                             ;05DFF7|        |      ;  
@@ -12873,7 +12873,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        dw $0000                             ;05E03F|        |      ;  
                        dw $0000                             ;05E041|        |      ;  
                                                             ;      |        |      ;  
-        Armor defence: dw $0014                             ;05E043|        |      ;  
+            Armor_def: dw $0014                             ;05E043|        |      ;  
                        dw $001E                             ;05E045|        |      ;  
                        dw $0028                             ;05E047|        |      ;  
                        dw $003C                             ;05E049|        |      ;  
@@ -12914,7 +12914,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        dw $0000                             ;05E08F|        |      ;  
                        dw $0000                             ;05E091|        |      ;  
                                                             ;      |        |      ;  
-        Accessory def: dw $0014                             ;05E093|        |      ;  
+           Amulet_def: dw $0014                             ;05E093|        |      ;  
                        dw $0028                             ;05E095|        |      ;  
                        dw $0050                             ;05E097|        |      ;  
                        dw $0078                             ;05E099|        |      ;  
@@ -12935,7 +12935,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        dw $0000                             ;05E0B7|        |      ;  
                        dw $0000                             ;05E0B9|        |      ;  
                                                             ;      |        |      ;  
-         Ring defence: dw $0000                             ;05E0BB|        |      ; You *could* give rings defense values here.
+             Ring_def: dw $0000                             ;05E0BB|        |      ; You *could* give rings defense values here.
                        dw $0000                             ;05E0BD|        |      ;  
                        dw $0000                             ;05E0BF|        |      ;  
                        dw $0000                             ;05E0C1|        |      ;  
@@ -12956,7 +12956,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        dw $0000                             ;05E0DF|        |      ;  
                        dw $0000                             ;05E0E1|        |      ;  
                                                             ;      |        |      ;  
-  Weapon race/element: dw $0000                             ;05E0E3|        |      ; Elemental weapons ignore Change Attribute, so you can continue attacking with a certain element.
+      Weapon_affinity: dw $0000                             ;05E0E3|        |      ; Elemental weapons ignore Change Attribute, so you can continue attacking with a certain element.
                        dw $0000                             ;05E0E5|        |      ;  
                        dw $0000                             ;05E0E7|        |      ;  
                        dw $0000                             ;05E0E9|        |      ;  
@@ -12998,7 +12998,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        dw $0000                             ;05E131|        |      ;  
                        dw $0000                             ;05E133|        |      ;  
                                                             ;      |        |      ;  
-   Armor race/element: dw $0000                             ;05E135|        |      ; Elemental armor can be dangerous, as it ignores Change Attribute.
+       Armor_affinity: dw $0000                             ;05E135|        |      ; Elemental armor can be dangerous, as it ignores Change Attribute.
                        dw $0000                             ;05E137|        |      ;  
                        dw $0000                             ;05E139|        |      ;  
                        dw $0000                             ;05E13B|        |      ;  
@@ -13039,7 +13039,7 @@ Equip flags: Accessories: db $15                               ;05DFC9|        |
                        dw $0000                             ;05E181|        |      ;  
                        dw $0000                             ;05E183|        |      ;  
                                                             ;      |        |      ;  
-Accessory race/element: dw $0000                             ;05E185|        |      ;  
+      Amulet_affinity: dw $0000                             ;05E185|        |      ;  
                        dw $0000                             ;05E187|        |      ;  
                        dw $0000                             ;05E189|        |      ;  
                        dw $0000                             ;05E18B|        |      ;  
@@ -13060,7 +13060,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        dw $0000                             ;05E1A9|        |      ;  
                        dw $0000                             ;05E1AB|        |      ;  
                                                             ;      |        |      ;  
-    Ring race/element: dw $0000                             ;05E1AD|        |      ;  
+        Ring_affinity: dw $0000                             ;05E1AD|        |      ;  
                        dw $0000                             ;05E1AF|        |      ;  
                        dw $0000                             ;05E1B1|        |      ;  
                        dw $0000                             ;05E1B3|        |      ;  
@@ -13081,7 +13081,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        dw $0000                             ;05E1D1|        |      ;  
                        dw $0000                             ;05E1D3|        |      ;  
                                                             ;      |        |      ;  
-     Weapon crit rate: db $34                               ;05E1D5|        |      ; These are out of 255; most crit rates are low excluding unarmed (20%).
+          Weapon_crit: db $34                               ;05E1D5|        |      ; These are out of 255; most crit rates are low excluding unarmed (20%).
                        db $05                               ;05E1D6|        |      ; Axes and flails have the highest rates (11-15%)
                        db $0A                               ;05E1D7|        |      ;  
                        db $0A                               ;05E1D8|        |      ;  
@@ -13163,7 +13163,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E224|        |      ;  
                        db $00                               ;05E225|        |      ;  
                                                             ;      |        |      ;  
-  Accessory magic def: db $00                               ;05E226|        |      ; Shields and accessories give magic defense.
+          Amulet_mdef: db $00                               ;05E226|        |      ; Shields and accessories give magic defense.
                        db $05                               ;05E227|        |      ; (Except the Small Shield, it sucks).
                        db $0A                               ;05E228|        |      ; Due to a bug, if NO accessory is equipped,
                        db $0F                               ;05E229|        |      ; the game uses the unarmed critical hit rate (34).
@@ -13204,7 +13204,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E24C|        |      ;  
                        db $00                               ;05E24D|        |      ;  
                                                             ;      |        |      ;  
-       Weapon_penalty: db $CD                               ;05E24E|        |      ; This value *decreases* your damage. Unarmed has a huge penalty. Could be an interesting research target.
+          Weapon_nerf: db $CD                               ;05E24E|        |      ; This value *decreases* your damage. Unarmed has a huge penalty. Could be an interesting research target.
                        db $80                               ;05E24F|        |      ;  
                        db $80                               ;05E250|        |      ;  
                        db $80                               ;05E251|        |      ;  
@@ -13246,7 +13246,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $80                               ;05E275|        |      ;  
                        db $80                               ;05E276|        |      ;  
                                                             ;      |        |      ;  
-        Armor penalty: db $00                               ;05E277|        |      ; Unused/dummied, just padding out the rest of the entries
+        Armor_penalty: db $00                               ;05E277|        |      ; Unused/dummied, just padding out the rest of the entries
                        db $00                               ;05E278|        |      ;  
                        db $00                               ;05E279|        |      ;  
                        db $00                               ;05E27A|        |      ;  
@@ -13287,7 +13287,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E29D|        |      ;  
                        db $00                               ;05E29E|        |      ;  
                                                             ;      |        |      ;  
-    Accessory penalty: db $00                               ;05E29F|        |      ; Unused/dummied space
+       Amulet_penalty: db $00                               ;05E29F|        |      ; Unused/dummied space
                        db $00                               ;05E2A0|        |      ;  
                        db $00                               ;05E2A1|        |      ;  
                        db $00                               ;05E2A2|        |      ;  
@@ -13308,7 +13308,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E2B1|        |      ;  
                        db $00                               ;05E2B2|        |      ;  
                                                             ;      |        |      ;  
-         Ring penalty: db $00                               ;05E2B3|        |      ; Unused/dummied space
+         Ring_penalty: db $00                               ;05E2B3|        |      ; Unused/dummied space
                        db $00                               ;05E2B4|        |      ;  
                        db $00                               ;05E2B5|        |      ;  
                        db $00                               ;05E2B6|        |      ;  
@@ -13370,7 +13370,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E2ED|        |      ;  
                        db $00                               ;05E2EE|        |      ;  
                                                             ;      |        |      ;  
-     Armor spell cast: db $00                               ;05E2EF|        |      ;  
+      Armor_itemspell: db $00                               ;05E2EF|        |      ;  
                        db $00                               ;05E2F0|        |      ;  
                        db $00                               ;05E2F1|        |      ;  
                        db $00                               ;05E2F2|        |      ;  
@@ -13412,7 +13412,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E316|        |      ;  
                        db $00                               ;05E317|        |      ;  
                                                             ;      |        |      ;  
- Accessory spell cast: db $00                               ;05E318|        |      ;  
+     Amulet_itemspell: db $00                               ;05E318|        |      ;  
                        db $00                               ;05E319|        |      ;  
                        db $00                               ;05E31A|        |      ;  
                        db $00                               ;05E31B|        |      ;  
@@ -13433,7 +13433,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E32A|        |      ;  
                        db $00                               ;05E32B|        |      ;  
                                                             ;      |        |      ;  
-      Ring spell cast: db $00                               ;05E32C|        |      ; (Dummied)
+       Ring_itemspell: db $00                               ;05E32C|        |      ; (Dummied)
                        db $00                               ;05E32D|        |      ;  
                        db $00                               ;05E32E|        |      ;  
                        db $00                               ;05E32F|        |      ;  
@@ -13454,7 +13454,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        db $00                               ;05E33E|        |      ;  
                        db $00                               ;05E33F|        |      ;  
                                                             ;      |        |      ;  
-          Spell names: db "                     "           ;05E340|        |      ;  
+          Spell_names: db "                     "           ;05E340|        |      ;  
                        db $00, "Lightning 1         "       ;05E355|        |      ;  
                        db " ", $00, "Lightning 2        "   ;05E36A|        |      ;  
                        db "  ", $00, "Lightning 3       "   ;05E37F|        |      ;  
@@ -13891,7 +13891,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        dw $0028                             ;05EBFD|        |      ; Call Amulet fail 1
                        dw $003C                             ;05EBFF|        |      ; Call Amulet fail 2
                                                             ;      |        |      ;  
-     Spell_??/element: dw $0000                             ;05EC01|        |      ;  
+       Spell_Affinity: dw $0000                             ;05EC01|        |      ;  
                        dw $1010                             ;05EC03|        |      ; Even bytes are spell element: 10 = Wind, 20 = Earth, 40 = Water, 80 = Fire
                        dw $1010                             ;05EC05|        |      ; (Speculation, maybe this reduces spell effectiveness against bosses.)
                        dw $1010                             ;05EC07|        |      ;  
@@ -13933,8 +13933,7 @@ Accessory race/element: dw $0000                             ;05E185|        |  
                        dw $8000                             ;05EC4F|        |      ;  
                        dw $0000                             ;05EC51|        |      ;  
                        dw $0000                             ;05EC53|        |      ;  
-                                                            ;      |        |      ;  
-         Unknown_data: dw $0000                             ;05EC55|        |      ;  
+                       dw $0000                             ;05EC55|        |      ;  
                        dw $0000                             ;05EC57|        |      ;  
                        dw $0000                             ;05EC59|        |      ;  
                        dw $0000                             ;05EC5B|        |      ;  
@@ -14354,7 +14353,7 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                                                             ;      |        |      ;  
       CallAmuletFail2: db $00                               ;05EE0F|        |      ;  
                                                             ;      |        |      ;  
-     (Names) Strength: db "Strength    ", $00               ;05EE10|        |      ;  
+       Names_Strength: db "Strength    ", $00               ;05EE10|        |      ;  
                                                             ;      |        |      ;  
  (Names) Intelligence: db "Intelligence", $00               ;05EE1D|        |      ;  
                                                             ;      |        |      ;  
@@ -14364,9 +14363,9 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                                                             ;      |        |      ;  
            (Names) HP: db "HP          ", $00               ;05EE44|        |      ;  
                                                             ;      |        |      ;  
-           (Names) MP: db "MP          ", $00               ;05EE51|        |      ;  
+             Names_MP: db "MP          ", $00               ;05EE51|        |      ;  
                                                             ;      |        |      ;  
-         (Names) Dead: db "Dead     ", $00                  ;05EE5E|        |      ; Proof this game *does* "say die", that's a little tongue in cheek.
+           Names_Dead: db "Dead     ", $00                  ;05EE5E|        |      ; Proof this game *does* "say die", that's a little tongue in cheek.
                                                             ;      |        |      ;  
     (Names) Condition: db "Condition", $00                  ;05EE68|        |      ;  
                                                             ;      |        |      ;  
@@ -14380,7 +14379,7 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                                                             ;      |        |      ;  
            Item names: db "                   ", $00        ;05EE9A|        |      ;  
                                                             ;      |        |      ;  
-  (Names) Return Ring: db "Return Ring        ", $00        ;05EEAE|        |      ;  
+    Names_Return Ring: db "Return Ring        ", $00        ;05EEAE|        |      ;  
                                                             ;      |        |      ;  
 (Names) Water of Life: db "Water of Life      ", $00        ;05EEC2|        |      ;  
                                                             ;      |        |      ;  
@@ -14415,7 +14414,7 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
 (Names) Enchanted Jwl: db "Enchanted Jewel    ", $00        ;05EFEE|        |      ;  
                        db $00                               ;05F002|        |      ;  
                                                             ;      |        |      ;  
-        100-250 table: dw $6400                             ;05F003|        |      ; Unsure purpose, a table of the numbers 100-250 by 10's.
+     100_to_250_table: dw $6400                             ;05F003|        |      ; Unsure purpose, a table of the numbers 100-250 by 10's.
                        dw $6E00                             ;05F005|        |      ;  
                        dw $7800                             ;05F007|        |      ;  
                        dw $8200                             ;05F009|        |      ;  
@@ -14443,7 +14442,7 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                        dw $0303                             ;05F035|        |      ; Maiden's Tears (dummied status heal)
                        db $00                               ;05F037|        |      ; Enchanted Jewel: 00 (not usable)
                                                             ;      |        |      ;  
-           Card names: db "          ", $00                 ;05F038|        |      ; (Blank space)
+          Names_Cards: db "          ", $00                 ;05F038|        |      ; (Blank space)
                                                             ;      |        |      ;  
     (Names) Wind Card: db "Wind Card ", $00                 ;05F043|        |      ; Wind Card
                                                             ;      |        |      ;  
@@ -14590,7 +14589,7 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                        db $1C                               ;05F174|        |      ; RTL
                                                             ;      |        |      ;  
      Use_Sleeping_Bag: db $07                               ;05F175|        |      ; Call $00:9C44 Load sfx
-                       dl Sub: Get/Set SFX                  ;05F176|        |009C44;  
+                       dl GetSet_SFX                        ;05F176|        |009C44;  
                        db $1F                               ;05F179|        |      ; (Argument) Load sfx 1F
                        db $07                               ;05F17A|        |      ; Call $07:BC9F Use sleeping bag; loads many values including F17E/F180
                        dl Use_Napping_Item                  ;05F17B|        |07BC9F;  
@@ -14607,7 +14606,7 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                        db $1C                               ;05F18A|        |      ; RTS
                                                             ;      |        |      ;  
              Use_Tent: db $07                               ;05F18B|        |      ; Play SFX 1F
-                       dl Sub: Get/Set SFX                  ;05F18C|        |009C44;  
+                       dl GetSet_SFX                        ;05F18C|        |009C44;  
                        db $1F                               ;05F18F|        |      ;  
                        db $07                               ;05F190|        |      ;  
                        dl Use_Napping_Item                  ;05F191|        |07BC9F;  
@@ -14661,7 +14660,7 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                        db $07                               ;05F1D1|        |      ; "X has been used"
                        dl CODE_07BE5A                       ;05F1D2|        |07BE5A;  
                        db $07                               ;05F1D5|        |      ;  
-                       dl Read (3b) into text parser        ;05F1D6|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F1D6|        |00A0AC;  
                        dl ItemUseTextSetup                  ;05F1D9|        |0889AE;  
                        db $00                               ;05F1DC|        |      ;  
                        db $06                               ;05F1DD|        |      ;  
@@ -14671,10 +14670,10 @@ Restoration_of_Spirit: db $0C                               ;05EE01|        |   
                        db $07                               ;05F1E3|        |      ;  
                        dl CODE_07BDFA                       ;05F1E4|        |07BDFA;  
                        db $07                               ;05F1E7|        |      ; Play SFX 1F
-                       dl Sub: Get/Set SFX                  ;05F1E8|        |009C44;  
+                       dl GetSet_SFX                        ;05F1E8|        |009C44;  
                        db $1F                               ;05F1EB|        |      ;  
                        db $07                               ;05F1EC|        |      ; "X's X increased"
-                       dl Read (3b) into text parser        ;05F1ED|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F1ED|        |00A0AC;  
                        dl ItemStatIncreased                 ;05F1F0|        |0889D0;  
                        db $00                               ;05F1F3|        |      ;  
                                                             ;      |        |      ;  
@@ -14752,7 +14751,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $07                               ;05F256|        |      ;  
                        dl CODE_07BE5A                       ;05F257|        |07BE5A;  
                        db $07                               ;05F25A|        |      ; "X has been used."
-                       dl Read (3b) into text parser        ;05F25B|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F25B|        |00A0AC;  
                        dl ItemUseTextSetup                  ;05F25E|        |0889AE;  
                        db $00                               ;05F261|        |      ;  
                        db $06                               ;05F262|        |      ;  
@@ -14760,10 +14759,10 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $07                               ;05F264|        |      ;  
                        dl CODE_07BD9D                       ;05F265|        |07BD9D;  
                        db $07                               ;05F268|        |      ; Play SFX 1F
-                       dl Sub: Get/Set SFX                  ;05F269|        |009C44;  
+                       dl GetSet_SFX                        ;05F269|        |009C44;  
                        db $1F                               ;05F26C|        |      ;  
                        db $07                               ;05F26D|        |      ; "X has recovered."
-                       dl Read (3b) into text parser        ;05F26E|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F26E|        |00A0AC;  
                        dl ItemRecovered                     ;05F271|        |0889F2;  
                        db $00                               ;05F274|        |      ;  
                                                             ;      |        |      ;  
@@ -14799,7 +14798,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $04                               ;05F29A|        |      ;  
                                                             ;      |        |      ;  
      Item_Status_Heal: db $07                               ;05F29B|        |      ;  
-                       dl Sub: Get/Set SFX                  ;05F29C|        |009C44;  
+                       dl GetSet_SFX                        ;05F29C|        |009C44;  
                        db $1F                               ;05F29F|        |      ;  
                        db $0B                               ;05F2A0|        |      ;  
                        dw Item_No_Effect                    ;05F2A1|        |05F2D0;  
@@ -14810,7 +14809,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $07                               ;05F2AB|        |      ;  
                        dl CODE_07BE5A                       ;05F2AC|        |07BE5A;  
                        db $07                               ;05F2AF|        |      ; "X has been used."
-                       dl Read (3b) into text parser        ;05F2B0|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F2B0|        |00A0AC;  
                        dl ItemUseTextSetup                  ;05F2B3|        |0889AE;  
                        db $00                               ;05F2B6|        |      ;  
                        db $06                               ;05F2B7|        |      ;  
@@ -14818,7 +14817,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $07                               ;05F2B9|        |      ;  
                        dl CODE_07BD9D                       ;05F2BA|        |07BD9D;  
                        db $07                               ;05F2BD|        |      ; "X recovered from X"
-                       dl Read (3b) into text parser        ;05F2BE|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F2BE|        |00A0AC;  
                        dl ItemRecoveredStatus               ;05F2C1|        |088A08;  
                        db $00                               ;05F2C4|        |      ;  
                        db $06                               ;05F2C5|        |      ;  
@@ -14835,13 +14834,13 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $07                               ;05F2D4|        |      ;  
                        dl CODE_07BE5A                       ;05F2D5|        |07BE5A;  
                        db $07                               ;05F2D8|        |      ; "X has been used"
-                       dl Read (3b) into text parser        ;05F2D9|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F2D9|        |00A0AC;  
                        dl ItemUseTextSetup                  ;05F2DC|        |0889AE;  
                        db $00                               ;05F2DF|        |      ;  
                        db $06                               ;05F2E0|        |      ;  
                        db $14                               ;05F2E1|        |      ;  
                        db $07                               ;05F2E2|        |      ; "There was no effect."
-                       dl Read (3b) into text parser        ;05F2E3|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F2E3|        |00A0AC;  
                        dl ItemNoEffect                      ;05F2E6|        |088A28;  
                        db $00                               ;05F2E9|        |      ;  
                                                             ;      |        |      ;  
@@ -14884,14 +14883,14 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        dw DATA8_05F309                      ;05F317|        |05F309;  
                        dw DATA8_05F324                      ;05F319|        |05F324;  
                        db $07                               ;05F31B|        |      ;  
-                       dl Sub: Get/Set SFX                  ;05F31C|        |009C44;  
+                       dl GetSet_SFX                        ;05F31C|        |009C44;  
                        db $06                               ;05F31F|        |      ; SFX 06
                        db $1E                               ;05F320|        |      ;  
                        dw $0000                             ;05F321|        |      ;  
                        db $1C                               ;05F323|        |      ; RTS
                                                             ;      |        |      ;  
          DATA8_05F324: db $07                               ;05F324|        |      ;  
-                       dl Sub: Get/Set SFX                  ;05F325|        |009C44;  
+                       dl GetSet_SFX                        ;05F325|        |009C44;  
                        db $11                               ;05F328|        |      ; SFX 11
                        db $07                               ;05F329|        |      ;  
                        dl CODE_07BDB1                       ;05F32A|        |07BDB1;  
@@ -15031,14 +15030,14 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $06                               ;05F3F3|        |      ;  
                        db $02                               ;05F3F4|        |      ;  
                        db $07                               ;05F3F5|        |      ;  
-                       dl Sub: Get/Set SFX                  ;05F3F6|        |009C44;  
+                       dl GetSet_SFX                        ;05F3F6|        |009C44;  
                        db $06                               ;05F3F9|        |      ;  
                        db $1E                               ;05F3FA|        |      ;  
                        dw $0000                             ;05F3FB|        |      ;  
                        db $1C                               ;05F3FD|        |      ;  
                                                             ;      |        |      ;  
          DATA8_05F3FE: db $07                               ;05F3FE|        |      ; 07: Call 00/9C44 (F3E7 returned 2)
-                       dl Sub: Get/Set SFX                  ;05F3FF|        |009C44;  
+                       dl GetSet_SFX                        ;05F3FF|        |009C44;  
                        db $11                               ;05F402|        |      ;  
                        db $07                               ;05F403|        |      ;  
                        dl CODE_07BDB1                       ;05F404|        |07BDB1;  
@@ -15077,14 +15076,14 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $1E                               ;05F437|        |      ;  
                        dw $0000                             ;05F438|        |      ;  
                        db $07                               ;05F43A|        |      ; A pressed?
-                       dl Sub: Button Pressed? (2b)         ;05F43B|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;05F43B|        |00A00F;  
                        dw $0080                             ;05F43E|        |      ;  
                        db $0C                               ;05F440|        |      ; If true, jump to F455
                        dw EMPTY_00F455                      ;05F441|        |00F455;  
                        db $1E                               ;05F443|        |      ;  
                        dw $0000                             ;05F444|        |      ;  
                        db $07                               ;05F446|        |      ; B pressed?
-                       dl Sub: Button Pressed? (2b)         ;05F447|        |00A00F;  
+                       dl WasBtnPressed_2b                  ;05F447|        |00A00F;  
                        dw $8000                             ;05F44A|        |      ;  
                        db $0B                               ;05F44C|        |      ; If false, jump to F429
                        dw EMPTY_00F429                      ;05F44D|        |00F429;  
@@ -15104,7 +15103,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $0B                               ;05F461|        |      ; 0B: Jump if false to F473
                        dw EMPTY_00F473                      ;05F462|        |00F473;  
                        db $07                               ;05F464|        |      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-                       dl Transfer_Data(3b)(1b)(2b)         ;05F465|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05F465|        |00A140;  
                        dl $189AD2_2_bytes                   ;05F468|        |0D958E; $18 -> 0D/958E
                        db $02                               ;05F46B|        |      ; Offset for 00/A140
                        dw $0002                             ;05F46C|        |      ; Loop # times/2
@@ -15113,7 +15112,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        db $1A                               ;05F470|        |      ; 1A: Jump to F494
                        dw EMPTY_00F494                      ;05F471|        |00F494;  
                        db $07                               ;05F473|        |      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-                       dl Transfer_Data(3b)(1b)(2b)         ;05F474|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05F474|        |00A140;  
                        dl Weapons_Menu                      ;05F477|        |0D9590; $18 -> 0D/9590
                        db $02                               ;05F47A|        |      ; Offset for 00/A140
                        dw $0002                             ;05F47B|        |      ; Loop #times /2
@@ -15121,7 +15120,7 @@ Loop for button press?: db $06                               ;05F1F4|        |  
                        dw EMPTY_00F494                      ;05F47E|        |00F494;  
                                                             ;      |        |      ;  
          DATA8_05F480: db $07                               ;05F480|        |      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-                       dl Transfer_Data(3b)(1b)(2b)         ;05F481|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05F481|        |00A140;  
                        dl $189A85_2_bytes                   ;05F484|        |0D958C; $18 -> 0D/958C
                        db $02                               ;05F487|        |      ;  
                        dw $0002                             ;05F488|        |      ;  
@@ -15204,7 +15203,7 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        db $01                               ;05F4F3|        |      ;  
                        dw $0001                             ;05F4F4|        |      ;  
                        db $07                               ;05F4F6|        |      ;  
-                       dl Load_Sprite(14b)                  ;05F4F7|        |009CAE;  
+                       dl Load_Sprite_14b                   ;05F4F7|        |009CAE;  
                        db $00                               ;05F4FA|        |      ;  
                        db $0C                               ;05F4FB|        |      ;  
                        db $11                               ;05F4FC|        |      ;  
@@ -15234,7 +15233,7 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        dl CODE_07C8B8                       ;05F518|        |07C8B8;  
                                                             ;      |        |      ;  
    Spell setup subasm: db $07                               ;05F51B|        |      ;  
-                       dl Spell Setup                       ;05F51C|        |07C32D;  
+                       dl Spell_Setup                       ;05F51C|        |07C32D;  
                                                             ;      |        |      ;  
          DATA8_05F51F: db $06                               ;05F51F|        |      ; 06 01
                        db $01                               ;05F520|        |      ;  
@@ -15268,7 +15267,7 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        db $0C                               ;05F544|        |      ;  
                        dw EMPTY_00F554                      ;05F545|        |00F554;  
                        db $07                               ;05F547|        |      ; "No escape" 2
-                       dl Read (3b) into text parser        ;05F548|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F548|        |00A0AC;  
                        dl No_escape2                        ;05F54B|        |08886C;  
                        db $00                               ;05F54E|        |      ;  
                        db $06                               ;05F54F|        |      ;  
@@ -15287,7 +15286,7 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        dw $0001                             ;05F563|        |      ;  
                        db $05                               ;05F565|        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F566: LDA.W Spell ID                       ;05F566|AD2711  |001127;  
+          CODE_05F566: LDA.W Spell_ID                       ;05F566|AD2711  |001127;  
                        CMP.W #$0018                         ;05F569|C91800  |      ;  
                        BEQ CODE_05F58B                      ;05F56C|F01D    |05F58B;  
                        CMP.W #$0019                         ;05F56E|C91900  |      ;  
@@ -15304,23 +15303,23 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        RTL                                  ;05F58A|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F58B: STA.W Tbl Offset                     ;05F58B|8DB511  |0011B5;  
+          CODE_05F58B: STA.W Tbl_Offset                     ;05F58B|8DB511  |0011B5;  
                        CLC                                  ;05F58E|18      |      ;  
                        ADC.W #$003A                         ;05F58F|693A00  |      ;  
-                       STA.W Spell ID                       ;05F592|8D2711  |001127;  
+                       STA.W Spell_ID                       ;05F592|8D2711  |001127;  
                        LDA.W #$0001                         ;05F595|A90100  |      ;  
                        RTL                                  ;05F598|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F599: STA.W Tbl Offset                     ;05F599|8DB511  |0011B5;  
+          CODE_05F599: STA.W Tbl_Offset                     ;05F599|8DB511  |0011B5;  
                        CLC                                  ;05F59C|18      |      ;  
                        ADC.W #$0002                         ;05F59D|690200  |      ;  
-                       STA.W Spell ID                       ;05F5A0|8D2711  |001127;  
+                       STA.W Spell_ID                       ;05F5A0|8D2711  |001127;  
                        LDA.W #$0001                         ;05F5A3|A90100  |      ;  
                        RTL                                  ;05F5A6|6B      |      ;  
                                                             ;      |        |      ;  
                        db $07                               ;05F5A7|        |      ;  
-                       dl Load_Sprite(14b)                  ;05F5A8|        |009CAE;  
+                       dl Load_Sprite_14b                   ;05F5A8|        |009CAE;  
                        db $00                               ;05F5AB|        |      ;  
                        db $0C                               ;05F5AC|        |      ;  
                        db $11                               ;05F5AD|        |      ;  
@@ -15353,10 +15352,10 @@ Removing MP casting spells: db $1F                               ;05F494|       
                        dw $1127                             ;05F5CF|        |      ;  
                        db $1C                               ;05F5D1|        |      ;  
                                                             ;      |        |      ;  
-Move spell ID to $11B5 (?): LDA.W Spell ID                       ;05F5D2|AD2711  |001127;  
-                       STA.W Tbl Offset                     ;05F5D5|8DB511  |0011B5;  
+Move spell ID to $11B5 (?): LDA.W Spell_ID                       ;05F5D2|AD2711  |001127;  
+                       STA.W Tbl_Offset                     ;05F5D5|8DB511  |0011B5;  
                        LDA.W #$0056                         ;05F5D8|A95600  |      ;  
-                       STA.W Spell ID                       ;05F5DB|8D2711  |001127;  
+                       STA.W Spell_ID                       ;05F5DB|8D2711  |001127;  
                        RTL                                  ;05F5DE|6B      |      ;  
                                                             ;      |        |      ;  
                        db $06                               ;05F5DF|        |      ;  
@@ -15392,7 +15391,7 @@ Move spell ID to $11B5 (?): LDA.W Spell ID                       ;05F5D2|AD2711 
                        JSL.L RNG                            ;05F60E|22F18900|0089F1;  
                        LDA.W $000A                          ;05F612|AD0A00  |00000A;  
                        LDX.W #$0006                         ;05F615|A20600  |      ;  
-                       JSL.L Divide A/X                     ;05F618|22C2C800|00C8C2;  
+                       JSL.L Divide_A_by_X                  ;05F618|22C2C800|00C8C2;  
                        PLX                                  ;05F61C|FA      |      ;  
                        STX.B $04                            ;05F61D|8604    |000004;  
                        CLC                                  ;05F61F|18      |      ;  
@@ -15404,11 +15403,11 @@ Move spell ID to $11B5 (?): LDA.W Spell ID                       ;05F5D2|AD2711 
           CODE_05F628: TAX                                  ;05F628|AA      |      ;  
                        LDA.L Tbl_CardSpells,X               ;05F629|BF4DF605|05F64D;  
                        AND.W #$00FF                         ;05F62D|29FF00  |      ;  
-                       STA.W Spell ID                       ;05F630|8D2711  |001127;  
+                       STA.W Spell_ID                       ;05F630|8D2711  |001127;  
                        TAX                                  ;05F633|AA      |      ;  
                        LDA.L Tbl_Spell_Category,X           ;05F634|BFB5ED05|05EDB5;  
                        AND.W #$00FF                         ;05F638|29FF00  |      ;  
-                       STA.W Spell type                     ;05F63B|8DC518  |0018C5;  
+                       STA.W Spell_type                     ;05F63B|8DC518  |0018C5;  
                        STZ.W Attacker                       ;05F63E|9C2111  |001121;  
                        JML.L CODE_07BFC0                    ;05F641|5CC0BF07|07BFC0;  
                                                             ;      |        |      ;  
@@ -15446,7 +15445,7 @@ Move spell ID to $11B5 (?): LDA.W Spell ID                       ;05F5D2|AD2711 
                                                             ;      |        |      ;  
 UseElementalCards_Text: LDA.W $18A5                          ;05F662|ADA518  |0018A5;  
                        LDX.W #$000B                         ;05F665|A20B00  |      ;  
-                       JSL.L MultiplyTo$00_far              ;05F668|22398A00|008A39;  
+                       JSL.L MultiplyTo1E00_far             ;05F668|22398A00|008A39;  
                        LDA.W #$F038                         ;05F66C|A938F0  |      ;  
                        CLC                                  ;05F66F|18      |      ;  
                        ADC.B $00                            ;05F670|6500    |000000;  
@@ -15467,7 +15466,7 @@ UseElementalCards_Text: LDA.W $18A5                          ;05F662|ADA518  |00
                        RTL                                  ;05F699|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0011B9;  
+Something loading cards: LDA.W Page_Num                       ;05F69A|ADB911  |0011B9;  
                                                             ;      |        |      ;  
           CODE_05F69D: ASL A                                ;05F69D|0A      |      ;  
                        ASL A                                ;05F69E|0A      |      ;  
@@ -15475,7 +15474,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        TAY                                  ;05F6A0|A8      |      ;  
                        CPY.W #$0010                         ;05F6A1|C01000  |      ;  
                        BCS CODE_05F6B2                      ;05F6A4|B00C    |05F6B2;  
-                       LDA.W Card inventory,Y               ;05F6A6|B9A913  |0013A9;  
+                       LDA.W Inventory_Cards,Y              ;05F6A6|B9A913  |0013A9;  
                        BNE CODE_05F6B6                      ;05F6A9|D00B    |05F6B6;  
                        DEY                                  ;05F6AB|88      |      ;  
                        TXA                                  ;05F6AC|8A      |      ;  
@@ -15494,14 +15493,14 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        BRA CODE_05F6C6                      ;05F6C1|8003    |05F6C6;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F6C3: LDA.W Card inventory,Y               ;05F6C3|B9A913  |0013A9;  
+          CODE_05F6C3: LDA.W Inventory_Cards,Y              ;05F6C3|B9A913  |0013A9;  
                                                             ;      |        |      ;  
           CODE_05F6C6: STA.B $20                            ;05F6C6|8520    |000020;  
                        AND.W #$00FF                         ;05F6C8|29FF00  |      ;  
                        PHY                                  ;05F6CB|5A      |      ;  
                        PHX                                  ;05F6CC|DA      |      ;  
                        LDX.W #$000B                         ;05F6CD|A20B00  |      ;  
-                       JSL.L MultiplyTo$00_far              ;05F6D0|22398A00|008A39;  
+                       JSL.L MultiplyTo1E00_far             ;05F6D0|22398A00|008A39;  
                        LDA.W #$F038                         ;05F6D4|A938F0  |      ;  
                        CLC                                  ;05F6D7|18      |      ;  
                        ADC.B $00                            ;05F6D8|6500    |000000;  
@@ -15567,7 +15566,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                                                             ;      |        |      ;  
           TEXT_05F758: db "*"                               ;05F758|        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F759: LDA.W Input (0031)                   ;05F759|AD3100  |000031;  
+          CODE_05F759: LDA.W Input_0031                     ;05F759|AD3100  |000031;  
                        BIT.W #$0080                         ;05F75C|898000  |      ;  
                        BEQ CODE_05F765                      ;05F75F|F004    |05F765;  
                        LDA.W #$0003                         ;05F761|A90300  |      ;  
@@ -15589,14 +15588,14 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        LDA.W #$0003                         ;05F77C|A90300  |      ;  
                        STA.W $11B7                          ;05F77F|8DB711  |0011B7;  
                                                             ;      |        |      ;  
-          CODE_05F782: LDA.W Page #                         ;05F782|ADB911  |0011B9;  
+          CODE_05F782: LDA.W Page_Num                       ;05F782|ADB911  |0011B9;  
                        ASL A                                ;05F785|0A      |      ;  
                        ASL A                                ;05F786|0A      |      ;  
                        CLC                                  ;05F787|18      |      ;  
                        ADC.W $11B7                          ;05F788|6DB711  |0011B7;  
                        ASL A                                ;05F78B|0A      |      ;  
                        TAX                                  ;05F78C|AA      |      ;  
-                       LDA.W Card inventory,X               ;05F78D|BDA913  |0013A9;  
+                       LDA.W Inventory_Cards,X              ;05F78D|BDA913  |0013A9;  
                        BNE CODE_05F79A                      ;05F790|D008    |05F79A;  
                        DEC.W $11B7                          ;05F792|CEB711  |0011B7;  
                        BRA CODE_05F782                      ;05F795|80EB    |05F782;  
@@ -15609,7 +15608,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                                                             ;      |        |      ;  
           CODE_05F79E: BIT.W #$0400                         ;05F79E|890004  |      ;  
                        BEQ CODE_05F7C7                      ;05F7A1|F024    |05F7C7;  
-                       LDA.W Page #                         ;05F7A3|ADB911  |0011B9;  
+                       LDA.W Page_Num                       ;05F7A3|ADB911  |0011B9;  
                        ASL A                                ;05F7A6|0A      |      ;  
                        ASL A                                ;05F7A7|0A      |      ;  
                        CLC                                  ;05F7A8|18      |      ;  
@@ -15617,7 +15616,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        INC A                                ;05F7AC|1A      |      ;  
                        ASL A                                ;05F7AD|0A      |      ;  
                        TAX                                  ;05F7AE|AA      |      ;  
-                       LDA.W Card inventory,X               ;05F7AF|BDA913  |0013A9;  
+                       LDA.W Inventory_Cards,X              ;05F7AF|BDA913  |0013A9;  
                        BEQ CODE_05F7BD                      ;05F7B2|F009    |05F7BD;  
                        LDA.W $11B7                          ;05F7B4|ADB711  |0011B7;  
                        INC A                                ;05F7B7|1A      |      ;  
@@ -15632,11 +15631,11 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                                                             ;      |        |      ;  
           CODE_05F7C7: BIT.W #$0200                         ;05F7C7|890002  |      ;  
                        BEQ CODE_05F7E0                      ;05F7CA|F014    |05F7E0;  
-                       LDA.W Page #                         ;05F7CC|ADB911  |0011B9;  
+                       LDA.W Page_Num                       ;05F7CC|ADB911  |0011B9;  
                        DEC A                                ;05F7CF|3A      |      ;  
                        CMP.W #$FFFF                         ;05F7D0|C9FFFF  |      ;  
                        BEQ CODE_05F7DC                      ;05F7D3|F007    |05F7DC;  
-                       DEC.W Page #                         ;05F7D5|CEB911  |0011B9;  
+                       DEC.W Page_Num                       ;05F7D5|CEB911  |0011B9;  
                        JSL.L Something loading cards        ;05F7D8|229AF605|05F69A;  
                                                             ;      |        |      ;  
           CODE_05F7DC: LDA.W #$0002                         ;05F7DC|A90200  |      ;  
@@ -15648,7 +15647,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        LDA.W $13B1                          ;05F7E5|ADB113  |0013B1;  
                        BEQ CODE_05F80D                      ;05F7E8|F023    |05F80D;  
                        LDA.W #$0001                         ;05F7EA|A90100  |      ;  
-                       STA.W Page #                         ;05F7ED|8DB911  |0011B9;  
+                       STA.W Page_Num                       ;05F7ED|8DB911  |0011B9;  
                        JSL.L Something loading cards        ;05F7F0|229AF605|05F69A;  
                        LDA.W #$0004                         ;05F7F4|A90400  |      ;  
                        CLC                                  ;05F7F7|18      |      ;  
@@ -15656,7 +15655,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        ASL A                                ;05F7FB|0A      |      ;  
                        TAX                                  ;05F7FC|AA      |      ;  
                                                             ;      |        |      ;  
-          CODE_05F7FD: LDA.W Card inventory,X               ;05F7FD|BDA913  |0013A9;  
+          CODE_05F7FD: LDA.W Inventory_Cards,X              ;05F7FD|BDA913  |0013A9;  
                        BNE CODE_05F809                      ;05F800|D007    |05F809;  
                        DEC.W $11B7                          ;05F802|CEB711  |0011B7;  
                        DEX                                  ;05F805|CA      |      ;  
@@ -15700,14 +15699,14 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                                                             ;      |        |      ;  
           CODE_05F845: LDA.W #$0001                         ;05F845|A90100  |      ;  
                        STA.W $18A7                          ;05F848|8DA718  |0018A7;  
-                       LDA.W Page #                         ;05F84B|ADB911  |0011B9;  
+                       LDA.W Page_Num                       ;05F84B|ADB911  |0011B9;  
                        ASL A                                ;05F84E|0A      |      ;  
                        ASL A                                ;05F84F|0A      |      ;  
                        CLC                                  ;05F850|18      |      ;  
                        ADC.W $11B7                          ;05F851|6DB711  |0011B7;  
                        ASL A                                ;05F854|0A      |      ;  
                        TAX                                  ;05F855|AA      |      ;  
-                       LDA.W Card inventory,X               ;05F856|BDA913  |0013A9;  
+                       LDA.W Inventory_Cards,X              ;05F856|BDA913  |0013A9;  
                        AND.W #$00FF                         ;05F859|29FF00  |      ;  
                        STA.W $18A5                          ;05F85C|8DA518  |0018A5;  
                        TAX                                  ;05F85F|AA      |      ;  
@@ -15725,7 +15724,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        db $00                               ;05F86E|        |      ;  
                        db $00                               ;05F86F|        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F870: LDA.W Input (0031)                   ;05F870|AD3100  |000031;  
+          CODE_05F870: LDA.W Input_0031                     ;05F870|AD3100  |000031;  
                        BIT.W #$0080                         ;05F873|898000  |      ;  
                        BEQ CODE_05F87C                      ;05F876|F004    |05F87C;  
                        LDA.W #$0002                         ;05F878|A90200  |      ;  
@@ -15782,14 +15781,14 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        dw $005C                             ;05F8D2|        |      ;  
                        dw $0075                             ;05F8D4|        |      ;  
                                                             ;      |        |      ;  
-       CheckCardCount: LDA.W Page #                         ;05F8D6|ADB911  |0011B9; Returns 1 if not enough cards, 0 otherwise
+       CheckCardCount: LDA.W Page_Num                       ;05F8D6|ADB911  |0011B9; Returns 1 if not enough cards, 0 otherwise
                        ASL A                                ;05F8D9|0A      |      ;  
                        ASL A                                ;05F8DA|0A      |      ;  
                        CLC                                  ;05F8DB|18      |      ;  
                        ADC.W $11B7                          ;05F8DC|6DB711  |0011B7;  
                        ASL A                                ;05F8DF|0A      |      ;  
                        TAX                                  ;05F8E0|AA      |      ;  
-                       LDA.W Card inventory,X               ;05F8E1|BDA913  |0013A9;  
+                       LDA.W Inventory_Cards,X              ;05F8E1|BDA913  |0013A9;  
                        XBA                                  ;05F8E4|EB      |      ;  
                        AND.W #$00FF                         ;05F8E5|29FF00  |      ;  
                        SEC                                  ;05F8E8|38      |      ;  
@@ -15810,17 +15809,17 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        RTL                                  ;05F906|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F907: LDA.W Page #                         ;05F907|ADB911  |0011B9;  
+          CODE_05F907: LDA.W Page_Num                       ;05F907|ADB911  |0011B9;  
                        ASL A                                ;05F90A|0A      |      ;  
                        ASL A                                ;05F90B|0A      |      ;  
                        CLC                                  ;05F90C|18      |      ;  
                        ADC.W $11B7                          ;05F90D|6DB711  |0011B7;  
                        ASL A                                ;05F910|0A      |      ;  
                        TAX                                  ;05F911|AA      |      ;  
-                       LDA.W Card inventory,X               ;05F912|BDA913  |0013A9;  
+                       LDA.W Inventory_Cards,X              ;05F912|BDA913  |0013A9;  
                        AND.W #$00FF                         ;05F915|29FF00  |      ;  
                        STA.B $00                            ;05F918|8500    |000000;  
-                       LDA.W Card inventory,X               ;05F91A|BDA913  |0013A9;  
+                       LDA.W Inventory_Cards,X              ;05F91A|BDA913  |0013A9;  
                        XBA                                  ;05F91D|EB      |      ;  
                        AND.W #$00FF                         ;05F91E|29FF00  |      ;  
                        SEC                                  ;05F921|38      |      ;  
@@ -15828,19 +15827,19 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        BEQ CODE_05F92E                      ;05F925|F007    |05F92E;  
                        XBA                                  ;05F927|EB      |      ;  
                        ORA.B $00                            ;05F928|0500    |000000;  
-                       STA.W Card inventory,X               ;05F92A|9DA913  |0013A9;  
+                       STA.W Inventory_Cards,X              ;05F92A|9DA913  |0013A9;  
                        RTL                                  ;05F92D|6B      |      ;  
                                                             ;      |        |      ;  
                                                             ;      |        |      ;  
-          CODE_05F92E: STZ.W Card inventory,X               ;05F92E|9EA913  |0013A9;  
+          CODE_05F92E: STZ.W Inventory_Cards,X              ;05F92E|9EA913  |0013A9;  
                        TXY                                  ;05F931|9B      |      ;  
                                                             ;      |        |      ;  
           CODE_05F932: INY                                  ;05F932|C8      |      ;  
                        INY                                  ;05F933|C8      |      ;  
                        CPY.W #$0010                         ;05F934|C01000  |      ;  
                        BCS CODE_05F943                      ;05F937|B00A    |05F943;  
-                       LDA.W Card inventory,Y               ;05F939|B9A913  |0013A9;  
-                       STA.W Card inventory,X               ;05F93C|9DA913  |0013A9;  
+                       LDA.W Inventory_Cards,Y              ;05F939|B9A913  |0013A9;  
+                       STA.W Inventory_Cards,X              ;05F93C|9DA913  |0013A9;  
                        INX                                  ;05F93F|E8      |      ;  
                        INX                                  ;05F940|E8      |      ;  
                        BRA CODE_05F932                      ;05F941|80EF    |05F932;  
@@ -15854,7 +15853,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        LDA.W $13B1                          ;05F94A|ADB113  |0013B1;  
                        BEQ CODE_05F95A                      ;05F94D|F00B    |05F95A;  
                        LDX.W #$0000                         ;05F94F|A20000  |      ;  
-                       LDA.W Page #                         ;05F952|ADB911  |0011B9;  
+                       LDA.W Page_Num                       ;05F952|ADB911  |0011B9;  
                        BEQ CODE_05F95A                      ;05F955|F003    |05F95A;  
                        LDX.W #$0001                         ;05F957|A20100  |      ;  
                                                             ;      |        |      ;  
@@ -15913,7 +15912,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        db $FF                               ;05F9A5|        |      ;  
                                                             ;      |        |      ;  
    Use_Elemental_Card: db $07                               ;05F9A6|        |      ;  
-                       dl Read (3b) into text parser        ;05F9A7|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F9A7|        |00A0AC;  
                        dl Use how many cards?               ;05F9AA|        |05FA70;  
                        db $00                               ;05F9AD|        |      ;  
                        db $38                               ;05F9AE|        |      ;  
@@ -15922,7 +15921,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        dw $00BF                             ;05F9B2|        |      ;  
                                                             ;      |        |      ;  
          DATA8_05F9B4: db $07                               ;05F9B4|        |      ;  
-                       dl Read (3b) into text parser        ;05F9B5|        |00A0AC;  
+                       dl Setup_Text_Parser_3b              ;05F9B5|        |00A0AC;  
                        dl Use how many cards?               ;05F9B8|        |05FA70;  
                        db $00                               ;05F9BB|        |      ;  
                                                             ;      |        |      ;  
@@ -15968,7 +15967,7 @@ Something loading cards: LDA.W Page #                         ;05F69A|ADB911  |0
                        db $06                               ;05F9EE|        |      ;  
                        db $0A                               ;05F9EF|        |      ;  
                        db $07                               ;05F9F0|        |      ;  
-                       dl Transfer_Data(3b)(1b)(2b)         ;05F9F1|        |00A140;  
+                       dl Transfer_Data_3b_1b_2b            ;05F9F1|        |00A140;  
                        dl $189AD2_2_bytes                   ;05F9F4|        |0D958E;  
                        db $02                               ;05F9F7|        |      ;  
                        dw $0002                             ;05F9F8|        |      ;  

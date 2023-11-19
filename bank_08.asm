@@ -3757,7 +3757,7 @@ Gratuitous Japanese 3: db $06                               ;08CC27|        |   
                        db $7F                               ;08CCD7|        |      ;  
                        db $00                               ;08CCD8|        |      ;  
                                                             ;      |        |      ;  
-         DATA8_08CCD9: db $06                               ;08CCD9|        |      ;  
+     Sub_Shop_menu_GP: db $06                               ;08CCD9|        |      ;  
                        db $0D                               ;08CCDA|        |      ;  
                        db $00                               ;08CCDB|        |      ;  
                                                             ;      |        |      ;  
@@ -3876,7 +3876,7 @@ Gratuitous Japanese 3: db $06                               ;08CC27|        |   
                        db $00                               ;08CE03|        |      ;  
                        dl $0016DB                           ;08CE04|        |0016DB;  
                        db $10                               ;08CE07|        |      ;  
-                       dl DATA8_08CCD9                      ;08CE08|        |08CCD9;  
+                       dl Sub_Shop_menu_GP                  ;08CE08|        |08CCD9;  
                        db "."                               ;08CE0B|        |      ;  
                        db $0D                               ;08CE0C|        |      ;  
                        db "Please wait."                    ;08CE0D|        |      ;  
@@ -3892,7 +3892,7 @@ Gratuitous Japanese 3: db $06                               ;08CC27|        |   
                        db $00                               ;08CE29|        |      ;  
                        dl $0016DB                           ;08CE2A|        |0016DB;  
                        db $10                               ;08CE2D|        |      ;  
-                       dl DATA8_08CCD9                      ;08CE2E|        |08CCD9;  
+                       dl Sub_Shop_menu_GP                  ;08CE2E|        |08CCD9;  
                        db $0D                               ;08CE31|        |      ;  
                        db "File successfully sav"           ;08CE32|        |      ;  
                        db "ed."                             ;08CE47|        |      ;  
@@ -3908,7 +3908,7 @@ Gratuitous Japanese 3: db $06                               ;08CC27|        |   
                        db $00                               ;08CE5A|        |      ;  
                        dl $0016DB                           ;08CE5B|        |0016DB;  
                        db $10                               ;08CE5E|        |      ;  
-                       dl DATA8_08CCD9                      ;08CE5F|        |08CCD9;  
+                       dl Sub_Shop_menu_GP                  ;08CE5F|        |08CCD9;  
                        db $0D                               ;08CE62|        |      ;  
                        db "File is not saved."              ;08CE63|        |      ;  
                        db $0D                               ;08CE75|        |      ;  
@@ -4790,7 +4790,7 @@ Can't trade with that: db $10                               ;08DE72|        |   
                        db $10                               ;08DEC1|        |      ;  
                        dl $0015AF                           ;08DEC2|        |0015AF;  
                        db $10                               ;08DEC5|        |      ;  
-                       dl DATA8_08CCD9                      ;08DEC6|        |08CCD9;  
+                       dl Sub_Shop_menu_GP                  ;08DEC6|        |08CCD9;  
                        db "."                               ;08DEC9|        |      ;  
                        db $7F                               ;08DECA|        |      ;  
                        db $00                               ;08DECB|        |      ;  
@@ -4801,12 +4801,12 @@ Can't trade with that: db $10                               ;08DE72|        |   
                        db $10                               ;08DED4|        |      ;  
                        dl $0015AF                           ;08DED5|        |0015AF;  
                        db $10                               ;08DED8|        |      ;  
-                       dl DATA8_08CCD9                      ;08DED9|        |08CCD9;  
+                       dl Sub_Shop_menu_GP                  ;08DED9|        |08CCD9;  
                        db $0D                               ;08DEDC|        |      ;  
                        db "costs "                          ;08DEDD|        |      ;  
                        db $11                               ;08DEE3|        |      ;  
-                       dl UNREACH_16DB00                    ;08DEE4|        |16DB00;  
-                       db $00                               ;08DEE7|        |      ;  
+                       db $00                               ;08DEE4|        |      ;  
+                       dl $0016DB                           ;08DEE5|        |0016DB;  
                        db "GP"                              ;08DEE8|        |      ;  
                        db $0D                               ;08DEEA|        |      ;  
                        db $1C                               ;08DEEB|        |      ;  
