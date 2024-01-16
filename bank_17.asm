@@ -1,19 +1,19 @@
                        ORG $178000
                        db $FF                               ;178000|        |      ;
-         Bank 17 init:
+         Bank_17_init:
                        STA.W $062B                          ;178001|8D2B06  |00062B; Basically Game start
                        STZ.W $0635                          ;178004|9C3506  |000635;
                        STZ.W $0637                          ;178007|9C3706  |000637;
                        LDA.W #$0024                         ;17800A|A92400  |      ;
                        STA.W $0639                          ;17800D|8D3906  |000639;
-                       JSL.L NMI_enable_far                 ;178010|22638100|008163;
+                       JSL.L NMI_enable1_far                ;178010|22638100|008163;
                        JSL.L Init_Loops                     ;178014|22848C00|008C84;
                        LDA.W #$0014                         ;178018|A91400  |      ;
                        JSL.L Way_more_stuff                 ;17801B|22248D00|008D24;
           CODE_17801F:
                        JSL.L Wait_Vblank_far                ;17801F|22DE8800|0088DE;
                        JSL.L CODE_008E29                    ;178023|22298E00|008E29;
-                       JSL.L 00A764_far                     ;178027|2260A700|00A760; Something text-related
+                       JSL.L _00A764_far                    ;178027|2260A700|00A760; Something text-related
                        LDA.W #$8044                         ;17802B|A94480  |      ;
                        JSL.L RAM_Decomp                     ;17802E|22FE8400|0084FE;
                        LDA.W #$2000                         ;178032|A90020  |      ;
@@ -23,7 +23,7 @@
                        LDA.W $063B                          ;17803E|AD3B06  |00063B;
                        BPL CODE_17801F                      ;178041|10DC    |17801F;
                        RTL                                  ;178043|6B      |      ;
-     Compressed data?:
+     Compressed_data1:
                        db $15                               ;178044|        |      ;
                        db $00                               ;178045|        |      ;
                        db $02                               ;178046|        |      ;
@@ -33,7 +33,7 @@
                        db $00                               ;17804A|        |      ;
                        db $00                               ;17804B|        |      ;
                        db $FF                               ;17804C|        |      ;
-      Sub-asm section:
+    Bank17_event_code:
                        db $24                               ;17804D|        |      ;
                        db $00                               ;17804E|        |      ;
                        db $11                               ;17804F|        |      ;
@@ -42,7 +42,7 @@
                        dw DATA8_17828D                      ;178053|        |17828D;
          DATA8_178055:
                        db $1B                               ;178055|        |      ;
-                       dw Buncha display shit               ;178056|        |17918E;
+                       dw Buncha_display_shit               ;178056|        |17918E;
                        db $07                               ;178058|        |      ;
                        dl Display_or_80_far                 ;178059|        |008177;
                        db $07                               ;17805C|        |      ;
@@ -80,7 +80,7 @@
                        db $01                               ;178096|        |      ;
                        db $07                               ;178097|        |      ;
                        dl Decomp_setup_3b                   ;178098|        |009CF9;
-                       dl Compressed data                   ;17809B|        |018A4F;
+                       dl Compressed_data_7                 ;17809B|        |018A4F;
                        db $07                               ;17809E|        |      ;
                        dl Do_Stuff_far                      ;17809F|        |00A0A8;
                        db $07                               ;1780A2|        |      ;
@@ -91,7 +91,7 @@
                        db $05                               ;1780AB|        |      ;
                        db $07                               ;1780AC|        |      ;
                        dl Decomp_setup_3b                   ;1780AD|        |009CF9;
-                       dl Compressed data                   ;1780B0|        |17811B;
+                       dl Compressed_data2                  ;1780B0|        |17811B;
                        db $16                               ;1780B3|        |      ; $0522 = 0
                        dw $0522                             ;1780B4|        |      ;
                        dw $0000                             ;1780B6|        |      ;
@@ -116,7 +116,7 @@
                        db $01                               ;1780D1|        |      ;
                        db $02                               ;1780D2|        |      ;
                        db $09                               ;1780D3|        |      ;
-                       dl A press intro crawl?              ;1780D4|        |17826D;
+                       dl A_press_intro_crawl               ;1780D4|        |17826D;
                        db $07                               ;1780D7|        |      ;
                        dl Load_Event_Text                   ;1780D8|        |18D4CC;
                        dl Opening_crawl                     ;1780DB|        |17812B;
@@ -159,7 +159,7 @@
                        db $05                               ;178117|        |      ;
                        db $1A                               ;178118|        |      ;
                        dw CODE_00828D                       ;178119|        |00828D;
-      Compressed data:
+     Compressed_data2:
                        db $80                               ;17811B|        |      ;
                        db $00                               ;17811C|        |      ;
                        db $08                               ;17811D|        |      ;
@@ -196,7 +196,7 @@
                        db "ere ruined.", $0D, "People ca"   ;178240|        |      ;
                        db "ll this land Elemen.", $1B       ;178255|        |      ;
                        db $01, $FF, $00                     ;17826A|        |      ;
- A press intro crawl?:
+  A_press_intro_crawl:
                        LDA.W Input_0031                     ;17826D|AD3100  |000031; Check if A was pressed
                        AND.W #$0080                         ;178270|298000  |      ;
                        BNE CODE_178276                      ;178273|D001    |178276;
@@ -247,7 +247,7 @@
                        db $00                               ;1782C2|        |      ;
                        db $07                               ;1782C3|        |      ;
                        dl Decomp_setup_3b                   ;1782C4|        |009CF9;
-                       dl Compressed data                   ;1782C7|        |179D87;
+                       dl Compressed_data3                  ;1782C7|        |179D87;
                        db $07                               ;1782CA|        |      ;
                        dl MainScr_AND_1b                    ;1782CB|        |009DB6;
                        db $1F                               ;1782CE|        |      ;
@@ -279,7 +279,7 @@
                        db $07                               ;1782F2|        |      ;
                        dl Sound_byte_1b                     ;1782F3|        |009C0A;
                        db $FF                               ;1782F6|        |      ;
-   Title Screen theme:
+   Title_Screen_theme:
                        db $07                               ;1782F7|        |      ; Play "Our Story's Name"
                        dl GetSet_Music                      ;1782F8|        |009C3C;
                        db $35                               ;1782FB|        |      ;
@@ -304,7 +304,7 @@
                        db $06                               ;178314|        |      ; 06: Delay 1f
                        db $01                               ;178315|        |      ;
                        db $09                               ;178316|        |      ;
-                       dl Maybe stage select                ;178317|        |17833F;
+                       dl Maybe_stage_select                ;178317|        |17833F;
                        db $0A                               ;17831A|        |      ;
                        db $30                               ;17831B|        |17831D;
                        db $00                               ;17831C|        |      ;
@@ -331,33 +331,33 @@
                        dl GetSet_Music                      ;17833A|        |009C3C;
                        db $00                               ;17833D|        |      ;
                        db $00                               ;17833E|        |      ;
-   Maybe stage select:
+   Maybe_stage_select:
                        LDX.W Stage_select_count             ;17833F|AED518  |0018D5;
                        CPX.W #$001C                         ;178342|E01C00  |      ; Len of stage select code
-                       BEQ Chapter select                   ;178345|F01B    |178362;
+                       BEQ Chapter_select                   ;178345|F01B    |178362;
                        LDA.W Input_0031                     ;178347|AD3100  |000031;
                        AND.W #$FFF0                         ;17834A|29F0FF  |      ;
-                       BEQ No Chapter selected              ;17834D|F03E    |17838D;
+                       BEQ No_Chapter_selected              ;17834D|F03E    |17838D;
                        CMP.L Stage_Select_code,X            ;17834F|DF288417|178428; Verify next button
-                       BEQ Correct button                   ;178353|F005    |17835A;
+                       BEQ Correct_button                   ;178353|F005    |17835A;
                        STZ.W Stage_select_count             ;178355|9CD518  |0018D5; Reset code for wrong button
-                       BRA No Chapter selected              ;178358|8033    |17838D;
-       Correct button:
+                       BRA No_Chapter_selected              ;178358|8033    |17838D;
+       Correct_button:
                        INC.W Stage_select_count             ;17835A|EED518  |0018D5;
                        INC.W Stage_select_count             ;17835D|EED518  |0018D5;
-                       BRA No Chapter selected              ;178360|802B    |17838D;
-       Chapter select:
+                       BRA No_Chapter_selected              ;178360|802B    |17838D;
+       Chapter_select:
                        LDX.W #$0000                         ;178362|A20000  |      ;
-Loop: Chapter select chk:
+Loop_Chapter_select_chk:
                        LDA.W Input_0031                     ;178365|AD3100  |000031;
                        AND.L Stage_Select_buttons,X         ;178368|3F448417|178444;
-                       BNE A Chapter selected               ;17836C|D009    |178377;
+                       BNE A_Chapter_selected               ;17836C|D009    |178377;
                        INX                                  ;17836E|E8      |      ;
                        INX                                  ;17836F|E8      |      ;
                        CPX.W #$0008                         ;178370|E00800  |      ;
-                       BCC Loop: Chapter select chk         ;178373|90F0    |178365;
-                       BRA No Chapter selected              ;178375|8016    |17838D; Reset code if the wrong button was pressed
-   A Chapter selected:
+                       BCC Loop_Chapter_select_chk          ;178373|90F0    |178365;
+                       BRA No_Chapter_selected              ;178375|8016    |17838D; Reset code if the wrong button was pressed
+   A_Chapter_selected:
                        LDA.W #$0001                         ;178377|A90100  |      ;
                        STA.W $18CB                          ;17837A|8DCB18  |0018CB;
                        STX.W $18D3                          ;17837D|8ED318  |0018D3;
@@ -365,7 +365,7 @@ Loop: Chapter select chk:
                        LDA.W #$CFCE                         ;178383|A9CECF  |      ;
                        LDY.W #$0000                         ;178386|A00000  |      ;
                        JML.L Sub_LoadStuff                  ;178389|5CB48D00|008DB4;
-  No Chapter selected:
+  No_Chapter_selected:
                        LDA.W Input_0031                     ;17838D|AD3100  |000031;
                        AND.W #$0200                         ;178390|290002  |      ; Left press
                        BEQ CODE_17839A                      ;178393|F005    |17839A;
@@ -421,14 +421,14 @@ Loop: Chapter select chk:
           CODE_178405:
                        LDA.W Input_0031                     ;178405|AD3100  |000031;
                        AND.W #$8000                         ;178408|290080  |      ;
-                       BNE Sound test                       ;17840B|D001    |17840E;
+                       BNE Sound_test1                      ;17840B|D001    |17840E;
                        RTL                                  ;17840D|6B      |      ;
-           Sound test:
+          Sound_test1:
                        LDA.W $0021                          ;17840E|AD2100  |000021;
                        CMP.W #$8030                         ;178411|C93080  |      ; B/L/R check
-                       BEQ Load Sound test                  ;178414|F001    |178417;
+                       BEQ Load_Sound_test                  ;178414|F001    |178417;
                        RTL                                  ;178416|6B      |      ;
-      Load Sound test:
+      Load_Sound_test:
                        LDX.W Selection                      ;178417|AE3F10  |00103F;
                        LDA.W #$D375                         ;17841A|A975D3  |      ;
                        LDY.W #$0000                         ;17841D|A00000  |      ;
@@ -775,7 +775,7 @@ Loop: Chapter select chk:
                        db $06                               ;1785C6|        |      ;
                        db $01                               ;1785C7|        |      ;
                        db $07                               ;1785C8|        |      ;
-                       dl Some $1095 check(1b)              ;1785C9|        |07BA4F;
+                       dl Some_1095_check_1b                ;1785C9|        |07BA4F;
                        db $00                               ;1785CC|        |      ;
                        db $0B                               ;1785CD|        |      ;
                        dw DATA8_1785C6                      ;1785CE|        |1785C6;
@@ -883,7 +883,7 @@ Loop: Chapter select chk:
                        db $C8                               ;178668|        |      ;
                        db $01                               ;178669|        |      ;
                        db $10                               ;17866A|        |      ;
-    Fade to Chapter 1:
+    Fade_to_Chapter_1:
                        db $07                               ;17866B|        |      ;
                        dl Fade                              ;17866C|        |00A0DB;
                        db $06                               ;17866F|        |      ;
@@ -924,7 +924,7 @@ Loop: Chapter select chk:
                        db $01                               ;17869A|        |000001;
                        db $01                               ;17869B|        |      ;
                        db $10                               ;17869C|        |      ;
-Fade from Intro crawl 1:
+Fade_from_Intro_crawl1:
                        db $07                               ;17869D|        |      ;
                        dl Fade                              ;17869E|        |00A0DB;
                        db $06                               ;1786A1|        |      ;
@@ -2163,12 +2163,12 @@ Fade from Intro crawl 1:
                        db $06                               ;178F7D|        |      ;
                        db $01                               ;178F7E|        |      ;
                        db $02                               ;178F7F|        |      ;
-          New chapter:
+          New_chapter:
                        db $07                               ;178F80|        |      ; Play "A New Chapter"
                        dl GetSet_Music                      ;178F81|        |009C3C;
                        db $38                               ;178F84|        |      ;
                        db $1B                               ;178F85|        |      ;
-                       dw Game breaking FF                  ;178F86|        |179038;
+                       dw Game_breaking_FF                  ;178F86|        |179038;
                        db $05                               ;178F88|        |      ; RTL
          DATA8_178F89:
                        db $07                               ;178F89|        |      ;
@@ -2196,7 +2196,7 @@ Fade from Intro crawl 1:
                        db $06                               ;178FAF|        |      ;
                        db $07                               ;178FB0|        |      ;
                        dl Decomp_setup_3b                   ;178FB1|        |009CF9;
-                       dl Decomp block                      ;178FB4|        |17E618;
+                       dl Decomp_block                      ;178FB4|        |17E618;
                        db $07                               ;178FB7|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;178FB8|        |00A140;
                        dl DATA8_178FF0                      ;178FBB|        |178FF0;
@@ -2204,12 +2204,12 @@ Fade from Intro crawl 1:
                        dw $0008                             ;178FBF|        |      ;
                        db $07                               ;178FC1|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;178FC2|        |00A140;
-                       dl A140 data                         ;178FC5|        |178FF8;
+                       dl A140_data1                        ;178FC5|        |178FF8;
                        db $20                               ;178FC8|        |      ;
                        dw $0020                             ;178FC9|        |      ;
                        db $07                               ;178FCB|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;178FCC|        |00A140;
-                       dl A140 data                         ;178FCF|        |179018;
+                       dl A140_data2                        ;178FCF|        |179018;
                        db $30                               ;178FD2|        |      ;
                        dw $0020                             ;178FD3|        |      ;
                        db $07                               ;178FD5|        |      ;
@@ -2223,7 +2223,7 @@ Fade from Intro crawl 1:
                        db $07                               ;178FE5|        |      ;
                        dl Do_Stuff_far                      ;178FE6|        |00A0A8;
                        db $07                               ;178FE9|        |      ;
-                       dl Chapter splash text               ;178FEA|        |179078;
+                       dl Chapter_splash_text               ;178FEA|        |179078;
                        db $06                               ;178FED|        |      ;
                        db $05                               ;178FEE|        |      ;
                        db $1C                               ;178FEF|        |      ;
@@ -2236,7 +2236,7 @@ Fade from Intro crawl 1:
                        db $00                               ;178FF5|        |      ;
                        db $00                               ;178FF6|        |      ;
                        db $00                               ;178FF7|        |      ;
-            A140 data:
+           A140_data1:
                        db $00                               ;178FF8|        |      ;
                        db $00                               ;178FF9|        |      ;
                        db $9D                               ;178FFA|        |      ;
@@ -2269,7 +2269,7 @@ Fade from Intro crawl 1:
                        db $00                               ;179015|        |      ;
                        db $60                               ;179016|        |      ;
                        db $00                               ;179017|        |      ;
-            A140 data:
+           A140_data2:
                        dw $0000                             ;179018|        |      ;
                        db $9D                               ;17901A|        |      ;
                        db $63                               ;17901B|        |      ;
@@ -2301,11 +2301,11 @@ Fade from Intro crawl 1:
                        db $24                               ;179035|        |      ;
                        db $00                               ;179036|        |      ;
                        db $1C                               ;179037|        |      ;
-     Game breaking FF:
+     Game_breaking_FF:
                        db $07                               ;179038|        |      ; Somehow if this 07 is FF, it skips to the credits
                        dl Sound_byte_1b                     ;179039|        |009C0A;
                        db $FF                               ;17903C|        |      ;
-       Chapter splash:
+       Chapter_splash:
                        db $06                               ;17903D|        |      ; Loop until button pressed
                        db $01                               ;17903E|        |      ;
                        db $1E                               ;17903F|        |      ;
@@ -2315,7 +2315,7 @@ Fade from Intro crawl 1:
                        dw $1080                             ;179046|        |      ;
                        db $0B                               ;179048|        |      ;
                        dw CODE_00903D                       ;179049|        |00903D;
-Clear the Chapter splash:
+Clear_the_Chapter_splash:
                        db $01                               ;17904B|        |      ;
                        db $10                               ;17904C|        |      ;
                        db $07                               ;17904D|        |      ;
@@ -2353,7 +2353,7 @@ Clear the Chapter splash:
                        db $01                               ;179075|        |000001;
                        db $01                               ;179076|        |000000;
                        db $00                               ;179077|        |      ;
-  Chapter splash text:
+  Chapter_splash_text:
                        LDA.W Chapter_num                    ;179078|ADCD18  |0018CD;
                        DEC A                                ;17907B|3A      |      ;
                        ASL A                                ;17907C|0A      |      ;
@@ -2400,7 +2400,7 @@ Clear the Chapter splash:
            Ch5_Splash:
                        db $0C, $1C, "         Chapter 5", $0D;179164|        |      ;
                        db $0D, "          Salvation", $00   ;179179|        |      ;
-  Buncha display shit:
+  Buncha_display_shit:
                        db $07                               ;17918E|        |      ;
                        dl Display_or_80_far                 ;17918F|        |008177;
                        db $07                               ;179192|        |      ;
@@ -2448,7 +2448,7 @@ Clear the Chapter splash:
                        db $FF                               ;1791D6|        |      ;
                        db $06                               ;1791D7|        |      ;
                        db $01                               ;1791D8|        |      ;
-   Set HAL Logo theme:
+   Set_HAL_Logo_theme:
                        db $07                               ;1791D9|        |      ; 07: Call 00/9C3C (Get/Set Music)
                        dl GetSet_Music                      ;1791DA|        |009C3C;
                        db $34                               ;1791DD|        |      ; Music ID: HAL Logo
@@ -2480,7 +2480,7 @@ Clear the Chapter splash:
                        db $01                               ;1791FE|        |      ;
                        db $04                               ;1791FF|        |      ;
                        db $07                               ;179200|        |      ;
-                       dl Smol block move                   ;179201|        |179261;
+                       dl Smol_block_move                   ;179201|        |179261;
                        db $15                               ;179204|        |000000;
                        db $00                               ;179205|        |      ;
                        db $02                               ;179206|        |      ;
@@ -2557,7 +2557,7 @@ Clear the Chapter splash:
                        db $38                               ;17925E|        |      ;
                        db $12                               ;17925F|        |      ;
                        db $FF                               ;179260|        |      ;
-      Smol block move:
+      Smol_block_move:
                        LDX.W Selection                      ;179261|AE3F10  |00103F; Moves 4b to RAM
                        LDA.W $09A3,X                        ;179264|BDA309  |0009A3;
                        ASL A                                ;179267|0A      |      ;
@@ -2569,7 +2569,7 @@ Clear the Chapter splash:
                        MVN $00,$17                          ;179273|540017  |      ;
                        PLB                                  ;179276|AB      |      ;
                        RTL                                  ;179277|6B      |      ;
-   Some block to move:
+   Some_block_to_move:
                        dw $1040                             ;179278|        |      ; Length needs researched
                        dw $2080                             ;17927A|        |      ;
                        db $C0                               ;17927C|        |      ;
@@ -5406,7 +5406,7 @@ Clear the Chapter splash:
                        db $C7                               ;179D84|        |000034;
                        db $34                               ;179D85|        |0000FF;
                        db $FF                               ;179D86|        |200080;
-      Compressed data:
+     Compressed_data3:
                        db $80                               ;179D87|        |      ;
                        db $00                               ;179D88|        |      ;
                        db $20                               ;179D89|        |      ;
@@ -21322,7 +21322,7 @@ Clear the Chapter splash:
                        db $3D                               ;17DBAE|        |00790F;
                        db $0F                               ;17DBAF|        |003079;
                        db $79                               ;17DBB0|        |000030;
-     Probably a table:
+     Probably_a_table:
                        dw $0030                             ;17DBB1|        |      ;
                        dw $002C                             ;17DBB3|        |      ;
                        dw $00FD                             ;17DBB5|        |      ;
@@ -23978,7 +23978,7 @@ Clear the Chapter splash:
                        db $00                               ;17E615|        |      ;
                        db $0C                               ;17E616|        |0080FF;
                        db $FF                               ;17E617|        |200080;
-         Decomp block:
+         Decomp_block:
                        db $80                               ;17E618|        |17E61A;
                        db $00                               ;17E619|        |      ;
                        db $20                               ;17E61A|        |17EB4D;

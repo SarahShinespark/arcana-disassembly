@@ -1,5 +1,5 @@
                        ORG $0C8000
-  Bank 0C: Story text:
+   Bank_0C_Story_text:
                        db $40                               ;0C8000|        |      ;
                        db $84                               ;0C8001|        |000008;
                        db $08                               ;0C8002|        |      ;
@@ -7416,7 +7416,7 @@
                        db $54                               ;0C9CF5|        |      ;
                        db $AB                               ;0C9CF6|        |      ;
                        db $86                               ;0C9CF7|        |000000;
-792 zeros for no reason:
+_792_zeros_for_no_reason:
                        db $00                               ;0C9CF8|        |      ;
                        db $00                               ;0C9CF9|        |      ;
                        db $00                               ;0C9CFA|        |      ;

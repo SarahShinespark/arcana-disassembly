@@ -1,6 +1,6 @@
                        ORG $088000
                        db $FF                               ;088000|        |      ;
-Bank 08: Small Script:
+ Bank_08_Small_Script:
                        db $06                               ;088001|        |      ; Status screen (I don't get how it works)
                        db $0C                               ;088002|        |      ;
                        db $0C                               ;088003|        |      ;
@@ -81,7 +81,7 @@ Bank 08: Small Script:
                        dw $5382                             ;088075|        |      ;
                        db $0D                               ;088077|        |      ;
                        db $00                               ;088078|        |      ;
-  Gratuitous Japanese:
+  Gratuitous_Japanese:
                        db $06                               ;088079|        |      ; Unused menu 3
                        db $0D                               ;08807A|        |      ;
                        db $0C                               ;08807B|        |      ;
@@ -134,7 +134,7 @@ Bank 08: Small Script:
                        dw $A282                             ;0880C5|        |      ;
                        db $0D                               ;0880C7|        |      ;
                        db $00                               ;0880C8|        |      ;
-       X is defending:
+       X_is_defending:
                        db $06                               ;0880C9|        |      ;
                        db $0D                               ;0880CA|        |      ;
                        db $0C                               ;0880CB|        |      ;
@@ -156,7 +156,7 @@ Bank 08: Small Script:
                        db $0D                               ;0880E9|        |      ;
                        db $7F                               ;0880EA|        |      ;
                        db $00                               ;0880EB|        |      ;
-     Weapons sub menu:
+     Weapons_sub_menu:
                        db $06                               ;0880EC|        |      ;
                        db $0D                               ;0880ED|        |      ;
                        db $0C                               ;0880EE|        |      ;
@@ -198,7 +198,7 @@ Bank 08: Small Script:
                        db $02                               ;088126|        |      ;
                        dl $0016DD                           ;088127|        |0016DD;
                        db $00                               ;08812A|        |      ;
-            Town menu:
+            Town_menu:
                        db $06                               ;08812B|        |      ;
                        db $0D                               ;08812C|        |      ;
                        db $0C                               ;08812D|        |      ;
@@ -237,7 +237,7 @@ Bank 08: Small Script:
                        dl $001559                           ;088197|        |001559;
                        db "GP"                              ;08819A|        |      ;
                        db $00                               ;08819C|        |      ;
-         Dungeon menu:
+         Dungeon_menu:
                        db $06                               ;08819D|        |      ;
                        db $0D                               ;08819E|        |      ;
                        db $0C                               ;08819F|        |      ;
@@ -273,7 +273,7 @@ Bank 08: Small Script:
                        dl $001559                           ;088205|        |001559;
                        db "GP"                              ;088208|        |      ;
                        db $00                               ;08820A|        |      ;
-           Battle won:
+           Battle_won:
                        db $06                               ;08820B|        |      ;
                        db $0D                               ;08820C|        |      ;
                        db $0C                               ;08820D|        |      ;
@@ -313,7 +313,7 @@ Bank 08: Small Script:
                        db $0C                               ;088266|        |      ;
                        db $01                               ;088267|        |      ;
                        db $00                               ;088268|        |      ;
-           EXP gained:
+           EXP_gained:
                        db $06                               ;088269|        |      ;
                        db $1C                               ;08826A|        |      ;
                        db $11                               ;08826B|        |      ;
@@ -341,7 +341,7 @@ Bank 08: Small Script:
                        db $0C                               ;0882A1|        |      ;
                        db $01                               ;0882A2|        |      ;
                        db $00                               ;0882A3|        |      ;
-  Run away! Run away!:
+    Run_away_Run_away:
                        db $06                               ;0882A4|        |      ;
                        db $1D                               ;0882A5|        |      ;
                        db "Rooks' Group has"                ;0882A6|        |      ;
@@ -349,7 +349,7 @@ Bank 08: Small Script:
                        db "withdrawn."                      ;0882B7|        |      ;
                        db $7F                               ;0882C1|        |      ;
                        db $00                               ;0882C2|        |      ;
-            No escape:
+            No_escape:
                        db $06                               ;0882C3|        |      ;
                        db $0D                               ;0882C4|        |      ;
                        db $0C                               ;0882C5|        |      ;
@@ -365,7 +365,7 @@ Bank 08: Small Script:
                        db "There was no escape."            ;0882CF|        |      ;
                        db $7F                               ;0882E3|        |      ;
                        db $00                               ;0882E4|        |      ;
-   Rooks' Battle menu:
+    Rooks_Battle_menu:
                        db $06                               ;0882E5|        |      ; White text
                        db $0D                               ;0882E6|        |      ;
                        db $0C                               ;0882E7|        |      ;
@@ -391,7 +391,7 @@ Bank 08: Small Script:
                        db $64                               ;08832A|        |      ;
                        db "Call"                            ;08832B|        |      ;
                        db $00                               ;08832F|        |      ;
-   Spirit Battle menu:
+   Spirit_Battle_menu:
                        db $06                               ;088330|        |      ;
                        db $0D                               ;088331|        |      ;
                        db $0C                               ;088332|        |      ;
@@ -404,7 +404,7 @@ Bank 08: Small Script:
                        db "  Attack    Magic  De"           ;088339|        |      ;
                        db "fense"                           ;08834E|        |      ;
                        db $00                               ;088353|        |      ;
-    Guest Battle menu:
+    Guest_Battle_menu:
                        db $06                               ;088354|        |      ;
                        db $0D                               ;088355|        |      ;
                        db $0C                               ;088356|        |      ;
@@ -434,7 +434,7 @@ Bank 08: Small Script:
                        db $03                               ;088397|        |      ;
                        db $0E                               ;088398|        |      ;
                        db $1C                               ;088399|        |      ;
-Gratuitous Japanese 1:
+ Gratuitous_Japanese1:
                        dw $4081                             ;08839A|        |      ;
                        dw $558D                             ;08839C|        |      ; 攻撃  Attack
                        dw $828C                             ;08839E|        |      ;
@@ -459,7 +459,7 @@ Gratuitous Japanese 1:
                        dw $A693                             ;0883C3|        |      ; 逃走  Escape
                        dw $9691                             ;0883C5|        |      ;
                        db $00                               ;0883C7|        |      ;
-Gratuitous Japanese 2:
+ Gratuitous_Japanese2:
                        db $06                               ;0883C8|        |      ;
                        db $0D                               ;0883C9|        |      ;
                        db $0C                               ;0883CA|        |      ;
@@ -489,7 +489,7 @@ Gratuitous Japanese 2:
                        dw $4C83                             ;0883F2|        |      ;
                        dw $5B81                             ;0883F4|        |      ;
                        db $00                               ;0883F6|        |      ;
-         Window Color:
+         Window_Color:
                        db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Window Col";0883F7|        |      ;
                        db "or", $0D, "  Red", $08, "-", $11, $01;08840C|        |      ;
                        dl $0016DB                           ;088418|        |0016DB;
@@ -498,7 +498,7 @@ Gratuitous Japanese 2:
                        db $0D, "  Blue", $08, "-", $11, $01 ;08842A|        |      ;
                        dl $0016DF                           ;088435|        |0016DF;
                        db $0D, $00                          ;088438|        |      ;
-    Loads 1 thing (?):
+        Loads_1_thing:
                        db $06, $0D, $0C, $01, $18, $0C, $1C, $10;08843A|        |      ;
                        dl $0015AF                           ;088442|        |0015AF;
                        db $00                               ;088445|        |      ;
@@ -1118,7 +1118,7 @@ The_best_you_can_do_x9:
                        db "tem", $0D, $00                   ;088EDC|        |      ;
        YikesTextSetup:
                        db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $05, $06, $01, $00;088EE1|        |      ; Sub for Yikes
-               Yikes!:
+                Yikes:
                        db $10                               ;088EF0|        |      ; Back attack
                        dl YikesTextSetup                    ;088EF1|        |088EE1;
                        db $0D, "           ", $22, "Yikes!!", $22;088EF4|        |      ;
@@ -3574,7 +3574,7 @@ NormalLines_TextSetup:
                        dl $00167A                           ;08CC22|        |00167A;
                        db $0D                               ;08CC25|        |      ;
                        db $00                               ;08CC26|        |      ;
-Gratuitous_Japanese_3:
+ Gratuitous_Japanese3:
                        db $06                               ;08CC27|        |      ;
                        db $0D                               ;08CC28|        |      ;
                        db $0C                               ;08CC29|        |      ;
@@ -3838,7 +3838,7 @@ Gratuitous_Japanese_3:
                        db $22, "A room     Save"            ;08CD7F|        |      ;
                        db $7F                               ;08CD8F|        |      ;
                        db $00                               ;08CD90|        |      ;
-    Inn_Anything_else:
+    Inn_Anything_Else:
                        db $10                               ;08CD91|        |      ;
                        dl Speaking_text_setup               ;08CD92|        |08CCBA;
                        db "Anything else?"                  ;08CD95|        |      ;
@@ -3951,7 +3951,7 @@ Gratuitous_Japanese_3:
                        db "est."                            ;08CF17|        |      ;
                        db $7F                               ;08CF1B|        |      ;
                        db $00                               ;08CF1C|        |      ;
- Inn_Not_enough_money:
+       Inn_Not_Enough:
                        db $10                               ;08CF1D|        |      ;
                        dl Speaking_text_setup               ;08CF1E|        |08CCBA;
                        db "Not enough."                     ;08CF21|        |      ;
@@ -5353,7 +5353,7 @@ Inventory_full_cant_buy:
                        db "me.", $22                        ;08E251|        |      ;
                        db $7F                               ;08E255|        |      ;
                        db $00                               ;08E256|        |      ;
-       Axs_isn't_here:
+        Axs_isnt_here:
                        db $10                               ;08E257|        |      ;
                        dl Speaking_text_setup               ;08E258|        |08CCBA;
                        db $10                               ;08E25B|        |      ;

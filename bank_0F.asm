@@ -30,14 +30,14 @@
                        db $1F                               ;0F802A|        |      ;
                        dw $11B9                             ;0F802B|        |      ;
                        db $07                               ;0F802D|        |      ;
-                       dl Get Boss music flag               ;0F802E|        |07B61B;
+                       dl Get_Boss_music_flag               ;0F802E|        |07B61B;
                        db $11                               ;0F8031|        |      ; Switch-case (boss flag 1-4)
                        db $04                               ;0F8032|        |      ;
-                       dw Animation stuffs                  ;0F8033|        |0F803B;
+                       dw Animation_stuffs                  ;0F8033|        |0F803B;
                        dw DATA8_0F804B                      ;0F8035|        |0F804B;
                        dw DATA8_0F805B                      ;0F8037|        |0F805B;
                        dw DATA8_0F805B                      ;0F8039|        |0F805B;
-     Animation stuffs:
+     Animation_stuffs:
                        db $30                               ;0F803B|        |      ;
                        db $00                               ;0F803C|        |      ;
                        db $06                               ;0F803D|        |      ;
@@ -92,7 +92,7 @@
                        db $1F                               ;0F806B|        |      ;
                        dw $11B9                             ;0F806C|        |      ;
                        db $07                               ;0F806E|        |      ;
-                       dl Get Boss music flag               ;0F806F|        |07B61B;
+                       dl Get_Boss_music_flag               ;0F806F|        |07B61B;
                        db $11                               ;0F8072|        |      ;
                        db $04                               ;0F8073|        |      ;
        Tbl_Enemy_Size:
@@ -155,7 +155,7 @@
                        db $1F                               ;0F80AC|        |      ;
                        dw $11B9                             ;0F80AD|        |      ;
                        db $07                               ;0F80AF|        |      ;
-                       dl Get Boss music flag               ;0F80B0|        |07B61B;
+                       dl Get_Boss_music_flag               ;0F80B0|        |07B61B;
                        db $11                               ;0F80B3|        |      ;
                        db $04                               ;0F80B4|        |      ;
                        dw DATA8_0F80BD                      ;0F80B5|        |0F80BD;
@@ -202,7 +202,7 @@
                        db $1F                               ;0F80DE|        |      ;
                        dw $11B9                             ;0F80DF|        |      ;
                        db $07                               ;0F80E1|        |      ;
-                       dl Get Boss music flag               ;0F80E2|        |07B61B;
+                       dl Get_Boss_music_flag               ;0F80E2|        |07B61B;
                        db $11                               ;0F80E5|        |      ;
                        db $04                               ;0F80E6|        |      ;
                        dw DATA8_0F80EF                      ;0F80E7|        |0F80EF;
@@ -252,7 +252,7 @@
                        db $1F                               ;0F8113|        |      ;
                        dw $11B9                             ;0F8114|        |      ;
                        db $07                               ;0F8116|        |      ;
-                       dl Get Boss music flag               ;0F8117|        |07B61B;
+                       dl Get_Boss_music_flag               ;0F8117|        |07B61B;
                        db $11                               ;0F811A|        |      ;
                        db $04                               ;0F811B|        |      ;
                        dw DATA8_0F8124                      ;0F811C|        |0F8124;
@@ -293,7 +293,7 @@
                        db $1F                               ;0F813F|        |      ;
                        dw $11B9                             ;0F8140|        |      ;
                        db $07                               ;0F8142|        |      ;
-                       dl Get Boss music flag               ;0F8143|        |07B61B;
+                       dl Get_Boss_music_flag               ;0F8143|        |07B61B;
                        db $11                               ;0F8146|        |      ;
                        db $04                               ;0F8147|        |      ;
                        dw DATA8_0F8150                      ;0F8148|        |0F8150;
@@ -345,7 +345,7 @@
                        db $06                               ;0F8177|        |      ;
                        db $0D                               ;0F8178|        |      ;
                        db $00                               ;0F8179|        |      ;
-  Tbl_Equipment_Data?:
+   Tbl_Equipment_Data:
                        dw DATA8_0F826A                      ;0F817A|        |0F826A; 120 entries, 120 equipment. Coincidence?
                        dw DATA8_0F82D3                      ;0F817C|        |0F82D3;
                        dw UNREACH_0F834B                    ;0F817E|        |0F834B;
@@ -19221,7 +19221,7 @@ Event_Spell_Animation:
                        db $1F                               ;0FCB36|        |      ;
                        dw $1127                             ;0FCB37|        |      ;
                        db $07                               ;0FCB39|        |      ;
-                       dl Spell casting?                    ;0FCB3A|        |0782B3;
+                       dl Spell_casting                     ;0FCB3A|        |0782B3;
                        db $1F                               ;0FCB3D|        |      ; Get value $1127
                        dw $1127                             ;0FCB3E|        |      ;
                        db $12                               ;0FCB40|        |      ; 12 5F: Branch to CC01 if $1127 < 5F
@@ -19671,7 +19671,7 @@ Animation_Effect57_CallFS:
                        db $1E                               ;0FCD63|        |      ;
                        dw $0056                             ;0FCD64|        |      ;
                        db $07                               ;0FCD66|        |      ;
-                       dl Spell casting?                    ;0FCD67|        |0782B3;
+                       dl Spell_casting                     ;0FCD67|        |0782B3;
                        db $1B                               ;0FCD6A|        |      ; Jump to subroutine $CD48
                        dw Animation_Effect56_Cast           ;0FCD6B|        |0FCD48;
                        db $32                               ;0FCD6D|        |      ;
@@ -19683,7 +19683,7 @@ Animation_Effect57_CallFS:
                        db $1E                               ;0FCD76|        |      ;
                        dw $0055                             ;0FCD77|        |      ;
                        db $07                               ;0FCD79|        |      ;
-                       dl Spell casting?                    ;0FCD7A|        |0782B3;
+                       dl Spell_casting                     ;0FCD7A|        |0782B3;
                        db $1B                               ;0FCD7D|        |      ; Jump to subroutine $CD29
                        dw Animation_Effect55                ;0FCD7E|        |0FCD29;
                        db $32                               ;0FCD80|        |      ;
@@ -19701,7 +19701,7 @@ Animation_Effect57_CallFS:
                        db $1E                               ;0FCD92|        |      ;
                        dw $000C                             ;0FCD93|        |      ;
                        db $07                               ;0FCD95|        |      ;
-                       dl Spell casting?                    ;0FCD96|        |0782B3;
+                       dl Spell_casting                     ;0FCD96|        |0782B3;
                        db $1B                               ;0FCD99|        |      ;
                        dw Animation_Flame                   ;0FCD9A|        |0FCC10; Jump to subroutine $CC10
                        db $32                               ;0FCD9C|        |      ;
@@ -19736,7 +19736,7 @@ Animation_Effect57_CallFS:
                        db $1E                               ;0FCDC6|        |      ;
                        dw $000C                             ;0FCDC7|        |      ;
                        db $07                               ;0FCDC9|        |      ;
-                       dl Spell casting?                    ;0FCDCA|        |0782B3;
+                       dl Spell_casting                     ;0FCDCA|        |0782B3;
                        db $1B                               ;0FCDCD|        |      ; Jump to subroutine $CC10
                        dw Animation_Flame                   ;0FCDCE|        |0FCC10;
                        db $32                               ;0FCDD0|        |      ;
@@ -19773,7 +19773,7 @@ Animation_Effect58_Teefa_Par:
                        db $1E                               ;0FCDFD|        |      ;
                        dw $0056                             ;0FCDFE|        |      ;
                        db $07                               ;0FCE00|        |      ;
-                       dl Spell casting?                    ;0FCE01|        |0782B3;
+                       dl Spell_casting                     ;0FCE01|        |0782B3;
                        db $1B                               ;0FCE04|        |      ; Jump to subroutine $CD48
                        dw Animation_Effect56_Cast           ;0FCE05|        |0FCD48;
                        db $32                               ;0FCE07|        |      ;
@@ -19791,7 +19791,7 @@ Animation_Effect58_Teefa_Par:
                        db $1E                               ;0FCE19|        |      ;
                        dw $0028                             ;0FCE1A|        |      ;
                        db $07                               ;0FCE1C|        |      ;
-                       dl Spell casting?                    ;0FCE1D|        |0782B3;
+                       dl Spell_casting                     ;0FCE1D|        |0782B3;
                        db $1B                               ;0FCE20|        |      ; Jump to subroutine $CCC6
                        dw Animation_Swirly                  ;0FCE21|        |0FCCC6;
                        db $32                               ;0FCE23|        |      ;
@@ -19826,7 +19826,7 @@ Animation_Effect58_Teefa_Par:
                        db $1E                               ;0FCE4D|        |      ;
                        dw $0028                             ;0FCE4E|        |      ;
                        db $07                               ;0FCE50|        |      ;
-                       dl Spell casting?                    ;0FCE51|        |0782B3;
+                       dl Spell_casting                     ;0FCE51|        |0782B3;
                        db $1B                               ;0FCE54|        |      ; Jump to subroutine $CCC6
                        dw Animation_Swirly                  ;0FCE55|        |0FCCC6;
                        db $32                               ;0FCE57|        |      ;
@@ -19933,7 +19933,7 @@ Animation_Effect5D_Rooks_Unpet:
                        db $1E                               ;0FCECD|        |      ;
                        dw $0056                             ;0FCECE|        |      ;
                        db $07                               ;0FCED0|        |      ;
-                       dl Spell casting?                    ;0FCED1|        |0782B3;
+                       dl Spell_casting                     ;0FCED1|        |0782B3;
                        db $1B                               ;0FCED4|        |      ; Jump to subroutine $CD48
                        dw Animation_Effect56_Cast           ;0FCED5|        |0FCD48;
                        db $32                               ;0FCED7|        |      ;
@@ -19951,7 +19951,7 @@ Animation_Effect5D_Rooks_Unpet:
                        db $1E                               ;0FCEE9|        |      ;
                        dw $004B                             ;0FCEEA|        |      ;
                        db $07                               ;0FCEEC|        |      ;
-                       dl Spell casting?                    ;0FCEED|        |0782B3;
+                       dl Spell_casting                     ;0FCEED|        |0782B3;
                        db $1B                               ;0FCEF0|        |      ; Jump to subroutine $CCC6
                        dw Animation_Swirly                  ;0FCEF1|        |0FCCC6;
                        db $32                               ;0FCEF3|        |      ;
@@ -19967,7 +19967,7 @@ Animation_Effect5E_Ariel_Attr11:
                        db $1E                               ;0FCF00|        |      ; Load value 56
                        dw $0056                             ;0FCF01|        |      ;
                        db $07                               ;0FCF03|        |      ;
-                       dl Spell casting?                    ;0FCF04|        |0782B3;
+                       dl Spell_casting                     ;0FCF04|        |0782B3;
                        db $06                               ;0FCF07|        |      ; Pause 0C frames
                        db $0C                               ;0FCF08|        |      ;
                        db $38                               ;0FCF09|        |      ; 38 80 00
@@ -19983,7 +19983,7 @@ Animation_Effect5E_Ariel_Attr11:
                        db $1E                               ;0FCF19|        |      ;
                        dw $0017                             ;0FCF1A|        |      ;
                        db $07                               ;0FCF1C|        |      ;
-                       dl Spell casting?                    ;0FCF1D|        |0782B3;
+                       dl Spell_casting                     ;0FCF1D|        |0782B3;
                        db $1B                               ;0FCF20|        |      ; Jump to subroutine $CC9D
                        dw Animation_Attribute11             ;0FCF21|        |0FCC9D;
                        db $32                               ;0FCF23|        |      ;

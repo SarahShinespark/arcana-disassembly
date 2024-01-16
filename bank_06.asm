@@ -1,6 +1,6 @@
                        ORG $068000
                        db $FF                               ;068000|        |      ;
-Bank 06: Stage select:
+ Bank_06_Stage_select:
                        db $3F                               ;068001|        |      ; Decomp by $03D0F4
                        db $00                               ;068002|        |      ;
                        db $23                               ;068003|        |      ;

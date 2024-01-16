@@ -3,12 +3,12 @@
                        Tbl_0_to_120 = $05F127
                        Party_order = $0011F3; !^ 0 1 2 3 default (Ro Sp G1 G2) ^!
                        EqAmulet = $0012B3
-                       Tbl_Spirit_Stat_unk2 = $05F0C7
-                       Table: Spirit stat?1.5 = $05F0B7
-                       Table: Spirit Def Copy? = $05F107
+                       Tbl_Spirit_stat_3 = $05F0C7
+                       Tbl_Spirit_stat_2 = $05F0B7
+                       Tbl_Spirit_def_copy = $05F107
                        PtrBank_8DFC = $00A31C
                        P2_Data2_lo = $00421E
-                       Item flag: Battle use = $05F026
+                       Items_Battle_use = $05F026
                        Battle_Enemy_ID = $000643; !^ (2b) Enemy ID + #18, FFFF when killed ^!
                        Current_SFX = $001066; !^ Value 01-32 ^!
                        Event_CodePtr = $001049; !^ Stores subroutine pointers ^!
@@ -91,7 +91,7 @@
                        LoopVar_1047 = $001047
                        Current_HP_copy = $00130B
                        Current_MP_copy = $00133B
-                       Function_results = $000CB3
+                       Function_results1 = $000CB3
                        Ptr_Encounter_layout = $0018D7
                        SpiritMaxHP = $001395
                        Spirit_Current_HP = $0012F5
@@ -121,7 +121,7 @@
                        BG1_addr_size = $002107
                        BG2_addr_size = $002108
                        BG3_addr_size = $002109
-                       BG3_addr_size = $00210A
+                       BG3_addr_size_hi = $00210A
                        BG12_chr_addr = $00210B
                        BG34_chr_addr = $00210C
                        BG1_H = $00210D; !^ Horizontal scroll ^!
@@ -149,9 +149,9 @@
                        Color_math_desig = $002131
                        Fixed_color_data = $002132
                        ScrMode_VidSelect = $002133
-                       Multiply_lo = $002134; !^ 2's compliment product of $211b(2b), 8 bit most recently written to $#211c ^!
+                       Multiply_lo_2134 = $002134; !^ 2's compliment product of $211b(2b), 8 bit most recently written to $#211c ^!
                        Multiply_mid = $002135
-                       Multiply_hi = $002136
+                       Multiply_hi_2136 = $002136
                        HV_counter_latch = $002137
                        OAM_read_data = $002138
                        VRAM_read_lo = $002139
@@ -240,7 +240,7 @@
                        M7D = $00211E; !^ Mode 7 Matrix D ^!
                        M7X = $00211F; !^ Mode 7 Center X ^!
                        M7Y = $002120; !^ Mode 7 Center Y ^!
-                       Bank 06 end = $06F1BC
+                       Bank_06_end = $06F1BC
                        Map2_Progress = $00177F; !^ 177F-17FE (80 bytes) ^!
                        Stage_select_count = $0018D5; !^ Adds 2 every correct press until 1C ^!
                        Spell_type = $0018C5; !^ From table 05/EDB5. 00=damage, 02=healing... ^!
@@ -268,7 +268,7 @@
                        Status_Weird = $00112B; !^ 01=Confused, Slept, Para, Petri, Silence ^!
                        Input_New = $000029
                        Max_Cursor_Pos = $001883
-                       4F_50_52_51_Battle = $0018EF
+                       _4F_50_52_51_Battle = $0018EF
                        Anim_Loopvar = $000B9F; !^ Value 0-7 ^!
                        Ptr_EventStack = $000BFB
                        Bank_EventStack = $000C57
@@ -278,7 +278,7 @@
                        AnimE8_Total = $00097F
                        AnimC0_Total = $00102F
                        AnimC8_Total = $001037
-                       End_Axs_Levelup_Stats = $05C6AD
+                       Levelup_stats_Axs_end = $05C6AD
                        Credits_Progress = $001927
                        HP_Bonus = $0016E7
                        MP_Bonus = $0016EB
@@ -711,10 +711,6 @@
                        LOOSE_OP_00A6AC = $00A6AC
                        LOOSE_OP_00A6BC = $00A6BC
                        LOOSE_OP_00A6AE = $00A6AE
-                       LOOSE_OP_00A669 = $00A669
-                       LOOSE_OP_00A6AF = $00A6AF
-                       LOOSE_OP_00A7B3 = $00A7B3
-                       LOOSE_OP_00A93B = $00A93B
                        LOOSE_OP_00A65F = $00A65F
                        DATA16_00B819 = $00B819
                        DATA16_00AC14 = $00AC14

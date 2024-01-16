@@ -1,15 +1,2 @@
-main.asm
-bank_04.asm
-bank_09.asm
-bank_0A.asm
-bank_0B.asm
-bank_0D.asm
-bank_0E.asm
-bank_1*
-!bank_16.asm
-!bank_17.asm
-!bank_18.asm
-!bank_19.asm
-all-labels.csv
 bsnes.sym
 .gitattributes

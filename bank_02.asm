@@ -21,23 +21,23 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02801A|        |      ;
                        dw DATA8_028005                      ;02801B|        |028005;
                        db $04                               ;02801D|        |      ;
-                       dl Sub: Enemy death anim             ;02801E|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02801E|        |028F24;
          DATA8_028021:
                        db $24                               ;028021|        |      ;
                        db $02                               ;028022|        |      ;
                        db $07                               ;028023|        |      ;
-                       dl Condition_Check(2b)               ;028024|        |07B0B0;
+                       dl Condition_Check_2b                ;028024|        |07B0B0;
                        db $01                               ;028027|        |      ;
                        db $00                               ;028028|        |      ;
                        db $0B                               ;028029|        |      ;
                        dw DATA8_028005                      ;02802A|        |028005;
                        db $1A                               ;02802C|        |      ;
-                       dw Enemy dies SFX                    ;02802D|        |0290F1;
+                       dw SFX_Dies_Enemy                    ;02802D|        |0290F1;
          DATA8_02802F:
                        db $24                               ;02802F|        |      ;
                        db $02                               ;028030|        |      ;
                        db $07                               ;028031|        |      ;
-                       dl Zeros 11DB                        ;028032|        |0781F0;
+                       dl Zeros_11DB                        ;028032|        |0781F0;
                        db $08                               ;028035|        |      ;
                        dw DATA8_0280C9                      ;028036|        |0280C9;
          DATA8_028038:
@@ -219,7 +219,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;0280EC|        |      ;
                        dw DATA8_0280C9                      ;0280ED|        |0280C9;
           CODE_0280EF:
-                       JSL.L Val equal to $1575?            ;0280EF|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;0280EF|22DDAE07|07AEDD;
                        BNE CODE_02811F                      ;0280F3|D02A    |02811F;
                        LDX.W Selection                      ;0280F5|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;0280F8|BDC709  |0009C7;
@@ -270,11 +270,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028150|        |      ;
                        dw CODE_00813B                       ;028151|        |00813B;
                        db $04                               ;028153|        |      ;
-                       dl Sub: Enemy death anim             ;028154|        |028F24;
+                       dl Sub_Enemy_death_anim              ;028154|        |028F24;
                        db $24                               ;028157|        |      ;
                        db $02                               ;028158|        |      ;
                        db $07                               ;028159|        |      ;
-                       dl Condition_Check(2b)               ;02815A|        |07B0B0;
+                       dl Condition_Check_2b                ;02815A|        |07B0B0;
                        db $01                               ;02815D|        |      ;
                        db $00                               ;02815E|        |      ;
                        db $0B                               ;02815F|        |      ;
@@ -284,7 +284,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;028165|        |      ;
                        db $02                               ;028166|        |      ;
                        db $07                               ;028167|        |      ;
-                       dl Zeros 11DB                        ;028168|        |0781F0;
+                       dl Zeros_11DB                        ;028168|        |0781F0;
                        db $08                               ;02816B|        |      ;
                        dw CODE_0081E9                       ;02816C|        |0081E9;
                        db $24                               ;02816E|        |      ;
@@ -433,7 +433,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02820A|        |      ;
                        dw CODE_0081E9                       ;02820B|        |0081E9;
           CODE_02820D:
-                       JSL.L Val equal to $1575?            ;02820D|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02820D|22DDAE07|07AEDD;
                        BNE CODE_02823D                      ;028211|D02A    |02823D;
                        LDX.W Selection                      ;028213|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028216|BDC709  |0009C7;
@@ -484,11 +484,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02826E|        |      ;
                        dw CODE_008259                       ;02826F|        |008259;
                        db $04                               ;028271|        |      ;
-                       dl Sub: Enemy death anim             ;028272|        |028F24;
+                       dl Sub_Enemy_death_anim              ;028272|        |028F24;
                        db $24                               ;028275|        |      ;
                        db $02                               ;028276|        |      ;
                        db $07                               ;028277|        |      ;
-                       dl Condition_Check(2b)               ;028278|        |07B0B0;
+                       dl Condition_Check_2b                ;028278|        |07B0B0;
                        db $01                               ;02827B|        |      ;
                        db $00                               ;02827C|        |      ;
                        db $0B                               ;02827D|        |      ;
@@ -498,7 +498,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;028283|        |      ;
                        db $02                               ;028284|        |      ;
                        db $07                               ;028285|        |      ;
-                       dl Zeros 11DB                        ;028286|        |0781F0;
+                       dl Zeros_11DB                        ;028286|        |0781F0;
                        db $08                               ;028289|        |      ;
                        dw CODE_008307                       ;02828A|        |008307;
                        db $24                               ;02828C|        |      ;
@@ -647,7 +647,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028328|        |      ;
                        dw CODE_008307                       ;028329|        |008307;
           CODE_02832B:
-                       JSL.L Val equal to $1575?            ;02832B|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02832B|22DDAE07|07AEDD;
                        BNE CODE_02835B                      ;02832F|D02A    |02835B;
                        LDX.W Selection                      ;028331|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028334|BDC709  |0009C7;
@@ -698,11 +698,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02838C|        |      ;
                        dw CODE_008377                       ;02838D|        |008377;
                        db $04                               ;02838F|        |      ;
-                       dl Sub: Enemy death anim             ;028390|        |028F24;
+                       dl Sub_Enemy_death_anim              ;028390|        |028F24;
                        db $24                               ;028393|        |      ;
                        db $02                               ;028394|        |      ;
                        db $07                               ;028395|        |      ;
-                       dl Condition_Check(2b)               ;028396|        |07B0B0;
+                       dl Condition_Check_2b                ;028396|        |07B0B0;
                        db $01                               ;028399|        |      ;
                        db $00                               ;02839A|        |      ;
                        db $0B                               ;02839B|        |      ;
@@ -712,7 +712,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;0283A1|        |      ;
                        db $02                               ;0283A2|        |      ;
                        db $07                               ;0283A3|        |      ;
-                       dl Zeros 11DB                        ;0283A4|        |0781F0;
+                       dl Zeros_11DB                        ;0283A4|        |0781F0;
                        db $08                               ;0283A7|        |      ;
                        dw LOOSE_OP_0083FB                   ;0283A8|        |0083FB;
                        db $24                               ;0283AA|        |      ;
@@ -797,7 +797,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028406|        |      ;
                        dw LOOSE_OP_0083FB                   ;028407|        |0083FB;
           CODE_028409:
-                       JSL.L Val equal to $1575?            ;028409|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;028409|22DDAE07|07AEDD;
                        BNE CODE_028439                      ;02840D|D02A    |028439;
                        LDX.W Selection                      ;02840F|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028412|BDC709  |0009C7;
@@ -848,11 +848,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02846A|        |      ;
                        dw LOOSE_OP_008455                   ;02846B|        |008455;
                        db $04                               ;02846D|        |      ;
-                       dl Sub: Enemy death anim             ;02846E|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02846E|        |028F24;
                        db $24                               ;028471|        |      ;
                        db $02                               ;028472|        |      ;
                        db $07                               ;028473|        |      ;
-                       dl Condition_Check(2b)               ;028474|        |07B0B0;
+                       dl Condition_Check_2b                ;028474|        |07B0B0;
                        db $01                               ;028477|        |      ;
                        db $00                               ;028478|        |      ;
                        db $0B                               ;028479|        |      ;
@@ -862,7 +862,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;02847F|        |      ;
                        db $02                               ;028480|        |      ;
                        db $07                               ;028481|        |      ;
-                       dl Zeros 11DB                        ;028482|        |0781F0;
+                       dl Zeros_11DB                        ;028482|        |0781F0;
                        db $08                               ;028485|        |      ;
                        dw DATA8_0084D9                      ;028486|        |0084D9;
                        db $24                               ;028488|        |      ;
@@ -947,7 +947,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;0284E4|        |      ;
                        dw DATA8_0084D9                      ;0284E5|        |0084D9;
           CODE_0284E7:
-                       JSL.L Val equal to $1575?            ;0284E7|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;0284E7|22DDAE07|07AEDD;
                        BNE CODE_028517                      ;0284EB|D02A    |028517;
                        LDX.W Selection                      ;0284ED|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;0284F0|BDC709  |0009C7;
@@ -998,11 +998,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028548|        |      ;
                        dw CODE_008533                       ;028549|        |008533;
                        db $04                               ;02854B|        |      ;
-                       dl Sub: Enemy death anim             ;02854C|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02854C|        |028F24;
                        db $24                               ;02854F|        |      ;
                        db $02                               ;028550|        |      ;
                        db $07                               ;028551|        |      ;
-                       dl Condition_Check(2b)               ;028552|        |07B0B0;
+                       dl Condition_Check_2b                ;028552|        |07B0B0;
                        db $01                               ;028555|        |      ;
                        db $00                               ;028556|        |      ;
                        db $0B                               ;028557|        |      ;
@@ -1012,7 +1012,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;02855D|        |      ;
                        db $02                               ;02855E|        |      ;
                        db $07                               ;02855F|        |      ;
-                       dl Zeros 11DB                        ;028560|        |0781F0;
+                       dl Zeros_11DB                        ;028560|        |0781F0;
                        db $08                               ;028563|        |      ;
                        dw CODE_0085EB                       ;028564|        |0085EB;
                        db $24                               ;028566|        |      ;
@@ -1149,7 +1149,7 @@ Bank_02_Enemy_Handling:
                        db $A8                               ;0285F6|        |      ;
                        db $06                               ;0285F7|        |00000B;
                        db $0B                               ;0285F8|        |      ;
-    Play attack anim?:
+     Play_attack_anim:
                        db $30                               ;0285F9|        |      ; Seems the animation includes flashing red box
                        db $04                               ;0285FA|        |      ;
                        db $06                               ;0285FB|        |      ;
@@ -1187,7 +1187,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02861B|        |      ;
                        dw CODE_0085EB                       ;02861C|        |0085EB;
           CODE_02861E:
-                       JSL.L Val equal to $1575?            ;02861E|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02861E|22DDAE07|07AEDD;
                        BNE CODE_02864E                      ;028622|D02A    |02864E;
                        LDX.W Selection                      ;028624|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028627|BDC709  |0009C7;
@@ -1224,9 +1224,9 @@ Bank_02_Enemy_Handling:
                        db $09                               ;02866A|        |      ;
                        dl CODE_028755                       ;02866B|        |028755;
                        db $1A                               ;02866E|        |      ;
-                       dw 008698_far                        ;02866F|        |008694;
+                       dw _008698_far                       ;02866F|        |008694;
                        db $08                               ;028671|        |      ;
-                       dw 008698_far                        ;028672|        |008694;
+                       dw _008698_far                       ;028672|        |008694;
                        db $04                               ;028674|        |      ;
                        dl DATA8_029111                      ;028675|        |029111;
                        db $0B                               ;028678|        |      ;
@@ -1238,11 +1238,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02867F|        |      ;
                        dw CODE_00866A                       ;028680|        |00866A;
                        db $04                               ;028682|        |      ;
-                       dl Sub: Enemy death anim             ;028683|        |028F24;
+                       dl Sub_Enemy_death_anim              ;028683|        |028F24;
                        db $24                               ;028686|        |      ;
                        db $02                               ;028687|        |      ;
                        db $07                               ;028688|        |      ;
-                       dl Condition_Check(2b)               ;028689|        |07B0B0;
+                       dl Condition_Check_2b                ;028689|        |07B0B0;
                        db $01                               ;02868C|        |      ;
                        db $00                               ;02868D|        |      ;
                        db $0B                               ;02868E|        |      ;
@@ -1252,7 +1252,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;028694|        |      ;
                        db $02                               ;028695|        |      ;
                        db $07                               ;028696|        |      ;
-                       dl Zeros 11DB                        ;028697|        |0781F0;
+                       dl Zeros_11DB                        ;028697|        |0781F0;
                        db $08                               ;02869A|        |      ;
                        dw LOOSE_OP_008722                   ;02869B|        |008722;
                        db $24                               ;02869D|        |      ;
@@ -1426,7 +1426,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028752|        |      ;
                        dw LOOSE_OP_008722                   ;028753|        |008722;
           CODE_028755:
-                       JSL.L Val equal to $1575?            ;028755|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;028755|22DDAE07|07AEDD;
                        BNE CODE_028785                      ;028759|D02A    |028785;
                        LDX.W Selection                      ;02875B|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02875E|BDC709  |0009C7;
@@ -1477,11 +1477,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;0287B6|        |      ;
                        dw CODE_0087A1                       ;0287B7|        |0087A1;
                        db $04                               ;0287B9|        |      ;
-                       dl Sub: Enemy death anim             ;0287BA|        |028F24;
+                       dl Sub_Enemy_death_anim              ;0287BA|        |028F24;
                        db $24                               ;0287BD|        |      ;
                        db $02                               ;0287BE|        |      ;
                        db $07                               ;0287BF|        |      ;
-                       dl Condition_Check(2b)               ;0287C0|        |07B0B0;
+                       dl Condition_Check_2b                ;0287C0|        |07B0B0;
                        db $01                               ;0287C3|        |      ;
                        db $00                               ;0287C4|        |      ;
                        db $0B                               ;0287C5|        |      ;
@@ -1491,7 +1491,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;0287CB|        |      ;
                        db $02                               ;0287CC|        |      ;
                        db $07                               ;0287CD|        |      ;
-                       dl Zeros 11DB                        ;0287CE|        |0781F0;
+                       dl Zeros_11DB                        ;0287CE|        |0781F0;
                        db $08                               ;0287D1|        |      ;
                        dw LOOSE_OP_008867                   ;0287D2|        |008867;
                        db $24                               ;0287D4|        |      ;
@@ -1668,7 +1668,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02888C|        |      ;
                        dw LOOSE_OP_008867                   ;02888D|        |008867;
           CODE_02888F:
-                       JSL.L Val equal to $1575?            ;02888F|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02888F|22DDAE07|07AEDD;
                        BNE CODE_0288BF                      ;028893|D02A    |0288BF;
                        LDX.W Selection                      ;028895|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028898|BDC709  |0009C7;
@@ -1719,11 +1719,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;0288F0|        |      ;
                        dw CODE_0088DB                       ;0288F1|        |0088DB;
                        db $04                               ;0288F3|        |      ;
-                       dl Sub: Enemy death anim             ;0288F4|        |028F24;
+                       dl Sub_Enemy_death_anim              ;0288F4|        |028F24;
                        db $24                               ;0288F7|        |      ;
                        db $02                               ;0288F8|        |      ;
                        db $07                               ;0288F9|        |      ;
-                       dl Condition_Check(2b)               ;0288FA|        |07B0B0;
+                       dl Condition_Check_2b                ;0288FA|        |07B0B0;
                        db $01                               ;0288FD|        |      ;
                        db $00                               ;0288FE|        |      ;
                        db $0B                               ;0288FF|        |      ;
@@ -1733,7 +1733,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;028905|        |      ;
                        db $02                               ;028906|        |      ;
                        db $07                               ;028907|        |      ;
-                       dl Zeros 11DB                        ;028908|        |0781F0;
+                       dl Zeros_11DB                        ;028908|        |0781F0;
                        db $08                               ;02890B|        |      ;
                        dw DATA16_008961                     ;02890C|        |008961;
                        db $24                               ;02890E|        |      ;
@@ -1822,7 +1822,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;02896E|        |      ;
                        dw DATA16_008961                     ;02896F|        |008961;
           CODE_028971:
-                       JSL.L Val equal to $1575?            ;028971|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;028971|22DDAE07|07AEDD;
                        BNE CODE_0289A1                      ;028975|D02A    |0289A1;
                        LDX.W Selection                      ;028977|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02897A|BDC709  |0009C7;
@@ -1873,11 +1873,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;0289D2|        |      ;
                        dw LOOSE_OP_0089BD                   ;0289D3|        |0089BD;
                        db $04                               ;0289D5|        |      ;
-                       dl Sub: Enemy death anim             ;0289D6|        |028F24;
+                       dl Sub_Enemy_death_anim              ;0289D6|        |028F24;
                        db $24                               ;0289D9|        |      ;
                        db $02                               ;0289DA|        |      ;
                        db $07                               ;0289DB|        |      ;
-                       dl Condition_Check(2b)               ;0289DC|        |07B0B0;
+                       dl Condition_Check_2b                ;0289DC|        |07B0B0;
                        db $01                               ;0289DF|        |      ;
                        db $00                               ;0289E0|        |      ;
                        db $0B                               ;0289E1|        |      ;
@@ -1887,7 +1887,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;0289E7|        |      ;
                        db $02                               ;0289E8|        |      ;
                        db $07                               ;0289E9|        |      ;
-                       dl Zeros 11DB                        ;0289EA|        |0781F0;
+                       dl Zeros_11DB                        ;0289EA|        |0781F0;
                        db $08                               ;0289ED|        |      ;
                        dw LOOSE_OP_008A41                   ;0289EE|        |008A41;
                        db $24                               ;0289F0|        |      ;
@@ -1972,7 +1972,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028A4C|        |      ;
                        dw LOOSE_OP_008A41                   ;028A4D|        |008A41;
           CODE_028A4F:
-                       JSL.L Val equal to $1575?            ;028A4F|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;028A4F|22DDAE07|07AEDD;
                        BNE CODE_028A7F                      ;028A53|D02A    |028A7F;
                        LDX.W Selection                      ;028A55|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028A58|BDC709  |0009C7;
@@ -2023,11 +2023,11 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028AB0|        |      ;
                        dw CODE_008A9B                       ;028AB1|        |008A9B;
                        db $04                               ;028AB3|        |      ;
-                       dl Sub: Enemy death anim             ;028AB4|        |028F24;
+                       dl Sub_Enemy_death_anim              ;028AB4|        |028F24;
                        db $24                               ;028AB7|        |      ;
                        db $02                               ;028AB8|        |      ;
                        db $07                               ;028AB9|        |      ;
-                       dl Condition_Check(2b)               ;028ABA|        |07B0B0;
+                       dl Condition_Check_2b                ;028ABA|        |07B0B0;
                        db $01                               ;028ABD|        |      ;
                        db $00                               ;028ABE|        |      ;
                        db $0B                               ;028ABF|        |      ;
@@ -2037,7 +2037,7 @@ Bank_02_Enemy_Handling:
                        db $24                               ;028AC5|        |      ;
                        db $02                               ;028AC6|        |      ;
                        db $07                               ;028AC7|        |      ;
-                       dl Zeros 11DB                        ;028AC8|        |0781F0;
+                       dl Zeros_11DB                        ;028AC8|        |0781F0;
                        db $08                               ;028ACB|        |      ;
                        dw DATA8_008B65                      ;028ACC|        |008B65;
                        db $24                               ;028ACE|        |      ;
@@ -2216,7 +2216,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028B88|        |      ;
                        dw DATA8_008B65                      ;028B89|        |008B65;
           CODE_028B8B:
-                       JSL.L Val equal to $1575?            ;028B8B|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;028B8B|22DDAE07|07AEDD;
                        BNE CODE_028BBB                      ;028B8F|D02A    |028BBB;
                        LDX.W Selection                      ;028B91|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028B94|BDC709  |0009C7;
@@ -2299,7 +2299,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028C0E|        |      ;
                        dw DATA8_008C03                      ;028C0F|        |008C03;
           CODE_028C11:
-                       JSL.L Val equal to $1575?            ;028C11|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;028C11|22DDAE07|07AEDD;
                        BNE CODE_028C41                      ;028C15|D02A    |028C41;
                        LDX.W Selection                      ;028C17|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028C1A|BDC709  |0009C7;
@@ -2382,7 +2382,7 @@ Bank_02_Enemy_Handling:
                        db $1A                               ;028C94|        |      ;
                        dw LOOSE_OP_008C89                   ;028C95|        |008C89;
           CODE_028C97:
-                       JSL.L Val equal to $1575?            ;028C97|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;028C97|22DDAE07|07AEDD;
                        BNE CODE_028CC7                      ;028C9B|D02A    |028CC7;
                        LDX.W Selection                      ;028C9D|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;028CA0|BDC709  |0009C7;
@@ -2415,63 +2415,63 @@ Bank_02_Enemy_Handling:
                        RTL                                  ;028CDE|6B      |      ;
          DATA8_028CDF:
                        db $07                               ;028CDF|        |      ;
-                       dl Get enemy ID_from_103F_far        ;028CE0|        |07912A;
+                       dl Get_enemy_ID_from_103F_far        ;028CE0|        |07912A;
                        db $07                               ;028CE3|        |      ; Get Enemy X name
                        dl Get_EnemyX_Name                   ;028CE4|        |07B51C;
                        db $07                               ;028CE7|        |      ; 07: ROM transfer from 0D/958C
                        dl Transfer_Data_3b_1b_2b            ;028CE8|        |00A140;
-                       dl $189A85_2_bytes                   ;028CEB|        |0D958C;
+                       dl _189A85_2_bytes                   ;028CEB|        |0D958C;
                        db $02                               ;028CEE|        |      ;
                        db $02                               ;028CEF|        |      ;
                        db $00                               ;028CF0|        |      ;
                        db $24                               ;028CF1|        |      ; Load $09EB,x
                        db $02                               ;028CF2|        |      ;
                        db $07                               ;028CF3|        |      ; Get Condition?
-                       dl Get Condition?                    ;028CF4|        |078229;
+                       dl Get_Condition1                    ;028CF4|        |078229;
                        db $11                               ;028CF7|        |      ; Switch-case on Condition
                        db $05                               ;028CF8|        |      ;
-                       dw X is paralyzed                    ;028CF9|        |028D03; Paralyzed
-                       dw X is petrified                    ;028CFB|        |028D0E; Petrified
-                       dw X is confused                     ;028CFD|        |028D19; Confused
-                       dw X is asleep                       ;028CFF|        |028D27; Asleep
+                       dw X_paralyzed                       ;028CF9|        |028D03; Paralyzed
+                       dw X_petrified                       ;028CFB|        |028D0E; Petrified
+                       dw X_confused                        ;028CFD|        |028D19; Confused
+                       dw X_asleep                          ;028CFF|        |028D27; Asleep
                        dw Normal_Enemy_Attack               ;028D01|        |028D50; Satisfactory
-       X is paralyzed:
+          X_paralyzed:
                        db $07                               ;028D03|        |      ;
                        dl Setup_Text_Parser_3b              ;028D04|        |00A0AC;
                        dl IsParalyzed                       ;028D07|        |088936; 08/8936
                        db $00                               ;028D0A|        |      ;
                        db $1A                               ;028D0B|        |      ;
-                       dw Sub 8F65                          ;028D0C|        |028F65;
-       X is petrified:
+                       dw Sub_8F65                          ;028D0C|        |028F65;
+          X_petrified:
                        db $07                               ;028D0E|        |      ;
                        dl Setup_Text_Parser_3b              ;028D0F|        |00A0AC;
                        dl IsPetrified                       ;028D12|        |08894E; 08/894E
                        db $00                               ;028D15|        |      ;
                        db $1A                               ;028D16|        |      ;
-                       dw Sub 8F65                          ;028D17|        |028F65;
-        X is confused:
+                       dw Sub_8F65                          ;028D17|        |028F65;
+           X_confused:
                        db $07                               ;028D19|        |      ;
                        dl Setup_Text_Parser_3b              ;028D1A|        |00A0AC;
                        dl IsConfused                        ;028D1D|        |088966; 08/8966
                        db $00                               ;028D20|        |      ;
                        db $1B                               ;028D21|        |      ;
-                       dw Sub 8F65                          ;028D22|        |028F65;
+                       dw Sub_8F65                          ;028D22|        |028F65;
                        db $1A                               ;028D24|        |      ;
                        dw Confusion_Targeting               ;028D25|        |028D65;
-          X is asleep:
+             X_asleep:
                        db $07                               ;028D27|        |      ;
                        dl Setup_Text_Parser_3b              ;028D28|        |00A0AC;
                        dl IsAsleep                          ;028D2B|        |08897D; 08/897D
                        db $00                               ;028D2E|        |      ;
                        db $1B                               ;028D2F|        |      ;
-                       dw Sub 8F65                          ;028D30|        |028F65;
+                       dw Sub_8F65                          ;028D30|        |028F65;
                        db $07                               ;028D32|        |      ; Call RNG (1/4 chance to wake up)
                        dl RNG_1b_something                  ;028D33|        |00A0BD;
                        db $04                               ;028D36|        |      ;
                        db $0B                               ;028D37|        |      ; If false, wake up
                        dw LOOSE_OP_008D3B                   ;028D38|        |008D3B;
                        db $1C                               ;028D3A|        |      ;
-         Has awakened:
+           X_awakened:
                        db $07                               ;028D3B|        |      ;
                        dl Setup_Text_Parser_3b              ;028D3C|        |00A0AC;
                        dl HasAwakened                       ;028D3F|        |088992;
@@ -2511,7 +2511,7 @@ Roll_Confusion_Target:
                        dw Spirit_Targetable                 ;028D6E|        |028DB3;
                        dw Guest1_Targetable                 ;028D70|        |028DDC;
                        dw Guest2_Targetable                 ;028D72|        |028E05;
-                       dw Enemy1-8_Targetable               ;028D74|        |028E2E;
+                       dw Enemy1_8_Targetable               ;028D74|        |028E2E;
                        dw DATA8_028E35                      ;028D76|        |028E35;
                        dw DATA8_028E3C                      ;028D78|        |028E3C;
                        dw DATA8_028E43                      ;028D7A|        |028E43;
@@ -2528,7 +2528,7 @@ Roll_Confusion_Target:
                        db $00                               ;028D8B|        |      ;
                        db $00                               ;028D8C|        |      ;
                        db $07                               ;028D8D|        |      ;
-                       dl Condition_Check(2b)               ;028D8E|        |07B0B0;
+                       dl Condition_Check_2b                ;028D8E|        |07B0B0;
                        db $02                               ;028D91|        |      ;
                        db $00                               ;028D92|        |      ;
                        db $0C                               ;028D93|        |      ; If true: invalid target
@@ -2537,7 +2537,7 @@ Roll_Confusion_Target:
                        db $00                               ;028D97|        |      ;
                        db $00                               ;028D98|        |      ;
                        db $07                               ;028D99|        |      ;
-                       dl Condition_Check(2b)               ;028D9A|        |07B0B0;
+                       dl Condition_Check_2b                ;028D9A|        |07B0B0;
                        db $01                               ;028D9D|        |      ;
                        db $00                               ;028D9E|        |      ;
                        db $0C                               ;028D9F|        |      ; If true: invalid target
@@ -2547,7 +2547,7 @@ Roll_Confusion_Target:
                        db $00                               ;028DA4|        |      ;
                        db $00                               ;028DA5|        |      ;
                        db $07                               ;028DA6|        |      ;
-                       dl Load_Temp_Var(2b)                 ;028DA7|        |07B4A1;
+                       dl Load_Temp_Var_2b                  ;028DA7|        |07B4A1;
                        db $03                               ;028DAA|        |      ;
                        db $00                               ;028DAB|        |      ;
                        db $07                               ;028DAC|        |      ;
@@ -2558,14 +2558,14 @@ Roll_Confusion_Target:
                        db $1E                               ;028DB3|        |      ; Spirit not here?
                        dw $0001                             ;028DB4|        |      ;
                        db $07                               ;028DB6|        |      ;
-                       dl Condition_Check(2b)               ;028DB7|        |07B0B0;
+                       dl Condition_Check_2b                ;028DB7|        |07B0B0;
                        dw $0002                             ;028DBA|        |      ;
                        db $0C                               ;028DBC|        |      ; If true: invalid target
                        dw Invalid_Target                    ;028DBD|        |028E7B;
                        db $1E                               ;028DBF|        |      ; Spirit dead?
                        dw $0001                             ;028DC0|        |      ;
                        db $07                               ;028DC2|        |      ;
-                       dl Condition_Check(2b)               ;028DC3|        |07B0B0;
+                       dl Condition_Check_2b                ;028DC3|        |07B0B0;
                        dw $0001                             ;028DC6|        |      ;
                        db $0C                               ;028DC8|        |      ; If true: invalid target
                        dw Invalid_Target                    ;028DC9|        |028E7B;
@@ -2573,7 +2573,7 @@ Roll_Confusion_Target:
                        db $03                               ;028DCC|        |      ;
                        dw $0001                             ;028DCD|        |      ;
                        db $07                               ;028DCF|        |      ;
-                       dl Load_Temp_Var(2b)                 ;028DD0|        |07B4A1;
+                       dl Load_Temp_Var_2b                  ;028DD0|        |07B4A1;
                        dw $0003                             ;028DD3|        |      ;
                        db $07                               ;028DD5|        |      ;
                        dl Get_PC_name2                      ;028DD6|        |07B4FE;
@@ -2583,14 +2583,14 @@ Roll_Confusion_Target:
                        db $1E                               ;028DDC|        |      ;
                        dw $0002                             ;028DDD|        |      ;
                        db $07                               ;028DDF|        |      ; Is Guest1 missing?
-                       dl Condition_Check(2b)               ;028DE0|        |07B0B0;
+                       dl Condition_Check_2b                ;028DE0|        |07B0B0;
                        dw $0002                             ;028DE3|        |      ;
                        db $0C                               ;028DE5|        |      ; If so branch to Invalid Target
                        dw Invalid_Target                    ;028DE6|        |028E7B;
                        db $1E                               ;028DE8|        |      ;
                        dw $0002                             ;028DE9|        |      ;
                        db $07                               ;028DEB|        |      ; Is Guest1 dead?
-                       dl Condition_Check(2b)               ;028DEC|        |07B0B0;
+                       dl Condition_Check_2b                ;028DEC|        |07B0B0;
                        dw $0001                             ;028DEF|        |      ;
                        db $0C                               ;028DF1|        |      ; If so branch to Invalid Target
                        dw Invalid_Target                    ;028DF2|        |028E7B;
@@ -2599,7 +2599,7 @@ Roll_Confusion_Target:
                        db $02                               ;028DF6|        |      ;
                        db $00                               ;028DF7|        |      ;
                        db $07                               ;028DF8|        |      ; Load attack target
-                       dl Load_Temp_Var(2b)                 ;028DF9|        |07B4A1;
+                       dl Load_Temp_Var_2b                  ;028DF9|        |07B4A1;
                        dw $0003                             ;028DFC|        |      ;
                        db $07                               ;028DFE|        |      ; Load character name
                        dl Get_PC_name2                      ;028DFF|        |07B4FE;
@@ -2609,14 +2609,14 @@ Roll_Confusion_Target:
                        db $1E                               ;028E05|        |      ; Guest2 is Not Here?
                        dw $0003                             ;028E06|        |      ;
                        db $07                               ;028E08|        |      ;
-                       dl Condition_Check(2b)               ;028E09|        |07B0B0;
+                       dl Condition_Check_2b                ;028E09|        |07B0B0;
                        dw $0002                             ;028E0C|        |      ;
                        db $0C                               ;028E0E|        |      ;
                        dw Invalid_Target                    ;028E0F|        |028E7B;
                        db $1E                               ;028E11|        |      ;
                        dw $0003                             ;028E12|        |      ;
                        db $07                               ;028E14|        |      ;
-                       dl Condition_Check(2b)               ;028E15|        |07B0B0;
+                       dl Condition_Check_2b                ;028E15|        |07B0B0;
                        dw $0001                             ;028E18|        |      ;
                        db $0C                               ;028E1A|        |      ;
                        dw Invalid_Target                    ;028E1B|        |028E7B;
@@ -2625,13 +2625,13 @@ Roll_Confusion_Target:
                        db $03                               ;028E1F|        |      ;
                        db $00                               ;028E20|        |      ;
                        db $07                               ;028E21|        |      ;
-                       dl Load_Temp_Var(2b)                 ;028E22|        |07B4A1;
+                       dl Load_Temp_Var_2b                  ;028E22|        |07B4A1;
                        dw $0003                             ;028E25|        |      ;
                        db $07                               ;028E27|        |      ;
                        dl Get_PC_name2                      ;028E28|        |07B4FE;
                        db $1A                               ;028E2B|        |      ;
                        dw Valid_Target                      ;028E2C|        |028E7F;
-  Enemy1-8_Targetable:
+  Enemy1_8_Targetable:
                        db $0F                               ;028E2E|        |      ;
                        db $03                               ;028E2F|        |      ;
                        dw $0004                             ;028E30|        |      ;
@@ -2681,7 +2681,7 @@ Roll_Confusion_Target:
                        db $24                               ;028E63|        |      ;
                        db $03                               ;028E64|        |      ;
                        db $07                               ;028E65|        |      ;
-                       dl Condition_Check(2b)               ;028E66|        |07B0B0;
+                       dl Condition_Check_2b                ;028E66|        |07B0B0;
                        dw $0001                             ;028E69|        |      ;
                        db $0C                               ;028E6B|        |      ;
                        dw Invalid_Target                    ;028E6C|        |028E7B;
@@ -2705,7 +2705,7 @@ Roll_Confusion_Target:
                        db $1C                               ;028E82|        |      ; End section
          Enemy_Action:
                        db $07                               ;028E83|        |      ; Enemy spellcast
-                       dl Enemy spellcast                   ;028E84|        |078272;
+                       dl Enemy_spellcast                   ;028E84|        |078272;
                        db $0B                               ;028E87|        |      ; If false, roll enemy physical attack
                        dw Enemy_Physical_Attack             ;028E88|        |028EB6;
    Enemy_Spell_Attack:
@@ -2721,15 +2721,15 @@ Roll_Confusion_Target:
                        db $0B                               ;028E99|        |      ; Keep rolling until valid target
                        dw Enemy_Spell_Attack                ;028E9A|        |028E8A;
                        db $07                               ;028E9C|        |      ;
-                       dl Set attacker/target using 0A0F    ;028E9D|        |07916B;
+                       dl Set_attacker_target_using_0A0F    ;028E9D|        |07916B;
                        db $07                               ;028EA0|        |      ;
                        dl CODE_07BFAC                       ;028EA1|        |07BFAC;
                        db $04                               ;028EA4|        |      ;
                        dl DATA8_05F480                      ;028EA5|        |05F480;
                        db $07                               ;028EA8|        |      ;
-                       dl Get enemy ID_from_103F_far        ;028EA9|        |07912A;
+                       dl Get_enemy_ID_from_103F_far        ;028EA9|        |07912A;
                        db $07                               ;028EAC|        |      ;
-                       dl Boss monster?                     ;028EAD|        |07832D;
+                       dl Boss_monster                      ;028EAD|        |07832D;
                        db $0B                               ;028EB0|        |      ;
                        dw DATA8_028EB5                      ;028EB1|        |028EB5;
                        db $14                               ;028EB3|        |      ; 14 01
@@ -2742,75 +2742,75 @@ Enemy_Physical_Attack:
                        dl X_Attacks                         ;028EBA|        |088492;
                        db $00                               ;028EBD|        |      ;
                        db $1B                               ;028EBE|        |      ; JSR 8F65
-                       dw Sub 8F65                          ;028EBF|        |028F65;
+                       dw Sub_8F65                          ;028EBF|        |028F65;
                        db $1B                               ;028EC1|        |      ; JSR 8F79 (Attack animation)
                        dw Sub_Attack_Animation              ;028EC2|        |028F79;
                        db $06                               ;028EC4|        |      ; Delay 02
                        db $02                               ;028EC5|        |      ;
                        db $07                               ;028EC6|        |      ; Load attacker and target
-                       dl Set attacker/target using 0A0F    ;028EC7|        |07916B;
+                       dl Set_attacker_target_using_0A0F    ;028EC7|        |07916B;
                        db $07                               ;028ECA|        |      ; Attacking someone else?
-                       dl Targeting another?                ;028ECB|        |07917D;
+                       dl Is_Targeting_another              ;028ECB|        |07917D;
                        db $0B                               ;028ECE|        |      ; If false, jump to self-Confusion damage
-                       dw Confusion damage                  ;028ECF|        |028EE2;
+                       dw Confusion_damage                  ;028ECF|        |028EE2;
                        db $07                               ;028ED1|        |      ; Roll hit/damage
-                       dl Roll to hit                       ;028ED2|        |07918D;
+                       dl Call_Roll_to_hit                  ;028ED2|        |07918D;
                        db $0B                               ;028ED5|        |      ; If zero, jump to 8F61
                        dw DATA8_028F61                      ;028ED6|        |028F61;
                        db $07                               ;028ED8|        |      ; Fatal damage?
-                       dl Fatal damage?                     ;028ED9|        |078CB8;
+                       dl Fatal_damage                      ;028ED9|        |078CB8;
                        db $0B                               ;028EDC|        |      ; If false, jump to 8F37
-                       dw Nonfatal damage                   ;028EDD|        |028F37;
+                       dw Nonfatal_damage                   ;028EDD|        |028F37;
                        db $1A                               ;028EDF|        |      ; Jump always to 8F4C (Ouch!)
                        dw LOOSE_OP_008F4C                   ;028EE0|        |008F4C;
-     Confusion damage:
+     Confusion_damage:
                        db $07                               ;028EE2|        |      ; Hit check
-                       dl Roll to hit                       ;028EE3|        |07918D;
+                       dl Call_Roll_to_hit                  ;028EE3|        |07918D;
                        db $0B                               ;028EE6|        |      ; If missed, jump to Surprised by his wounds
-                       dw Surprised by his wounds           ;028EE7|        |028F14;
+                       dw Enemy_Surprised_by_his_wounds     ;028EE7|        |028F14;
                        db $07                               ;028EE9|        |      ; Fatal damage?
-                       dl Fatal damage?                     ;028EEA|        |078CB8;
+                       dl Fatal_damage                      ;028EEA|        |078CB8;
                        db $0B                               ;028EED|        |      ; Jump if false to Enemy despises himself
-                       dw Enemy despises himself            ;028EEE|        |028F04;
-  Enemy lost his mind:
+                       dw Enemy_despises_himself            ;028EEE|        |028F04;
+  Enemy_lost_his_mind:
                        db $07                               ;028EF0|        |      ; Call text "Enemy has lost his mind"
                        dl Setup_Text_Parser_3b              ;028EF1|        |00A0AC;
                        dl Lost_His_Mind                     ;028EF4|        |0885AF;
                        db $00                               ;028EF7|        |      ;
                        db $1B                               ;028EF8|        |      ; JSR 8F65
-                       dw Sub 8F65                          ;028EF9|        |028F65;
+                       dw Sub_8F65                          ;028EF9|        |028F65;
                        db $14                               ;028EFB|        |      ;
                        db $01                               ;028EFC|        |      ;
                        db $14                               ;028EFD|        |      ;
                        db $01                               ;028EFE|        |      ;
                        db $04                               ;028EFF|        |      ; JSL 02/8F24
-                       dl Sub: Enemy death anim             ;028F00|        |028F24;
+                       dl Sub_Enemy_death_anim              ;028F00|        |028F24;
                        db $1C                               ;028F03|        |      ; End if/reset animation?
-Enemy despises himself:
+Enemy_despises_himself:
                        db $07                               ;028F04|        |      ; Call text "Enemy despises himself"
                        dl Setup_Text_Parser_3b              ;028F05|        |00A0AC;
                        dl Despises_Himself                  ;028F08|        |0885C8;
                        db $00                               ;028F0B|        |      ;
                        db $1B                               ;028F0C|        |      ; JSR 8F65
-                       dw Sub 8F65                          ;028F0D|        |028F65;
+                       dw Sub_8F65                          ;028F0D|        |028F65;
                        db $14                               ;028F0F|        |      ;
                        db $01                               ;028F10|        |      ;
                        db $14                               ;028F11|        |      ;
                        db $01                               ;028F12|        |      ;
                        db $1C                               ;028F13|        |      ; End if/reset animation?
-Surprised by his wounds:
+Enemy_Surprised_by_his_wounds:
                        db $07                               ;028F14|        |      ; Self attack missed
                        dl Setup_Text_Parser_3b              ;028F15|        |00A0AC;
                        dl Surprised_by_wounds               ;028F18|        |0885DF;
                        db $00                               ;028F1B|        |      ;
                        db $1B                               ;028F1C|        |      ; JSR 8F65
-                       dw Sub 8F65                          ;028F1D|        |028F65;
+                       dw Sub_8F65                          ;028F1D|        |028F65;
                        db $14                               ;028F1F|        |      ;
                        db $01                               ;028F20|        |      ;
                        db $14                               ;028F21|        |      ;
                        db $01                               ;028F22|        |      ;
                        db $1C                               ;028F23|        |      ; End if/reset animation?
-Sub: Enemy death anim:
+ Sub_Enemy_death_anim:
                        db $07                               ;028F24|        |      ; Play 07 "Damage" SFX
                        dl GetSet_SFX                        ;028F25|        |009C44;
                        db $07                               ;028F28|        |      ;
@@ -2826,7 +2826,7 @@ Sub: Enemy death anim:
                        db $34                               ;028F34|        |      ; Animation 02
                        db $02                               ;028F35|        |      ;
                        db $05                               ;028F36|        |      ; RTL
-      Nonfatal damage:
+      Nonfatal_damage:
                        db $07                               ;028F37|        |      ;
                        dl CODE_07B755                       ;028F38|        |07B755;
                        db $0B                               ;028F3B|        |      ; If false, jump to X has taken X damage
@@ -2853,12 +2853,12 @@ Sub: Enemy death anim:
                        dw LOOSE_OP_008F65                   ;028F5F|        |008F65;
          DATA8_028F61:
                        db $07                               ;028F61|        |      ; Show dodge message
-                       dl Show dodge message                ;028F62|        |07B7A6;
-             Sub 8F65:
+                       dl Show_Dodge_text                   ;028F62|        |07B7A6;
+             Sub_8F65:
                        db $06                               ;028F65|        |      ;
                        db $01                               ;028F66|        |      ;
                        db $07                               ;028F67|        |      ; Something with $1095
-                       dl Some $1095 check(1b)              ;028F68|        |07BA4F;
+                       dl Some_1095_check_1b                ;028F68|        |07BA4F;
                        db $00                               ;028F6B|        |      ;
                        db $0B                               ;028F6C|        |      ; Jump if false to 8F65
                        dw LOOSE_OP_008F65                   ;028F6D|        |008F65;
@@ -2873,25 +2873,25 @@ Sub: Enemy death anim:
                        db $1C                               ;028F78|        |      ; 1C: Return
  Sub_Attack_Animation:
                        db $07                               ;028F79|        |      ; Get enemy ID
-                       dl Get enemy ID_from_103F_far        ;028F7A|        |07912A;
+                       dl Get_enemy_ID_from_103F_far        ;028F7A|        |07912A;
                        db $07                               ;028F7D|        |      ; Boss monster?
-                       dl Boss monster?                     ;028F7E|        |07832D;
+                       dl Boss_monster                      ;028F7E|        |07832D;
                        db $0C                               ;028F81|        |      ; Jump to Boss attack animation
-                       dw Get Boss attack animation         ;028F82|        |028FBD;
+                       dw Get_Boss_attack_animation         ;028F82|        |028FBD;
                        db $24                               ;028F84|        |      ; Load $09EB,x
                        db $02                               ;028F85|        |      ;
                        db $07                               ;028F86|        |      ; Store in $11B5
-                       dl Store A in $11B5,x (1b offset)    ;028F87|        |07AF9E;
+                       dl Store_A_in_11B5_x_1b              ;028F87|        |07AF9E;
                        db $00                               ;028F8A|        |      ;
                        db $24                               ;028F8B|        |      ; Load $0A0F,x
                        db $03                               ;028F8C|        |      ;
                        db $07                               ;028F8D|        |      ; Store in $11B7
-                       dl Store A in $11B5,x (1b offset)    ;028F8E|        |07AF9E;
+                       dl Store_A_in_11B5_x_1b              ;028F8E|        |07AF9E;
                        db $01                               ;028F91|        |      ;
                        db $07                               ;028F92|        |      ; Load enemy ID
-                       dl Get enemy ID_from_103F_far        ;028F93|        |07912A;
+                       dl Get_enemy_ID_from_103F_far        ;028F93|        |07912A;
                        db $07                               ;028F96|        |      ; Store in $11B9
-                       dl Store A in $11B5,x (1b offset)    ;028F97|        |07AF9E;
+                       dl Store_A_in_11B5_x_1b              ;028F97|        |07AF9E;
                        db $02                               ;028F9A|        |      ;
                        db $07                               ;028F9B|        |      ; idk
                        dl Load_Sprite_14b                   ;028F9C|        |009CAE;
@@ -2909,49 +2909,49 @@ Sub: Enemy death anim:
                        db $00                               ;028FAA|        |      ;
                        db $00                               ;028FAB|        |      ;
                        db $00                               ;028FAC|        |      ;
- Removing enemy/boss?:
+Removing_enemy_or_boss:
                        db $07                               ;028FAD|        |      ; Store result in $11BB
-                       dl Store A in $11B5,x (1b offset)    ;028FAE|        |07AF9E;
+                       dl Store_A_in_11B5_x_1b              ;028FAE|        |07AF9E;
                        db $03                               ;028FB1|        |      ;
          DATA8_028FB2:
                        db $06                               ;028FB2|        |      ;
                        db $01                               ;028FB3|        |      ;
                        db $07                               ;028FB4|        |      ; 07: 07/AF6C Is enemy removed from battle?
-                       dl Is Enemy Removed?(1b)             ;028FB5|        |07AF6C;
+                       dl Is_Enemy_Removed_1b               ;028FB5|        |07AF6C;
                        db $03                               ;028FB8|        |      ; Is enemy 3 removed?
                        db $0B                               ;028FB9|        |      ; 0B: Jump if false (8FB2)
                        dw DATA8_028FB2                      ;028FBA|        |028FB2;
                        db $1C                               ;028FBC|        |      ; End section/Reset animation
-Get Boss attack animation:
+Get_Boss_attack_animation:
                        db $14                               ;028FBD|        |      ;
                        db $01                               ;028FBE|        |      ;
                        db $07                               ;028FBF|        |      ; Get enemy ID
-                       dl Get enemy ID_from_103F_far        ;028FC0|        |07912A;
+                       dl Get_enemy_ID_from_103F_far        ;028FC0|        |07912A;
                        db $07                               ;028FC3|        |      ; Get boss #
-                       dl Get Boss #                        ;028FC4|        |078324;
+                       dl Get_Boss_num                      ;028FC4|        |078324;
                        db $11                               ;028FC7|        |      ; 11: Switch case (boss #)
                        db $10                               ;028FC8|        |      ;
-PtrTable: Boss Animations:
-                       dw Stone Guardian attacks            ;028FC9|        |028FEA;
-                       dw Iron Guardian attacks             ;028FCB|        |028FFC;
-                       dw Cyclops attacks                   ;028FCD|        |02900E;
-                       dw Efrite attacks                    ;028FCF|        |02901A;
-                       dw Zerel attacks                     ;028FD1|        |029022;
-                       dw Hydra attacks                     ;028FD3|        |02902D;
-                       dw Sauza attacks                     ;028FD5|        |02903C;
-                       dw Darah attacks                     ;028FD7|        |02904D;
-                       dw Barah attacks                     ;028FD9|        |029059;
-                       dw Ariel attacks                     ;028FDB|        |02906E;
-                       dw Teefa attacks                     ;028FDD|        |029079;
-                       dw Karul attacks                     ;028FDF|        |029084;
-                       dw Galneon 1 attacks                 ;028FE1|        |02908F;
-                       dw Galneon 2 attacks                 ;028FE3|        |02909A;
-                       dw Rimsala 1 attacks                 ;028FE5|        |0290A5;
-                       dw Rimsala 2 attacks                 ;028FE7|        |0290B9;
+  Tbl_Boss_Animations:
+                       dw Atk_Stone_Guardian                ;028FC9|        |028FEA;
+                       dw Atk_Iron_Guardian                 ;028FCB|        |028FFC;
+                       dw Atk_Cyclops                       ;028FCD|        |02900E;
+                       dw Atk_Efrite                        ;028FCF|        |02901A;
+                       dw Atk_Zerel                         ;028FD1|        |029022;
+                       dw Atk_Hydra                         ;028FD3|        |02902D;
+                       dw Atk_Sauza                         ;028FD5|        |02903C;
+                       dw Atk_Darah                         ;028FD7|        |02904D;
+                       dw Atk_Barah                         ;028FD9|        |029059;
+                       dw Atk_Ariel                         ;028FDB|        |02906E;
+                       dw Atk_Teefa                         ;028FDD|        |029079;
+                       dw Atk_Karul                         ;028FDF|        |029084;
+                       dw Atk_Galneon1                      ;028FE1|        |02908F;
+                       dw Atk_Galneon2                      ;028FE3|        |02909A;
+                       dw Atk_Rimsala1                      ;028FE5|        |0290A5;
+                       dw Atk_Rimsala2                      ;028FE7|        |0290B9;
                        db $1C                               ;028FE9|        |      ; End of script
-Stone Guardian attacks:
+   Atk_Stone_Guardian:
                        db $1B                               ;028FEA|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;028FEB|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;028FEB|        |0290E5;
                        db $30                               ;028FED|        |      ; 30: Animation 00 (Stand)
                        db $00                               ;028FEE|        |      ;
                        db $06                               ;028FEF|        |      ; 06: Delay 01
@@ -2967,9 +2967,9 @@ Stone Guardian attacks:
                        db $06                               ;028FF9|        |      ; 06: Delay 18
                        db $18                               ;028FFA|        |      ;
                        db $1C                               ;028FFB|        |      ; End of script
-Iron Guardian attacks:
+    Atk_Iron_Guardian:
                        db $1B                               ;028FFC|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;028FFD|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;028FFD|        |0290E5;
                        db $30                               ;028FFF|        |      ; 30: Animation 00 (Stand)
                        db $00                               ;029000|        |      ;
                        db $06                               ;029001|        |      ; 06: Delay 01
@@ -2985,9 +2985,9 @@ Iron Guardian attacks:
                        db $06                               ;02900B|        |      ; 06: Delay 18
                        db $18                               ;02900C|        |      ;
                        db $1C                               ;02900D|        |      ; End of script
-      Cyclops attacks:
+          Atk_Cyclops:
                        db $1B                               ;02900E|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;02900F|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;02900F|        |0290E5;
                        db $30                               ;029011|        |      ; 30: Animation 04
                        db $04                               ;029012|        |      ;
                        db $06                               ;029013|        |      ; 06: Delay 06
@@ -2997,17 +2997,17 @@ Iron Guardian attacks:
                        db $06                               ;029017|        |      ; 06: Delay 2E
                        db $2E                               ;029018|        |      ;
                        db $1C                               ;029019|        |      ; End of script
-       Efrite attacks:
+           Atk_Efrite:
                        db $1B                               ;02901A|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;02901B|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;02901B|        |0290E5;
                        db $30                               ;02901D|        |      ; 30: Animation 07
                        db $07                               ;02901E|        |      ;
                        db $06                               ;02901F|        |      ; 06: Delay 30
                        db $30                               ;029020|        |      ;
                        db $1C                               ;029021|        |      ; End of script
-        Zerel attacks:
+            Atk_Zerel:
                        db $1B                               ;029022|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;029023|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;029023|        |0290E5;
                        db $30                               ;029025|        |      ; 30: Animation 03
                        db $03                               ;029026|        |      ;
                        db $06                               ;029027|        |      ; 06: Delay 14
@@ -3016,9 +3016,9 @@ Iron Guardian attacks:
                        db $06                               ;02902A|        |      ; 06: Delay 0A
                        db $0A                               ;02902B|        |      ;
                        db $1C                               ;02902C|        |      ; End of script
-        Hydra attacks:
+            Atk_Hydra:
                        db $1B                               ;02902D|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;02902E|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;02902E|        |0290E5;
                        db $30                               ;029030|        |      ; 30: Animation 04
                        db $04                               ;029031|        |      ;
                        db $06                               ;029032|        |      ; 06: Delay 08
@@ -3031,13 +3031,13 @@ Iron Guardian attacks:
                        db $06                               ;029039|        |      ; 06: Delay 20
                        db $20                               ;02903A|        |      ;
                        db $1C                               ;02903B|        |      ; End of script
-        Sauza attacks:
+            Atk_Sauza:
                        db $30                               ;02903C|        |      ; 30: Animation 03
                        db $03                               ;02903D|        |      ;
                        db $06                               ;02903E|        |      ; 06: Delay 14
                        db $14                               ;02903F|        |      ;
                        db $1B                               ;029040|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;029041|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;029041|        |0290E5;
                        db $A8                               ;029043|        |      ; A8: Advance animation
                        db $06                               ;029044|        |      ; 06: Delay 0A
                        db $0A                               ;029045|        |      ;
@@ -3048,9 +3048,9 @@ Iron Guardian attacks:
                        db $06                               ;02904A|        |      ; Delay 0A
                        db $0A                               ;02904B|        |      ;
                        db $1C                               ;02904C|        |      ; End of script
-        Darah attacks:
+            Atk_Darah:
                        db $1B                               ;02904D|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;02904E|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;02904E|        |0290E5;
                        db $30                               ;029050|        |      ; Animation 05
                        db $05                               ;029051|        |      ;
                        db $06                               ;029052|        |      ; Delay 0C
@@ -3060,9 +3060,9 @@ Iron Guardian attacks:
                        db $06                               ;029056|        |      ; Delay 0E
                        db $0E                               ;029057|        |      ;
                        db $1C                               ;029058|        |      ; End of script
-        Barah attacks:
+            Atk_Barah:
                        db $1B                               ;029059|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;02905A|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;02905A|        |0290E5;
                        db $01                               ;02905C|        |      ; Loop 4x
                        db $04                               ;02905D|        |      ;
                        db $31                               ;02905E|        |      ;
@@ -3081,68 +3081,68 @@ Iron Guardian attacks:
                        db $33                               ;02906B|        |      ;
                        db $04                               ;02906C|        |      ;
                        db $1C                               ;02906D|        |      ; End of script
-        Ariel attacks:
+            Atk_Ariel:
                        db $30                               ;02906E|        |      ; Animation 03
                        db $03                               ;02906F|        |      ;
                        db $06                               ;029070|        |      ; Delay 14
                        db $14                               ;029071|        |      ;
                        db $1B                               ;029072|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw Enemy attacks SFX                 ;029073|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;029073|        |0290E5;
                        db $A8                               ;029075|        |      ; Advance animation
                        db $06                               ;029076|        |      ; Delay 0A
                        db $0A                               ;029077|        |      ;
                        db $1C                               ;029078|        |      ; End of script
-        Teefa attacks:
+            Atk_Teefa:
                        db $30                               ;029079|        |      ; Animation 03
                        db $03                               ;02907A|        |      ;
                        db $06                               ;02907B|        |      ; Delay 14
                        db $14                               ;02907C|        |      ;
                        db $1B                               ;02907D|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw Enemy attacks SFX                 ;02907E|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;02907E|        |0290E5;
                        db $A8                               ;029080|        |      ; Advance animation
                        db $06                               ;029081|        |      ; Delay 0A
                        db $0A                               ;029082|        |      ;
                        db $1C                               ;029083|        |      ; End of script
-        Karul attacks:
+            Atk_Karul:
                        db $30                               ;029084|        |      ; Animation 03
                        db $03                               ;029085|        |      ;
                        db $06                               ;029086|        |      ; Delay 14
                        db $14                               ;029087|        |      ;
                        db $1B                               ;029088|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw Enemy attacks SFX                 ;029089|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;029089|        |0290E5;
                        db $A8                               ;02908B|        |      ; Advance animation
                        db $06                               ;02908C|        |      ; Delay 0A
                        db $0A                               ;02908D|        |      ;
                        db $1C                               ;02908E|        |      ; End of script
-    Galneon 1 attacks:
+         Atk_Galneon1:
                        db $30                               ;02908F|        |      ; Animation 03
                        db $03                               ;029090|        |      ;
                        db $06                               ;029091|        |      ; Delay 14
                        db $14                               ;029092|        |      ;
                        db $1B                               ;029093|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw Enemy attacks SFX                 ;029094|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;029094|        |0290E5;
                        db $A8                               ;029096|        |      ; Advance animation
                        db $06                               ;029097|        |      ; Delay 0A
                        db $0A                               ;029098|        |      ;
                        db $1C                               ;029099|        |      ; End of script
-    Galneon 2 attacks:
+         Atk_Galneon2:
                        db $30                               ;02909A|        |      ; Animation 03
                        db $03                               ;02909B|        |      ;
                        db $06                               ;02909C|        |      ; Delay 14
                        db $14                               ;02909D|        |      ;
                        db $1B                               ;02909E|        |      ; JSR 90E5 (Enemy attacks SFX)
-                       dw Enemy attacks SFX                 ;02909F|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;02909F|        |0290E5;
                        db $A8                               ;0290A1|        |      ; Next animation
                        db $06                               ;0290A2|        |      ; Delay 0A
                        db $0A                               ;0290A3|        |      ;
                        db $1C                               ;0290A4|        |      ; End of script
-    Rimsala 1 attacks:
+         Atk_Rimsala1:
                        db $30                               ;0290A5|        |      ; Animation 00
                        db $00                               ;0290A6|        |      ;
                        db $06                               ;0290A7|        |      ; Delay 20
                        db $20                               ;0290A8|        |      ;
                        db $1B                               ;0290A9|        |      ; JSR 90E5 (Enemy attacks)
-                       dw Enemy attacks SFX                 ;0290AA|        |0290E5;
+                       dw SFX_Atk_Enemy                     ;0290AA|        |0290E5;
                        db $30                               ;0290AC|        |      ; Animation 03
                        db $03                               ;0290AD|        |      ;
                        db $06                               ;0290AE|        |      ; Delay 0A
@@ -3156,9 +3156,9 @@ Iron Guardian attacks:
                        db $06                               ;0290B6|        |      ; Delay 0A
                        db $0A                               ;0290B7|        |      ;
                        db $1C                               ;0290B8|        |      ; End of script
-    Rimsala 2 attacks:
+         Atk_Rimsala2:
                        db $1B                               ;0290B9|        |      ; JSR 90EB (Rimsala attacks) (Mwahaha)
-                       dw Rimsala attacks SFX               ;0290BA|        |0290EB;
+                       dw SFX_Atk_Rimsala                   ;0290BA|        |0290EB;
                        db $78                               ;0290BC|        |      ; 78 01 0000
                        db $01                               ;0290BD|        |      ;
                        db $00                               ;0290BE|        |      ;
@@ -3200,17 +3200,17 @@ Iron Guardian attacks:
                        db $06                               ;0290E2|        |      ; Pause for 0A frames
                        db $0A                               ;0290E3|        |      ;
                        db $1C                               ;0290E4|        |      ; End of script
-    Enemy attacks SFX:
+        SFX_Atk_Enemy:
                        db $07                               ;0290E5|        |      ; 07: 00/9C44 Play SFX
                        dl GetSet_SFX                        ;0290E6|        |009C44;
                        db $01                               ;0290E9|        |      ; Attack SFX
                        db $1C                               ;0290EA|        |      ; 1C: End section?
-  Rimsala attacks SFX:
+      SFX_Atk_Rimsala:
                        db $07                               ;0290EB|        |      ; 07: 00/9C44 Play SFX
                        dl GetSet_SFX                        ;0290EC|        |009C44;
                        db $17                               ;0290EF|        |      ; Mwahaha SFX
                        db $1C                               ;0290F0|        |      ; 1C: End section?
-       Enemy dies SFX:
+       SFX_Dies_Enemy:
                        db $07                               ;0290F1|        |      ; 07: 00/9C44 Play SFX
                        dl GetSet_SFX                        ;0290F2|        |009C44;
                        db $2F                               ;0290F5|        |      ; Defeated enemy SFX
@@ -3221,9 +3221,9 @@ Iron Guardian attacks:
                        db $02                               ;0290FD|        |      ; Card break SFX
 Add_enemy_loot_to_total:
                        db $07                               ;0290FE|        |      ; 07: 07/B44C (Add exp to total won)
-                       dl Add EXP to total won              ;0290FF|        |07B44C;
+                       dl Add_EXP_to_total_won              ;0290FF|        |07B44C;
                        db $07                               ;029102|        |      ; 07: 07/B45F (Add GP to total won)
-                       dl Add GP to total won               ;029103|        |07B45F;
+                       dl Add_GP_to_total_won               ;029103|        |07B45F;
                        db $07                               ;029106|        |      ; 07: 07/B11C (After enemy loot)
                        dl CODE_07B11C                       ;029107|        |07B11C;
                        dw $0002                             ;02910A|        |      ;
@@ -3239,10 +3239,10 @@ Add_enemy_loot_to_total:
                        db $23                               ;029117|        |      ; 23 03
                        db $03                               ;029118|        |      ;
                        db $07                               ;029119|        |      ; Store target in $1575
-                       dl Store an offset in $1575          ;02911A|        |07AF39;
+                       dl Offset_In_1575                    ;02911A|        |07AF39;
                        dw $0003                             ;02911D|        |      ;
                        db $07                               ;02911F|        |      ;
-                       dl Targeting another?                ;029120|        |07917D;
+                       dl Is_Targeting_another              ;029120|        |07917D;
                        db $05                               ;029123|        |      ; RTL
           Battle_Prep:
                        db $24                               ;029124|        |      ; 24 01
@@ -3262,7 +3262,7 @@ Add_enemy_loot_to_total:
                        dl Get_EnemyID_BattleStats           ;029135|        |029139;
                        db $05                               ;029138|        |      ; RTL
 Get_EnemyID_BattleStats:
-                       JSL.L Get enemy ID_from_103F_far     ;029139|222A9107|07912A; Loads all enemy stats into RAM
+                       JSL.L Get_enemy_ID_from_103F_far     ;029139|222A9107|07912A; Loads all enemy stats into RAM
  Get_EnemyBattleStats:
                        ASL A                                ;02913D|0A      |      ;
                        TAX                                  ;02913E|AA      |      ;
@@ -3270,32 +3270,32 @@ Get_EnemyID_BattleStats:
                        LDA.W Selection_value,Y              ;029142|B9EB09  |0009EB; Temp var used for the offset of this fighter's battle stats
                        ASL A                                ;029145|0A      |      ;
                        TAY                                  ;029146|A8      |      ;
-                       LDA.L Enemy_Affinity,X               ;029147|BF2DC905|05C92D;
+                       LDA.L Data_Enemy_Affinity,X          ;029147|BF2DC905|05C92D;
                        STA.W Affinity,Y                     ;02914B|990B12  |00120B;
-                       LDA.L Enemy_STR,X                    ;02914E|BFCDC905|05C9CD;
+                       LDA.L Data_Enemy_STR,X               ;02914E|BFCDC905|05C9CD;
                        STA.W Strength,Y                     ;029152|992312  |001223;
-                       LDA.L Enemy_INT,X                    ;029155|BF95CA05|05CA95;
+                       LDA.L Data_Enemy_INT,X               ;029155|BF95CA05|05CA95;
                        STA.W Intelligence,Y                 ;029159|993B12  |00123B;
-                       LDA.L Enemy_ENDUR,X                  ;02915C|BF35CB05|05CB35;
+                       LDA.L Data_Enemy_ENDUR,X             ;02915C|BF35CB05|05CB35;
                        STA.W Endurance,Y                    ;029160|995312  |001253;
-                       LDA.L Enemy_ALERT,X                  ;029163|BFD5CB05|05CBD5;
+                       LDA.L Data_Enemy_ALERT,X             ;029163|BFD5CB05|05CBD5;
                        STA.W Alertness,Y                    ;029167|996B12  |00126B;
-                       LDA.L Enemy_Atk_Animation,X          ;02916A|BF75CC05|05CC75;
+                       LDA.L Data_Enemy_Atk_Animation,X     ;02916A|BF75CC05|05CC75;
                        STA.W EqWeapon,Y                     ;02916E|998312  |001283;
-                       LDA.L Enemy_EqArmor,X                ;029171|BF15CD05|05CD15;
+                       LDA.L Data_Enemy_EqArmor,X           ;029171|BF15CD05|05CD15;
                        STA.W EqArmor,Y                      ;029175|999B12  |00129B;
-                       LDA.L Enemy_EqAmulet,X               ;029178|BFB5CD05|05CDB5;
+                       LDA.L Data_Enemy_EqAmulet,X          ;029178|BFB5CD05|05CDB5;
                        STA.W EqAmulet,Y                     ;02917C|99B312  |0012B3;
-                       LDA.L Enemy_LVL,X                    ;02917F|BF35D005|05D035;
+                       LDA.L Data_Enemy_LVL,X               ;02917F|BF35D005|05D035;
                        STA.W CurrentLV,Y                    ;029183|997B13  |00137B;
-                       LDA.L Enemy_EXP,X                    ;029186|BFF5CE05|05CEF5;
+                       LDA.L Data_Enemy_EXP,X               ;029186|BFF5CE05|05CEF5;
                        STA.W CurrentEXP,Y                   ;02918A|996313  |001363;
-                       LDA.L Enemy_mHP,X                    ;02918D|BF55CE05|05CE55;
+                       LDA.L Data_Enemy_mHP,X               ;02918D|BF55CE05|05CE55;
                        STA.W Current_HP,Y                   ;029191|99F312  |0012F3;
                        LDX.W Selection                      ;029194|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029197|9DC709  |0009C7; Save their HP to some temp variable battle list
                        RTL                                  ;02919A|6B      |      ;
-     24-02-07 section:
+_24_02_07_repeat_code:
                        db $04                               ;02919B|        |      ;
                        dl Battle_Prep                       ;02919C|        |029124;
                        db $09                               ;02919F|        |      ;
@@ -3315,11 +3315,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0291B4|        |      ;
                        dw LOOSE_OP_00919F                   ;0291B5|        |00919F;
                        db $04                               ;0291B7|        |      ;
-                       dl Sub: Enemy death anim             ;0291B8|        |028F24;
+                       dl Sub_Enemy_death_anim              ;0291B8|        |028F24;
                        db $24                               ;0291BB|        |      ; 24 02: Load $09EB,x
                        db $02                               ;0291BC|        |      ;
                        db $07                               ;0291BD|        |      ;
-                       dl Condition_Check(2b)               ;0291BE|        |07B0B0;
+                       dl Condition_Check_2b                ;0291BE|        |07B0B0;
                        db $01                               ;0291C1|        |      ;
                        db $00                               ;0291C2|        |      ;
                        db $0B                               ;0291C3|        |      ;
@@ -3329,7 +3329,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;0291C9|        |      ; 24 02: Load $09EB,x
                        db $02                               ;0291CA|        |      ;
                        db $07                               ;0291CB|        |      ;
-                       dl Zeros 11DB                        ;0291CC|        |0781F0;
+                       dl Zeros_11DB                        ;0291CC|        |0781F0;
                        db $08                               ;0291CF|        |      ;
                        dw CODE_00921F                       ;0291D0|        |00921F;
                        db $24                               ;0291D2|        |      ;
@@ -3403,7 +3403,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029223|        |      ;
                        dw CODE_00921F                       ;029224|        |00921F;
           CODE_029226:
-                       JSL.L Val equal to $1575?            ;029226|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029226|22DDAE07|07AEDD;
                        BNE CODE_029256                      ;02922A|D02A    |029256;
                        LDX.W Selection                      ;02922C|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02922F|BDC709  |0009C7;
@@ -3454,11 +3454,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029287|        |      ;
                        dw LOOSE_OP_009272                   ;029288|        |009272;
                        db $04                               ;02928A|        |      ;
-                       dl Sub: Enemy death anim             ;02928B|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02928B|        |028F24;
                        db $24                               ;02928E|        |      ;
                        db $02                               ;02928F|        |      ;
                        db $07                               ;029290|        |      ;
-                       dl Condition_Check(2b)               ;029291|        |07B0B0;
+                       dl Condition_Check_2b                ;029291|        |07B0B0;
                        db $01                               ;029294|        |      ;
                        db $00                               ;029295|        |      ;
                        db $0B                               ;029296|        |      ;
@@ -3468,7 +3468,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02929C|        |      ;
                        db $02                               ;02929D|        |      ;
                        db $07                               ;02929E|        |      ;
-                       dl Zeros 11DB                        ;02929F|        |0781F0;
+                       dl Zeros_11DB                        ;02929F|        |0781F0;
                        db $08                               ;0292A2|        |      ;
                        dw LOOSE_OP_0092F4                   ;0292A3|        |0092F4;
                        db $24                               ;0292A5|        |      ;
@@ -3548,7 +3548,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0292FC|        |      ;
                        dw LOOSE_OP_0092F4                   ;0292FD|        |0092F4;
           CODE_0292FF:
-                       JSL.L Val equal to $1575?            ;0292FF|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;0292FF|22DDAE07|07AEDD;
                        BNE CODE_02932F                      ;029303|D02A    |02932F;
                        LDX.W Selection                      ;029305|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029308|BDC709  |0009C7;
@@ -3599,11 +3599,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029360|        |      ;
                        dw LOOSE_OP_00934B                   ;029361|        |00934B;
                        db $04                               ;029363|        |      ;
-                       dl Sub: Enemy death anim             ;029364|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029364|        |028F24;
                        db $24                               ;029367|        |      ;
                        db $02                               ;029368|        |      ;
                        db $07                               ;029369|        |      ;
-                       dl Condition_Check(2b)               ;02936A|        |07B0B0;
+                       dl Condition_Check_2b                ;02936A|        |07B0B0;
                        db $01                               ;02936D|        |      ;
                        db $00                               ;02936E|        |      ;
                        db $0B                               ;02936F|        |      ;
@@ -3613,7 +3613,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029375|        |      ;
                        db $02                               ;029376|        |      ;
                        db $07                               ;029377|        |      ;
-                       dl Zeros 11DB                        ;029378|        |0781F0;
+                       dl Zeros_11DB                        ;029378|        |0781F0;
                        db $08                               ;02937B|        |      ;
                        dw LOOSE_OP_0093CD                   ;02937C|        |0093CD;
                        db $24                               ;02937E|        |      ;
@@ -3693,7 +3693,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0293D5|        |      ;
                        dw LOOSE_OP_0093CD                   ;0293D6|        |0093CD;
           CODE_0293D8:
-                       JSL.L Val equal to $1575?            ;0293D8|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;0293D8|22DDAE07|07AEDD;
                        BNE CODE_029408                      ;0293DC|D02A    |029408;
                        LDX.W Selection                      ;0293DE|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;0293E1|BDC709  |0009C7;
@@ -3744,11 +3744,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029439|        |      ;
                        dw CODE_009424                       ;02943A|        |009424;
                        db $04                               ;02943C|        |      ;
-                       dl Sub: Enemy death anim             ;02943D|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02943D|        |028F24;
                        db $24                               ;029440|        |      ;
                        db $02                               ;029441|        |      ;
                        db $07                               ;029442|        |      ;
-                       dl Condition_Check(2b)               ;029443|        |07B0B0;
+                       dl Condition_Check_2b                ;029443|        |07B0B0;
                        db $01                               ;029446|        |      ;
                        db $00                               ;029447|        |      ;
                        db $0B                               ;029448|        |      ;
@@ -3758,7 +3758,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02944E|        |      ;
                        db $02                               ;02944F|        |      ;
                        db $07                               ;029450|        |      ;
-                       dl Zeros 11DB                        ;029451|        |0781F0;
+                       dl Zeros_11DB                        ;029451|        |0781F0;
                        db $08                               ;029454|        |      ;
                        dw CODE_0094D6                       ;029455|        |0094D6;
                        db $24                               ;029457|        |      ;
@@ -3915,7 +3915,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0294FB|        |      ;
                        dw CODE_0094D6                       ;0294FC|        |0094D6;
           CODE_0294FE:
-                       JSL.L Val equal to $1575?            ;0294FE|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;0294FE|22DDAE07|07AEDD;
                        BNE CODE_02952E                      ;029502|D02A    |02952E;
                        LDX.W Selection                      ;029504|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029507|BDC709  |0009C7;
@@ -3966,11 +3966,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02955F|        |      ;
                        dw CODE_00954A                       ;029560|        |00954A;
                        db $04                               ;029562|        |      ;
-                       dl Sub: Enemy death anim             ;029563|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029563|        |028F24;
                        db $24                               ;029566|        |      ;
                        db $02                               ;029567|        |      ;
                        db $07                               ;029568|        |      ;
-                       dl Condition_Check(2b)               ;029569|        |07B0B0;
+                       dl Condition_Check_2b                ;029569|        |07B0B0;
                        db $01                               ;02956C|        |      ;
                        db $00                               ;02956D|        |      ;
                        db $0B                               ;02956E|        |      ;
@@ -3980,7 +3980,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029574|        |      ;
                        db $02                               ;029575|        |      ;
                        db $07                               ;029576|        |      ;
-                       dl Zeros 11DB                        ;029577|        |0781F0;
+                       dl Zeros_11DB                        ;029577|        |0781F0;
                        db $08                               ;02957A|        |      ;
                        dw LOOSE_OP_0095FC                   ;02957B|        |0095FC;
                        db $24                               ;02957D|        |      ;
@@ -4137,7 +4137,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029621|        |      ;
                        dw LOOSE_OP_0095FC                   ;029622|        |0095FC;
           CODE_029624:
-                       JSL.L Val equal to $1575?            ;029624|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029624|22DDAE07|07AEDD;
                        BNE CODE_029654                      ;029628|D02A    |029654;
                        LDX.W Selection                      ;02962A|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02962D|BDC709  |0009C7;
@@ -4188,11 +4188,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029685|        |      ;
                        dw CODE_009670                       ;029686|        |009670;
                        db $04                               ;029688|        |      ;
-                       dl Sub: Enemy death anim             ;029689|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029689|        |028F24;
                        db $24                               ;02968C|        |      ;
                        db $02                               ;02968D|        |      ;
                        db $07                               ;02968E|        |      ;
-                       dl Condition_Check(2b)               ;02968F|        |07B0B0;
+                       dl Condition_Check_2b                ;02968F|        |07B0B0;
                        db $01                               ;029692|        |      ;
                        db $00                               ;029693|        |      ;
                        db $0B                               ;029694|        |      ;
@@ -4202,7 +4202,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02969A|        |      ;
                        db $02                               ;02969B|        |      ;
                        db $07                               ;02969C|        |      ;
-                       dl Zeros 11DB                        ;02969D|        |0781F0;
+                       dl Zeros_11DB                        ;02969D|        |0781F0;
                        db $08                               ;0296A0|        |      ;
                        dw LOOSE_OP_00969A                   ;0296A1|        |00969A;
                        db $24                               ;0296A3|        |      ;
@@ -4353,7 +4353,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029741|        |      ;
                        dw LOOSE_OP_009722                   ;029742|        |009722;
           CODE_029744:
-                       JSL.L Val equal to $1575?            ;029744|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029744|22DDAE07|07AEDD;
                        BNE CODE_029774                      ;029748|D02A    |029774;
                        LDX.W Selection                      ;02974A|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02974D|BDC709  |0009C7;
@@ -4404,11 +4404,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0297A5|        |      ;
                        dw CODE_009790                       ;0297A6|        |009790;
                        db $04                               ;0297A8|        |      ;
-                       dl Sub: Enemy death anim             ;0297A9|        |028F24;
+                       dl Sub_Enemy_death_anim              ;0297A9|        |028F24;
                        db $24                               ;0297AC|        |      ;
                        db $02                               ;0297AD|        |      ;
                        db $07                               ;0297AE|        |      ;
-                       dl Condition_Check(2b)               ;0297AF|        |07B0B0;
+                       dl Condition_Check_2b                ;0297AF|        |07B0B0;
                        db $01                               ;0297B2|        |      ;
                        db $00                               ;0297B3|        |      ;
                        db $0B                               ;0297B4|        |      ;
@@ -4418,7 +4418,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;0297BA|        |      ;
                        db $02                               ;0297BB|        |      ;
                        db $07                               ;0297BC|        |      ;
-                       dl Zeros 11DB                        ;0297BD|        |0781F0;
+                       dl Zeros_11DB                        ;0297BD|        |0781F0;
                        db $08                               ;0297C0|        |      ;
                        dw LOOSE_OP_00983E                   ;0297C1|        |00983E;
                        db $24                               ;0297C3|        |      ;
@@ -4567,7 +4567,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02985F|        |      ;
                        dw LOOSE_OP_00983E                   ;029860|        |00983E;
           CODE_029862:
-                       JSL.L Val equal to $1575?            ;029862|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029862|22DDAE07|07AEDD;
                        BNE CODE_029892                      ;029866|D02A    |029892;
                        LDX.W Selection                      ;029868|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02986B|BDC709  |0009C7;
@@ -4612,11 +4612,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0298BC|        |      ;
                        dw LOOSE_OP_0098AE                   ;0298BD|        |0098AE;
                        db $04                               ;0298BF|        |      ;
-                       dl Sub: Enemy death anim             ;0298C0|        |028F24;
+                       dl Sub_Enemy_death_anim              ;0298C0|        |028F24;
                        db $24                               ;0298C3|        |      ;
                        db $02                               ;0298C4|        |      ;
                        db $07                               ;0298C5|        |      ;
-                       dl Condition_Check(2b)               ;0298C6|        |07B0B0;
+                       dl Condition_Check_2b                ;0298C6|        |07B0B0;
                        db $01                               ;0298C9|        |      ;
                        db $00                               ;0298CA|        |      ;
                        db $0B                               ;0298CB|        |      ;
@@ -4628,7 +4628,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0298D3|        |      ;
                        dw CODE_0098D1                       ;0298D4|        |0098D1;
           CODE_0298D6:
-                       JSL.L Val equal to $1575?            ;0298D6|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;0298D6|22DDAE07|07AEDD;
                        BNE CODE_029906                      ;0298DA|D02A    |029906;
                        LDX.W Selection                      ;0298DC|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;0298DF|BDC709  |0009C7;
@@ -4659,7 +4659,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029917|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02991A|9DC709  |0009C7;
                        RTL                                  ;02991D|6B      |      ;
-    Different bank 02:
+         DATA8_02991E:
                        db $04                               ;02991E|        |      ;
                        dl Battle_Prep                       ;02991F|        |029124;
                        db $09                               ;029922|        |      ;
@@ -4690,7 +4690,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029944|        |      ;
                        db $02                               ;029945|        |      ;
                        db $07                               ;029946|        |      ;
-                       dl Condition_Check(2b)               ;029947|        |07B0B0;
+                       dl Condition_Check_2b                ;029947|        |07B0B0;
                        db $01                               ;02994A|        |      ;
                        db $00                               ;02994B|        |      ;
                        db $0B                               ;02994C|        |      ;
@@ -4722,7 +4722,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029968|        |      ;
                        dw CODE_009952                       ;029969|        |009952;
           CODE_02996B:
-                       JSL.L Val equal to $1575?            ;02996B|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02996B|22DDAE07|07AEDD;
                        BNE CODE_02999B                      ;02996F|D02A    |02999B;
                        LDX.W Selection                      ;029971|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029974|BDC709  |0009C7;
@@ -4767,11 +4767,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0299C5|        |      ;
                        dw CODE_0099B7                       ;0299C6|        |0099B7;
                        db $04                               ;0299C8|        |      ;
-                       dl Sub: Enemy death anim             ;0299C9|        |028F24;
+                       dl Sub_Enemy_death_anim              ;0299C9|        |028F24;
                        db $24                               ;0299CC|        |      ;
                        db $02                               ;0299CD|        |      ;
                        db $07                               ;0299CE|        |      ;
-                       dl Condition_Check(2b)               ;0299CF|        |07B0B0;
+                       dl Condition_Check_2b                ;0299CF|        |07B0B0;
                        db $01                               ;0299D2|        |      ;
                        db $00                               ;0299D3|        |      ;
                        db $0B                               ;0299D4|        |      ;
@@ -4783,7 +4783,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;0299DC|        |      ;
                        dw CODE_0099DA                       ;0299DD|        |0099DA;
           CODE_0299DF:
-                       JSL.L Val equal to $1575?            ;0299DF|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;0299DF|22DDAE07|07AEDD;
                        BNE CODE_029A0F                      ;0299E3|D02A    |029A0F;
                        LDX.W Selection                      ;0299E5|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;0299E8|BDC709  |0009C7;
@@ -4834,11 +4834,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029A40|        |      ;
                        dw CODE_009A2B                       ;029A41|        |009A2B;
                        db $04                               ;029A43|        |      ;
-                       dl Sub: Enemy death anim             ;029A44|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029A44|        |028F24;
                        db $24                               ;029A47|        |      ;
                        db $02                               ;029A48|        |      ;
                        db $07                               ;029A49|        |      ;
-                       dl Condition_Check(2b)               ;029A4A|        |07B0B0;
+                       dl Condition_Check_2b                ;029A4A|        |07B0B0;
                        db $01                               ;029A4D|        |      ;
                        db $00                               ;029A4E|        |      ;
                        db $0B                               ;029A4F|        |      ;
@@ -4848,7 +4848,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029A55|        |      ;
                        db $02                               ;029A56|        |      ;
                        db $07                               ;029A57|        |      ;
-                       dl Zeros 11DB                        ;029A58|        |0781F0;
+                       dl Zeros_11DB                        ;029A58|        |0781F0;
                        db $08                               ;029A5B|        |      ;
                        dw LOOSE_OP_009AF5                   ;029A5C|        |009AF5;
                        db $24                               ;029A5E|        |      ;
@@ -5027,7 +5027,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029B18|        |      ;
                        dw LOOSE_OP_009AF5                   ;029B19|        |009AF5;
           CODE_029B1B:
-                       JSL.L Val equal to $1575?            ;029B1B|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029B1B|22DDAE07|07AEDD;
                        BNE CODE_029B4B                      ;029B1F|D02A    |029B4B;
                        LDX.W Selection                      ;029B21|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029B24|BDC709  |0009C7;
@@ -5078,11 +5078,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029B7C|        |      ;
                        dw CODE_009B67                       ;029B7D|        |009B67;
                        db $04                               ;029B7F|        |      ;
-                       dl Sub: Enemy death anim             ;029B80|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029B80|        |028F24;
                        db $24                               ;029B83|        |      ;
                        db $02                               ;029B84|        |      ;
                        db $07                               ;029B85|        |      ;
-                       dl Condition_Check(2b)               ;029B86|        |07B0B0;
+                       dl Condition_Check_2b                ;029B86|        |07B0B0;
                        db $01                               ;029B89|        |      ;
                        db $00                               ;029B8A|        |      ;
                        db $0B                               ;029B8B|        |      ;
@@ -5092,7 +5092,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029B91|        |      ;
                        db $02                               ;029B92|        |      ;
                        db $07                               ;029B93|        |      ;
-                       dl Zeros 11DB                        ;029B94|        |0781F0;
+                       dl Zeros_11DB                        ;029B94|        |0781F0;
                        db $08                               ;029B97|        |      ;
                        dw LOOSE_OP_009BEB                   ;029B98|        |009BEB;
                        db $24                               ;029B9A|        |      ;
@@ -5175,7 +5175,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029BF6|        |      ;
                        dw LOOSE_OP_009BEB                   ;029BF7|        |009BEB;
           CODE_029BF9:
-                       JSL.L Val equal to $1575?            ;029BF9|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029BF9|22DDAE07|07AEDD;
                        BNE CODE_029C29                      ;029BFD|D02A    |029C29;
                        LDX.W Selection                      ;029BFF|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029C02|BDC709  |0009C7;
@@ -5226,11 +5226,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029C5A|        |      ;
                        dw LOOSE_OP_009C45                   ;029C5B|        |009C45;
                        db $04                               ;029C5D|        |      ;
-                       dl Sub: Enemy death anim             ;029C5E|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029C5E|        |028F24;
                        db $24                               ;029C61|        |      ;
                        db $02                               ;029C62|        |      ;
                        db $07                               ;029C63|        |      ;
-                       dl Condition_Check(2b)               ;029C64|        |07B0B0;
+                       dl Condition_Check_2b                ;029C64|        |07B0B0;
                        db $01                               ;029C67|        |      ;
                        db $00                               ;029C68|        |      ;
                        db $0B                               ;029C69|        |      ;
@@ -5240,7 +5240,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029C6F|        |      ;
                        db $02                               ;029C70|        |      ;
                        db $07                               ;029C71|        |      ;
-                       dl Zeros 11DB                        ;029C72|        |0781F0;
+                       dl Zeros_11DB                        ;029C72|        |0781F0;
                        db $08                               ;029C75|        |      ;
                        dw CODE_009CC3                       ;029C76|        |009CC3;
                        db $24                               ;029C78|        |      ;
@@ -5313,7 +5313,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029CCA|        |      ;
                        dw CODE_009CC3                       ;029CCB|        |009CC3;
           CODE_029CCD:
-                       JSL.L Val equal to $1575?            ;029CCD|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029CCD|22DDAE07|07AEDD;
                        BNE CODE_029CFD                      ;029CD1|D02A    |029CFD;
                        LDX.W Selection                      ;029CD3|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029CD6|BDC709  |0009C7;
@@ -5364,11 +5364,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029D2E|        |      ;
                        dw CODE_009D19                       ;029D2F|        |009D19;
                        db $04                               ;029D31|        |      ;
-                       dl Sub: Enemy death anim             ;029D32|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029D32|        |028F24;
                        db $24                               ;029D35|        |      ;
                        db $02                               ;029D36|        |      ;
                        db $07                               ;029D37|        |      ;
-                       dl Condition_Check(2b)               ;029D38|        |07B0B0;
+                       dl Condition_Check_2b                ;029D38|        |07B0B0;
                        db $01                               ;029D3B|        |      ;
                        db $00                               ;029D3C|        |      ;
                        db $0B                               ;029D3D|        |      ;
@@ -5378,7 +5378,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029D43|        |      ;
                        db $02                               ;029D44|        |      ;
                        db $07                               ;029D45|        |      ;
-                       dl Zeros 11DB                        ;029D46|        |0781F0;
+                       dl Zeros_11DB                        ;029D46|        |0781F0;
                        db $08                               ;029D49|        |      ;
                        dw LOOSE_OP_009D9F                   ;029D4A|        |009D9F;
                        db $24                               ;029D4C|        |      ;
@@ -5465,7 +5465,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029DAC|        |      ;
                        dw LOOSE_OP_009D9F                   ;029DAD|        |009D9F;
           CODE_029DAF:
-                       JSL.L Val equal to $1575?            ;029DAF|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029DAF|22DDAE07|07AEDD;
                        BNE CODE_029DDF                      ;029DB3|D02A    |029DDF;
                        LDX.W Selection                      ;029DB5|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029DB8|BDC709  |0009C7;
@@ -5516,11 +5516,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029E10|        |      ;
                        dw CODE_009DFB                       ;029E11|        |009DFB;
                        db $04                               ;029E13|        |      ;
-                       dl Sub: Enemy death anim             ;029E14|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029E14|        |028F24;
                        db $24                               ;029E17|        |      ;
                        db $02                               ;029E18|        |      ;
                        db $07                               ;029E19|        |      ;
-                       dl Condition_Check(2b)               ;029E1A|        |07B0B0;
+                       dl Condition_Check_2b                ;029E1A|        |07B0B0;
                        db $01                               ;029E1D|        |      ;
                        db $00                               ;029E1E|        |      ;
                        db $0B                               ;029E1F|        |      ;
@@ -5530,7 +5530,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029E25|        |      ;
                        db $02                               ;029E26|        |      ;
                        db $07                               ;029E27|        |      ;
-                       dl Zeros 11DB                        ;029E28|        |0781F0;
+                       dl Zeros_11DB                        ;029E28|        |0781F0;
                        db $08                               ;029E2B|        |      ;
                        dw Set_Pixellation_hi_1b             ;029E2C|        |009E9D;
                        db $24                               ;029E2E|        |      ;
@@ -5648,7 +5648,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029EAD|        |      ;
                        dw Set_Pixellation_hi_1b             ;029EAE|        |009E9D;
           CODE_029EB0:
-                       JSL.L Val equal to $1575?            ;029EB0|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029EB0|22DDAE07|07AEDD;
                        BNE CODE_029EE0                      ;029EB4|D02A    |029EE0;
                        LDX.W Selection                      ;029EB6|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029EB9|BDC709  |0009C7;
@@ -5699,11 +5699,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029F11|        |      ;
                        dw LOOSE_OP_009EFC                   ;029F12|        |009EFC;
                        db $04                               ;029F14|        |      ;
-                       dl Sub: Enemy death anim             ;029F15|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029F15|        |028F24;
                        db $24                               ;029F18|        |      ;
                        db $02                               ;029F19|        |      ;
                        db $07                               ;029F1A|        |      ;
-                       dl Condition_Check(2b)               ;029F1B|        |07B0B0;
+                       dl Condition_Check_2b                ;029F1B|        |07B0B0;
                        db $01                               ;029F1E|        |      ;
                        db $00                               ;029F1F|        |      ;
                        db $0B                               ;029F20|        |      ;
@@ -5713,7 +5713,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;029F26|        |      ;
                        db $02                               ;029F27|        |      ;
                        db $07                               ;029F28|        |      ;
-                       dl Zeros 11DB                        ;029F29|        |0781F0;
+                       dl Zeros_11DB                        ;029F29|        |0781F0;
                        db $08                               ;029F2C|        |      ;
                        dw CODE_009F82                       ;029F2D|        |009F82;
                        db $24                               ;029F2F|        |      ;
@@ -5800,7 +5800,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029F8F|        |      ;
                        dw CODE_009F82                       ;029F90|        |009F82;
           CODE_029F92:
-                       JSL.L Val equal to $1575?            ;029F92|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;029F92|22DDAE07|07AEDD;
                        BNE CODE_029FC2                      ;029F96|D02A    |029FC2;
                        LDX.W Selection                      ;029F98|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;029F9B|BDC709  |0009C7;
@@ -5851,11 +5851,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;029FF3|        |      ;
                        dw LOOSE_OP_009FDE                   ;029FF4|        |009FDE;
                        db $04                               ;029FF6|        |      ;
-                       dl Sub: Enemy death anim             ;029FF7|        |028F24;
+                       dl Sub_Enemy_death_anim              ;029FF7|        |028F24;
                        db $24                               ;029FFA|        |      ;
                        db $02                               ;029FFB|        |      ;
                        db $07                               ;029FFC|        |      ;
-                       dl Condition_Check(2b)               ;029FFD|        |07B0B0;
+                       dl Condition_Check_2b                ;029FFD|        |07B0B0;
                        db $01                               ;02A000|        |      ;
                        db $00                               ;02A001|        |      ;
                        db $0B                               ;02A002|        |      ;
@@ -5865,7 +5865,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A008|        |      ;
                        db $02                               ;02A009|        |      ;
                        db $07                               ;02A00A|        |      ;
-                       dl Zeros 11DB                        ;02A00B|        |0781F0;
+                       dl Zeros_11DB                        ;02A00B|        |0781F0;
                        db $08                               ;02A00E|        |      ;
                        dw LOOSE_OP_00A064                   ;02A00F|        |00A064;
                        db $24                               ;02A011|        |      ;
@@ -5952,7 +5952,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A071|        |      ;
                        dw LOOSE_OP_00A064                   ;02A072|        |00A064;
           CODE_02A074:
-                       JSL.L Val equal to $1575?            ;02A074|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02A074|22DDAE07|07AEDD;
                        BNE CODE_02A0A4                      ;02A078|D02A    |02A0A4;
                        LDX.W Selection                      ;02A07A|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A07D|BDC709  |0009C7;
@@ -6003,11 +6003,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A0D5|        |      ;
                        dw CODE_00A0C0                       ;02A0D6|        |00A0C0;
                        db $04                               ;02A0D8|        |      ;
-                       dl Sub: Enemy death anim             ;02A0D9|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A0D9|        |028F24;
                        db $24                               ;02A0DC|        |      ;
                        db $02                               ;02A0DD|        |      ;
                        db $07                               ;02A0DE|        |      ;
-                       dl Condition_Check(2b)               ;02A0DF|        |07B0B0;
+                       dl Condition_Check_2b                ;02A0DF|        |07B0B0;
                        db $01                               ;02A0E2|        |      ;
                        db $00                               ;02A0E3|        |      ;
                        db $0B                               ;02A0E4|        |      ;
@@ -6017,7 +6017,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A0EA|        |      ;
                        db $02                               ;02A0EB|        |      ;
                        db $07                               ;02A0EC|        |      ;
-                       dl Zeros 11DB                        ;02A0ED|        |0781F0;
+                       dl Zeros_11DB                        ;02A0ED|        |0781F0;
                        db $08                               ;02A0F0|        |      ;
                        dw LOOSE_OP_00A146                   ;02A0F1|        |00A146;
                        db $24                               ;02A0F3|        |      ;
@@ -6104,7 +6104,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A153|        |      ;
                        dw LOOSE_OP_00A146                   ;02A154|        |00A146;
           CODE_02A156:
-                       JSL.L Val equal to $1575?            ;02A156|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02A156|22DDAE07|07AEDD;
                        BNE CODE_02A186                      ;02A15A|D02A    |02A186;
                        LDX.W Selection                      ;02A15C|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A15F|BDC709  |0009C7;
@@ -6155,11 +6155,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A1B7|        |      ;
                        dw LOOSE_OP_00A1A2                   ;02A1B8|        |00A1A2;
                        db $04                               ;02A1BA|        |      ;
-                       dl Sub: Enemy death anim             ;02A1BB|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A1BB|        |028F24;
                        db $24                               ;02A1BE|        |      ;
                        db $02                               ;02A1BF|        |      ;
                        db $07                               ;02A1C0|        |      ;
-                       dl Condition_Check(2b)               ;02A1C1|        |07B0B0;
+                       dl Condition_Check_2b                ;02A1C1|        |07B0B0;
                        db $01                               ;02A1C4|        |      ;
                        db $00                               ;02A1C5|        |      ;
                        db $0B                               ;02A1C6|        |      ;
@@ -6169,7 +6169,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A1CC|        |      ;
                        db $02                               ;02A1CD|        |      ;
                        db $07                               ;02A1CE|        |      ;
-                       dl Zeros 11DB                        ;02A1CF|        |0781F0;
+                       dl Zeros_11DB                        ;02A1CF|        |0781F0;
                        db $08                               ;02A1D2|        |      ;
                        dw PTR24_00A266                      ;02A1D3|        |00A266;
                        db $24                               ;02A1D5|        |      ;
@@ -6339,7 +6339,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A288|        |      ;
                        dw PTR24_00A266                      ;02A289|        |00A266;
           CODE_02A28B:
-                       JSL.L Val equal to $1575?            ;02A28B|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02A28B|22DDAE07|07AEDD;
                        BNE CODE_02A2BB                      ;02A28F|D02A    |02A2BB;
                        LDX.W Selection                      ;02A291|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A294|BDC709  |0009C7;
@@ -6374,7 +6374,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A2D3|        |      ;
                        dl Battle_Prep                       ;02A2D4|        |029124;
                        db $09                               ;02A2D7|        |      ;
-                       dl 1575 copy code 20                 ;02A2D8|        |02A369;
+                       dl CODE_02A369                       ;02A2D8|        |02A369;
                        db $1A                               ;02A2DB|        |      ;
                        dw PTR24_00A301                      ;02A2DC|        |00A301;
                        db $08                               ;02A2DE|        |      ;
@@ -6390,11 +6390,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A2EC|        |      ;
                        dw PTR24_00A2D7                      ;02A2ED|        |00A2D7;
                        db $04                               ;02A2EF|        |      ;
-                       dl Sub: Enemy death anim             ;02A2F0|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A2F0|        |028F24;
                        db $24                               ;02A2F3|        |      ;
                        db $02                               ;02A2F4|        |      ;
                        db $07                               ;02A2F5|        |      ;
-                       dl Condition_Check(2b)               ;02A2F6|        |07B0B0;
+                       dl Condition_Check_2b                ;02A2F6|        |07B0B0;
                        db $01                               ;02A2F9|        |      ;
                        db $00                               ;02A2FA|        |      ;
                        db $0B                               ;02A2FB|        |      ;
@@ -6404,7 +6404,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A301|        |      ;
                        db $02                               ;02A302|        |      ;
                        db $07                               ;02A303|        |      ;
-                       dl Zeros 11DB                        ;02A304|        |0781F0;
+                       dl Zeros_11DB                        ;02A304|        |0781F0;
                        db $08                               ;02A307|        |      ;
                        dw PTR24_00A35B                      ;02A308|        |00A35B;
                        db $24                               ;02A30A|        |      ;
@@ -6486,9 +6486,9 @@ Get_EnemyID_BattleStats:
                        db $09                               ;02A365|        |      ;
                        db $1A                               ;02A366|        |      ;
                        dw PTR24_00A35B                      ;02A367|        |00A35B;
-    1575 copy code 20:
-                       JSL.L Val equal to $1575?            ;02A369|22DDAE07|07AEDD;
-                       BNE Load Stuff A2DE                  ;02A36D|D02A    |02A399;
+          CODE_02A369:
+                       JSL.L Is_Equals_1575                 ;02A369|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A2DE                  ;02A36D|D02A    |02A399;
                        LDX.W Selection                      ;02A36F|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A372|BDC709  |0009C7;
                        STA.B $20                            ;02A375|8520    |000020;
@@ -6497,9 +6497,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A37B|AA      |      ;
                        LDA.W Current_HP,X                   ;02A37C|BDF312  |0012F3;
                        CMP.B $20                            ;02A37F|C520    |000020;
-                       BMI Load Stuff A2EF                  ;02A381|3002    |02A385;
-                       BCS Else                             ;02A383|B022    |02A3A7;
-      Load Stuff A2EF:
+                       BMI Load_Stuff_A2EF                  ;02A381|3002    |02A385;
+                       BCS CODE_02A3A7                      ;02A383|B022    |02A3A7;
+      Load_Stuff_A2EF:
                        LDA.W Current_HP,X                   ;02A385|BDF312  |0012F3;
                        LDX.W Selection                      ;02A388|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A38B|9DC709  |0009C7;
@@ -6507,13 +6507,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A391|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A394|5CB48D00|008DB4;
                        RTL                                  ;02A398|6B      |      ;
-      Load Stuff A2DE:
+      Load_Stuff_A2DE:
                        LDX.W Selection                      ;02A399|AE3F10  |00103F;
                        LDA.W #$A2DE                         ;02A39C|A9DEA2  |      ;
                        LDY.W #$0002                         ;02A39F|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A3A2|5CB48D00|008DB4;
                        RTL                                  ;02A3A6|6B      |      ;
-                 Else:
+          CODE_02A3A7:
                        LDA.W Current_HP,X                   ;02A3A7|BDF312  |0012F3;
                        LDX.W Selection                      ;02A3AA|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A3AD|9DC709  |0009C7;
@@ -6522,7 +6522,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A3B1|        |      ;
                        dl Battle_Prep                       ;02A3B2|        |029124;
                        db $09                               ;02A3B5|        |      ;
-                       dl 1575 copy code 19                 ;02A3B6|        |02A44B;
+                       dl CODE_02A44B                       ;02A3B6|        |02A44B;
                        db $1A                               ;02A3B9|        |      ;
                        dw PTR24_00A3DF                      ;02A3BA|        |00A3DF;
                        db $08                               ;02A3BC|        |      ;
@@ -6538,11 +6538,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A3CA|        |      ;
                        dw PTR24_00A3B5                      ;02A3CB|        |00A3B5;
                        db $04                               ;02A3CD|        |      ;
-                       dl Sub: Enemy death anim             ;02A3CE|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A3CE|        |028F24;
                        db $24                               ;02A3D1|        |      ;
                        db $02                               ;02A3D2|        |      ;
                        db $07                               ;02A3D3|        |      ;
-                       dl Condition_Check(2b)               ;02A3D4|        |07B0B0;
+                       dl Condition_Check_2b                ;02A3D4|        |07B0B0;
                        db $01                               ;02A3D7|        |      ;
                        db $00                               ;02A3D8|        |      ;
                        db $0B                               ;02A3D9|        |      ;
@@ -6552,7 +6552,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A3DF|        |      ;
                        db $02                               ;02A3E0|        |      ;
                        db $07                               ;02A3E1|        |      ;
-                       dl Zeros 11DB                        ;02A3E2|        |0781F0;
+                       dl Zeros_11DB                        ;02A3E2|        |0781F0;
                        db $08                               ;02A3E5|        |      ;
                        dw PTR24_00A43B                      ;02A3E6|        |00A43B;
                        db $24                               ;02A3E8|        |      ;
@@ -6638,9 +6638,9 @@ Get_EnemyID_BattleStats:
                        db $0C                               ;02A447|        |003B1A;
                        db $1A                               ;02A448|        |      ;
                        dw PTR24_00A43B                      ;02A449|        |00A43B;
-    1575 copy code 19:
-                       JSL.L Val equal to $1575?            ;02A44B|22DDAE07|07AEDD;
-                       BNE Load Stuff A3BC                  ;02A44F|D02A    |02A47B;
+          CODE_02A44B:
+                       JSL.L Is_Equals_1575                 ;02A44B|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A3BC                  ;02A44F|D02A    |02A47B;
                        LDX.W Selection                      ;02A451|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A454|BDC709  |0009C7;
                        STA.B $20                            ;02A457|8520    |000020;
@@ -6649,9 +6649,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A45D|AA      |      ;
                        LDA.W Current_HP,X                   ;02A45E|BDF312  |0012F3;
                        CMP.B $20                            ;02A461|C520    |000020;
-                       BMI Load Stuff A3CD                  ;02A463|3002    |02A467;
-                       BCS Else                             ;02A465|B022    |02A489;
-      Load Stuff A3CD:
+                       BMI Load_Stuff_A3CD                  ;02A463|3002    |02A467;
+                       BCS CODE_02A489                      ;02A465|B022    |02A489;
+      Load_Stuff_A3CD:
                        LDA.W Current_HP,X                   ;02A467|BDF312  |0012F3;
                        LDX.W Selection                      ;02A46A|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A46D|9DC709  |0009C7;
@@ -6659,13 +6659,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A473|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A476|5CB48D00|008DB4;
                        RTL                                  ;02A47A|6B      |      ;
-      Load Stuff A3BC:
+      Load_Stuff_A3BC:
                        LDX.W Selection                      ;02A47B|AE3F10  |00103F;
                        LDA.W #$A3BC                         ;02A47E|A9BCA3  |      ;
                        LDY.W #$0002                         ;02A481|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A484|5CB48D00|008DB4;
                        RTL                                  ;02A488|6B      |      ;
-                 Else:
+          CODE_02A489:
                        LDA.W Current_HP,X                   ;02A489|BDF312  |0012F3;
                        LDX.W Selection                      ;02A48C|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A48F|9DC709  |0009C7;
@@ -6674,7 +6674,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A493|        |      ;
                        dl Battle_Prep                       ;02A494|        |029124;
                        db $09                               ;02A497|        |      ;
-                       dl 1575 copy code 18                 ;02A498|        |02A52D;
+                       dl CODE_02A52D                       ;02A498|        |02A52D;
                        db $1A                               ;02A49B|        |      ;
                        dw LOOSE_OP_00A4C1                   ;02A49C|        |00A4C1;
                        db $08                               ;02A49E|        |      ;
@@ -6690,11 +6690,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A4AC|        |      ;
                        dw LOOSE_OP_00A497                   ;02A4AD|        |00A497;
                        db $04                               ;02A4AF|        |      ;
-                       dl Sub: Enemy death anim             ;02A4B0|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A4B0|        |028F24;
                        db $24                               ;02A4B3|        |      ;
                        db $02                               ;02A4B4|        |      ;
                        db $07                               ;02A4B5|        |      ;
-                       dl Condition_Check(2b)               ;02A4B6|        |07B0B0;
+                       dl Condition_Check_2b                ;02A4B6|        |07B0B0;
                        db $01                               ;02A4B9|        |      ;
                        db $00                               ;02A4BA|        |      ;
                        db $0B                               ;02A4BB|        |      ;
@@ -6704,7 +6704,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A4C1|        |      ;
                        db $02                               ;02A4C2|        |      ;
                        db $07                               ;02A4C3|        |      ;
-                       dl Zeros 11DB                        ;02A4C4|        |0781F0;
+                       dl Zeros_11DB                        ;02A4C4|        |0781F0;
                        db $08                               ;02A4C7|        |      ;
                        dw LOOSE_OP_00A51D                   ;02A4C8|        |00A51D;
                        db $24                               ;02A4CA|        |      ;
@@ -6790,9 +6790,9 @@ Get_EnemyID_BattleStats:
                        db $08                               ;02A529|        |      ;
                        db $1A                               ;02A52A|        |      ;
                        dw LOOSE_OP_00A51D                   ;02A52B|        |00A51D;
-    1575 copy code 18:
-                       JSL.L Val equal to $1575?            ;02A52D|22DDAE07|07AEDD;
-                       BNE Load Stuff A39E                  ;02A531|D02A    |02A55D;
+          CODE_02A52D:
+                       JSL.L Is_Equals_1575                 ;02A52D|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A39E                  ;02A531|D02A    |02A55D;
                        LDX.W Selection                      ;02A533|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A536|BDC709  |0009C7;
                        STA.B $20                            ;02A539|8520    |000020;
@@ -6801,9 +6801,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A53F|AA      |      ;
                        LDA.W Current_HP,X                   ;02A540|BDF312  |0012F3;
                        CMP.B $20                            ;02A543|C520    |000020;
-                       BMI Load Stuff A4AF                  ;02A545|3002    |02A549;
-                       BCS Else                             ;02A547|B022    |02A56B;
-      Load Stuff A4AF:
+                       BMI Load_Stuff_A4AF                  ;02A545|3002    |02A549;
+                       BCS CODE_02A56B                      ;02A547|B022    |02A56B;
+      Load_Stuff_A4AF:
                        LDA.W Current_HP,X                   ;02A549|BDF312  |0012F3;
                        LDX.W Selection                      ;02A54C|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A54F|9DC709  |0009C7;
@@ -6811,13 +6811,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A555|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A558|5CB48D00|008DB4;
                        RTL                                  ;02A55C|6B      |      ;
-      Load Stuff A39E:
+      Load_Stuff_A39E:
                        LDX.W Selection                      ;02A55D|AE3F10  |00103F;
                        LDA.W #$A49E                         ;02A560|A99EA4  |      ;
                        LDY.W #$0002                         ;02A563|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A566|5CB48D00|008DB4;
                        RTL                                  ;02A56A|6B      |      ;
-                 Else:
+          CODE_02A56B:
                        LDA.W Current_HP,X                   ;02A56B|BDF312  |0012F3;
                        LDX.W Selection                      ;02A56E|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A571|9DC709  |0009C7;
@@ -6826,7 +6826,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A575|        |      ;
                        dl Battle_Prep                       ;02A576|        |029124;
                        db $09                               ;02A579|        |      ;
-                       dl 1575 copy code 18                 ;02A57A|        |02A60F;
+                       dl CODE_02A60F                       ;02A57A|        |02A60F;
                        db $1A                               ;02A57D|        |      ;
                        dw LOOSE_OP_00A5A3                   ;02A57E|        |00A5A3;
                        db $08                               ;02A580|        |      ;
@@ -6842,11 +6842,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A58E|        |      ;
                        dw LOOSE_OP_00A579                   ;02A58F|        |00A579;
                        db $04                               ;02A591|        |      ;
-                       dl Sub: Enemy death anim             ;02A592|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A592|        |028F24;
                        db $24                               ;02A595|        |      ;
                        db $02                               ;02A596|        |      ;
                        db $07                               ;02A597|        |      ;
-                       dl Condition_Check(2b)               ;02A598|        |07B0B0;
+                       dl Condition_Check_2b                ;02A598|        |07B0B0;
                        db $01                               ;02A59B|        |      ;
                        db $00                               ;02A59C|        |      ;
                        db $0B                               ;02A59D|        |      ;
@@ -6856,7 +6856,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A5A3|        |      ;
                        db $02                               ;02A5A4|        |      ;
                        db $07                               ;02A5A5|        |      ;
-                       dl Zeros 11DB                        ;02A5A6|        |0781F0;
+                       dl Zeros_11DB                        ;02A5A6|        |0781F0;
                        db $08                               ;02A5A9|        |      ;
                        dw CODE_00A5FF                       ;02A5AA|        |00A5FF;
                        db $24                               ;02A5AC|        |      ;
@@ -6887,7 +6887,7 @@ Get_EnemyID_BattleStats:
                        db $14                               ;02A5CF|        |      ;
                        db $01                               ;02A5D0|        |      ;
                        db $08                               ;02A5D1|        |      ;
-                       dw 00A5EB_far                        ;02A5D2|        |00A5E7;
+                       dw _00A5EB_far                       ;02A5D2|        |00A5E7;
                        db $1C                               ;02A5D4|        |      ;
                        db $14                               ;02A5D5|        |      ;
                        db $01                               ;02A5D6|        |      ;
@@ -6911,7 +6911,7 @@ Get_EnemyID_BattleStats:
                        db $A9                               ;02A5EA|        |      ;
                        db $B1                               ;02A5EB|        |      ;
                        db $1A                               ;02A5EC|        |      ;
-                       dw 00A5EB_far                        ;02A5ED|        |00A5E7;
+                       dw _00A5EB_far                       ;02A5ED|        |00A5E7;
                        db $30                               ;02A5EF|        |02A5F5;
                        db $04                               ;02A5F0|        |000006;
                        db $06                               ;02A5F1|        |000040;
@@ -6942,9 +6942,9 @@ Get_EnemyID_BattleStats:
                        db $09                               ;02A60B|        |      ;
                        db $1A                               ;02A60C|        |      ;
                        dw CODE_00A5FF                       ;02A60D|        |00A5FF;
-    1575 copy code 18:
-                       JSL.L Val equal to $1575?            ;02A60F|22DDAE07|07AEDD;
-                       BNE Load Stuff A580                  ;02A613|D02A    |02A63F;
+          CODE_02A60F:
+                       JSL.L Is_Equals_1575                 ;02A60F|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A580                  ;02A613|D02A    |02A63F;
                        LDX.W Selection                      ;02A615|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A618|BDC709  |0009C7;
                        STA.B $20                            ;02A61B|8520    |000020;
@@ -6953,9 +6953,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A621|AA      |      ;
                        LDA.W Current_HP,X                   ;02A622|BDF312  |0012F3;
                        CMP.B $20                            ;02A625|C520    |000020;
-                       BMI Load Stuff A591                  ;02A627|3002    |02A62B;
-                       BCS Else                             ;02A629|B022    |02A64D;
-      Load Stuff A591:
+                       BMI Load_Stuff_A591                  ;02A627|3002    |02A62B;
+                       BCS CODE_02A64D                      ;02A629|B022    |02A64D;
+      Load_Stuff_A591:
                        LDA.W Current_HP,X                   ;02A62B|BDF312  |0012F3;
                        LDX.W Selection                      ;02A62E|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A631|9DC709  |0009C7;
@@ -6963,13 +6963,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A637|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A63A|5CB48D00|008DB4;
                        RTL                                  ;02A63E|6B      |      ;
-      Load Stuff A580:
+      Load_Stuff_A580:
                        LDX.W Selection                      ;02A63F|AE3F10  |00103F;
                        LDA.W #$A580                         ;02A642|A980A5  |      ;
                        LDY.W #$0002                         ;02A645|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A648|5CB48D00|008DB4;
                        RTL                                  ;02A64C|6B      |      ;
-                 Else:
+          CODE_02A64D:
                        LDA.W Current_HP,X                   ;02A64D|BDF312  |0012F3;
                        LDX.W Selection                      ;02A650|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A653|9DC709  |0009C7;
@@ -6978,7 +6978,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A657|        |      ;
                        dl Battle_Prep                       ;02A658|        |029124;
                        db $09                               ;02A65B|        |      ;
-                       dl 1575 copy code 17                 ;02A65C|        |02A710;
+                       dl CODE_02A710                       ;02A65C|        |02A710;
                        db $1A                               ;02A65F|        |      ;
                        dw LOOSE_OP_00A685                   ;02A660|        |00A685;
                        db $08                               ;02A662|        |      ;
@@ -6994,11 +6994,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A670|        |      ;
                        dw CODE_00A65B                       ;02A671|        |00A65B;
                        db $04                               ;02A673|        |      ;
-                       dl Sub: Enemy death anim             ;02A674|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A674|        |028F24;
                        db $24                               ;02A677|        |      ;
                        db $02                               ;02A678|        |      ;
                        db $07                               ;02A679|        |      ;
-                       dl Condition_Check(2b)               ;02A67A|        |07B0B0;
+                       dl Condition_Check_2b                ;02A67A|        |07B0B0;
                        db $01                               ;02A67D|        |      ;
                        db $00                               ;02A67E|        |      ;
                        db $0B                               ;02A67F|        |      ;
@@ -7008,7 +7008,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A685|        |      ;
                        db $02                               ;02A686|        |      ;
                        db $07                               ;02A687|        |      ;
-                       dl Zeros 11DB                        ;02A688|        |0781F0;
+                       dl Zeros_11DB                        ;02A688|        |0781F0;
                        db $08                               ;02A68B|        |      ;
                        dw CODE_00A6FD                       ;02A68C|        |00A6FD;
                        db $24                               ;02A68E|        |      ;
@@ -7127,9 +7127,9 @@ Get_EnemyID_BattleStats:
                        db $06                               ;02A70C|        |00001A;
                        db $1A                               ;02A70D|        |      ;
                        dw CODE_00A6FD                       ;02A70E|        |00A6FD;
-    1575 copy code 17:
-                       JSL.L Val equal to $1575?            ;02A710|22DDAE07|07AEDD;
-                       BNE Load Stuff A662                  ;02A714|D02A    |02A740;
+          CODE_02A710:
+                       JSL.L Is_Equals_1575                 ;02A710|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A662                  ;02A714|D02A    |02A740;
                        LDX.W Selection                      ;02A716|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A719|BDC709  |0009C7;
                        STA.B $20                            ;02A71C|8520    |000020;
@@ -7138,9 +7138,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A722|AA      |      ;
                        LDA.W Current_HP,X                   ;02A723|BDF312  |0012F3;
                        CMP.B $20                            ;02A726|C520    |000020;
-                       BMI Load Stuff A673                  ;02A728|3002    |02A72C;
-                       BCS Else                             ;02A72A|B022    |02A74E;
-      Load Stuff A673:
+                       BMI Load_Stuff_A673                  ;02A728|3002    |02A72C;
+                       BCS CODE_02A74E                      ;02A72A|B022    |02A74E;
+      Load_Stuff_A673:
                        LDA.W Current_HP,X                   ;02A72C|BDF312  |0012F3;
                        LDX.W Selection                      ;02A72F|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A732|9DC709  |0009C7;
@@ -7148,13 +7148,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A738|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A73B|5CB48D00|008DB4;
                        RTL                                  ;02A73F|6B      |      ;
-      Load Stuff A662:
+      Load_Stuff_A662:
                        LDX.W Selection                      ;02A740|AE3F10  |00103F;
                        LDA.W #$A662                         ;02A743|A962A6  |      ;
                        LDY.W #$0002                         ;02A746|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A749|5CB48D00|008DB4;
                        RTL                                  ;02A74D|6B      |      ;
-                 Else:
+          CODE_02A74E:
                        LDA.W Current_HP,X                   ;02A74E|BDF312  |0012F3;
                        LDX.W Selection                      ;02A751|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A754|9DC709  |0009C7;
@@ -7163,7 +7163,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A758|        |      ;
                        dl Battle_Prep                       ;02A759|        |029124;
                        db $09                               ;02A75C|        |      ;
-                       dl 1575 copy code 16                 ;02A75D|        |02A7EE;
+                       dl CODE_02A7EE                       ;02A75D|        |02A7EE;
                        db $1A                               ;02A760|        |      ;
                        dw CODE_00A786                       ;02A761|        |00A786;
                        db $08                               ;02A763|        |      ;
@@ -7179,11 +7179,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A771|        |      ;
                        dw LOOSE_OP_00A75C                   ;02A772|        |00A75C;
                        db $04                               ;02A774|        |      ;
-                       dl Sub: Enemy death anim             ;02A775|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A775|        |028F24;
                        db $24                               ;02A778|        |      ;
                        db $02                               ;02A779|        |      ;
                        db $07                               ;02A77A|        |      ;
-                       dl Condition_Check(2b)               ;02A77B|        |07B0B0;
+                       dl Condition_Check_2b                ;02A77B|        |07B0B0;
                        db $01                               ;02A77E|        |      ;
                        db $00                               ;02A77F|        |      ;
                        db $0B                               ;02A780|        |      ;
@@ -7193,7 +7193,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A786|        |      ;
                        db $02                               ;02A787|        |      ;
                        db $07                               ;02A788|        |      ;
-                       dl Zeros 11DB                        ;02A789|        |0781F0;
+                       dl Zeros_11DB                        ;02A789|        |0781F0;
                        db $08                               ;02A78C|        |      ;
                        dw CODE_00A7E2                       ;02A78D|        |00A7E2;
                        db $24                               ;02A78F|        |      ;
@@ -7277,9 +7277,9 @@ Get_EnemyID_BattleStats:
                        db $2E                               ;02A7EA|        |00E21A;
                        db $1A                               ;02A7EB|        |      ;
                        dw CODE_00A7E2                       ;02A7EC|        |00A7E2;
-    1575 copy code 16:
-                       JSL.L Val equal to $1575?            ;02A7EE|22DDAE07|07AEDD;
-                       BNE Load Stuff A763                  ;02A7F2|D02A    |02A81E;
+          CODE_02A7EE:
+                       JSL.L Is_Equals_1575                 ;02A7EE|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A763                  ;02A7F2|D02A    |02A81E;
                        LDX.W Selection                      ;02A7F4|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A7F7|BDC709  |0009C7;
                        STA.B $20                            ;02A7FA|8520    |000020;
@@ -7288,9 +7288,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A800|AA      |      ;
                        LDA.W Current_HP,X                   ;02A801|BDF312  |0012F3;
                        CMP.B $20                            ;02A804|C520    |000020;
-                       BMI Load Stuff A774                  ;02A806|3002    |02A80A;
-                       BCS Else                             ;02A808|B022    |02A82C;
-      Load Stuff A774:
+                       BMI Load_Stuff_A774                  ;02A806|3002    |02A80A;
+                       BCS CODE_02A82C                      ;02A808|B022    |02A82C;
+      Load_Stuff_A774:
                        LDA.W Current_HP,X                   ;02A80A|BDF312  |0012F3;
                        LDX.W Selection                      ;02A80D|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A810|9DC709  |0009C7;
@@ -7298,13 +7298,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A816|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A819|5CB48D00|008DB4;
                        RTL                                  ;02A81D|6B      |      ;
-      Load Stuff A763:
+      Load_Stuff_A763:
                        LDX.W Selection                      ;02A81E|AE3F10  |00103F;
                        LDA.W #$A763                         ;02A821|A963A7  |      ;
                        LDY.W #$0002                         ;02A824|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A827|5CB48D00|008DB4;
                        RTL                                  ;02A82B|6B      |      ;
-                 Else:
+          CODE_02A82C:
                        LDA.W Current_HP,X                   ;02A82C|BDF312  |0012F3;
                        LDX.W Selection                      ;02A82F|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A832|9DC709  |0009C7;
@@ -7313,7 +7313,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A836|        |      ;
                        dl Battle_Prep                       ;02A837|        |029124;
                        db $09                               ;02A83A|        |      ;
-                       dl 1575 copy code 15                 ;02A83B|        |02A915;
+                       dl CODE_02A915                       ;02A83B|        |02A915;
                        db $1A                               ;02A83E|        |      ;
                        dw LOOSE_OP_00A864                   ;02A83F|        |00A864;
                        db $08                               ;02A841|        |      ;
@@ -7329,11 +7329,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A84F|        |      ;
                        dw CODE_00A83A                       ;02A850|        |00A83A;
                        db $04                               ;02A852|        |      ;
-                       dl Sub: Enemy death anim             ;02A853|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A853|        |028F24;
                        db $24                               ;02A856|        |      ;
                        db $02                               ;02A857|        |      ;
                        db $07                               ;02A858|        |      ;
-                       dl Condition_Check(2b)               ;02A859|        |07B0B0;
+                       dl Condition_Check_2b                ;02A859|        |07B0B0;
                        db $01                               ;02A85C|        |      ;
                        db $00                               ;02A85D|        |      ;
                        db $0B                               ;02A85E|        |      ;
@@ -7343,7 +7343,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02A864|        |      ;
                        db $02                               ;02A865|        |      ;
                        db $07                               ;02A866|        |      ;
-                       dl Zeros 11DB                        ;02A867|        |0781F0;
+                       dl Zeros_11DB                        ;02A867|        |0781F0;
                        db $08                               ;02A86A|        |      ;
                        dw LOOSE_OP_00A8EA                   ;02A86B|        |00A8EA;
                        db $24                               ;02A86D|        |      ;
@@ -7500,9 +7500,9 @@ Get_EnemyID_BattleStats:
                        db $08                               ;02A911|        |      ;
                        db $1A                               ;02A912|        |      ;
                        dw LOOSE_OP_00A8EA                   ;02A913|        |00A8EA;
-    1575 copy code 15:
-                       JSL.L Val equal to $1575?            ;02A915|22DDAE07|07AEDD;
-                       BNE Load Stuff A841                  ;02A919|D02A    |02A945;
+          CODE_02A915:
+                       JSL.L Is_Equals_1575                 ;02A915|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A841                  ;02A919|D02A    |02A945;
                        LDX.W Selection                      ;02A91B|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A91E|BDC709  |0009C7;
                        STA.B $20                            ;02A921|8520    |000020;
@@ -7511,9 +7511,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A927|AA      |      ;
                        LDA.W Current_HP,X                   ;02A928|BDF312  |0012F3;
                        CMP.B $20                            ;02A92B|C520    |000020;
-                       BMI Load Stuff A852                  ;02A92D|3002    |02A931;
-                       BCS Else                             ;02A92F|B022    |02A953;
-      Load Stuff A852:
+                       BMI Load_Stuff_A852                  ;02A92D|3002    |02A931;
+                       BCS CODE_02A953                      ;02A92F|B022    |02A953;
+      Load_Stuff_A852:
                        LDA.W Current_HP,X                   ;02A931|BDF312  |0012F3;
                        LDX.W Selection                      ;02A934|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A937|9DC709  |0009C7;
@@ -7521,13 +7521,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A93D|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A940|5CB48D00|008DB4;
                        RTL                                  ;02A944|6B      |      ;
-      Load Stuff A841:
+      Load_Stuff_A841:
                        LDX.W Selection                      ;02A945|AE3F10  |00103F;
                        LDA.W #$A841                         ;02A948|A941A8  |      ;
                        LDY.W #$0002                         ;02A94B|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A94E|5CB48D00|008DB4;
                        RTL                                  ;02A952|6B      |      ;
-                 Else:
+          CODE_02A953:
                        LDA.W Current_HP,X                   ;02A953|BDF312  |0012F3;
                        LDX.W Selection                      ;02A956|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A959|9DC709  |0009C7;
@@ -7536,7 +7536,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A95D|        |      ;
                        dl Battle_Prep                       ;02A95E|        |029124;
                        db $09                               ;02A961|        |      ;
-                       dl 1575 copy code 14                 ;02A962|        |02A991;
+                       dl CODE_02A991                       ;02A962|        |02A991;
                        db $1A                               ;02A965|        |      ;
                        dw LOOSE_OP_00A984                   ;02A966|        |00A984;
                        db $08                               ;02A968|        |      ;
@@ -7546,11 +7546,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A96F|        |      ;
                        dw LOOSE_OP_00A961                   ;02A970|        |00A961;
                        db $04                               ;02A972|        |      ;
-                       dl Sub: Enemy death anim             ;02A973|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A973|        |028F24;
                        db $24                               ;02A976|        |      ;
                        db $02                               ;02A977|        |      ;
                        db $07                               ;02A978|        |      ;
-                       dl Condition_Check(2b)               ;02A979|        |07B0B0;
+                       dl Condition_Check_2b                ;02A979|        |07B0B0;
                        db $01                               ;02A97C|        |      ;
                        db $00                               ;02A97D|        |      ;
                        db $0B                               ;02A97E|        |      ;
@@ -7569,9 +7569,9 @@ Get_EnemyID_BattleStats:
                        db $0F                               ;02A98D|        |A9841A;
                        db $1A                               ;02A98E|        |      ;
                        dw LOOSE_OP_00A984                   ;02A98F|        |00A984;
-    1575 copy code 14:
-                       JSL.L Val equal to $1575?            ;02A991|22DDAE07|07AEDD;
-                       BNE Load Stuff A968                  ;02A995|D02A    |02A9C1;
+          CODE_02A991:
+                       JSL.L Is_Equals_1575                 ;02A991|22DDAE07|07AEDD;
+                       BNE Load_Stuff_A968                  ;02A995|D02A    |02A9C1;
                        LDX.W Selection                      ;02A997|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02A99A|BDC709  |0009C7;
                        STA.B $20                            ;02A99D|8520    |000020;
@@ -7580,9 +7580,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02A9A3|AA      |      ;
                        LDA.W Current_HP,X                   ;02A9A4|BDF312  |0012F3;
                        CMP.B $20                            ;02A9A7|C520    |000020;
-                       BMI Load Stuff A972                  ;02A9A9|3002    |02A9AD;
-                       BCS Else                             ;02A9AB|B022    |02A9CF;
-      Load Stuff A972:
+                       BMI Load_Stuff_A972                  ;02A9A9|3002    |02A9AD;
+                       BCS CODE_02A9CF                      ;02A9AB|B022    |02A9CF;
+      Load_Stuff_A972:
                        LDA.W Current_HP,X                   ;02A9AD|BDF312  |0012F3;
                        LDX.W Selection                      ;02A9B0|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A9B3|9DC709  |0009C7;
@@ -7590,13 +7590,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02A9B9|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A9BC|5CB48D00|008DB4;
                        RTL                                  ;02A9C0|6B      |      ;
-      Load Stuff A968:
+      Load_Stuff_A968:
                        LDX.W Selection                      ;02A9C1|AE3F10  |00103F;
                        LDA.W #$A968                         ;02A9C4|A968A9  |      ;
                        LDY.W #$0002                         ;02A9C7|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02A9CA|5CB48D00|008DB4;
                        RTL                                  ;02A9CE|6B      |      ;
-                 Else:
+          CODE_02A9CF:
                        LDA.W Current_HP,X                   ;02A9CF|BDF312  |0012F3;
                        LDX.W Selection                      ;02A9D2|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A9D5|9DC709  |0009C7;
@@ -7605,7 +7605,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02A9D9|        |      ;
                        dl Battle_Prep                       ;02A9DA|        |029124;
                        db $09                               ;02A9DD|        |      ;
-                       dl 1575 copy code 13                 ;02A9DE|        |02AA05;
+                       dl CODE_02AA05                       ;02A9DE|        |02AA05;
                        db $1A                               ;02A9E1|        |      ;
                        dw LOOSE_OP_00AA00                   ;02A9E2|        |00AA00;
                        db $08                               ;02A9E4|        |      ;
@@ -7615,11 +7615,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02A9EB|        |      ;
                        dw LOOSE_OP_00A9DD                   ;02A9EC|        |00A9DD;
                        db $04                               ;02A9EE|        |      ;
-                       dl Sub: Enemy death anim             ;02A9EF|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02A9EF|        |028F24;
                        db $24                               ;02A9F2|        |      ;
                        db $02                               ;02A9F3|        |      ;
                        db $07                               ;02A9F4|        |      ;
-                       dl Condition_Check(2b)               ;02A9F5|        |07B0B0;
+                       dl Condition_Check_2b                ;02A9F5|        |07B0B0;
                        db $01                               ;02A9F8|        |      ;
                        db $00                               ;02A9F9|        |      ;
                        db $0B                               ;02A9FA|        |      ;
@@ -7630,8 +7630,8 @@ Get_EnemyID_BattleStats:
                        db $03                               ;02AA01|        |00001A;
                        db $1A                               ;02AA02|        |      ;
                        dw LOOSE_OP_00AA00                   ;02AA03|        |00AA00;
-    1575 copy code 13:
-                       JSL.L Val equal to $1575?            ;02AA05|22DDAE07|07AEDD;
+          CODE_02AA05:
+                       JSL.L Is_Equals_1575                 ;02AA05|22DDAE07|07AEDD;
                        BNE CODE_02AA35                      ;02AA09|D02A    |02AA35;
                        LDX.W Selection                      ;02AA0B|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02AA0E|BDC709  |0009C7;
@@ -7666,7 +7666,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02AA4D|        |      ;
                        dl Battle_Prep                       ;02AA4E|        |029124;
                        db $09                               ;02AA51|        |      ;
-                       dl 1575 copy code 12                 ;02AA52|        |02AAE7;
+                       dl CODE_02AAE7                       ;02AA52|        |02AAE7;
                        db $1A                               ;02AA55|        |      ;
                        dw LOOSE_OP_00AA7B                   ;02AA56|        |00AA7B;
                        db $08                               ;02AA58|        |      ;
@@ -7682,11 +7682,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AA66|        |      ;
                        dw LOOSE_OP_00AA51                   ;02AA67|        |00AA51;
                        db $04                               ;02AA69|        |      ;
-                       dl Sub: Enemy death anim             ;02AA6A|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02AA6A|        |028F24;
                        db $24                               ;02AA6D|        |      ;
                        db $02                               ;02AA6E|        |      ;
                        db $07                               ;02AA6F|        |      ;
-                       dl Condition_Check(2b)               ;02AA70|        |07B0B0;
+                       dl Condition_Check_2b                ;02AA70|        |07B0B0;
                        db $01                               ;02AA73|        |      ;
                        db $00                               ;02AA74|        |      ;
                        db $0B                               ;02AA75|        |      ;
@@ -7696,7 +7696,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02AA7B|        |      ;
                        db $02                               ;02AA7C|        |      ;
                        db $07                               ;02AA7D|        |      ;
-                       dl Zeros 11DB                        ;02AA7E|        |0781F0;
+                       dl Zeros_11DB                        ;02AA7E|        |0781F0;
                        db $08                               ;02AA81|        |      ;
                        dw CODE_00AAD7                       ;02AA82|        |00AAD7;
                        db $24                               ;02AA84|        |      ;
@@ -7785,9 +7785,9 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AAE4|        |      ;
                        db $D7                               ;02AAE5|        |0000AA;
                        db $AA                               ;02AAE6|        |      ;
-    1575 copy code 12:
-                       JSL.L Val equal to $1575?            ;02AAE7|22DDAE07|07AEDD;
-                       BNE Load Stuff AA58                  ;02AAEB|D02A    |02AB17;
+          CODE_02AAE7:
+                       JSL.L Is_Equals_1575                 ;02AAE7|22DDAE07|07AEDD;
+                       BNE Load_Stuff_AA58                  ;02AAEB|D02A    |02AB17;
                        LDX.W Selection                      ;02AAED|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02AAF0|BDC709  |0009C7;
                        STA.B $20                            ;02AAF3|8520    |000020;
@@ -7796,9 +7796,9 @@ Get_EnemyID_BattleStats:
                        TAX                                  ;02AAF9|AA      |      ;
                        LDA.W Current_HP,X                   ;02AAFA|BDF312  |0012F3;
                        CMP.B $20                            ;02AAFD|C520    |000020;
-                       BMI Load Stuff AA69                  ;02AAFF|3002    |02AB03;
-                       BCS Else                             ;02AB01|B022    |02AB25;
-      Load Stuff AA69:
+                       BMI Load_Stuff_AA69                  ;02AAFF|3002    |02AB03;
+                       BCS CODE_02AB25                      ;02AB01|B022    |02AB25;
+      Load_Stuff_AA69:
                        LDA.W Current_HP,X                   ;02AB03|BDF312  |0012F3;
                        LDX.W Selection                      ;02AB06|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02AB09|9DC709  |0009C7;
@@ -7806,13 +7806,13 @@ Get_EnemyID_BattleStats:
                        LDY.W #$0002                         ;02AB0F|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02AB12|5CB48D00|008DB4;
                        RTL                                  ;02AB16|6B      |      ;
-      Load Stuff AA58:
+      Load_Stuff_AA58:
                        LDX.W Selection                      ;02AB17|AE3F10  |00103F;
                        LDA.W #$AA58                         ;02AB1A|A958AA  |      ;
                        LDY.W #$0002                         ;02AB1D|A00200  |      ;
                        JML.L Sub_LoadStuff                  ;02AB20|5CB48D00|008DB4;
                        RTL                                  ;02AB24|6B      |      ;
-                 Else:
+          CODE_02AB25:
                        LDA.W Current_HP,X                   ;02AB25|BDF312  |0012F3;
                        LDX.W Selection                      ;02AB28|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02AB2B|9DC709  |0009C7;
@@ -7821,7 +7821,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02AB2F|        |      ;
                        dl Battle_Prep                       ;02AB30|        |029124;
                        db $09                               ;02AB33|        |      ;
-                       dl 1575 copy code 11                 ;02AB34|        |02ABC5;
+                       dl CODE_02ABC5                       ;02AB34|        |02ABC5;
                        db $1A                               ;02AB37|        |      ;
                        dw CODE_00AB5D                       ;02AB38|        |00AB5D;
                        db $08                               ;02AB3A|        |      ;
@@ -7837,12 +7837,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AB48|        |      ;
                        dw LOOSE_OP_00AB33                   ;02AB49|        |00AB33;
                        db $04                               ;02AB4B|        |      ;
-                       dl Sub: Enemy death anim             ;02AB4C|        |028F24;
-         24-02-07 #-8:
+                       dl Sub_Enemy_death_anim              ;02AB4C|        |028F24;
                        db $24                               ;02AB4F|        |      ;
                        db $02                               ;02AB50|        |      ;
                        db $07                               ;02AB51|        |      ;
-                       dl Condition_Check(2b)               ;02AB52|        |07B0B0;
+                       dl Condition_Check_2b                ;02AB52|        |07B0B0;
                        db $01                               ;02AB55|        |      ;
                        db $00                               ;02AB56|        |      ;
                        db $0B                               ;02AB57|        |      ;
@@ -7852,7 +7851,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02AB5D|        |      ;
                        db $02                               ;02AB5E|        |      ;
                        db $07                               ;02AB5F|        |      ;
-                       dl Zeros 11DB                        ;02AB60|        |0781F0;
+                       dl Zeros_11DB                        ;02AB60|        |0781F0;
                        db $08                               ;02AB63|        |      ;
                        dw CODE_00ABB7                       ;02AB64|        |00ABB7;
                        db $24                               ;02AB66|        |      ;
@@ -7937,8 +7936,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02ABC2|        |      ;
                        db $B7                               ;02ABC3|        |0000AB;
                        db $AB                               ;02ABC4|        |      ;
-    1575 copy code 11:
-                       JSL.L Val equal to $1575?            ;02ABC5|22DDAE07|07AEDD;
+          CODE_02ABC5:
+                       JSL.L Is_Equals_1575                 ;02ABC5|22DDAE07|07AEDD;
                        BNE CODE_02ABF5                      ;02ABC9|D02A    |02ABF5;
                        LDX.W Selection                      ;02ABCB|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02ABCE|BDC709  |0009C7;
@@ -7973,7 +7972,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02AC0D|        |      ;
                        dl Battle_Prep                       ;02AC0E|        |029124;
                        db $09                               ;02AC11|        |      ;
-                       dl 1575 copy code 10                 ;02AC12|        |02AC99;
+                       dl CODE_02AC99                       ;02AC12|        |02AC99;
                        db $1A                               ;02AC15|        |      ;
                        dw DATA8_00AC3B                      ;02AC16|        |00AC3B;
                        db $08                               ;02AC18|        |      ;
@@ -7989,12 +7988,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AC26|        |      ;
                        dw DATA16_00AC11                     ;02AC27|        |00AC11;
                        db $04                               ;02AC29|        |      ;
-                       dl Sub: Enemy death anim             ;02AC2A|        |028F24;
-         24-02-07 #-7:
+                       dl Sub_Enemy_death_anim              ;02AC2A|        |028F24;
                        db $24                               ;02AC2D|        |      ;
                        db $02                               ;02AC2E|        |      ;
                        db $07                               ;02AC2F|        |      ;
-                       dl Condition_Check(2b)               ;02AC30|        |07B0B0;
+                       dl Condition_Check_2b                ;02AC30|        |07B0B0;
                        db $01                               ;02AC33|        |      ;
                        db $00                               ;02AC34|        |      ;
                        db $0B                               ;02AC35|        |      ;
@@ -8004,7 +8002,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02AC3B|        |      ;
                        db $02                               ;02AC3C|        |      ;
                        db $07                               ;02AC3D|        |      ;
-                       dl Zeros 11DB                        ;02AC3E|        |0781F0;
+                       dl Zeros_11DB                        ;02AC3E|        |0781F0;
                        db $08                               ;02AC41|        |      ;
                        dw DATA8_00AC8F                      ;02AC42|        |00AC8F;
                        db $24                               ;02AC44|        |      ;
@@ -8079,8 +8077,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AC96|        |      ;
                        db $8F                               ;02AC97|        |DD22AC;
                        db $AC                               ;02AC98|        |00DD22;
-    1575 copy code 10:
-                       JSL.L Val equal to $1575?            ;02AC99|22DDAE07|07AEDD;
+          CODE_02AC99:
+                       JSL.L Is_Equals_1575                 ;02AC99|22DDAE07|07AEDD;
                        BNE CODE_02ACC9                      ;02AC9D|D02A    |02ACC9;
                        LDX.W Selection                      ;02AC9F|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02ACA2|BDC709  |0009C7;
@@ -8115,7 +8113,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02ACE1|        |      ;
                        dl Battle_Prep                       ;02ACE2|        |029124;
                        db $09                               ;02ACE5|        |      ;
-                       dl 1575 copy code 9                  ;02ACE6|        |02AD6C;
+                       dl CODE_02AD6C                       ;02ACE6|        |02AD6C;
                        db $1A                               ;02ACE9|        |      ;
                        dw DATA8_00AD0F                      ;02ACEA|        |00AD0F;
                        db $08                               ;02ACEC|        |      ;
@@ -8131,12 +8129,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02ACFA|        |      ;
                        dw DATA8_00ACE5                      ;02ACFB|        |00ACE5;
                        db $04                               ;02ACFD|        |      ;
-                       dl Sub: Enemy death anim             ;02ACFE|        |028F24;
-         24-02-07 #-6:
+                       dl Sub_Enemy_death_anim              ;02ACFE|        |028F24;
                        db $24                               ;02AD01|        |      ;
                        db $02                               ;02AD02|        |      ;
                        db $07                               ;02AD03|        |      ;
-                       dl Condition_Check(2b)               ;02AD04|        |07B0B0;
+                       dl Condition_Check_2b                ;02AD04|        |07B0B0;
                        db $01                               ;02AD07|        |      ;
                        db $00                               ;02AD08|        |      ;
                        db $0B                               ;02AD09|        |      ;
@@ -8146,7 +8143,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02AD0F|        |      ;
                        db $02                               ;02AD10|        |      ;
                        db $07                               ;02AD11|        |      ;
-                       dl Zeros 11DB                        ;02AD12|        |0781F0;
+                       dl Zeros_11DB                        ;02AD12|        |0781F0;
                        db $08                               ;02AD15|        |      ;
                        dw DATA8_00AD65                      ;02AD16|        |00AD65;
                        db $24                               ;02AD18|        |      ;
@@ -8220,8 +8217,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AD69|        |      ;
                        db $65                               ;02AD6A|        |0000AD;
                        db $AD                               ;02AD6B|        |00DD22;
-     1575 copy code 9:
-                       JSL.L Val equal to $1575?            ;02AD6C|22DDAE07|07AEDD;
+          CODE_02AD6C:
+                       JSL.L Is_Equals_1575                 ;02AD6C|22DDAE07|07AEDD;
                        BNE CODE_02AD9C                      ;02AD70|D02A    |02AD9C;
                        LDX.W Selection                      ;02AD72|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02AD75|BDC709  |0009C7;
@@ -8256,7 +8253,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02ADB4|        |      ;
                        dl Battle_Prep                       ;02ADB5|        |029124;
                        db $09                               ;02ADB8|        |      ;
-                       dl 1575 copy code 8                  ;02ADB9|        |02AE49;
+                       dl CODE_02AE49                       ;02ADB9|        |02AE49;
                        db $1A                               ;02ADBC|        |      ;
                        dw DATA8_00ADE2                      ;02ADBD|        |00ADE2;
                        db $08                               ;02ADBF|        |      ;
@@ -8272,12 +8269,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02ADCD|        |      ;
                        dw DATA8_00ADB8                      ;02ADCE|        |00ADB8;
                        db $04                               ;02ADD0|        |      ;
-                       dl Sub: Enemy death anim             ;02ADD1|        |028F24;
-         24-02-07 #-5:
+                       dl Sub_Enemy_death_anim              ;02ADD1|        |028F24;
                        db $24                               ;02ADD4|        |      ;
                        db $02                               ;02ADD5|        |      ;
                        db $07                               ;02ADD6|        |      ;
-                       dl Condition_Check(2b)               ;02ADD7|        |07B0B0;
+                       dl Condition_Check_2b                ;02ADD7|        |07B0B0;
                        db $01                               ;02ADDA|        |      ;
                        db $00                               ;02ADDB|        |      ;
                        db $0B                               ;02ADDC|        |      ;
@@ -8287,7 +8283,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02ADE2|        |      ;
                        db $02                               ;02ADE3|        |      ;
                        db $07                               ;02ADE4|        |      ;
-                       dl Zeros 11DB                        ;02ADE5|        |0781F0;
+                       dl Zeros_11DB                        ;02ADE5|        |0781F0;
                        db $08                               ;02ADE8|        |      ;
                        dw DATA8_00AE3C                      ;02ADE9|        |00AE3C;
                        db $24                               ;02ADEB|        |      ;
@@ -8371,8 +8367,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AE46|        |      ;
                        db $3C                               ;02AE47|        |0022AE;
                        db $AE                               ;02AE48|        |00DD22;
-     1575 copy code 8:
-                       JSL.L Val equal to $1575?            ;02AE49|22DDAE07|07AEDD;
+          CODE_02AE49:
+                       JSL.L Is_Equals_1575                 ;02AE49|22DDAE07|07AEDD;
                        BNE CODE_02AE79                      ;02AE4D|D02A    |02AE79;
                        LDX.W Selection                      ;02AE4F|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02AE52|BDC709  |0009C7;
@@ -8407,7 +8403,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02AE91|        |      ;
                        dl Battle_Prep                       ;02AE92|        |029124;
                        db $09                               ;02AE95|        |      ;
-                       dl 1575 copy code 7                  ;02AE96|        |02AF2B;
+                       dl CODE_02AF2B                       ;02AE96|        |02AF2B;
                        db $1A                               ;02AE99|        |      ;
                        dw DATA8_00AEBF                      ;02AE9A|        |00AEBF;
                        db $08                               ;02AE9C|        |      ;
@@ -8423,12 +8419,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AEAA|        |      ;
                        dw DATA8_00AE95                      ;02AEAB|        |00AE95;
                        db $04                               ;02AEAD|        |      ;
-                       dl Sub: Enemy death anim             ;02AEAE|        |028F24;
-        24-02-07 #-05:
+                       dl Sub_Enemy_death_anim              ;02AEAE|        |028F24;
                        db $24                               ;02AEB1|        |      ;
                        db $02                               ;02AEB2|        |      ;
                        db $07                               ;02AEB3|        |      ;
-                       dl Condition_Check(2b)               ;02AEB4|        |07B0B0;
+                       dl Condition_Check_2b                ;02AEB4|        |07B0B0;
                        db $01                               ;02AEB7|        |      ;
                        db $00                               ;02AEB8|        |      ;
                        db $0B                               ;02AEB9|        |      ;
@@ -8438,7 +8433,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02AEBF|        |      ;
                        db $02                               ;02AEC0|        |      ;
                        db $07                               ;02AEC1|        |      ;
-                       dl Zeros 11DB                        ;02AEC2|        |0781F0;
+                       dl Zeros_11DB                        ;02AEC2|        |0781F0;
                        db $08                               ;02AEC5|        |      ;
                        dw DATA8_00AF1B                      ;02AEC6|        |00AF1B;
                        db $24                               ;02AEC8|        |      ;
@@ -8527,8 +8522,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AF28|        |      ;
                        db $1B                               ;02AF29|        |      ;
                        db $AF                               ;02AF2A|        |AEDD22;
-     1575 copy code 7:
-                       JSL.L Val equal to $1575?            ;02AF2B|22DDAE07|07AEDD;
+          CODE_02AF2B:
+                       JSL.L Is_Equals_1575                 ;02AF2B|22DDAE07|07AEDD;
                        BNE CODE_02AF5B                      ;02AF2F|D02A    |02AF5B;
                        LDX.W Selection                      ;02AF31|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02AF34|BDC709  |0009C7;
@@ -8563,7 +8558,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02AF73|        |      ;
                        dl Battle_Prep                       ;02AF74|        |029124;
                        db $09                               ;02AF77|        |      ;
-                       dl 1575 copy code 6                  ;02AF78|        |02B00D;
+                       dl CODE_02B00D                       ;02AF78|        |02B00D;
                        db $1A                               ;02AF7B|        |      ;
                        dw DATA8_00AFA1                      ;02AF7C|        |00AFA1;
                        db $08                               ;02AF7E|        |      ;
@@ -8579,12 +8574,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02AF8C|        |      ;
                        dw DATA8_00AF77                      ;02AF8D|        |00AF77;
                        db $04                               ;02AF8F|        |      ;
-                       dl Sub: Enemy death anim             ;02AF90|        |028F24;
-         24-02-07 #-4:
+                       dl Sub_Enemy_death_anim              ;02AF90|        |028F24;
                        db $24                               ;02AF93|        |      ;
                        db $02                               ;02AF94|        |      ;
                        db $07                               ;02AF95|        |      ;
-                       dl Condition_Check(2b)               ;02AF96|        |07B0B0;
+                       dl Condition_Check_2b                ;02AF96|        |07B0B0;
                        db $01                               ;02AF99|        |      ;
                        db $00                               ;02AF9A|        |      ;
                        db $0B                               ;02AF9B|        |      ;
@@ -8594,7 +8588,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02AFA1|        |      ;
                        db $02                               ;02AFA2|        |      ;
                        db $07                               ;02AFA3|        |      ;
-                       dl Zeros 11DB                        ;02AFA4|        |0781F0;
+                       dl Zeros_11DB                        ;02AFA4|        |0781F0;
                        db $08                               ;02AFA7|        |      ;
                        dw DATA8_00AFFD                      ;02AFA8|        |00AFFD;
                        db $24                               ;02AFAA|        |      ;
@@ -8683,8 +8677,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B00A|        |      ;
                        db $FD                               ;02B00B|        |0022AF;
                        db $AF                               ;02B00C|        |AEDD22;
-     1575 copy code 6:
-                       JSL.L Val equal to $1575?            ;02B00D|22DDAE07|07AEDD;
+          CODE_02B00D:
+                       JSL.L Is_Equals_1575                 ;02B00D|22DDAE07|07AEDD;
                        BNE CODE_02B03D                      ;02B011|D02A    |02B03D;
                        LDX.W Selection                      ;02B013|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B016|BDC709  |0009C7;
@@ -8719,7 +8713,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02B055|        |      ;
                        dl Battle_Prep                       ;02B056|        |029124;
                        db $09                               ;02B059|        |      ;
-                       dl 1575 copy code 5                  ;02B05A|        |02B0EA;
+                       dl CODE_02B0EA                       ;02B05A|        |02B0EA;
                        db $1A                               ;02B05D|        |      ;
                        dw DATA8_00B083                      ;02B05E|        |00B083;
                        db $08                               ;02B060|        |      ;
@@ -8735,12 +8729,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B06E|        |      ;
                        dw DATA8_00B059                      ;02B06F|        |00B059;
                        db $04                               ;02B071|        |      ;
-                       dl Sub: Enemy death anim             ;02B072|        |028F24;
-         24-02-07 #-3:
+                       dl Sub_Enemy_death_anim              ;02B072|        |028F24;
                        db $24                               ;02B075|        |      ;
                        db $02                               ;02B076|        |      ;
                        db $07                               ;02B077|        |      ;
-                       dl Condition_Check(2b)               ;02B078|        |07B0B0;
+                       dl Condition_Check_2b                ;02B078|        |07B0B0;
                        db $01                               ;02B07B|        |      ;
                        db $00                               ;02B07C|        |      ;
                        db $0B                               ;02B07D|        |      ;
@@ -8750,7 +8743,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02B083|        |      ;
                        db $02                               ;02B084|        |      ;
                        db $07                               ;02B085|        |      ;
-                       dl Zeros 11DB                        ;02B086|        |0781F0;
+                       dl Zeros_11DB                        ;02B086|        |0781F0;
                        db $08                               ;02B089|        |      ;
                        dw DATA8_00B0DD                      ;02B08A|        |00B0DD;
                        db $24                               ;02B08C|        |      ;
@@ -8832,8 +8825,8 @@ Get_EnemyID_BattleStats:
                        db $02                               ;02B0E6|        |      ;
                        db $1A                               ;02B0E7|        |      ;
                        dw DATA8_00B0DD                      ;02B0E8|        |00B0DD;
-     1575 copy code 5:
-                       JSL.L Val equal to $1575?            ;02B0EA|22DDAE07|07AEDD;
+          CODE_02B0EA:
+                       JSL.L Is_Equals_1575                 ;02B0EA|22DDAE07|07AEDD;
                        BNE CODE_02B11A                      ;02B0EE|D02A    |02B11A;
                        LDX.W Selection                      ;02B0F0|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B0F3|BDC709  |0009C7;
@@ -8868,7 +8861,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02B132|        |      ;
                        dl Battle_Prep                       ;02B133|        |029124;
                        db $09                               ;02B136|        |      ;
-                       dl 1575 copy code 4                  ;02B137|        |02B1CC;
+                       dl CODE_02B1CC                       ;02B137|        |02B1CC;
                        db $1A                               ;02B13A|        |      ;
                        dw DATA8_00B160                      ;02B13B|        |00B160;
                        db $08                               ;02B13D|        |      ;
@@ -8884,12 +8877,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B14B|        |      ;
                        dw DATA8_00B136                      ;02B14C|        |00B136;
                        db $04                               ;02B14E|        |      ;
-                       dl Sub: Enemy death anim             ;02B14F|        |028F24;
-         24-02-07 #-2:
+                       dl Sub_Enemy_death_anim              ;02B14F|        |028F24;
                        db $24                               ;02B152|        |      ;
                        db $02                               ;02B153|        |      ;
                        db $07                               ;02B154|        |      ;
-                       dl Condition_Check(2b)               ;02B155|        |07B0B0;
+                       dl Condition_Check_2b                ;02B155|        |07B0B0;
                        db $01                               ;02B158|        |      ;
                        db $00                               ;02B159|        |      ;
                        db $0B                               ;02B15A|        |      ;
@@ -8899,7 +8891,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02B160|        |      ;
                        db $02                               ;02B161|        |      ;
                        db $07                               ;02B162|        |      ;
-                       dl Zeros 11DB                        ;02B163|        |0781F0;
+                       dl Zeros_11DB                        ;02B163|        |0781F0;
                        db $08                               ;02B166|        |      ;
                        dw DATA8_00B1BC                      ;02B167|        |00B1BC;
                        db $24                               ;02B169|        |      ;
@@ -8999,8 +8991,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B1C9|        |      ;
                        db $BC                               ;02B1CA|        |0022B1;
                        db $B1                               ;02B1CB|        |000022;
-     1575 copy code 4:
-                       JSL.L Val equal to $1575?            ;02B1CC|22DDAE07|07AEDD;
+          CODE_02B1CC:
+                       JSL.L Is_Equals_1575                 ;02B1CC|22DDAE07|07AEDD;
                        BNE CODE_02B1FC                      ;02B1D0|D02A    |02B1FC;
                        LDX.W Selection                      ;02B1D2|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B1D5|BDC709  |0009C7;
@@ -9035,7 +9027,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02B214|        |      ;
                        dl Battle_Prep                       ;02B215|        |029124;
                        db $09                               ;02B218|        |      ;
-                       dl 1575 copy code 3                  ;02B219|        |02B2C3;
+                       dl CODE_02B2C3                       ;02B219|        |02B2C3;
                        db $1A                               ;02B21C|        |      ;
                        dw DATA8_00B242                      ;02B21D|        |00B242;
                        db $08                               ;02B21F|        |      ;
@@ -9051,11 +9043,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B22D|        |      ;
                        dw DATA8_00B218                      ;02B22E|        |00B218;
                        db $04                               ;02B230|        |      ;
-                       dl Sub: Enemy death anim             ;02B231|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02B231|        |028F24;
                        db $24                               ;02B234|        |      ;
                        db $02                               ;02B235|        |      ;
                        db $07                               ;02B236|        |      ;
-                       dl Condition_Check(2b)               ;02B237|        |07B0B0;
+                       dl Condition_Check_2b                ;02B237|        |07B0B0;
                        dw $0001                             ;02B23A|        |      ;
                        db $0B                               ;02B23C|        |      ;
                        dw DATA8_00B218                      ;02B23D|        |00B218;
@@ -9064,7 +9056,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02B242|        |000002;
                        db $02                               ;02B243|        |      ;
                        db $07                               ;02B244|        |      ;
-                       dl Zeros 11DB                        ;02B245|        |0781F0;
+                       dl Zeros_11DB                        ;02B245|        |0781F0;
                        db $08                               ;02B248|        |      ;
                        dw DATA8_00B2AC                      ;02B249|        |00B2AC;
                        db $24                               ;02B24B|        |      ;
@@ -9171,8 +9163,8 @@ Get_EnemyID_BattleStats:
                        db $0B                               ;02B2BF|        |      ;
                        db $1A                               ;02B2C0|        |      ;
                        dw DATA8_00B2AC                      ;02B2C1|        |00B2AC;
-     1575 copy code 3:
-                       JSL.L Val equal to $1575?            ;02B2C3|22DDAE07|07AEDD;
+          CODE_02B2C3:
+                       JSL.L Is_Equals_1575                 ;02B2C3|22DDAE07|07AEDD;
                        BNE CODE_02B2F3                      ;02B2C7|D02A    |02B2F3;
                        LDX.W Selection                      ;02B2C9|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B2CC|BDC709  |0009C7;
@@ -9207,7 +9199,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02B30B|        |      ;
                        dl Battle_Prep                       ;02B30C|        |029124;
                        db $09                               ;02B30F|        |      ;
-                       dl 1575 copy code 2                  ;02B310|        |02B3C4;
+                       dl CODE_02B3C4                       ;02B310|        |02B3C4;
                        db $1A                               ;02B313|        |      ;
                        dw DATA8_00B339                      ;02B314|        |00B339;
                        db $08                               ;02B316|        |      ;
@@ -9223,11 +9215,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B324|        |      ;
                        dw DATA8_00B30F                      ;02B325|        |00B30F;
                        db $04                               ;02B327|        |      ;
-                       dl Sub: Enemy death anim             ;02B328|        |028F24;
+                       dl Sub_Enemy_death_anim              ;02B328|        |028F24;
                        db $24                               ;02B32B|        |      ;
                        db $02                               ;02B32C|        |      ;
                        db $07                               ;02B32D|        |      ;
-                       dl Condition_Check(2b)               ;02B32E|        |07B0B0;
+                       dl Condition_Check_2b                ;02B32E|        |07B0B0;
                        dw $0001                             ;02B331|        |      ;
                        db $0B                               ;02B333|        |      ;
                        dw $B30F                             ;02B334|        |      ;
@@ -9236,7 +9228,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02B339|        |      ;
                        db $02                               ;02B33A|        |      ;
                        db $07                               ;02B33B|        |      ;
-                       dl Zeros 11DB                        ;02B33C|        |0781F0;
+                       dl Zeros_11DB                        ;02B33C|        |0781F0;
                        db $08                               ;02B33F|        |      ;
                        dw DATA8_00B3B1                      ;02B340|        |00B3B1;
                        db $24                               ;02B342|        |      ;
@@ -9353,8 +9345,8 @@ Get_EnemyID_BattleStats:
                        db $06                               ;02B3C0|        |00001A;
                        db $1A                               ;02B3C1|        |      ;
                        dw DATA8_00B3B1                      ;02B3C2|        |00B3B1;
-     1575 copy code 2:
-                       JSL.L Val equal to $1575?            ;02B3C4|22DDAE07|07AEDD;
+          CODE_02B3C4:
+                       JSL.L Is_Equals_1575                 ;02B3C4|22DDAE07|07AEDD;
                        BNE CODE_02B3F4                      ;02B3C8|D02A    |02B3F4;
                        LDX.W Selection                      ;02B3CA|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B3CD|BDC709  |0009C7;
@@ -9389,7 +9381,7 @@ Get_EnemyID_BattleStats:
                        db $04                               ;02B40C|        |      ;
                        dl Battle_Prep                       ;02B40D|        |029124;
                        db $09                               ;02B410|        |      ;
-                       dl 1575 copy code 1                  ;02B411|        |02B4A6;
+                       dl CODE_02B4A6                       ;02B411|        |02B4A6;
                        db $1A                               ;02B414|        |      ;
                        db $3A                               ;02B415|        |      ;
                        db $B4                               ;02B416|        |000008;
@@ -9536,8 +9528,8 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B4A3|        |      ;
                        db $96                               ;02B4A4|        |0000B4;
                        db $B4                               ;02B4A5|        |000022;
-     1575 copy code 1:
-                       JSL.L Val equal to $1575?            ;02B4A6|22DDAE07|07AEDD;
+          CODE_02B4A6:
+                       JSL.L Is_Equals_1575                 ;02B4A6|22DDAE07|07AEDD;
                        BNE CODE_02B4D6                      ;02B4AA|D02A    |02B4D6;
                        LDX.W Selection                      ;02B4AC|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B4AF|BDC709  |0009C7;
@@ -9719,7 +9711,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B581|        |      ;
                        db $78                               ;02B582|        |      ;
                        db $B5                               ;02B583|        |000022;
-                       JSL.L Val equal to $1575?            ;02B584|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B584|22DDAE07|07AEDD;
                        BNE CODE_02B5B4                      ;02B588|D02A    |02B5B4;
                        LDX.W Selection                      ;02B58A|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B58D|BDC709  |0009C7;
@@ -9779,12 +9771,11 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B5E5|        |      ;
                        dw CODE_00B5D0                       ;02B5E6|        |00B5D0;
                        db $04                               ;02B5E8|        |      ;
-                       dl Sub: Enemy death anim             ;02B5E9|        |028F24;
-         24-02-07 #-1:
+                       dl Sub_Enemy_death_anim              ;02B5E9|        |028F24;
                        db $24                               ;02B5EC|        |      ;
                        db $02                               ;02B5ED|        |      ;
                        db $07                               ;02B5EE|        |      ;
-                       dl Condition_Check(2b)               ;02B5EF|        |07B0B0;
+                       dl Condition_Check_2b                ;02B5EF|        |07B0B0;
                        db $01                               ;02B5F2|        |      ;
                        db $00                               ;02B5F3|        |      ;
                        db $0B                               ;02B5F4|        |      ;
@@ -9794,7 +9785,7 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02B5FA|        |      ;
                        db $02                               ;02B5FB|        |      ;
                        db $07                               ;02B5FC|        |      ;
-                       dl Zeros 11DB                        ;02B5FD|        |0781F0;
+                       dl Zeros_11DB                        ;02B5FD|        |0781F0;
                        db $08                               ;02B600|        |      ;
                        db $52                               ;02B601|        |0000B6;
                        db $B6                               ;02B602|        |000024;
@@ -9890,7 +9881,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B65C|        |      ;
                        db $52                               ;02B65D|        |0000B6;
                        db $B6                               ;02B65E|        |000022;
-                       JSL.L Val equal to $1575?            ;02B65F|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B65F|22DDAE07|07AEDD;
                        BNE CODE_02B68F                      ;02B663|D02A    |02B68F;
                        LDX.W Selection                      ;02B665|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B668|BDC709  |0009C7;
@@ -10069,7 +10060,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B737|        |      ;
                        db $2D                               ;02B738|        |0022B7;
                        db $B7                               ;02B739|        |000022;
-                       JSL.L Val equal to $1575?            ;02B73A|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B73A|22DDAE07|07AEDD;
                        BNE CODE_02B76A                      ;02B73E|D02A    |02B76A;
                        LDX.W Selection                      ;02B740|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B743|BDC709  |0009C7;
@@ -10150,7 +10141,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B7B0|        |      ;
                        db $A9                               ;02B7B1|        |      ;
                        db $B7                               ;02B7B2|        |000022;
-                       JSL.L Val equal to $1575?            ;02B7B3|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B7B3|22DDAE07|07AEDD;
                        BNE CODE_02B7E3                      ;02B7B7|D02A    |02B7E3;
                        LDX.W Selection                      ;02B7B9|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B7BC|BDC709  |0009C7;
@@ -10231,7 +10222,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B829|        |      ;
                        db $22                               ;02B82A|        |DD22B8;
                        db $B8                               ;02B82B|        |      ;
-                       JSL.L Val equal to $1575?            ;02B82C|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B82C|22DDAE07|07AEDD;
                        BNE CODE_02B85C                      ;02B830|D02A    |02B85C;
                        LDX.W Selection                      ;02B832|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B835|BDC709  |0009C7;
@@ -10307,7 +10298,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B89D|        |      ;
                        db $9B                               ;02B89E|        |      ;
                        db $B8                               ;02B89F|        |      ;
-                       JSL.L Val equal to $1575?            ;02B8A0|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B8A0|22DDAE07|07AEDD;
                        BNE CODE_02B8D0                      ;02B8A4|D02A    |02B8D0;
                        LDX.W Selection                      ;02B8A6|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B8A9|BDC709  |0009C7;
@@ -10364,11 +10355,10 @@ Get_EnemyID_BattleStats:
                        db $24                               ;02B8FE|        |00008F;
                        db $8F                               ;02B8FF|        |022402;
                        db $02                               ;02B900|        |      ;
-         24-02-07 #0?:
                        db $24                               ;02B901|        |      ;
                        db $02                               ;02B902|        |      ;
                        db $07                               ;02B903|        |      ;
-                       dl Condition_Check(2b)               ;02B904|        |07B0B0;
+                       dl Condition_Check_2b                ;02B904|        |07B0B0;
                        db $01                               ;02B907|        |      ;
                        db $00                               ;02B908|        |      ;
                        db $0B                               ;02B909|        |      ;
@@ -10380,7 +10370,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B911|        |      ;
                        db $0F                               ;02B912|        |DD22B9;
                        db $B9                               ;02B913|        |00DD22;
-                       JSL.L Val equal to $1575?            ;02B914|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B914|22DDAE07|07AEDD;
                        BNE CODE_02B944                      ;02B918|D02A    |02B944;
                        LDX.W Selection                      ;02B91A|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B91D|BDC709  |0009C7;
@@ -10560,7 +10550,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02B9ED|        |      ;
                        db $E3                               ;02B9EE|        |0000B9;
                        db $B9                               ;02B9EF|        |00DD22;
-                       JSL.L Val equal to $1575?            ;02B9F0|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02B9F0|22DDAE07|07AEDD;
                        BNE CODE_02BA20                      ;02B9F4|D02A    |02BA20;
                        LDX.W Selection                      ;02B9F6|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02B9F9|BDC709  |0009C7;
@@ -10740,7 +10730,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02BAC9|        |      ;
                        db $BF                               ;02BACA|        |DD22BA;
                        db $BA                               ;02BACB|        |      ;
-                       JSL.L Val equal to $1575?            ;02BACC|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02BACC|22DDAE07|07AEDD;
                        BNE CODE_02BAFC                      ;02BAD0|D02A    |02BAFC;
                        LDX.W Selection                      ;02BAD2|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02BAD5|BDC709  |0009C7;
@@ -10923,7 +10913,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02BBA8|        |      ;
                        db $9F                               ;02BBA9|        |DD22BB;
                        db $BB                               ;02BBAA|        |      ;
-                       JSL.L Val equal to $1575?            ;02BBAB|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02BBAB|22DDAE07|07AEDD;
                        BNE CODE_02BBDB                      ;02BBAF|D02A    |02BBDB;
                        LDX.W Selection                      ;02BBB1|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02BBB4|BDC709  |0009C7;
@@ -11011,7 +11001,6 @@ Get_EnemyID_BattleStats:
                        db $08                               ;02BC28|        |      ;
                        db $7E                               ;02BC29|        |0024BC;
                        db $BC                               ;02BC2A|        |000224;
-          24-02-07 #1:
                        db $24                               ;02BC2B|        |      ; 24: Loads a RAM value ($09FF) -> 0CC1
                        db $02                               ;02BC2C|        |      ;
                        db $07                               ;02BC2D|        |      ; 07: Call 07/8219
@@ -11099,7 +11088,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02BC87|        |      ;
                        db $7E                               ;02BC88|        |0022BC;
                        db $BC                               ;02BC89|        |00DD22;
-                       JSL.L Val equal to $1575?            ;02BC8A|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02BC8A|22DDAE07|07AEDD;
                        BNE CODE_02BCBA                      ;02BC8E|D02A    |02BCBA;
                        LDX.W Selection                      ;02BC90|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02BC93|BDC709  |0009C7;
@@ -11272,7 +11261,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02BD5C|        |      ;
                        db $55                               ;02BD5D|        |0000BD;
                        db $BD                               ;02BD5E|        |00DD22;
-                       JSL.L Val equal to $1575?            ;02BD5F|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02BD5F|22DDAE07|07AEDD;
                        BNE CODE_02BD8F                      ;02BD63|D02A    |02BD8F;
                        LDX.W Selection                      ;02BD65|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02BD68|BDC709  |0009C7;
@@ -11488,7 +11477,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02BE5C|        |      ;
                        db $4C                               ;02BE5D|        |0222BE;
                        db $BE                               ;02BE5E|        |00DD22;
-                       JSL.L Val equal to $1575?            ;02BE5F|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02BE5F|22DDAE07|07AEDD;
                        BNE CODE_02BE8F                      ;02BE63|D02A    |02BE8F;
                        LDX.W Selection                      ;02BE65|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02BE68|BDC709  |0009C7;
@@ -11674,7 +11663,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02BF3E|        |      ;
                        db $31                               ;02BF3F|        |0000BF;
                        db $BF                               ;02BF40|        |AEDD22;
-                       JSL.L Val equal to $1575?            ;02BF41|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02BF41|22DDAE07|07AEDD;
                        BNE CODE_02BF71                      ;02BF45|D02A    |02BF71;
                        LDX.W Selection                      ;02BF47|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02BF4A|BDC709  |0009C7;
@@ -11882,7 +11871,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C036|        |      ;
                        db $22                               ;02C037|        |DD22C0;
                        db $C0                               ;02C038|        |      ;
-                       JSL.L Val equal to $1575?            ;02C039|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C039|22DDAE07|07AEDD;
                        BNE CODE_02C069                      ;02C03D|D02A    |02C069;
                        LDX.W Selection                      ;02C03F|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C042|BDC709  |0009C7;
@@ -12065,7 +12054,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C115|        |      ;
                        db $0A                               ;02C116|        |      ;
                        db $C1                               ;02C117|        |000022;
-                       JSL.L Val equal to $1575?            ;02C118|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C118|22DDAE07|07AEDD;
                        BNE CODE_02C148                      ;02C11C|D02A    |02C148;
                        LDX.W Selection                      ;02C11E|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C121|BDC709  |0009C7;
@@ -12153,7 +12142,6 @@ Get_EnemyID_BattleStats:
                        db $08                               ;02C195|        |      ;
                        db $E9                               ;02C196|        |      ;
                        db $C1                               ;02C197|        |000024;
-          24-02-07 #2:
                        db $24                               ;02C198|        |      ; 24: Store (ex) 09FF -> 0CC1
                        db $02                               ;02C199|        |      ;
                        db $07                               ;02C19A|        |      ; 07: Call 07/8219
@@ -12241,7 +12229,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C1F4|        |      ;
                        db $E9                               ;02C1F5|        |      ;
                        db $C1                               ;02C1F6|        |000022;
-                       JSL.L Val equal to $1575?            ;02C1F7|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C1F7|22DDAE07|07AEDD;
                        BNE CODE_02C227                      ;02C1FB|D02A    |02C227;
                        LDX.W Selection                      ;02C1FD|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C200|BDC709  |0009C7;
@@ -12428,7 +12416,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C2D7|        |      ;
                        db $CA                               ;02C2D8|        |      ;
                        db $C2                               ;02C2D9|        |      ;
-                       JSL.L Val equal to $1575?            ;02C2DA|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C2DA|22DDAE07|07AEDD;
                        BNE CODE_02C30A                      ;02C2DE|D02A    |02C30A;
                        LDX.W Selection                      ;02C2E0|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C2E3|BDC709  |0009C7;
@@ -12610,7 +12598,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C3B5|        |      ;
                        db $AB                               ;02C3B6|        |      ;
                        db $C3                               ;02C3B7|        |000022;
-                       JSL.L Val equal to $1575?            ;02C3B8|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C3B8|22DDAE07|07AEDD;
                        BNE CODE_02C3E8                      ;02C3BC|D02A    |02C3E8;
                        LDX.W Selection                      ;02C3BE|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C3C1|BDC709  |0009C7;
@@ -12792,7 +12780,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C493|        |      ;
                        db $89                               ;02C494|        |      ;
                        db $C4                               ;02C495|        |000022;
-                       JSL.L Val equal to $1575?            ;02C496|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C496|22DDAE07|07AEDD;
                        BNE CODE_02C4C6                      ;02C49A|D02A    |02C4C6;
                        LDX.W Selection                      ;02C49C|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C49F|BDC709  |0009C7;
@@ -12871,11 +12859,10 @@ Get_EnemyID_BattleStats:
                        db $F1                               ;02C50A|        |000090;
                        db $90                               ;02C50B|        |02C50F;
                        db $02                               ;02C50C|        |      ;
-          24-02-07 #3:
                        db $24                               ;02C50D|        |      ;
                        db $02                               ;02C50E|        |      ;
                        db $07                               ;02C50F|        |      ;
-                       dl Zeros 11DB                        ;02C510|        |0781F0;
+                       dl Zeros_11DB                        ;02C510|        |0781F0;
                        db $08                               ;02C513|        |      ;
                        dw CODE_00C563                       ;02C514|        |00C563;
                        db $24                               ;02C516|        |      ;
@@ -12954,7 +12941,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C567|        |      ;
                        db $63                               ;02C568|        |0000C5;
                        db $C5                               ;02C569|        |000022;
-                       JSL.L Val equal to $1575?            ;02C56A|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C56A|22DDAE07|07AEDD;
                        BNE CODE_02C59A                      ;02C56E|D02A    |02C59A;
                        LDX.W Selection                      ;02C570|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C573|BDC709  |0009C7;
@@ -13126,7 +13113,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C63B|        |      ;
                        db $37                               ;02C63C|        |0000C6;
                        db $C6                               ;02C63D|        |000022;
-                       JSL.L Val equal to $1575?            ;02C63E|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C63E|22DDAE07|07AEDD;
                        BNE CODE_02C66E                      ;02C642|D02A    |02C66E;
                        LDX.W Selection                      ;02C644|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C647|BDC709  |0009C7;
@@ -13203,7 +13190,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C6B0|        |      ;
                        db $AE                               ;02C6B1|        |0022C6;
                        db $C6                               ;02C6B2|        |000022;
-                       JSL.L Val equal to $1575?            ;02C6B3|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C6B3|22DDAE07|07AEDD;
                        BNE CODE_02C6E3                      ;02C6B7|D02A    |02C6E3;
                        LDX.W Selection                      ;02C6B9|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C6BC|BDC709  |0009C7;
@@ -13280,7 +13267,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C725|        |      ;
                        db $23                               ;02C726|        |0000C7;
                        db $C7                               ;02C727|        |000022;
-                       JSL.L Val equal to $1575?            ;02C728|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C728|22DDAE07|07AEDD;
                        BNE CODE_02C758                      ;02C72C|D02A    |02C758;
                        LDX.W Selection                      ;02C72E|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C731|BDC709  |0009C7;
@@ -13357,7 +13344,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C79A|        |      ;
                        db $98                               ;02C79B|        |      ;
                        db $C7                               ;02C79C|        |000022;
-                       JSL.L Val equal to $1575?            ;02C79D|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C79D|22DDAE07|07AEDD;
                        BNE CODE_02C7CD                      ;02C7A1|D02A    |02C7CD;
                        LDX.W Selection                      ;02C7A3|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C7A6|BDC709  |0009C7;
@@ -13447,7 +13434,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C81C|        |      ;
                        db $15                               ;02C81D|        |0000C8;
                        db $C8                               ;02C81E|        |      ;
-                       JSL.L Val equal to $1575?            ;02C81F|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C81F|22DDAE07|07AEDD;
                        BNE CODE_02C84F                      ;02C823|D02A    |02C84F;
                        LDX.W Selection                      ;02C825|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C828|BDC709  |0009C7;
@@ -13556,11 +13543,10 @@ Get_EnemyID_BattleStats:
                        db $31                               ;02C8B1|        |000021;
                        db $21                               ;02C8B2|        |000000;
                        db $00                               ;02C8B3|        |      ;
-        24-02-07 #4 ?:
                        db $24                               ;02C8B4|        |      ;
                        db $02                               ;02C8B5|        |      ;
                        db $07                               ;02C8B6|        |      ;
-                       dl Condition_Check(2b)               ;02C8B7|        |07B0B0;
+                       dl Condition_Check_2b                ;02C8B7|        |07B0B0;
                        db $01                               ;02C8BA|        |      ;
                        db $00                               ;02C8BB|        |      ;
                        db $0B                               ;02C8BC|        |      ;
@@ -13589,7 +13575,7 @@ Get_EnemyID_BattleStats:
                        db $1A                               ;02C8D4|        |      ;
                        db $C0                               ;02C8D5|        |      ;
                        db $C8                               ;02C8D6|        |      ;
-                       JSL.L Val equal to $1575?            ;02C8D7|22DDAE07|07AEDD;
+                       JSL.L Is_Equals_1575                 ;02C8D7|22DDAE07|07AEDD;
                        BNE CODE_02C907                      ;02C8DB|D02A    |02C907;
                        LDX.W Selection                      ;02C8DD|AE3F10  |00103F;
                        LDA.W Temp_09C7,X                    ;02C8E0|BDC709  |0009C7;
