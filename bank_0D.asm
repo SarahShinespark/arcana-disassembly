@@ -5575,19 +5575,20 @@ Bank_0D_Compressed_data:
          Weapons_Menu:
                        db $31                               ;0D9590|        |      ;
                        db $46                               ;0D9591|        |      ;
+         DATA8_0D9592:
                        db $00                               ;0D9592|        |      ;
                        db $00                               ;0D9593|        |      ;
-                       db $FF                               ;0D9594|        |6F7B7F;
-                       db $7F                               ;0D9595|        |EF6F7B;
+                       db $FF                               ;0D9594|        |      ;
+                       db $7F                               ;0D9595|        |      ;
                        db $7B                               ;0D9596|        |      ;
-                       db $6F                               ;0D9597|        |9F3DEF;
-                       db $EF                               ;0D9598|        |319F3D;
-                       db $3D                               ;0D9599|        |00319F;
-                       db $9F                               ;0D959A|        |001F31;
-                       db $31                               ;0D959B|        |00001F;
-                       db $1F                               ;0D959C|        |001400;
+                       db $6F                               ;0D9597|        |      ;
+                       db $EF                               ;0D9598|        |      ;
+                       db $3D                               ;0D9599|        |      ;
+                       db $9F                               ;0D959A|        |      ;
+                       db $31                               ;0D959B|        |      ;
+                       db $1F                               ;0D959C|        |      ;
                        db $00                               ;0D959D|        |      ;
-                       db $14                               ;0D959E|        |000000;
+                       db $14                               ;0D959E|        |      ;
                        db $00                               ;0D959F|        |      ;
                        db $00                               ;0D95A0|        |      ;
                        db $00                               ;0D95A1|        |      ;
@@ -5601,25 +5602,26 @@ Bank_0D_Compressed_data:
                        db $00                               ;0D95A9|        |      ;
                        db $00                               ;0D95AA|        |      ;
                        db $00                               ;0D95AB|        |      ;
-                       db $90                               ;0D95AC|        |0D95BA;
-                       db $0C                               ;0D95AD|        |00104E;
-                       db $4E                               ;0D95AE|        |000010;
-                       db $10                               ;0D95AF|        |0D95B1;
+                       db $90                               ;0D95AC|        |      ;
+                       db $0C                               ;0D95AD|        |      ;
+                       db $4E                               ;0D95AE|        |      ;
+                       db $10                               ;0D95AF|        |      ;
                        db $00                               ;0D95B0|        |      ;
                        db $00                               ;0D95B1|        |      ;
+         DATA8_0D95B2:
                        db $00                               ;0D95B2|        |      ;
                        db $00                               ;0D95B3|        |      ;
-                       db $FF                               ;0D95B4|        |015F7F;
-                       db $7F                               ;0D95B5|        |11015F;
-                       db $5F                               ;0D95B6|        |001101;
-                       db $01                               ;0D95B7|        |000011;
-                       db $11                               ;0D95B8|        |000000;
+                       db $FF                               ;0D95B4|        |      ;
+                       db $7F                               ;0D95B5|        |      ;
+                       db $5F                               ;0D95B6|        |      ;
+                       db $01                               ;0D95B7|        |      ;
+                       db $11                               ;0D95B8|        |      ;
                        db $00                               ;0D95B9|        |      ;
-                       db $FF                               ;0D95BA|        |2ACC03;
-                       db $03                               ;0D95BB|        |0000CC;
-                       db $CC                               ;0D95BC|        |00CC2A;
+                       db $FF                               ;0D95BA|        |      ;
+                       db $03                               ;0D95BB|        |      ;
+                       db $CC                               ;0D95BC|        |      ;
                        db $2A                               ;0D95BD|        |      ;
-                       db $CC                               ;0D95BE|        |00002A;
+                       db $CC                               ;0D95BE|        |      ;
                        db $2A                               ;0D95BF|        |      ;
                        db $00                               ;0D95C0|        |      ;
                        db $00                               ;0D95C1|        |      ;
@@ -5633,10 +5635,10 @@ Bank_0D_Compressed_data:
                        db $00                               ;0D95C9|        |      ;
                        db $00                               ;0D95CA|        |      ;
                        db $00                               ;0D95CB|        |      ;
-                       db $90                               ;0D95CC|        |0D95DA;
-                       db $0C                               ;0D95CD|        |00104E;
-                       db $4E                               ;0D95CE|        |000010;
-                       db $10                               ;0D95CF|        |0D95D1;
+                       db $90                               ;0D95CC|        |      ;
+                       db $0C                               ;0D95CD|        |      ;
+                       db $4E                               ;0D95CE|        |      ;
+                       db $10                               ;0D95CF|        |      ;
                        db $00                               ;0D95D0|        |      ;
                        db $00                               ;0D95D1|        |      ;
        UNREACH_0D95D2:
@@ -14161,7 +14163,8 @@ Bank_0D_Compressed_data:
                        db $07                               ;0DB70E|        |0000E2;
                        db $E2                               ;0DB70F|        |      ;
                        db $FF                               ;0DB710|        |000027;
-                       db $27                               ;0DB711|        |000000;
+         DATA8_0DB711:
+                       db $27                               ;0DB711|        |      ;
                        db $00                               ;0DB712|        |      ;
                        db $00                               ;0DB713|        |      ;
                        db $01                               ;0DB714|        |000062;

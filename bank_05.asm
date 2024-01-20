@@ -230,10 +230,10 @@ Bank_05_Stat_Handling:
                        dw $0000                             ;058168|        |      ;
                        db $12                               ;05816A|        |      ;
                        db $04                               ;05816B|        |      ;
-                       dw CODE_008197                       ;05816C|        |008197;
-                       dw LOOSE_OP_0081A1                   ;05816E|        |0081A1;
-                       dw CODE_0081AB                       ;058170|        |0081AB;
-                       dw CODE_0081B5                       ;058172|        |0081B5;
+                       dw DATA8_058197                      ;05816C|        |058197;
+                       dw DATA8_0581A1                      ;05816E|        |0581A1;
+                       dw DATA8_0581AB                      ;058170|        |0581AB;
+                       dw DATA8_0581B5                      ;058172|        |0581B5;
                        db $0F                               ;058174|        |      ;
                        db $02                               ;058175|        |      ;
                        dw $0000                             ;058176|        |      ;
@@ -448,9 +448,9 @@ Bank_05_Stat_Handling:
                        DEC A                                ;058302|3A      |      ;
                        ASL A                                ;058303|0A      |      ;
                        TAX                                  ;058304|AA      |      ;
-                       LDA.W Spirit_Current_HP              ;058305|ADF512  |0012F5;
+                       LDA.W Spirit_currHP                  ;058305|ADF512  |0012F5;
                        STA.W Sylph_currHP,X                 ;058308|9D5313  |001353;
-                       LDA.W Spirit_Current_MP              ;05830B|AD2513  |001325;
+                       LDA.W Spirit_currMP                  ;05830B|AD2513  |001325;
                        STA.W Sylph_currMP,X                 ;05830E|9D5B13  |00135B;
                        RTS                                  ;058311|60      |      ;
          DATA8_058312:
@@ -796,28 +796,32 @@ Bank_05_Stat_Handling:
                        dl Check_Condition2                  ;05850A|        |07AB88;
                        db $11                               ;05850D|        |      ;
                        db $04                               ;05850E|        |      ;
-                       dw LOOSE_OP_008517                   ;05850F|        |008517;
-                       dw LOOSE_OP_008522                   ;058511|        |008522;
-                       dw CODE_00852D                       ;058513|        |00852D;
-                       dw CODE_008538                       ;058515|        |008538;
+                       dw DATA8_058517                      ;05850F|        |058517;
+                       dw DATA8_058522                      ;058511|        |058522;
+                       dw DATA8_05852D                      ;058513|        |05852D;
+                       dw DATA8_058538                      ;058515|        |058538;
+         DATA8_058517:
                        db $07                               ;058517|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;058518|        |00A140;
                        dl UNREACH_0D93A6                    ;05851B|        |0D93A6;
                        db $55                               ;05851E|        |      ;
                        dw $0016                             ;05851F|        |      ;
                        db $05                               ;058521|        |      ;
+         DATA8_058522:
                        db $07                               ;058522|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;058523|        |00A140;
                        dl UNREACH_0D9498                    ;058526|        |0D9498;
                        db $55                               ;058529|        |      ;
                        dw $0016                             ;05852A|        |      ;
                        db $05                               ;05852C|        |      ;
+         DATA8_05852D:
                        db $07                               ;05852D|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;05852E|        |00A140;
                        dl UNREACH_0D9414                    ;058531|        |0D9414;
                        db $55                               ;058534|        |      ;
                        dw $0016                             ;058535|        |      ;
                        db $05                               ;058537|        |      ;
+         DATA8_058538:
                        db $07                               ;058538|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;058539|        |00A140;
                        dl UNREACH_0D9506                    ;05853C|        |0D9506;
@@ -1197,10 +1201,10 @@ Bank_05_Stat_Handling:
                        dw $0002                             ;05878C|        |      ;
                        db $12                               ;05878E|        |      ;
                        db $04                               ;05878F|        |      ;
-                       dw LOOSE_OP_0087BB                   ;058790|        |0087BB;
-                       dw LOOSE_OP_0087C5                   ;058792|        |0087C5;
-                       dw CODE_0087CF                       ;058794|        |0087CF;
-                       dw CODE_0087D9                       ;058796|        |0087D9;
+                       dw DATA8_0587BB                      ;058790|        |0587BB;
+                       dw DATA8_0587C5                      ;058792|        |0587C5;
+                       dw DATA8_0587CF                      ;058794|        |0587CF;
+                       dw DATA8_0587D9                      ;058796|        |0587D9;
                        db $0F                               ;058798|        |      ;
                        db $02                               ;058799|        |      ;
                        dw $0001                             ;05879A|        |      ;
@@ -2923,10 +2927,10 @@ Sub_Another_setup_again:
                        dw $0006                             ;059273|        |      ;
                        db $12                               ;059275|        |      ;
                        db $04                               ;059276|        |      ;
-                       dw LOOSE_OP_0092A2                   ;059277|        |0092A2;
-                       dw CODE_0092AC                       ;059279|        |0092AC;
-                       dw LOOSE_OP_0092B6                   ;05927B|        |0092B6;
-                       dw CODE_0092C0                       ;05927D|        |0092C0;
+                       dw DATA8_0592A2                      ;059277|        |0592A2;
+                       dw DATA8_0592AC                      ;059279|        |0592AC;
+                       dw DATA8_0592B6                      ;05927B|        |0592B6;
+                       dw DATA8_0592C0                      ;05927D|        |0592C0;
                        db $0F                               ;05927F|        |      ;
                        db $02                               ;059280|        |      ;
                        dw $0003                             ;059281|        |      ;

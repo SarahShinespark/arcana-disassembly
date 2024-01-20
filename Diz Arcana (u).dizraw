@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectXmlSerializer-Root xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:ns1="clr-namespace:Diz.Core.model;assembly=Diz.Core" xmlns:ns2="clr-namespace:Diz.Core.model.snes;assembly=Diz.Core" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns:ns3="clr-namespace:IX.Observable;assembly=IX.Observable" xmlns:ns4="clr-namespace:Diz.Core.export;assembly=Diz.Core" SaveVersion="102" Watermark="DiztinGUIsh" Extra1="" Extra2="" xmlns="clr-namespace:Diz.Core.serialization.xml_serializer;assembly=Diz.Core">
-  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="753935">
+  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="98321">
     <LogWriterSettings Format="%label:-22% %code:37%;%pc%|%bytes%|%ia%; %comment%" DataPerLine="1" Unlabeled="ShowInPoints" Structure="OneBankPerFile" NewLine="true" OutputExtraWhitespace="false" GenerateFullLine="false" IncludeUnusedLabels="true" PrintLabelSpecificComments="true" RomSizeOverride="-1" FileOrFolderOutPath="..\Diz" OutputToString="false" ErrorFilename="errors.txt" />
     <ProjectSettings exs:member="" BsnesUsageMapImportOnlyChangedUnmarked="true">
       <RomBytesOutputFormatSettings CompressGroupBlock="true" CompressUsingTable1="true" InsertCommentIntoOutputLinesEveryNBytes="2048" />
@@ -5147,6 +5147,47 @@
         <sys:Item Key="246004" Value="23 02" />
         <sys:Item Key="245918" Value="Close menu" />
         <sys:Item Key="246038" Value="23 02" />
+        <sys:Item Key="103295" Value="15: $09C7,x + 1" />
+        <sys:Item Key="103300" Value="15: $09C7,x AND 1" />
+        <sys:Item Key="103305" Value="24: Load $09C7,x" />
+        <sys:Item Key="103307" Value="11: Jump on loaded value" />
+        <sys:Item Key="103501" Value="15: $09EB,x - 1" />
+        <sys:Item Key="106559" Value="06: Delay $06" />
+        <sys:Item Key="106561" Value="24: Load $0A0F,x" />
+        <sys:Item Key="106563" Value="12: Jump on value" />
+        <sys:Item Key="106598" Value="RTS" />
+        <sys:Item Key="106619" Value="1C: RTS" />
+        <sys:Item Key="106640" Value="1C: RTS" />
+        <sys:Item Key="106661" Value="1C: RTS" />
+        <sys:Item Key="106679" Value="1C: RTS" />
+        <sys:Item Key="106693" Value="1C: RTS" />
+        <sys:Item Key="106698" Value="1C: RTS" />
+        <sys:Item Key="106796" Value="1C: RTS" />
+        <sys:Item Key="106790" Value="0E: $157D + #E000" />
+        <sys:Item Key="106797" Value="0E: $157D + #2000" />
+        <sys:Item Key="106803" Value="1C: RTS" />
+        <sys:Item Key="106804" Value="0E: $157D + #FC00" />
+        <sys:Item Key="106810" Value="1C: RTS" />
+        <sys:Item Key="106811" Value="0E: $157D + 0400" />
+        <sys:Item Key="106817" Value="1C: RTS" />
+        <sys:Item Key="106825" Value="0A: Clear animation loop" />
+        <sys:Item Key="106826" Value="Transfer data (near Weapon stuff?)" />
+        <sys:Item Key="106858" Value="1C: RTS" />
+        <sys:Item Key="106901" Value="1C: RTS" />
+        <sys:Item Key="106914" Value="0D: Some kinda return" />
+        <sys:Item Key="100050" Value="1F: Load $1901" />
+        <sys:Item Key="100053" Value="0C: Jump if nonzero/true" />
+        <sys:Item Key="100074" Value="06 01: Delay $01" />
+        <sys:Item Key="100076" Value="01 04: Loop $04 times" />
+        <sys:Item Key="100078" Value="06 0A: Delay $0A" />
+        <sys:Item Key="100080" Value="02: End loop" />
+        <sys:Item Key="248436" Value="16: $157B=0" />
+        <sys:Item Key="248461" Value="06 0F" />
+        <sys:Item Key="248463" Value="01 10" />
+        <sys:Item Key="248465" Value="Unfade 1 notch" />
+        <sys:Item Key="248469" Value="06 03" />
+        <sys:Item Key="248471" Value="02: End loop" />
+        <sys:Item Key="248492" Value="05: RTL" />
       </Comments>
       <Labels>
         <sys:Item Key="65508">
@@ -7121,7 +7162,7 @@
           <Value exs:type="ns1:Label" Name="SpiritMaxHP" Comment="" />
         </sys:Item>
         <sys:Item Key="4853">
-          <Value exs:type="ns1:Label" Name="Spirit_Current_HP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Spirit_currHP" Comment="" />
         </sys:Item>
         <sys:Item Key="4549">
           <Value exs:type="ns1:Label" Name="Spirit_Condition" Comment="" />
@@ -7142,7 +7183,7 @@
           <Value exs:type="ns1:Label" Name="SpiritMaxMP" Comment="" />
         </sys:Item>
         <sys:Item Key="4901">
-          <Value exs:type="ns1:Label" Name="Spirit_Current_MP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Spirit_currMP" Comment="" />
         </sys:Item>
         <sys:Item Key="4955">
           <Value exs:type="ns1:Label" Name="Sylph_currMP" Comment="" />
@@ -15411,6 +15452,24 @@
         </sys:Item>
         <sys:Item Key="35972">
           <Value exs:type="ns1:Label" Name="Init_Loops" Comment="" />
+        </sys:Item>
+        <sys:Item Key="103295">
+          <Value exs:type="ns1:Label" Name="Cards_Or_Inventory" Comment="" />
+        </sys:Item>
+        <sys:Item Key="500741">
+          <Value exs:type="ns1:Label" Name="7A409_far" Comment="" />
+        </sys:Item>
+        <sys:Item Key="105385">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
+        </sys:Item>
+        <sys:Item Key="105377">
+          <Value exs:type="ns1:Label" Name="Weapon_subcreen" Comment="" />
+        </sys:Item>
+        <sys:Item Key="248445">
+          <Value exs:type="ns1:Label" Name="Call_Travel_ASM" Comment="" />
+        </sys:Item>
+        <sys:Item Key="248436">
+          <Value exs:type="ns1:Label" Name="Traveling_to_dungeon" Comment="" />
         </sys:Item>
       </Labels>
       <RomBytes>
@@ -34734,20 +34793,30 @@ A
 A
 E001
 E
-r 19 U
+A
+B
+B
+A
+E001
+E
+U
 A
 F
 F
 F
 A
-U
-U
-U
-U
-U
-U
-U
+F
+F
+F
 A
+F
+F
+F
+A
+F
+F
+F
+r 9 A
 F
 F
 F
@@ -36206,14 +36275,14 @@ F
 A
 A
 A
-E
-E
+B
+B
 B
 B
 A
 A
-E
-E
+B
+B
 B
 B
 A
@@ -36413,14 +36482,57 @@ F
 F
 F
 A
-r 15 U
+A
+B
+B
+A
+B
+B
+A
+A
+A
+A
+A
+A
+A
+B
+B
 A
 F
 F
 F
 B
 B
-r 30 U
+A
+E001
+E
+A
+B
+B
+A
+F
+F
+F
+B
+B
+A
+E001
+E
+A
+E
+E
+A
+F
+F
+F
+B
+B
+A
+E001
+E
+A
+E001
+E
 A
 F
 F
@@ -36461,7 +36573,273 @@ F
 A
 E001
 E
-r 267 U
+A
+A
+A
+B
+B
+A
+A
+A
+B
+B
+A
+A
+A
+A
+E001
+E
+E001
+E
+A
+B
+B
+A
+B
+B
+A
+A
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+E001
+E
+A
+B
+B
+A
+B
+B
+A
+A
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+E001
+E
+A
+F
+F
+F
+A
+A
+A
+A
+A
+E001
+E
+E001
+E
+A
+B
+B
+A
+F
+F
+F
+A
+E001
+E
+A
+A
+B
+B
+A
+A
+B
+B
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+A
+A
+A
+A
+A
+A
+A
+F
+F
+F
+A
+E001
+E
+A
+F
+F
+F
+A
+A
+A
+F
+F
+F
+A
+B
+B
+A
+F
+F
+F
+B
+B
+A
+E001
+E
+A
+B
+B
+A
+F
+F
+F
+B
+B
+A
+E001
+E
+A
+E001
+E
+A
+F
+F
+F
+A
+A
+A
+A
+E001
+E
+A
+A
+A
+E001
+E
+A
+F
+F
+F
+A
+A
+A
+E001
+E
+A
+E001
+E
+A
+F
+F
+F
+A
+E001
+E
+A
+A
+A
+F
+F
+F
+A
+E001
+E
+A
+A
+A
+B
+B
+A
+F
+F
+F
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+A
+A
+A
+F
+F
+F
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+A
+E001
+E
+A
+F
+F
+F
+A
+E001
+E
 A
 F
 F
@@ -36486,7 +36864,7 @@ F
 B
 B
 A
-E
+E001
 E
 A
 B
@@ -36498,41 +36876,40 @@ F
 B
 B
 A
-E
-E
-A
-E
+E001
 E
 A
-F
-F
-F
-A
-F
-F
-F
-A
-F
-F
-F
-F
-F
-F
-A
-A
-E
-E
-A
-A
-A
-E
+E001
 E
 A
 F
 F
 F
-r 12 U
 A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+E001
+E
+A
+A
+A
+E001
+E
+A
+F
+F
+F
+r 13 A
 F
 F
 F
@@ -36559,11 +36936,11 @@ A
 A
 A
 A
-E
+E001
 E
 A
-E
-E
+B
+B
 A
 A
 A
@@ -36576,14 +36953,14 @@ A
 B
 B
 A
-E
-E
-A
-E
+E001
 E
 A
+E001
 E
-E
+A
+B
+B
 B
 B
 A
@@ -36594,8 +36971,8 @@ F
 F
 F
 A
+E001
 E
-E
 A
 A
 B
@@ -36627,7 +37004,7 @@ F
 F
 F
 A
-E
+E001
 E
 A
 F
@@ -36681,16 +37058,7 @@ E
 A
 A
 A
-E
-E
-A
-F
-F
-F
-A
-A
-A
-E
+E001
 E
 A
 F
@@ -36699,7 +37067,16 @@ F
 A
 A
 A
+E001
 E
+A
+F
+F
+F
+A
+A
+A
+E001
 E
 A
 F
@@ -37437,7 +37814,7 @@ F
 B
 B
 A
-E
+E001
 E
 A
 B
@@ -37449,14 +37826,14 @@ F
 B
 B
 A
-E
+E001
 E
 A
 F
 F
 F
 A
-E
+E001
 E
 A
 A
@@ -37496,96 +37873,53 @@ B
 A
 A
 A
-E
-E
-A
-B
-B
-A
-B
-B
-A
-A
-B
-B
-A
-B
-B
-A
-A
-B
-B
-A
-B
-B
-A
-A
-B
-B
-A
-B
-B
-A
-A
-F
-F
-F
-A
-A
-A
-A
-F
-F
-F
-A
-A
-A
-F
-F
-F
-B
-B
-A
-F
-F
-F
-A
-F
-F
-F
-A
-A
-E
-E
-A
-A
-A
-F
-F
-F
-A
-E
-E
-A
-F
-F
-F
-A
-A
-A
-A
-F
-F
-F
-A
-E
+E001
 E
 A
 B
 B
+A
 B
 B
 A
+A
+B
+B
+A
+B
+B
+A
+A
+B
+B
+A
+B
+B
+A
+A
+B
+B
+A
+B
+B
+A
+A
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+A
+A
+A
+F
+F
+F
 B
 B
 A
@@ -37593,7 +37927,50 @@ F
 F
 F
 A
+F
+F
+F
+A
+A
+E001
 E
+A
+A
+A
+F
+F
+F
+A
+E001
+E
+A
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+A
+E001
+E
+A
+B
+B
+B
+B
+A
+B
+B
+A
+F
+F
+F
+A
+E001
 E
 A
 A
@@ -37635,7 +38012,7 @@ F
 F
 F
 A
-E
+E001
 E
 A
 F
@@ -37657,7 +38034,7 @@ F
 B
 B
 A
-E
+E001
 E
 A
 B
@@ -37669,28 +38046,10 @@ F
 B
 B
 A
-E
-E
-A
-E
+E001
 E
 A
-F
-F
-F
-A
-A
-A
-A
-A
-E
-E
-E
-E
-A
-A
-A
-E
+E001
 E
 A
 F
@@ -37699,23 +38058,16 @@ F
 A
 A
 A
-E
-E
-A
-F
-F
-F
-A
 A
 A
 E
 E
-A
-F
-F
-F
-A
 E
+E
+A
+A
+A
+E001
 E
 A
 F
@@ -37723,6 +38075,31 @@ F
 F
 A
 A
+A
+E001
+E
+A
+F
+F
+F
+A
+A
+A
+E001
+E
+A
+F
+F
+F
+A
+E001
+E
+A
+F
+F
+F
+A
+A
 E
 E
 E
@@ -37734,8 +38111,8 @@ F
 F
 F
 A
+E001
 E
-E
 A
 A
 A
@@ -37762,20 +38139,6 @@ F
 F
 F
 A
-A
-B
-B
-B
-B
-A
-F
-F
-F
-A
-A
-A
-B
-B
 A
 B
 B
@@ -37788,6 +38151,28 @@ F
 A
 A
 A
+B
+B
+A
+B
+B
+B
+B
+A
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+A
+F
+F
+F
 A
 F
 F
@@ -37801,21 +38186,13 @@ F
 F
 F
 A
-F
-F
-F
 A
 F
 F
 F
 A
-A
-F
-F
-F
-A
+E001
 E
-E
 A
 A
 A
@@ -37884,7 +38261,7 @@ F
 A
 A
 A
-E
+E001
 E
 A
 A
@@ -37923,7 +38300,7 @@ F
 F
 A
 A
-E
+E001
 E
 A
 A
@@ -37939,24 +38316,7 @@ F
 F
 F
 A
-E
-E
-A
-F
-F
-F
-A
-A
-A
-F
-F
-F
-F
-F
-F
-A
-A
-E
+E001
 E
 A
 F
@@ -37965,14 +38325,16 @@ F
 A
 A
 A
+F
+F
+F
+F
+F
+F
 A
+A
+E001
 E
-E
-A
-B
-B
-A
-A
 A
 F
 F
@@ -37980,10 +38342,8 @@ F
 A
 A
 A
-B
-B
 A
-E
+E001
 E
 A
 B
@@ -37997,21 +38357,38 @@ F
 A
 A
 A
+B
+B
 A
-F
-F
-F
-F
-F
-F
-A
-A
-A
-A
-E
+E001
 E
 A
+B
+B
+A
+A
+A
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+F
+F
+F
+A
+A
+A
+A
+E001
 E
+A
+E001
 E
 r 13 A
 F
@@ -38104,16 +38481,7 @@ A
 B
 B
 A
-E
-E
-A
-B
-B
-A
-B
-B
-A
-E
+E001
 E
 A
 B
@@ -38122,7 +38490,16 @@ A
 B
 B
 A
+E001
 E
+A
+B
+B
+A
+B
+B
+A
+E001
 E
 A
 B
@@ -38141,28 +38518,7 @@ F
 F
 F
 A
-E
-E
-A
-A
-A
-F
-F
-F
-A
-F
-F
-F
-A
-F
-F
-F
-F
-F
-F
-A
-A
-E
+E001
 E
 A
 A
@@ -38183,23 +38539,44 @@ F
 F
 A
 A
-A
-A
-F
-F
-F
-A
-F
-F
-F
-F
-F
-F
-A
-A
-A
-A
+E001
 E
+A
+A
+A
+F
+F
+F
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+A
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
+A
+A
+E001
 E
 A
 F
@@ -38228,7 +38605,7 @@ F
 F
 F
 A
-E
+E001
 E
 A
 A
@@ -38237,7 +38614,7 @@ F
 F
 F
 A
-E
+E001
 E
 +
 .
@@ -39257,7 +39634,97 @@ F
 A
 E
 E
-r 163 U
+A
+A
+A
+F
+F
+F
+A
+E001
+E
+A
+F
+F
+F
+A
+F
+F
+F
+A
+A
+F
+F
+F
+A
+A
+A
+A
+A
+A
+A
+E001
+E
+E001
+E
+E001
+E
+E001
+E
+E001
+E
+A
+E001
+E
+A
+E001
+E
+A
+F
+F
+F
+r 15 A
+E001
+E
+A
+F
+F
+F
+r 15 A
+E001
+E
+A
+F
+F
+F
+r 15 A
+E001
+E
+A
+F
+F
+F
+r 15 A
+F
+F
+F
+r 17 A
+F
+F
+F
+A
+E001
+E
+A
+A
+B
+B
+A
+A
+A
+B
+B
+A
 A
 F
 F
@@ -39271,7 +39738,40 @@ A
 A
 E
 E
-r 34 U
+A
+B
+B
+A
+A
+A
+E001
+E
+A
+E001
+E
+A
+F
+F
+F
+A
+B
+B
+A
+B
+B
+A
+F
+F
+F
+A
+E001
+E
+A
+F
+F
+F
+A
+A
 A
 F
 F
@@ -39316,7 +39816,77 @@ F
 A
 E
 E
-r 79 U
+A
+B
+B
+A
+B
+B
+A
+A
+B
+B
+A
+B
+B
+A
+A
+B
+B
+A
+B
+B
+A
+A
+B
+B
+A
+B
+B
+A
+A
+F
+F
+F
+A
+E001
+E
+A
+A
+F
+F
+F
+F
+F
+F
+A
+B
+B
+A
+r 9 F
+A
+F
+F
+F
+A
+B
+B
+B
+B
+A
+B
+B
+A
+A
+F
+F
+F
+F
+F
+F
+A
+B
+B
 A
 F
 F
@@ -39341,7 +39911,28 @@ A
 F
 F
 F
-r 22 U
+A
+B
+B
+B
+B
+A
+B
+B
+A
+A
+F
+F
+F
+A
+F
+F
+F
+F
+F
+F
+A
+A
 +I
 .
 .
@@ -39481,17 +40072,25 @@ E
 E
 U
 U
-U
-U
-U
-U
+A
+A
+A
+A
 A
 F
 F
 F
 A
 A
-r 224 U
+A
+E001
+E
+A
+A
+A
+E001
+E
+r 216 U
 A
 A
 A
@@ -39698,8 +40297,8 @@ F
 F
 F
 A
-U
-U
+B
+B
 A
 F
 F
@@ -39935,8 +40534,8 @@ E
 A
 B
 B
-U
-U
+A
+A
 A
 E
 E
@@ -41028,8 +41627,8 @@ r 211 U
 A
 r 210 U
 A
-r 103 U
-A
+r 39 U
+r 65 A
 r 353 U
 ;pos=00E800
 r 58 U
@@ -63224,7 +63823,64 @@ A
 B
 B
 A
-r 185 U
+A
+B
+B
+B
+B
+A
+F
+F
+F
+A
+F
+F
+F
+A
+F
+F
+F
+A
+F
+F
+F
+A
+F
+F
+F
+A
+A
+A
+A
+A
+F
+F
+F
+A
+A
+A
+A
+B
+B
+A
+F
+F
+F
+A
+A
+A
+F
+F
+F
+A
+A
+B
+B
+A
+B
+B
+A
+r 128 U
 A
 A
 F
@@ -63313,7 +63969,7 @@ F
 F
 F
 A
-E
+E003
 E
 A
 F
@@ -63332,11 +63988,11 @@ F
 F
 A
 A
+E003
 E
+E003
 E
-E
-E
-E
+E003
 E
 A
 F
@@ -63348,11 +64004,11 @@ F
 F
 A
 A
+E003
 E
+E003
 E
-E
-E
-E
+E003
 E
 A
 F
@@ -63363,8 +64019,8 @@ A
 B
 B
 A
+E003
 E
-E
 A
 F
 F
@@ -63372,21 +64028,6 @@ F
 F
 F
 F
-A
-B
-B
-A
-F
-F
-F
-A
-F
-F
-F
-A
-A
-r 10 E
-A
 A
 B
 B
@@ -63395,12 +64036,20 @@ F
 F
 F
 A
+F
+F
+F
 A
+A
+E003
 E
+E003
 E
+E003
 E
+E003
 E
-E
+E003
 E
 A
 A
@@ -63412,11 +64061,27 @@ F
 F
 A
 A
+E003
 E
+E003
 E
+E003
 E
+A
+A
+B
+B
+A
+F
+F
+F
+A
+A
+E003
 E
+E003
 E
+E003
 E
 A
 F
@@ -63435,8 +64100,8 @@ F
 F
 F
 A
-E
-E
+B
+B
 B
 B
 A
@@ -69687,7 +70352,14 @@ B
 B
 A
 A
-r 8 E
+E005
+E
+E005
+E
+E005
+E
+E005
+E
 A
 A
 B
@@ -70552,7 +71224,14 @@ F
 F
 A
 A
-r 8 E
+E005
+E
+E005
+E
+E005
+E
+E005
+E
 A
 F
 F
@@ -71128,7 +71807,14 @@ B
 B
 A
 A
-r 8 E
+E005
+E
+E005
+E
+E005
+E
+E005
+E
 A
 A
 B
@@ -73419,7 +74105,14 @@ B
 B
 A
 A
-r 8 E
+E005
+E
+E005
+E
+E005
+E
+E005
+E
 A
 A
 B
@@ -108148,13 +108841,8 @@ r 22 A
 r 88 U
 r 89 A
 U
-A
-A
-A
-A
-A
-A
-r 96 U
+r 70 A
+r 32 U
 r 320 A
 r 207 U
 ;pos=069800
@@ -108164,7 +108852,9 @@ r 2048 U
 ;pos=06A800
 r 2048 U
 ;pos=06B000
-r 2048 U
+r 1808 U
+A
+r 239 U
 ;pos=06B800
 r 247 U
 A

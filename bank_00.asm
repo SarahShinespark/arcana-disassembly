@@ -188,14 +188,12 @@
           CODE_0081A8:
                        REP #$20                             ;0081A8|C220    |      ;
                        TXA                                  ;0081AA|8A      |      ;
-          CODE_0081AB:
                        RTL                                  ;0081AB|6B      |      ;
                        SEP #$20                             ;0081AC|E220    |      ;
                        LDA.B #$00                           ;0081AE|A900    |      ;
                        XBA                                  ;0081B0|EB      |      ;
                        LDA.W $0002                          ;0081B1|AD0200  |000002;
                        SEC                                  ;0081B4|38      |      ;
-          CODE_0081B5:
                        SBC.W $0003                          ;0081B5|ED0300  |000003;
                        REP #$20                             ;0081B8|C220    |      ;
                        RTL                                  ;0081BA|6B      |      ;
@@ -744,7 +742,6 @@ Gfx_Dungeon_Stuff_far:
                        INY                                  ;00852A|C8      |      ;
           CODE_00852B:
                        CMP.B #$FF                           ;00852B|C9FF    |      ;
-          CODE_00852D:
                        BEQ CODE_00857E                      ;00852D|F04F    |00857E;
                        LDA.B [$00],Y                        ;00852F|B700    |000000;
                        STA.B $04                            ;008531|8504    |000004;
@@ -752,7 +749,6 @@ Gfx_Dungeon_Stuff_far:
                        INY                                  ;008533|C8      |      ;
                        REP #$20                             ;008534|C220    |      ;
                        LDA.B [$00],Y                        ;008536|B700    |000000;
-          CODE_008538:
                        STA.B $05                            ;008538|8505    |000005;
                        INY                                  ;00853A|C8      |      ;
                        INY                                  ;00853B|C8      |      ;
@@ -1176,14 +1172,12 @@ Gfx_Dungeon_Stuff_far:
           CODE_0087CB:
                        REP #$20                             ;0087CB|C220    |      ;
                        DEC.B $03                            ;0087CD|C603    |000003;
-          CODE_0087CF:
                        SEP #$20                             ;0087CF|E220    |      ;
                        BNE CODE_0087C4                      ;0087D1|D0F1    |0087C4;
                        JMP.W Decomp_end_check               ;0087D3|4C7C87  |00877C;
           CODE_0087D6:
                        LDA.B [$00],Y                        ;0087D6|B700    |000000;
                        INY                                  ;0087D8|C8      |      ;
-          CODE_0087D9:
                        PHY                                  ;0087D9|5A      |      ;
                        LDY.B $03                            ;0087DA|A403    |000003;
           CODE_0087DC:
@@ -2857,7 +2851,6 @@ Update_Restart_MainLp:
                        PLA                                  ;009328|68      |      ;
                        AND.W #$FF00                         ;009329|2900FF  |      ;
                        BPL CODE_009331                      ;00932C|1003    |009331;
-          CODE_00932E:
                        ORA.W #$00FF                         ;00932E|09FF00  |      ;
           CODE_009331:
                        XBA                                  ;009331|EB      |      ;
@@ -2881,7 +2874,6 @@ Update_Restart_MainLp:
                        ORA.W #$00FF                         ;009353|09FF00  |      ;
           CODE_009356:
                        XBA                                  ;009356|EB      |      ;
-          CODE_009357:
                        ADC.W $085F,X                        ;009357|7D5F08  |00085F;
                        STA.W $085F,X                        ;00935A|9D5F08  |00085F;
                        INC.B $10                            ;00935D|E610    |000010;
@@ -2975,7 +2967,6 @@ Event_Anim_88_8F_1b_2b:
                        PHA                                  ;0093EF|48      |      ;
                        AND.W #$00FF                         ;0093F0|29FF00  |      ;
                        XBA                                  ;0093F3|EB      |      ;
-          CODE_0093F4:
                        STA.W $101F,X                        ;0093F4|9D1F10  |00101F;
                        PLA                                  ;0093F7|68      |      ;
                        AND.W #$FF00                         ;0093F8|2900FF  |      ;
@@ -3128,7 +3119,6 @@ Event_Anim_C8_CF_1b_2b:
                        STZ.W $08EF,X                        ;009500|9EEF08  |0008EF;
                        STZ.W $0883,X                        ;009503|9E8308  |000883;
                        STZ.W $0913,X                        ;009506|9E1309  |000913;
-          CODE_009509:
                        STZ.W $08A7,X                        ;009509|9EA708  |0008A7;
                        INC.B $10                            ;00950C|E610    |000010;
                        RTS                                  ;00950E|60      |      ;
@@ -3155,7 +3145,6 @@ Event_Anim_C8_CF_1b_2b:
                        STA.W Event_CodeBank                 ;009537|8D4B10  |00104B;
                        LDX.W Function_results               ;00953A|AE4110  |001041;
                        LDA.W Function_results1,X            ;00953D|BDB30C  |000CB3;
-          CODE_009540:
                        JSL.L JumpTo1049                     ;009540|220E9B00|009B0E;
                        LDX.W Function_results               ;009544|AE4110  |001041;
                        STA.W Function_results1,X            ;009547|9DB30C  |000CB3;
@@ -3318,7 +3307,6 @@ Event_Anim_C8_CF_1b_2b:
      Event_Anim_A8_AF:
                        LDX.W Selection                      ;00965F|AE3F10  |00103F; Increment animation ID
                        INC.W Anim_ID,X                      ;009662|FE7B0A  |000A7B;
-          CODE_009665:
                        INC.B $10                            ;009665|E610    |000010;
                        RTS                                  ;009667|60      |      ;
      Event_Anim_B0_B7:
@@ -3628,7 +3616,6 @@ Event_Anim_C8_CF_1b_2b:
                        TAY                                  ;009882|A8      |      ;
                        SEP #$20                             ;009883|E220    |      ;
                        TXA                                  ;009885|8A      |      ;
-          CODE_009886:
                        PHD                                  ;009886|0B      |      ;
                        PEA.W $0000                          ;009887|F40000  |000000;
                        PLD                                  ;00988A|2B      |      ;
@@ -3646,7 +3633,6 @@ Event_Anim_C8_CF_1b_2b:
                        STA.B $1B                            ;0098A0|851B    |00001B;
                        STZ.B $1D                            ;0098A2|641D    |00001D;
                        LDA.W $0002,Y                        ;0098A4|B90200  |000002;
-          CODE_0098A7:
                        BPL CODE_0098AB                      ;0098A7|1002    |0098AB;
                        DEC.B $1D                            ;0098A9|C61D    |00001D;
           CODE_0098AB:
@@ -3711,7 +3697,6 @@ Event_Anim_C8_CF_1b_2b:
                        INY                                  ;009910|C8      |      ;
                        INY                                  ;009911|C8      |      ;
                        INY                                  ;009912|C8      |      ;
-          CODE_009913:
                        INY                                  ;009913|C8      |      ;
                        BRA CODE_00989B                      ;009914|8085    |00989B;
           CODE_009916:
@@ -3787,7 +3772,6 @@ Event_Anim_C8_CF_1b_2b:
                        ORA.W #$C000                         ;009985|0900C0  |      ;
                        STA.B $00                            ;009988|8500    |000000;
                        PLX                                  ;00998A|FA      |      ;
-          CODE_00998B:
                        BMI CODE_0099A4                      ;00998B|3017    |0099A4;
           CODE_00998D:
                        LDA.W $06AF,X                        ;00998D|BDAF06  |0006AF;
@@ -3895,7 +3879,6 @@ Event_Anim_C8_CF_1b_2b:
           CODE_009A40:
                        TAX                                  ;009A40|AA      |      ;
                        LDA.W $0AE7,X                        ;009A41|BDE70A  |000AE7;
-          CODE_009A44:
                        BPL CODE_009A40                      ;009A44|10FA    |009A40;
                        PLA                                  ;009A46|68      |      ;
           CODE_009A47:
@@ -3917,7 +3900,6 @@ Event_Anim_C8_CF_1b_2b:
                        LDX.W $063B                          ;009A5A|AE3B06  |00063B;
           CODE_009A5D:
                        CPX.B $00                            ;009A5D|E400    |000000;
-          CODE_009A5F:
                        BEQ CODE_009A68                      ;009A5F|F007    |009A68;
                        TXY                                  ;009A61|9B      |      ;
                        LDA.W $0667,X                        ;009A62|BD6706  |000667;
@@ -3973,7 +3955,6 @@ Event_Anim_C8_CF_1b_2b:
                        SBC.W #$0002                         ;009AAE|E90200  |      ;
                        TCD                                  ;009AB1|5B      |      ;
                        PLA                                  ;009AB2|68      |      ;
-          CODE_009AB3:
                        STY.B $00                            ;009AB3|8400    |000000;
                        LDY.W $06D3,X                        ;009AB5|BCD306  |0006D3;
                        LDX.W #$FFFF                         ;009AB8|A2FFFF  |      ;
@@ -3992,7 +3973,6 @@ Event_Anim_C8_CF_1b_2b:
           CODE_009ACA:
                        STY.B $24                            ;009ACA|8424    |000024;
                        STZ.B $00                            ;009ACC|6400    |000000;
-          CODE_009ACE:
                        LDA.W $06D3,X                        ;009ACE|BDD306  |0006D3;
                        CMP.B $24                            ;009AD1|C524    |000024;
                        BEQ CODE_009ADF                      ;009AD3|F00A    |009ADF;
@@ -4094,7 +4074,6 @@ Event_Anim_C8_CF_1b_2b:
           CODE_009B87:
                        LDA.W $06AF,X                        ;009B87|BDAF06  |0006AF;
                        AND.W #$3FFF                         ;009B8A|29FF3F  |      ;
-          CODE_009B8D:
                        TAY                                  ;009B8D|A8      |      ;
                        LDA.W $07F3,X                        ;009B8E|BDF307  |0007F3;
           CODE_009B91:
@@ -4983,7 +4962,7 @@ Confusing_RAM_Xfer_3b_4b:
                        dl Event_Spell_Animation             ;00A209|        |0FCB2B;
        Event_Brancher:
                        dl Call_Event_ASM                    ;00A20C|        |18968B;
-                       dl UNREACH_01A0D8                    ;00A20F|        |01A0D8;
+                       dl DATA8_01A0D8                      ;00A20F|        |01A0D8;
                        dl Bank17_event_code                 ;00A212|        |17804D;
                        dl UNREACH_178C43                    ;00A215|        |178C43;
                        dl DATA8_18849C                      ;00A218|        |18849C;
@@ -12143,7 +12122,6 @@ Spell_INT_damage_bonus:
                        db $24                               ;00CF27|        |      ;
          DATA8_00CF28:
                        db $00                               ;00CF28|        |      ;
-         DATA8_00CF29:
                        db $07                               ;00CF29|        |      ;
                        dl CODE_00CC67                       ;00CF2A|        |00CC67;
                        db $0B                               ;00CF2D|        |      ;
@@ -12162,7 +12140,6 @@ Spell_INT_damage_bonus:
                        db $05                               ;00CF3D|        |      ; RTL
         Loop_for_CEE4:
                        db $06                               ;00CF3E|        |      ;
-         DATA8_00CF3F:
                        db $01                               ;00CF3F|        |      ;
          DATA8_00CF40:
                        db $07                               ;00CF40|        |      ;
@@ -12172,7 +12149,6 @@ Spell_INT_damage_bonus:
                        db $05                               ;00CF47|        |      ; RTL
       Tbl_RAM_targets:
                        dw $11C3                             ;00CF48|        |0011C3; (2b) destination, (1b) bytes to write
-         DATA8_00CF4A:
                        db $08                               ;00CF4A|        |      ;
                        dw $11DB                             ;00CF4B|        |0011DB;
                        db $08                               ;00CF4D|        |      ;
@@ -12184,7 +12160,6 @@ Spell_INT_damage_bonus:
                        dw $123B                             ;00CF54|        |00123B;
                        db $08                               ;00CF56|        |      ;
                        dw $1253                             ;00CF57|        |001253;
-         DATA8_00CF59:
                        db $08                               ;00CF59|        |      ;
                        dw $126B                             ;00CF5A|        |00126B;
                        db $08                               ;00CF5C|        |      ;
@@ -12192,11 +12167,9 @@ Spell_INT_damage_bonus:
                        db $08                               ;00CF5F|        |      ;
                        dw $129B                             ;00CF60|        |00129B;
                        db $08                               ;00CF62|        |      ;
-         PTR16_00CF63:
                        dw $12B3                             ;00CF63|        |0012B3;
                        db $08                               ;00CF65|        |      ;
                        dw $12CB                             ;00CF66|        |0012CB;
-         DATA8_00CF68:
                        db $08                               ;00CF68|        |      ;
                        dw $12F3                             ;00CF69|        |0012F3;
                        db $08                               ;00CF6B|        |      ;
@@ -12243,7 +12216,6 @@ Spell_INT_damage_bonus:
                        db $02                               ;00CFA7|        |      ;
                        dw $1577                             ;00CFA8|        |001577;
                        db $02                               ;00CFAA|        |      ;
-         PTR16_00CFAB:
                        dw $18CD                             ;00CFAB|        |0018CD;
                        db $02                               ;00CFAD|        |      ;
                        dw $18DF                             ;00CFAE|        |0018DF;
@@ -12254,7 +12226,6 @@ Spell_INT_damage_bonus:
                        db $02                               ;00CFB6|        |      ;
                        dw $16F7                             ;00CFB7|        |0016F7;
                        db $02                               ;00CFB9|        |      ;
-         PTR16_00CFBA:
                        dw $16F9                             ;00CFBA|        |0016F9;
                        db $02                               ;00CFBC|        |      ;
                        dw $16FB                             ;00CFBD|        |0016FB;
@@ -12265,7 +12236,6 @@ Spell_INT_damage_bonus:
                        db $02                               ;00CFC5|        |      ;
                        dw $16FF                             ;00CFC6|        |0016FF;
                        db $C0                               ;00CFC8|        |      ;
-         PTR16_00CFC9:
                        dw $17BF                             ;00CFC9|        |0017BF;
                        db $C0                               ;00CFCB|        |      ;
                        dw $FFFF                             ;00CFCC|        |      ; End MVN section

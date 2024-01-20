@@ -10361,7 +10361,7 @@ Check_for_exit_location:
                        db $07                               ;03B93F|        |      ;
                        dl _1881_sign                        ;03B940|        |03D01B;
                        db $0C                               ;03B943|        |      ;
-                       dw UNREACH_03CA74                    ;03B944|        |03CA74;
+                       dw Traveling_to_dungeon              ;03B944|        |03CA74;
                        db $07                               ;03B946|        |      ;
                        dl Color_stuff_2b                    ;03B947|        |03E562;
                        db $26                               ;03B94A|        |000000;
@@ -13986,64 +13986,44 @@ SpiritHealer_A_pressed:
                        db $1E                               ;03CA70|        |      ; 1E
                        dw $0000                             ;03CA71|        |      ;
                        db $05                               ;03CA73|        |      ; RTL
-       UNREACH_03CA74:
-                       db $16                               ;03CA74|        |00007B;
-                       db $7B                               ;03CA75|        |      ;
-                       db $15                               ;03CA76|        |000000;
-                       db $00                               ;03CA77|        |      ;
-                       db $00                               ;03CA78|        |      ;
-                       db $07                               ;03CA79|        |0000E0;
-                       db $E0                               ;03CA7A|        |      ;
-                       db $AD                               ;03CA7B|        |000403;
-                       db $03                               ;03CA7C|        |000004;
-                       db $04                               ;03CA7D|        |00005F;
-                       db $5F                               ;03CA7E|        |0418D5;
-                       db $D5                               ;03CA7F|        |000018;
-                       db $18                               ;03CA80|        |      ;
-                       db $04                               ;03CA81|        |0000C2;
-                       db $C2                               ;03CA82|        |      ;
-                       db $CD                               ;03CA83|        |000703;
-                       db $03                               ;03CA84|        |000007;
-                       db $07                               ;03CA85|        |000054;
-                       db $54                               ;03CA86|        |      ;
-                       db $E2                               ;03CA87|        |      ;
-                       db $03                               ;03CA88|        |000007;
-                       db $07                               ;03CA89|        |000020;
-                       db $20                               ;03CA8A|        |0303A5;
-                       db $A5                               ;03CA8B|        |000003;
-                       db $03                               ;03CA8C|        |000006;
-                       db $06                               ;03CA8D|        |00000F;
-                       db $0F                               ;03CA8E|        |071001;
-                       db $01                               ;03CA8F|        |000010;
-                       db $10                               ;03CA90|        |03CA99;
-                       db $07                               ;03CA91|        |0000CB;
-                       db $CB                               ;03CA92|        |      ;
-                       db $A0                               ;03CA93|        |      ;
-                       db $00                               ;03CA94|        |      ;
-                       db $06                               ;03CA95|        |000003;
-                       db $03                               ;03CA96|        |000002;
-                       db $02                               ;03CA97|        |      ;
-                       db $1E                               ;03CA98|        |000000;
-                       db $00                               ;03CA99|        |      ;
-                       db $00                               ;03CA9A|        |      ;
-                       db $07                               ;03CA9B|        |000061;
-                       db $61                               ;03CA9C|        |000087;
-                       db $87                               ;03CA9D|        |000003;
-                       db $03                               ;03CA9E|        |000006;
-                       db $06                               ;03CA9F|        |000001;
-                       db $01                               ;03CAA0|        |000007;
-                       db $07                               ;03CAA1|        |00003F;
-                       db $3F                               ;03CAA2|        |0F0388;
-                       db $88                               ;03CAA3|        |      ;
-                       db $03                               ;03CAA4|        |00000F;
-                       db $0F                               ;03CAA5|        |000000;
+ Traveling_to_dungeon:
+                       db $16                               ;03CA74|        |      ; 16: $157B=0
+                       dw $157B                             ;03CA75|        |      ;
+                       dw $0000                             ;03CA77|        |      ;
+                       db $07                               ;03CA79|        |      ;
+                       dl Some_enemy_ID_check               ;03CA7A|        |03ADE0;
+      Call_Travel_ASM:
+                       db $04                               ;03CA7D|        |      ;
+                       dl Travel_subasm                     ;03CA7E|        |18D55F;
+                       db $04                               ;03CA81|        |      ;
+                       dl Spaghetti_setup                   ;03CA82|        |03CDC2;
+                       db $07                               ;03CA85|        |      ;
+                       dl Dungeon_Enter                     ;03CA86|        |03E254;
+                       db $07                               ;03CA89|        |      ;
+                       dl Sub_Default_BGM                   ;03CA8A|        |03A520;
+                       db $06                               ;03CA8D|        |      ; 06 0F
+                       db $0F                               ;03CA8E|        |      ;
+                       db $01                               ;03CA8F|        |      ; 01 10
+                       db $10                               ;03CA90|        |      ;
+                       db $07                               ;03CA91|        |      ; Unfade 1 notch
+                       dl Unfade                            ;03CA92|        |00A0CB;
+                       db $06                               ;03CA95|        |      ; 06 03
+                       db $03                               ;03CA96|        |      ;
+                       db $02                               ;03CA97|        |      ; 02: End loop
+                       db $1E                               ;03CA98|        |      ;
+                       dw $0000                             ;03CA99|        |      ;
+                       db $07                               ;03CA9B|        |      ;
+                       dl CODE_038761                       ;03CA9C|        |038761;
+                       db $06                               ;03CA9F|        |      ;
+                       db $01                               ;03CAA0|        |      ;
+                       db $07                               ;03CAA1|        |      ;
+                       dl Map_stuff_and_vblank              ;03CAA2|        |03883F;
+                       db $0F                               ;03CAA5|        |      ;
                        db $00                               ;03CAA6|        |      ;
-                       db $00                               ;03CAA7|        |      ;
-                       db $00                               ;03CAA8|        |      ;
-                       db $1E                               ;03CAA9|        |000001;
-                       db $01                               ;03CAAA|        |000000;
-                       db $00                               ;03CAAB|        |      ;
-                       db $05                               ;03CAAC|        |000021;
+                       dw $0000                             ;03CAA7|        |      ;
+                       db $1E                               ;03CAA9|        |      ;
+                       dw $0001                             ;03CAAA|        |      ;
+                       db $05                               ;03CAAC|        |      ; 05: RTL
        UNREACH_03CAAD:
                        db $21                               ;03CAAD|        |000001;
                        db $01                               ;03CAAE|        |000038;
@@ -14820,7 +14800,7 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CDD1|        |      ;
                        dl Xfer_lots_of_data                 ;03CDD2|        |018A06;
                        db $1B                               ;03CDD5|        |      ;
-                       dw LOOSE_OP_00CE75                   ;03CDD6|        |00CE75;
+                       dw DATA8_03CE75                      ;03CDD6|        |03CE75;
                        db $07                               ;03CDD8|        |      ;
                        dl Slot2_WeirdOffset                 ;03CDD9|        |07ABBA;
                        db $12                               ;03CDDC|        |      ;
@@ -14836,25 +14816,25 @@ SpiritHealer_A_pressed:
                        dl Slot3_WeirdOffset                 ;03CDED|        |07ABCB;
                        db $12                               ;03CDF0|        |      ;
                        db $03                               ;03CDF1|        |      ;
-                       dw PTR16_00CEF6                      ;03CDF2|        |00CEF6;
-                       dw PTR16_00CF13                      ;03CDF4|        |00CF13;
-                       dw PTR16_00CF1E                      ;03CDF6|        |00CF1E;
+                       dw DATA8_03CEF6                      ;03CDF2|        |03CEF6;
+                       dw Load_Gfx_Salah                    ;03CDF4|        |03CF13;
+                       dw DATA8_03CF1E                      ;03CDF6|        |03CF1E;
                        db $07                               ;03CDF8|        |      ;
                        dl RAM_Decomp_802B                   ;03CDF9|        |0E8023;
                        db $07                               ;03CDFC|        |      ;
                        dl Slot4_WeirdOffset                 ;03CDFD|        |07ABDC;
                        db $12                               ;03CE00|        |      ;
                        db $03                               ;03CE01|        |      ;
-                       dw DATA8_00CF29                      ;03CE02|        |00CF29;
-                       dw DATA8_00CF34                      ;03CE04|        |00CF34;
-                       dw DATA8_00CF3F                      ;03CE06|        |00CF3F;
+                       dw DATA8_03CF29                      ;03CE02|        |03CF29;
+                       dw DATA8_03CF34                      ;03CE04|        |03CF34;
+                       dw DATA8_03CF3F                      ;03CE06|        |03CF3F;
                        db $07                               ;03CE08|        |      ;
                        dl RAM_Decomp_803C                   ;03CE09|        |0E8034;
                        db $0F                               ;03CE0C|        |      ;
                        db $02                               ;03CE0D|        |      ;
                        dw $0000                             ;03CE0E|        |      ;
                        db $1B                               ;03CE10|        |      ;
-                       dw DATA8_00CF4A                      ;03CE11|        |00CF4A;
+                       dw DATA8_03CF4A                      ;03CE11|        |03CF4A;
                        db $07                               ;03CE13|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CE14|        |00A140;
                        dl RLE_0D_91F0                       ;03CE17|        |0D91F0;
@@ -14866,11 +14846,11 @@ SpiritHealer_A_pressed:
                        dl Slot2_WeirdOffset                 ;03CE22|        |07ABBA;
                        db $12                               ;03CE25|        |      ;
                        db $05                               ;03CE26|        |      ;
-                       dw DATA8_00CF59                      ;03CE27|        |00CF59;
-                       dw PTR16_00CF5E                      ;03CE29|        |00CF5E;
-                       dw PTR16_00CF63                      ;03CE2B|        |00CF63;
-                       dw DATA8_00CF68                      ;03CE2D|        |00CF68;
-                       dw PTR16_00CF6D                      ;03CE2F|        |00CF6D;
+                       dw DATA8_03CF59                      ;03CE27|        |03CF59;
+                       dw DATA8_03CF5E                      ;03CE29|        |03CF5E;
+                       dw DATA8_03CF63                      ;03CE2B|        |03CF63;
+                       dw DATA8_03CF68                      ;03CE2D|        |03CF68;
+                       dw DATA8_03CF6D                      ;03CE2F|        |03CF6D;
                        db $0F                               ;03CE31|        |      ;
                        db $02                               ;03CE32|        |      ;
                        dw $0002                             ;03CE33|        |      ;
@@ -14878,9 +14858,9 @@ SpiritHealer_A_pressed:
                        dl Slot3_WeirdOffset                 ;03CE36|        |07ABCB;
                        db $12                               ;03CE39|        |      ;
                        db $03                               ;03CE3A|        |      ;
-                       dw PTR16_00CF82                      ;03CE3B|        |00CF82;
-                       dw PTR16_00CF91                      ;03CE3D|        |00CF91;
-                       dw PTR16_00CFA0                      ;03CE3F|        |00CFA0;
+                       dw DATA8_03CF82                      ;03CE3B|        |03CF82;
+                       dw DATA8_03CF91                      ;03CE3D|        |03CF91;
+                       dw DATA8_03CFA0                      ;03CE3F|        |03CFA0;
                        db $0F                               ;03CE41|        |      ;
                        db $02                               ;03CE42|        |      ;
                        dw $0003                             ;03CE43|        |      ;
@@ -14888,9 +14868,9 @@ SpiritHealer_A_pressed:
                        dl Slot4_WeirdOffset                 ;03CE46|        |07ABDC;
                        db $12                               ;03CE49|        |      ;
                        db $03                               ;03CE4A|        |      ;
-                       dw PTR16_00CFAB                      ;03CE4B|        |00CFAB;
-                       dw PTR16_00CFBA                      ;03CE4D|        |00CFBA;
-                       dw PTR16_00CFC9                      ;03CE4F|        |00CFC9;
+                       dw DATA8_03CFAB                      ;03CE4B|        |03CFAB;
+                       dw DATA8_03CFBA                      ;03CE4D|        |03CFBA;
+                       dw DATA8_03CFC9                      ;03CE4F|        |03CFC9;
        Similar_things:
                        db $04                               ;03CE51|        |      ;
                        dl Sub_Battle_setup                  ;03CE52|        |058164;
@@ -14901,7 +14881,7 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CE5D|        |      ;
                        dl Sub_Another_setup_again           ;03CE5E|        |05926F;
                        db $16                               ;03CE61|        |      ;
-                       dw $157B                             ;03CE62|        |00157B;
+                       dw $157B                             ;03CE62|        |      ;
                        dw $0001                             ;03CE64|        |      ;
                        db $04                               ;03CE66|        |      ;
                        dl Sub_Transfer_stuff                ;03CE67|        |0189CD;
@@ -14911,6 +14891,7 @@ SpiritHealer_A_pressed:
                        dl Color_stuff_2b                    ;03CE6F|        |03E562;
                        dw $003F                             ;03CE72|        |      ;
                        db $05                               ;03CE74|        |      ; RTL
+         DATA8_03CE75:
                        db $07                               ;03CE75|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CE76|        |00A035;
                        dl DATA8_0E8191                      ;03CE79|        |0E8191;
@@ -14984,6 +14965,7 @@ SpiritHealer_A_pressed:
                        dl Gfx_Rooks                         ;03CEEF|        |0E92F9;
                        dl $7E8500                           ;03CEF2|        |7E8500;
                        db $1C                               ;03CEF5|        |      ; RTL
+         DATA8_03CEF6:
                        db $07                               ;03CEF6|        |      ;
                        dl Chapter5_Check                    ;03CEF7|        |058E09;
                        db $0C                               ;03CEFA|        |      ;
@@ -15006,26 +14988,31 @@ SpiritHealer_A_pressed:
                        dl DATA8_0ED25C                      ;03CF17|        |0ED25C;
                        dl $7E8A00                           ;03CF1A|        |7E8A00;
                        db $1C                               ;03CF1D|        |      ;
+         DATA8_03CF1E:
                        db $07                               ;03CF1E|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF1F|        |00A035;
                        dl Gfx_Rooks                         ;03CF22|        |0E92F9;
                        dl $7E8A00                           ;03CF25|        |7E8A00;
                        db $1C                               ;03CF28|        |      ; RTL
+         DATA8_03CF29:
                        db $07                               ;03CF29|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF2A|        |00A035;
                        dl DATA8_0EDDF8                      ;03CF2D|        |0EDDF8;
                        dl $7E8F00                           ;03CF30|        |7E8F00;
                        db $1C                               ;03CF33|        |      ; RTL
+         DATA8_03CF34:
                        db $07                               ;03CF34|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF35|        |00A035;
                        dl DATA8_0EE863                      ;03CF38|        |0EE863;
                        dl $7E8F00                           ;03CF3B|        |7E8F00;
                        db $1C                               ;03CF3E|        |      ; RTL
+         DATA8_03CF3F:
                        db $07                               ;03CF3F|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF40|        |00A035;
                        dl Gfx_Rooks                         ;03CF43|        |0E92F9;
                        dl $7E8F00                           ;03CF46|        |7E8F00;
                        db $1C                               ;03CF49|        |      ; RTL
+         DATA8_03CF4A:
                        db $07                               ;03CF4A|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CF4B|        |00A140;
                        dl Data_3CF4A                        ;03CF4E|        |0D922A;
@@ -15034,18 +15021,23 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CF54|        |      ;
                        dl DATA8_058463                      ;03CF55|        |058463;
                        db $1C                               ;03CF58|        |      ; RTL
+         DATA8_03CF59:
                        db $04                               ;03CF59|        |      ;
                        dl DATA8_05849F                      ;03CF5A|        |05849F;
                        db $1C                               ;03CF5D|        |      ;
+         DATA8_03CF5E:
                        db $04                               ;03CF5E|        |      ;
                        dl DATA8_0584AA                      ;03CF5F|        |0584AA;
                        db $1C                               ;03CF62|        |      ;
+         DATA8_03CF63:
                        db $04                               ;03CF63|        |      ;
                        dl DATA8_0584B5                      ;03CF64|        |0584B5;
                        db $1C                               ;03CF67|        |      ;
+         DATA8_03CF68:
                        db $04                               ;03CF68|        |      ;
                        dl DATA8_0584C0                      ;03CF69|        |0584C0;
                        db $1C                               ;03CF6C|        |      ;
+         DATA8_03CF6D:
                        db $07                               ;03CF6D|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CF6E|        |00A140;
                        dl Xfer_05_9507                      ;03CF71|        |0D920A;
@@ -15057,6 +15049,7 @@ SpiritHealer_A_pressed:
                        db $73                               ;03CF7E|        |      ;
                        dw $0002                             ;03CF7F|        |      ;
                        db $1C                               ;03CF81|        |      ;
+         DATA8_03CF82:
                        db $07                               ;03CF82|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CF83|        |00A140;
                        dl Data_3CF82                        ;03CF86|        |0D92A2;
@@ -15065,6 +15058,7 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CF8C|        |      ;
                        dl DATA8_0584CB                      ;03CF8D|        |0584CB;
                        db $1C                               ;03CF90|        |      ;
+         DATA8_03CF91:
                        db $07                               ;03CF91|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CF92|        |00A140;
                        dl DATA8_0D92C2                      ;03CF95|        |0D92C2;
@@ -15073,12 +15067,14 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CF9B|        |      ;
                        dl DATA8_058507                      ;03CF9C|        |058507;
                        db $1C                               ;03CF9F|        |      ;
+         DATA8_03CFA0:
                        db $07                               ;03CFA0|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CFA1|        |00A140;
                        dl Xfer_05_9507                      ;03CFA4|        |0D920A;
                        db $50                               ;03CFA7|        |      ;
                        dw $0020                             ;03CFA8|        |      ;
                        db $1C                               ;03CFAA|        |      ;
+         DATA8_03CFAB:
                        db $07                               ;03CFAB|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CFAC|        |00A140;
                        dl DATA8_0D92E2                      ;03CFAF|        |0D92E2;
@@ -15087,6 +15083,7 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CFB5|        |      ;
                        dl DATA8_058543                      ;03CFB6|        |058543;
                        db $1C                               ;03CFB9|        |      ;
+         DATA8_03CFBA:
                        db $07                               ;03CFBA|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CFBB|        |00A140;
                        dl DATA8_0D9302                      ;03CFBE|        |0D9302;
@@ -15095,6 +15092,7 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CFC4|        |      ;
                        dl DATA8_05857F                      ;03CFC5|        |05857F;
                        db $1C                               ;03CFC8|        |      ;
+         DATA8_03CFC9:
                        db $07                               ;03CFC9|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CFCA|        |00A140;
                        dl Xfer_05_9507                      ;03CFCD|        |0D920A;

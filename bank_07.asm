@@ -3361,6 +3361,7 @@ Checks_for_input_probably:
                        LDA.W Inventory_Cards,X              ;079732|BDA913  |0013A9;
                        AND.W #$00FF                         ;079735|29FF00  |      ;
                        RTL                                  ;079738|6B      |      ;
+          CODE_079739:
                        LDX.W Selection                      ;079739|AE3F10  |00103F;
                        LDA.W Selection_value,X              ;07973C|BDEB09  |0009EB;
                        BEQ CODE_079745                      ;07973F|F004    |079745;
@@ -3950,6 +3951,7 @@ Checks_for_input_probably:
                        dw $0008                             ;079BCD|        |000008;
                        dw $0008                             ;079BCF|        |000008;
                        dw $0008                             ;079BD1|        |000008;
+          CODE_079BD3:
                        LDA.W $11B7                          ;079BD3|ADB711  |0011B7;
                        DEC A                                ;079BD6|3A      |      ;
                        ASL A                                ;079BD7|0A      |      ;
@@ -4209,6 +4211,7 @@ Checks_for_input_probably:
                        BCC CODE_079DBC                      ;079DCC|90EE    |079DBC;
           CODE_079DCE:
                        RTS                                  ;079DCE|60      |      ;
+          CODE_079DCF:
                        LDX.W Selection                      ;079DCF|AE3F10  |00103F;
                        LDA.W Selection_value,X              ;079DD2|BDEB09  |0009EB;
                        DEC A                                ;079DD5|3A      |      ;
@@ -4530,6 +4533,7 @@ Checks_for_input_probably:
                        LDA.W #$0003                         ;07A017|A90300  |      ;
                        STA.W Page_Num                       ;07A01A|8DB911  |0011B9;
                        RTL                                  ;07A01D|6B      |      ;
+          CODE_07A01E:
                        LDX.W Selection                      ;07A01E|AE3F10  |00103F;
                        LDA.W Input_New                      ;07A021|AD2900  |000029;
                        BIT.W #$0800                         ;07A024|890008  |      ;
@@ -5054,6 +5058,7 @@ Draw_Weapon_screen_from_char:
                        STA.W $1697,Y                        ;07A3FF|999716  |001697;
                        REP #$20                             ;07A402|C220    |      ;
                        RTS                                  ;07A404|60      |      ;
+            7A409_far:
                        JSR.W CODE_07A409                    ;07A405|2009A4  |07A409;
                        RTL                                  ;07A408|6B      |      ;
           CODE_07A409:
@@ -5204,6 +5209,7 @@ Empty_Equip_item_slot:
                        dw $0018                             ;07A500|        |      ;
                        AND.W #$0001                         ;07A502|290100  |      ;
                        RTL                                  ;07A505|6B      |      ;
+          CODE_07A506:
                        LDY.W Selection                      ;07A506|AC3F10  |00103F;
                        LDA.W Selection_value,Y              ;07A509|B9EB09  |0009EB;
                        ASL A                                ;07A50C|0A      |      ;
@@ -5539,20 +5545,20 @@ Finish_condition_text:
                        DEC A                                ;07A7A0|3A      |      ;
                        ASL A                                ;07A7A1|0A      |      ;
                        TAX                                  ;07A7A2|AA      |      ;
-                       LDA.W Spirit_Current_HP              ;07A7A3|ADF512  |0012F5;
+                       LDA.W Spirit_currHP                  ;07A7A3|ADF512  |0012F5;
                        STA.W Sylph_currHP,X                 ;07A7A6|9D5313  |001353;
                        CMP.W SpiritMaxHP                    ;07A7A9|CD9513  |001395;
                        BCS CODE_07A7B7                      ;07A7AC|B009    |07A7B7; Skip HP heal at full HP
-                       INC.W Spirit_Current_HP              ;07A7AE|EEF512  |0012F5;
-                       LDA.W Spirit_Current_HP              ;07A7B1|ADF512  |0012F5;
+                       INC.W Spirit_currHP                  ;07A7AE|EEF512  |0012F5;
+                       LDA.W Spirit_currHP                  ;07A7B1|ADF512  |0012F5;
                        STA.W Sylph_currHP,X                 ;07A7B4|9D5313  |001353;
           CODE_07A7B7:
-                       LDA.W Spirit_Current_MP              ;07A7B7|AD2513  |001325;
+                       LDA.W Spirit_currMP                  ;07A7B7|AD2513  |001325;
                        STA.W Sylph_currMP,X                 ;07A7BA|9D5B13  |00135B;
                        CMP.W SpiritMaxMP                    ;07A7BD|CD9D13  |00139D;
                        BCS CODE_07A7CB                      ;07A7C0|B009    |07A7CB; Skip MP heal at full MP
-                       INC.W Spirit_Current_MP              ;07A7C2|EE2513  |001325;
-                       LDA.W Spirit_Current_MP              ;07A7C5|AD2513  |001325;
+                       INC.W Spirit_currMP                  ;07A7C2|EE2513  |001325;
+                       LDA.W Spirit_currMP                  ;07A7C5|AD2513  |001325;
                        STA.W Sylph_currMP,X                 ;07A7C8|9D5B13  |00135B;
           CODE_07A7CB:
                        LDX.W #$0006                         ;07A7CB|A20600  |      ;
@@ -5992,8 +5998,8 @@ Check_Active_Spirit_1b:
                        DEC A                                ;07AB17|3A      |      ;
                        ASL A                                ;07AB18|0A      |      ;
                        TAX                                  ;07AB19|AA      |      ;
-                       STZ.W Spirit_Current_HP              ;07AB1A|9CF512  |0012F5;
-                       STZ.W Spirit_Current_MP              ;07AB1D|9C2513  |001325;
+                       STZ.W Spirit_currHP                  ;07AB1A|9CF512  |0012F5;
+                       STZ.W Spirit_currMP                  ;07AB1D|9C2513  |001325;
                        STZ.W Sylph_currHP,X                 ;07AB20|9E5313  |001353;
                        STZ.W Sylph_currMP,X                 ;07AB23|9E5B13  |00135B;
           CODE_07AB26:
@@ -7823,6 +7829,7 @@ Bank_Getting_crit_text:
                        dw $0055                             ;07B8D2|        |      ;
                        dw $0066                             ;07B8D4|        |      ;
                        dw $0077                             ;07B8D6|        |      ;
+          CODE_07B8D8:
                        LDA.W Curr_area                      ;07B8D8|AD7315  |001573;
                        AND.W #$00FF                         ;07B8DB|29FF00  |      ;
                        LDX.W #$0011                         ;07B8DE|A21100  |      ;
@@ -7918,9 +7925,9 @@ Bank_Getting_crit_text:
                        DEC A                                ;07B992|3A      |      ;
                        ASL A                                ;07B993|0A      |      ;
                        TAX                                  ;07B994|AA      |      ;
-                       LDA.W Spirit_Current_HP              ;07B995|ADF512  |0012F5;
+                       LDA.W Spirit_currHP                  ;07B995|ADF512  |0012F5;
                        STA.W Sylph_currHP,X                 ;07B998|9D5313  |001353;
-                       LDA.W Spirit_Current_MP              ;07B99B|AD2513  |001325;
+                       LDA.W Spirit_currMP                  ;07B99B|AD2513  |001325;
                        STA.W Sylph_currMP,X                 ;07B99E|9D5B13  |00135B;
           CODE_07B9A1:
                        RTL                                  ;07B9A1|6B      |      ;
@@ -9553,9 +9560,9 @@ Ruinous_Mission_Flee2:
                        CMP.W #$0001                         ;07C73F|C90100  |      ;
                        BNE CODE_07C768                      ;07C742|D024    |07C768;
                        LDA.W SpiritMaxHP                    ;07C744|AD9513  |001395;
-                       STA.W Spirit_Current_HP              ;07C747|8DF512  |0012F5;
+                       STA.W Spirit_currHP                  ;07C747|8DF512  |0012F5;
                        LDA.W SpiritMaxMP                    ;07C74A|AD9D13  |00139D;
-                       STA.W Spirit_Current_MP              ;07C74D|8D2513  |001325;
+                       STA.W Spirit_currMP                  ;07C74D|8D2513  |001325;
                        STZ.W Spirit_Condition               ;07C750|9CC511  |0011C5;
                        LDY.W #$0000                         ;07C753|A00000  |      ;
           CODE_07C756:
@@ -9798,7 +9805,7 @@ RuinousMission_handling:
                        BNE RuinousMission1                  ;07C920|D004    |07C926;
                        JML.L Text_SpiritNotHere             ;07C922|5C71C907|07C971;
       RuinousMission1:
-                       STZ.W Spirit_Current_HP              ;07C926|9CF512  |0012F5;
+                       STZ.W Spirit_currHP                  ;07C926|9CF512  |0012F5;
                        LDA.W #$0001                         ;07C929|A90100  |      ;
                        STA.W Spirit_Condition               ;07C92C|8DC511  |0011C5;
                        LDA.W Party_slot2                    ;07C92F|AD5D15  |00155D;

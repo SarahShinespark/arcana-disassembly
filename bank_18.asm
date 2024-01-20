@@ -14691,13 +14691,13 @@ Full_Heal_Rooks_Spirits:
                        STZ.W Spirit_Condition               ;18CE19|9CC511  |0011C5;
                        STZ.W Spirits_Owned                  ;18CE1C|9CA713  |0013A7;
                        LDA.W SpiritMaxHP                    ;18CE1F|AD9513  |001395;
-                       STA.W Spirit_Current_HP              ;18CE22|8DF512  |0012F5;
+                       STA.W Spirit_currHP                  ;18CE22|8DF512  |0012F5;
                        STA.W Sylph_currHP                   ;18CE25|8D5313  |001353;
                        STA.W Dao_currHP                     ;18CE28|8D5513  |001355;
                        STA.W Marid_currHP                   ;18CE2B|8D5713  |001357;
                        STA.W Efrite_currHP                  ;18CE2E|8D5913  |001359;
                        LDA.W SpiritMaxMP                    ;18CE31|AD9D13  |00139D;
-                       STA.W Spirit_Current_MP              ;18CE34|8D2513  |001325;
+                       STA.W Spirit_currMP                  ;18CE34|8D2513  |001325;
                        STA.W Sylph_currMP                   ;18CE37|8D5B13  |00135B;
                        STA.W Dao_currMP                     ;18CE3A|8D5D13  |00135D;
                        STA.W Marid_currMP                   ;18CE3D|8D5F13  |00135F;
