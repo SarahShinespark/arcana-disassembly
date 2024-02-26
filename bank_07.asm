@@ -259,6 +259,7 @@ Tbl_Spell_list_offsets:
                        dw $0040                             ;0781B5|        |      ;
                        dw $0080                             ;0781B7|        |      ;
                        dw $00C0                             ;0781B9|        |      ;
+          CODE_0781BB:
                        LDX.W #$0006                         ;0781BB|A20600  |      ;
           CODE_0781BE:
                        LDA.W Condition,X                    ;0781BE|BDC311  |0011C3;
@@ -399,6 +400,7 @@ Tbl_Spell_list_offsets:
                        LDA.L Spell_SFX,X                    ;0782B4|BF56ED05|05ED56;
                        AND.W #$00FF                         ;0782B8|29FF00  |      ;
                        JML.L Play_SFX                       ;0782BB|5C479C00|009C47;
+          CODE_0782BF:
                        LDX.W Selection                      ;0782BF|AE3F10  |00103F;
                        LDA.W #$0000                         ;0782C2|A90000  |      ;
                        STA.W $0A0F,X                        ;0782C5|9D0F0A  |000A0F;
@@ -6854,7 +6856,7 @@ Get_character_offset_far:
           CODE_07B164:
                        LDA.W Selection_value,X              ;07B164|BDEB09  |0009EB;
                        BRA CODE_07B13C                      ;07B167|80D3    |07B13C;
-OR_element_w_parameter:
+   OR_element_with_2b:
                        PHA                                  ;07B169|48      |      ;
                        JSL.L GetEventCode_2b_far            ;07B16A|22079B00|009B07;
                        STA.B $20                            ;07B16E|8520    |000020;
@@ -7201,6 +7203,7 @@ OR_element_w_parameter:
           CODE_07B40C:
                        STA.W Alertness,Y                    ;07B40C|996B12  |00126B;
                        RTL                                  ;07B40F|6B      |      ;
+          CODE_07B410:
                        LDX.W Selection                      ;07B410|AE3F10  |00103F;
                        LDA.W Selection_value,X              ;07B413|BDEB09  |0009EB;
                        CMP.W #$0001                         ;07B416|C90100  |      ;
@@ -7222,6 +7225,7 @@ OR_element_w_parameter:
           CODE_07B438:
                        STZ.W CurrentEXP,X                   ;07B438|9E6313  |001363;
                        RTL                                  ;07B43B|6B      |      ;
+          CODE_07B43C:
                        LDA.W Temp_GP                        ;07B43C|ADA513  |0013A5;
                        CLC                                  ;07B43F|18      |      ;
                        ADC.W Curr_GP                        ;07B440|6D5915  |001559;
@@ -7249,7 +7253,7 @@ OR_element_w_parameter:
                        ADC.W Temp_GP                        ;07B469|6DA513  |0013A5; Add to a running sum
                        STA.W Temp_GP                        ;07B46C|8DA513  |0013A5;
                        RTL                                  ;07B46F|6B      |      ;
-     Set_character_ID:
+  Set_character_ID_2b:
                        JSL.L GetEventCode_2b_far            ;07B470|22079B00|009B07; Takes 2b (character ID) and stores it in the party
                        PHA                                  ;07B474|48      |      ;
                        LDX.W Selection                      ;07B475|AE3F10  |00103F; Current selection?
@@ -7491,6 +7495,7 @@ OR_element_w_parameter:
                        BEQ CODE_07B628                      ;07B63F|F0E7    |07B628;
                        LDA.W Curr_party,X                   ;07B641|BD5B15  |00155B;
                        RTS                                  ;07B644|60      |      ;
+          CODE_07B645:
                        JSR.W CODE_07B628                    ;07B645|2028B6  |07B628;
                        ASL A                                ;07B648|0A      |      ;
                        TAX                                  ;07B649|AA      |      ;
@@ -7707,6 +7712,7 @@ Bank_Getting_crit_text:
                        dw $0008                             ;07B7EC|        |      ;
                        dw $0008                             ;07B7EE|        |      ;
                        dw $0008                             ;07B7F0|        |      ;
+          CODE_07B7F2:
                        LDX.W #$0000                         ;07B7F2|A20000  |      ;
                        LDA.W #$FFFF                         ;07B7F5|A9FFFF  |      ;
           CODE_07B7F8:

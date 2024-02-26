@@ -20193,268 +20193,142 @@ Event_Single_Spell_Anim:
                        db $1C                               ;0FD021|        |007F18;
                        db $18                               ;0FD022|        |      ;
                        db $7F                               ;0FD023|        |29D124;
-       UNREACH_0FD024:
-                       db $24                               ;0FD024|        |0000D1;
-                       db $D1                               ;0FD025|        |000029;
-                       db $29                               ;0FD026|        |      ;
-                       db $D1                               ;0FD027|        |000033;
-                       db $33                               ;0FD028|        |0000D1;
-                       db $D1                               ;0FD029|        |000042;
-                       db $42                               ;0FD02A|        |      ;
-                       db $D1                               ;0FD02B|        |000051;
-                       db $51                               ;0FD02C|        |0000D1;
-                       db $D1                               ;0FD02D|        |000060;
-                       db $60                               ;0FD02E|        |      ;
-                       db $D1                               ;0FD02F|        |00006F;
-                       db $6F                               ;0FD030|        |D17ED1;
-                       db $D1                               ;0FD031|        |00007E;
-                       db $7E                               ;0FD032|        |008DD1;
-                       db $D1                               ;0FD033|        |00008D;
-                       db $8D                               ;0FD034|        |009CD1;
-                       db $D1                               ;0FD035|        |00009C;
-                       db $9C                               ;0FD036|        |00ABD1;
-                       db $D1                               ;0FD037|        |0000AB;
-                       db $AB                               ;0FD038|        |      ;
-                       db $D1                               ;0FD039|        |0000BA;
-                       db $BA                               ;0FD03A|        |      ;
-                       db $D1                               ;0FD03B|        |0000C9;
-                       db $C9                               ;0FD03C|        |      ;
-                       db $D1                               ;0FD03D|        |0000D8;
-                       db $D8                               ;0FD03E|        |      ;
-                       db $D1                               ;0FD03F|        |0000E7;
-                       db $E7                               ;0FD040|        |0000D1;
-                       db $D1                               ;0FD041|        |0000F6;
-                       db $F6                               ;0FD042|        |0000D1;
-                       db $D1                               ;0FD043|        |000005;
-                       db $05                               ;0FD044|        |0000D2;
-                       db $D2                               ;0FD045|        |00000A;
-                       db $0A                               ;0FD046|        |      ;
-                       db $D2                               ;0FD047|        |000014;
-                       db $14                               ;0FD048|        |0000D2;
-                       db $D2                               ;0FD049|        |000023;
-                       db $23                               ;0FD04A|        |0000D2;
-                       db $D2                               ;0FD04B|        |000032;
-                       db $32                               ;0FD04C|        |0000D2;
-                       db $D2                               ;0FD04D|        |000041;
-                       db $41                               ;0FD04E|        |0000D2;
-                       db $D2                               ;0FD04F|        |00004B;
-                       db $4B                               ;0FD050|        |      ;
-                       db $D2                               ;0FD051|        |00005A;
-                       db $5A                               ;0FD052|        |      ;
-                       db $D2                               ;0FD053|        |000069;
-                       db $69                               ;0FD054|        |      ;
-                       db $D2                               ;0FD055|        |000078;
-                       db $78                               ;0FD056|        |      ;
-                       db $D2                               ;0FD057|        |00008C;
-                       db $8C                               ;0FD058|        |009BD2;
-                       db $D2                               ;0FD059|        |00009B;
-                       db $9B                               ;0FD05A|        |      ;
-                       db $D2                               ;0FD05B|        |0000AA;
-                       db $AA                               ;0FD05C|        |      ;
-                       db $D2                               ;0FD05D|        |0000B9;
-                       db $B9                               ;0FD05E|        |00C3D2;
-                       db $D2                               ;0FD05F|        |0000C3;
-                       db $C3                               ;0FD060|        |0000D2;
-                       db $D2                               ;0FD061|        |0000CD;
-                       db $CD                               ;0FD062|        |00D2D2;
-                       db $D2                               ;0FD063|        |0000D2;
-                       db $D2                               ;0FD064|        |0000D2;
-                       db $D2                               ;0FD065|        |0000D7;
-                       db $D7                               ;0FD066|        |0000D2;
-                       db $D2                               ;0FD067|        |0000E1;
-                       db $E1                               ;0FD068|        |0000D2;
-                       db $D2                               ;0FD069|        |0000EB;
-                       db $EB                               ;0FD06A|        |      ;
-                       db $D2                               ;0FD06B|        |0000FA;
-                       db $FA                               ;0FD06C|        |      ;
-                       db $D2                               ;0FD06D|        |000009;
-                       db $09                               ;0FD06E|        |      ;
-                       db $D3                               ;0FD06F|        |000013;
-                       db $13                               ;0FD070|        |0000D3;
-                       db $D3                               ;0FD071|        |000027;
-                       db $27                               ;0FD072|        |0000D3;
-                       db $D3                               ;0FD073|        |000036;
-                       db $36                               ;0FD074|        |0000D3;
-                       db $D3                               ;0FD075|        |000045;
-                       db $45                               ;0FD076|        |0000D3;
-                       db $D3                               ;0FD077|        |000054;
-                       db $54                               ;0FD078|        |      ;
-                       db $D3                               ;0FD079|        |00005E;
-                       db $5E                               ;0FD07A|        |006DD3;
-                       db $D3                               ;0FD07B|        |00006D;
-                       db $6D                               ;0FD07C|        |007CD3;
-                       db $D3                               ;0FD07D|        |00007C;
-                       db $7C                               ;0FD07E|        |0F8BD3;
-                       db $D3                               ;0FD07F|        |00008B;
-                       db $8B                               ;0FD080|        |      ;
-                       db $D3                               ;0FD081|        |000095;
-                       db $95                               ;0FD082|        |0000D3;
-                       db $D3                               ;0FD083|        |00009A;
-                       db $9A                               ;0FD084|        |      ;
-                       db $D3                               ;0FD085|        |00009F;
-                       db $9F                               ;0FD086|        |D3A9D3;
-                       db $D3                               ;0FD087|        |0000A9;
-                       db $A9                               ;0FD088|        |      ;
-                       db $D3                               ;0FD089|        |0000BD;
-                       db $BD                               ;0FD08A|        |00DBD3;
-                       db $D3                               ;0FD08B|        |0000DB;
-                       db $DB                               ;0FD08C|        |      ;
-                       db $D3                               ;0FD08D|        |0000EF;
-                       db $EF                               ;0FD08E|        |D403D3;
-                       db $D3                               ;0FD08F|        |000003;
-                       db $03                               ;0FD090|        |0000D4;
-                       db $D4                               ;0FD091|        |000012;
-                       db $12                               ;0FD092|        |0000D4;
-                       db $D4                               ;0FD093|        |000021;
-                       db $21                               ;0FD094|        |0000D4;
-                       db $D4                               ;0FD095|        |00003A;
-                       db $3A                               ;0FD096|        |      ;
-                       db $D4                               ;0FD097|        |000053;
-                       db $53                               ;0FD098|        |0000D4;
-                       db $D4                               ;0FD099|        |000062;
-                       db $62                               ;0FD09A|        |0F4271;
-                       db $D4                               ;0FD09B|        |000071;
-                       db $71                               ;0FD09C|        |0000D4;
-                       db $D4                               ;0FD09D|        |000080;
-                       db $80                               ;0FD09E|        |0FD074;
-                       db $D4                               ;0FD09F|        |00008F;
-                       db $8F                               ;0FD0A0|        |D49ED4;
-                       db $D4                               ;0FD0A1|        |00009E;
-                       db $9E                               ;0FD0A2|        |00B7D4;
-                       db $D4                               ;0FD0A3|        |0000B7;
-                       db $B7                               ;0FD0A4|        |0000D4;
-                       db $D4                               ;0FD0A5|        |00002F;
-                       db $2F                               ;0FD0A6|        |D5A7D5;
-                       db $D5                               ;0FD0A7|        |0000A7;
-                       db $A7                               ;0FD0A8|        |0000D5;
-                       db $D5                               ;0FD0A9|        |00001F;
-                       db $1F                               ;0FD0AA|        |D6A6D6;
-                       db $D6                               ;0FD0AB|        |0000A6;
-                       db $A6                               ;0FD0AC|        |0000D6;
-                       db $D6                               ;0FD0AD|        |0000E2;
-                       db $E2                               ;0FD0AE|        |      ;
-                       db $D6                               ;0FD0AF|        |00001E;
-                       db $1E                               ;0FD0B0|        |005AD7;
-                       db $D7                               ;0FD0B1|        |00005A;
-                       db $5A                               ;0FD0B2|        |      ;
-                       db $D7                               ;0FD0B3|        |0000B4;
-                       db $B4                               ;0FD0B4|        |0000D7;
-                       db $D7                               ;0FD0B5|        |00002C;
-                       db $2C                               ;0FD0B6|        |00A4D8;
-                       db $D8                               ;0FD0B7|        |      ;
-                       db $A4                               ;0FD0B8|        |0000D8;
-                       db $D8                               ;0FD0B9|        |      ;
-                       db $E0                               ;0FD0BA|        |      ;
-                       db $D8                               ;0FD0BB|        |      ;
-                       db $1C                               ;0FD0BC|        |0058D9;
-                       db $D9                               ;0FD0BD|        |00D958;
-                       db $58                               ;0FD0BE|        |      ;
-                       db $D9                               ;0FD0BF|        |00D962;
-                       db $62                               ;0FD0C0|        |0F479C;
-                       db $D9                               ;0FD0C1|        |00D976;
-                       db $76                               ;0FD0C2|        |0000D9;
-                       db $D9                               ;0FD0C3|        |00D994;
-                       db $94                               ;0FD0C4|        |0000D9;
-                       db $D9                               ;0FD0C5|        |00D9BC;
-                       db $BC                               ;0FD0C6|        |00EED9;
-                       db $D9                               ;0FD0C7|        |00D9EE;
-                       db $EE                               ;0FD0C8|        |0020D9;
-                       db $D9                               ;0FD0C9|        |00DA20;
-                       db $20                               ;0FD0CA|        |0F52DA;
-                       db $DA                               ;0FD0CB|        |      ;
-                       db $52                               ;0FD0CC|        |0000DA;
-                       db $DA                               ;0FD0CD|        |      ;
-                       db $84                               ;0FD0CE|        |0000DA;
-                       db $DA                               ;0FD0CF|        |      ;
-                       db $B6                               ;0FD0D0|        |0000DA;
-                       db $DA                               ;0FD0D1|        |      ;
-                       db $E8                               ;0FD0D2|        |      ;
-                       db $DA                               ;0FD0D3|        |      ;
-                       db $1A                               ;0FD0D4|        |      ;
-                       db $DB                               ;0FD0D5|        |      ;
-                       db $47                               ;0FD0D6|        |0000DB;
-                       db $DB                               ;0FD0D7|        |      ;
-                       db $6A                               ;0FD0D8|        |      ;
-                       db $DB                               ;0FD0D9|        |      ;
-                       db $83                               ;0FD0DA|        |0000DB;
-                       db $DB                               ;0FD0DB|        |      ;
-                       db $92                               ;0FD0DC|        |0000DB;
-                       db $DB                               ;0FD0DD|        |      ;
-                       db $97                               ;0FD0DE|        |0000DB;
-                       db $DB                               ;0FD0DF|        |      ;
-                       db $C4                               ;0FD0E0|        |0000DB;
-                       db $DB                               ;0FD0E1|        |      ;
-                       db $D8                               ;0FD0E2|        |      ;
-                       db $DB                               ;0FD0E3|        |      ;
-                       db $6E                               ;0FD0E4|        |00E6DC;
-                       db $DC                               ;0FD0E5|        |00DCE6;
-                       db $E6                               ;0FD0E6|        |0000DC;
-                       db $DC                               ;0FD0E7|        |00DCEB;
-                       db $EB                               ;0FD0E8|        |      ;
-                       db $DC                               ;0FD0E9|        |00DCF5;
-                       db $F5                               ;0FD0EA|        |0000DC;
-                       db $DC                               ;0FD0EB|        |00DD04;
-                       db $04                               ;0FD0EC|        |0000DD;
-                       db $DD                               ;0FD0ED|        |00DD13;
-                       db $13                               ;0FD0EE|        |0000DD;
-                       db $DD                               ;0FD0EF|        |00DD22;
-                       db $22                               ;0FD0F0|        |DD2CDD;
-                       db $DD                               ;0FD0F1|        |00DD2C;
-                       db $2C                               ;0FD0F2|        |003BDD;
-                       db $DD                               ;0FD0F3|        |00DD3B;
-                       db $3B                               ;0FD0F4|        |      ;
-                       db $DD                               ;0FD0F5|        |00DD4A;
-                       db $4A                               ;0FD0F6|        |      ;
-                       db $DD                               ;0FD0F7|        |00DD59;
-                       db $59                               ;0FD0F8|        |006DDD;
-                       db $DD                               ;0FD0F9|        |00DD6D;
-                       db $6D                               ;0FD0FA|        |007CDD;
-                       db $DD                               ;0FD0FB|        |00DD7C;
-                       db $7C                               ;0FD0FC|        |0F8BDD;
-                       db $DD                               ;0FD0FD|        |00DD8B;
-                       db $8B                               ;0FD0FE|        |      ;
-                       db $DD                               ;0FD0FF|        |00DD9A;
-                       db $9A                               ;0FD100|        |      ;
-                       db $DD                               ;0FD101|        |00DDA4;
-                       db $A4                               ;0FD102|        |0000DD;
-                       db $DD                               ;0FD103|        |00DDAE;
-                       db $AE                               ;0FD104|        |00B3DD;
-                       db $DD                               ;0FD105|        |00DDB3;
-                       db $B3                               ;0FD106|        |0000DD;
-                       db $DD                               ;0FD107|        |00DE1C;
-                       db $1C                               ;0FD108|        |003ADE;
-                       db $DE                               ;0FD109|        |00DE3A;
-                       db $3A                               ;0FD10A|        |      ;
-                       db $DE                               ;0FD10B|        |00DE94;
-                       db $94                               ;0FD10C|        |0000DE;
-                       db $DE                               ;0FD10D|        |00DED0;
-                       db $D0                               ;0FD10E|        |0FD0EE;
-                       db $DE                               ;0FD10F|        |00DF0C;
-                       db $0C                               ;0FD110|        |0084DF;
-                       db $DF                               ;0FD111|        |FCDF84;
-                       db $84                               ;0FD112|        |0000DF;
-                       db $DF                               ;0FD113|        |74DFFC;
-                       db $FC                               ;0FD114|        |0F74DF;
-                       db $DF                               ;0FD115|        |ECE074;
-                       db $74                               ;0FD116|        |0000E0;
-                       db $E0                               ;0FD117|        |      ;
-                       db $EC                               ;0FD118|        |0064E0;
-                       db $E0                               ;0FD119|        |      ;
-                       db $64                               ;0FD11A|        |0000E1;
-                       db $E1                               ;0FD11B|        |0000DC;
-                       db $DC                               ;0FD11C|        |0054E1;
-                       db $E1                               ;0FD11D|        |000054;
-                       db $54                               ;0FD11E|        |      ;
-                       db $E2                               ;0FD11F|        |      ;
-                       db $CC                               ;0FD120|        |0044E2;
-                       db $E2                               ;0FD121|        |      ;
-                       db $44                               ;0FD122|        |      ;
-                       db $E3                               ;0FD123|        |000003;
+           Tbl_0FD024:
+                       dw UNREACH_0FD124                    ;0FD024|        |0FD124;
+                       dw UNREACH_0FD129                    ;0FD026|        |0FD129;
+                       dw UNREACH_0FD133                    ;0FD028|        |0FD133;
+                       dw UNREACH_0FD142                    ;0FD02A|        |0FD142;
+                       dw UNREACH_0FD151                    ;0FD02C|        |0FD151;
+                       dw UNREACH_0FD160                    ;0FD02E|        |0FD160;
+                       dw UNREACH_0FD16F                    ;0FD030|        |0FD16F;
+                       dw UNREACH_0FD17E                    ;0FD032|        |0FD17E;
+                       dw UNREACH_0FD18D                    ;0FD034|        |0FD18D;
+                       dw UNREACH_0FD19C                    ;0FD036|        |0FD19C;
+                       dw UNREACH_0FD1AB                    ;0FD038|        |0FD1AB;
+                       dw UNREACH_0FD1BA                    ;0FD03A|        |0FD1BA;
+                       dw UNREACH_0FD1C9                    ;0FD03C|        |0FD1C9;
+                       dw UNREACH_0FD1D8                    ;0FD03E|        |0FD1D8;
+                       dw UNREACH_0FD1E7                    ;0FD040|        |0FD1E7;
+                       dw UNREACH_0FD1F6                    ;0FD042|        |0FD1F6;
+                       dw UNREACH_0FD205                    ;0FD044|        |0FD205;
+                       dw UNREACH_0FD20A                    ;0FD046|        |0FD20A;
+                       dw UNREACH_0FD214                    ;0FD048|        |0FD214;
+                       dw UNREACH_0FD223                    ;0FD04A|        |0FD223;
+                       dw UNREACH_0FD232                    ;0FD04C|        |0FD232;
+                       dw UNREACH_0FD241                    ;0FD04E|        |0FD241;
+                       dw UNREACH_0FD24B                    ;0FD050|        |0FD24B;
+                       dw UNREACH_0FD25A                    ;0FD052|        |0FD25A;
+                       dw UNREACH_0FD269                    ;0FD054|        |0FD269;
+                       dw UNREACH_0FD278                    ;0FD056|        |0FD278;
+                       dw UNREACH_0FD28C                    ;0FD058|        |0FD28C;
+                       dw UNREACH_0FD29B                    ;0FD05A|        |0FD29B;
+                       dw UNREACH_0FD2AA                    ;0FD05C|        |0FD2AA;
+                       dw UNREACH_0FD2B9                    ;0FD05E|        |0FD2B9;
+                       dw UNREACH_0FD2C3                    ;0FD060|        |0FD2C3;
+                       dw UNREACH_0FD2CD                    ;0FD062|        |0FD2CD;
+                       dw UNREACH_0FD2D2                    ;0FD064|        |0FD2D2;
+                       dw UNREACH_0FD2D7                    ;0FD066|        |0FD2D7;
+                       dw UNREACH_0FD2E1                    ;0FD068|        |0FD2E1;
+                       dw UNREACH_0FD2EB                    ;0FD06A|        |0FD2EB;
+                       dw UNREACH_0FD2FA                    ;0FD06C|        |0FD2FA;
+                       dw UNREACH_0FD309                    ;0FD06E|        |0FD309;
+                       dw UNREACH_0FD313                    ;0FD070|        |0FD313;
+                       dw UNREACH_0FD327                    ;0FD072|        |0FD327;
+                       dw UNREACH_0FD336                    ;0FD074|        |0FD336;
+                       dw UNREACH_0FD345                    ;0FD076|        |0FD345;
+                       dw UNREACH_0FD354                    ;0FD078|        |0FD354;
+                       dw UNREACH_0FD35E                    ;0FD07A|        |0FD35E;
+                       dw UNREACH_0FD36D                    ;0FD07C|        |0FD36D;
+                       dw UNREACH_0FD37C                    ;0FD07E|        |0FD37C;
+                       dw UNREACH_0FD38B                    ;0FD080|        |0FD38B;
+                       dw UNREACH_0FD395                    ;0FD082|        |0FD395;
+                       dw UNREACH_0FD39A                    ;0FD084|        |0FD39A;
+                       dw UNREACH_0FD39F                    ;0FD086|        |0FD39F;
+                       dw UNREACH_0FD3A9                    ;0FD088|        |0FD3A9;
+                       dw UNREACH_0FD3BD                    ;0FD08A|        |0FD3BD;
+                       dw UNREACH_0FD3DB                    ;0FD08C|        |0FD3DB;
+                       dw UNREACH_0FD3EF                    ;0FD08E|        |0FD3EF;
+                       dw UNREACH_0FD403                    ;0FD090|        |0FD403;
+                       dw UNREACH_0FD412                    ;0FD092|        |0FD412;
+                       dw UNREACH_0FD421                    ;0FD094|        |0FD421;
+                       dw UNREACH_0FD43A                    ;0FD096|        |0FD43A;
+                       dw UNREACH_0FD453                    ;0FD098|        |0FD453;
+                       dw UNREACH_0FD462                    ;0FD09A|        |0FD462;
+                       dw UNREACH_0FD471                    ;0FD09C|        |0FD471;
+                       dw UNREACH_0FD480                    ;0FD09E|        |0FD480;
+                       dw UNREACH_0FD48F                    ;0FD0A0|        |0FD48F;
+                       dw UNREACH_0FD49E                    ;0FD0A2|        |0FD49E;
+                       dw UNREACH_0FD4B7                    ;0FD0A4|        |0FD4B7;
+                       dw UNREACH_0FD52F                    ;0FD0A6|        |0FD52F;
+                       dw UNREACH_0FD5A7                    ;0FD0A8|        |0FD5A7;
+                       dw UNREACH_0FD61F                    ;0FD0AA|        |0FD61F;
+                       dw UNREACH_0FD6A6                    ;0FD0AC|        |0FD6A6;
+                       dw UNREACH_0FD6E2                    ;0FD0AE|        |0FD6E2;
+                       dw UNREACH_0FD71E                    ;0FD0B0|        |0FD71E;
+                       dw UNREACH_0FD75A                    ;0FD0B2|        |0FD75A;
+                       dw UNREACH_0FD7B4                    ;0FD0B4|        |0FD7B4;
+                       dw UNREACH_0FD82C                    ;0FD0B6|        |0FD82C;
+                       dw UNREACH_0FD8A4                    ;0FD0B8|        |0FD8A4;
+                       dw UNREACH_0FD8E0                    ;0FD0BA|        |0FD8E0;
+                       dw UNREACH_0FD91C                    ;0FD0BC|        |0FD91C;
+                       dw UNREACH_0FD958                    ;0FD0BE|        |0FD958;
+                       dw UNREACH_0FD962                    ;0FD0C0|        |0FD962;
+                       dw UNREACH_0FD976                    ;0FD0C2|        |0FD976;
+                       dw UNREACH_0FD994                    ;0FD0C4|        |0FD994;
+                       dw UNREACH_0FD9BC                    ;0FD0C6|        |0FD9BC;
+                       dw UNREACH_0FD9EE                    ;0FD0C8|        |0FD9EE;
+                       dw UNREACH_0FDA20                    ;0FD0CA|        |0FDA20;
+                       dw UNREACH_0FDA52                    ;0FD0CC|        |0FDA52;
+                       dw UNREACH_0FDA84                    ;0FD0CE|        |0FDA84;
+                       dw UNREACH_0FDAB6                    ;0FD0D0|        |0FDAB6;
+                       dw UNREACH_0FDAE8                    ;0FD0D2|        |0FDAE8;
+                       dw UNREACH_0FDB1A                    ;0FD0D4|        |0FDB1A;
+                       dw UNREACH_0FDB47                    ;0FD0D6|        |0FDB47;
+                       dw UNREACH_0FDB6A                    ;0FD0D8|        |0FDB6A;
+                       dw UNREACH_0FDB83                    ;0FD0DA|        |0FDB83;
+                       dw UNREACH_0FDB92                    ;0FD0DC|        |0FDB92;
+                       dw UNREACH_0FDB97                    ;0FD0DE|        |0FDB97;
+                       dw UNREACH_0FDBC4                    ;0FD0E0|        |0FDBC4;
+                       dw UNREACH_0FDBD8                    ;0FD0E2|        |0FDBD8;
+                       dw UNREACH_0FDC6E                    ;0FD0E4|        |0FDC6E;
+                       dw UNREACH_0FDCE6                    ;0FD0E6|        |0FDCE6;
+                       dw UNREACH_0FDCEB                    ;0FD0E8|        |0FDCEB;
+                       dw UNREACH_0FDCF5                    ;0FD0EA|        |0FDCF5;
+                       dw UNREACH_0FDD04                    ;0FD0EC|        |0FDD04;
+                       dw UNREACH_0FDD13                    ;0FD0EE|        |0FDD13;
+                       dw UNREACH_0FDD22                    ;0FD0F0|        |0FDD22;
+                       dw UNREACH_0FDD2C                    ;0FD0F2|        |0FDD2C;
+                       dw UNREACH_0FDD3B                    ;0FD0F4|        |0FDD3B;
+                       dw UNREACH_0FDD4A                    ;0FD0F6|        |0FDD4A;
+                       dw UNREACH_0FDD59                    ;0FD0F8|        |0FDD59;
+                       dw UNREACH_0FDD6D                    ;0FD0FA|        |0FDD6D;
+                       dw UNREACH_0FDD7C                    ;0FD0FC|        |0FDD7C;
+                       dw UNREACH_0FDD8B                    ;0FD0FE|        |0FDD8B;
+                       dw UNREACH_0FDD9A                    ;0FD100|        |0FDD9A;
+                       dw UNREACH_0FDDA4                    ;0FD102|        |0FDDA4;
+                       dw UNREACH_0FDDAE                    ;0FD104|        |0FDDAE;
+                       dw UNREACH_0FDDB3                    ;0FD106|        |0FDDB3;
+                       dw UNREACH_0FDE1C                    ;0FD108|        |0FDE1C;
+                       dw UNREACH_0FDE3A                    ;0FD10A|        |0FDE3A;
+                       dw UNREACH_0FDE94                    ;0FD10C|        |0FDE94;
+                       dw UNREACH_0FDED0                    ;0FD10E|        |0FDED0;
+                       dw UNREACH_0FDF0C                    ;0FD110|        |0FDF0C;
+                       dw UNREACH_0FDF84                    ;0FD112|        |0FDF84;
+                       dw UNREACH_0FDFFC                    ;0FD114|        |0FDFFC;
+                       dw UNREACH_0FE074                    ;0FD116|        |0FE074;
+                       dw UNREACH_0FE0EC                    ;0FD118|        |0FE0EC;
+                       dw UNREACH_0FE164                    ;0FD11A|        |0FE164;
+                       dw UNREACH_0FE1DC                    ;0FD11C|        |0FE1DC;
+                       dw UNREACH_0FE254                    ;0FD11E|        |0FE254;
+                       dw UNREACH_0FE2CC                    ;0FD120|        |0FE2CC;
+                       dw UNREACH_0FE344                    ;0FD122|        |0FE344;
+       UNREACH_0FD124:
                        db $03                               ;0FD124|        |0000F8;
                        db $F8                               ;0FD125|        |      ;
                        db $0E                               ;0FD126|        |003F88;
                        db $88                               ;0FD127|        |      ;
                        db $3F                               ;0FD128|        |0EF801;
+       UNREACH_0FD129:
                        db $01                               ;0FD129|        |0000F8;
                        db $F8                               ;0FD12A|        |      ;
                        db $0E                               ;0FD12B|        |003F8A;
@@ -20465,6 +20339,7 @@ Event_Single_Spell_Anim:
                        db $0C                               ;0FD130|        |003F88;
                        db $88                               ;0FD131|        |      ;
                        db $3F                               ;0FD132|        |0EF801;
+       UNREACH_0FD133:
                        db $01                               ;0FD133|        |0000F8;
                        db $F8                               ;0FD134|        |      ;
                        db $0E                               ;0FD135|        |003F8C;
@@ -20480,6 +20355,7 @@ Event_Single_Spell_Anim:
                        db $0A                               ;0FD13F|        |      ;
                        db $88                               ;0FD140|        |      ;
                        db $3F                               ;0FD141|        |060601;
+       UNREACH_0FD142:
                        db $01                               ;0FD142|        |000006;
                        db $06                               ;0FD143|        |000006;
                        db $06                               ;0FD144|        |000088;
@@ -20495,6 +20371,7 @@ Event_Single_Spell_Anim:
                        db $0C                               ;0FD14E|        |003F8C;
                        db $8C                               ;0FD14F|        |00013F;
                        db $3F                               ;0FD150|        |040101;
+       UNREACH_0FD151:
                        db $01                               ;0FD151|        |000001;
                        db $01                               ;0FD152|        |000004;
                        db $04                               ;0FD153|        |00008A;
@@ -20510,6 +20387,7 @@ Event_Single_Spell_Anim:
                        db $0A                               ;0FD15D|        |      ;
                        db $8C                               ;0FD15E|        |00013F;
                        db $3F                               ;0FD15F|        |03F401;
+       UNREACH_0FD160:
                        db $01                               ;0FD160|        |0000F4;
                        db $F4                               ;0FD161|        |008A03;
                        db $03                               ;0FD162|        |00008A;
@@ -20525,6 +20403,7 @@ Event_Single_Spell_Anim:
                        db $06                               ;0FD16C|        |00008E;
                        db $8E                               ;0FD16D|        |00017F;
                        db $7F                               ;0FD16E|        |01EB01;
+       UNREACH_0FD16F:
                        db $01                               ;0FD16F|        |0000EB;
                        db $EB                               ;0FD170|        |      ;
                        db $01                               ;0FD171|        |00008A;
@@ -20540,6 +20419,7 @@ Event_Single_Spell_Anim:
                        db $03                               ;0FD17B|        |00008C;
                        db $8C                               ;0FD17C|        |00017F;
                        db $7F                               ;0FD17D|        |FDEB01;
+       UNREACH_0FD17E:
                        db $01                               ;0FD17E|        |0000EB;
                        db $EB                               ;0FD17F|        |      ;
                        db $FD                               ;0FD180|        |003F88;
@@ -20555,6 +20435,7 @@ Event_Single_Spell_Anim:
                        db $03                               ;0FD18A|        |00008E;
                        db $8E                               ;0FD18B|        |00017F;
                        db $7F                               ;0FD18C|        |01EB01;
+       UNREACH_0FD18D:
                        db $01                               ;0FD18D|        |0000EB;
                        db $EB                               ;0FD18E|        |      ;
                        db $01                               ;0FD18F|        |00008E;
@@ -20570,6 +20451,7 @@ Event_Single_Spell_Anim:
                        db $FA                               ;0FD199|        |      ;
                        db $88                               ;0FD19A|        |      ;
                        db $3F                               ;0FD19B|        |F80601;
+       UNREACH_0FD19C:
                        db $01                               ;0FD19C|        |000006;
                        db $06                               ;0FD19D|        |0000F8;
                        db $F8                               ;0FD19E|        |      ;
@@ -20585,6 +20467,7 @@ Event_Single_Spell_Anim:
                        db $FD                               ;0FD1A8|        |003F8C;
                        db $8C                               ;0FD1A9|        |00013F;
                        db $3F                               ;0FD1AA|        |F10601;
+       UNREACH_0FD1AB:
                        db $01                               ;0FD1AB|        |000006;
                        db $06                               ;0FD1AC|        |0000F1;
                        db $F1                               ;0FD1AD|        |00008A;
@@ -20600,6 +20483,7 @@ Event_Single_Spell_Anim:
                        db $FA                               ;0FD1B7|        |      ;
                        db $8C                               ;0FD1B8|        |00013F;
                        db $3F                               ;0FD1B9|        |EFF901;
+       UNREACH_0FD1BA:
                        db $01                               ;0FD1BA|        |0000F9;
                        db $F9                               ;0FD1BB|        |008AEF;
                        db $EF                               ;0FD1BC|        |017F8A;
@@ -20615,6 +20499,7 @@ Event_Single_Spell_Anim:
                        db $F8                               ;0FD1C6|        |      ;
                        db $8C                               ;0FD1C7|        |00013F;
                        db $3F                               ;0FD1C8|        |EBEE01;
+       UNREACH_0FD1C9:
                        db $01                               ;0FD1C9|        |0000EE;
                        db $EE                               ;0FD1CA|        |008AEB;
                        db $EB                               ;0FD1CB|        |      ;
@@ -20630,6 +20515,7 @@ Event_Single_Spell_Anim:
                        db $F1                               ;0FD1D5|        |00008E;
                        db $8E                               ;0FD1D6|        |00017F;
                        db $7F                               ;0FD1D7|        |E7E901;
+       UNREACH_0FD1D8:
                        db $01                               ;0FD1D8|        |0000E9;
                        db $E9                               ;0FD1D9|        |      ;
                        db $E7                               ;0FD1DA|        |000088;
@@ -20645,6 +20531,7 @@ Event_Single_Spell_Anim:
                        db $EF                               ;0FD1E4|        |017F8E;
                        db $8E                               ;0FD1E5|        |00017F;
                        db $7F                               ;0FD1E6|        |E2F101;
+       UNREACH_0FD1E7:
                        db $01                               ;0FD1E7|        |0000F1;
                        db $F1                               ;0FD1E8|        |0000E2;
                        db $E2                               ;0FD1E9|        |      ;
@@ -20660,6 +20547,7 @@ Event_Single_Spell_Anim:
                        db $EB                               ;0FD1F3|        |      ;
                        db $8E                               ;0FD1F4|        |00017F;
                        db $7F                               ;0FD1F5|        |E0F901;
+       UNREACH_0FD1F6:
                        db $01                               ;0FD1F6|        |0000F9;
                        db $F9                               ;0FD1F7|        |0088E0;
                        db $E0                               ;0FD1F8|        |      ;
@@ -20675,11 +20563,13 @@ Event_Single_Spell_Anim:
                        db $E7                               ;0FD202|        |00008C;
                        db $8C                               ;0FD203|        |00033F;
                        db $3F                               ;0FD204|        |FFFB03;
+       UNREACH_0FD205:
                        db $03                               ;0FD205|        |0000FB;
                        db $FB                               ;0FD206|        |      ;
                        db $FF                               ;0FD207|        |013F86;
                        db $86                               ;0FD208|        |00003F;
                        db $3F                               ;0FD209|        |02FD01;
+       UNREACH_0FD20A:
                        db $01                               ;0FD20A|        |0000FD;
                        db $FD                               ;0FD20B|        |008402;
                        db $02                               ;0FD20C|        |      ;
@@ -20690,6 +20580,7 @@ Event_Single_Spell_Anim:
                        db $F2                               ;0FD211|        |000086;
                        db $86                               ;0FD212|        |00003F;
                        db $3F                               ;0FD213|        |00F701;
+       UNREACH_0FD214:
                        db $01                               ;0FD214|        |0000F7;
                        db $F7                               ;0FD215|        |000000;
                        db $00                               ;0FD216|        |      ;
@@ -20705,6 +20596,7 @@ Event_Single_Spell_Anim:
                        db $07                               ;0FD220|        |000082;
                        db $82                               ;0FD221|        |0FD363;
                        db $3F                               ;0FD222|        |03F601;
+       UNREACH_0FD223:
                        db $01                               ;0FD223|        |0000F6;
                        db $F6                               ;0FD224|        |000003;
                        db $03                               ;0FD225|        |000084;
@@ -20720,6 +20612,7 @@ Event_Single_Spell_Anim:
                        db $0E                               ;0FD22F|        |003F80;
                        db $80                               ;0FD230|        |0FD271;
                        db $3F                               ;0FD231|        |F1F201;
+       UNREACH_0FD232:
                        db $01                               ;0FD232|        |0000F2;
                        db $F2                               ;0FD233|        |0000F1;
                        db $F1                               ;0FD234|        |000086;
@@ -20735,6 +20628,7 @@ Event_Single_Spell_Anim:
                        db $EB                               ;0FD23E|        |      ;
                        db $80                               ;0FD23F|        |0FD280;
                        db $3F                               ;0FD240|        |0EF501;
+       UNREACH_0FD241:
                        db $01                               ;0FD241|        |0000F5;
                        db $F5                               ;0FD242|        |00000E;
                        db $0E                               ;0FD243|        |003F80;
@@ -20745,6 +20639,7 @@ Event_Single_Spell_Anim:
                        db $EE                               ;0FD248|        |003F84;
                        db $84                               ;0FD249|        |00003F;
                        db $3F                               ;0FD24A|        |F9F101;
+       UNREACH_0FD24B:
                        db $01                               ;0FD24B|        |0000F1;
                        db $F1                               ;0FD24C|        |0000F9;
                        db $F9                               ;0FD24D|        |003F86;
@@ -20760,6 +20655,7 @@ Event_Single_Spell_Anim:
                        db $ED                               ;0FD257|        |003F82;
                        db $82                               ;0FD258|        |0FD39A;
                        db $3F                               ;0FD259|        |F9F001;
+       UNREACH_0FD25A:
                        db $01                               ;0FD25A|        |0000F0;
                        db $F0                               ;0FD25B|        |0FD256;
                        db $F9                               ;0FD25C|        |003F84;
@@ -20775,6 +20671,7 @@ Event_Single_Spell_Anim:
                        db $EA                               ;0FD266|        |      ;
                        db $80                               ;0FD267|        |0FD2A8;
                        db $3F                               ;0FD268|        |F7FB01;
+       UNREACH_0FD269:
                        db $01                               ;0FD269|        |0000FB;
                        db $FB                               ;0FD26A|        |      ;
                        db $F7                               ;0FD26B|        |000086;
@@ -20790,6 +20687,7 @@ Event_Single_Spell_Anim:
                        db $E6                               ;0FD275|        |000082;
                        db $82                               ;0FD276|        |0FD3B8;
                        db $3F                               ;0FD277|        |FBE801;
+       UNREACH_0FD278:
                        db $01                               ;0FD278|        |0000E8;
                        db $E8                               ;0FD279|        |      ;
                        db $FB                               ;0FD27A|        |      ;
@@ -20810,6 +20708,7 @@ Event_Single_Spell_Anim:
                        db $DF                               ;0FD289|        |013F80;
                        db $80                               ;0FD28A|        |0FD2CB;
                        db $3F                               ;0FD28B|        |01F101;
+       UNREACH_0FD28C:
                        db $01                               ;0FD28C|        |0000F1;
                        db $F1                               ;0FD28D|        |000001;
                        db $01                               ;0FD28E|        |000084;
@@ -20825,6 +20724,7 @@ Event_Single_Spell_Anim:
                        db $F7                               ;0FD298|        |000082;
                        db $82                               ;0FD299|        |0FD3DB;
                        db $3F                               ;0FD29A|        |FAFD01;
+       UNREACH_0FD29B:
                        db $01                               ;0FD29B|        |0000FD;
                        db $FD                               ;0FD29C|        |0086FA;
                        db $FA                               ;0FD29D|        |      ;
@@ -20840,6 +20740,7 @@ Event_Single_Spell_Anim:
                        db $F7                               ;0FD2A7|        |000080;
                        db $80                               ;0FD2A8|        |0FD2E9;
                        db $3F                               ;0FD2A9|        |EEF501;
+       UNREACH_0FD2AA:
                        db $01                               ;0FD2AA|        |0000F5;
                        db $F5                               ;0FD2AB|        |0000EE;
                        db $EE                               ;0FD2AC|        |003F86;
@@ -20855,6 +20756,7 @@ Event_Single_Spell_Anim:
                        db $FD                               ;0FD2B6|        |003F80;
                        db $80                               ;0FD2B7|        |0FD2F8;
                        db $3F                               ;0FD2B8|        |FD0201;
+       UNREACH_0FD2B9:
                        db $01                               ;0FD2B9|        |000002;
                        db $02                               ;0FD2BA|        |      ;
                        db $FD                               ;0FD2BB|        |003F82;
@@ -20865,6 +20767,7 @@ Event_Single_Spell_Anim:
                        db $EB                               ;0FD2C0|        |      ;
                        db $84                               ;0FD2C1|        |00003F;
                        db $3F                               ;0FD2C2|        |000701;
+       UNREACH_0FD2C3:
                        db $01                               ;0FD2C3|        |000007;
                        db $07                               ;0FD2C4|        |000000;
                        db $00                               ;0FD2C5|        |      ;
@@ -20875,16 +20778,19 @@ Event_Single_Spell_Anim:
                        db $E6                               ;0FD2CA|        |000082;
                        db $82                               ;0FD2CB|        |0FD60D;
                        db $3F                               ;0FD2CC|        |DFF003;
+       UNREACH_0FD2CD:
                        db $03                               ;0FD2CD|        |0000F0;
                        db $F0                               ;0FD2CE|        |0FD2AF;
                        db $DF                               ;0FD2CF|        |033F80;
                        db $80                               ;0FD2D0|        |0FD311;
                        db $3F                               ;0FD2D1|        |DFF003;
+       UNREACH_0FD2D2:
                        db $03                               ;0FD2D2|        |0000F0;
                        db $F0                               ;0FD2D3|        |0FD2B4;
                        db $DF                               ;0FD2D4|        |013FA0;
                        db $A0                               ;0FD2D5|        |      ;
                        db $3F                               ;0FD2D6|        |000701;
+       UNREACH_0FD2D7:
                        db $01                               ;0FD2D7|        |000007;
                        db $07                               ;0FD2D8|        |000000;
                        db $00                               ;0FD2D9|        |      ;
@@ -20895,6 +20801,7 @@ Event_Single_Spell_Anim:
                        db $E6                               ;0FD2DE|        |0000A2;
                        db $A2                               ;0FD2DF|        |      ;
                        db $3F                               ;0FD2E0|        |FD0201;
+       UNREACH_0FD2E1:
                        db $01                               ;0FD2E1|        |000002;
                        db $02                               ;0FD2E2|        |      ;
                        db $FD                               ;0FD2E3|        |003FA2;
@@ -20905,6 +20812,7 @@ Event_Single_Spell_Anim:
                        db $EB                               ;0FD2E8|        |      ;
                        db $A4                               ;0FD2E9|        |00003F;
                        db $3F                               ;0FD2EA|        |EEF501;
+       UNREACH_0FD2EB:
                        db $01                               ;0FD2EB|        |0000F5;
                        db $F5                               ;0FD2EC|        |0000EE;
                        db $EE                               ;0FD2ED|        |003FA6;
@@ -20920,6 +20828,7 @@ Event_Single_Spell_Anim:
                        db $0D                               ;0FD2F7|        |003FA0;
                        db $A0                               ;0FD2F8|        |      ;
                        db $3F                               ;0FD2F9|        |F70401;
+       UNREACH_0FD2FA:
                        db $01                               ;0FD2FA|        |000004;
                        db $04                               ;0FD2FB|        |0000F7;
                        db $F7                               ;0FD2FC|        |0000A0;
@@ -20935,6 +20844,7 @@ Event_Single_Spell_Anim:
                        db $07                               ;0FD306|        |0000A2;
                        db $A2                               ;0FD307|        |      ;
                        db $3F                               ;0FD308|        |01F101;
+       UNREACH_0FD309:
                        db $01                               ;0FD309|        |0000F1;
                        db $F1                               ;0FD30A|        |000001;
                        db $01                               ;0FD30B|        |0000A4;
@@ -20945,6 +20855,7 @@ Event_Single_Spell_Anim:
                        db $F7                               ;0FD310|        |0000A2;
                        db $A2                               ;0FD311|        |      ;
                        db $3F                               ;0FD312|        |FBE801;
+       UNREACH_0FD313:
                        db $01                               ;0FD313|        |0000E8;
                        db $E8                               ;0FD314|        |      ;
                        db $FB                               ;0FD315|        |      ;
@@ -20965,6 +20876,7 @@ Event_Single_Spell_Anim:
                        db $FD                               ;0FD324|        |003FA6;
                        db $A6                               ;0FD325|        |00003F;
                        db $3F                               ;0FD326|        |F7FB01;
+       UNREACH_0FD327:
                        db $01                               ;0FD327|        |0000FB;
                        db $FB                               ;0FD328|        |      ;
                        db $F7                               ;0FD329|        |0000A6;
@@ -20980,6 +20892,7 @@ Event_Single_Spell_Anim:
                        db $E6                               ;0FD333|        |0000A2;
                        db $A2                               ;0FD334|        |      ;
                        db $3F                               ;0FD335|        |EAE801;
+       UNREACH_0FD336:
                        db $01                               ;0FD336|        |0000E8;
                        db $E8                               ;0FD337|        |      ;
                        db $EA                               ;0FD338|        |      ;
@@ -20995,6 +20908,7 @@ Event_Single_Spell_Anim:
                        db $F9                               ;0FD342|        |003FA4;
                        db $A4                               ;0FD343|        |00003F;
                        db $3F                               ;0FD344|        |EDEE01;
+       UNREACH_0FD345:
                        db $01                               ;0FD345|        |0000EE;
                        db $EE                               ;0FD346|        |00A2ED;
                        db $ED                               ;0FD347|        |003FA2;
@@ -21010,6 +20924,7 @@ Event_Single_Spell_Anim:
                        db $EE                               ;0FD351|        |003FA6;
                        db $A6                               ;0FD352|        |00003F;
                        db $3F                               ;0FD353|        |EEF001;
+       UNREACH_0FD354:
                        db $01                               ;0FD354|        |0000F0;
                        db $F0                               ;0FD355|        |0FD345;
                        db $EE                               ;0FD356|        |003FA4;
@@ -21020,6 +20935,7 @@ Event_Single_Spell_Anim:
                        db $0E                               ;0FD35B|        |003FA0;
                        db $A0                               ;0FD35C|        |      ;
                        db $3F                               ;0FD35D|        |EB0701;
+       UNREACH_0FD35E:
                        db $01                               ;0FD35E|        |000007;
                        db $07                               ;0FD35F|        |0000EB;
                        db $EB                               ;0FD360|        |      ;
@@ -21035,6 +20951,7 @@ Event_Single_Spell_Anim:
                        db $07                               ;0FD36A|        |0000A2;
                        db $A2                               ;0FD36B|        |      ;
                        db $3F                               ;0FD36C|        |0E0701;
+       UNREACH_0FD36D:
                        db $01                               ;0FD36D|        |000007;
                        db $07                               ;0FD36E|        |00000E;
                        db $0E                               ;0FD36F|        |003FA0;
@@ -21050,6 +20967,7 @@ Event_Single_Spell_Anim:
                        db $03                               ;0FD379|        |0000A4;
                        db $A4                               ;0FD37A|        |00003F;
                        db $3F                               ;0FD37B|        |070101;
+       UNREACH_0FD37C:
                        db $01                               ;0FD37C|        |000001;
                        db $01                               ;0FD37D|        |000007;
                        db $07                               ;0FD37E|        |0000A2;
@@ -21065,6 +20983,7 @@ Event_Single_Spell_Anim:
                        db $FF                               ;0FD388|        |013FA6;
                        db $A6                               ;0FD389|        |00003F;
                        db $3F                               ;0FD38A|        |02FD01;
+       UNREACH_0FD38B:
                        db $01                               ;0FD38B|        |0000FD;
                        db $FD                               ;0FD38C|        |00A402;
                        db $02                               ;0FD38D|        |      ;
@@ -21075,16 +20994,19 @@ Event_Single_Spell_Anim:
                        db $F2                               ;0FD392|        |0000A6;
                        db $A6                               ;0FD393|        |00003F;
                        db $3F                               ;0FD394|        |FFFB03;
+       UNREACH_0FD395:
                        db $03                               ;0FD395|        |0000FB;
                        db $FB                               ;0FD396|        |      ;
                        db $FF                               ;0FD397|        |033FA6;
                        db $A6                               ;0FD398|        |00003F;
                        db $3F                               ;0FD399|        |E5F903;
+       UNREACH_0FD39A:
                        db $03                               ;0FD39A|        |0000F9;
                        db $F9                               ;0FD39B|        |00A8E5;
                        db $E5                               ;0FD39C|        |0000A8;
                        db $A8                               ;0FD39D|        |      ;
                        db $3F                               ;0FD39E|        |F4F701;
+       UNREACH_0FD39F:
                        db $01                               ;0FD39F|        |0000F7;
                        db $F7                               ;0FD3A0|        |0000F4;
                        db $F4                               ;0FD3A1|        |003FAA;
@@ -21095,6 +21017,7 @@ Event_Single_Spell_Anim:
                        db $E5                               ;0FD3A6|        |0000A8;
                        db $A8                               ;0FD3A7|        |      ;
                        db $7F                               ;0FD3A8|        |F0F901;
+       UNREACH_0FD3A9:
                        db $01                               ;0FD3A9|        |0000F9;
                        db $F9                               ;0FD3AA|        |00AAF0;
                        db $F0                               ;0FD3AB|        |0FD357;
@@ -21115,6 +21038,7 @@ Event_Single_Spell_Anim:
                        db $E4                               ;0FD3BA|        |0000A8;
                        db $A8                               ;0FD3BB|        |      ;
                        db $3F                               ;0FD3BC|        |040401;
+       UNREACH_0FD3BD:
                        db $01                               ;0FD3BD|        |000004;
                        db $04                               ;0FD3BE|        |000004;
                        db $04                               ;0FD3BF|        |0000AC;
@@ -21145,6 +21069,7 @@ Event_Single_Spell_Anim:
                        db $E4                               ;0FD3D8|        |0000AC;
                        db $AC                               ;0FD3D9|        |00013F;
                        db $3F                               ;0FD3DA|        |F90401;
+       UNREACH_0FD3DB:
                        db $01                               ;0FD3DB|        |000004;
                        db $04                               ;0FD3DC|        |0000F9;
                        db $F9                               ;0FD3DD|        |003FAA;
@@ -21165,6 +21090,7 @@ Event_Single_Spell_Anim:
                        db $EA                               ;0FD3EC|        |      ;
                        db $AC                               ;0FD3ED|        |00013F;
                        db $3F                               ;0FD3EE|        |00F901;
+       UNREACH_0FD3EF:
                        db $01                               ;0FD3EF|        |0000F9;
                        db $F9                               ;0FD3F0|        |00AE00;
                        db $00                               ;0FD3F1|        |      ;
@@ -21185,6 +21111,7 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FD400|        |0FD3AC;
                        db $AA                               ;0FD401|        |      ;
                        db $BF                               ;0FD402|        |EDF401;
+       UNREACH_0FD403:
                        db $01                               ;0FD403|        |0000F4;
                        db $F4                               ;0FD404|        |00ACED;
                        db $ED                               ;0FD405|        |003FAC;
@@ -21200,6 +21127,7 @@ Event_Single_Spell_Anim:
                        db $FB                               ;0FD40F|        |      ;
                        db $AE                               ;0FD410|        |0001BF;
                        db $BF                               ;0FD411|        |02FB01;
+       UNREACH_0FD412:
                        db $01                               ;0FD412|        |0000FB;
                        db $FB                               ;0FD413|        |      ;
                        db $02                               ;0FD414|        |      ;
@@ -21215,6 +21143,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD41E|        |      ;
                        db $A8                               ;0FD41F|        |      ;
                        db $3F                               ;0FD420|        |08F701;
+       UNREACH_0FD421:
                        db $01                               ;0FD421|        |0000F7;
                        db $F7                               ;0FD422|        |000008;
                        db $08                               ;0FD423|        |      ;
@@ -21240,6 +21169,7 @@ Event_Single_Spell_Anim:
                        db $E8                               ;0FD437|        |      ;
                        db $AE                               ;0FD438|        |00013F;
                        db $3F                               ;0FD439|        |EAFE01;
+       UNREACH_0FD43A:
                        db $01                               ;0FD43A|        |0000FE;
                        db $FE                               ;0FD43B|        |00AEEA;
                        db $EA                               ;0FD43C|        |      ;
@@ -21265,6 +21195,7 @@ Event_Single_Spell_Anim:
                        db $EA                               ;0FD450|        |      ;
                        db $AE                               ;0FD451|        |0001BF;
                        db $BF                               ;0FD452|        |FAF101;
+       UNREACH_0FD453:
                        db $01                               ;0FD453|        |0000F1;
                        db $F1                               ;0FD454|        |0000FA;
                        db $FA                               ;0FD455|        |      ;
@@ -21280,6 +21211,7 @@ Event_Single_Spell_Anim:
                        db $F9                               ;0FD45F|        |003FAA;
                        db $AA                               ;0FD460|        |      ;
                        db $3F                               ;0FD461|        |EFF001;
+       UNREACH_0FD462:
                        db $01                               ;0FD462|        |0000F0;
                        db $F0                               ;0FD463|        |0FD454;
                        db $EF                               ;0FD464|        |013FAC;
@@ -21295,6 +21227,7 @@ Event_Single_Spell_Anim:
                        db $FD                               ;0FD46E|        |00FFAE;
                        db $AE                               ;0FD46F|        |0001FF;
                        db $FF                               ;0FD470|        |F3FA01;
+       UNREACH_0FD471:
                        db $01                               ;0FD471|        |0000FA;
                        db $FA                               ;0FD472|        |      ;
                        db $F3                               ;0FD473|        |0000AA;
@@ -21310,6 +21243,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD47D|        |      ;
                        db $AC                               ;0FD47E|        |00013F;
                        db $3F                               ;0FD47F|        |F8F201;
+       UNREACH_0FD480:
                        db $01                               ;0FD480|        |0000F2;
                        db $F2                               ;0FD481|        |0000F8;
                        db $F8                               ;0FD482|        |      ;
@@ -21325,6 +21259,7 @@ Event_Single_Spell_Anim:
                        db $F7                               ;0FD48C|        |0000AC;
                        db $AC                               ;0FD48D|        |00013F;
                        db $3F                               ;0FD48E|        |05F601;
+       UNREACH_0FD48F:
                        db $01                               ;0FD48F|        |0000F6;
                        db $F6                               ;0FD490|        |000005;
                        db $05                               ;0FD491|        |0000AA;
@@ -21340,6 +21275,7 @@ Event_Single_Spell_Anim:
                        db $F5                               ;0FD49B|        |0000A8;
                        db $A8                               ;0FD49C|        |      ;
                        db $3F                               ;0FD49D|        |17F301;
+       UNREACH_0FD49E:
                        db $01                               ;0FD49E|        |0000F3;
                        db $F3                               ;0FD49F|        |000017;
                        db $17                               ;0FD4A0|        |0000A8;
@@ -21365,6 +21301,7 @@ Event_Single_Spell_Anim:
                        db $D6                               ;0FD4B4|        |0000A8;
                        db $A8                               ;0FD4B5|        |      ;
                        db $3F                               ;0FD4B6|        |001000;
+       UNREACH_0FD4B7:
                        db $00                               ;0FD4B7|        |      ;
                        db $10                               ;0FD4B8|        |0FD4BA;
                        db $00                               ;0FD4B9|        |      ;
@@ -21485,6 +21422,7 @@ Event_Single_Spell_Anim:
                        db $E0                               ;0FD52C|        |      ;
                        db $8C                               ;0FD52D|        |00003F;
                        db $3F                               ;0FD52E|        |F8F000;
+       UNREACH_0FD52F:
                        db $00                               ;0FD52F|        |      ;
                        db $F0                               ;0FD530|        |0FD52A;
                        db $F8                               ;0FD531|        |      ;
@@ -21605,6 +21543,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD5A4|        |      ;
                        db $80                               ;0FD5A5|        |0FD5E6;
                        db $3F                               ;0FD5A6|        |F81000;
+       UNREACH_0FD5A7:
                        db $00                               ;0FD5A7|        |      ;
                        db $10                               ;0FD5A8|        |0FD5A2;
                        db $F8                               ;0FD5A9|        |      ;
@@ -21725,6 +21664,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD61C|        |      ;
                        db $80                               ;0FD61D|        |0FD65E;
                        db $3F                               ;0FD61E|        |E8F800;
+       UNREACH_0FD61F:
                        db $00                               ;0FD61F|        |      ;
                        db $F8                               ;0FD620|        |      ;
                        db $E8                               ;0FD621|        |      ;
@@ -21860,6 +21800,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD6A3|        |      ;
                        db $80                               ;0FD6A4|        |0FD6E5;
                        db $3F                               ;0FD6A5|        |100801;
+       UNREACH_0FD6A6:
                        db $01                               ;0FD6A6|        |000008;
                        db $08                               ;0FD6A7|        |      ;
                        db $10                               ;0FD6A8|        |0FD64E;
@@ -21920,6 +21861,7 @@ Event_Single_Spell_Anim:
                        db $E0                               ;0FD6DF|        |      ;
                        db $80                               ;0FD6E0|        |0FD721;
                        db $3F                               ;0FD6E1|        |100801;
+       UNREACH_0FD6E2:
                        db $01                               ;0FD6E2|        |000008;
                        db $08                               ;0FD6E3|        |      ;
                        db $10                               ;0FD6E4|        |0FD68A;
@@ -21980,6 +21922,7 @@ Event_Single_Spell_Anim:
                        db $E0                               ;0FD71B|        |      ;
                        db $88                               ;0FD71C|        |      ;
                        db $3F                               ;0FD71D|        |F0E801;
+       UNREACH_0FD71E:
                        db $01                               ;0FD71E|        |0000E8;
                        db $E8                               ;0FD71F|        |      ;
                        db $F0                               ;0FD720|        |0FD6D0;
@@ -22040,6 +21983,7 @@ Event_Single_Spell_Anim:
                        db $E0                               ;0FD757|        |      ;
                        db $8A                               ;0FD758|        |      ;
                        db $7F                               ;0FD759|        |E0F000;
+       UNREACH_0FD75A:
                        db $00                               ;0FD75A|        |      ;
                        db $F0                               ;0FD75B|        |0FD73D;
                        db $E0                               ;0FD75C|        |      ;
@@ -22130,6 +22074,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD7B1|        |      ;
                        db $80                               ;0FD7B2|        |0FD7F3;
                        db $3F                               ;0FD7B3|        |E00800;
+       UNREACH_0FD7B4:
                        db $00                               ;0FD7B4|        |      ;
                        db $08                               ;0FD7B5|        |      ;
                        db $E0                               ;0FD7B6|        |      ;
@@ -22250,6 +22195,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD829|        |      ;
                        db $80                               ;0FD82A|        |0FD86B;
                        db $3F                               ;0FD82B|        |F00800;
+       UNREACH_0FD82C:
                        db $00                               ;0FD82C|        |      ;
                        db $08                               ;0FD82D|        |      ;
                        db $F0                               ;0FD82E|        |0FD7EF;
@@ -22370,6 +22316,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD8A1|        |      ;
                        db $8C                               ;0FD8A2|        |00013F;
                        db $3F                               ;0FD8A3|        |F00801;
+       UNREACH_0FD8A4:
                        db $01                               ;0FD8A4|        |000008;
                        db $08                               ;0FD8A5|        |      ;
                        db $F0                               ;0FD8A6|        |0FD848;
@@ -22430,6 +22377,7 @@ Event_Single_Spell_Anim:
                        db $E0                               ;0FD8DD|        |      ;
                        db $80                               ;0FD8DE|        |0FD91F;
                        db $3F                               ;0FD8DF|        |F00801;
+       UNREACH_0FD8E0:
                        db $01                               ;0FD8E0|        |000008;
                        db $08                               ;0FD8E1|        |      ;
                        db $F0                               ;0FD8E2|        |0FD88E;
@@ -22490,6 +22438,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD919|        |      ;
                        db $84                               ;0FD91A|        |00003F;
                        db $3F                               ;0FD91B|        |F0F801;
+       UNREACH_0FD91C:
                        db $01                               ;0FD91C|        |0000F8;
                        db $F8                               ;0FD91D|        |      ;
                        db $F0                               ;0FD91E|        |0FD8CE;
@@ -22550,6 +22499,7 @@ Event_Single_Spell_Anim:
                        db $E0                               ;0FD955|        |      ;
                        db $80                               ;0FD956|        |0FD997;
                        db $3F                               ;0FD957|        |00E800;
+       UNREACH_0FD958:
                        db $00                               ;0FD958|        |      ;
                        db $E8                               ;0FD959|        |      ;
                        db $00                               ;0FD95A|        |      ;
@@ -22560,6 +22510,7 @@ Event_Single_Spell_Anim:
                        db $F8                               ;0FD95F|        |      ;
                        db $B5                               ;0FD960|        |00003F;
                        db $3F                               ;0FD961|        |FCE401;
+       UNREACH_0FD962:
                        db $01                               ;0FD962|        |0000E4;
                        db $E4                               ;0FD963|        |0000FC;
                        db $FC                               ;0FD964|        |0F3F86;
@@ -22580,6 +22531,7 @@ Event_Single_Spell_Anim:
                        db $EC                               ;0FD973|        |003FB5;
                        db $B5                               ;0FD974|        |00003F;
                        db $3F                               ;0FD975|        |E8EC01;
+       UNREACH_0FD976:
                        db $01                               ;0FD976|        |0000EC;
                        db $EC                               ;0FD977|        |0086E8;
                        db $E8                               ;0FD978|        |      ;
@@ -22610,6 +22562,7 @@ Event_Single_Spell_Anim:
                        db $E8                               ;0FD991|        |      ;
                        db $B5                               ;0FD992|        |00003F;
                        db $3F                               ;0FD993|        |E4FC01;
+       UNREACH_0FD994:
                        db $01                               ;0FD994|        |0000FC;
                        db $FC                               ;0FD995|        |0F86E4;
                        db $E4                               ;0FD996|        |000086;
@@ -22650,6 +22603,7 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FD9B9|        |0FD970;
                        db $B5                               ;0FD9BA|        |00003F;
                        db $3F                               ;0FD9BB|        |EC0801;
+       UNREACH_0FD9BC:
                        db $01                               ;0FD9BC|        |000008;
                        db $08                               ;0FD9BD|        |      ;
                        db $EC                               ;0FD9BE|        |003F86;
@@ -22700,6 +22654,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FD9EB|        |      ;
                        db $B5                               ;0FD9EC|        |00003F;
                        db $3F                               ;0FD9ED|        |FC0C01;
+       UNREACH_0FD9EE:
                        db $01                               ;0FD9EE|        |00000C;
                        db $0C                               ;0FD9EF|        |0086FC;
                        db $FC                               ;0FD9F0|        |0F3F86;
@@ -22750,6 +22705,7 @@ Event_Single_Spell_Anim:
                        db $0C                               ;0FDA1D|        |003FB5;
                        db $B5                               ;0FDA1E|        |00003F;
                        db $3F                               ;0FDA1F|        |080301;
+       UNREACH_0FDA20:
                        db $01                               ;0FDA20|        |000003;
                        db $03                               ;0FDA21|        |000008;
                        db $08                               ;0FDA22|        |      ;
@@ -22800,6 +22756,7 @@ Event_Single_Spell_Anim:
                        db $0C                               ;0FDA4F|        |003FB5;
                        db $B5                               ;0FDA50|        |00003F;
                        db $3F                               ;0FDA51|        |EC0800;
+       UNREACH_0FDA52:
                        db $00                               ;0FDA52|        |      ;
                        db $08                               ;0FDA53|        |      ;
                        db $EC                               ;0FDA54|        |003FA4;
@@ -22850,6 +22807,7 @@ Event_Single_Spell_Anim:
                        db $00                               ;0FDA81|        |      ;
                        db $A5                               ;0FDA82|        |00003F;
                        db $3F                               ;0FDA83|        |070C00;
+       UNREACH_0FDA84:
                        db $00                               ;0FDA84|        |      ;
                        db $0C                               ;0FDA85|        |00A507;
                        db $07                               ;0FDA86|        |0000A5;
@@ -22900,6 +22858,7 @@ Event_Single_Spell_Anim:
                        db $F8                               ;0FDAB3|        |      ;
                        db $A4                               ;0FDAB4|        |00003F;
                        db $3F                               ;0FDAB5|        |FC0000;
+       UNREACH_0FDAB6:
                        db $00                               ;0FDAB6|        |      ;
                        db $00                               ;0FDAB7|        |      ;
                        db $FC                               ;0FDAB8|        |0F3FA5;
@@ -22950,6 +22909,7 @@ Event_Single_Spell_Anim:
                        db $07                               ;0FDAE5|        |0000A4;
                        db $A4                               ;0FDAE6|        |00003F;
                        db $3F                               ;0FDAE7|        |01FC00;
+       UNREACH_0FDAE8:
                        db $00                               ;0FDAE8|        |      ;
                        db $FC                               ;0FDAE9|        |0FA501;
                        db $01                               ;0FDAEA|        |0000A5;
@@ -23000,6 +22960,7 @@ Event_Single_Spell_Anim:
                        db $0D                               ;0FDB17|        |003FA4;
                        db $A4                               ;0FDB18|        |00003F;
                        db $3F                               ;0FDB19|        |FFF900;
+       UNREACH_0FDB1A:
                        db $00                               ;0FDB1A|        |      ;
                        db $F9                               ;0FDB1B|        |00A5FF;
                        db $FF                               ;0FDB1C|        |003FA5;
@@ -23045,6 +23006,7 @@ Event_Single_Spell_Anim:
                        db $07                               ;0FDB44|        |0000A4;
                        db $A4                               ;0FDB45|        |00003F;
                        db $3F                               ;0FDB46|        |FFF900;
+       UNREACH_0FDB47:
                        db $00                               ;0FDB47|        |      ;
                        db $F9                               ;0FDB48|        |00B5FF;
                        db $FF                               ;0FDB49|        |003FB5;
@@ -23080,6 +23042,7 @@ Event_Single_Spell_Anim:
                        db $F9                               ;0FDB67|        |003FA4;
                        db $A4                               ;0FDB68|        |00003F;
                        db $3F                               ;0FDB69|        |FEF900;
+       UNREACH_0FDB6A:
                        db $00                               ;0FDB6A|        |      ;
                        db $F9                               ;0FDB6B|        |00B4FE;
                        db $FE                               ;0FDB6C|        |003FB4;
@@ -23105,6 +23068,7 @@ Event_Single_Spell_Anim:
                        db $F8                               ;0FDB80|        |      ;
                        db $A4                               ;0FDB81|        |00003F;
                        db $3F                               ;0FDB82|        |FEF900;
+       UNREACH_0FDB83:
                        db $00                               ;0FDB83|        |      ;
                        db $F9                               ;0FDB84|        |00A5FE;
                        db $FE                               ;0FDB85|        |003FA5;
@@ -23120,11 +23084,13 @@ Event_Single_Spell_Anim:
                        db $FE                               ;0FDB8F|        |003FA4;
                        db $A4                               ;0FDB90|        |00003F;
                        db $3F                               ;0FDB91|        |FEF902;
+       UNREACH_0FDB92:
                        db $02                               ;0FDB92|        |      ;
                        db $F9                               ;0FDB93|        |00A4FE;
                        db $FE                               ;0FDB94|        |003FA4;
                        db $A4                               ;0FDB95|        |00003F;
                        db $3F                               ;0FDB96|        |080801;
+       UNREACH_0FDB97:
                        db $01                               ;0FDB97|        |000008;
                        db $08                               ;0FDB98|        |      ;
                        db $08                               ;0FDB99|        |      ;
@@ -23170,6 +23136,7 @@ Event_Single_Spell_Anim:
                        db $E8                               ;0FDBC1|        |      ;
                        db $80                               ;0FDBC2|        |0FDC03;
                        db $3F                               ;0FDBC3|        |00F001;
+       UNREACH_0FDBC4:
                        db $01                               ;0FDBC4|        |0000F0;
                        db $F0                               ;0FDBC5|        |0FDBC7;
                        db $00                               ;0FDBC6|        |      ;
@@ -23190,6 +23157,7 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FDBD5|        |0FDB5B;
                        db $84                               ;0FDBD6|        |00003F;
                        db $3F                               ;0FDBD7|        |E0E800;
+       UNREACH_0FDBD8:
                        db $00                               ;0FDBD8|        |      ;
                        db $E8                               ;0FDBD9|        |      ;
                        db $E0                               ;0FDBDA|        |      ;
@@ -23340,6 +23308,7 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FDC6B|        |0FDBF9;
                        db $8C                               ;0FDC6C|        |00003F;
                        db $3F                               ;0FDC6D|        |18E800;
+       UNREACH_0FDC6E:
                        db $00                               ;0FDC6E|        |      ;
                        db $E8                               ;0FDC6F|        |      ;
                        db $18                               ;0FDC70|        |      ;
@@ -23460,11 +23429,13 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FDCE3|        |0FDCB3;
                        db $CE                               ;0FDCE4|        |000333;
                        db $33                               ;0FDCE5|        |000003;
+       UNREACH_0FDCE6:
                        db $03                               ;0FDCE6|        |0000FB;
                        db $FB                               ;0FDCE7|        |      ;
                        db $FF                               ;0FDCE8|        |013F86;
                        db $86                               ;0FDCE9|        |00003F;
                        db $3F                               ;0FDCEA|        |F2FE01;
+       UNREACH_0FDCEB:
                        db $01                               ;0FDCEB|        |0000FE;
                        db $FE                               ;0FDCEC|        |00AEF2;
                        db $F2                               ;0FDCED|        |0000AE;
@@ -23475,6 +23446,7 @@ Event_Single_Spell_Anim:
                        db $02                               ;0FDCF2|        |      ;
                        db $84                               ;0FDCF3|        |00003F;
                        db $3F                               ;0FDCF4|        |00F701;
+       UNREACH_0FDCF5:
                        db $01                               ;0FDCF5|        |0000F7;
                        db $F7                               ;0FDCF6|        |000000;
                        db $00                               ;0FDCF7|        |      ;
@@ -23490,6 +23462,7 @@ Event_Single_Spell_Anim:
                        db $07                               ;0FDD01|        |000082;
                        db $82                               ;0FDD02|        |0FDE44;
                        db $3F                               ;0FDD03|        |03F601;
+       UNREACH_0FDD04:
                        db $01                               ;0FDD04|        |0000F6;
                        db $F6                               ;0FDD05|        |000003;
                        db $03                               ;0FDD06|        |00008C;
@@ -23505,6 +23478,7 @@ Event_Single_Spell_Anim:
                        db $0E                               ;0FDD10|        |003F80;
                        db $80                               ;0FDD11|        |0FDD52;
                        db $3F                               ;0FDD12|        |EB0701;
+       UNREACH_0FDD13:
                        db $01                               ;0FDD13|        |000007;
                        db $07                               ;0FDD14|        |0000EB;
                        db $EB                               ;0FDD15|        |      ;
@@ -23520,6 +23494,7 @@ Event_Single_Spell_Anim:
                        db $07                               ;0FDD1F|        |00008A;
                        db $8A                               ;0FDD20|        |      ;
                        db $3F                               ;0FDD21|        |0EF501;
+       UNREACH_0FDD22:
                        db $01                               ;0FDD22|        |0000F5;
                        db $F5                               ;0FDD23|        |00000E;
                        db $0E                               ;0FDD24|        |003F88;
@@ -23530,6 +23505,7 @@ Event_Single_Spell_Anim:
                        db $EE                               ;0FDD29|        |003FA4;
                        db $A4                               ;0FDD2A|        |00003F;
                        db $3F                               ;0FDD2B|        |F9F101;
+       UNREACH_0FDD2C:
                        db $01                               ;0FDD2C|        |0000F1;
                        db $F1                               ;0FDD2D|        |0000F9;
                        db $F9                               ;0FDD2E|        |003FAE;
@@ -23545,6 +23521,7 @@ Event_Single_Spell_Anim:
                        db $EE                               ;0FDD38|        |003F86;
                        db $86                               ;0FDD39|        |00003F;
                        db $3F                               ;0FDD3A|        |EAE801;
+       UNREACH_0FDD3B:
                        db $01                               ;0FDD3B|        |0000E8;
                        db $E8                               ;0FDD3C|        |      ;
                        db $EA                               ;0FDD3D|        |      ;
@@ -23560,6 +23537,7 @@ Event_Single_Spell_Anim:
                        db $EA                               ;0FDD47|        |      ;
                        db $84                               ;0FDD48|        |00003F;
                        db $3F                               ;0FDD49|        |FAED01;
+       UNREACH_0FDD4A:
                        db $01                               ;0FDD4A|        |0000ED;
                        db $ED                               ;0FDD4B|        |00AAFA;
                        db $FA                               ;0FDD4C|        |      ;
@@ -23575,6 +23553,7 @@ Event_Single_Spell_Anim:
                        db $E6                               ;0FDD56|        |000082;
                        db $82                               ;0FDD57|        |0FDE99;
                        db $3F                               ;0FDD58|        |FDF201;
+       UNREACH_0FDD59:
                        db $01                               ;0FDD59|        |0000F2;
                        db $F2                               ;0FDD5A|        |0000FD;
                        db $FD                               ;0FDD5B|        |003FA6;
@@ -23595,6 +23574,7 @@ Event_Single_Spell_Anim:
                        db $DF                               ;0FDD6A|        |013F80;
                        db $80                               ;0FDD6B|        |0FDDAC;
                        db $3F                               ;0FDD6C|        |01F101;
+       UNREACH_0FDD6D:
                        db $01                               ;0FDD6D|        |0000F1;
                        db $F1                               ;0FDD6E|        |000001;
                        db $01                               ;0FDD6F|        |0000A4;
@@ -23610,6 +23590,7 @@ Event_Single_Spell_Anim:
                        db $DF                               ;0FDD79|        |013F84;
                        db $84                               ;0FDD7A|        |00003F;
                        db $3F                               ;0FDD7B|        |F70401;
+       UNREACH_0FDD7C:
                        db $01                               ;0FDD7C|        |000004;
                        db $04                               ;0FDD7D|        |0000F7;
                        db $F7                               ;0FDD7E|        |000088;
@@ -23625,6 +23606,7 @@ Event_Single_Spell_Anim:
                        db $FA                               ;0FDD88|        |      ;
                        db $86                               ;0FDD89|        |00003F;
                        db $3F                               ;0FDD8A|        |0DE901;
+       UNREACH_0FDD8B:
                        db $01                               ;0FDD8B|        |0000E9;
                        db $E9                               ;0FDD8C|        |      ;
                        db $0D                               ;0FDD8D|        |003FA0;
@@ -23640,6 +23622,7 @@ Event_Single_Spell_Anim:
                        db $FD                               ;0FDD97|        |003F80;
                        db $80                               ;0FDD98|        |0FDDD9;
                        db $3F                               ;0FDD99|        |FD0201;
+       UNREACH_0FDD9A:
                        db $01                               ;0FDD9A|        |000002;
                        db $02                               ;0FDD9B|        |      ;
                        db $FD                               ;0FDD9C|        |003FAA;
@@ -23650,6 +23633,7 @@ Event_Single_Spell_Anim:
                        db $EB                               ;0FDDA1|        |      ;
                        db $84                               ;0FDDA2|        |00003F;
                        db $3F                               ;0FDDA3|        |000701;
+       UNREACH_0FDDA4:
                        db $01                               ;0FDDA4|        |000007;
                        db $07                               ;0FDDA5|        |000000;
                        db $00                               ;0FDDA6|        |      ;
@@ -23660,11 +23644,13 @@ Event_Single_Spell_Anim:
                        db $E6                               ;0FDDAB|        |000082;
                        db $82                               ;0FDDAC|        |0FE0EE;
                        db $3F                               ;0FDDAD|        |DFF003;
+       UNREACH_0FDDAE:
                        db $03                               ;0FDDAE|        |0000F0;
                        db $F0                               ;0FDDAF|        |0FDD90;
                        db $DF                               ;0FDDB0|        |003F80;
                        db $80                               ;0FDDB1|        |0FDDF2;
                        db $3F                               ;0FDDB2|        |F00800;
+       UNREACH_0FDDB3:
                        db $00                               ;0FDDB3|        |      ;
                        db $08                               ;0FDDB4|        |      ;
                        db $F0                               ;0FDDB5|        |0FDD65;
@@ -23770,6 +23756,7 @@ Event_Single_Spell_Anim:
                        db $10                               ;0FDE19|        |0FDDBB;
                        db $A0                               ;0FDE1A|        |      ;
                        db $3F                               ;0FDE1B|        |100001;
+       UNREACH_0FDE1C:
                        db $01                               ;0FDE1C|        |000000;
                        db $00                               ;0FDE1D|        |      ;
                        db $10                               ;0FDE1E|        |0FDDAA;
@@ -23800,6 +23787,7 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FDE37|        |0FDDBC;
                        db $83                               ;0FDE38|        |00003F;
                        db $3F                               ;0FDE39|        |100001;
+       UNREACH_0FDE3A:
                        db $01                               ;0FDE3A|        |000000;
                        db $00                               ;0FDE3B|        |      ;
                        db $10                               ;0FDE3C|        |0FDDC8;
@@ -23890,6 +23878,7 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FDE91|        |0FDE17;
                        db $84                               ;0FDE92|        |00003F;
                        db $3F                               ;0FDE93|        |F00001;
+       UNREACH_0FDE94:
                        db $01                               ;0FDE94|        |000000;
                        db $00                               ;0FDE95|        |      ;
                        db $F0                               ;0FDE96|        |0FDE46;
@@ -23950,6 +23939,7 @@ Event_Single_Spell_Anim:
                        db $10                               ;0FDECD|        |0FDE76;
                        db $A7                               ;0FDECE|        |00003F;
                        db $3F                               ;0FDECF|        |18F000;
+       UNREACH_0FDED0:
                        db $00                               ;0FDED0|        |      ;
                        db $F0                               ;0FDED1|        |0FDEEB;
                        db $18                               ;0FDED2|        |      ;
@@ -24010,6 +24000,7 @@ Event_Single_Spell_Anim:
                        db $F0                               ;0FDF09|        |0FDEB9;
                        db $AE                               ;0FDF0A|        |00003F;
                        db $3F                               ;0FDF0B|        |000800;
+       UNREACH_0FDF0C:
                        db $00                               ;0FDF0C|        |      ;
                        db $08                               ;0FDF0D|        |      ;
                        db $00                               ;0FDF0E|        |      ;
@@ -24130,6 +24121,7 @@ Event_Single_Spell_Anim:
                        db $10                               ;0FDF81|        |0FDF24;
                        db $A1                               ;0FDF82|        |00003F;
                        db $3F                               ;0FDF83|        |F00800;
+       UNREACH_0FDF84:
                        db $00                               ;0FDF84|        |      ;
                        db $08                               ;0FDF85|        |      ;
                        db $F0                               ;0FDF86|        |0FDF36;
@@ -24250,6 +24242,7 @@ Event_Single_Spell_Anim:
                        db $F8                               ;0FDFF9|        |      ;
                        db $86                               ;0FDFFA|        |00003F;
                        db $3F                               ;0FDFFB|        |F00000;
+       UNREACH_0FDFFC:
                        db $00                               ;0FDFFC|        |      ;
                        db $00                               ;0FDFFD|        |      ;
                        db $F0                               ;0FDFFE|        |0FDFAF;
@@ -24370,6 +24363,7 @@ Event_Single_Spell_Anim:
                        db $18                               ;0FE071|        |      ;
                        db $B0                               ;0FE072|        |0FE0B3;
                        db $3F                               ;0FE073|        |F8F000;
+       UNREACH_0FE074:
                        db $00                               ;0FE074|        |      ;
                        db $F0                               ;0FE075|        |0FE06F;
                        db $F8                               ;0FE076|        |      ;
@@ -24490,6 +24484,7 @@ Event_Single_Spell_Anim:
                        db $18                               ;0FE0E9|        |      ;
                        db $B0                               ;0FE0EA|        |0FE12B;
                        db $3F                               ;0FE0EB|        |F8F000;
+       UNREACH_0FE0EC:
                        db $00                               ;0FE0EC|        |      ;
                        db $F0                               ;0FE0ED|        |0FE0E7;
                        db $F8                               ;0FE0EE|        |      ;
@@ -24610,6 +24605,7 @@ Event_Single_Spell_Anim:
                        db $18                               ;0FE161|        |      ;
                        db $B0                               ;0FE162|        |0FE1A3;
                        db $3F                               ;0FE163|        |F8F000;
+       UNREACH_0FE164:
                        db $00                               ;0FE164|        |      ;
                        db $F0                               ;0FE165|        |0FE15F;
                        db $F8                               ;0FE166|        |      ;
@@ -24730,6 +24726,7 @@ Event_Single_Spell_Anim:
                        db $18                               ;0FE1D9|        |      ;
                        db $B0                               ;0FE1DA|        |0FE21B;
                        db $3F                               ;0FE1DB|        |F8F000;
+       UNREACH_0FE1DC:
                        db $00                               ;0FE1DC|        |      ;
                        db $F0                               ;0FE1DD|        |0FE1D7;
                        db $F8                               ;0FE1DE|        |      ;
@@ -24850,6 +24847,7 @@ Event_Single_Spell_Anim:
                        db $18                               ;0FE251|        |      ;
                        db $B0                               ;0FE252|        |0FE293;
                        db $3F                               ;0FE253|        |F8F000;
+       UNREACH_0FE254:
                        db $00                               ;0FE254|        |      ;
                        db $F0                               ;0FE255|        |0FE24F;
                        db $F8                               ;0FE256|        |      ;
@@ -24970,6 +24968,7 @@ Event_Single_Spell_Anim:
                        db $18                               ;0FE2C9|        |      ;
                        db $B0                               ;0FE2CA|        |0FE30B;
                        db $3F                               ;0FE2CB|        |F8F000;
+       UNREACH_0FE2CC:
                        db $00                               ;0FE2CC|        |      ;
                        db $F0                               ;0FE2CD|        |0FE2C7;
                        db $F8                               ;0FE2CE|        |      ;
@@ -25090,6 +25089,7 @@ Event_Single_Spell_Anim:
                        db $18                               ;0FE341|        |      ;
                        db $B0                               ;0FE342|        |0FE383;
                        db $3F                               ;0FE343|        |F80800;
+       UNREACH_0FE344:
                        db $00                               ;0FE344|        |      ;
                        db $08                               ;0FE345|        |      ;
                        db $F8                               ;0FE346|        |      ;

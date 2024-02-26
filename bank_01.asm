@@ -1723,15 +1723,15 @@ Is_BattleState_Negative:
                        db $00                               ;018A65|        |      ;
                        db $00                               ;018A66|        |      ;
                        db $00                               ;018A67|        |      ;
-         DATA8_018A68:
-                       db $24                               ;018A68|        |      ;
+         Event_018A68:
+                       db $24                               ;018A68|        |      ; Load var0/cursor position
                        db $00                               ;018A69|        |      ;
-                       db $07                               ;018A6A|        |      ;
+                       db $07                               ;018A6A|        |      ; Compare to FFFF
                        dl Cmp_2_values_2b                   ;018A6B|        |07B081;
                        db $FF                               ;018A6E|        |      ;
                        db $FF                               ;018A6F|        |      ;
                        db $0B                               ;018A70|        |      ;
-                       dw LOOSE_OP_008AD8                   ;018A71|        |008AD8;
+                       dw DATA8_018AD8                      ;018A71|        |018AD8;
          Event_Idling:
                        db $06                               ;018A73|        |      ; Script language, seems to run while standing in town. Loops from 8A73-8AB5.
                        db $01                               ;018A74|        |      ;
@@ -1742,30 +1742,30 @@ Is_BattleState_Negative:
                        db $01                               ;018A7B|        |      ;
                        db $19                               ;018A7C|        |      ;
                        db $0C                               ;018A7D|        |      ; 0C: Jump to 8A73 if result is true (nonzero)
-                       dw CODE_008A73                       ;018A7E|        |008A73;
+                       dw Event_Idling                      ;018A7E|        |018A73;
                        db $07                               ;018A80|        |      ; 07: Call 07/B09F
                        dl CODE_07B09F                       ;018A81|        |07B09F;
                        dw $0000                             ;018A84|        |      ; If 0000 = $11C1 (some temp var?) return 1
                        db $0B                               ;018A86|        |      ; 0B: Jump to 8A73 if result was zero/false
-                       dw CODE_008A73                       ;018A87|        |008A73;
+                       dw Event_Idling                      ;018A87|        |018A73;
                        db $07                               ;018A89|        |      ; 07: Call 07/B220 (In a dungeon y/n)
                        dl Sub_Dungeon_check                 ;018A8A|        |07B220;
                        db $0C                               ;018A8D|        |      ; 0C: Jump if true (8B5A)
-                       dw LOOSE_OP_008B5A                   ;018A8E|        |008B5A;
+                       dw DATA8_018B5A                      ;018A8E|        |018B5A;
                        db $1E                               ;018A90|        |      ; 1E: Store 0000 in 0CB3,x
                        dw $0000                             ;018A91|        |      ;
                        db $07                               ;018A93|        |      ; 07: Call 00/A022 (AND next word 0300 to $0021,x
                        dl WasBtnPressedX_2b                 ;018A94|        |00A022;
                        dw $0300                             ;018A97|        |      ; Compare 0300 to $0021,x
                        db $0C                               ;018A99|        |      ; 0C: Jump to 8AB7 if result is true (nonzero)
-                       dw LOOSE_OP_008AB7                   ;018A9A|        |008AB7;
+                       dw DATA8_018AB7                      ;018A9A|        |018AB7;
                        db $1E                               ;018A9C|        |      ; 1E: Store 0000 in 0CB3,x
                        dw $0000                             ;018A9D|        |      ;
                        db $07                               ;018A9F|        |      ; 07: Call 00/A022 (AND next word 0080 to $0021,x
                        dl WasBtnPressedX_2b                 ;018AA0|        |00A022;
                        dw $0080                             ;018AA3|        |      ; Compare 0080 to $0021,x
                        db $0C                               ;018AA5|        |      ; 0C: Jump to 8AC8 if result is true (nonzero)
-                       dw CODE_008AC8                       ;018AA6|        |008AC8;
+                       dw DATA8_018AC8                      ;018AA6|        |018AC8;
                        db $1E                               ;018AA8|        |      ; 1E: Store 0000 in 0CB3,x
                        dw $0000                             ;018AA9|        |      ;
                        db $07                               ;018AAB|        |      ; 07: Call 00/A022 (AND next word 0800 to $0021,x
@@ -1773,120 +1773,117 @@ Is_BattleState_Negative:
                        db $00                               ;018AAF|        |      ; Compare 0800 to $0021,x
                        db $08                               ;018AB0|        |      ;
                        db $0C                               ;018AB1|        |      ; 0C: Jump to 8AD8 if result is true (nonzero)
-                       dw LOOSE_OP_008AD8                   ;018AB2|        |008AD8;
+                       dw DATA8_018AD8                      ;018AB2|        |018AD8;
                        db $1A                               ;018AB4|        |      ; 1A: (else False) Jump to 8A73
-                       dw CODE_008A73                       ;018AB5|        |008A73;
-                       db $16                               ;018AB7|        |      ;
-                       dw $11C1                             ;018AB8|        |0011C1;
+                       dw Event_Idling                      ;018AB5|        |018A73;
+         DATA8_018AB7:
+                       db $16                               ;018AB7|        |      ; 16: $11C1 = 0004
+                       dw $11C1                             ;018AB8|        |      ;
                        dw $0004                             ;018ABA|        |      ;
                        db $04                               ;018ABC|        |      ;
                        dl Town_turning2                     ;018ABD|        |03B88B;
-                       db $16                               ;018AC0|        |      ;
-                       dw $11C1                             ;018AC1|        |0011C1;
+                       db $16                               ;018AC0|        |      ; 16: $11C1 = 0000
+                       dw $11C1                             ;018AC1|        |      ;
                        dw $0000                             ;018AC3|        |      ;
                        db $1A                               ;018AC5|        |      ;
-                       dw CODE_008A73                       ;018AC6|        |008A73;
-                       db $16                               ;018AC8|        |0000C1;
-                       db $C1                               ;018AC9|        |000011;
-                       db $11                               ;018ACA|        |000001;
-                       db $01                               ;018ACB|        |000000;
-                       db $00                               ;018ACC|        |      ;
+                       dw Event_Idling                      ;018AC6|        |018A73;
+         DATA8_018AC8:
+                       db $16                               ;018AC8|        |      ; 16: $11C1 = 0001
+                       dw $11C1                             ;018AC9|        |      ;
+                       dw $0001                             ;018ACB|        |      ;
                        db $1B                               ;018ACD|        |      ;
-                       db $B6                               ;018ACE|        |000091;
-                       db $91                               ;018ACF|        |000016;
-                       db $16                               ;018AD0|        |0000C1;
-                       db $C1                               ;018AD1|        |000011;
-                       db $11                               ;018AD2|        |000000;
-                       db $00                               ;018AD3|        |      ;
-                       db $00                               ;018AD4|        |      ;
+                       dw DATA8_0191B6                      ;018ACE|        |0191B6;
+                       db $16                               ;018AD0|        |      ; 16: $11C1 = 0000
+                       dw $11C1                             ;018AD1|        |      ;
+                       dw $0000                             ;018AD3|        |      ;
                        db $1A                               ;018AD5|        |      ;
-                       db $73                               ;018AD6|        |00008A;
-                       db $8A                               ;018AD7|        |      ;
-                       db $16                               ;018AD8|        |0000C1;
-                       db $C1                               ;018AD9|        |000011;
-                       db $11                               ;018ADA|        |000005;
-                       db $05                               ;018ADB|        |000000;
-                       db $00                               ;018ADC|        |      ;
-                       db $04                               ;018ADD|        |0000BC;
-                       db $BC                               ;018ADE|        |0003B8;
-                       db $B8                               ;018ADF|        |      ;
-                       db $03                               ;018AE0|        |000016;
-                       db $16                               ;018AE1|        |      ;
-                       dw $11C1                             ;018AE2|        |0011C1;
+                       dw Event_Idling                      ;018AD6|        |018A73;
+         DATA8_018AD8:
+                       db $16                               ;018AD8|        |      ; 16: $11C1 = 0005
+                       dw $11C1                             ;018AD9|        |      ;
+                       dw $0005                             ;018ADB|        |      ;
+                       db $04                               ;018ADD|        |      ;
+                       dl Some_section                      ;018ADE|        |03B8BC;
+                       db $16                               ;018AE1|        |      ; 16: $11C1 = 0000
+                       dw $11C1                             ;018AE2|        |      ;
                        dw $0000                             ;018AE4|        |      ;
                        db $0B                               ;018AE6|        |      ;
-                       dw LOOSE_OP_008B5A                   ;018AE7|        |008B5A;
+                       dw DATA8_018B5A                      ;018AE7|        |018B5A;
+         DATA8_018AE9:
                        db $06                               ;018AE9|        |      ;
                        db $01                               ;018AEA|        |      ;
                        db $07                               ;018AEB|        |      ;
                        dl RNG_1b_something                  ;018AEC|        |00A0BD;
                        db $FA                               ;018AEF|        |      ;
-                       db $1F                               ;018AF0|        |      ;
-                       dw $1901                             ;018AF1|        |001901;
-                       db $0C                               ;018AF3|        |      ;
-                       dw CODE_008AE9                       ;018AF4|        |008AE9;
+                       db $1F                               ;018AF0|        |      ; 1F: Load $1901
+                       dw $1901                             ;018AF1|        |      ;
+                       db $0C                               ;018AF3|        |      ; 0C: If true Jump to sub
+                       dw DATA8_018AE9                      ;018AF4|        |018AE9;
                        db $07                               ;018AF6|        |      ;
                        dl CODE_07B09F                       ;018AF7|        |07B09F;
                        dw $0000                             ;018AFA|        |      ;
                        db $0B                               ;018AFC|        |      ;
-                       dw CODE_008AE9                       ;018AFD|        |008AE9;
+                       dw DATA8_018AE9                      ;018AFD|        |018AE9;
                        db $07                               ;018AFF|        |      ;
                        dl Sub_Dungeon_check                 ;018B00|        |07B220;
                        db $0B                               ;018B03|        |      ;
-                       dw CODE_008A73                       ;018B04|        |008A73;
+                       dw Event_Idling                      ;018B04|        |018A73;
                        db $07                               ;018B06|        |      ;
                        dl CODE_078C8F                       ;018B07|        |078C8F;
                        db $0C                               ;018B0A|        |      ;
-                       dw LOOSE_OP_008B48                   ;018B0B|        |008B48;
+                       dw DATA8_018B48                      ;018B0B|        |018B48;
                        db $1E                               ;018B0D|        |      ;
                        dw $0000                             ;018B0E|        |      ;
                        db $07                               ;018B10|        |      ; Check for any direction pressed
                        dl WasBtnPressedX_2b                 ;018B11|        |00A022;
                        dw $0F00                             ;018B14|        |      ;
                        db $0C                               ;018B16|        |      ;
-                       dw CODE_008B28                       ;018B17|        |008B28;
+                       dw Any_direction_pressed             ;018B17|        |018B28;
                        db $1E                               ;018B19|        |      ;
                        dw $0000                             ;018B1A|        |      ;
                        db $07                               ;018B1C|        |      ;
                        dl WasBtnPressed_2b                  ;018B1D|        |00A00F;
                        dw $0080                             ;018B20|        |      ;
                        db $0C                               ;018B22|        |      ;
-                       dw CODE_008B38                       ;018B23|        |008B38;
+                       dw DATA8_018B38                      ;018B23|        |018B38;
                        db $1A                               ;018B25|        |      ;
-                       dw CODE_008AE9                       ;018B26|        |008AE9;
+                       dw DATA8_018AE9                      ;018B26|        |018AE9;
 Any_direction_pressed:
                        db $16                               ;018B28|        |      ;
                        dw $11C1                             ;018B29|        |0011C1;
                        dw $0003                             ;018B2B|        |      ;
                        db $1B                               ;018B2D|        |      ;
-                       dw LOOSE_OP_008C85                   ;018B2E|        |008C85;
+                       dw Loop_Draw_next_step               ;018B2E|        |018C85;
                        db $16                               ;018B30|        |      ;
-                       dw $11C1                             ;018B31|        |0011C1;
+                       dw $11C1                             ;018B31|        |      ;
                        dw $0000                             ;018B33|        |      ;
                        db $1A                               ;018B35|        |      ;
-                       dw CODE_008AE9                       ;018B36|        |008AE9;
+                       dw DATA8_018AE9                      ;018B36|        |018AE9;
+         DATA8_018B38:
                        db $16                               ;018B38|        |      ;
-                       dw $11C1                             ;018B39|        |0011C1;
+                       dw $11C1                             ;018B39|        |      ;
                        dw $0001                             ;018B3B|        |      ;
                        db $1B                               ;018B3D|        |      ;
-                       dw LOOSE_OP_0091B6                   ;018B3E|        |0091B6;
+                       dw DATA8_0191B6                      ;018B3E|        |0191B6;
                        db $16                               ;018B40|        |      ;
-                       dw $11C1                             ;018B41|        |0011C1;
+                       dw $11C1                             ;018B41|        |      ;
                        dw $0000                             ;018B43|        |      ;
                        db $1A                               ;018B45|        |      ;
-                       dw CODE_008AE9                       ;018B46|        |008AE9;
+                       dw DATA8_018AE9                      ;018B46|        |018AE9;
+         DATA8_018B48:
                        db $16                               ;018B48|        |      ;
-                       dw $11C1                             ;018B49|        |0011C1;
+                       dw $11C1                             ;018B49|        |      ;
                        dw $0002                             ;018B4B|        |      ;
                        db $1B                               ;018B4D|        |      ;
-                       dw LOOSE_OP_008E1A                   ;018B4E|        |008E1A;
+                       dw Load_fight_music                  ;018B4E|        |018E1A;
                        db $16                               ;018B50|        |      ;
-                       dw $11C1                             ;018B51|        |0011C1;
+                       dw $11C1                             ;018B51|        |      ;
                        dw $0000                             ;018B53|        |      ;
                        db $06                               ;018B55|        |      ;
                        db $03                               ;018B56|        |      ;
                        db $1A                               ;018B57|        |      ;
-                       dw CODE_008AE9                       ;018B58|        |008AE9;
+                       dw DATA8_018AE9                      ;018B58|        |018AE9;
+         DATA8_018B5A:
                        db $06                               ;018B5A|        |      ;
                        db $01                               ;018B5B|        |      ;
                        db $07                               ;018B5C|        |      ;
@@ -1903,14 +1900,16 @@ Any_direction_pressed:
                        db $07                               ;018B6C|        |      ;
                        dl Sub_Dungeon_check                 ;018B6D|        |07B220;
                        db $0C                               ;018B70|        |      ;
-                       dw CODE_008AE9                       ;018B71|        |008AE9;
+                       dw DATA8_018AE9                      ;018B71|        |018AE9;
                        db $1A                               ;018B73|        |      ;
-                       dw CODE_008A73                       ;018B74|        |008A73;
+                       dw Event_Idling                      ;018B74|        |018A73;
+       UNREACH_018B76:
                        db $02                               ;018B76|        |      ;
                        db $FC                               ;018B77|        |01C6FC;
                        db $FC                               ;018B78|        |0131C6;
                        db $C6                               ;018B79|        |000031;
                        db $31                               ;018B7A|        |000001;
+       UNREACH_018B7B:
                        db $01                               ;018B7B|        |000033;
                        db $33                               ;018B7C|        |0000F8;
                        db $F8                               ;018B7D|        |      ;
@@ -1956,11 +1955,13 @@ Any_direction_pressed:
                        db $F8                               ;018BA5|        |      ;
                        db $D5                               ;018BA6|        |000031;
                        db $31                               ;018BA7|        |000002;
+       UNREACH_018BA8:
                        db $02                               ;018BA8|        |      ;
                        db $FC                               ;018BA9|        |01C2FF;
                        db $FF                               ;018BAA|        |0131C2;
                        db $C2                               ;018BAB|        |      ;
                        db $31                               ;018BAC|        |000001;
+       UNREACH_018BAD:
                        db $01                               ;018BAD|        |000007;
                        db $07                               ;018BAE|        |0000FF;
                        db $FF                               ;018BAF|        |0131C2;
@@ -1976,6 +1977,7 @@ Any_direction_pressed:
                        db $FF                               ;018BB9|        |0031C2;
                        db $C2                               ;018BBA|        |      ;
                        db $31                               ;018BBB|        |000000;
+       UNREACH_018BBC:
                        db $00                               ;018BBC|        |      ;
                        db $13                               ;018BBD|        |0000FF;
                        db $FF                               ;018BBE|        |0131C2;
@@ -1996,6 +1998,7 @@ Any_direction_pressed:
                        db $FF                               ;018BCD|        |0131C2;
                        db $C2                               ;018BCE|        |      ;
                        db $31                               ;018BCF|        |000001;
+       UNREACH_018BD0:
                        db $01                               ;018BD0|        |000028;
                        db $28                               ;018BD1|        |      ;
                        db $FF                               ;018BD2|        |0131C2;
@@ -2031,6 +2034,7 @@ Any_direction_pressed:
                        db $FF                               ;018BF0|        |0031C2;
                        db $C2                               ;018BF1|        |      ;
                        db $31                               ;018BF2|        |000000;
+       UNREACH_018BF3:
                        db $00                               ;018BF3|        |      ;
                        db $1C                               ;018BF4|        |00C2FF;
                        db $FF                               ;018BF5|        |0131C2;
@@ -2056,6 +2060,7 @@ Any_direction_pressed:
                        db $FF                               ;018C09|        |0131C2;
                        db $C2                               ;018C0A|        |      ;
                        db $31                               ;018C0B|        |000001;
+       UNREACH_018C0C:
                        db $01                               ;018C0C|        |000004;
                        db $04                               ;018C0D|        |000010;
                        db $10                               ;018C0E|        |018BD0;
@@ -2106,26 +2111,31 @@ Any_direction_pressed:
                        db $E0                               ;018C3B|        |      ;
                        db $C0                               ;018C3C|        |      ;
                        db $31                               ;018C3D|        |000002;
+       UNREACH_018C3E:
                        db $02                               ;018C3E|        |      ;
                        db $00                               ;018C3F|        |      ;
                        db $00                               ;018C40|        |      ;
                        db $C6                               ;018C41|        |000031;
                        db $31                               ;018C42|        |000002;
+       UNREACH_018C43:
                        db $02                               ;018C43|        |      ;
                        db $00                               ;018C44|        |      ;
                        db $00                               ;018C45|        |      ;
                        db $C7                               ;018C46|        |000031;
                        db $31                               ;018C47|        |000002;
+       UNREACH_018C48:
                        db $02                               ;018C48|        |      ;
                        db $00                               ;018C49|        |      ;
                        db $00                               ;018C4A|        |      ;
                        db $C6                               ;018C4B|        |0000B1;
                        db $B1                               ;018C4C|        |000002;
+       UNREACH_018C4D:
                        db $02                               ;018C4D|        |      ;
                        db $00                               ;018C4E|        |      ;
                        db $00                               ;018C4F|        |      ;
                        db $C7                               ;018C50|        |000071;
                        db $71                               ;018C51|        |000001;
+       UNREACH_018C52:
                        db $01                               ;018C52|        |000030;
                        db $30                               ;018C53|        |018C4D;
                        db $F8                               ;018C54|        |      ;
@@ -2151,33 +2161,20 @@ Any_direction_pressed:
                        db $F8                               ;018C68|        |      ;
                        db $E4                               ;018C69|        |000031;
                        db $31                               ;018C6A|        |000076;
-       UNREACH_018C6B:
-                       db $76                               ;018C6B|        |00008B;
-                       db $8B                               ;018C6C|        |      ;
-                       db $7B                               ;018C6D|        |      ;
-                       db $8B                               ;018C6E|        |      ;
-                       db $A8                               ;018C6F|        |      ;
-                       db $8B                               ;018C70|        |      ;
-                       db $AD                               ;018C71|        |00BC8B;
-                       db $8B                               ;018C72|        |      ;
-                       db $BC                               ;018C73|        |00D08B;
-                       db $8B                               ;018C74|        |      ;
-                       db $D0                               ;018C75|        |018C02;
-                       db $8B                               ;018C76|        |      ;
-                       db $F3                               ;018C77|        |00008B;
-                       db $8B                               ;018C78|        |      ;
-                       db $0C                               ;018C79|        |003E8C;
-                       db $8C                               ;018C7A|        |008C3E;
-                       db $3E                               ;018C7B|        |00438C;
-                       db $8C                               ;018C7C|        |008C43;
-                       db $43                               ;018C7D|        |00008C;
-                       db $8C                               ;018C7E|        |008C48;
-                       db $48                               ;018C7F|        |      ;
-                       db $8C                               ;018C80|        |008C4D;
-                       db $4D                               ;018C81|        |00528C;
-                       db $8C                               ;018C82|        |008C52;
-                       db $52                               ;018C83|        |00008C;
-                       db $8C                               ;018C84|        |000106;
+           Tbl_018C6B:
+                       dw UNREACH_018B76                    ;018C6B|        |018B76;
+                       dw UNREACH_018B7B                    ;018C6D|        |018B7B;
+                       dw UNREACH_018BA8                    ;018C6F|        |018BA8;
+                       dw UNREACH_018BAD                    ;018C71|        |018BAD;
+                       dw UNREACH_018BBC                    ;018C73|        |018BBC;
+                       dw UNREACH_018BD0                    ;018C75|        |018BD0;
+                       dw UNREACH_018BF3                    ;018C77|        |018BF3;
+                       dw UNREACH_018C0C                    ;018C79|        |018C0C;
+                       dw UNREACH_018C3E                    ;018C7B|        |018C3E;
+                       dw UNREACH_018C43                    ;018C7D|        |018C43;
+                       dw UNREACH_018C48                    ;018C7F|        |018C48;
+                       dw UNREACH_018C4D                    ;018C81|        |018C4D;
+                       dw UNREACH_018C52                    ;018C83|        |018C52;
   Loop_Draw_next_step:
                        db $06                               ;018C85|        |      ;
                        db $01                               ;018C86|        |      ;
@@ -2464,340 +2461,224 @@ Any_direction_pressed:
      Load_fight_music:
                        db $07                               ;018E1A|        |      ;
                        dl Load_battle_BGM                   ;018E1B|        |0781E9;
-                       db $07                               ;018E1E|        |0000B6;
-                       db $B6                               ;018E1F|        |000082;
-                       db $82                               ;018E20|        |019D24;
-                       db $01                               ;018E21|        |00000F;
-                       db $0F                               ;018E22|        |000002;
+                       db $07                               ;018E1E|        |      ;
+                       dl Zero_stat_modifiers_far           ;018E1F|        |0182B6;
+                       db $0F                               ;018E22|        |      ;
                        db $02                               ;018E23|        |      ;
-                       db $00                               ;018E24|        |      ;
-                       db $00                               ;018E25|        |      ;
-                       db $06                               ;018E26|        |000005;
-                       db $05                               ;018E27|        |000007;
-                       db $07                               ;018E28|        |0000AC;
-                       db $AC                               ;018E29|        |0000A0;
-                       db $A0                               ;018E2A|        |      ;
-                       db $00                               ;018E2B|        |      ;
-                       db $01                               ;018E2C|        |000080;
-                       db $80                               ;018E2D|        |018E37;
-                       db $08                               ;018E2E|        |      ;
+                       dw $0000                             ;018E24|        |      ;
+                       db $06                               ;018E26|        |      ;
+                       db $05                               ;018E27|        |      ;
+                       db $07                               ;018E28|        |      ;
+                       dl Setup_Text_Parser_3b              ;018E29|        |00A0AC;
+                       dl Bank_08_Small_Script              ;018E2C|        |088001;
                        db $00                               ;018E2F|        |      ;
-                       db $06                               ;018E30|        |000001;
-                       db $01                               ;018E31|        |000007;
-                       db $07                               ;018E32|        |000007;
-                       db $07                               ;018E33|        |00009D;
-                       db $9D                               ;018E34|        |002F00;
-                       db $00                               ;018E35|        |      ;
-                       db $2F                               ;018E36|        |1601B5;
-                       db $B5                               ;018E37|        |000001;
-                       db $01                               ;018E38|        |000016;
-                       db $16                               ;018E39|        |00007B;
-                       db $7B                               ;018E3A|        |      ;
-                       db $15                               ;018E3B|        |000000;
-                       db $00                               ;018E3C|        |      ;
-                       db $00                               ;018E3D|        |      ;
-                       db $06                               ;018E3E|        |000001;
-                       db $01                               ;018E3F|        |000007;
-                       db $07                               ;018E40|        |0000DD;
-                       db $DD                               ;018E41|        |00009C;
-                       db $9C                               ;018E42|        |000400;
-                       db $00                               ;018E43|        |      ;
-                       db $04                               ;018E44|        |00001F;
-                       db $1F                               ;018E45|        |231097;
-                       db $97                               ;018E46|        |000010;
-                       db $10                               ;018E47|        |018E6C;
-                       db $23                               ;018E48|        |000003;
-                       db $03                               ;018E49|        |00001F;
-                       db $1F                               ;018E4A|        |111579;
-                       db $79                               ;018E4B|        |001115;
-                       db $15                               ;018E4C|        |000011;
-                       db $11                               ;018E4D|        |000004;
-                       db $04                               ;018E4E|        |000061;
-                       db $61                               ;018E4F|        |00008E;
-                       db $8E                               ;018E50|        |008E61;
-                       db $61                               ;018E51|        |00008E;
-                       db $8E                               ;018E52|        |008E57;
-                       db $57                               ;018E53|        |00008E;
-                       db $8E                               ;018E54|        |008E61;
-                       db $61                               ;018E55|        |00008E;
-                       db $8E                               ;018E56|        |004007;
-                       db $07                               ;018E57|        |000040;
-                       db $40                               ;018E58|        |      ;
-                       db $A1                               ;018E59|        |000000;
-                       db $00                               ;018E5A|        |      ;
-                       db $8C                               ;018E5B|        |000D95;
-                       db $95                               ;018E5C|        |00000D;
-                       db $0D                               ;018E5D|        |000202;
+                       db $06                               ;018E30|        |      ;
+                       db $01                               ;018E31|        |      ;
+                       db $07                               ;018E32|        |      ;
+                       dl _8698_setup_3b                    ;018E33|        |009D07;
+                       dl _9D07_data                        ;018E36|        |01B52F;
+                       db $16                               ;018E39|        |      ;
+                       dw $157B                             ;018E3A|        |      ;
+                       dw $0000                             ;018E3C|        |      ;
+                       db $06                               ;018E3E|        |      ;
+                       db $01                               ;018E3F|        |      ;
+                       db $07                               ;018E40|        |      ;
+                       dl Battle_related1b                  ;018E41|        |009CDD;
+                       db $04                               ;018E44|        |      ;
+                       db $1F                               ;018E45|        |      ;
+                       dw $1097                             ;018E46|        |      ;
+                       db $23                               ;018E48|        |      ;
+                       db $03                               ;018E49|        |      ;
+                       db $1F                               ;018E4A|        |      ;
+                       dw $1579                             ;018E4B|        |      ;
+                       db $11                               ;018E4D|        |      ;
+                       db $04                               ;018E4E|        |      ;
+                       dw LOOSE_OP_008E61                   ;018E4F|        |008E61;
+                       dw LOOSE_OP_008E61                   ;018E51|        |008E61;
+                       dw CODE_008E57                       ;018E53|        |008E57;
+                       dw LOOSE_OP_008E61                   ;018E55|        |008E61;
+                       db $07                               ;018E57|        |      ;
+                       dl Transfer_Data_3b_1b_2b            ;018E58|        |00A140;
+                       dl _189A85_2_bytes                   ;018E5B|        |0D958C;
                        db $02                               ;018E5E|        |      ;
-                       db $02                               ;018E5F|        |      ;
-                       db $00                               ;018E60|        |      ;
-                       db $07                               ;018E61|        |000045;
-                       db $45                               ;018E62|        |0000B6;
-                       db $B6                               ;018E63|        |000007;
-                       db $07                               ;018E64|        |000006;
-                       db $06                               ;018E65|        |000001;
-                       db $01                               ;018E66|        |000007;
-                       db $07                               ;018E67|        |000003;
-                       db $03                               ;018E68|        |0000BA;
-                       db $BA                               ;018E69|        |      ;
-                       db $07                               ;018E6A|        |000000;
+                       dw $0002                             ;018E5F|        |      ;
+                       db $07                               ;018E61|        |      ;
+                       dl CODE_07B645                       ;018E62|        |07B645;
+         DATA8_018E65:
+                       db $06                               ;018E65|        |      ;
+                       db $01                               ;018E66|        |      ;
+                       db $07                               ;018E67|        |      ;
+                       dl Wait_For_A_Press                  ;018E68|        |07BA03;
                        db $00                               ;018E6B|        |      ;
                        db $0B                               ;018E6C|        |      ;
-                       db $65                               ;018E6D|        |00008E;
-                       db $8E                               ;018E6E|        |00F207;
-                       db $07                               ;018E6F|        |0000F2;
-                       db $F2                               ;018E70|        |0000B7;
-                       db $B7                               ;018E71|        |000007;
-                       db $07                               ;018E72|        |000023;
-                       db $23                               ;018E73|        |000001;
-                       db $01                               ;018E74|        |000007;
-                       db $07                               ;018E75|        |0000AC;
-                       db $AC                               ;018E76|        |0000A0;
-                       db $A0                               ;018E77|        |      ;
-                       db $00                               ;018E78|        |      ;
-                       db $1D                               ;018E79|        |00088F;
-                       db $8F                               ;018E7A|        |1B0008;
-                       db $08                               ;018E7B|        |      ;
+                       dw DATA8_018E65                      ;018E6D|        |018E65;
+                       db $07                               ;018E6F|        |      ;
+                       dl CODE_07B7F2                       ;018E70|        |07B7F2;
+                       db $23                               ;018E73|        |      ;
+                       db $01                               ;018E74|        |      ;
+       Text_EnemyNum1:
+                       db $07                               ;018E75|        |      ;
+                       dl Setup_Text_Parser_3b              ;018E76|        |00A0AC;
+                       dl Enemy1_Num                        ;018E79|        |088F1D;
                        db $00                               ;018E7C|        |      ;
                        db $1B                               ;018E7D|        |      ;
-                       db $00                               ;018E7E|        |      ;
-                       db $8F                               ;018E7F|        |0B0124;
-                       db $24                               ;018E80|        |000001;
-                       db $01                               ;018E81|        |00000B;
+                       dw DATA8_018F00                      ;018E7E|        |018F00;
+                       db $24                               ;018E80|        |      ;
+                       db $01                               ;018E81|        |      ;
                        db $0B                               ;018E82|        |      ;
-                       db $27                               ;018E83|        |00008F;
-                       db $8F                               ;018E84|        |A0AC07;
-                       db $07                               ;018E85|        |0000AC;
-                       db $AC                               ;018E86|        |0000A0;
-                       db $A0                               ;018E87|        |      ;
-                       db $00                               ;018E88|        |      ;
-                       db $35                               ;018E89|        |00008F;
-                       db $8F                               ;018E8A|        |1B0008;
-                       db $08                               ;018E8B|        |      ;
+                       dw DATA8_018F27                      ;018E83|        |018F27;
+                       db $07                               ;018E85|        |      ;
+                       dl Setup_Text_Parser_3b              ;018E86|        |00A0AC;
+                       dl Enemy2_Num                        ;018E89|        |088F35;
                        db $00                               ;018E8C|        |      ;
                        db $1B                               ;018E8D|        |      ;
-                       db $00                               ;018E8E|        |      ;
-                       db $8F                               ;018E8F|        |0B0124;
-                       db $24                               ;018E90|        |000001;
-                       db $01                               ;018E91|        |00000B;
+                       dw DATA8_018F00                      ;018E8E|        |018F00;
+                       db $24                               ;018E90|        |      ;
+                       db $01                               ;018E91|        |      ;
                        db $0B                               ;018E92|        |      ;
-                       db $27                               ;018E93|        |00008F;
-                       db $8F                               ;018E94|        |A0AC07;
-                       db $07                               ;018E95|        |0000AC;
-                       db $AC                               ;018E96|        |0000A0;
-                       db $A0                               ;018E97|        |      ;
-                       db $00                               ;018E98|        |      ;
-                       db $44                               ;018E99|        |      ;
-                       db $8F                               ;018E9A|        |1B0008;
-                       db $08                               ;018E9B|        |      ;
+                       dw DATA8_018F27                      ;018E93|        |018F27;
+                       db $07                               ;018E95|        |      ;
+                       dl Setup_Text_Parser_3b              ;018E96|        |00A0AC;
+                       dl Enemy3_Num                        ;018E99|        |088F44;
                        db $00                               ;018E9C|        |      ;
                        db $1B                               ;018E9D|        |      ;
-                       db $00                               ;018E9E|        |      ;
-                       db $8F                               ;018E9F|        |0B0124;
-                       db $24                               ;018EA0|        |000001;
-                       db $01                               ;018EA1|        |00000B;
+                       dw DATA8_018F00                      ;018E9E|        |018F00;
+                       db $24                               ;018EA0|        |      ;
+                       db $01                               ;018EA1|        |      ;
                        db $0B                               ;018EA2|        |      ;
-                       db $27                               ;018EA3|        |00008F;
-                       db $8F                               ;018EA4|        |A0AC07;
-                       db $07                               ;018EA5|        |0000AC;
-                       db $AC                               ;018EA6|        |0000A0;
-                       db $A0                               ;018EA7|        |      ;
-                       db $00                               ;018EA8|        |      ;
-                       db $53                               ;018EA9|        |00008F;
-                       db $8F                               ;018EAA|        |1B0008;
-                       db $08                               ;018EAB|        |      ;
+                       dw DATA8_018F27                      ;018EA3|        |018F27;
+                       db $07                               ;018EA5|        |      ;
+                       dl Setup_Text_Parser_3b              ;018EA6|        |00A0AC;
+                       dl Enemy4_Num                        ;018EA9|        |088F53;
                        db $00                               ;018EAC|        |      ;
                        db $1B                               ;018EAD|        |      ;
-                       db $08                               ;018EAE|        |      ;
-                       db $8F                               ;018EAF|        |8F001B;
+                       dw DATA8_018F08                      ;018EAE|        |018F08;
                        db $1B                               ;018EB0|        |      ;
-                       db $00                               ;018EB1|        |      ;
-                       db $8F                               ;018EB2|        |0B0124;
-                       db $24                               ;018EB3|        |000001;
-                       db $01                               ;018EB4|        |00000B;
+                       dw DATA8_018F00                      ;018EB1|        |018F00;
+                       db $24                               ;018EB3|        |      ;
+                       db $01                               ;018EB4|        |      ;
                        db $0B                               ;018EB5|        |      ;
-                       db $32                               ;018EB6|        |00008F;
-                       db $8F                               ;018EB7|        |070325;
-                       db $25                               ;018EB8|        |000003;
-                       db $03                               ;018EB9|        |000007;
-                       db $07                               ;018EBA|        |0000AC;
-                       db $AC                               ;018EBB|        |0000A0;
-                       db $A0                               ;018EBC|        |      ;
-                       db $00                               ;018EBD|        |      ;
-                       db $0B                               ;018EBE|        |      ;
-                       db $80                               ;018EBF|        |018EC9;
-                       db $08                               ;018EC0|        |      ;
+                       dw DATA8_018F32                      ;018EB6|        |018F32;
+                       db $25                               ;018EB8|        |      ;
+                       db $03                               ;018EB9|        |      ;
+                       db $07                               ;018EBA|        |      ;
+                       dl Setup_Text_Parser_3b              ;018EBB|        |00A0AC;
+                       dl Text_0D                           ;018EBE|        |08800B;
                        db $00                               ;018EC1|        |      ;
-                       db $07                               ;018EC2|        |0000AC;
-                       db $AC                               ;018EC3|        |0000A0;
-                       db $A0                               ;018EC4|        |      ;
-                       db $00                               ;018EC5|        |      ;
-                       db $63                               ;018EC6|        |00008F;
-                       db $8F                               ;018EC7|        |1B0008;
-                       db $08                               ;018EC8|        |      ;
+                       db $07                               ;018EC2|        |      ;
+                       dl Setup_Text_Parser_3b              ;018EC3|        |00A0AC;
+                       dl Enemy5_Num                        ;018EC6|        |088F63;
                        db $00                               ;018EC9|        |      ;
                        db $1B                               ;018ECA|        |      ;
-                       db $00                               ;018ECB|        |      ;
-                       db $8F                               ;018ECC|        |0B0124;
-                       db $24                               ;018ECD|        |000001;
-                       db $01                               ;018ECE|        |00000B;
+                       dw DATA8_018F00                      ;018ECB|        |018F00;
+                       db $24                               ;018ECD|        |      ;
+                       db $01                               ;018ECE|        |      ;
                        db $0B                               ;018ECF|        |      ;
-                       db $13                               ;018ED0|        |00008F;
-                       db $8F                               ;018ED1|        |A0AC07;
-                       db $07                               ;018ED2|        |0000AC;
-                       db $AC                               ;018ED3|        |0000A0;
-                       db $A0                               ;018ED4|        |      ;
-                       db $00                               ;018ED5|        |      ;
-                       db $72                               ;018ED6|        |00008F;
-                       db $8F                               ;018ED7|        |1B0008;
-                       db $08                               ;018ED8|        |      ;
+                       dw DATA8_018F13                      ;018ED0|        |018F13;
+                       db $07                               ;018ED2|        |      ;
+                       dl Setup_Text_Parser_3b              ;018ED3|        |00A0AC;
+                       dl Enemy6_Num                        ;018ED6|        |088F72;
                        db $00                               ;018ED9|        |      ;
                        db $1B                               ;018EDA|        |      ;
-                       db $00                               ;018EDB|        |      ;
-                       db $8F                               ;018EDC|        |0B0124;
-                       db $24                               ;018EDD|        |000001;
-                       db $01                               ;018EDE|        |00000B;
+                       dw DATA8_018F00                      ;018EDB|        |018F00;
+                       db $24                               ;018EDD|        |      ;
+                       db $01                               ;018EDE|        |      ;
                        db $0B                               ;018EDF|        |      ;
-                       db $1D                               ;018EE0|        |00078F;
-                       db $8F                               ;018EE1|        |A0AC07;
-                       db $07                               ;018EE2|        |0000AC;
-                       db $AC                               ;018EE3|        |0000A0;
-                       db $A0                               ;018EE4|        |      ;
-                       db $00                               ;018EE5|        |      ;
-                       db $81                               ;018EE6|        |00008F;
-                       db $8F                               ;018EE7|        |1B0008;
-                       db $08                               ;018EE8|        |      ;
+                       dw DATA8_018F1D                      ;018EE0|        |018F1D;
+                       db $07                               ;018EE2|        |      ;
+                       dl Setup_Text_Parser_3b              ;018EE3|        |00A0AC;
+                       dl Enemy7_Num                        ;018EE6|        |088F81;
                        db $00                               ;018EE9|        |      ;
                        db $1B                               ;018EEA|        |      ;
-                       db $00                               ;018EEB|        |      ;
-                       db $8F                               ;018EEC|        |0B0124;
-                       db $24                               ;018EED|        |000001;
-                       db $01                               ;018EEE|        |00000B;
+                       dw DATA8_018F00                      ;018EEB|        |018F00;
+                       db $24                               ;018EED|        |      ;
+                       db $01                               ;018EEE|        |      ;
                        db $0B                               ;018EEF|        |      ;
-                       db $27                               ;018EF0|        |00008F;
-                       db $8F                               ;018EF1|        |A0AC07;
-                       db $07                               ;018EF2|        |0000AC;
-                       db $AC                               ;018EF3|        |0000A0;
-                       db $A0                               ;018EF4|        |      ;
-                       db $00                               ;018EF5|        |      ;
-                       db $90                               ;018EF6|        |018E87;
-                       db $8F                               ;018EF7|        |1B0008;
-                       db $08                               ;018EF8|        |      ;
+                       dw DATA8_018F27                      ;018EF0|        |018F27;
+                       db $07                               ;018EF2|        |      ;
+                       dl Setup_Text_Parser_3b              ;018EF3|        |00A0AC;
+                       dl Enemy8_Num                        ;018EF6|        |088F90;
                        db $00                               ;018EF9|        |      ;
                        db $1B                               ;018EFA|        |      ;
-                       db $08                               ;018EFB|        |      ;
-                       db $8F                               ;018EFC|        |8F321A;
+                       dw DATA8_018F08                      ;018EFB|        |018F08;
                        db $1A                               ;018EFD|        |      ;
-                       db $32                               ;018EFE|        |00008F;
-                       db $8F                               ;018EFF|        |150325;
-                       db $25                               ;018F00|        |000003;
-                       db $03                               ;018F01|        |000015;
-                       db $15                               ;018F02|        |000001;
-                       db $01                               ;018F03|        |000002;
+                       dw DATA8_018F32                      ;018EFE|        |018F32;
+         DATA8_018F00:
+                       db $25                               ;018F00|        |      ;
+                       db $03                               ;018F01|        |      ;
+                       db $15                               ;018F02|        |      ;
+                       db $01                               ;018F03|        |      ;
                        db $02                               ;018F04|        |      ;
-                       db $FF                               ;018F05|        |061CFF;
-                       db $FF                               ;018F06|        |01061C;
-                       db $1C                               ;018F07|        |000106;
-                       db $06                               ;018F08|        |000001;
-                       db $01                               ;018F09|        |000007;
-                       db $07                               ;018F0A|        |000003;
-                       db $03                               ;018F0B|        |0000BA;
-                       db $BA                               ;018F0C|        |      ;
-                       db $07                               ;018F0D|        |000000;
-                       db $00                               ;018F0E|        |      ;
-                       db $0B                               ;018F0F|        |      ;
-                       db $08                               ;018F10|        |      ;
-                       db $8F                               ;018F11|        |03251C;
-                       db $1C                               ;018F12|        |000325;
-                       db $25                               ;018F13|        |000003;
-                       db $03                               ;018F14|        |000007;
-                       db $07                               ;018F15|        |0000AC;
-                       db $AC                               ;018F16|        |0000A0;
-                       db $A0                               ;018F17|        |      ;
-                       db $00                               ;018F18|        |      ;
-                       db $0B                               ;018F19|        |      ;
-                       db $80                               ;018F1A|        |018F24;
-                       db $08                               ;018F1B|        |      ;
+                       dw $FFFF                             ;018F05|        |      ;
+                       db $1C                               ;018F07|        |      ; 1C: RTS
+         DATA8_018F08:
+                       db $06                               ;018F08|        |      ;
+                       db $01                               ;018F09|        |      ;
+                       db $07                               ;018F0A|        |      ;
+                       dl Wait_For_A_Press                  ;018F0B|        |07BA03;
+                       dw $0B00                             ;018F0E|        |      ;
+                       dw DATA8_018F08                      ;018F10|        |018F08;
+                       db $1C                               ;018F12|        |      ;
+         DATA8_018F13:
+                       db $25                               ;018F13|        |      ;
+                       db $03                               ;018F14|        |      ;
+                       db $07                               ;018F15|        |      ;
+                       dl Setup_Text_Parser_3b              ;018F16|        |00A0AC;
+                       dl Text_0D                           ;018F19|        |08800B;
                        db $00                               ;018F1C|        |      ;
-                       db $25                               ;018F1D|        |000003;
-                       db $03                               ;018F1E|        |000007;
-                       db $07                               ;018F1F|        |0000AC;
-                       db $AC                               ;018F20|        |0000A0;
-                       db $A0                               ;018F21|        |      ;
-                       db $00                               ;018F22|        |      ;
-                       db $0B                               ;018F23|        |      ;
-                       db $80                               ;018F24|        |018F2E;
-                       db $08                               ;018F25|        |      ;
+         DATA8_018F1D:
+                       db $25                               ;018F1D|        |      ;
+                       db $03                               ;018F1E|        |      ;
+                       db $07                               ;018F1F|        |      ;
+                       dl Setup_Text_Parser_3b              ;018F20|        |00A0AC;
+                       dl Text_0D                           ;018F23|        |08800B;
                        db $00                               ;018F26|        |      ;
-                       db $07                               ;018F27|        |0000AC;
-                       db $AC                               ;018F28|        |0000A0;
-                       db $A0                               ;018F29|        |      ;
-                       db $00                               ;018F2A|        |      ;
-                       db $09                               ;018F2B|        |      ;
-                       db $80                               ;018F2C|        |018F36;
-                       db $08                               ;018F2D|        |      ;
+         DATA8_018F27:
+                       db $07                               ;018F27|        |      ;
+                       dl Setup_Text_Parser_3b              ;018F28|        |00A0AC;
+                       dl Text_7F                           ;018F2B|        |088009;
                        db $00                               ;018F2E|        |      ;
                        db $1B                               ;018F2F|        |      ;
-                       db $08                               ;018F30|        |      ;
-                       db $8F                               ;018F31|        |C8EF07;
-       UNREACH_018F32:
-                       db $07                               ;018F32|        |0000EF;
-                       db $EF                               ;018F33|        |2300C8;
-                       db $C8                               ;018F34|        |      ;
-                       db $00                               ;018F35|        |      ;
-                       db $23                               ;018F36|        |000002;
+                       dw DATA8_018F08                      ;018F30|        |018F08;
+         DATA8_018F32:
+                       db $07                               ;018F32|        |      ;
+                       dl CODE_00C8EF                       ;018F33|        |00C8EF;
+                       db $23                               ;018F36|        |      ;
                        db $02                               ;018F37|        |      ;
-       UNREACH_018F38:
-                       db $06                               ;018F38|        |000001;
-                       db $01                               ;018F39|        |000007;
-                       db $07                               ;018F3A|        |0000BF;
-                       db $BF                               ;018F3B|        |0B0782;
-                       db $82                               ;018F3C|        |019A46;
-                       db $07                               ;018F3D|        |00000B;
+         DATA8_018F38:
+                       db $06                               ;018F38|        |      ;
+                       db $01                               ;018F39|        |      ;
+                       db $07                               ;018F3A|        |      ;
+                       dl CODE_0782BF                       ;018F3B|        |0782BF;
                        db $0B                               ;018F3E|        |      ;
-                       db $47                               ;018F3F|        |00008F;
-                       db $8F                               ;018F40|        |11C116;
-                       db $16                               ;018F41|        |0000C1;
-                       db $C1                               ;018F42|        |000011;
-                       db $11                               ;018F43|        |0000FF;
-                       db $FF                               ;018F44|        |240AFF;
-                       db $FF                               ;018F45|        |02240A;
+                       dw DATA8_018F47                      ;018F3F|        |018F47;
+                       db $16                               ;018F41|        |      ;
+                       dw $11C1                             ;018F42|        |      ;
+                       dw $FFFF                             ;018F44|        |      ;
                        db $0A                               ;018F46|        |      ;
-                       db $24                               ;018F47|        |000002;
+         DATA8_018F47:
+                       db $24                               ;018F47|        |      ;
                        db $02                               ;018F48|        |      ;
-                       db $07                               ;018F49|        |0000B0;
-                       db $B0                               ;018F4A|        |018EFC;
-                       db $B0                               ;018F4B|        |018F54;
-                       db $07                               ;018F4C|        |000001;
-                       db $01                               ;018F4D|        |000000;
-                       db $00                               ;018F4E|        |      ;
-                       db $0C                               ;018F4F|        |008F75;
-                       db $75                               ;018F50|        |00008F;
-                       db $8F                               ;018F51|        |070224;
-                       db $24                               ;018F52|        |000002;
+                       db $07                               ;018F49|        |      ;
+                       dl Condition_Check_2b                ;018F4A|        |07B0B0;
+                       dw $0001                             ;018F4D|        |      ;
+                       db $0C                               ;018F4F|        |      ;
+                       dw DATA8_018F75                      ;018F50|        |018F75;
+                       db $24                               ;018F52|        |      ;
                        db $02                               ;018F53|        |      ;
-                       db $07                               ;018F54|        |0000B0;
-                       db $B0                               ;018F55|        |018F07;
-                       db $B0                               ;018F56|        |018F5F;
-                       db $07                               ;018F57|        |000002;
-                       db $02                               ;018F58|        |      ;
-                       db $00                               ;018F59|        |      ;
-                       db $0C                               ;018F5A|        |008F75;
-                       db $75                               ;018F5B|        |00008F;
-                       db $8F                               ;018F5C|        |8C8F07;
-                       db $07                               ;018F5D|        |00008F;
-                       db $8F                               ;018F5E|        |0B078C;
-                       db $8C                               ;018F5F|        |000B07;
-                       db $07                               ;018F60|        |00000B;
+                       db $07                               ;018F54|        |      ;
+                       dl Condition_Check_2b                ;018F55|        |07B0B0;
+                       dw $0002                             ;018F58|        |      ;
+                       db $0C                               ;018F5A|        |      ;
+                       dw DATA8_018F75                      ;018F5B|        |018F75;
+                       db $07                               ;018F5D|        |      ;
+                       dl CODE_078C8F                       ;018F5E|        |078C8F;
                        db $0B                               ;018F61|        |      ;
-                       db $88                               ;018F62|        |      ;
-                       db $8F                               ;018F63|        |AF3907;
-                       db $07                               ;018F64|        |000039;
-                       db $39                               ;018F65|        |0007AF;
-                       db $AF                               ;018F66|        |000207;
-                       db $07                               ;018F67|        |000002;
-                       db $02                               ;018F68|        |      ;
-                       db $00                               ;018F69|        |      ;
+                       dw DATA8_018F88                      ;018F62|        |018F88;
+                       db $07                               ;018F64|        |      ;
+                       dl Offset_In_1575                    ;018F65|        |07AF39;
+                       dw $0002                             ;018F68|        |      ;
+         DATA8_018F6A:
                        db $06                               ;018F6A|        |      ; 06 01: Bye Felicia!
                        db $01                               ;018F6B|        |      ;
        Selecting_Turn:
@@ -2805,7 +2686,8 @@ Any_direction_pressed:
                        dl Word_Is_Equals_1575               ;018F6D|        |07AF24;
                        dw $FFFF                             ;018F70|        |      ; Compares FFFF to $20
                        db $0B                               ;018F72|        |      ; 0B: Jump if false to 8F6A
-                       dw CODE_008F6A                       ;018F73|        |008F6A;
+                       dw DATA8_018F6A                      ;018F73|        |018F6A;
+         DATA8_018F75:
                        db $07                               ;018F75|        |      ;
                        dl Is_FightingFinalBoss              ;018F76|        |078001;
                        db $0B                               ;018F79|        |      ;
@@ -2816,219 +2698,160 @@ Any_direction_pressed:
                        db $07                               ;018F7E|        |      ;
                        dl Advance_turn_order                ;018F7F|        |00CA5D;
                        db $0B                               ;018F82|        |      ;
-                       dw UNREACH_018F38                    ;018F83|        |018F38;
+                       dw DATA8_018F38                      ;018F83|        |018F38;
                        db $1A                               ;018F85|        |      ;
-                       dw UNREACH_018F32                    ;018F86|        |018F32;
-                       db $1E                               ;018F88|        |000000;
-                       db $00                               ;018F89|        |      ;
-                       db $00                               ;018F8A|        |      ;
-                       db $07                               ;018F8B|        |0000B0;
-                       db $B0                               ;018F8C|        |018F3E;
-                       db $B0                               ;018F8D|        |018F96;
-                       db $07                               ;018F8E|        |000000;
-                       db $00                               ;018F8F|        |      ;
-                       db $04                               ;018F90|        |00000C;
-                       db $0C                               ;018F91|        |009004;
-                       db $04                               ;018F92|        |000090;
-                       db $90                               ;018F93|        |018FB3;
-                       db $1E                               ;018F94|        |000002;
-                       db $02                               ;018F95|        |      ;
-                       db $00                               ;018F96|        |      ;
-                       db $07                               ;018F97|        |0000B0;
-                       db $B0                               ;018F98|        |018F4A;
-                       db $B0                               ;018F99|        |018FA2;
-                       db $07                               ;018F9A|        |000000;
-                       db $00                               ;018F9B|        |      ;
-                       db $04                               ;018F9C|        |00000C;
-                       db $0C                               ;018F9D|        |009004;
-                       db $04                               ;018F9E|        |000090;
-                       db $90                               ;018F9F|        |018FBF;
-                       db $1E                               ;018FA0|        |000003;
-                       db $03                               ;018FA1|        |000000;
-                       db $00                               ;018FA2|        |      ;
-                       db $07                               ;018FA3|        |0000B0;
-                       db $B0                               ;018FA4|        |018F56;
-                       db $B0                               ;018FA5|        |018FAE;
-                       db $07                               ;018FA6|        |000000;
-                       db $00                               ;018FA7|        |      ;
-                       db $04                               ;018FA8|        |00000C;
-                       db $0C                               ;018FA9|        |009004;
-                       db $04                               ;018FAA|        |000090;
-                       db $90                               ;018FAB|        |018FB4;
-                       db $07                               ;018FAC|        |000001;
-                       db $01                               ;018FAD|        |000080;
-                       db $80                               ;018FAE|        |018FB7;
-                       db $07                               ;018FAF|        |00000C;
-                       db $0C                               ;018FB0|        |00907E;
-                       db $7E                               ;018FB1|        |000790;
-                       db $90                               ;018FB2|        |018FBB;
-                       db $07                               ;018FB3|        |00003C;
-                       db $3C                               ;018FB4|        |00009C;
-                       db $9C                               ;018FB5|        |000000;
-                       db $00                               ;018FB6|        |      ;
+                       dw DATA8_018F32                      ;018F86|        |018F32;
+         DATA8_018F88:
+                       db $1E                               ;018F88|        |      ;
+                       dw $0000                             ;018F89|        |      ;
+                       db $07                               ;018F8B|        |      ;
+                       dl Condition_Check_2b                ;018F8C|        |07B0B0;
+                       dw $0400                             ;018F8F|        |      ;
+                       db $0C                               ;018F91|        |      ;
+                       dw DATA8_019004                      ;018F92|        |019004;
+                       db $1E                               ;018F94|        |      ;
+                       dw $0002                             ;018F95|        |      ;
+                       db $07                               ;018F97|        |      ;
+                       dl Condition_Check_2b                ;018F98|        |07B0B0;
+                       dw $0400                             ;018F9B|        |      ;
+                       db $0C                               ;018F9D|        |      ;
+                       dw DATA8_019004                      ;018F9E|        |019004;
+                       db $1E                               ;018FA0|        |      ;
+                       dw $0003                             ;018FA1|        |      ;
+                       db $07                               ;018FA3|        |      ;
+                       dl Condition_Check_2b                ;018FA4|        |07B0B0;
+                       dw $0400                             ;018FA7|        |      ;
+                       db $0C                               ;018FA9|        |      ;
+                       dw DATA8_019004                      ;018FAA|        |019004;
+                       db $07                               ;018FAC|        |      ;
+                       dl Is_FightingFinalBoss              ;018FAD|        |078001;
+                       db $0C                               ;018FB0|        |      ;
+                       dw DATA8_01907E                      ;018FB1|        |01907E;
+                       db $07                               ;018FB3|        |      ;
+                       dl GetSet_Music                      ;018FB4|        |009C3C;
                        db $00                               ;018FB7|        |      ;
-                       db $06                               ;018FB8|        |000001;
-                       db $01                               ;018FB9|        |000007;
-                       db $07                               ;018FBA|        |0000E8;
-                       db $E8                               ;018FBB|        |      ;
-                       db $80                               ;018FBC|        |018FD6;
-                       db $18                               ;018FBD|        |      ;
-                       db $07                               ;018FBE|        |00003C;
-                       db $3C                               ;018FBF|        |00009C;
-                       db $9C                               ;018FC0|        |005500;
-                       db $00                               ;018FC1|        |      ;
-                       db $55                               ;018FC2|        |000007;
-                       db $07                               ;018FC3|        |0000AC;
-                       db $AC                               ;018FC4|        |0000A0;
-                       db $A0                               ;018FC5|        |      ;
-                       db $00                               ;018FC6|        |      ;
-                       db $0B                               ;018FC7|        |      ;
-                       db $82                               ;018FC8|        |018FD3;
-                       db $08                               ;018FC9|        |      ;
+                       db $06                               ;018FB8|        |      ;
+                       db $01                               ;018FB9|        |      ;
+                       db $07                               ;018FBA|        |      ;
+                       dl CODE_1880E8                       ;018FBB|        |1880E8;
+                       db $07                               ;018FBE|        |      ;
+                       dl GetSet_Music                      ;018FBF|        |009C3C;
+                       db $55                               ;018FC2|        |      ;
+       Text_BattleWon:
+                       db $07                               ;018FC3|        |      ;
+                       dl Setup_Text_Parser_3b              ;018FC4|        |00A0AC;
+                       dl Battle_won                        ;018FC7|        |08820B;
                        db $00                               ;018FCA|        |      ;
-                       db $06                               ;018FCB|        |000001;
-                       db $01                               ;018FCC|        |000007;
-                       db $07                               ;018FCD|        |000003;
-                       db $03                               ;018FCE|        |0000BA;
-                       db $BA                               ;018FCF|        |      ;
-                       db $07                               ;018FD0|        |000000;
+         DATA8_018FCB:
+                       db $06                               ;018FCB|        |      ;
+                       db $01                               ;018FCC|        |      ;
+                       db $07                               ;018FCD|        |      ;
+                       dl Wait_For_A_Press                  ;018FCE|        |07BA03;
                        db $00                               ;018FD1|        |      ;
                        db $0B                               ;018FD2|        |      ;
-                       db $CB                               ;018FD3|        |      ;
-                       db $8F                               ;018FD4|        |00020F;
-                       db $0F                               ;018FD5|        |000002;
+                       dw DATA8_018FCB                      ;018FD3|        |018FCB;
+                       db $0F                               ;018FD5|        |      ;
                        db $02                               ;018FD6|        |      ;
-                       db $00                               ;018FD7|        |      ;
-                       db $00                               ;018FD8|        |      ;
-                       db $01                               ;018FD9|        |000004;
-                       db $04                               ;018FDA|        |000006;
-                       db $06                               ;018FDB|        |000001;
-                       db $01                               ;018FDC|        |000024;
-                       db $24                               ;018FDD|        |000002;
+                       dw $0000                             ;018FD7|        |      ;
+                       db $01                               ;018FD9|        |      ; 01: 04
+                       db $04                               ;018FDA|        |      ;
+                       db $06                               ;018FDB|        |      ;
+                       db $01                               ;018FDC|        |      ;
+                       db $24                               ;018FDD|        |      ;
                        db $02                               ;018FDE|        |      ;
                        db $07                               ;018FDF|        |      ;
                        dl Condition_Check_2b                ;018FE0|        |07B0B0;
                        db $01                               ;018FE3|        |      ;
                        db $00                               ;018FE4|        |      ;
-                       db $0C                               ;018FE5|        |008FF7;
-                       db $F7                               ;018FE6|        |00008F;
-                       db $8F                               ;018FE7|        |070224;
-                       db $24                               ;018FE8|        |000002;
+                       db $0C                               ;018FE5|        |      ;
+                       dw DATA8_018FF7                      ;018FE6|        |018FF7;
+                       db $24                               ;018FE8|        |      ;
                        db $02                               ;018FE9|        |      ;
                        db $07                               ;018FEA|        |      ;
                        dl Condition_Check_2b                ;018FEB|        |07B0B0;
                        db $02                               ;018FEE|        |      ;
                        db $00                               ;018FEF|        |      ;
-                       db $0C                               ;018FF0|        |008FF7;
-                       db $F7                               ;018FF1|        |00008F;
-                       db $8F                               ;018FF2|        |B41007;
-                       db $07                               ;018FF3|        |000010;
-                       db $10                               ;018FF4|        |018FAA;
-                       db $B4                               ;018FF5|        |000007;
-                       db $07                               ;018FF6|        |000015;
-                       db $15                               ;018FF7|        |000002;
+                       db $0C                               ;018FF0|        |      ;
+                       dw DATA8_018FF7                      ;018FF1|        |018FF7;
+                       db $07                               ;018FF3|        |      ;
+                       dl CODE_07B410                       ;018FF4|        |07B410;
+         DATA8_018FF7:
+                       db $15                               ;018FF7|        |      ;
                        db $02                               ;018FF8|        |      ;
                        db $02                               ;018FF9|        |      ;
-                       db $01                               ;018FFA|        |000000;
-                       db $00                               ;018FFB|        |      ;
-                       db $02                               ;018FFC|        |      ;
-                       db $07                               ;018FFD|        |00003C;
-                       db $3C                               ;018FFE|        |0007B4;
-                       db $B4                               ;018FFF|        |000007;
-                       db $07                               ;019000|        |00001A;
+                       dw $0001                             ;018FFA|        |      ;
+                       db $02                               ;018FFC|        |      ; 02
+                       db $07                               ;018FFD|        |      ;
+                       dl CODE_07B43C                       ;018FFE|        |07B43C;
                        db $1A                               ;019001|        |      ;
-                       db $16                               ;019002|        |000090;
-                       db $90                               ;019003|        |01900C;
+                       dw DATA8_019016                      ;019002|        |019016;
+         DATA8_019004:
                        db $07                               ;019004|        |      ;
                        dl Setup_Text_Parser_3b              ;019005|        |00A0AC;
-                       dl DATA8_08829A                      ;019008|        |08829A;
+                       dl Run_away                          ;019008|        |08829A;
                        db $00                               ;01900B|        |      ;
-                       db $06                               ;01900C|        |000001;
-                       db $01                               ;01900D|        |000007;
-                       db $07                               ;01900E|        |000003;
-                       db $03                               ;01900F|        |0000BA;
-                       db $BA                               ;019010|        |      ;
-                       db $07                               ;019011|        |000000;
+         DATA8_01900C:
+                       db $06                               ;01900C|        |      ;
+                       db $01                               ;01900D|        |      ;
+                       db $07                               ;01900E|        |      ;
+                       dl Wait_For_A_Press                  ;01900F|        |07BA03;
                        db $00                               ;019012|        |      ;
                        db $0B                               ;019013|        |      ;
-                       db $0C                               ;019014|        |001690;
-                       db $90                               ;019015|        |01902D;
-                       db $16                               ;019016|        |0000A3;
-                       db $A3                               ;019017|        |000013;
-                       db $13                               ;019018|        |000000;
-                       db $00                               ;019019|        |      ;
-                       db $00                               ;01901A|        |      ;
-                       db $16                               ;01901B|        |0000A5;
-                       db $A5                               ;01901C|        |000013;
-                       db $13                               ;01901D|        |000000;
-                       db $00                               ;01901E|        |      ;
-                       db $00                               ;01901F|        |      ;
-                       db $0F                               ;019020|        |000002;
+                       dw DATA8_01900C                      ;019014|        |01900C;
+         DATA8_019016:
+                       db $16                               ;019016|        |      ;
+                       dw $13A3                             ;019017|        |      ;
+                       dw $0000                             ;019019|        |      ;
+                       db $16                               ;01901B|        |      ;
+                       dw $13A5                             ;01901C|        |      ;
+                       dw $0000                             ;01901E|        |      ;
+                       db $0F                               ;019020|        |      ;
                        db $02                               ;019021|        |      ;
-                       db $00                               ;019022|        |      ;
-                       db $00                               ;019023|        |      ;
-                       db $01                               ;019024|        |000004;
-                       db $04                               ;019025|        |000006;
-                       db $06                               ;019026|        |000001;
-                       db $01                               ;019027|        |00001B;
+                       dw $0000                             ;019022|        |      ;
+                       db $01                               ;019024|        |      ; 01: 04
+                       db $04                               ;019025|        |      ;
+                       db $06                               ;019026|        |      ;
+                       db $01                               ;019027|        |      ;
                        db $1B                               ;019028|        |      ;
-                       db $7F                               ;019029|        |021590;
-                       db $90                               ;01902A|        |019041;
-                       db $15                               ;01902B|        |000002;
+                       dw Post_battle_stuff                 ;019029|        |01907F;
+                       db $15                               ;01902B|        |      ;
                        db $02                               ;01902C|        |      ;
                        db $02                               ;01902D|        |      ;
-                       db $01                               ;01902E|        |000000;
-                       db $00                               ;01902F|        |      ;
-                       db $02                               ;019030|        |      ;
-                       db $07                               ;019031|        |000009;
-                       db $09                               ;019032|        |      ;
-                       db $83                               ;019033|        |000001;
-                       db $01                               ;019034|        |000007;
-                       db $07                               ;019035|        |0000BB;
-                       db $BB                               ;019036|        |      ;
-                       db $81                               ;019037|        |000007;
-                       db $07                               ;019038|        |000001;
-                       db $01                               ;019039|        |000010;
-                       db $10                               ;01903A|        |019043;
-                       db $07                               ;01903B|        |000019;
-                       db $19                               ;01903C|        |00009C;
-                       db $9C                               ;01903D|        |00F000;
-                       db $00                               ;01903E|        |      ;
-                       db $F0                               ;01903F|        |019047;
-                       db $06                               ;019040|        |000001;
-                       db $01                               ;019041|        |000002;
-                       db $02                               ;019042|        |      ;
-                       db $07                               ;019043|        |00003C;
-                       db $3C                               ;019044|        |00009C;
-                       db $9C                               ;019045|        |000000;
-                       db $00                               ;019046|        |      ;
+                       dw $0001                             ;01902E|        |      ;
+                       db $02                               ;019030|        |      ; 02
+                       db $07                               ;019031|        |      ;
+                       dl Zero_Attribute_bits_far           ;019032|        |018309;
+                       db $07                               ;019035|        |      ;
+                       dl CODE_0781BB                       ;019036|        |0781BB;
+                       db $01                               ;019039|        |      ; 01: 10
+                       db $10                               ;01903A|        |      ;
+                       db $07                               ;01903B|        |      ;
+                       dl Sound_stuff_1b                    ;01903C|        |009C19;
+                       db $F0                               ;01903F|        |      ;
+                       db $06                               ;019040|        |      ;
+                       db $01                               ;019041|        |      ;
+                       db $02                               ;019042|        |      ; 02
+                       db $07                               ;019043|        |      ;
+                       dl GetSet_Music                      ;019044|        |009C3C;
                        db $00                               ;019047|        |      ;
-                       db $06                               ;019048|        |000001;
-                       db $01                               ;019049|        |000030;
-                       db $30                               ;01904A|        |01904B;
-                       db $FF                               ;01904B|        |070106;
-                       db $06                               ;01904C|        |000001;
-                       db $01                               ;01904D|        |000007;
-                       db $07                               ;01904E|        |00007B;
-                       db $7B                               ;01904F|        |      ;
-                       db $A0                               ;019050|        |      ;
-                       db $00                               ;019051|        |      ;
-                       db $FF                               ;019052|        |7A0C18;
-                       db $18                               ;019053|        |      ;
-                       db $0C                               ;019054|        |00907A;
-                       db $7A                               ;019055|        |      ;
-                       db $90                               ;019056|        |01906E;
-                       db $16                               ;019057|        |00007B;
-                       db $7B                               ;019058|        |      ;
-                       db $15                               ;019059|        |000001;
-                       db $01                               ;01905A|        |000000;
-                       db $00                               ;01905B|        |      ;
-                       db $07                               ;01905C|        |0000BC;
-                       db $BC                               ;01905D|        |00009C;
-                       db $9C                               ;01905E|        |000400;
-                       db $00                               ;01905F|        |      ;
-                       db $04                               ;019060|        |000013;
-                       db $13                               ;019061|        |000000;
+                       db $06                               ;019048|        |      ;
+                       db $01                               ;019049|        |      ;
+                       db $30                               ;01904A|        |      ;
+                       db $FF                               ;01904B|        |      ;
+                       db $06                               ;01904C|        |      ;
+                       db $01                               ;01904D|        |      ;
+                       db $07                               ;01904E|        |      ;
+                       dl CODE_00A07B                       ;01904F|        |00A07B;
+                       dw $18FF                             ;019052|        |      ;
+                       db $0C                               ;019054|        |      ;
+                       dw DATA8_01907A                      ;019055|        |01907A;
+                       db $16                               ;019057|        |      ;
+                       dw $157B                             ;019058|        |      ;
+                       dw $0001                             ;01905A|        |      ;
+                       db $07                               ;01905C|        |      ;
+                       dl Character_Join_13b                ;01905D|        |009CBC;
+                       db $04                               ;019060|        |      ;
+                       db $13                               ;019061|        |      ;
                        db $00                               ;019062|        |      ;
                        db $00                               ;019063|        |      ;
                        db $00                               ;019064|        |      ;
@@ -3040,20 +2863,18 @@ Any_direction_pressed:
                        db $00                               ;01906A|        |      ;
                        db $00                               ;01906B|        |      ;
                        db $00                               ;01906C|        |      ;
-                       db $06                               ;01906D|        |000002;
+                       db $06                               ;01906D|        |      ;
                        db $02                               ;01906E|        |      ;
                        db $07                               ;01906F|        |      ;
                        dl _8698_setup_3b                    ;019070|        |009D07;
                        dl _9D07_data2                       ;019073|        |01B674;
-                       db $07                               ;019076|        |000007;
-                       db $07                               ;019077|        |000080;
-                       db $80                               ;019078|        |01907D;
-                       db $03                               ;019079|        |000007;
-                       db $07                               ;01907A|        |000020;
-                       db $20                               ;01907B|        |0103A5;
-                       db $A5                               ;01907C|        |000003;
-                       db $03                               ;01907D|        |00001C;
-                       db $1C                               ;01907E|        |000224;
+                       db $07                               ;019076|        |      ;
+                       dl CODE_038007                       ;019077|        |038007;
+         DATA8_01907A:
+                       db $07                               ;01907A|        |      ;
+                       dl Sub_Default_BGM                   ;01907B|        |03A520;
+         DATA8_01907E:
+                       db $1C                               ;01907E|        |      ;
     Post_battle_stuff:
                        db $24                               ;01907F|        |      ;
                        db $02                               ;019080|        |      ;
@@ -3062,7 +2883,7 @@ Any_direction_pressed:
                        db $01                               ;019085|        |      ;
                        db $00                               ;019086|        |      ;
                        db $0B                               ;019087|        |      ; Return if false
-                       dw CODE_009129                       ;019088|        |009129;
+                       dw DATA8_019129                      ;019088|        |019129;
                        db $24                               ;01908A|        |      ;
                        db $02                               ;01908B|        |      ;
                        db $07                               ;01908C|        |      ;
@@ -3070,7 +2891,7 @@ Any_direction_pressed:
                        db $01                               ;019090|        |      ;
                        db $00                               ;019091|        |      ;
                        db $0C                               ;019092|        |      ; Return if true
-                       dw CODE_009129                       ;019093|        |009129;
+                       dw DATA8_019129                      ;019093|        |019129;
                        db $24                               ;019095|        |      ;
                        db $02                               ;019096|        |      ;
                        db $07                               ;019097|        |      ;
@@ -3078,7 +2899,7 @@ Any_direction_pressed:
                        db $02                               ;01909B|        |      ;
                        db $00                               ;01909C|        |      ;
                        db $0C                               ;01909D|        |      ; Return if true
-                       dw CODE_009129                       ;01909E|        |009129;
+                       dw DATA8_019129                      ;01909E|        |019129;
                        db $07                               ;0190A0|        |      ;
                        dl Load_Temp_Var_2b                  ;0190A1|        |07B4A1;
                        db $02                               ;0190A4|        |      ;
@@ -3088,7 +2909,7 @@ Any_direction_pressed:
                        db $07                               ;0190AA|        |      ; Levelup check
                        dl Sub_Levelup_check                 ;0190AB|        |07B234;
                        db $0B                               ;0190AE|        |      ; Return if false
-                       dw CODE_009129                       ;0190AF|        |009129;
+                       dw DATA8_019129                      ;0190AF|        |019129;
              LevelUp1:
                        db $07                               ;0190B1|        |      ;
                        dl Sub_Increase_LV                   ;0190B2|        |07B256;
@@ -3113,7 +2934,7 @@ Any_direction_pressed:
                        db $1B                               ;0190CF|        |      ;
                        dw Levelup_Pause_for_input           ;0190D0|        |019197;
                        db $02                               ;0190D2|        |      ;
-                       db $24                               ;0190D3|        |000002;
+                       db $24                               ;0190D3|        |      ;
                        db $02                               ;0190D4|        |      ;
                        db $07                               ;0190D5|        |      ;
                        dl CODE_078014                       ;0190D6|        |078014;
@@ -3169,6 +2990,7 @@ Any_direction_pressed:
                        dw CODE_00912A                       ;019125|        |00912A;
                        db $06                               ;019127|        |      ;
                        db $01                               ;019128|        |      ;
+         DATA8_019129:
                        db $1C                               ;019129|        |      ; Return
                        db $15                               ;01912A|        |000002;
                        db $02                               ;01912B|        |      ;
@@ -3304,6 +3126,7 @@ Levelup_Pause_for_input:
                        db $06                               ;0191B3|        |00000A;
                        db $0A                               ;0191B4|        |      ;
                        db $1C                               ;0191B5|        |004007;
+         DATA8_0191B6:
                        db $07                               ;0191B6|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;0191B7|        |00A140;
                        dl Weapons_Menu                      ;0191BA|        |0D9590;
@@ -6074,7 +5897,7 @@ Input_loop_Equipment_menu:
    Some_decompression:
                        db $07                               ;01A175|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;01A176|        |00A140;
-                       dl UNREACH_0D95D2                    ;01A179|        |0D95D2;
+                       dl DATA8_0D95D2                      ;01A179|        |0D95D2;
                        db $F0                               ;01A17C|        |      ;
                        dw $0020                             ;01A17D|        |      ;
                        db $07                               ;01A17F|        |      ;
@@ -6120,6 +5943,7 @@ Input_loop_Equipment_menu:
                        JML.L Sub_LoadStuff                  ;01A1CA|5CB48D00|008DB4;
           CODE_01A1CE:
                        RTL                                  ;01A1CE|6B      |      ;
+       UNREACH_01A1CF:
                        db $00                               ;01A1CF|        |      ;
                        db $FC                               ;01A1D0|        |01F004;
                        db $04                               ;01A1D1|        |0000F0;
@@ -6135,6 +5959,7 @@ Input_loop_Equipment_menu:
                        db $F4                               ;01A1DB|        |0031D0;
                        db $D0                               ;01A1DC|        |01A20F;
                        db $31                               ;01A1DD|        |000000;
+       UNREACH_01A1DE:
                        db $00                               ;01A1DE|        |      ;
                        db $FC                               ;01A1DF|        |01F104;
                        db $04                               ;01A1E0|        |0000F1;
@@ -6150,6 +5975,7 @@ Input_loop_Equipment_menu:
                        db $F4                               ;01A1EA|        |0031D1;
                        db $D1                               ;01A1EB|        |000031;
                        db $31                               ;01A1EC|        |000000;
+       UNREACH_01A1ED:
                        db $00                               ;01A1ED|        |      ;
                        db $04                               ;01A1EE|        |0000FC;
                        db $FC                               ;01A1EF|        |0131D4;
@@ -6185,6 +6011,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A20D|        |0131D2;
                        db $D2                               ;01A20E|        |000031;
                        db $31                               ;01A20F|        |000000;
+       UNREACH_01A210:
                        db $00                               ;01A210|        |      ;
                        db $04                               ;01A211|        |0000FC;
                        db $FC                               ;01A212|        |0131C2;
@@ -6200,6 +6027,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A21C|        |0131C0;
                        db $C0                               ;01A21D|        |      ;
                        db $31                               ;01A21E|        |000000;
+       UNREACH_01A21F:
                        db $00                               ;01A21F|        |      ;
                        db $04                               ;01A220|        |0000FC;
                        db $FC                               ;01A221|        |0131F4;
@@ -6215,6 +6043,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A22B|        |0131F2;
                        db $F2                               ;01A22C|        |000031;
                        db $31                               ;01A22D|        |000000;
+       UNREACH_01A22E:
                        db $00                               ;01A22E|        |      ;
                        db $04                               ;01A22F|        |0000FC;
                        db $FC                               ;01A230|        |01B1C2;
@@ -6230,6 +6059,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A23A|        |01B1C0;
                        db $C0                               ;01A23B|        |      ;
                        db $B1                               ;01A23C|        |000000;
+       UNREACH_01A23D:
                        db $00                               ;01A23D|        |      ;
                        db $04                               ;01A23E|        |0000FC;
                        db $FC                               ;01A23F|        |01B1D4;
@@ -6265,6 +6095,7 @@ Input_loop_Equipment_menu:
                        db $04                               ;01A25D|        |0000C4;
                        db $C4                               ;01A25E|        |0000B1;
                        db $B1                               ;01A25F|        |000000;
+       UNREACH_01A260:
                        db $00                               ;01A260|        |      ;
                        db $FC                               ;01A261|        |01F1F4;
                        db $F4                               ;01A262|        |00B1F1;
@@ -6280,6 +6111,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A26C|        |01B1E1;
                        db $E1                               ;01A26D|        |0000B1;
                        db $B1                               ;01A26E|        |000000;
+       UNREACH_01A26F:
                        db $00                               ;01A26F|        |      ;
                        db $FC                               ;01A270|        |01F0F4;
                        db $F4                               ;01A271|        |00B1F0;
@@ -6295,6 +6127,7 @@ Input_loop_Equipment_menu:
                        db $04                               ;01A27B|        |0000D0;
                        db $D0                               ;01A27C|        |01A22F;
                        db $B1                               ;01A27D|        |000000;
+       UNREACH_01A27E:
                        db $00                               ;01A27E|        |      ;
                        db $FC                               ;01A27F|        |01F1F4;
                        db $F4                               ;01A280|        |00F1F1;
@@ -6310,6 +6143,7 @@ Input_loop_Equipment_menu:
                        db $04                               ;01A28A|        |0000D1;
                        db $D1                               ;01A28B|        |0000F1;
                        db $F1                               ;01A28C|        |000000;
+       UNREACH_01A28D:
                        db $00                               ;01A28D|        |      ;
                        db $FC                               ;01A28E|        |01D2F4;
                        db $F4                               ;01A28F|        |0031D2;
@@ -6345,6 +6179,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A2AD|        |01F1D3;
                        db $D3                               ;01A2AE|        |0000F1;
                        db $F1                               ;01A2AF|        |000000;
+       UNREACH_01A2B0:
                        db $00                               ;01A2B0|        |      ;
                        db $F4                               ;01A2B1|        |00C2FC;
                        db $FC                               ;01A2B2|        |01F1C2;
@@ -6360,6 +6195,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A2BC|        |01F1C0;
                        db $C0                               ;01A2BD|        |      ;
                        db $F1                               ;01A2BE|        |000000;
+       UNREACH_01A2BF:
                        db $00                               ;01A2BF|        |      ;
                        db $F4                               ;01A2C0|        |00F4FC;
                        db $FC                               ;01A2C1|        |0171F4;
@@ -6375,6 +6211,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A2CB|        |0171F2;
                        db $F2                               ;01A2CC|        |000071;
                        db $71                               ;01A2CD|        |000000;
+       UNREACH_01A2CE:
                        db $00                               ;01A2CE|        |      ;
                        db $04                               ;01A2CF|        |0000FC;
                        db $FC                               ;01A2D0|        |0171C0;
@@ -6390,6 +6227,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A2DA|        |0171C2;
                        db $C2                               ;01A2DB|        |      ;
                        db $71                               ;01A2DC|        |000000;
+       UNREACH_01A2DD:
                        db $00                               ;01A2DD|        |      ;
                        db $FC                               ;01A2DE|        |01E304;
                        db $04                               ;01A2DF|        |0000E3;
@@ -6425,6 +6263,7 @@ Input_loop_Equipment_menu:
                        db $FC                               ;01A2FD|        |0171D3;
                        db $D3                               ;01A2FE|        |000071;
                        db $71                               ;01A2FF|        |000000;
+       UNREACH_01A300:
                        db $00                               ;01A300|        |      ;
                        db $FC                               ;01A301|        |01F104;
                        db $04                               ;01A302|        |0000F1;
@@ -6440,39 +6279,23 @@ Input_loop_Equipment_menu:
                        db $F4                               ;01A30C|        |0071D1;
                        db $D1                               ;01A30D|        |000071;
                        db $71                               ;01A30E|        |0000CF;
-       UNREACH_01A30F:
-                       db $CF                               ;01A30F|        |A1DEA1;
-                       db $A1                               ;01A310|        |0000DE;
-                       db $DE                               ;01A311|        |00EDA1;
-                       db $A1                               ;01A312|        |0000ED;
-                       db $ED                               ;01A313|        |0010A1;
-                       db $A1                               ;01A314|        |000010;
-                       db $10                               ;01A315|        |01A2B9;
-                       db $A2                               ;01A316|        |      ;
-                       db $1F                               ;01A317|        |A22EA2;
-                       db $A2                               ;01A318|        |      ;
-                       db $2E                               ;01A319|        |003DA2;
-                       db $A2                               ;01A31A|        |      ;
-                       db $3D                               ;01A31B|        |0060A2;
-                       db $A2                               ;01A31C|        |      ;
-                       db $60                               ;01A31D|        |      ;
-                       db $A2                               ;01A31E|        |      ;
-                       db $6F                               ;01A31F|        |A27EA2;
-                       db $A2                               ;01A320|        |      ;
-                       db $7E                               ;01A321|        |008DA2;
-                       db $A2                               ;01A322|        |      ;
-                       db $8D                               ;01A323|        |00B0A2;
-                       db $A2                               ;01A324|        |      ;
-                       db $B0                               ;01A325|        |01A2C9;
-                       db $A2                               ;01A326|        |      ;
-                       db $BF                               ;01A327|        |A2CEA2;
-                       db $A2                               ;01A328|        |      ;
-                       db $CE                               ;01A329|        |00DDA2;
-                       db $A2                               ;01A32A|        |      ;
-                       db $DD                               ;01A32B|        |0000A2;
-                       db $A2                               ;01A32C|        |      ;
-                       db $00                               ;01A32D|        |      ;
-                       db $A3                               ;01A32E|        |000024;
+           Tbl_01A30F:
+                       dw UNREACH_01A1CF                    ;01A30F|        |01A1CF;
+                       dw UNREACH_01A1DE                    ;01A311|        |01A1DE;
+                       dw UNREACH_01A1ED                    ;01A313|        |01A1ED;
+                       dw UNREACH_01A210                    ;01A315|        |01A210;
+                       dw UNREACH_01A21F                    ;01A317|        |01A21F;
+                       dw UNREACH_01A22E                    ;01A319|        |01A22E;
+                       dw UNREACH_01A23D                    ;01A31B|        |01A23D;
+                       dw UNREACH_01A260                    ;01A31D|        |01A260;
+                       dw UNREACH_01A26F                    ;01A31F|        |01A26F;
+                       dw UNREACH_01A27E                    ;01A321|        |01A27E;
+                       dw UNREACH_01A28D                    ;01A323|        |01A28D;
+                       dw UNREACH_01A2B0                    ;01A325|        |01A2B0;
+                       dw UNREACH_01A2BF                    ;01A327|        |01A2BF;
+                       dw UNREACH_01A2CE                    ;01A329|        |01A2CE;
+                       dw UNREACH_01A2DD                    ;01A32B|        |01A2DD;
+                       dw UNREACH_01A300                    ;01A32D|        |01A300;
          DATA8_01A32F:
                        db $24                               ;01A32F|        |      ;
                        db $00                               ;01A330|        |      ;
@@ -6493,59 +6316,60 @@ Input_loop_Equipment_menu:
                        db $37                               ;01A347|        |      ;
                        db $FF                               ;01A348|        |      ;
                        db $1A                               ;01A349|        |      ;
-                       dw PTR24_00A345                      ;01A34A|        |00A345;
+                       dw DATA8_01A345                      ;01A34A|        |01A345;
          DATA8_01A34C:
                        db $37                               ;01A34C|        |      ; 30-37: Save next byte to 0A7B,x if not FF
                        db $01                               ;01A34D|        |      ; (For some reason, 30+ go somewhere else afterwards)
                        db $37                               ;01A34E|        |      ;
                        db $FF                               ;01A34F|        |      ;
                        db $1A                               ;01A350|        |      ; 1A: Jump to A34C
-                       dw PTR24_00A34C                      ;01A351|        |00A34C;
+                       dw DATA8_01A34C                      ;01A351|        |01A34C;
          DATA8_01A353:
                        db $37                               ;01A353|        |      ;
                        db $02                               ;01A354|        |      ;
                        db $37                               ;01A355|        |      ;
                        db $FF                               ;01A356|        |      ;
                        db $1A                               ;01A357|        |      ;
-                       dw PTR24_00A353                      ;01A358|        |00A353;
+                       dw DATA8_01A353                      ;01A358|        |01A353;
          DATA8_01A35A:
                        db $37                               ;01A35A|        |      ;
                        db $03                               ;01A35B|        |      ;
                        db $37                               ;01A35C|        |      ;
                        db $FF                               ;01A35D|        |      ;
                        db $1A                               ;01A35E|        |      ;
-                       dw PTR24_00A35A                      ;01A35F|        |00A35A;
+                       dw DATA8_01A35A                      ;01A35F|        |01A35A;
          DATA8_01A361:
                        db $37                               ;01A361|        |      ;
                        db $04                               ;01A362|        |      ;
                        db $37                               ;01A363|        |      ;
                        db $FF                               ;01A364|        |      ;
                        db $1A                               ;01A365|        |      ;
-                       dw PTR24_00A361                      ;01A366|        |00A361;
+                       dw DATA8_01A361                      ;01A366|        |01A361;
          DATA8_01A368:
                        db $37                               ;01A368|        |      ;
                        db $05                               ;01A369|        |      ;
                        db $37                               ;01A36A|        |      ;
                        db $FF                               ;01A36B|        |      ;
                        db $1A                               ;01A36C|        |      ;
-                       dw PTR24_00A368                      ;01A36D|        |00A368;
+                       dw DATA8_01A368                      ;01A36D|        |01A368;
          DATA8_01A36F:
                        db $37                               ;01A36F|        |      ;
                        db $06                               ;01A370|        |      ;
                        db $37                               ;01A371|        |      ;
                        db $FF                               ;01A372|        |      ;
                        db $1A                               ;01A373|        |      ;
-                       dw PTR24_00A36F                      ;01A374|        |00A36F;
+                       dw DATA8_01A36F                      ;01A374|        |01A36F;
          DATA8_01A376:
                        db $37                               ;01A376|        |      ;
                        db $07                               ;01A377|        |      ;
                        db $37                               ;01A378|        |      ;
                        db $FF                               ;01A379|        |      ;
                        db $1A                               ;01A37A|        |      ;
-                       dw PTR24_00A376                      ;01A37B|        |00A376;
+                       dw DATA8_01A376                      ;01A37B|        |01A376;
          DATA8_01A37D:
                        db $08                               ;01A37D|        |      ;
-                       dw PTR24_00A34C                      ;01A37E|        |00A34C;
+                       dw DATA8_01A34C                      ;01A37E|        |01A34C;
+         DATA8_01A380:
                        db $06                               ;01A380|        |      ; 06 01: Bye Felicia!
                        db $01                               ;01A381|        |      ;
                        db $07                               ;01A382|        |      ; 07: Call 07/B05D (Compares two offsets of $11B5)
@@ -6553,9 +6377,9 @@ Input_loop_Equipment_menu:
                        db $02                               ;01A386|        |      ;
                        db $03                               ;01A387|        |      ;
                        db $0B                               ;01A388|        |      ; 0B: Jump if false/zero to A380
-                       dw PTR24_00A380                      ;01A389|        |00A380;
-                       db $14                               ;01A38B|        |000001;
-                       db $01                               ;01A38C|        |000031;
+                       dw DATA8_01A380                      ;01A389|        |01A380;
+                       db $14                               ;01A38B|        |      ;
+                       db $01                               ;01A38C|        |      ;
                        db $31                               ;01A38D|        |      ;
                        db $FF                               ;01A38E|        |      ;
          DATA8_01A38F:
@@ -6571,11 +6395,13 @@ Input_loop_Equipment_menu:
                        db $03                               ;01A39B|        |      ;
                        db $1A                               ;01A39C|        |      ;
                        dw DATA8_01A37D                      ;01A39D|        |01A37D;
+       UNREACH_01A39F:
                        db $02                               ;01A39F|        |      ;
                        db $FC                               ;01A3A0|        |01C6FC;
                        db $FC                               ;01A3A1|        |0131C6;
                        db $C6                               ;01A3A2|        |000031;
                        db $31                               ;01A3A3|        |000001;
+       UNREACH_01A3A4:
                        db $01                               ;01A3A4|        |000033;
                        db $33                               ;01A3A5|        |0000F8;
                        db $F8                               ;01A3A6|        |      ;
@@ -6621,11 +6447,13 @@ Input_loop_Equipment_menu:
                        db $F8                               ;01A3CE|        |      ;
                        db $D5                               ;01A3CF|        |000031;
                        db $31                               ;01A3D0|        |000002;
+       UNREACH_01A3D1:
                        db $02                               ;01A3D1|        |      ;
                        db $FC                               ;01A3D2|        |01C2FF;
                        db $FF                               ;01A3D3|        |0131C2;
                        db $C2                               ;01A3D4|        |      ;
                        db $31                               ;01A3D5|        |000001;
+       UNREACH_01A3D6:
                        db $01                               ;01A3D6|        |000007;
                        db $07                               ;01A3D7|        |0000FF;
                        db $FF                               ;01A3D8|        |0131C2;
@@ -6641,6 +6469,7 @@ Input_loop_Equipment_menu:
                        db $FF                               ;01A3E2|        |0031C2;
                        db $C2                               ;01A3E3|        |      ;
                        db $31                               ;01A3E4|        |000000;
+       UNREACH_01A3E5:
                        db $00                               ;01A3E5|        |      ;
                        db $13                               ;01A3E6|        |0000FF;
                        db $FF                               ;01A3E7|        |0131C2;
@@ -6661,6 +6490,7 @@ Input_loop_Equipment_menu:
                        db $FF                               ;01A3F6|        |0131C2;
                        db $C2                               ;01A3F7|        |      ;
                        db $31                               ;01A3F8|        |000001;
+       UNREACH_01A3F9:
                        db $01                               ;01A3F9|        |000004;
                        db $04                               ;01A3FA|        |000010;
                        db $10                               ;01A3FB|        |01A3BD;
@@ -6711,6 +6541,7 @@ Input_loop_Equipment_menu:
                        db $E0                               ;01A428|        |      ;
                        db $C0                               ;01A429|        |      ;
                        db $31                               ;01A42A|        |000001;
+       UNREACH_01A42B:
                        db $01                               ;01A42B|        |000028;
                        db $28                               ;01A42C|        |      ;
                        db $FF                               ;01A42D|        |0131C2;
@@ -6746,6 +6577,7 @@ Input_loop_Equipment_menu:
                        db $FF                               ;01A44B|        |0031C2;
                        db $C2                               ;01A44C|        |      ;
                        db $31                               ;01A44D|        |000000;
+       UNREACH_01A44E:
                        db $00                               ;01A44E|        |      ;
                        db $1C                               ;01A44F|        |00C2FF;
                        db $FF                               ;01A450|        |0131C2;
@@ -6771,23 +6603,15 @@ Input_loop_Equipment_menu:
                        db $FF                               ;01A464|        |9F31C2;
                        db $C2                               ;01A465|        |      ;
                        db $31                               ;01A466|        |00009F;
-       UNREACH_01A467:
-                       db $9F                               ;01A467|        |A3A4A3;
-                       db $A3                               ;01A468|        |0000A4;
-                       db $A4                               ;01A469|        |0000A3;
-                       db $A3                               ;01A46A|        |0000D1;
-                       db $D1                               ;01A46B|        |0000A3;
-                       db $A3                               ;01A46C|        |0000D6;
-                       db $D6                               ;01A46D|        |0000A3;
-                       db $A3                               ;01A46E|        |0000E5;
-                       db $E5                               ;01A46F|        |0000A3;
-                       db $A3                               ;01A470|        |0000F9;
-                       db $F9                               ;01A471|        |002BA3;
-                       db $A3                               ;01A472|        |00002B;
-                       db $2B                               ;01A473|        |      ;
-                       db $A4                               ;01A474|        |00004E;
-                       db $4E                               ;01A475|        |0024A4;
-                       db $A4                               ;01A476|        |000024;
+           Tbl_01A467:
+                       dw UNREACH_01A39F                    ;01A467|        |01A39F;
+                       dw UNREACH_01A3A4                    ;01A469|        |01A3A4;
+                       dw UNREACH_01A3D1                    ;01A46B|        |01A3D1;
+                       dw UNREACH_01A3D6                    ;01A46D|        |01A3D6;
+                       dw UNREACH_01A3E5                    ;01A46F|        |01A3E5;
+                       dw UNREACH_01A3F9                    ;01A471|        |01A3F9;
+                       dw UNREACH_01A42B                    ;01A473|        |01A42B;
+                       dw UNREACH_01A44E                    ;01A475|        |01A44E;
          DATA8_01A477:
                        db $24                               ;01A477|        |      ;
                        db $00                               ;01A478|        |      ;
@@ -6859,6 +6683,7 @@ Input_loop_Equipment_menu:
                        ADC.W #$001F                         ;01A4D3|691F00  |      ;
                        STA.W Anim_ID,X                      ;01A4D6|9D7B0A  |000A7B;
                        RTL                                  ;01A4D9|6B      |      ;
+       UNREACH_01A4DA:
                        db $00                               ;01A4DA|        |      ;
                        db $00                               ;01A4DB|        |      ;
                        db $08                               ;01A4DC|        |      ;
@@ -6869,6 +6694,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A4E1|        |      ;
                        db $CD                               ;01A4E2|        |00003F;
                        db $3F                               ;01A4E3|        |080600;
+       UNREACH_01A4E4:
                        db $00                               ;01A4E4|        |      ;
                        db $06                               ;01A4E5|        |000008;
                        db $08                               ;01A4E6|        |      ;
@@ -6889,6 +6715,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A4F5|        |      ;
                        db $CD                               ;01A4F6|        |00003F;
                        db $3F                               ;01A4F7|        |080C00;
+       UNREACH_01A4F8:
                        db $00                               ;01A4F8|        |      ;
                        db $0C                               ;01A4F9|        |00DD08;
                        db $08                               ;01A4FA|        |      ;
@@ -6919,6 +6746,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A513|        |      ;
                        db $CD                               ;01A514|        |00003F;
                        db $3F                               ;01A515|        |081200;
+       UNREACH_01A516:
                        db $00                               ;01A516|        |      ;
                        db $12                               ;01A517|        |000008;
                        db $08                               ;01A518|        |      ;
@@ -6959,6 +6787,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A53B|        |      ;
                        db $CD                               ;01A53C|        |00003F;
                        db $3F                               ;01A53D|        |081800;
+       UNREACH_01A53E:
                        db $00                               ;01A53E|        |      ;
                        db $18                               ;01A53F|        |      ;
                        db $08                               ;01A540|        |      ;
@@ -7009,6 +6838,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A56D|        |      ;
                        db $CD                               ;01A56E|        |00003F;
                        db $3F                               ;01A56F|        |081E00;
+       UNREACH_01A570:
                        db $00                               ;01A570|        |      ;
                        db $1E                               ;01A571|        |00DD08;
                        db $08                               ;01A572|        |      ;
@@ -7069,6 +6899,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A5A9|        |      ;
                        db $CD                               ;01A5AA|        |00003F;
                        db $3F                               ;01A5AB|        |082400;
+       UNREACH_01A5AC:
                        db $00                               ;01A5AC|        |      ;
                        db $24                               ;01A5AD|        |000008;
                        db $08                               ;01A5AE|        |      ;
@@ -7139,6 +6970,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A5EF|        |      ;
                        db $CD                               ;01A5F0|        |00003F;
                        db $3F                               ;01A5F1|        |082A00;
+       UNREACH_01A5F2:
                        db $00                               ;01A5F2|        |      ;
                        db $2A                               ;01A5F3|        |      ;
                        db $08                               ;01A5F4|        |      ;
@@ -7219,6 +7051,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A63F|        |      ;
                        db $CD                               ;01A640|        |00003F;
                        db $3F                               ;01A641|        |083000;
+       UNREACH_01A642:
                        db $00                               ;01A642|        |      ;
                        db $30                               ;01A643|        |01A64D;
                        db $08                               ;01A644|        |      ;
@@ -7309,6 +7142,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A699|        |      ;
                        db $CD                               ;01A69A|        |00003F;
                        db $3F                               ;01A69B|        |083600;
+       UNREACH_01A69C:
                        db $00                               ;01A69C|        |      ;
                        db $36                               ;01A69D|        |000008;
                        db $08                               ;01A69E|        |      ;
@@ -7409,6 +7243,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A6FD|        |      ;
                        db $CD                               ;01A6FE|        |00003F;
                        db $3F                               ;01A6FF|        |083C00;
+       UNREACH_01A700:
                        db $00                               ;01A700|        |      ;
                        db $3C                               ;01A701|        |00DD08;
                        db $08                               ;01A702|        |      ;
@@ -7519,6 +7354,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A76B|        |      ;
                        db $CD                               ;01A76C|        |00003F;
                        db $3F                               ;01A76D|        |084200;
+       UNREACH_01A76E:
                        db $00                               ;01A76E|        |      ;
                        db $42                               ;01A76F|        |      ;
                        db $08                               ;01A770|        |      ;
@@ -7639,6 +7475,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A7E3|        |      ;
                        db $CD                               ;01A7E4|        |00003F;
                        db $3F                               ;01A7E5|        |084800;
+       UNREACH_01A7E6:
                        db $00                               ;01A7E6|        |      ;
                        db $48                               ;01A7E7|        |      ;
                        db $08                               ;01A7E8|        |      ;
@@ -7769,6 +7606,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A865|        |      ;
                        db $CD                               ;01A866|        |00003F;
                        db $3F                               ;01A867|        |084E00;
+       UNREACH_01A868:
                        db $00                               ;01A868|        |      ;
                        db $4E                               ;01A869|        |00DD08;
                        db $08                               ;01A86A|        |      ;
@@ -7909,6 +7747,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A8F1|        |      ;
                        db $CD                               ;01A8F2|        |00003F;
                        db $3F                               ;01A8F3|        |085400;
+       UNREACH_01A8F4:
                        db $00                               ;01A8F4|        |      ;
                        db $54                               ;01A8F5|        |      ;
                        db $08                               ;01A8F6|        |      ;
@@ -8059,6 +7898,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01A987|        |      ;
                        db $CD                               ;01A988|        |00003F;
                        db $3F                               ;01A989|        |085A00;
+       UNREACH_01A98A:
                        db $00                               ;01A98A|        |      ;
                        db $5A                               ;01A98B|        |      ;
                        db $08                               ;01A98C|        |      ;
@@ -8219,6 +8059,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AA27|        |      ;
                        db $CD                               ;01AA28|        |00003F;
                        db $3F                               ;01AA29|        |080000;
+       UNREACH_01AA2A:
                        db $00                               ;01AA2A|        |      ;
                        db $00                               ;01AA2B|        |      ;
                        db $08                               ;01AA2C|        |      ;
@@ -8229,6 +8070,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AA31|        |      ;
                        db $CC                               ;01AA32|        |00003F;
                        db $3F                               ;01AA33|        |080600;
+       UNREACH_01AA34:
                        db $00                               ;01AA34|        |      ;
                        db $06                               ;01AA35|        |000008;
                        db $08                               ;01AA36|        |      ;
@@ -8249,6 +8091,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AA45|        |      ;
                        db $CC                               ;01AA46|        |00003F;
                        db $3F                               ;01AA47|        |080C00;
+       UNREACH_01AA48:
                        db $00                               ;01AA48|        |      ;
                        db $0C                               ;01AA49|        |00DC08;
                        db $08                               ;01AA4A|        |      ;
@@ -8279,6 +8122,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AA63|        |      ;
                        db $CC                               ;01AA64|        |00003F;
                        db $3F                               ;01AA65|        |081200;
+       UNREACH_01AA66:
                        db $00                               ;01AA66|        |      ;
                        db $12                               ;01AA67|        |000008;
                        db $08                               ;01AA68|        |      ;
@@ -8319,6 +8163,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AA8B|        |      ;
                        db $CC                               ;01AA8C|        |00003F;
                        db $3F                               ;01AA8D|        |081800;
+       UNREACH_01AA8E:
                        db $00                               ;01AA8E|        |      ;
                        db $18                               ;01AA8F|        |      ;
                        db $08                               ;01AA90|        |      ;
@@ -8369,6 +8214,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AABD|        |      ;
                        db $CC                               ;01AABE|        |00003F;
                        db $3F                               ;01AABF|        |081E00;
+       UNREACH_01AAC0:
                        db $00                               ;01AAC0|        |      ;
                        db $1E                               ;01AAC1|        |00DC08;
                        db $08                               ;01AAC2|        |      ;
@@ -8429,6 +8275,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AAF9|        |      ;
                        db $CC                               ;01AAFA|        |00003F;
                        db $3F                               ;01AAFB|        |082400;
+       UNREACH_01AAFC:
                        db $00                               ;01AAFC|        |      ;
                        db $24                               ;01AAFD|        |000008;
                        db $08                               ;01AAFE|        |      ;
@@ -8499,6 +8346,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AB3F|        |      ;
                        db $CC                               ;01AB40|        |00003F;
                        db $3F                               ;01AB41|        |082A00;
+       UNREACH_01AB42:
                        db $00                               ;01AB42|        |      ;
                        db $2A                               ;01AB43|        |      ;
                        db $08                               ;01AB44|        |      ;
@@ -8579,6 +8427,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AB8F|        |      ;
                        db $CC                               ;01AB90|        |00003F;
                        db $3F                               ;01AB91|        |083000;
+       UNREACH_01AB92:
                        db $00                               ;01AB92|        |      ;
                        db $30                               ;01AB93|        |01AB9D;
                        db $08                               ;01AB94|        |      ;
@@ -8669,6 +8518,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01ABE9|        |      ;
                        db $CC                               ;01ABEA|        |00003F;
                        db $3F                               ;01ABEB|        |083600;
+       UNREACH_01ABEC:
                        db $00                               ;01ABEC|        |      ;
                        db $36                               ;01ABED|        |000008;
                        db $08                               ;01ABEE|        |      ;
@@ -8769,6 +8619,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AC4D|        |      ;
                        db $CC                               ;01AC4E|        |00003F;
                        db $3F                               ;01AC4F|        |083C00;
+       UNREACH_01AC50:
                        db $00                               ;01AC50|        |      ;
                        db $3C                               ;01AC51|        |00DC08;
                        db $08                               ;01AC52|        |      ;
@@ -8879,6 +8730,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01ACBB|        |      ;
                        db $CC                               ;01ACBC|        |00003F;
                        db $3F                               ;01ACBD|        |084200;
+       UNREACH_01ACBE:
                        db $00                               ;01ACBE|        |      ;
                        db $42                               ;01ACBF|        |      ;
                        db $08                               ;01ACC0|        |      ;
@@ -8999,6 +8851,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AD33|        |      ;
                        db $CC                               ;01AD34|        |00003F;
                        db $3F                               ;01AD35|        |084800;
+       UNREACH_01AD36:
                        db $00                               ;01AD36|        |      ;
                        db $48                               ;01AD37|        |      ;
                        db $08                               ;01AD38|        |      ;
@@ -9129,6 +8982,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01ADB5|        |      ;
                        db $CC                               ;01ADB6|        |00003F;
                        db $3F                               ;01ADB7|        |084E00;
+       UNREACH_01ADB8:
                        db $00                               ;01ADB8|        |      ;
                        db $4E                               ;01ADB9|        |00DC08;
                        db $08                               ;01ADBA|        |      ;
@@ -9269,6 +9123,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AE41|        |      ;
                        db $CC                               ;01AE42|        |00003F;
                        db $3F                               ;01AE43|        |085400;
+       UNREACH_01AE44:
                        db $00                               ;01AE44|        |      ;
                        db $54                               ;01AE45|        |      ;
                        db $08                               ;01AE46|        |      ;
@@ -9419,6 +9274,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AED7|        |      ;
                        db $CC                               ;01AED8|        |00003F;
                        db $3F                               ;01AED9|        |005A00;
+       UNREACH_01AEDA:
                        db $00                               ;01AEDA|        |      ;
                        db $5A                               ;01AEDB|        |      ;
                        db $00                               ;01AEDC|        |      ;
@@ -9579,6 +9435,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AF77|        |      ;
                        db $CC                               ;01AF78|        |00003F;
                        db $3F                               ;01AF79|        |080000;
+       UNREACH_01AF7A:
                        db $00                               ;01AF7A|        |      ;
                        db $00                               ;01AF7B|        |      ;
                        db $08                               ;01AF7C|        |      ;
@@ -9589,6 +9446,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AF81|        |      ;
                        db $ED                               ;01AF82|        |00003F;
                        db $3F                               ;01AF83|        |080600;
+       UNREACH_01AF84:
                        db $00                               ;01AF84|        |      ;
                        db $06                               ;01AF85|        |000008;
                        db $08                               ;01AF86|        |      ;
@@ -9609,6 +9467,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AF95|        |      ;
                        db $ED                               ;01AF96|        |00003F;
                        db $3F                               ;01AF97|        |080C00;
+       UNREACH_01AF98:
                        db $00                               ;01AF98|        |      ;
                        db $0C                               ;01AF99|        |00FD08;
                        db $08                               ;01AF9A|        |      ;
@@ -9639,6 +9498,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AFB3|        |      ;
                        db $ED                               ;01AFB4|        |00003F;
                        db $3F                               ;01AFB5|        |081200;
+       UNREACH_01AFB6:
                        db $00                               ;01AFB6|        |      ;
                        db $12                               ;01AFB7|        |000008;
                        db $08                               ;01AFB8|        |      ;
@@ -9679,6 +9539,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01AFDB|        |      ;
                        db $ED                               ;01AFDC|        |00003F;
                        db $3F                               ;01AFDD|        |081800;
+       UNREACH_01AFDE:
                        db $00                               ;01AFDE|        |      ;
                        db $18                               ;01AFDF|        |      ;
                        db $08                               ;01AFE0|        |      ;
@@ -9729,6 +9590,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B00D|        |      ;
                        db $ED                               ;01B00E|        |00003F;
                        db $3F                               ;01B00F|        |081E00;
+       UNREACH_01B010:
                        db $00                               ;01B010|        |      ;
                        db $1E                               ;01B011|        |00FD08;
                        db $08                               ;01B012|        |      ;
@@ -9789,6 +9651,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B049|        |      ;
                        db $ED                               ;01B04A|        |00003F;
                        db $3F                               ;01B04B|        |082400;
+       UNREACH_01B04C:
                        db $00                               ;01B04C|        |      ;
                        db $24                               ;01B04D|        |000008;
                        db $08                               ;01B04E|        |      ;
@@ -9859,6 +9722,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B08F|        |      ;
                        db $ED                               ;01B090|        |00003F;
                        db $3F                               ;01B091|        |082A00;
+       UNREACH_01B092:
                        db $00                               ;01B092|        |      ;
                        db $2A                               ;01B093|        |      ;
                        db $08                               ;01B094|        |      ;
@@ -9939,6 +9803,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B0DF|        |      ;
                        db $ED                               ;01B0E0|        |00003F;
                        db $3F                               ;01B0E1|        |083000;
+       UNREACH_01B0E2:
                        db $00                               ;01B0E2|        |      ;
                        db $30                               ;01B0E3|        |01B0ED;
                        db $08                               ;01B0E4|        |      ;
@@ -10029,6 +9894,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B139|        |      ;
                        db $ED                               ;01B13A|        |00003F;
                        db $3F                               ;01B13B|        |083600;
+       UNREACH_01B13C:
                        db $00                               ;01B13C|        |      ;
                        db $36                               ;01B13D|        |000008;
                        db $08                               ;01B13E|        |      ;
@@ -10129,6 +9995,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B19D|        |      ;
                        db $ED                               ;01B19E|        |00003F;
                        db $3F                               ;01B19F|        |083C00;
+       UNREACH_01B1A0:
                        db $00                               ;01B1A0|        |      ;
                        db $3C                               ;01B1A1|        |00FD08;
                        db $08                               ;01B1A2|        |      ;
@@ -10239,6 +10106,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B20B|        |      ;
                        db $ED                               ;01B20C|        |00003F;
                        db $3F                               ;01B20D|        |084200;
+       UNREACH_01B20E:
                        db $00                               ;01B20E|        |      ;
                        db $42                               ;01B20F|        |      ;
                        db $08                               ;01B210|        |      ;
@@ -10359,6 +10227,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B283|        |      ;
                        db $ED                               ;01B284|        |00003F;
                        db $3F                               ;01B285|        |084800;
+       UNREACH_01B286:
                        db $00                               ;01B286|        |      ;
                        db $48                               ;01B287|        |      ;
                        db $08                               ;01B288|        |      ;
@@ -10489,6 +10358,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B305|        |      ;
                        db $ED                               ;01B306|        |00003F;
                        db $3F                               ;01B307|        |084E00;
+       UNREACH_01B308:
                        db $00                               ;01B308|        |      ;
                        db $4E                               ;01B309|        |00FD08;
                        db $08                               ;01B30A|        |      ;
@@ -10629,6 +10499,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B391|        |      ;
                        db $ED                               ;01B392|        |00003F;
                        db $3F                               ;01B393|        |085400;
+       UNREACH_01B394:
                        db $00                               ;01B394|        |      ;
                        db $54                               ;01B395|        |      ;
                        db $08                               ;01B396|        |      ;
@@ -10779,6 +10650,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B427|        |      ;
                        db $ED                               ;01B428|        |00003F;
                        db $3F                               ;01B429|        |085A00;
+       UNREACH_01B42A:
                        db $00                               ;01B42A|        |      ;
                        db $5A                               ;01B42B|        |      ;
                        db $08                               ;01B42C|        |      ;
@@ -10939,103 +10811,55 @@ Input_loop_Equipment_menu:
                        db $00                               ;01B4C7|        |      ;
                        db $ED                               ;01B4C8|        |00DA3F;
                        db $3F                               ;01B4C9|        |E4A4DA;
-       UNREACH_01B4CA:
-                       db $DA                               ;01B4CA|        |      ;
-                       db $A4                               ;01B4CB|        |0000E4;
-                       db $E4                               ;01B4CC|        |0000A4;
-                       db $A4                               ;01B4CD|        |0000F8;
-                       db $F8                               ;01B4CE|        |      ;
-                       db $A4                               ;01B4CF|        |000016;
-                       db $16                               ;01B4D0|        |0000A5;
-                       db $A5                               ;01B4D1|        |00003E;
-                       db $3E                               ;01B4D2|        |0070A5;
-                       db $A5                               ;01B4D3|        |000070;
-                       db $70                               ;01B4D4|        |01B47B;
-                       db $A5                               ;01B4D5|        |0000AC;
-                       db $AC                               ;01B4D6|        |00F2A5;
-                       db $A5                               ;01B4D7|        |0000F2;
-                       db $F2                               ;01B4D8|        |0000A5;
-                       db $A5                               ;01B4D9|        |000042;
-                       db $42                               ;01B4DA|        |      ;
-                       db $A6                               ;01B4DB|        |00009C;
-                       db $9C                               ;01B4DC|        |0000A6;
-                       db $A6                               ;01B4DD|        |000000;
-                       db $00                               ;01B4DE|        |      ;
-                       db $A7                               ;01B4DF|        |00006E;
-                       db $6E                               ;01B4E0|        |00E6A7;
-                       db $A7                               ;01B4E1|        |0000E6;
-                       db $E6                               ;01B4E2|        |0000A7;
-                       db $A7                               ;01B4E3|        |000068;
-                       db $68                               ;01B4E4|        |      ;
-                       db $A8                               ;01B4E5|        |      ;
-                       db $F4                               ;01B4E6|        |008AA8;
-                       db $A8                               ;01B4E7|        |      ;
-                       db $8A                               ;01B4E8|        |      ;
-                       db $A9                               ;01B4E9|        |      ;
-                       db $2A                               ;01B4EA|        |      ;
-                       db $AA                               ;01B4EB|        |      ;
-                       db $34                               ;01B4EC|        |0000AA;
-                       db $AA                               ;01B4ED|        |      ;
-                       db $48                               ;01B4EE|        |      ;
-                       db $AA                               ;01B4EF|        |      ;
-                       db $66                               ;01B4F0|        |0000AA;
-                       db $AA                               ;01B4F1|        |      ;
-                       db $8E                               ;01B4F2|        |00C0AA;
-                       db $AA                               ;01B4F3|        |      ;
-                       db $C0                               ;01B4F4|        |      ;
-                       db $AA                               ;01B4F5|        |      ;
-                       db $FC                               ;01B4F6|        |0142AA;
-                       db $AA                               ;01B4F7|        |      ;
-                       db $42                               ;01B4F8|        |      ;
-                       db $AB                               ;01B4F9|        |      ;
-                       db $92                               ;01B4FA|        |0000AB;
-                       db $AB                               ;01B4FB|        |      ;
-                       db $EC                               ;01B4FC|        |0050AB;
-                       db $AB                               ;01B4FD|        |      ;
-                       db $50                               ;01B4FE|        |01B4AC;
-                       db $AC                               ;01B4FF|        |00ACBE;
-                       db $BE                               ;01B500|        |0036AC;
-                       db $AC                               ;01B501|        |00AD36;
-                       db $36                               ;01B502|        |0000AD;
-                       db $AD                               ;01B503|        |00ADB8;
-                       db $B8                               ;01B504|        |      ;
-                       db $AD                               ;01B505|        |00AE44;
-                       db $44                               ;01B506|        |      ;
-                       db $AE                               ;01B507|        |00AEDA;
-                       db $DA                               ;01B508|        |      ;
-                       db $AE                               ;01B509|        |00AF7A;
-                       db $7A                               ;01B50A|        |      ;
-                       db $AF                               ;01B50B|        |98AF84;
-                       db $84                               ;01B50C|        |0000AF;
-                       db $AF                               ;01B50D|        |B6AF98;
-                       db $98                               ;01B50E|        |      ;
-                       db $AF                               ;01B50F|        |DEAFB6;
-                       db $B6                               ;01B510|        |0000AF;
-                       db $AF                               ;01B511|        |10AFDE;
-                       db $DE                               ;01B512|        |0010AF;
-                       db $AF                               ;01B513|        |4CB010;
-                       db $10                               ;01B514|        |01B4C6;
-                       db $B0                               ;01B515|        |01B563;
-                       db $4C                               ;01B516|        |0192B0;
-                       db $B0                               ;01B517|        |01B4AB;
-                       db $92                               ;01B518|        |0000B0;
-                       db $B0                               ;01B519|        |01B4FD;
-                       db $E2                               ;01B51A|        |      ;
-                       db $B0                               ;01B51B|        |01B559;
-                       db $3C                               ;01B51C|        |00A0B1;
-                       db $B1                               ;01B51D|        |0000A0;
-                       db $A0                               ;01B51E|        |      ;
-                       db $B1                               ;01B51F|        |00000E;
-                       db $0E                               ;01B520|        |0086B2;
-                       db $B2                               ;01B521|        |000086;
-                       db $86                               ;01B522|        |0000B2;
-                       db $B2                               ;01B523|        |000008;
-                       db $08                               ;01B524|        |      ;
-                       db $B3                               ;01B525|        |000094;
-                       db $94                               ;01B526|        |0000B3;
-                       db $B3                               ;01B527|        |00002A;
-                       db $2A                               ;01B528|        |      ;
-                       db $B4                               ;01B529|        |000067;
+           Tbl_01B4CA:
+                       dw UNREACH_01A4DA                    ;01B4CA|        |01A4DA;
+                       dw UNREACH_01A4E4                    ;01B4CC|        |01A4E4;
+                       dw UNREACH_01A4F8                    ;01B4CE|        |01A4F8;
+                       dw UNREACH_01A516                    ;01B4D0|        |01A516;
+                       dw UNREACH_01A53E                    ;01B4D2|        |01A53E;
+                       dw UNREACH_01A570                    ;01B4D4|        |01A570;
+                       dw UNREACH_01A5AC                    ;01B4D6|        |01A5AC;
+                       dw UNREACH_01A5F2                    ;01B4D8|        |01A5F2;
+                       dw UNREACH_01A642                    ;01B4DA|        |01A642;
+                       dw UNREACH_01A69C                    ;01B4DC|        |01A69C;
+                       dw UNREACH_01A700                    ;01B4DE|        |01A700;
+                       dw UNREACH_01A76E                    ;01B4E0|        |01A76E;
+                       dw UNREACH_01A7E6                    ;01B4E2|        |01A7E6;
+                       dw UNREACH_01A868                    ;01B4E4|        |01A868;
+                       dw UNREACH_01A8F4                    ;01B4E6|        |01A8F4;
+                       dw UNREACH_01A98A                    ;01B4E8|        |01A98A;
+                       dw UNREACH_01AA2A                    ;01B4EA|        |01AA2A;
+                       dw UNREACH_01AA34                    ;01B4EC|        |01AA34;
+                       dw UNREACH_01AA48                    ;01B4EE|        |01AA48;
+                       dw UNREACH_01AA66                    ;01B4F0|        |01AA66;
+                       dw UNREACH_01AA8E                    ;01B4F2|        |01AA8E;
+                       dw UNREACH_01AAC0                    ;01B4F4|        |01AAC0;
+                       dw UNREACH_01AAFC                    ;01B4F6|        |01AAFC;
+                       dw UNREACH_01AB42                    ;01B4F8|        |01AB42;
+                       dw UNREACH_01AB92                    ;01B4FA|        |01AB92;
+                       dw UNREACH_01ABEC                    ;01B4FC|        |01ABEC;
+                       dw UNREACH_01AC50                    ;01B4FE|        |01AC50;
+                       dw UNREACH_01ACBE                    ;01B500|        |01ACBE;
+                       dw UNREACH_01AD36                    ;01B502|        |01AD36;
+                       dw UNREACH_01ADB8                    ;01B504|        |01ADB8;
+                       dw UNREACH_01AE44                    ;01B506|        |01AE44;
+                       dw UNREACH_01AEDA                    ;01B508|        |01AEDA;
+                       dw UNREACH_01AF7A                    ;01B50A|        |01AF7A;
+                       dw UNREACH_01AF84                    ;01B50C|        |01AF84;
+                       dw UNREACH_01AF98                    ;01B50E|        |01AF98;
+                       dw UNREACH_01AFB6                    ;01B510|        |01AFB6;
+                       dw UNREACH_01AFDE                    ;01B512|        |01AFDE;
+                       dw UNREACH_01B010                    ;01B514|        |01B010;
+                       dw UNREACH_01B04C                    ;01B516|        |01B04C;
+                       dw UNREACH_01B092                    ;01B518|        |01B092;
+                       dw UNREACH_01B0E2                    ;01B51A|        |01B0E2;
+                       dw UNREACH_01B13C                    ;01B51C|        |01B13C;
+                       dw UNREACH_01B1A0                    ;01B51E|        |01B1A0;
+                       dw UNREACH_01B20E                    ;01B520|        |01B20E;
+                       dw UNREACH_01B286                    ;01B522|        |01B286;
+                       dw UNREACH_01B308                    ;01B524|        |01B308;
+                       dw UNREACH_01B394                    ;01B526|        |01B394;
+                       dw UNREACH_01B42A                    ;01B528|        |01B42A;
                        db $67                               ;01B52A|        |00000E;
                        db $0E                               ;01B52B|        |001200;
                        db $00                               ;01B52C|        |      ;

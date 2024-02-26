@@ -9,7 +9,7 @@
                        JSL.L NMI_enable1_far                ;178010|22638100|008163;
                        JSL.L Init_Loops                     ;178014|22848C00|008C84;
                        LDA.W #$0014                         ;178018|A91400  |      ;
-                       JSL.L Way_more_stuff                 ;17801B|22248D00|008D24;
+                       JSL.L Way_more_anim_stuff            ;17801B|22248D00|008D24;
           CODE_17801F:
                        JSL.L Wait_Vblank_far                ;17801F|22DE8800|0088DE;
                        JSL.L CODE_008E29                    ;178023|22298E00|008E29;
@@ -457,6 +457,7 @@ Loop_Chapter_select_chk:
                        dw $8000                             ;178446|        |      ;
                        dw $0040                             ;178448|        |      ;
                        dw $4000                             ;17844A|        |      ;
+       UNREACH_17844C:
                        db $00                               ;17844C|        |      ;
                        db $00                               ;17844D|        |      ;
                        db $10                               ;17844E|        |178471;
@@ -582,16 +583,15 @@ Loop_Chapter_select_chk:
                        db $00                               ;1784C6|        |      ;
                        db $0C                               ;1784C7|        |000322;
                        db $22                               ;1784C8|        |F8F703;
+       UNREACH_1784C9:
                        db $03                               ;1784C9|        |0000F7;
                        db $F7                               ;1784CA|        |0000F8;
                        db $F8                               ;1784CB|        |      ;
                        db $CE                               ;1784CC|        |004C31;
                        db $31                               ;1784CD|        |00004C;
-       UNREACH_1784CE:
-                       db $4C                               ;1784CE|        |17C984;
-                       db $84                               ;1784CF|        |0000C9;
-                       db $C9                               ;1784D0|        |      ;
-                       db $84                               ;1784D1|        |000001;
+           Tbl_1784CE:
+                       dw UNREACH_17844C                    ;1784CE|        |17844C;
+                       dw UNREACH_1784C9                    ;1784D0|        |1784C9;
          DATA8_1784D2:
                        db $01                               ;1784D2|        |      ;
                        db $10                               ;1784D3|        |      ;
@@ -1392,13 +1392,13 @@ Fade_from_Intro_crawl1:
                        db $D8                               ;178C40|        |      ;
                        db $01                               ;178C41|        |00000D;
                        db $0D                               ;178C42|        |000106;
-       UNREACH_178C43:
-                       db $06                               ;178C43|        |000001;
-                       db $01                               ;178C44|        |000007;
+         DATA8_178C43:
+                       db $06                               ;178C43|        |      ;
+                       db $01                               ;178C44|        |      ;
                        db $07                               ;178C45|        |      ;
                        dl Sub_Intro_weather2                ;178C46|        |178C6E;
                        db $0B                               ;178C49|        |      ;
-                       dw DATA16_008C56                     ;178C4A|        |008C56;
+                       dw UNREACH_178C56                    ;178C4A|        |178C56;
                        db $01                               ;178C4C|        |000002;
                        db $02                               ;178C4D|        |      ;
                        db $35                               ;178C4E|        |000002;
@@ -1409,6 +1409,7 @@ Fade_from_Intro_crawl1:
                        db $08                               ;178C53|        |      ;
                        db $02                               ;178C54|        |      ;
                        db $00                               ;178C55|        |      ;
+       UNREACH_178C56:
                        db $32                               ;178C56|        |000002;
                        db $02                               ;178C57|        |      ;
                        db $34                               ;178C58|        |000004;
@@ -1502,6 +1503,7 @@ Fade_from_Intro_crawl1:
                        db $00                               ;178CE7|        |      ;
                        db $01                               ;178CE8|        |000001;
                        db $01                               ;178CE9|        |000000;
+       UNREACH_178CEA:
                        db $00                               ;178CEA|        |      ;
                        db $00                               ;178CEB|        |      ;
                        db $E8                               ;178CEC|        |      ;
@@ -1602,6 +1604,7 @@ Fade_from_Intro_crawl1:
                        db $F0                               ;178D4B|        |178D2D;
                        db $E0                               ;178D4C|        |      ;
                        db $38                               ;178D4D|        |      ;
+       UNREACH_178D4E:
                        db $00                               ;178D4E|        |      ;
                        db $00                               ;178D4F|        |      ;
                        db $E8                               ;178D50|        |      ;
@@ -1702,6 +1705,7 @@ Fade_from_Intro_crawl1:
                        db $F0                               ;178DAF|        |178D93;
                        db $E2                               ;178DB0|        |      ;
                        db $38                               ;178DB1|        |      ;
+       UNREACH_178DB2:
                        db $00                               ;178DB2|        |      ;
                        db $08                               ;178DB3|        |      ;
                        db $E8                               ;178DB4|        |      ;
@@ -1742,6 +1746,7 @@ Fade_from_Intro_crawl1:
                        db $E0                               ;178DD7|        |      ;
                        db $C6                               ;178DD8|        |000038;
                        db $38                               ;178DD9|        |      ;
+       UNREACH_178DDA:
                        db $00                               ;178DDA|        |      ;
                        db $00                               ;178DDB|        |      ;
                        db $E8                               ;178DDC|        |      ;
@@ -1842,6 +1847,7 @@ Fade_from_Intro_crawl1:
                        db $F0                               ;178E3B|        |178E1D;
                        db $E0                               ;178E3C|        |      ;
                        db $3A                               ;178E3D|        |      ;
+       UNREACH_178E3E:
                        db $00                               ;178E3E|        |      ;
                        db $08                               ;178E3F|        |      ;
                        db $E8                               ;178E40|        |      ;
@@ -1882,17 +1888,12 @@ Fade_from_Intro_crawl1:
                        db $E0                               ;178E63|        |      ;
                        db $C6                               ;178E64|        |00003A;
                        db $3A                               ;178E65|        |      ;
-       UNREACH_178E66:
-                       db $EA                               ;178E66|        |      ;
-                       db $8C                               ;178E67|        |008D4E;
-                       db $4E                               ;178E68|        |00B28D;
-                       db $8D                               ;178E69|        |008DB2;
-                       db $B2                               ;178E6A|        |00008D;
-                       db $8D                               ;178E6B|        |008DDA;
-                       db $DA                               ;178E6C|        |      ;
-                       db $8D                               ;178E6D|        |008E3E;
-                       db $3E                               ;178E6E|        |00E08E;
-                       db $8E                               ;178E6F|        |007FE0;
+           Tbl_178E66:
+                       dw UNREACH_178CEA                    ;178E66|        |178CEA;
+                       dw UNREACH_178D4E                    ;178E68|        |178D4E;
+                       dw UNREACH_178DB2                    ;178E6A|        |178DB2;
+                       dw UNREACH_178DDA                    ;178E6C|        |178DDA;
+                       dw UNREACH_178E3E                    ;178E6E|        |178E3E;
          Some_data_x0:
                        db $E0                               ;178E70|        |      ;
                        db $7F                               ;178E71|        |      ;

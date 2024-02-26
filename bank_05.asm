@@ -19,7 +19,7 @@ Bank_05_Stat_Handling:
                        dw $0000                             ;058014|        |      ;
      Initialize_Rooks:
                        db $07                               ;058016|        |      ; Set current party member to Rooks (00)?
-                       dl Set_character_ID                  ;058017|        |07B470;
+                       dl Set_character_ID_2b               ;058017|        |07B470;
                        db $00                               ;05801A|        |      ;
                        db $00                               ;05801B|        |      ;
                        db $07                               ;05801C|        |      ; Get EXP to next level
@@ -48,7 +48,7 @@ Bank_05_Stat_Handling:
                        db $24                               ;058040|        |      ; Load current character ID
                        db $02                               ;058041|        |      ;
                        db $07                               ;058042|        |      ; OR their element with zero (useless?)
-                       dl OR_element_w_parameter            ;058043|        |07B169;
+                       dl OR_element_with_2b                ;058043|        |07B169;
                        db $00                               ;058046|        |      ;
                        db $00                               ;058047|        |      ;
                        db $07                               ;058048|        |      ; Transfers ROM to RAM
@@ -309,33 +309,20 @@ Bank_05_Stat_Handling:
                        JML.L Sub_LoadStuff                  ;0581F3|5CB48D00|008DB4;
           CODE_0581F7:
                        RTL                                  ;0581F7|6B      |      ;
-       UNREACH_0581F8:
-                       db $4B                               ;0581F8|        |      ;
-                       db $9D                               ;0581F9|        |009D50;
-                       db $50                               ;0581FA|        |058199;
-                       db $9D                               ;0581FB|        |009D55;
-                       db $55                               ;0581FC|        |00009D;
-                       db $9D                               ;0581FD|        |009D5A;
-                       db $5A                               ;0581FE|        |      ;
-                       db $9D                               ;0581FF|        |009D5F;
-                       db $5F                               ;058200|        |9D649D;
-                       db $9D                               ;058201|        |009D64;
-                       db $64                               ;058202|        |00009D;
-                       db $9D                               ;058203|        |009D69;
-                       db $69                               ;058204|        |      ;
-                       db $9D                               ;058205|        |009D9B;
-                       db $9B                               ;058206|        |      ;
-                       db $9D                               ;058207|        |009DC3;
-                       db $C3                               ;058208|        |00009D;
-                       db $9D                               ;058209|        |009DF5;
-                       db $F5                               ;05820A|        |00009D;
-                       db $9D                               ;05820B|        |009E3B;
-                       db $3B                               ;05820C|        |      ;
-                       db $9E                               ;05820D|        |009E6D;
-                       db $6D                               ;05820E|        |00039E;
-                       db $9E                               ;05820F|        |009F03;
-                       db $03                               ;058210|        |00009F;
-                       db $9F                               ;058211|        |821620;
+           Tbl_0581F8:
+                       dw CODE_009D4B                       ;0581F8|        |009D4B;
+                       dw CODE_009D50                       ;0581FA|        |009D50;
+                       dw LOOSE_OP_009D55                   ;0581FC|        |009D55;
+                       dw LOOSE_OP_009D5A                   ;0581FE|        |009D5A;
+                       dw LOOSE_OP_009D5F                   ;058200|        |009D5F;
+                       dw LOOSE_OP_009D64                   ;058202|        |009D64;
+                       dw CODE_009D69                       ;058204|        |009D69;
+                       dw CODE_009D9B                       ;058206|        |009D9B;
+                       dw CODE_009DC3                       ;058208|        |009DC3;
+                       dw CODE_009DF5                       ;05820A|        |009DF5;
+                       dw LOOSE_OP_009E3B                   ;05820C|        |009E3B;
+                       dw LOOSE_OP_009E6D                   ;05820E|        |009E6D;
+                       dw LOOSE_OP_009F03                   ;058210|        |009F03;
                        JSR.W CODE_058216                    ;058212|201682  |058216;
                        RTL                                  ;058215|6B      |      ;
           CODE_058216:
@@ -1003,12 +990,12 @@ Bank_05_Stat_Handling:
                        db $02                               ;058646|        |      ;
                        dw $0001                             ;058647|        |      ;
                        db $07                               ;058649|        |      ;
-                       dl Set_character_ID                  ;05864A|        |07B470;
+                       dl Set_character_ID_2b               ;05864A|        |07B470;
                        dw $0001                             ;05864D|        |      ;
                        db $24                               ;05864F|        |      ;
                        db $02                               ;058650|        |      ;
                        db $07                               ;058651|        |      ;
-                       dl OR_element_w_parameter            ;058652|        |07B169;
+                       dl OR_element_with_2b                ;058652|        |07B169;
                        dw $0100                             ;058655|        |      ;
                        db $1B                               ;058657|        |      ;
                        dw DATA8_0585BB                      ;058658|        |0585BB;
@@ -1288,45 +1275,32 @@ Bank_05_Stat_Handling:
                        JML.L Sub_LoadStuff                  ;05882F|5CB48D00|008DB4;
           CODE_058833:
                        RTL                                  ;058833|6B      |      ;
-       UNREACH_058834:
-                       db $4B                               ;058834|        |      ;
-                       db $9D                               ;058835|        |009D50;
-                       db $50                               ;058836|        |0587D5;
-                       db $9D                               ;058837|        |009D55;
-                       db $55                               ;058838|        |00009D;
-                       db $9D                               ;058839|        |009D5A;
-                       db $5A                               ;05883A|        |      ;
-                       db $9D                               ;05883B|        |009D5F;
-                       db $5F                               ;05883C|        |9D649D;
-                       db $9D                               ;05883D|        |009D64;
-                       db $64                               ;05883E|        |00009D;
-                       db $9D                               ;05883F|        |009D69;
-                       db $69                               ;058840|        |      ;
-                       db $9D                               ;058841|        |009D9B;
-                       db $9B                               ;058842|        |      ;
-                       db $9D                               ;058843|        |009DC3;
-                       db $C3                               ;058844|        |00009D;
-                       db $9D                               ;058845|        |009DF5;
-                       db $F5                               ;058846|        |00009D;
-                       db $9D                               ;058847|        |009E3B;
-                       db $3B                               ;058848|        |      ;
-                       db $9E                               ;058849|        |009E6D;
-                       db $6D                               ;05884A|        |00039E;
-                       db $9E                               ;05884B|        |009F03;
-                       db $03                               ;05884C|        |00009F;
-                       db $9F                               ;05884D|        |01020F;
+           Tbl_058834:
+                       dw UNREACH_059D4B                    ;058834|        |059D4B;
+                       dw UNREACH_059D50                    ;058836|        |059D50;
+                       dw UNREACH_059D55                    ;058838|        |059D55;
+                       dw UNREACH_059D5A                    ;05883A|        |059D5A;
+                       dw UNREACH_059D5F                    ;05883C|        |059D5F;
+                       dw UNREACH_059D64                    ;05883E|        |059D64;
+                       dw UNREACH_059D69                    ;058840|        |059D69;
+                       dw UNREACH_059D9B                    ;058842|        |059D9B;
+                       dw UNREACH_059DC3                    ;058844|        |059DC3;
+                       dw UNREACH_059DF5                    ;058846|        |059DF5;
+                       dw UNREACH_059E3B                    ;058848|        |059E3B;
+                       dw UNREACH_059E6D                    ;05884A|        |059E6D;
+                       dw UNREACH_059F03                    ;05884C|        |059F03;
          DATA8_05884E:
                        db $0F                               ;05884E|        |      ;
                        db $02                               ;05884F|        |      ;
                        db $01                               ;058850|        |      ;
                        db $00                               ;058851|        |      ;
                        db $07                               ;058852|        |      ;
-                       dl Set_character_ID                  ;058853|        |07B470;
+                       dl Set_character_ID_2b               ;058853|        |07B470;
                        dw $0002                             ;058856|        |      ;
                        db $24                               ;058858|        |      ;
                        db $02                               ;058859|        |      ;
                        db $07                               ;05885A|        |      ;
-                       dl OR_element_w_parameter            ;05885B|        |07B169;
+                       dl OR_element_with_2b                ;05885B|        |07B169;
                        dw $0200                             ;05885E|        |      ;
                        db $1B                               ;058860|        |      ;
                        dw LOOSE_OP_0085BB                   ;058861|        |0085BB;
@@ -1554,12 +1528,12 @@ Bank_05_Stat_Handling:
                        db $02                               ;0589EC|        |      ;
                        dw $0001                             ;0589ED|        |      ;
                        db $07                               ;0589EF|        |      ;
-                       dl Set_character_ID                  ;0589F0|        |07B470;
+                       dl Set_character_ID_2b               ;0589F0|        |07B470;
                        dw $0003                             ;0589F3|        |      ;
                        db $24                               ;0589F5|        |      ;
                        db $02                               ;0589F6|        |      ;
                        db $07                               ;0589F7|        |      ;
-                       dl OR_element_w_parameter            ;0589F8|        |07B169;
+                       dl OR_element_with_2b                ;0589F8|        |07B169;
                        dw $0400                             ;0589FB|        |      ;
                        db $1B                               ;0589FD|        |      ;
                        dw LOOSE_OP_0085BB                   ;0589FE|        |0085BB;
@@ -1790,13 +1764,13 @@ Bank_05_Stat_Handling:
                        db $00                               ;058B8B|        |      ;
  Add_char_04_to_party:
                        db $07                               ;058B8C|        |      ;
-                       dl Set_character_ID                  ;058B8D|        |07B470;
+                       dl Set_character_ID_2b               ;058B8D|        |07B470;
                        db $04                               ;058B90|        |      ;
                        db $00                               ;058B91|        |      ;
                        db $24                               ;058B92|        |      ;
                        db $02                               ;058B93|        |      ;
                        db $07                               ;058B94|        |      ;
-                       dl OR_element_w_parameter            ;058B95|        |07B169;
+                       dl OR_element_with_2b                ;058B95|        |07B169;
                        db $00                               ;058B98|        |      ;
                        db $08                               ;058B99|        |      ;
                        db $1B                               ;058B9A|        |      ;
@@ -2054,7 +2028,7 @@ Bank_05_Stat_Handling:
                        db $03                               ;058D37|        |      ;
                        dw $0000                             ;058D38|        |      ;
                        db $07                               ;058D3A|        |      ;
-                       dl Set_character_ID                  ;058D3B|        |07B470;
+                       dl Set_character_ID_2b               ;058D3B|        |07B470;
                        dw $0005                             ;058D3E|        |      ;
                        db $24                               ;058D40|        |      ;
                        db $02                               ;058D41|        |      ;
@@ -2084,7 +2058,7 @@ Bank_05_Stat_Handling:
                        db $24                               ;058D68|        |      ;
                        db $02                               ;058D69|        |      ;
                        db $07                               ;058D6A|        |      ;
-                       dl OR_element_w_parameter            ;058D6B|        |07B169;
+                       dl OR_element_with_2b                ;058D6B|        |07B169;
                        dw $0000                             ;058D6E|        |      ;
                        db $07                               ;058D70|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;058D71|        |00A140;
@@ -2358,199 +2332,126 @@ Bank_05_Stat_Handling:
                        LDY.W #$0005                         ;058F35|A00500  |      ;
                        JML.L Sub_LoadStuff                  ;058F38|5CB48D00|008DB4;
                        RTL                                  ;058F3C|6B      |      ;
-       UNREACH_058F3D:
-                       db $4B                               ;058F3D|        |      ;
-                       db $9D                               ;058F3E|        |009D50;
-                       db $50                               ;058F3F|        |058EDE;
-                       db $9D                               ;058F40|        |009D55;
-                       db $55                               ;058F41|        |00009D;
-                       db $9D                               ;058F42|        |009D5A;
-                       db $5A                               ;058F43|        |      ;
-                       db $9D                               ;058F44|        |009D5F;
-                       db $5F                               ;058F45|        |9D649D;
-                       db $9D                               ;058F46|        |009D64;
-                       db $64                               ;058F47|        |00009D;
-                       db $9D                               ;058F48|        |009D69;
-                       db $69                               ;058F49|        |      ;
-                       db $9D                               ;058F4A|        |009D9B;
-                       db $9B                               ;058F4B|        |      ;
-                       db $9D                               ;058F4C|        |009DC3;
-                       db $C3                               ;058F4D|        |00009D;
-                       db $9D                               ;058F4E|        |009DF5;
-                       db $F5                               ;058F4F|        |00009D;
-                       db $9D                               ;058F50|        |009E3B;
-                       db $3B                               ;058F51|        |      ;
-                       db $9E                               ;058F52|        |009E6D;
-                       db $6D                               ;058F53|        |00039E;
-                       db $9E                               ;058F54|        |009F03;
-                       db $03                               ;058F55|        |00009F;
-                       db $9F                               ;058F56|        |02020F;
-       UNREACH_058F57:
-                       db $0F                               ;058F57|        |000202;
+           Tbl_058F3D:
+                       dw CODE_009D4B                       ;058F3D|        |009D4B;
+                       dw CODE_009D50                       ;058F3F|        |009D50;
+                       dw LOOSE_OP_009D55                   ;058F41|        |009D55;
+                       dw LOOSE_OP_009D5A                   ;058F43|        |009D5A;
+                       dw LOOSE_OP_009D5F                   ;058F45|        |009D5F;
+                       dw LOOSE_OP_009D64                   ;058F47|        |009D64;
+                       dw CODE_009D69                       ;058F49|        |009D69;
+                       dw CODE_009D9B                       ;058F4B|        |009D9B;
+                       dw CODE_009DC3                       ;058F4D|        |009DC3;
+                       dw CODE_009DF5                       ;058F4F|        |009DF5;
+                       dw LOOSE_OP_009E3B                   ;058F51|        |009E3B;
+                       dw LOOSE_OP_009E6D                   ;058F53|        |009E6D;
+                       dw LOOSE_OP_009F03                   ;058F55|        |009F03;
+         DATA8_058F57:
+                       db $0F                               ;058F57|        |      ;
                        db $02                               ;058F58|        |      ;
-                       db $02                               ;058F59|        |      ;
-                       db $00                               ;058F5A|        |      ;
-                       db $24                               ;058F5B|        |000000;
+                       dw $0002                             ;058F59|        |      ;
+                       db $24                               ;058F5B|        |      ;
                        db $00                               ;058F5C|        |      ;
-                       db $0C                               ;058F5D|        |008F9A;
-                       db $9A                               ;058F5E|        |      ;
-                       db $8F                               ;058F5F|        |00000F;
-                       db $0F                               ;058F60|        |000000;
+                       db $0C                               ;058F5D|        |      ;
+                       dw DATA8_058F9A                      ;058F5E|        |058F9A;
+                       db $0F                               ;058F60|        |      ;
                        db $00                               ;058F61|        |      ;
-                       db $00                               ;058F62|        |      ;
-                       db $00                               ;058F63|        |      ;
-                       db $0F                               ;058F64|        |000001;
-                       db $01                               ;058F65|        |000000;
-                       db $00                               ;058F66|        |      ;
-                       db $00                               ;058F67|        |      ;
-                       db $0F                               ;058F68|        |000003;
-                       db $03                               ;058F69|        |000000;
-                       db $00                               ;058F6A|        |      ;
-                       db $00                               ;058F6B|        |      ;
-                       db $07                               ;058F6C|        |000070;
-                       db $70                               ;058F6D|        |058F23;
-                       db $B4                               ;058F6E|        |000007;
-                       db $07                               ;058F6F|        |000006;
-                       db $06                               ;058F70|        |000000;
-                       db $00                               ;058F71|        |      ;
-                       db $24                               ;058F72|        |000002;
+                       dw $0000                             ;058F62|        |      ;
+                       db $0F                               ;058F64|        |      ;
+                       db $01                               ;058F65|        |      ;
+                       dw $0000                             ;058F66|        |      ;
+                       db $0F                               ;058F68|        |      ;
+                       db $03                               ;058F69|        |      ;
+                       dw $0000                             ;058F6A|        |      ;
+                       db $07                               ;058F6C|        |      ;
+                       dl Set_character_ID_2b               ;058F6D|        |07B470;
+                       dw $0006                             ;058F70|        |      ;
+                       db $24                               ;058F72|        |      ;
                        db $02                               ;058F73|        |      ;
-                       db $07                               ;058F74|        |0000AB;
-                       db $AB                               ;058F75|        |      ;
-                       db $B2                               ;058F76|        |000007;
-                       db $07                               ;058F77|        |000007;
-                       db $07                               ;058F78|        |00007A;
-                       db $7A                               ;058F79|        |      ;
-                       db $B2                               ;058F7A|        |000007;
-                       db $07                               ;058F7B|        |000024;
-                       db $24                               ;058F7C|        |000002;
+                       db $07                               ;058F74|        |      ;
+                       dl Set_LVL                           ;058F75|        |07B2AB;
+                       db $07                               ;058F78|        |      ;
+                       dl Sub_Get_EXP_to_next               ;058F79|        |07B27A;
+                       db $24                               ;058F7C|        |      ;
                        db $02                               ;058F7D|        |      ;
-                       db $07                               ;058F7E|        |000007;
-                       db $07                               ;058F7F|        |0000B3;
-                       db $B3                               ;058F80|        |000007;
-                       db $07                               ;058F81|        |000024;
-                       db $24                               ;058F82|        |000002;
+                       db $07                               ;058F7E|        |      ;
+                       dl LevelJoinStats                    ;058F7F|        |07B307;
+                       db $24                               ;058F82|        |      ;
                        db $02                               ;058F83|        |      ;
-                       db $07                               ;058F84|        |0000ED;
-                       db $ED                               ;058F85|        |0007AB;
-                       db $AB                               ;058F86|        |      ;
-                       db $07                               ;058F87|        |000024;
-                       db $24                               ;058F88|        |000002;
+                       db $07                               ;058F84|        |      ;
+                       dl Sub_Wipe_Spells                   ;058F85|        |07ABED;
+                       db $24                               ;058F88|        |      ;
                        db $02                               ;058F89|        |      ;
-                       db $07                               ;058F8A|        |000008;
-                       db $08                               ;058F8B|        |      ;
-                       db $AC                               ;058F8C|        |000707;
-                       db $07                               ;058F8D|        |000007;
-                       db $07                               ;058F8E|        |00002F;
-                       db $2F                               ;058F8F|        |0707B9;
-                       db $B9                               ;058F90|        |000707;
-                       db $07                               ;058F91|        |000007;
-                       db $07                               ;058F92|        |00001C;
-                       db $1C                               ;058F93|        |0007B1;
-                       db $B1                               ;058F94|        |000007;
-                       db $07                               ;058F95|        |000002;
-                       db $02                               ;058F96|        |      ;
-                       db $00                               ;058F97|        |      ;
-                       db $00                               ;058F98|        |      ;
-                       db $00                               ;058F99|        |      ;
-                       db $24                               ;058F9A|        |000002;
+                       db $07                               ;058F8A|        |      ;
+                       dl GetJoinSpells                     ;058F8B|        |07AC08;
+                       db $07                               ;058F8E|        |      ;
+                       dl Max_heal                          ;058F8F|        |07B92F;
+                       db $07                               ;058F92|        |      ;
+                       dl CODE_07B11C                       ;058F93|        |07B11C;
+                       dw $0002                             ;058F96|        |      ;
+                       dw $0000                             ;058F98|        |      ;
+         DATA8_058F9A:
+                       db $24                               ;058F9A|        |      ;
                        db $02                               ;058F9B|        |      ;
-                       db $07                               ;058F9C|        |000069;
-                       db $69                               ;058F9D|        |      ;
-                       db $B1                               ;058F9E|        |000007;
-                       db $07                               ;058F9F|        |000000;
-                       db $00                               ;058FA0|        |      ;
-                       db $00                               ;058FA1|        |      ;
-                       db $07                               ;058FA2|        |000040;
-                       db $40                               ;058FA3|        |      ;
-                       db $A1                               ;058FA4|        |000000;
-                       db $00                               ;058FA5|        |      ;
-                       db $C2                               ;058FA6|        |      ;
-                       db $92                               ;058FA7|        |00000D;
-                       db $0D                               ;058FA8|        |002050;
-                       db $50                               ;058FA9|        |058FCB;
-                       db $20                               ;058FAA|        |052400;
-                       db $00                               ;058FAB|        |      ;
-                       db $24                               ;058FAC|        |000002;
+                       db $07                               ;058F9C|        |      ;
+                       dl OR_element_with_2b                ;058F9D|        |07B169;
+                       dw $0000                             ;058FA0|        |      ;
+                       db $07                               ;058FA2|        |      ;
+                       dl Transfer_Data_3b_1b_2b            ;058FA3|        |00A140;
+                       dl DATA8_0D92C2                      ;058FA6|        |0D92C2;
+                       db $50                               ;058FA9|        |      ;
+                       dw $0020                             ;058FAA|        |      ;
+                       db $24                               ;058FAC|        |      ;
                        db $02                               ;058FAD|        |      ;
-                       db $07                               ;058FAE|        |000092;
-                       db $92                               ;058FAF|        |00008F;
-                       db $8F                               ;058FB0|        |022407;
-                       db $07                               ;058FB1|        |000024;
-                       db $24                               ;058FB2|        |000002;
+                       db $07                               ;058FAE|        |      ;
+                       dl Load_player_cards                 ;058FAF|        |078F92;
+                       db $24                               ;058FB2|        |      ;
                        db $02                               ;058FB3|        |      ;
-                       db $07                               ;058FB4|        |000046;
-                       db $46                               ;058FB5|        |00008D;
-                       db $8D                               ;058FB6|        |002407;
-                       db $07                               ;058FB7|        |000024;
-                       db $24                               ;058FB8|        |000002;
+                       db $07                               ;058FB4|        |      ;
+                       dl Death_Check_A_1                   ;058FB5|        |078D46;
+                       db $24                               ;058FB8|        |      ;
                        db $02                               ;058FB9|        |      ;
-                       db $07                               ;058FBA|        |0000B0;
-                       db $B0                               ;058FBB|        |058F4A;
-                       db $8D                               ;058FBC|        |002407;
-                       db $07                               ;058FBD|        |000024;
-                       db $24                               ;058FBE|        |000002;
+                       db $07                               ;058FBA|        |      ;
+                       dl Death_Check_A_2                   ;058FBB|        |078DB0;
+                       db $24                               ;058FBE|        |      ;
                        db $02                               ;058FBF|        |      ;
-                       db $07                               ;058FC0|        |0000F0;
-                       db $F0                               ;058FC1|        |058F50;
-                       db $8D                               ;058FC2|        |000707;
-                       db $07                               ;058FC3|        |000007;
-                       db $07                               ;058FC4|        |0000E8;
-                       db $E8                               ;058FC5|        |      ;
-                       db $B0                               ;058FC6|        |058FCF;
-                       db $07                               ;058FC7|        |000004;
-                       db $04                               ;058FC8|        |000000;
-                       db $00                               ;058FC9|        |      ;
-                       db $12                               ;058FCA|        |000004;
-                       db $04                               ;058FCB|        |0000E1;
-                       db $E1                               ;058FCC|        |00008E;
-                       db $8E                               ;058FCD|        |008EEB;
-                       db $EB                               ;058FCE|        |      ;
-                       db $8E                               ;058FCF|        |008EF5;
-                       db $F5                               ;058FD0|        |00008E;
-                       db $8E                               ;058FD1|        |008EFF;
-                       db $FF                               ;058FD2|        |49048E;
-                       db $8E                               ;058FD3|        |004904;
-                       db $04                               ;058FD4|        |000049;
-                       db $49                               ;058FD5|        |      ;
-                       db $84                               ;058FD6|        |000005;
-                       db $05                               ;058FD7|        |000008;
+                       db $07                               ;058FC0|        |      ;
+                       dl CODE_078DF0                       ;058FC1|        |078DF0;
+                       db $07                               ;058FC4|        |      ;
+                       dl Get_ID_in_slot_2b                 ;058FC5|        |07B0E8;
+                       dw $0004                             ;058FC8|        |      ;
+                       db $12                               ;058FCA|        |      ;
+                       db $04                               ;058FCB|        |      ;
+                       dw LOOSE_OP_008EE1                   ;058FCC|        |008EE1;
+                       dw LOOSE_OP_008EEB                   ;058FCE|        |008EEB;
+                       dw LOOSE_OP_008EF5                   ;058FD0|        |008EF5;
+                       dw LOOSE_OP_008EFF                   ;058FD2|        |008EFF;
+                       db $04                               ;058FD4|        |      ;
+                       dl Some_Death_Check                  ;058FD5|        |058449;
                        db $08                               ;058FD8|        |      ;
-                       db $B6                               ;058FD9|        |000090;
-                       db $90                               ;058FDA|        |059000;
-                       db $24                               ;058FDB|        |000002;
+                       dw DATA8_0590B6                      ;058FD9|        |0590B6;
+                       db $24                               ;058FDB|        |      ;
                        db $02                               ;058FDC|        |      ;
-                       db $07                               ;058FDD|        |00006B;
-                       db $6B                               ;058FDE|        |      ;
-                       db $90                               ;058FDF|        |058FE8;
-                       db $07                               ;058FE0|        |000024;
-                       db $24                               ;058FE1|        |000002;
+                       db $07                               ;058FDD|        |      ;
+                       dl _07906F_far                       ;058FDE|        |07906B;
+                       db $24                               ;058FE1|        |      ;
                        db $02                               ;058FE2|        |      ;
-                       db $07                               ;058FE3|        |0000F0;
-                       db $F0                               ;058FE4|        |058F73;
-                       db $8D                               ;058FE5|        |000E07;
-                       db $07                               ;058FE6|        |00000E;
-                       db $0E                               ;058FE7|        |0011C7;
-                       db $C7                               ;058FE8|        |000011;
-                       db $11                               ;058FE9|        |000000;
+                       db $07                               ;058FE3|        |      ;
+                       dl CODE_078DF0                       ;058FE4|        |078DF0;
+                       db $0E                               ;058FE7|        |      ; 0E: $11C7 and FBFF
+                       dw $11C7                             ;058FE8|        |      ;
                        db $00                               ;058FEA|        |      ;
-                       db $FF                               ;058FEB|        |C70EFB;
-                       db $FB                               ;058FEC|        |      ;
-                       db $0E                               ;058FED|        |0011C7;
-                       db $C7                               ;058FEE|        |000011;
-                       db $11                               ;058FEF|        |000000;
+                       dw $FBFF                             ;058FEB|        |      ;
+                       db $0E                               ;058FED|        |      ; 0E: $11C7 and FEFF
+                       dw $11C7                             ;058FEE|        |      ;
                        db $00                               ;058FF0|        |      ;
-                       db $FF                               ;058FF1|        |DD07FE;
-                       db $FE                               ;058FF2|        |00DD07;
-                       db $07                               ;058FF3|        |0000DD;
-                       db $DD                               ;058FF4|        |0007AE;
-                       db $AE                               ;058FF5|        |000C07;
-                       db $07                               ;058FF6|        |00000C;
-                       db $0C                               ;058FF7|        |009042;
-                       db $42                               ;058FF8|        |      ;
-                       db $90                               ;058FF9|        |05901A;
+                       dw $FEFF                             ;058FF1|        |      ;
+                       db $07                               ;058FF3|        |      ;
+                       dl Is_Equals_1575                    ;058FF4|        |07AEDD;
+                       db $0C                               ;058FF7|        |      ;
+                       dw DATA8_059042                      ;058FF8|        |059042;
                        db $1F                               ;058FFA|        |      ;
-                       dw $11C1                             ;058FFB|        |0011C1;
+                       dw $11C1                             ;058FFB|        |      ;
                        db $11                               ;058FFD|        |      ;
                        db $06                               ;058FFE|        |      ;
                        dw DATA8_05900C                      ;058FFF|        |05900C;
@@ -2592,6 +2493,7 @@ Bank_05_Stat_Handling:
                        db $06                               ;05903F|        |      ;
                        db $01                               ;059040|        |      ;
                        db $0A                               ;059041|        |      ; 0A
+         DATA8_059042:
                        db $09                               ;059042|        |      ;
                        dl CODE_0590C2                       ;059043|        |0590C2;
                        db $0F                               ;059046|        |      ;
@@ -2689,7 +2591,7 @@ Bank_05_Stat_Handling:
                        LDY.W #$0005                         ;0590E8|A00500  |      ;
                        JML.L Sub_LoadStuff                  ;0590EB|5CB48D00|008DB4;
                        RTL                                  ;0590EF|6B      |      ;
-         PTR16_0590F0:
+           Tbl_0590F0:
                        dw UNREACH_059D4B                    ;0590F0|        |059D4B;
                        dw UNREACH_059D50                    ;0590F2|        |059D50;
                        dw UNREACH_059D55                    ;0590F4|        |059D55;
@@ -2722,7 +2624,7 @@ Bank_05_Stat_Handling:
                        dw $0000                             ;05911D|        |      ;
       Set_Character_7:
                        db $07                               ;05911F|        |      ;
-                       dl Set_character_ID                  ;059120|        |07B470;
+                       dl Set_character_ID_2b               ;059120|        |07B470;
                        dw $0007                             ;059123|        |      ;
                        db $24                               ;059125|        |      ;
                        db $02                               ;059126|        |      ;
@@ -2751,7 +2653,7 @@ Bank_05_Stat_Handling:
                        db $24                               ;05914D|        |      ;
                        db $02                               ;05914E|        |      ;
                        db $07                               ;05914F|        |      ;
-                       dl OR_element_w_parameter            ;059150|        |07B169;
+                       dl OR_element_with_2b                ;059150|        |07B169;
                        dw $0000                             ;059153|        |      ;
                        db $07                               ;059155|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;059156|        |00A140;
@@ -3003,7 +2905,7 @@ Sub_Another_setup_again:
                        LDY.W #$0005                         ;0592F6|A00500  |      ;
                        JML.L Sub_LoadStuff                  ;0592F9|5CB48D00|008DB4;
                        RTL                                  ;0592FD|6B      |      ;
-         PTR16_0592FE:
+           Tbl_0592FE:
                        dw UNREACH_059D4B                    ;0592FE|        |059D4B;
                        dw UNREACH_059D50                    ;059300|        |059D50;
                        dw UNREACH_059D55                    ;059302|        |059D55;
@@ -3036,7 +2938,7 @@ Sub_Another_setup_again:
                        dw $0000                             ;05932B|        |      ;
         Axs_recruited:
                        db $07                               ;05932D|        |      ;
-                       dl Set_character_ID                  ;05932E|        |07B470;
+                       dl Set_character_ID_2b               ;05932E|        |07B470;
                        dw $0008                             ;059331|        |      ;
                        db $24                               ;059333|        |      ;
                        db $02                               ;059334|        |      ;
@@ -3066,7 +2968,7 @@ Sub_Another_setup_again:
                        db $24                               ;05935B|        |      ;
                        db $02                               ;05935C|        |      ;
                        db $07                               ;05935D|        |      ;
-                       dl OR_element_w_parameter            ;05935E|        |07B169;
+                       dl OR_element_with_2b                ;05935E|        |07B169;
                        dw $0000                             ;059361|        |      ;
                        db $07                               ;059363|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;059364|        |00A140;
@@ -3262,7 +3164,7 @@ Sub_Another_setup_again:
                        LDY.W #$0005                         ;0594A9|A00500  |      ;
                        JML.L Sub_LoadStuff                  ;0594AC|5CB48D00|008DB4;
                        RTL                                  ;0594B0|6B      |      ;
-         PTR16_0594B1:
+           Tbl_0594B1:
                        dw CODE_009D4B                       ;0594B1|        |009D4B;
                        dw CODE_009D50                       ;0594B3|        |009D50;
                        dw LOOSE_OP_009D55                   ;0594B5|        |009D55;
@@ -3291,7 +3193,7 @@ Sub_Another_setup_again:
                        dw $0000                             ;0594D9|        |      ;
    Set_Character_ID09:
                        db $07                               ;0594DB|        |      ;
-                       dl Set_character_ID                  ;0594DC|        |07B470;
+                       dl Set_character_ID_2b               ;0594DC|        |07B470;
                        dw $0009                             ;0594DF|        |      ;
                        db $07                               ;0594E1|        |      ;
                        dl Sub_Get_EXP_to_next               ;0594E2|        |07B27A;
@@ -3310,7 +3212,7 @@ Sub_Another_setup_again:
                        db $24                               ;0594FB|        |      ;
                        db $02                               ;0594FC|        |      ;
                        db $07                               ;0594FD|        |      ;
-                       dl OR_element_w_parameter            ;0594FE|        |07B169;
+                       dl OR_element_with_2b                ;0594FE|        |07B169;
                        dw $0F00                             ;059501|        |      ;
                        db $07                               ;059503|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;059504|        |00A140;
@@ -3346,7 +3248,7 @@ Sub_Another_setup_again:
                        db $07                               ;05953D|        |      ;
                        dl RAM_Decomp_801A                   ;05953E|        |0E8012;
                        db $0A                               ;059541|        |      ; 0A
-         PTR16_059542:
+           Tbl_059542:
                        dw CODE_009D4B                       ;059542|        |009D4B;
                        dw CODE_009D50                       ;059544|        |009D50;
                        dw LOOSE_OP_009D55                   ;059546|        |009D55;
@@ -3369,7 +3271,7 @@ Sub_Another_setup_again:
                        db $03                               ;05955F|        |      ;
                        dw $0000                             ;059560|        |      ;
                        db $07                               ;059562|        |      ;
-                       dl Set_character_ID                  ;059563|        |07B470;
+                       dl Set_character_ID_2b               ;059563|        |07B470;
                        dw $0009                             ;059566|        |      ;
                        db $07                               ;059568|        |      ;
                        dl Sub_Get_EXP_to_next               ;059569|        |07B27A;
@@ -3388,7 +3290,7 @@ Sub_Another_setup_again:
                        db $24                               ;059582|        |      ;
                        db $02                               ;059583|        |      ;
                        db $07                               ;059584|        |      ;
-                       dl OR_element_w_parameter            ;059585|        |07B169;
+                       dl OR_element_with_2b                ;059585|        |07B169;
                        dw $0F00                             ;059588|        |      ;
                        db $07                               ;05958A|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;05958B|        |00A140;
@@ -3421,7 +3323,7 @@ Sub_Another_setup_again:
                        db $07                               ;0595BC|        |      ;
                        dl RAM_Decomp_802B                   ;0595BD|        |0E8023;
                        db $0A                               ;0595C0|        |      ;
-         PTR16_0595C1:
+           Tbl_0595C1:
                        dw UNREACH_059D4B                    ;0595C1|        |059D4B;
                        dw UNREACH_059D50                    ;0595C3|        |059D50;
                        dw UNREACH_059D55                    ;0595C5|        |059D55;
@@ -3444,7 +3346,7 @@ Sub_Another_setup_again:
                        db $03                               ;0595DE|        |      ;
                        dw $0000                             ;0595DF|        |      ;
                        db $07                               ;0595E1|        |      ;
-                       dl Set_character_ID                  ;0595E2|        |07B470;
+                       dl Set_character_ID_2b               ;0595E2|        |07B470;
                        dw $0009                             ;0595E5|        |      ;
                        db $07                               ;0595E7|        |      ;
                        dl Sub_Get_EXP_to_next               ;0595E8|        |07B27A;
@@ -3463,7 +3365,7 @@ Sub_Another_setup_again:
                        db $24                               ;059601|        |      ;
                        db $02                               ;059602|        |      ;
                        db $07                               ;059603|        |      ;
-                       dl OR_element_w_parameter            ;059604|        |07B169;
+                       dl OR_element_with_2b                ;059604|        |07B169;
                        dw $0F00                             ;059607|        |      ;
                        db $07                               ;059609|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;05960A|        |00A140;
@@ -3496,7 +3398,7 @@ Sub_Another_setup_again:
                        db $07                               ;05963B|        |      ;
                        dl RAM_Decomp_803C                   ;05963C|        |0E8034;
                        db $0A                               ;05963F|        |      ; 0A
-         PTR16_059640:
+           Tbl_059640:
                        dw UNREACH_059D4B                    ;059640|        |059D4B;
                        dw UNREACH_059D50                    ;059642|        |059D50;
                        dw UNREACH_059D55                    ;059644|        |059D55;

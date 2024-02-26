@@ -122,6 +122,7 @@ Random_encounter_check:
           CODE_1880E4:
                        STA.W Encounter_Type                 ;1880E4|8D7915  |001579; 2=Back attack, 3=Normal battle
                        RTL                                  ;1880E7|6B      |      ;
+          CODE_1880E8:
                        JSR.W BossEncounter                  ;1880E8|20F880  |1880F8;
                        BCC CODE_1880F7                      ;1880EB|900A    |1880F7;
                        LDA.W Boss_Array                     ;1880ED|ADDF18  |0018DF;
@@ -372,7 +373,7 @@ Loop_Xfer_Data_to_RAM:
                        CLC                                  ;1882BB|18      |      ;
                        ADC.W #$0018                         ;1882BC|691800  |      ;
                        PLY                                  ;1882BF|7A      |      ;
-                       JSL.L Way_more_stuff                 ;1882C0|22248D00|008D24;
+                       JSL.L Way_more_anim_stuff            ;1882C0|22248D00|008D24;
                        INC.W $062D                          ;1882C4|EE2D06  |00062D;
                        INC.B $18                            ;1882C7|E618    |000018;
                        INC.W $0637                          ;1882C9|EE3706  |000637;
@@ -608,7 +609,7 @@ Treasure_Tracker_Clear:
                        LDA.W #$0008                         ;18848F|A90800  |      ;
                        STA.W $0639                          ;188492|8D3906  |000639;
                        LDA.W #$0016                         ;188495|A91600  |      ;
-                       JML.L Way_more_stuff                 ;188498|5C248D00|008D24;
+                       JML.L Way_more_anim_stuff            ;188498|5C248D00|008D24;
          DATA8_18849C:
                        db $16                               ;18849C|        |      ;
                        dw $18EB                             ;18849D|        |      ;
@@ -894,7 +895,7 @@ Update_treasure_tracker:
                        db $08                               ;188646|        |      ;
                        db $20                               ;188647|        |18EF32;
                        db $32                               ;188648|        |0000EF;
-         PTR16_188649:
+           Tbl_188649:
                        dw DATA8_1885EF                      ;188649|        |1885EF;
                        dw DATA8_18860D                      ;18864B|        |18860D;
                        dw DATA8_18862B                      ;18864D|        |18862B;
@@ -3957,7 +3958,7 @@ Formation_Zone_0B_Layout_0F:
                        LDX.W #$0000                         ;189638|A20000  |      ;
                        LDY.W #$0000                         ;18963B|A00000  |      ;
                        LDA.W #$0012                         ;18963E|A91200  |      ;
-                       JSL.L Way_more_stuff                 ;189641|22248D00|008D24;
+                       JSL.L Way_more_anim_stuff            ;189641|22248D00|008D24;
                        INC.W $1901                          ;189645|EE0119  |001901;
                        INC.W Story_Progress                 ;189648|EEFF18  |0018FF;
                        STZ.W $1091                          ;18964B|9C9110  |001091;
@@ -6271,7 +6272,7 @@ ArielTeefa_Attack_Text:
                        dw Darwin_KOs_Chimera                ;18A341|        |18A329;
           Sub_Unknown:
                        db $1D                               ;18A343|        |      ;
-                       dl _18A344_data                      ;18A344|        |098763;
+                       dl Tbl_098763                        ;18A344|        |098763;
        Animation_Loop:
                        db $30                               ;18A347|        |      ; 30 06
                        db $06                               ;18A348|        |      ;
@@ -16661,32 +16662,27 @@ Compressed_Setup_3b_2b:
                        db $00                               ;18D9D6|        |      ;
                        db $00                               ;18D9D7|        |      ;
                        db $00                               ;18D9D8|        |      ;
-       UNREACH_18D9D9:
+         DATA8_18D9D9:
                        db $08                               ;18D9D9|        |      ;
-                       db $E7                               ;18D9DA|        |0000D9;
-                       db $D9                               ;18D9DB|        |00F007;
-                       db $07                               ;18D9DC|        |0000F0;
-                       db $F0                               ;18D9DD|        |18D9B8;
-                       db $D9                               ;18D9DE|        |000E18;
-                       db $18                               ;18D9DF|        |      ;
-                       db $0E                               ;18D9E0|        |001913;
-                       db $13                               ;18D9E1|        |000019;
-                       db $19                               ;18D9E2|        |00FF02;
+                       dw DATA8_18D9E7                      ;18D9DA|        |18D9E7;
+                       db $07                               ;18D9DC|        |      ;
+                       dl CODE_18D9F0                       ;18D9DD|        |18D9F0;
+                       db $0E                               ;18D9E0|        |      ; 0E: $1913 + FFFF
+                       dw $1913                             ;18D9E1|        |      ;
                        db $02                               ;18D9E3|        |      ;
-                       db $FF                               ;18D9E4|        |0600FF;
-                       db $FF                               ;18D9E5|        |0A0600;
+                       dw $FFFF                             ;18D9E4|        |      ;
                        db $00                               ;18D9E6|        |      ;
-                       db $06                               ;18D9E7|        |00000A;
+         DATA8_18D9E7:
+                       db $06                               ;18D9E7|        |      ;
                        db $0A                               ;18D9E8|        |      ;
                        db $A8                               ;18D9E9|        |      ;
-                       db $06                               ;18D9EA|        |00000A;
+                       db $06                               ;18D9EA|        |      ;
                        db $0A                               ;18D9EB|        |      ;
-                       db $B0                               ;18D9EC|        |18DA08;
+                       db $B0                               ;18D9EC|        |      ;
                        db $1A                               ;18D9ED|        |      ;
-                       db $E7                               ;18D9EE|        |0000D9;
-                       db $D9                               ;18D9EF|        |000064;
-                       db $64                               ;18D9F0|        |000000;
-                       db $00                               ;18D9F1|        |      ;
+                       dw DATA8_18D9E7                      ;18D9EE|        |18D9E7;
+          CODE_18D9F0:
+                       STZ.B $00                            ;18D9F0|6400    |000000;
                        LDA.W Curr_area                      ;18D9F2|AD7315  |001573;
                        CMP.W #$0100                         ;18D9F5|C90001  |      ;
                        BCC CODE_18D9FC                      ;18D9F8|9002    |18D9FC;
@@ -17001,7 +16997,7 @@ Compressed_Setup_3b_2b:
                        db $F8                               ;18DB5D|        |      ;
                        db $4E                               ;18DB5E|        |00FC34;
                        db $34                               ;18DB5F|        |0000FC;
-         Table_18DB60:
+           Tbl_18DB60:
                        dw DATA8_18DAFC                      ;18DB60|        |18DAFC;
                        dw DATA8_18DB01                      ;18DB62|        |18DB01;
                        dw DATA8_18DB06                      ;18DB64|        |18DB06;

@@ -5,13 +5,17 @@
                        db $0C                               ;088002|        |      ;
                        db $0C                               ;088003|        |      ;
                        db $00                               ;088004|        |      ; End of string
-                       db $06                               ;088005|        |000000;
+              Text_06:
+                       db $06                               ;088005|        |      ;
                        db $00                               ;088006|        |      ;
-                       db $0C                               ;088007|        |007F00;
+              Text_0C:
+                       db $0C                               ;088007|        |      ;
                        db $00                               ;088008|        |      ;
-                       db $7F                               ;088009|        |000D00;
+              Text_7F:
+                       db $7F                               ;088009|        |      ;
                        db $00                               ;08800A|        |      ;
-                       db $0D                               ;08800B|        |000600;
+              Text_0D:
+                       db $0D                               ;08800B|        |      ;
                        db $00                               ;08800C|        |      ;
                        db $06                               ;08800D|        |      ; Unused menu 1
                        db $0D                               ;08800E|        |      ;
@@ -303,6 +307,7 @@
                        db $0D                               ;08825C|        |      ;
                        db $7F                               ;08825D|        |      ;
                        db $00                               ;08825E|        |      ;
+        EXP_GP_gained:
                        db $06                               ;08825F|        |      ; White text
                        db $0D                               ;088260|        |      ;
                        db $0C                               ;088261|        |      ; idk what this does
@@ -313,7 +318,6 @@
                        db $0C                               ;088266|        |      ;
                        db $01                               ;088267|        |      ;
                        db $00                               ;088268|        |      ;
-           EXP_gained:
                        db $06                               ;088269|        |      ;
                        db $1C                               ;08826A|        |      ;
                        db $11                               ;08826B|        |      ;
@@ -330,7 +334,7 @@
                        db $0D                               ;088297|        |      ;
                        db $7F                               ;088298|        |      ;
                        db $00                               ;088299|        |      ;
-         DATA8_08829A:
+             Run_away:
                        db $06                               ;08829A|        |      ;
                        db $0D                               ;08829B|        |      ;
                        db $0C                               ;08829C|        |      ;
@@ -341,7 +345,6 @@
                        db $0C                               ;0882A1|        |      ;
                        db $01                               ;0882A2|        |      ;
                        db $00                               ;0882A3|        |      ;
-    Run_away_Run_away:
                        db $06                               ;0882A4|        |      ;
                        db $1D                               ;0882A5|        |      ;
                        db "Rooks' Group has"                ;0882A6|        |      ;
@@ -1134,7 +1137,8 @@ The_best_you_can_do_x9:
                        db $7F                               ;088F1B|        |      ;
                        db $00                               ;088F1C|        |      ;
            Enemy1_Num:
-                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, $10;088F1D|        |      ; Supports 8 different enemies, but the encounters only support 5 kinds per battle.
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C;088F1D|        |      ; Supports 8 different enemies, but the encounters only support 5 kinds per battle.
+                       db $10                               ;088F26|        |      ;
                        dl $0015AF                           ;088F27|        |0015AF;
                        db $01                               ;088F2A|        |      ;
                        db $60                               ;088F2B|        |      ;
