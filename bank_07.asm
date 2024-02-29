@@ -6553,7 +6553,7 @@ Tbl_Spell_List_Offsets:
           CODE_07AF35:
                        LDA.W #$0001                         ;07AF35|A90100  |      ;
                        RTL                                  ;07AF38|6B      |      ;
-       Offset_In_1575:
+     Set_1575_from_2b:
                        JSL.L GetEventCode_2b_far            ;07AF39|22079B00|009B07; Reads 2 bytes and loads one of 4 RAM offsets
                        STA.B $20                            ;07AF3D|8520    |000020;
                        LDX.W Selection                      ;07AF3F|AE3F10  |00103F;
@@ -6562,7 +6562,7 @@ Tbl_Spell_List_Offsets:
                        CMP.W #$0001                         ;07AF46|C90100  |      ; If word=1, store $09C7,x in $1575
                        BEQ CODE_07AF5E                      ;07AF49|F013    |07AF5E;
                        CMP.W #$0002                         ;07AF4B|C90200  |      ; If word=2, store $09EB,x in $1575
-                       BEQ CODE_07AF65                      ;07AF4E|F015    |07AF65;
+                       BEQ $15                              ;07AF4E|F015    |07AF65;
                        LDA.W $0A0F,X                        ;07AF50|BD0F0A  |000A0F; If word not 0-2, store $0A0F,x in $1575
                        STA.W $1575                          ;07AF53|8D7515  |001575;
                        RTL                                  ;07AF56|6B      |      ;
@@ -6574,7 +6574,6 @@ Tbl_Spell_List_Offsets:
                        LDA.W Temp_09C7,X                    ;07AF5E|BDC709  |0009C7;
                        STA.W $1575                          ;07AF61|8D7515  |001575;
                        RTL                                  ;07AF64|6B      |      ;
-          CODE_07AF65:
                        LDA.W Selection_value,X              ;07AF65|BDEB09  |0009EB;
                        STA.W $1575                          ;07AF68|8D7515  |001575;
                        RTL                                  ;07AF6B|6B      |      ;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectXmlSerializer-Root xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:ns1="clr-namespace:Diz.Core.model;assembly=Diz.Core" xmlns:ns2="clr-namespace:Diz.Core.model.snes;assembly=Diz.Core" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns:ns3="clr-namespace:IX.Observable;assembly=IX.Observable" xmlns:ns4="clr-namespace:Diz.Core.export;assembly=Diz.Core" SaveVersion="102" Watermark="DiztinGUIsh" Extra1="" Extra2="" xmlns="clr-namespace:Diz.Core.serialization.xml_serializer;assembly=Diz.Core">
-  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="8709">
+  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="36715">
     <LogWriterSettings Format="%label:-22% %code:37%;%pc%|%bytes%|%ia%; %comment%" DataPerLine="1" Unlabeled="ShowInPoints" Structure="OneBankPerFile" NewLine="true" OutputExtraWhitespace="false" GenerateFullLine="false" IncludeUnusedLabels="true" PrintLabelSpecificComments="true" RomSizeOverride="-1" FileOrFolderOutPath="..\Diz" OutputToString="false" ErrorFilename="errors.txt" />
     <ProjectSettings exs:member="" BsnesUsageMapImportOnlyChangedUnmarked="true">
       <RomBytesOutputFormatSettings CompressGroupBlock="true" CompressUsingTable1="true" InsertCommentIntoOutputLinesEveryNBytes="2048" />
@@ -669,10 +669,9 @@
         <sys:Item Key="503481" Value="Attack" />
         <sys:Item Key="503499" Value="Attack" />
         <sys:Item Key="510148" Value="Get index for status effect (0-A)" />
-        <sys:Item Key="102252" Value="Valid turn ID?" />
-        <sys:Item Key="102256" Value="Compares FFFF to $20" />
+        <sys:Item Key="102252" Value="Check if attacker is FFFF" />
         <sys:Item Key="102258" Value="0B: Jump if false to 8F6A" />
-        <sys:Item Key="102250" Value="06 01: Bye Felicia!" />
+        <sys:Item Key="102250" Value="06: Delay 1 frame" />
         <sys:Item Key="363728" Value="1A: Jump to 8CCD" />
         <sys:Item Key="363725" Value="1B: JSR to 8312, save ptr in $14" />
         <sys:Item Key="366463" Value="Load attacker ID" />
@@ -5242,6 +5241,22 @@
         <sys:Item Key="176355" Value="A8" />
         <sys:Item Key="176356" Value="06: 08" />
         <sys:Item Key="176358" Value="02" />
+        <sys:Item Key="182401" Value="78 01 0000" />
+        <sys:Item Key="182405" Value="80 01 0000" />
+        <sys:Item Key="182271" Value="30 00" />
+        <sys:Item Key="182273" Value="06 20" />
+        <sys:Item Key="182275" Value="34 04" />
+        <sys:Item Key="182277" Value="30 02" />
+        <sys:Item Key="182279" Value="06 18" />
+        <sys:Item Key="182281" Value="24 02" />
+        <sys:Item Key="182293" Value="30 00" />
+        <sys:Item Key="182295" Value="06 21" />
+        <sys:Item Key="182297" Value="A8" />
+        <sys:Item Key="182298" Value="06 20" />
+        <sys:Item Key="102244" Value="Set var2 (attacker) to $1575 " />
+        <sys:Item Key="102261" Value="Check if fighting final boss" />
+        <sys:Item Key="102265" Value="If false, skip ahead past the pause" />
+        <sys:Item Key="102268" Value="Final boss: pause 1 second per turn for dramatic tension or something" />
       </Comments>
       <Labels>
         <sys:Item Key="65508">
@@ -6138,8 +6153,8 @@
         <sys:Item Key="495896">
           <Value exs:type="ns1:Label" Name="Get_enemy_ID_from_09C7_far" Comment="" />
         </sys:Item>
-        <sys:Item Key="41756">
-          <Value exs:type="ns1:Label" Name="" Comment="" />
+        <sys:Item Key="173203">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy22" Comment="" />
         </sys:Item>
         <sys:Item Key="16926">
           <Value exs:type="ns1:Label" Name="P2_Data2_lo" Comment="" />
@@ -8668,7 +8683,7 @@
           <Value exs:type="ns1:Label" Name="_0088B6_far" Comment="" />
         </sys:Item>
         <sys:Item Key="503609">
-          <Value exs:type="ns1:Label" Name="Offset_In_1575" Comment="" />
+          <Value exs:type="ns1:Label" Name="Set_1575_from_2b" Comment="" />
         </sys:Item>
         <sys:Item Key="503722">
           <Value exs:type="ns1:Label" Name="Compare_an_offset_to_11B5" Comment="" />
@@ -15707,6 +15722,207 @@
         </sys:Item>
         <sys:Item Key="167001">
           <Value exs:type="ns1:Label" Name="LoadData_Enemy0C" Comment="" />
+        </sys:Item>
+        <sys:Item Key="168558">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy0E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="168775">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy0F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="168992">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy10" Comment="" />
+        </sys:Item>
+        <sys:Item Key="169286">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy11" Comment="" />
+        </sys:Item>
+        <sys:Item Key="169580">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy12" Comment="" />
+        </sys:Item>
+        <sys:Item Key="169868">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy13" Comment="" />
+        </sys:Item>
+        <sys:Item Key="170154">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy14" Comment="" />
+        </sys:Item>
+        <sys:Item Key="170270">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy15" Comment="" />
+        </sys:Item>
+        <sys:Item Key="170419">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy16" Comment="" />
+        </sys:Item>
+        <sys:Item Key="170535">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy17" Comment="" />
+        </sys:Item>
+        <sys:Item Key="170851">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy18" Comment="" />
+        </sys:Item>
+        <sys:Item Key="171073">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy19" Comment="" />
+        </sys:Item>
+        <sys:Item Key="171285">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy1A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="171511">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy1B" Comment="" />
+        </sys:Item>
+        <sys:Item Key="171768">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy1C" Comment="" />
+        </sys:Item>
+        <sys:Item Key="171994">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy1D" Comment="" />
+        </sys:Item>
+        <sys:Item Key="172220">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy1E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="172446">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy1F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="172755">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy20" Comment="" />
+        </sys:Item>
+        <sys:Item Key="172977">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy21" Comment="" />
+        </sys:Item>
+        <sys:Item Key="173429">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy23" Comment="" />
+        </sys:Item>
+        <sys:Item Key="173655">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy24" Comment="" />
+        </sys:Item>
+        <sys:Item Key="173912">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy25" Comment="" />
+        </sys:Item>
+        <sys:Item Key="174134">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy26" Comment="" />
+        </sys:Item>
+        <sys:Item Key="174429">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy27" Comment="" />
+        </sys:Item>
+        <sys:Item Key="174553">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy28" Comment="" />
+        </sys:Item>
+        <sys:Item Key="174669">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy29" Comment="" />
+        </sys:Item>
+        <sys:Item Key="174895">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy2A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="175117">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy2B" Comment="" />
+        </sys:Item>
+        <sys:Item Key="175329">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy2C" Comment="" />
+        </sys:Item>
+        <sys:Item Key="175540">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy2D" Comment="" />
+        </sys:Item>
+        <sys:Item Key="175761">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy2E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="175987">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy2F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="176213">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy30" Comment="" />
+        </sys:Item>
+        <sys:Item Key="176434">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy31" Comment="" />
+        </sys:Item>
+        <sys:Item Key="176660">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy32" Comment="" />
+        </sys:Item>
+        <sys:Item Key="176907">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy33" Comment="" />
+        </sys:Item>
+        <sys:Item Key="177164">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy34" Comment="" />
+        </sys:Item>
+        <sys:Item Key="177390">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy35" Comment="" />
+        </sys:Item>
+        <sys:Item Key="177612">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy36" Comment="" />
+        </sys:Item>
+        <sys:Item Key="177831">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy37" Comment="" />
+        </sys:Item>
+        <sys:Item Key="178050">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy38" Comment="" />
+        </sys:Item>
+        <sys:Item Key="178171">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy39" Comment="" />
+        </sys:Item>
+        <sys:Item Key="178292">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy3A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="178408">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy3B" Comment="" />
+        </sys:Item>
+        <sys:Item Key="178524">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy3C" Comment="" />
+        </sys:Item>
+        <sys:Item Key="178744">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy3D" Comment="" />
+        </sys:Item>
+        <sys:Item Key="178964">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy3E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="179187">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy3F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="179410">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy40" Comment="" />
+        </sys:Item>
+        <sys:Item Key="179623">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy41" Comment="" />
+        </sys:Item>
+        <sys:Item Key="179879">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy42" Comment="" />
+        </sys:Item>
+        <sys:Item Key="180105">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy43" Comment="" />
+        </sys:Item>
+        <sys:Item Key="180353">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy44" Comment="" />
+        </sys:Item>
+        <sys:Item Key="180576">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy45" Comment="" />
+        </sys:Item>
+        <sys:Item Key="180799">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy46" Comment="" />
+        </sys:Item>
+        <sys:Item Key="181026">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy47" Comment="" />
+        </sys:Item>
+        <sys:Item Key="181248">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy48" Comment="" />
+        </sys:Item>
+        <sys:Item Key="181470">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy49" Comment="" />
+        </sys:Item>
+        <sys:Item Key="181682">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy4A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="181894">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy4B" Comment="" />
+        </sys:Item>
+        <sys:Item Key="182011">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy4C" Comment="" />
+        </sys:Item>
+        <sys:Item Key="182128">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy4D" Comment="" />
+        </sys:Item>
+        <sys:Item Key="182245">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy4E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="182375">
+          <Value exs:type="ns1:Label" Name="LoadData_Enemy4F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="503653">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
+        </sys:Item>
+        <sys:Item Key="102261">
+          <Value exs:type="ns1:Label" Name="Pause_Final_Fight" Comment="" />
         </sys:Item>
       </Labels>
       <RomBytes>
@@ -57197,17 +57413,17 @@ F
 F
 F
 A
-E
+E002
 E
 A
-E
+E002
 E
 A
 F
 F
 F
 A
-E
+E002
 E
 A
 F
@@ -57266,7 +57482,7 @@ F
 A
 A
 A
-E
+E002
 E
 U
 A

@@ -2663,36 +2663,36 @@ Any_direction_pressed:
                        dl Condition_Check_2b                ;018F4A|        |07B0B0;
                        dw $0001                             ;018F4D|        |      ;
                        db $0C                               ;018F4F|        |      ;
-                       dw DATA8_018F75                      ;018F50|        |018F75;
+                       dw Pause_Final_Fight                 ;018F50|        |018F75;
                        db $24                               ;018F52|        |      ;
                        db $02                               ;018F53|        |      ;
                        db $07                               ;018F54|        |      ;
                        dl Condition_Check_2b                ;018F55|        |07B0B0;
                        dw $0002                             ;018F58|        |      ;
                        db $0C                               ;018F5A|        |      ;
-                       dw DATA8_018F75                      ;018F5B|        |018F75;
+                       dw Pause_Final_Fight                 ;018F5B|        |018F75;
                        db $07                               ;018F5D|        |      ;
                        dl CODE_078C8F                       ;018F5E|        |078C8F;
                        db $0B                               ;018F61|        |      ;
                        dw DATA8_018F88                      ;018F62|        |018F88;
-                       db $07                               ;018F64|        |      ;
-                       dl Offset_In_1575                    ;018F65|        |07AF39;
+                       db $07                               ;018F64|        |      ; Set var2 (attacker) to $1575
+                       dl Set_1575_from_2b                  ;018F65|        |07AF39;
                        dw $0002                             ;018F68|        |      ;
          DATA8_018F6A:
-                       db $06                               ;018F6A|        |      ; 06 01: Bye Felicia!
+                       db $06                               ;018F6A|        |      ; 06: Delay 1 frame
                        db $01                               ;018F6B|        |      ;
        Selecting_Turn:
-                       db $07                               ;018F6C|        |      ; Valid turn ID?
+                       db $07                               ;018F6C|        |      ; Check if attacker is FFFF
                        dl Word_Is_Equals_1575               ;018F6D|        |07AF24;
-                       dw $FFFF                             ;018F70|        |      ; Compares FFFF to $20
+                       dw $FFFF                             ;018F70|        |      ;
                        db $0B                               ;018F72|        |      ; 0B: Jump if false to 8F6A
                        dw DATA8_018F6A                      ;018F73|        |018F6A;
-         DATA8_018F75:
-                       db $07                               ;018F75|        |      ;
+    Pause_Final_Fight:
+                       db $07                               ;018F75|        |      ; Check if fighting final boss
                        dl Is_FightingFinalBoss              ;018F76|        |078001;
-                       db $0B                               ;018F79|        |      ;
+                       db $0B                               ;018F79|        |      ; If false, skip ahead past the pause
                        dw DATA8_018F7E                      ;018F7A|        |018F7E;
-                       db $06                               ;018F7C|        |      ;
+                       db $06                               ;018F7C|        |      ; Final boss: pause 1 second per turn for dramatic tension or something
                        db $3C                               ;018F7D|        |      ;
          DATA8_018F7E:
                        db $07                               ;018F7E|        |      ;

@@ -6,7 +6,6 @@
                        Tbl_Spirit_stat_3 = $05F0C7
                        Tbl_Spirit_stat_2 = $05F0B7
                        Tbl_Spirit_def_copy = $05F107
- 
                        P2_Data2_lo = $00421E
                        Items_Battle_use = $05F026
                        Battle_Enemy_ID = $000643; !^ (2b) Enemy ID + #18, FFFF when killed ^!
@@ -299,6 +298,7 @@
                        ID_Enemy6 = $000661
                        ID_Enemy7 = $000663
                        ID_Enemy8 = $000665
+                       PTR24_00A31C = $00A31C
                        PTR24_00AC2E = $00AC2E
                        PTR24_00AC30 = $00AC30
                        DATA16_00AC31 = $00AC31

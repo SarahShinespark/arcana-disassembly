@@ -3288,7 +3288,7 @@ Add_enemy_loot_to_total:
                        db $23                               ;029117|        |      ; 23 03
                        db $03                               ;029118|        |      ;
                        db $07                               ;029119|        |      ; Store target in $1575
-                       dl Offset_In_1575                    ;02911A|        |07AF39;
+                       dl Set_1575_from_2b                  ;02911A|        |07AF39;
                        dw $0003                             ;02911D|        |      ;
                        db $07                               ;02911F|        |      ;
                        dl Is_Targeting_another              ;029120|        |07917D;
@@ -3483,7 +3483,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029267|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02926A|9DC709  |0009C7;
                        RTL                                  ;02926D|6B      |      ;
-         DATA8_02926E:
+     LoadData_Enemy0E:
                        db $04                               ;02926E|        |      ;
                        dl Battle_Prep                       ;02926F|        |029124;
                        db $09                               ;029272|        |      ;
@@ -3628,7 +3628,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029340|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029343|9DC709  |0009C7;
                        RTL                                  ;029346|6B      |      ;
-         DATA8_029347:
+     LoadData_Enemy0F:
                        db $04                               ;029347|        |      ;
                        dl Battle_Prep                       ;029348|        |029124;
                        db $09                               ;02934B|        |      ;
@@ -3773,7 +3773,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029419|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02941C|9DC709  |0009C7;
                        RTL                                  ;02941F|6B      |      ;
-         DATA8_029420:
+     LoadData_Enemy10:
                        db $04                               ;029420|        |      ;
                        dl Battle_Prep                       ;029421|        |029124;
                        db $09                               ;029424|        |      ;
@@ -3995,7 +3995,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02953F|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029542|9DC709  |0009C7;
                        RTL                                  ;029545|6B      |      ;
-         DATA8_029546:
+     LoadData_Enemy11:
                        db $04                               ;029546|        |      ;
                        dl Battle_Prep                       ;029547|        |029124;
                        db $09                               ;02954A|        |      ;
@@ -4217,7 +4217,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029665|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029668|9DC709  |0009C7;
                        RTL                                  ;02966B|6B      |      ;
-         DATA8_02966C:
+     LoadData_Enemy12:
                        db $04                               ;02966C|        |      ;
                        dl Battle_Prep                       ;02966D|        |029124;
                        db $09                               ;029670|        |      ;
@@ -4433,7 +4433,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029785|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029788|9DC709  |0009C7;
                        RTL                                  ;02978B|6B      |      ;
-         DATA8_02978C:
+     LoadData_Enemy13:
                        db $04                               ;02978C|        |      ;
                        dl Battle_Prep                       ;02978D|        |029124;
                        db $09                               ;029790|        |      ;
@@ -4647,7 +4647,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;0298A3|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;0298A6|9DC709  |0009C7;
                        RTL                                  ;0298A9|6B      |      ;
-         DATA8_0298AA:
+     LoadData_Enemy14:
                        db $04                               ;0298AA|        |      ;
                        dl Battle_Prep                       ;0298AB|        |029124;
                        db $09                               ;0298AE|        |      ;
@@ -4708,7 +4708,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029917|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02991A|9DC709  |0009C7;
                        RTL                                  ;02991D|6B      |      ;
-         DATA8_02991E:
+     LoadData_Enemy15:
                        db $04                               ;02991E|        |      ;
                        dl Battle_Prep                       ;02991F|        |029124;
                        db $09                               ;029922|        |      ;
@@ -4802,7 +4802,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;0299AC|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;0299AF|9DC709  |0009C7;
                        RTL                                  ;0299B2|6B      |      ;
-         DATA8_0299B3:
+     LoadData_Enemy16:
                        db $04                               ;0299B3|        |      ;
                        dl Battle_Prep                       ;0299B4|        |029124;
                        db $09                               ;0299B7|        |      ;
@@ -4863,7 +4863,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029A20|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029A23|9DC709  |0009C7;
                        RTL                                  ;029A26|6B      |      ;
-         DATA8_029A27:
+     LoadData_Enemy17:
                        db $04                               ;029A27|        |      ;
                        dl Battle_Prep                       ;029A28|        |029124;
                        db $09                               ;029A2B|        |      ;
@@ -5107,7 +5107,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029B5C|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029B5F|9DC709  |0009C7;
                        RTL                                  ;029B62|6B      |      ;
-         DATA8_029B63:
+     LoadData_Enemy18:
                        db $04                               ;029B63|        |      ;
                        dl Battle_Prep                       ;029B64|        |029124;
                        db $09                               ;029B67|        |      ;
@@ -5255,7 +5255,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029C3A|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029C3D|9DC709  |0009C7;
                        RTL                                  ;029C40|6B      |      ;
-         DATA8_029C41:
+     LoadData_Enemy19:
                        db $04                               ;029C41|        |      ;
                        dl Battle_Prep                       ;029C42|        |029124;
                        db $09                               ;029C45|        |      ;
@@ -5393,7 +5393,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029D0E|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029D11|9DC709  |0009C7;
                        RTL                                  ;029D14|6B      |      ;
-         DATA8_029D15:
+     LoadData_Enemy1A:
                        db $04                               ;029D15|        |      ;
                        dl Battle_Prep                       ;029D16|        |029124;
                        db $09                               ;029D19|        |      ;
@@ -5545,7 +5545,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029DF0|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029DF3|9DC709  |0009C7;
                        RTL                                  ;029DF6|6B      |      ;
-         DATA8_029DF7:
+     LoadData_Enemy1B:
                        db $04                               ;029DF7|        |      ;
                        dl Battle_Prep                       ;029DF8|        |029124;
                        db $09                               ;029DFB|        |      ;
@@ -5728,7 +5728,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029EF1|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029EF4|9DC709  |0009C7;
                        RTL                                  ;029EF7|6B      |      ;
-         DATA8_029EF8:
+     LoadData_Enemy1C:
                        db $04                               ;029EF8|        |      ;
                        dl Battle_Prep                       ;029EF9|        |029124;
                        db $09                               ;029EFC|        |      ;
@@ -5880,7 +5880,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;029FD3|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;029FD6|9DC709  |0009C7;
                        RTL                                  ;029FD9|6B      |      ;
-         DATA8_029FDA:
+     LoadData_Enemy1D:
                        db $04                               ;029FDA|        |      ;
                        dl Battle_Prep                       ;029FDB|        |029124;
                        db $09                               ;029FDE|        |      ;
@@ -6032,7 +6032,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A0B5|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A0B8|9DC709  |0009C7;
                        RTL                                  ;02A0BB|6B      |      ;
-         DATA8_02A0BC:
+     LoadData_Enemy1E:
                        db $04                               ;02A0BC|        |      ;
                        dl Battle_Prep                       ;02A0BD|        |029124;
                        db $09                               ;02A0C0|        |      ;
@@ -6184,7 +6184,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A197|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A19A|9DC709  |0009C7;
                        RTL                                  ;02A19D|6B      |      ;
-         DATA8_02A19E:
+     LoadData_Enemy1F:
                        db $04                               ;02A19E|        |      ;
                        dl Battle_Prep                       ;02A19F|        |029124;
          DATA8_02A1A2:
@@ -6433,7 +6433,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A2CC|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A2CF|9DC709  |0009C7;
                        RTL                                  ;02A2D2|6B      |      ;
-         DATA8_02A2D3:
+     LoadData_Enemy20:
                        db $04                               ;02A2D3|        |      ;
                        dl Battle_Prep                       ;02A2D4|        |029124;
          DATA8_02A2D7:
@@ -6595,7 +6595,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A3AA|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A3AD|9DC709  |0009C7;
                        RTL                                  ;02A3B0|6B      |      ;
-         DATA8_02A3B1:
+     LoadData_Enemy21:
                        db $04                               ;02A3B1|        |      ;
                        dl Battle_Prep                       ;02A3B2|        |029124;
          DATA8_02A3B5:
@@ -6761,7 +6761,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A48C|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A48F|9DC709  |0009C7;
                        RTL                                  ;02A492|6B      |      ;
-         DATA8_02A493:
+     LoadData_Enemy22:
                        db $04                               ;02A493|        |      ;
                        dl Battle_Prep                       ;02A494|        |029124;
          DATA8_02A497:
@@ -6927,7 +6927,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A56E|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A571|9DC709  |0009C7;
                        RTL                                  ;02A574|6B      |      ;
-         DATA8_02A575:
+     LoadData_Enemy23:
                        db $04                               ;02A575|        |      ;
                        dl Battle_Prep                       ;02A576|        |029124;
          DATA8_02A579:
@@ -7093,7 +7093,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A650|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A653|9DC709  |0009C7;
                        RTL                                  ;02A656|6B      |      ;
-         DATA8_02A657:
+     LoadData_Enemy24:
                        db $04                               ;02A657|        |      ;
                        dl Battle_Prep                       ;02A658|        |029124;
                        db $09                               ;02A65B|        |      ;
@@ -7278,7 +7278,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A751|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A754|9DC709  |0009C7;
                        RTL                                  ;02A757|6B      |      ;
-         DATA8_02A758:
+     LoadData_Enemy25:
                        db $04                               ;02A758|        |      ;
                        dl Battle_Prep                       ;02A759|        |029124;
                        db $09                               ;02A75C|        |      ;
@@ -7428,7 +7428,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A82F|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A832|9DC709  |0009C7;
                        RTL                                  ;02A835|6B      |      ;
-         DATA8_02A836:
+     LoadData_Enemy26:
                        db $04                               ;02A836|        |      ;
                        dl Battle_Prep                       ;02A837|        |029124;
                        db $09                               ;02A83A|        |      ;
@@ -7651,7 +7651,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A956|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A959|9DC709  |0009C7;
                        RTL                                  ;02A95C|6B      |      ;
-         DATA8_02A95D:
+     LoadData_Enemy27:
                        db $04                               ;02A95D|        |      ;
                        dl Battle_Prep                       ;02A95E|        |029124;
                        db $09                               ;02A961|        |      ;
@@ -7720,7 +7720,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02A9D2|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02A9D5|9DC709  |0009C7;
                        RTL                                  ;02A9D8|6B      |      ;
-         DATA8_02A9D9:
+     LoadData_Enemy28:
                        db $04                               ;02A9D9|        |      ;
                        dl Battle_Prep                       ;02A9DA|        |029124;
                        db $09                               ;02A9DD|        |      ;
@@ -7781,7 +7781,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02AA46|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02AA49|9DC709  |0009C7;
                        RTL                                  ;02AA4C|6B      |      ;
-         DATA8_02AA4D:
+     LoadData_Enemy29:
                        db $04                               ;02AA4D|        |      ;
                        dl Battle_Prep                       ;02AA4E|        |029124;
                        db $09                               ;02AA51|        |      ;
@@ -7936,7 +7936,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02AB28|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02AB2B|9DC709  |0009C7;
                        RTL                                  ;02AB2E|6B      |      ;
-         DATA8_02AB2F:
+     LoadData_Enemy2A:
                        db $04                               ;02AB2F|        |      ;
                        dl Battle_Prep                       ;02AB30|        |029124;
                        db $09                               ;02AB33|        |      ;
@@ -8087,7 +8087,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02AC06|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02AC09|9DC709  |0009C7;
                        RTL                                  ;02AC0C|6B      |      ;
-         DATA8_02AC0D:
+     LoadData_Enemy2B:
                        db $04                               ;02AC0D|        |      ;
                        dl Battle_Prep                       ;02AC0E|        |029124;
                        db $09                               ;02AC11|        |      ;
@@ -8228,7 +8228,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02ACDA|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02ACDD|9DC709  |0009C7;
                        RTL                                  ;02ACE0|6B      |      ;
-         DATA8_02ACE1:
+     LoadData_Enemy2C:
                        db $04                               ;02ACE1|        |      ;
                        dl Battle_Prep                       ;02ACE2|        |029124;
                        db $09                               ;02ACE5|        |      ;
@@ -8368,7 +8368,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02ADAD|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02ADB0|9DC709  |0009C7;
                        RTL                                  ;02ADB3|6B      |      ;
-         DATA8_02ADB4:
+     LoadData_Enemy2D:
                        db $04                               ;02ADB4|        |      ;
                        dl Battle_Prep                       ;02ADB5|        |029124;
                        db $09                               ;02ADB8|        |      ;
@@ -8518,7 +8518,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02AE8A|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02AE8D|9DC709  |0009C7;
                        RTL                                  ;02AE90|6B      |      ;
-         DATA8_02AE91:
+     LoadData_Enemy2E:
                        db $04                               ;02AE91|        |      ;
                        dl Battle_Prep                       ;02AE92|        |029124;
                        db $09                               ;02AE95|        |      ;
@@ -8673,7 +8673,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02AF6C|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02AF6F|9DC709  |0009C7;
                        RTL                                  ;02AF72|6B      |      ;
-         DATA8_02AF73:
+     LoadData_Enemy2F:
                        db $04                               ;02AF73|        |      ;
                        dl Battle_Prep                       ;02AF74|        |029124;
                        db $09                               ;02AF77|        |      ;
@@ -8828,7 +8828,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B04E|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B051|9DC709  |0009C7;
                        RTL                                  ;02B054|6B      |      ;
-         DATA8_02B055:
+     LoadData_Enemy30:
                        db $04                               ;02B055|        |      ;
                        dl Battle_Prep                       ;02B056|        |029124;
          DATA8_02B059:
@@ -8989,7 +8989,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B12B|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B12E|9DC709  |0009C7;
                        RTL                                  ;02B131|6B      |      ;
-         DATA8_02B132:
+     LoadData_Enemy31:
                        db $04                               ;02B132|        |      ;
                        dl Battle_Prep                       ;02B133|        |029124;
          DATA8_02B136:
@@ -9155,7 +9155,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B20D|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B210|9DC709  |0009C7;
                        RTL                                  ;02B213|6B      |      ;
-         DATA8_02B214:
+     LoadData_Enemy32:
                        db $04                               ;02B214|        |      ;
                        dl Battle_Prep                       ;02B215|        |029124;
          DATA8_02B218:
@@ -9341,7 +9341,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B304|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B307|9DC709  |0009C7;
                        RTL                                  ;02B30A|6B      |      ;
-         DATA8_02B30B:
+     LoadData_Enemy33:
                        db $04                               ;02B30B|        |      ;
                        dl Battle_Prep                       ;02B30C|        |029124;
          DATA8_02B30F:
@@ -9537,7 +9537,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B405|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B408|9DC709  |0009C7;
                        RTL                                  ;02B40B|6B      |      ;
-         DATA8_02B40C:
+     LoadData_Enemy34:
                        db $04                               ;02B40C|        |      ;
                        dl Battle_Prep                       ;02B40D|        |029124;
          DATA8_02B410:
@@ -9702,7 +9702,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B4E7|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B4EA|9DC709  |0009C7;
                        RTL                                  ;02B4ED|6B      |      ;
-         DATA8_02B4EE:
+     LoadData_Enemy35:
                        db $04                               ;02B4EE|        |      ;
                        dl Battle_Prep                       ;02B4EF|        |029124;
          DATA8_02B4F2:
@@ -9863,7 +9863,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B5C5|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B5C8|9DC709  |0009C7;
                        RTL                                  ;02B5CB|6B      |      ;
-         DATA8_02B5CC:
+     LoadData_Enemy36:
                        db $04                               ;02B5CC|        |      ;
                        dl Battle_Prep                       ;02B5CD|        |029124;
          DATA8_02B5D0:
@@ -10022,7 +10022,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B6A0|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B6A3|9DC709  |0009C7;
                        RTL                                  ;02B6A6|6B      |      ;
-         DATA8_02B6A7:
+     LoadData_Enemy37:
                        db $04                               ;02B6A7|        |      ;
                        dl Battle_Prep                       ;02B6A8|        |029124;
          DATA8_02B6AB:
@@ -10180,7 +10180,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B77B|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B77E|9DC709  |0009C7;
                        RTL                                  ;02B781|6B      |      ;
-         DATA8_02B782:
+     LoadData_Enemy38:
                        db $04                               ;02B782|        |      ;
                        dl Battle_Prep                       ;02B783|        |029124;
          DATA8_02B786:
@@ -10247,7 +10247,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B7F4|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B7F7|9DC709  |0009C7;
                        RTL                                  ;02B7FA|6B      |      ;
-         DATA8_02B7FB:
+     LoadData_Enemy39:
                        db $04                               ;02B7FB|        |      ;
                        dl Battle_Prep                       ;02B7FC|        |029124;
          DATA8_02B7FF:
@@ -10314,7 +10314,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B86D|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B870|9DC709  |0009C7;
                        RTL                                  ;02B873|6B      |      ;
-         DATA8_02B874:
+     LoadData_Enemy3A:
                        db $04                               ;02B874|        |      ;
                        dl Battle_Prep                       ;02B875|        |029124;
          DATA8_02B878:
@@ -10376,7 +10376,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B8E1|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B8E4|9DC709  |0009C7;
                        RTL                                  ;02B8E7|6B      |      ;
-         DATA8_02B8E8:
+     LoadData_Enemy3B:
                        db $04                               ;02B8E8|        |      ;
                        dl Battle_Prep                       ;02B8E9|        |029124;
          DATA8_02B8EC:
@@ -10439,7 +10439,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02B955|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02B958|9DC709  |0009C7;
                        RTL                                  ;02B95B|6B      |      ;
-         DATA8_02B95C:
+     LoadData_Enemy3C:
                        db $04                               ;02B95C|        |      ;
                        dl Battle_Prep                       ;02B95D|        |029124;
          DATA8_02B960:
@@ -10597,7 +10597,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02BA31|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02BA34|9DC709  |0009C7;
                        RTL                                  ;02BA37|6B      |      ;
-         DATA8_02BA38:
+     LoadData_Enemy3D:
                        db $04                               ;02BA38|        |      ;
                        dl Battle_Prep                       ;02BA39|        |029124;
          DATA8_02BA3C:
@@ -10755,7 +10755,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02BB0D|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02BB10|9DC709  |0009C7;
                        RTL                                  ;02BB13|6B      |      ;
-         DATA8_02BB14:
+     LoadData_Enemy3E:
                        db $04                               ;02BB14|        |      ;
                        dl Battle_Prep                       ;02BB15|        |029124;
          DATA8_02BB18:
@@ -10916,7 +10916,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02BBEC|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02BBEF|9DC709  |0009C7;
                        RTL                                  ;02BBF2|6B      |      ;
-         DATA8_02BBF3:
+     LoadData_Enemy3F:
                        db $04                               ;02BBF3|        |      ;
                        dl Battle_Prep                       ;02BBF4|        |029124;
          DATA8_02BBF7:
@@ -11077,7 +11077,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02BCCB|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02BCCE|9DC709  |0009C7;
                        RTL                                  ;02BCD1|6B      |      ;
-         DATA8_02BCD2:
+     LoadData_Enemy40:
                        db $04                               ;02BCD2|        |      ;
                        dl Battle_Prep                       ;02BCD3|        |029124;
          DATA8_02BCD6:
@@ -11228,7 +11228,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02BDA0|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02BDA3|9DC709  |0009C7;
                        RTL                                  ;02BDA6|6B      |      ;
-         DATA8_02BDA7:
+     LoadData_Enemy41:
                        db $04                               ;02BDA7|        |      ;
                        dl Battle_Prep                       ;02BDA8|        |029124;
          DATA8_02BDAB:
@@ -11422,7 +11422,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02BEA0|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02BEA3|9DC709  |0009C7;
                        RTL                                  ;02BEA6|6B      |      ;
-         DATA8_02BEA7:
+     LoadData_Enemy42:
                        db $04                               ;02BEA7|        |      ;
                        dl Battle_Prep                       ;02BEA8|        |029124;
          DATA8_02BEAB:
@@ -11586,7 +11586,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02BF82|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02BF85|9DC709  |0009C7;
                        RTL                                  ;02BF88|6B      |      ;
-         DATA8_02BF89:
+     LoadData_Enemy43:
                        db $04                               ;02BF89|        |      ;
                        dl Battle_Prep                       ;02BF8A|        |029124;
          DATA8_02BF8D:
@@ -11772,7 +11772,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C07A|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C07D|9DC709  |0009C7;
                        RTL                                  ;02C080|6B      |      ;
-         DATA8_02C081:
+     LoadData_Enemy44:
                        db $04                               ;02C081|        |      ;
                        dl Battle_Prep                       ;02C082|        |029124;
          DATA8_02C085:
@@ -11933,7 +11933,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C159|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C15C|9DC709  |0009C7;
                        RTL                                  ;02C15F|6B      |      ;
-         DATA8_02C160:
+     LoadData_Enemy45:
                        db $04                               ;02C160|        |      ;
                        dl Battle_Prep                       ;02C161|        |029124;
          DATA8_02C164:
@@ -12094,7 +12094,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C238|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C23B|9DC709  |0009C7;
                        RTL                                  ;02C23E|6B      |      ;
-         DATA8_02C23F:
+     LoadData_Enemy46:
                        db $04                               ;02C23F|        |      ;
                        dl Battle_Prep                       ;02C240|        |029124;
          DATA8_02C243:
@@ -12259,7 +12259,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C31B|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C31E|9DC709  |0009C7;
                        RTL                                  ;02C321|6B      |      ;
-         DATA8_02C322:
+     LoadData_Enemy47:
                        db $04                               ;02C322|        |      ;
                        dl Battle_Prep                       ;02C323|        |029124;
          DATA8_02C326:
@@ -12419,7 +12419,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C3F9|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C3FC|9DC709  |0009C7;
                        RTL                                  ;02C3FF|6B      |      ;
-         DATA8_02C400:
+     LoadData_Enemy48:
                        db $04                               ;02C400|        |      ;
                        dl Battle_Prep                       ;02C401|        |029124;
          DATA8_02C404:
@@ -12579,7 +12579,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C4D7|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C4DA|9DC709  |0009C7;
                        RTL                                  ;02C4DD|6B      |      ;
-         DATA8_02C4DE:
+     LoadData_Enemy49:
                        db $04                               ;02C4DE|        |      ;
                        dl Battle_Prep                       ;02C4DF|        |029124;
          DATA8_02C4E2:
@@ -12729,7 +12729,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C5AB|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C5AE|9DC709  |0009C7;
                        RTL                                  ;02C5B1|6B      |      ;
-         DATA8_02C5B2:
+     LoadData_Enemy4A:
                        db $04                               ;02C5B2|        |      ;
                        dl Battle_Prep                       ;02C5B3|        |029124;
          DATA8_02C5B6:
@@ -12879,7 +12879,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C67F|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C682|9DC709  |0009C7;
                        RTL                                  ;02C685|6B      |      ;
-         DATA8_02C686:
+     LoadData_Enemy4B:
                        db $04                               ;02C686|        |      ;
                        dl Battle_Prep                       ;02C687|        |029124;
          DATA8_02C68A:
@@ -12941,7 +12941,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C6F4|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C6F7|9DC709  |0009C7;
                        RTL                                  ;02C6FA|6B      |      ;
-         DATA8_02C6FB:
+     LoadData_Enemy4C:
                        db $04                               ;02C6FB|        |      ;
                        dl Battle_Prep                       ;02C6FC|        |029124;
          DATA8_02C6FF:
@@ -13003,7 +13003,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C769|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C76C|9DC709  |0009C7;
                        RTL                                  ;02C76F|6B      |      ;
-         DATA8_02C770:
+     LoadData_Enemy4D:
                        db $04                               ;02C770|        |      ;
                        dl Battle_Prep                       ;02C771|        |029124;
          DATA8_02C774:
@@ -13065,7 +13065,7 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C7DE|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C7E1|9DC709  |0009C7;
                        RTL                                  ;02C7E4|6B      |      ;
-         DATA8_02C7E5:
+     LoadData_Enemy4E:
                        db $04                               ;02C7E5|        |      ;
                        dl Battle_Prep                       ;02C7E6|        |029124;
          DATA8_02C7E9:
@@ -13082,17 +13082,17 @@ Get_EnemyID_BattleStats:
                        db $07                               ;02C7FA|        |      ; SFX Confirm
                        dl GetSet_SFX                        ;02C7FB|        |009C44;
                        db $07                               ;02C7FE|        |      ;
-                       db $30                               ;02C7FF|        |      ;
+                       db $30                               ;02C7FF|        |      ; 30 00
                        db $00                               ;02C800|        |      ;
-                       db $06                               ;02C801|        |      ;
+                       db $06                               ;02C801|        |      ; 06 20
                        db $20                               ;02C802|        |      ;
-                       db $34                               ;02C803|        |      ;
+                       db $34                               ;02C803|        |      ; 34 04
                        db $04                               ;02C804|        |      ;
-                       db $30                               ;02C805|        |      ;
+                       db $30                               ;02C805|        |      ; 30 02
                        db $02                               ;02C806|        |      ;
-                       db $06                               ;02C807|        |      ;
+                       db $06                               ;02C807|        |      ; 06 18
                        db $18                               ;02C808|        |      ;
-                       db $24                               ;02C809|        |      ;
+                       db $24                               ;02C809|        |      ; 24 02
                        db $02                               ;02C80A|        |      ;
                        db $07                               ;02C80B|        |      ;
                        dl Condition_Check_2b                ;02C80C|        |07B0B0;
@@ -13101,12 +13101,12 @@ Get_EnemyID_BattleStats:
                        dw DATA8_02C7E9                      ;02C812|        |02C7E9;
                        db $00                               ;02C814|        |      ;
          DATA8_02C815:
-                       db $30                               ;02C815|        |      ;
+                       db $30                               ;02C815|        |      ; 30 00
                        db $00                               ;02C816|        |      ;
-                       db $06                               ;02C817|        |      ;
+                       db $06                               ;02C817|        |      ; 06 21
                        db $21                               ;02C818|        |      ;
-                       db $A8                               ;02C819|        |      ;
-                       db $06                               ;02C81A|        |      ;
+                       db $A8                               ;02C819|        |      ; A8
+                       db $06                               ;02C81A|        |      ; 06 20
                        db $20                               ;02C81B|        |      ;
                        db $1A                               ;02C81C|        |      ;
                        dw DATA8_02C815                      ;02C81D|        |02C815;
@@ -13142,26 +13142,27 @@ Get_EnemyID_BattleStats:
                        LDX.W Selection                      ;02C860|AE3F10  |00103F;
                        STA.W Temp_09C7,X                    ;02C863|9DC709  |0009C7;
                        RTL                                  ;02C866|6B      |      ;
-         DATA8_02C867:
+     LoadData_Enemy4F:
                        db $04                               ;02C867|        |      ;
                        dl Battle_Prep                       ;02C868|        |029124;
+         DATA8_02C86B:
                        db $09                               ;02C86B|        |      ;
                        dl CODE_02C8D7                       ;02C86C|        |02C8D7;
                        db $1A                               ;02C86F|        |      ;
-                       dw CODE_00C8C0                       ;02C870|        |00C8C0;
+                       dw DATA8_02C8C0                      ;02C870|        |02C8C0;
                        db $08                               ;02C872|        |      ;
-                       dw CODE_00C8C0                       ;02C873|        |00C8C0;
+                       dw DATA8_02C8C0                      ;02C873|        |02C8C0;
                        db $04                               ;02C875|        |      ;
                        dl DATA8_029111                      ;02C876|        |029111;
                        db $1A                               ;02C879|        |      ;
-                       dw CODE_00C86B                       ;02C87A|        |00C86B;
+                       dw DATA8_02C86B                      ;02C87A|        |02C86B;
                        db $07                               ;02C87C|        |      ; SFX: Confirm
                        dl GetSet_SFX                        ;02C87D|        |009C44;
                        db $07                               ;02C880|        |      ;
-                       db $78                               ;02C881|        |      ;
+                       db $78                               ;02C881|        |      ; 78 01 0000
                        db $01                               ;02C882|        |      ;
                        dw $0000                             ;02C883|        |      ;
-                       db $80                               ;02C885|        |      ;
+                       db $80                               ;02C885|        |      ; 80 01 0000
                        db $01                               ;02C886|        |      ;
                        dw $0000                             ;02C887|        |      ;
                        db $13                               ;02C889|        |      ; 13: $2130 = 00
@@ -13205,7 +13206,7 @@ Get_EnemyID_BattleStats:
                        db $01                               ;02C8BA|        |      ;
                        db $00                               ;02C8BB|        |      ;
                        db $0B                               ;02C8BC|        |      ;
-                       dw CODE_00C86B                       ;02C8BD|        |00C86B;
+                       dw DATA8_02C86B                      ;02C8BD|        |02C86B;
                        db $00                               ;02C8BF|        |      ;
          DATA8_02C8C0:
                        db $78                               ;02C8C0|        |      ;

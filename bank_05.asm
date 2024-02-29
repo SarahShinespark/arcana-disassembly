@@ -3677,7 +3677,7 @@ Sub_Another_setup_again:
                        db $FF                               ;0597DC|        |      ;
                        db $FF                               ;0597DD|        |      ;
                        db $07                               ;0597DE|        |      ;
-                       dl Offset_In_1575                    ;0597DF|        |07AF39;
+                       dl Set_1575_from_2b                  ;0597DF|        |07AF39;
                        db $01                               ;0597E2|        |      ;
                        db $00                               ;0597E3|        |      ;
                        db $07                               ;0597E4|        |      ; Get party ID from offset $09EB,x
