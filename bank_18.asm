@@ -410,7 +410,7 @@ Loop_Xfer_Data_to_RAM:
                        JSL.L Decompression_far              ;1882FA|22628700|008762;
                        PLB                                  ;1882FE|AB      |      ;
                        LDA.W #$8318                         ;1882FF|A91883  |      ;
-                       JSL.L RAM_Decomp                     ;188302|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;188302|22FE8400|0084FE;
                        PLX                                  ;188306|FA      |      ;
                        LDA.L SourceData2,X                  ;188307|BF318F19|198F31;
                        TAX                                  ;18830B|AA      |      ;
@@ -634,7 +634,7 @@ Treasure_Tracker_Clear:
                        db $00                               ;1884BA|        |      ;
          DATA8_1884BB:
                        db $07                               ;1884BB|        |      ;
-                       dl Decomp_setup_3b                   ;1884BC|        |009CF9;
+                       dl Decomp80_setup_3b                 ;1884BC|        |009CF9;
                        dl RLE_Loc_18_84E9                   ;1884BF|        |1884E9;
                        db $07                               ;1884C2|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;1884C3|        |00A140;
@@ -15785,7 +15785,7 @@ Compressed_Setup_3b_2b:
                        dl MainScr_OR_1b                     ;18D599|        |009DA8;
                        db $13                               ;18D59C|        |      ;
                        db $07                               ;18D59D|        |      ; Decomp
-                       dl Decomp_setup_3b                   ;18D59E|        |009CF9;
+                       dl Decomp80_setup_3b                 ;18D59E|        |009CF9;
                        dl Travel_Decomp_Setup               ;18D5A1|        |18D666;
    Chapter_based_shit:
                        db $07                               ;18D5A4|        |      ;
@@ -16395,7 +16395,7 @@ Compressed_Setup_3b_2b:
                        BCC CODE_18D879                      ;18D89B|90DC    |18D879;
           CODE_18D89D:
                        LDA.W #$D8A5                         ;18D89D|A9A5D8  |      ;
-                       JSL.L RAM_Decomp                     ;18D8A0|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;18D8A0|22FE8400|0084FE;
                        RTL                                  ;18D8A4|6B      |      ;
                        dw $0000                             ;18D8A5|        |      ;
                        dw $000C                             ;18D8A7|        |      ;

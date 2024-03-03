@@ -15,7 +15,7 @@
                        JSL.L CODE_008E29                    ;178023|22298E00|008E29;
                        JSL.L _00A764_far                    ;178027|2260A700|00A760; Something text-related
                        LDA.W #$8044                         ;17802B|A94480  |      ;
-                       JSL.L RAM_Decomp                     ;17802E|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;17802E|22FE8400|0084FE;
                        LDA.W #$2000                         ;178032|A90020  |      ;
                        STA.W $0006                          ;178035|8D0600  |000006;
                        LDA.W #$8000                         ;178038|A90080  |      ;
@@ -79,7 +79,7 @@
                        dl DATA8_179073                      ;178093|        |179073;
                        db $01                               ;178096|        |      ;
                        db $07                               ;178097|        |      ;
-                       dl Decomp_setup_3b                   ;178098|        |009CF9;
+                       dl Decomp80_setup_3b                 ;178098|        |009CF9;
                        dl Compressed_data_7                 ;17809B|        |018A4F;
                        db $07                               ;17809E|        |      ;
                        dl Do_Stuff_far                      ;17809F|        |00A0A8;
@@ -90,7 +90,7 @@
                        db $06                               ;1780AA|        |      ;
                        db $05                               ;1780AB|        |      ;
                        db $07                               ;1780AC|        |      ;
-                       dl Decomp_setup_3b                   ;1780AD|        |009CF9;
+                       dl Decomp80_setup_3b                 ;1780AD|        |009CF9;
                        dl Compressed_data2                  ;1780B0|        |17811B;
                        db $16                               ;1780B3|        |      ; $0522 = 0
                        dw $0522                             ;1780B4|        |      ;
@@ -246,7 +246,7 @@
                        dw $6000                             ;1782C0|        |      ;
                        db $00                               ;1782C2|        |      ;
                        db $07                               ;1782C3|        |      ;
-                       dl Decomp_setup_3b                   ;1782C4|        |009CF9;
+                       dl Decomp80_setup_3b                 ;1782C4|        |009CF9;
                        dl Compressed_data3                  ;1782C7|        |179D87;
                        db $07                               ;1782CA|        |      ;
                        dl MainScr_AND_1b                    ;1782CB|        |009DB6;
@@ -666,7 +666,7 @@ Loop_Chapter_select_chk:
                        db $06                               ;178542|        |      ;
                        db $05                               ;178543|        |      ;
                        db $07                               ;178544|        |      ;
-                       dl Decomp_setup_3b                   ;178545|        |009CF9;
+                       dl Decomp80_setup_3b                 ;178545|        |009CF9;
                        dl DATA8_17BBC4                      ;178548|        |17BBC4;
                        db $07                               ;17854B|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;17854C|        |00A140;
@@ -684,7 +684,7 @@ Loop_Chapter_select_chk:
                        db $C0                               ;178566|        |      ;
                        dw $0040                             ;178567|        |      ;
                        db $07                               ;178569|        |      ;
-                       dl Decomp_setup_3b                   ;17856A|        |009CF9;
+                       dl Decomp80_setup_3b                 ;17856A|        |009CF9;
                        dl DATA8_178734                      ;17856D|        |178734;
                        db $07                               ;178570|        |0000B6;
                        db $B6                               ;178571|        |00009D;
@@ -2196,7 +2196,7 @@ Fade_from_Intro_crawl1:
                        dl MainScr_OR_1b                     ;178FAC|        |009DA8;
                        db $06                               ;178FAF|        |      ;
                        db $07                               ;178FB0|        |      ;
-                       dl Decomp_setup_3b                   ;178FB1|        |009CF9;
+                       dl Decomp80_setup_3b                 ;178FB1|        |009CF9;
                        dl Decomp_block                      ;178FB4|        |17E618;
                        db $07                               ;178FB7|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;178FB8|        |00A140;
@@ -2420,7 +2420,7 @@ Clear_the_Chapter_splash:
                        dw $0000                             ;1791A7|        |      ;
                        dw $1800                             ;1791A9|        |      ;
                        db $07                               ;1791AB|        |      ;
-                       dl Decomp_setup_3b                   ;1791AC|        |009CF9;
+                       dl Decomp80_setup_3b                 ;1791AC|        |009CF9;
                        dl RLE_loc17_9284                    ;1791AF|        |17921F;
                        db $07                               ;1791B2|        |      ;
                        dl MainScr_AND_1b                    ;1791B3|        |009DB6;
@@ -2491,7 +2491,7 @@ Clear_the_Chapter_splash:
                        db $02                               ;17920A|        |      ;
                        db $02                               ;17920B|        |      ;
                        db $07                               ;17920C|        |      ;
-                       dl Decomp_setup_3b                   ;17920D|        |009CF9;
+                       dl Decomp80_setup_3b                 ;17920D|        |009CF9;
                        dl DATA8_179258                      ;179210|        |179258;
                        db $06                               ;179213|        |      ;
                        db $A0                               ;179214|        |      ;

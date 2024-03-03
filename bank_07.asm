@@ -480,7 +480,7 @@ Tbl_Spell_list_offsets:
                        JSL.L Decompression_far              ;078362|22628700|008762;
                        PLB                                  ;078366|AB      |      ;
                        LDA.W #$8387                         ;078367|A98783  |      ;
-                       JSL.L RAM_Decomp                     ;07836A|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;07836A|22FE8400|0084FE;
                        PLX                                  ;07836E|FA      |      ;
                        LDA.L Tbl_Spelldata_MVN,X            ;07836F|BFC08307|0783C0;
                        TAX                                  ;078373|AA      |      ;
@@ -6085,7 +6085,7 @@ Check_Active_Spirit_1b:
           CODE_07ABB6:
                        LDA.W #$0003                         ;07ABB6|A90300  |      ;
                        RTL                                  ;07ABB9|6B      |      ;
-    Slot2_WeirdOffset:
+Get_Slot2_WeirdOffset:
                        LDA.W Party_slot2                    ;07ABBA|AD5D15  |00155D; Returns 4, or party ID - 1
                        CMP.W #$0009                         ;07ABBD|C90900  |      ;
                        BEQ CODE_07ABC7                      ;07ABC0|F005    |07ABC7;
@@ -6095,7 +6095,7 @@ Check_Active_Spirit_1b:
           CODE_07ABC7:
                        LDA.W #$0004                         ;07ABC7|A90400  |      ;
                        RTL                                  ;07ABCA|6B      |      ;
-    Slot3_WeirdOffset:
+Get_Slot3_WeirdOffset:
                        LDA.W Party_slot3                    ;07ABCB|AD5F15  |00155F; Returns 2, or party ID - 5
                        CMP.W #$0009                         ;07ABCE|C90900  |      ;
                        BEQ CODE_07ABD8                      ;07ABD1|F005    |07ABD8;
@@ -6105,7 +6105,7 @@ Check_Active_Spirit_1b:
           CODE_07ABD8:
                        LDA.W #$0002                         ;07ABD8|A90200  |      ;
                        RTL                                  ;07ABDB|6B      |      ;
-    Slot4_WeirdOffset:
+Get_Slot4_WeirdOffset:
                        LDA.W Party_slot4                    ;07ABDC|AD6115  |001561; Returns 2, or party ID - 7
                        CMP.W #$0009                         ;07ABDF|C90900  |      ;
                        BEQ CODE_07ABE9                      ;07ABE2|F005    |07ABE9;

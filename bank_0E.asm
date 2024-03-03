@@ -2,7 +2,7 @@
                        db $FF                               ;0E8000|        |      ;
       RAM_Decomp_8009:
                        LDA.W #$8009                         ;0E8001|A90980  |      ;
-                       JSL.L RAM_Decomp                     ;0E8004|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;0E8004|22FE8400|0084FE;
                        RTL                                  ;0E8008|6B      |      ;
                        dw $0000                             ;0E8009|        |      ;
                        dw $0005                             ;0E800B|        |      ;
@@ -10,7 +10,7 @@
                        dw $FF20                             ;0E8010|        |      ;
       RAM_Decomp_801A:
                        LDA.W #$801A                         ;0E8012|A91A80  |      ;
-                       JSL.L RAM_Decomp                     ;0E8015|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;0E8015|22FE8400|0084FE;
                        RTL                                  ;0E8019|6B      |      ;
                        dw $0000                             ;0E801A|        |      ;
                        dw $0005                             ;0E801C|        |      ;
@@ -18,7 +18,7 @@
                        dw $FF22                             ;0E8021|        |      ;
       RAM_Decomp_802B:
                        LDA.W #$802B                         ;0E8023|A92B80  |      ;
-                       JSL.L RAM_Decomp                     ;0E8026|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;0E8026|22FE8400|0084FE;
                        RTL                                  ;0E802A|6B      |      ;
                        dw $0000                             ;0E802B|        |      ;
                        dw $0005                             ;0E802D|        |      ;
@@ -26,7 +26,7 @@
                        dw $FF25                             ;0E8032|        |      ;
       RAM_Decomp_803C:
                        LDA.W #$803C                         ;0E8034|A93C80  |      ;
-                       JSL.L RAM_Decomp                     ;0E8037|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;0E8037|22FE8400|0084FE;
                        RTL                                  ;0E803B|6B      |      ;
                        dw $0000                             ;0E803C|        |      ;
                        dw $0005                             ;0E803E|        |      ;
@@ -3980,7 +3980,7 @@
                        db $FF                               ;0E8FC9|        |      ;
                        db $00                               ;0E8FCA|        |      ;
                        db $FF                               ;0E8FCB|        |      ;
-   Sprite_Dead_Spirit:
+     Sprite_Torn_Card:
                        db $22                               ;0E8FCC|        |      ;
                        db $FF                               ;0E8FCD|        |      ;
                        db $07                               ;0E8FCE|        |      ;

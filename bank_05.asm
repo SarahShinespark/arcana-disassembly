@@ -661,83 +661,83 @@ Bank_05_Stat_Handling:
                        db $00                               ;05844E|        |      ;
                        db $11                               ;05844F|        |      ; Branch on character ID
                        db $09                               ;058450|        |      ;
-                       dw DATA8_058463                      ;058451|        |058463;
-                       dw DATA8_05849F                      ;058453|        |05849F;
-                       dw DATA8_0584AA                      ;058455|        |0584AA;
-                       dw DATA8_0584B5                      ;058457|        |0584B5;
-                       dw DATA8_0584C0                      ;058459|        |0584C0;
-                       dw DATA8_0584CB                      ;05845B|        |0584CB;
-                       dw DATA8_058507                      ;05845D|        |058507;
-                       dw DATA8_058543                      ;05845F|        |058543;
-                       dw DATA8_05857F                      ;058461|        |05857F;
-         DATA8_058463:
+                       dw Case_Condition_058463             ;058451|        |058463;
+                       dw Xfer_0584A0                       ;058453|        |05849F;
+                       dw Xfer_0584AA                       ;058455|        |0584AA;
+                       dw Xfer_0584B5                       ;058457|        |0584B5;
+                       dw Xfer_0584C0                       ;058459|        |0584C0;
+                       dw Case_Condition_0584CB             ;05845B|        |0584CB;
+                       dw Case_Condition_058507             ;05845D|        |058507;
+                       dw Case_Condition_058543             ;05845F|        |058543;
+                       dw Case_Condition_05857F             ;058461|        |05857F;
+Case_Condition_058463:
                        db $24                               ;058463|        |      ;
                        db $02                               ;058464|        |      ;
                        db $07                               ;058465|        |      ;
                        dl Check_Condition2                  ;058466|        |07AB88;
                        db $11                               ;058469|        |      ;
                        db $04                               ;05846A|        |      ;
-                       dw DATA8_058473                      ;05846B|        |058473;
-                       dw DATA8_05847E                      ;05846D|        |05847E;
-                       dw DATA8_058489                      ;05846F|        |058489;
-                       dw DATA8_058494                      ;058471|        |058494;
-         DATA8_058473:
+                       dw Xfer_058473                       ;05846B|        |058473;
+                       dw Xfer_05847E                       ;05846D|        |05847E;
+                       dw Xfer_058489                       ;05846F|        |058489;
+                       dw Xfer_058494                       ;058471|        |058494;
+          Xfer_058473:
                        db $07                               ;058473|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;058474|        |00A140;
                        dl _058477_data                      ;058477|        |0D9322;
                        db $45                               ;05847A|        |      ;
                        dw $0016                             ;05847B|        |      ;
                        db $05                               ;05847D|        |      ; RTL
-         DATA8_05847E:
+          Xfer_05847E:
                        db $07                               ;05847E|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;05847F|        |00A140;
                        dl UNREACH_0D9456                    ;058482|        |0D9456;
                        db $45                               ;058485|        |      ;
                        dw $0016                             ;058486|        |      ;
                        db $05                               ;058488|        |      ; RTL
-         DATA8_058489:
+          Xfer_058489:
                        db $07                               ;058489|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;05848A|        |00A140;
                        dl UNREACH_0D93E8                    ;05848D|        |0D93E8;
                        db $45                               ;058490|        |      ;
                        dw $0016                             ;058491|        |      ;
                        db $05                               ;058493|        |      ; RTL
-         DATA8_058494:
+          Xfer_058494:
                        db $07                               ;058494|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;058495|        |00A140;
                        dl UNREACH_0D94DA                    ;058498|        |0D94DA;
                        db $45                               ;05849B|        |      ;
                        dw $0016                             ;05849C|        |      ;
                        db $05                               ;05849E|        |      ; RTL
-         DATA8_05849F:
+          Xfer_0584A0:
                        db $07                               ;05849F|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;0584A0|        |00A140;
                        dl DATA8_0D9338                      ;0584A3|        |0D9338;
                        db $75                               ;0584A6|        |      ;
                        dw $0016                             ;0584A7|        |      ;
                        db $05                               ;0584A9|        |      ; RTL
-         DATA8_0584AA:
+          Xfer_0584AA:
                        db $07                               ;0584AA|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;0584AB|        |00A140;
                        dl DATA8_0D934E                      ;0584AE|        |0D934E;
                        db $75                               ;0584B1|        |      ;
                        dw $0016                             ;0584B2|        |      ;
                        db $05                               ;0584B4|        |      ; RTL
-         DATA8_0584B5:
+          Xfer_0584B5:
                        db $07                               ;0584B5|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;0584B6|        |00A140;
                        dl DATA8_0D9364                      ;0584B9|        |0D9364;
                        db $75                               ;0584BC|        |      ;
                        dw $0016                             ;0584BD|        |      ;
                        db $05                               ;0584BF|        |      ; RTL
-         DATA8_0584C0:
+          Xfer_0584C0:
                        db $07                               ;0584C0|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;0584C1|        |00A140;
                        dl _058BE6_data                      ;0584C4|        |0D937A;
                        db $75                               ;0584C7|        |      ;
                        dw $0016                             ;0584C8|        |      ;
                        db $05                               ;0584CA|        |      ; RTL
-         DATA8_0584CB:
+Case_Condition_0584CB:
                        db $24                               ;0584CB|        |      ;
                        db $02                               ;0584CC|        |      ;
                        db $07                               ;0584CD|        |      ;
@@ -776,7 +776,7 @@ Bank_05_Stat_Handling:
                        db $55                               ;058503|        |      ;
                        dw $0016                             ;058504|        |      ;
                        db $05                               ;058506|        |      ;
-         DATA8_058507:
+Case_Condition_058507:
                        db $24                               ;058507|        |      ;
                        db $02                               ;058508|        |      ;
                        db $07                               ;058509|        |      ;
@@ -815,7 +815,7 @@ Bank_05_Stat_Handling:
                        db $55                               ;05853F|        |      ;
                        dw $0016                             ;058540|        |      ;
                        db $05                               ;058542|        |      ;
-         DATA8_058543:
+Case_Condition_058543:
                        db $24                               ;058543|        |      ;
                        db $02                               ;058544|        |      ;
                        db $07                               ;058545|        |      ;
@@ -850,39 +850,39 @@ Bank_05_Stat_Handling:
                        db $65                               ;05857B|        |      ;
                        dw $0016                             ;05857C|        |      ;
                        db $05                               ;05857E|        |      ;
-         DATA8_05857F:
+Case_Condition_05857F:
                        db $24                               ;05857F|        |      ;
                        db $02                               ;058580|        |      ;
                        db $07                               ;058581|        |      ;
                        dl Check_Condition2                  ;058582|        |07AB88;
                        db $11                               ;058585|        |      ;
                        db $04                               ;058586|        |      ;
-                       dw DATA8_05858F                      ;058587|        |05858F;
-                       dw DATA8_05859A                      ;058589|        |05859A;
-                       dw DATA8_0585A5                      ;05858B|        |0585A5;
-                       dw DATA8_0585B0                      ;05858D|        |0585B0;
-         DATA8_05858F:
+                       dw Xfer_05858F                       ;058587|        |05858F;
+                       dw Xfer_05859A                       ;058589|        |05859A;
+                       dw Xfer_0585A5                       ;05858B|        |0585A5;
+                       dw Xfer_0585B0                       ;05858D|        |0585B0;
+          Xfer_05858F:
                        db $07                               ;05858F|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;058590|        |00A140;
                        dl DATA8_0D93D2                      ;058593|        |0D93D2;
                        db $65                               ;058596|        |      ;
                        dw $0016                             ;058597|        |      ;
                        db $05                               ;058599|        |      ;
-         DATA8_05859A:
+          Xfer_05859A:
                        db $07                               ;05859A|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;05859B|        |00A140;
                        dl DATA8_0D94C4                      ;05859E|        |0D94C4;
                        db $65                               ;0585A1|        |      ;
                        dw $0016                             ;0585A2|        |      ;
                        db $05                               ;0585A4|        |      ;
-         DATA8_0585A5:
+          Xfer_0585A5:
                        db $07                               ;0585A5|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;0585A6|        |00A140;
                        dl DATA8_0D9440                      ;0585A9|        |0D9440;
                        db $65                               ;0585AC|        |      ;
                        dw $0016                             ;0585AD|        |      ;
                        db $05                               ;0585AF|        |      ;
-         DATA8_0585B0:
+          Xfer_0585B0:
                        db $07                               ;0585B0|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;0585B1|        |00A140;
                        dl DATA8_0D9532                      ;0585B4|        |0D9532;
@@ -1128,7 +1128,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;058726|        |      ;
                        db $07                               ;058728|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058729|        |00A035;
-                       dl Sprite_Dead_Spirit                ;05872C|        |0E8FCC;
+                       dl Sprite_Torn_Card                  ;05872C|        |0E8FCC;
                        dl $7E8500                           ;05872F|        |7E8500;
                        db $07                               ;058732|        |      ;
                        dl RAM_Decomp_801A                   ;058733|        |0E8012;
@@ -1434,7 +1434,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;058937|        |      ;
                        db $07                               ;058939|        |      ;
                        dl Decomp_Setup2_3b_3b               ;05893A|        |00A035;
-                       dl Sprite_Dead_Spirit                ;05893D|        |0E8FCC;
+                       dl Sprite_Torn_Card                  ;05893D|        |0E8FCC;
                        dl $7E8500                           ;058940|        |7E8500;
                        db $07                               ;058943|        |      ;
                        dl RAM_Decomp_801A                   ;058944|        |0E8012;
@@ -1668,7 +1668,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;058AD4|        |      ;
                        db $07                               ;058AD6|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058AD7|        |00A035;
-                       dl Sprite_Dead_Spirit                ;058ADA|        |0E8FCC;
+                       dl Sprite_Torn_Card                  ;058ADA|        |0E8FCC;
                        dl $7E8500                           ;058ADD|        |7E8500;
                        db $07                               ;058AE0|        |      ;
                        dl RAM_Decomp_801A                   ;058AE1|        |0E8012;
@@ -1920,7 +1920,7 @@ Bank_05_Stat_Handling:
                        db $00                               ;058C72|        |      ;
                        db $07                               ;058C73|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058C74|        |00A035;
-                       dl Sprite_Dead_Spirit                ;058C77|        |0E8FCC;
+                       dl Sprite_Torn_Card                  ;058C77|        |0E8FCC;
                        dl $7E8500                           ;058C7A|        |7E8500;
                        db $07                               ;058C7D|        |      ;
                        dl RAM_Decomp_801A                   ;058C7E|        |0E8012;

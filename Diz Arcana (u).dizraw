@@ -4174,19 +4174,19 @@
         <sys:Item Key="431128" Value="Weapon shop?" />
         <sys:Item Key="431654" Value="Spirit Healer" />
         <sys:Item Key="432064" Value="Alchemist" />
-        <sys:Item Key="249475" Value="RTL" />
-        <sys:Item Key="249509" Value="RTL" />
-        <sys:Item Key="249532" Value="RTL" />
-        <sys:Item Key="249555" Value="RTL" />
-        <sys:Item Key="249578" Value="RTL" />
-        <sys:Item Key="249589" Value="RTL" />
-        <sys:Item Key="249607" Value="RTL" />
-        <sys:Item Key="249618" Value="RTL" />
-        <sys:Item Key="249640" Value="RTL" />
-        <sys:Item Key="249651" Value="RTL" />
-        <sys:Item Key="249662" Value="RTL" />
-        <sys:Item Key="249673" Value="RTL" />
-        <sys:Item Key="249688" Value="RTL" />
+        <sys:Item Key="249475" Value="RTS" />
+        <sys:Item Key="249509" Value="RTS" />
+        <sys:Item Key="249532" Value="RTS" />
+        <sys:Item Key="249555" Value="RTS" />
+        <sys:Item Key="249578" Value="RTS" />
+        <sys:Item Key="249589" Value="RTS" />
+        <sys:Item Key="249607" Value="RTS" />
+        <sys:Item Key="249618" Value="RTS" />
+        <sys:Item Key="249640" Value="RTS" />
+        <sys:Item Key="249651" Value="RTS" />
+        <sys:Item Key="249662" Value="RTS" />
+        <sys:Item Key="249673" Value="RTS" />
+        <sys:Item Key="249688" Value="RTS" />
         <sys:Item Key="389492" Value="RTL" />
         <sys:Item Key="389514" Value="RTS" />
         <sys:Item Key="1608345" Value="Entries are 0C bytes each" />
@@ -5258,6 +5258,29 @@
         <sys:Item Key="102265" Value="If false, skip ahead past the pause" />
         <sys:Item Key="102268" Value="Final boss: pause 1 second per turn for dramatic tension or something" />
         <sys:Item Key="975315" Value="Darwin battle sprite" />
+        <sys:Item Key="249630" Value="Loads skull into Guest1 slot" />
+        <sys:Item Key="249663" Value="Loads skull into Guest2 slot" />
+        <sys:Item Key="100791" Value="RTL" />
+        <sys:Item Key="249290" Value="Gets decompression data in a complicated way" />
+        <sys:Item Key="249308" Value="Jump based on active spirit" />
+        <sys:Item Key="249328" Value="Jump based on active Guest1 (Salah, Teefa, None)" />
+        <sys:Item Key="249344" Value="Jump based on active Guest2 (Darwin, Axs, None)" />
+        <sys:Item Key="249479" Value="Check if Sylph is Dead; if so, load Torn Card sprite" />
+        <sys:Item Key="249513" Value="Check if Marid is dead" />
+        <sys:Item Key="249536" Value="Check if Dao is dead" />
+        <sys:Item Key="249559" Value="Check if Efrite is dead" />
+        <sys:Item Key="249629" Value="RTS" />
+        <sys:Item Key="249693" Value="RTS" />
+        <sys:Item Key="249498" Value="RTS" />
+        <sys:Item Key="249698" Value="RTS" />
+        <sys:Item Key="249703" Value="RTS" />
+        <sys:Item Key="249708" Value="RTS" />
+        <sys:Item Key="249729" Value="RTS" />
+        <sys:Item Key="249744" Value="RTS" />
+        <sys:Item Key="249759" Value="RTS" />
+        <sys:Item Key="249770" Value="RTS" />
+        <sys:Item Key="249785" Value="RTS" />
+        <sys:Item Key="100900" Value="RTL" />
       </Comments>
       <Labels>
         <sys:Item Key="65508">
@@ -8777,7 +8800,7 @@
           <Value exs:type="ns1:Label" Name="Init_all_the_things_2" Comment="" />
         </sys:Item>
         <sys:Item Key="100870">
-          <Value exs:type="ns1:Label" Name="Xfer_lots_of_data" Comment="" />
+          <Value exs:type="ns1:Label" Name="Xfer_1577_stuff" Comment="" />
         </sys:Item>
         <sys:Item Key="33103">
           <Value exs:type="ns1:Label" Name="_008153_far" Comment="" />
@@ -9230,7 +9253,7 @@
           <Value exs:type="ns1:Label" Name="Sale_SFX_update_GP" Comment="" />
         </sys:Item>
         <sys:Item Key="40185">
-          <Value exs:type="ns1:Label" Name="Decomp_setup_3b" Comment="" />
+          <Value exs:type="ns1:Label" Name="Decomp80_setup_3b" Comment="" />
         </sys:Item>
         <sys:Item Key="245028">
           <Value exs:type="ns1:Label" Name="Some_decomp_sub" Comment="" />
@@ -9269,7 +9292,7 @@
           <Value exs:type="ns1:Label" Name="Innput_Check" Comment="" />
         </sys:Item>
         <sys:Item Key="34081">
-          <Value exs:type="ns1:Label" Name="Decomp_setup" Comment="" />
+          <Value exs:type="ns1:Label" Name="Decomp80_Setup" Comment="" />
         </sys:Item>
         <sys:Item Key="244808">
           <Value exs:type="ns1:Label" Name="Elixir_After_healing" Comment="" />
@@ -9656,7 +9679,7 @@
           <Value exs:type="ns1:Label" Name="Compressed" Comment="" />
         </sys:Item>
         <sys:Item Key="884737">
-          <Value exs:type="ns1:Label" Name="Bank_0D_Compressed_data" Comment="" />
+          <Value exs:type="ns1:Label" Name="RLE_Loc_0D833F" Comment="" />
         </sys:Item>
         <sys:Item Key="1081345">
           <Value exs:type="ns1:Label" Name="Bank_10_Compressed_Gfx" Comment="" />
@@ -11930,13 +11953,13 @@
           <Value exs:type="ns1:Label" Name="PetrifyCheck" Comment="" />
         </sys:Item>
         <sys:Item Key="502714">
-          <Value exs:type="ns1:Label" Name="Slot2_WeirdOffset" Comment="" />
+          <Value exs:type="ns1:Label" Name="Get_Slot2_WeirdOffset" Comment="" />
         </sys:Item>
         <sys:Item Key="502731">
-          <Value exs:type="ns1:Label" Name="Slot3_WeirdOffset" Comment="" />
+          <Value exs:type="ns1:Label" Name="Get_Slot3_WeirdOffset" Comment="" />
         </sys:Item>
         <sys:Item Key="502748">
-          <Value exs:type="ns1:Label" Name="Slot4_WeirdOffset" Comment="" />
+          <Value exs:type="ns1:Label" Name="Get_Slot4_WeirdOffset" Comment="" />
         </sys:Item>
         <sys:Item Key="1623249">
           <Value exs:type="ns1:Label" Name="Text_SCRIPT103" Comment="" />
@@ -12973,8 +12996,8 @@
         <sys:Item Key="967314">
           <Value exs:type="ns1:Label" Name="Sprite_Field_BadTeefa" Comment="" />
         </sys:Item>
-        <sys:Item Key="971358">
-          <Value exs:type="ns1:Label" Name="" Comment="" />
+        <sys:Item Key="100698">
+          <Value exs:type="ns1:Label" Name="Sub_Setup_Field_Sprites1" Comment="" />
         </sys:Item>
         <sys:Item Key="505274">
           <Value exs:type="ns1:Label" Name="Get_Enemy_Name" Comment="" />
@@ -13142,7 +13165,7 @@
           <Value exs:type="ns1:Label" Name="AND_table" Comment="" />
         </sys:Item>
         <sys:Item Key="884740">
-          <Value exs:type="ns1:Label" Name="RLE_Loc0D_833F" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="99717">
           <Value exs:type="ns1:Label" Name="Clear_Map_Progress" Comment="" />
@@ -13166,10 +13189,10 @@
           <Value exs:type="ns1:Label" Name="RLE_0D_833F" Comment="" />
         </sys:Item>
         <sys:Item Key="884748">
-          <Value exs:type="ns1:Label" Name="RLE_Loc0D_8042" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="884756">
-          <Value exs:type="ns1:Label" Name="RLE_Loc0D_91F0" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="889328">
           <Value exs:type="ns1:Label" Name="RLE_0D_91F0" Comment="" />
@@ -13370,7 +13393,7 @@
           <Value exs:type="ns1:Label" Name="SpiritHealer_Revive_Shop" Comment="" />
         </sys:Item>
         <sys:Item Key="34046">
-          <Value exs:type="ns1:Label" Name="RAM_Decomp" Comment="Maybe" />
+          <Value exs:type="ns1:Label" Name="RAM_Decomp80" Comment="" />
         </sys:Item>
         <sys:Item Key="40223">
           <Value exs:type="ns1:Label" Name="Setup_8698_3b_2b" Comment="" />
@@ -13997,13 +14020,13 @@
           <Value exs:type="ns1:Label" Name="Load_Gfx_Marid" Comment="" />
         </sys:Item>
         <sys:Item Key="249499">
-          <Value exs:type="ns1:Label" Name="Load_Dead_Spirit" Comment="" />
+          <Value exs:type="ns1:Label" Name="Load_Gfx_Torn_Card" Comment="" />
         </sys:Item>
         <sys:Item Key="249479">
           <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="249510">
-          <Value exs:type="ns1:Label" Name="Check_Marid_Dead" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Marid" Comment="" />
         </sys:Item>
         <sys:Item Key="249568">
           <Value exs:type="ns1:Label" Name="Load_Gfx_Efrite" Comment="" />
@@ -14012,7 +14035,7 @@
           <Value exs:type="ns1:Label" Name="Load_Gfx_Dao" Comment="" />
         </sys:Item>
         <sys:Item Key="249579">
-          <Value exs:type="ns1:Label" Name="Load_Gfx_Rooks" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Skull_Card" Comment="" />
         </sys:Item>
         <sys:Item Key="249597">
           <Value exs:type="ns1:Label" Name="Load_Gfx_RedTeefa" Comment="" />
@@ -14024,7 +14047,7 @@
           <Value exs:type="ns1:Label" Name="Load_Good_Teefa" Comment="" />
         </sys:Item>
         <sys:Item Key="249619">
-          <Value exs:type="ns1:Label" Name="Load_Gfx_Salah" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Salah" Comment="" />
         </sys:Item>
         <sys:Item Key="889386">
           <Value exs:type="ns1:Label" Name="Data_3CF4A" Comment="" />
@@ -15998,34 +16021,136 @@
           <Value exs:type="ns1:Label" Name="Sprite_Dead_PC" Comment="" />
         </sys:Item>
         <sys:Item Key="249461">
-          <Value exs:type="ns1:Label" Name="Load_Gfx_Rooks" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Rooks" Comment="" />
         </sys:Item>
         <sys:Item Key="249476">
-          <Value exs:type="ns1:Label" Name="Check_Sylph_Dead" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Sylph" Comment="" />
         </sys:Item>
         <sys:Item Key="249533">
-          <Value exs:type="ns1:Label" Name="Check_Dao_Dead" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Dao" Comment="" />
         </sys:Item>
         <sys:Item Key="249556">
-          <Value exs:type="ns1:Label" Name="Check_Efrite_Dead" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Efrite" Comment="" />
         </sys:Item>
         <sys:Item Key="249590">
-          <Value exs:type="ns1:Label" Name="Check_Red_Teefa" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Teefa" Comment="" />
         </sys:Item>
         <sys:Item Key="249630">
-          <Value exs:type="ns1:Label" Name="Load_Gfx_Skull_Card1" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Skull_Card1" Comment="" />
         </sys:Item>
         <sys:Item Key="249641">
-          <Value exs:type="ns1:Label" Name="Load_Gfx_Darwin" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Darwin" Comment="" />
         </sys:Item>
         <sys:Item Key="249652">
-          <Value exs:type="ns1:Label" Name="Load_Gfx_Axs" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Axs" Comment="" />
         </sys:Item>
         <sys:Item Key="249663">
-          <Value exs:type="ns1:Label" Name="Load_Gfx_Skull_Card2" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Gfx_Skull_Card2" Comment="" />
         </sys:Item>
         <sys:Item Key="249674">
-          <Value exs:type="ns1:Label" Name="Load_Data_03CF4A" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sub_Load_Data_03CF4A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="100740">
+          <Value exs:type="ns1:Label" Name="Sub_Setup_Field_Sprites2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361631">
+          <Value exs:type="ns1:Label" Name="Xfer_0584A0" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361587">
+          <Value exs:type="ns1:Label" Name="Xfer_058473" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361598">
+          <Value exs:type="ns1:Label" Name="Xfer_05847E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361609">
+          <Value exs:type="ns1:Label" Name="Xfer_058489" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361620">
+          <Value exs:type="ns1:Label" Name="Xfer_058494" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361642">
+          <Value exs:type="ns1:Label" Name="Xfer_0584AA" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361653">
+          <Value exs:type="ns1:Label" Name="Xfer_058B5" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361664">
+          <Value exs:type="ns1:Label" Name="Xfer_0584C0" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361904">
+          <Value exs:type="ns1:Label" Name="Xfer_0585B0" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361893">
+          <Value exs:type="ns1:Label" Name="Xfer_0585A5" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361882">
+          <Value exs:type="ns1:Label" Name="Xfer_05859A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361871">
+          <Value exs:type="ns1:Label" Name="Xfer_05858F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249709">
+          <Value exs:type="ns1:Label" Name="Xfer_03CF6D" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249719">
+          <Value exs:type="ns1:Label" Name="Xfer_03CF77" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249730">
+          <Value exs:type="ns1:Label" Name="Xfer_03CF82" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249745">
+          <Value exs:type="ns1:Label" Name="Xfer_03CF91" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249760">
+          <Value exs:type="ns1:Label" Name="Xfer_03CFA0" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249771">
+          <Value exs:type="ns1:Label" Name="Xfer_03CFAB" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249786">
+          <Value exs:type="ns1:Label" Name="Xfer_03CFBA" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249801">
+          <Value exs:type="ns1:Label" Name="Xfer_03CFC9" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361571">
+          <Value exs:type="ns1:Label" Name="Switch_Condition_058463" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361675">
+          <Value exs:type="ns1:Label" Name="Switch_Condition_0584CB" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361735">
+          <Value exs:type="ns1:Label" Name="Switch_Condition_058507" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361795">
+          <Value exs:type="ns1:Label" Name="Switch_Condition_058543" Comment="" />
+        </sys:Item>
+        <sys:Item Key="361855">
+          <Value exs:type="ns1:Label" Name="Switch_Condition_05857F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249397">
+          <Value exs:type="ns1:Label" Name="Switch_Slot3_GetData" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249377">
+          <Value exs:type="ns1:Label" Name="Switch_Slot2_GetData" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249413">
+          <Value exs:type="ns1:Label" Name="Switch_Slot4_GetData" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249340">
+          <Value exs:type="ns1:Label" Name="Switch_Slot4_Member" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249324">
+          <Value exs:type="ns1:Label" Name="Switch_Slot3_Member" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249304">
+          <Value exs:type="ns1:Label" Name="Switch_Slot2_Member" Comment="" />
+        </sys:Item>
+        <sys:Item Key="884745">
+          <Value exs:type="ns1:Label" Name="RLE_Loc_0D8042" Comment="" />
+        </sys:Item>
+        <sys:Item Key="884753">
+          <Value exs:type="ns1:Label" Name="RLE_Loc_0D91F0" Comment="" />
         </sys:Item>
       </Labels>
       <RomBytes>
@@ -35615,10 +35740,10 @@ F
 F
 F
 A
-U
-U
-U
-U
+A
+A
+A
+A
 A
 F
 F

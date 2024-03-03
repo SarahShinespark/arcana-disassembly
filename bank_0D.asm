@@ -1,24 +1,23 @@
                        ORG $0D8000
                        db $FF                               ;0D8000|        |      ;
-Bank_0D_Compressed_data:
+       RLE_Loc_0D833F:
                        db $80                               ;0D8001|        |      ; Comp. data, load main game(?)
                        db $00                               ;0D8002|        |      ;
                        db $20                               ;0D8003|        |      ;
-       RLE_Loc0D_833F:
                        dl RLE_0D_833F                       ;0D8004|        |0D833F;
                        db $00                               ;0D8007|        |      ;
                        db $10                               ;0D8008|        |      ;
+       RLE_Loc_0D8042:
                        db $80                               ;0D8009|        |      ;
                        db $00                               ;0D800A|        |      ;
                        db $08                               ;0D800B|        |      ;
-       RLE_Loc0D_8042:
                        dl RLE_0D_8042                       ;0D800C|        |0D8042;
                        db $00                               ;0D800F|        |      ;
                        db $00                               ;0D8010|        |      ;
+       RLE_Loc_0D91F0:
                        db $15                               ;0D8011|        |      ;
                        db $12                               ;0D8012|        |      ;
                        db $00                               ;0D8013|        |      ;
-       RLE_Loc0D_91F0:
                        dl RLE_0D_91F0                       ;0D8014|        |0D91F0;
                        db $70                               ;0D8017|        |      ;
                        db $00                               ;0D8018|        |      ;

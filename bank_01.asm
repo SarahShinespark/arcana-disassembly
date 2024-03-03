@@ -15,7 +15,7 @@
                        JSL.L CODE_008E29                    ;01801C|22298E00|008E29;
                        JSL.L _00A764_far                    ;018020|2260A700|00A760;
                        LDA.W #$804A                         ;018024|A94A80  |      ;
-                       JSL.L RAM_Decomp                     ;018027|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;018027|22FE8400|0084FE;
                        LDA.W #$2000                         ;01802B|A90020  |      ;
                        STA.W $0006                          ;01802E|8D0600  |000006;
                        LDA.W #$8000                         ;018031|A90080  |      ;
@@ -386,7 +386,7 @@ Zero_Attribute_bits_far:
                        RTS                                  ;018320|60      |      ;
          Script_18321:
                        db $07                               ;018321|        |      ;
-                       dl Decomp_setup_3b                   ;018322|        |009CF9;
+                       dl Decomp80_setup_3b                 ;018322|        |009CF9;
                        dl Compressed_data_7                 ;018325|        |018A4F;
                        db $16                               ;018328|        |      ;
                        dw $104F                             ;018329|        |00104F;
@@ -468,7 +468,7 @@ Init_all_the_things_2:
                        db $07                               ;0183B2|        |      ;
                        dl Zero_stat_modifiers_far           ;0183B3|        |0182B6;
                        db $04                               ;0183B6|        |      ; Sub: Transfer some data
-                       dl Xfer_lots_of_data                 ;0183B7|        |018A06;
+                       dl Xfer_1577_stuff                   ;0183B7|        |018A06;
                        db $1A                               ;0183BA|        |      ;
                        dw LOOSE_OP_008561                   ;0183BB|        |008561;
                        db $16                               ;0183BD|        |      ;
@@ -506,24 +506,24 @@ Init_all_the_things_2:
                        db $07                               ;0183F2|        |      ;
                        dl Zero_enemy_equips_far             ;0183F3|        |0182EE;
                        db $04                               ;0183F6|        |      ;
-                       dl Xfer_lots_of_data                 ;0183F7|        |018A06;
+                       dl Xfer_1577_stuff                   ;0183F7|        |018A06;
                        db $07                               ;0183FA|        |      ;
                        dl Zero_stat_modifiers_far           ;0183FB|        |0182B6;
                        db $04                               ;0183FE|        |      ;
-                       dl DATA8_01895A                      ;0183FF|        |01895A;
+                       dl Sub_Setup_Field_Sprites1          ;0183FF|        |01895A;
                        db $04                               ;018402|        |      ;
-                       dl DATA8_018984                      ;018403|        |018984;
+                       dl Sub_Setup_Field_Sprites2          ;018403|        |018984;
                        db $07                               ;018406|        |      ;
-                       dl Decomp_setup_3b                   ;018407|        |009CF9;
-                       dl Bank_0D_Compressed_data           ;01840A|        |0D8001;
+                       dl Decomp80_setup_3b                 ;018407|        |009CF9;
+                       dl RLE_Loc_0D833F                    ;01840A|        |0D8001;
                        db $04                               ;01840D|        |      ;
-                       dl Xfer_lots_of_data                 ;01840E|        |018A06;
+                       dl Xfer_1577_stuff                   ;01840E|        |018A06;
                        db $04                               ;018411|        |      ;
                        dl Sub_Do_stuff                      ;018412|        |0189B8;
                        db $1B                               ;018415|        |      ;
                        dw LOOSE_OP_008489                   ;018416|        |008489;
                        db $07                               ;018418|        |      ;
-                       dl Slot2_WeirdOffset                 ;018419|        |07ABBA;
+                       dl Get_Slot2_WeirdOffset             ;018419|        |07ABBA;
                        db $12                               ;01841C|        |      ;
                        db $05                               ;01841D|        |      ;
                        dw LOOSE_OP_00849B                   ;01841E|        |00849B;
@@ -532,14 +532,14 @@ Init_all_the_things_2:
                        dw DATA8_0084D1                      ;018424|        |0084D1;
                        dw DATA8_0084E3                      ;018426|        |0084E3;
                        db $07                               ;018428|        |      ;
-                       dl Slot3_WeirdOffset                 ;018429|        |07ABCB;
+                       dl Get_Slot3_WeirdOffset             ;018429|        |07ABCB;
                        db $12                               ;01842C|        |      ;
                        db $03                               ;01842D|        |      ;
                        dw DATA8_0084F5                      ;01842E|        |0084F5;
                        dw CODE_008507                       ;018430|        |008507;
                        dw LOOSE_OP_008519                   ;018432|        |008519;
                        db $07                               ;018434|        |      ;
-                       dl Slot4_WeirdOffset                 ;018435|        |07ABDC;
+                       dl Get_Slot4_WeirdOffset             ;018435|        |07ABDC;
                        db $12                               ;018438|        |      ;
                        db $03                               ;018439|        |      ;
                        dw CODE_00852B                       ;01843A|        |00852B;
@@ -728,17 +728,17 @@ Init_all_the_things_2:
                        dw $18CD                             ;01856A|        |0018CD;
                        dw $0001                             ;01856C|        |      ;
                        db $04                               ;01856E|        |      ;
-                       dl DATA8_01895A                      ;01856F|        |01895A;
+                       dl Sub_Setup_Field_Sprites1          ;01856F|        |01895A;
                        db $04                               ;018572|        |      ;
-                       dl DATA8_018984                      ;018573|        |018984;
+                       dl Sub_Setup_Field_Sprites2          ;018573|        |018984;
                        db $04                               ;018576|        |      ;
                        dl DATA8_178F70                      ;018577|        |178F70;
         Decomp_0D8001:
                        db $07                               ;01857A|        |      ;
-                       dl Decomp_setup_3b                   ;01857B|        |009CF9;
-                       dl Bank_0D_Compressed_data           ;01857E|        |0D8001;
+                       dl Decomp80_setup_3b                 ;01857B|        |009CF9;
+                       dl RLE_Loc_0D833F                    ;01857E|        |0D8001;
                        db $04                               ;018581|        |      ;
-                       dl Xfer_lots_of_data                 ;018582|        |018A06;
+                       dl Xfer_1577_stuff                   ;018582|        |018A06;
    Clear_Map_Progress:
                        db $07                               ;018585|        |      ;
                        dl Clear_map_progress                ;018586|        |03A489;
@@ -843,9 +843,9 @@ Init_all_the_things_2:
                        db $10                               ;01862E|        |018634;
         Chapter_1_end:
                        db $04                               ;01862F|        |      ; Very long section
-                       dl DATA8_01895A                      ;018630|        |01895A;
+                       dl Sub_Setup_Field_Sprites1          ;018630|        |01895A;
                        db $04                               ;018633|        |      ;
-                       dl DATA8_018984                      ;018634|        |018984;
+                       dl Sub_Setup_Field_Sprites2          ;018634|        |018984;
                        db $04                               ;018637|        |      ;
                        dl Sub_Disable_HDMA                  ;018638|        |0189F1;
                        db $07                               ;01863B|        |      ;
@@ -867,16 +867,16 @@ Init_all_the_things_2:
                        dw $18CD                             ;018651|        |0018CD;
                        dw $0002                             ;018653|        |      ;
                        db $04                               ;018655|        |      ;
-                       dl DATA8_01895A                      ;018656|        |01895A;
+                       dl Sub_Setup_Field_Sprites1          ;018656|        |01895A;
                        db $04                               ;018659|        |      ;
-                       dl DATA8_018984                      ;01865A|        |018984;
+                       dl Sub_Setup_Field_Sprites2          ;01865A|        |018984;
                        db $04                               ;01865D|        |      ;
                        dl DATA8_178F70                      ;01865E|        |178F70;
                        db $07                               ;018661|        |      ;
-                       dl Decomp_setup_3b                   ;018662|        |009CF9;
-                       dl Bank_0D_Compressed_data           ;018665|        |0D8001;
+                       dl Decomp80_setup_3b                 ;018662|        |009CF9;
+                       dl RLE_Loc_0D833F                    ;018665|        |0D8001;
                        db $04                               ;018668|        |      ;
-                       dl Xfer_lots_of_data                 ;018669|        |018A06;
+                       dl Xfer_1577_stuff                   ;018669|        |018A06;
                        db $07                               ;01866C|        |      ;
                        dl Clear_map_progress                ;01866D|        |03A489;
                        db $04                               ;018670|        |      ;
@@ -953,9 +953,9 @@ Init_all_the_things_2:
                        dw Loop_Chapter_3                    ;0186D6|        |0186C8;
                        db $10                               ;0186D8|        |0186DE;
                        db $04                               ;0186D9|        |      ;
-                       dl DATA8_01895A                      ;0186DA|        |01895A;
+                       dl Sub_Setup_Field_Sprites1          ;0186DA|        |01895A;
                        db $04                               ;0186DD|        |      ;
-                       dl DATA8_018984                      ;0186DE|        |018984;
+                       dl Sub_Setup_Field_Sprites2          ;0186DE|        |018984;
                        db $04                               ;0186E1|        |      ;
                        dl Sub_Disable_HDMA                  ;0186E2|        |0189F1;
                        db $07                               ;0186E5|        |      ;
@@ -981,13 +981,13 @@ Init_all_the_things_2:
                        db $03                               ;0186FD|        |      ;
                        db $00                               ;0186FE|        |      ;
                        db $04                               ;0186FF|        |      ;
-                       dl DATA8_01895A                      ;018700|        |01895A;
+                       dl Sub_Setup_Field_Sprites1          ;018700|        |01895A;
                        db $04                               ;018703|        |      ;
-                       dl DATA8_018984                      ;018704|        |018984;
+                       dl Sub_Setup_Field_Sprites2          ;018704|        |018984;
                        db $04                               ;018707|        |      ;
                        dl DATA8_178F70                      ;018708|        |178F70;
                        db $07                               ;01870B|        |      ;
-                       dl Decomp_setup_3b                   ;01870C|        |009CF9;
+                       dl Decomp80_setup_3b                 ;01870C|        |009CF9;
                        db $01                               ;01870F|        |000080;
                        db $80                               ;018710|        |01871F;
                        db $0D                               ;018711|        |000604;
@@ -1535,7 +1535,7 @@ Init_all_the_things_2:
                        db $06                               ;018957|        |      ;
                        db $01                               ;018958|        |      ;
                        db $00                               ;018959|        |      ; Exit game over
-         DATA8_01895A:
+Sub_Setup_Field_Sprites1:
                        db $07                               ;01895A|        |      ;
                        dl MainScr_AND_1b                    ;01895B|        |009DB6;
                        db $1F                               ;01895E|        |      ;
@@ -1561,7 +1561,7 @@ Init_all_the_things_2:
                        db $07                               ;01897F|        |      ;
                        dl Set_Display_far                   ;018980|        |00818B;
                        db $05                               ;018983|        |      ; RTL
-         DATA8_018984:
+Sub_Setup_Field_Sprites2:
                        db $07                               ;018984|        |      ;
                        dl CODE_009D69                       ;018985|        |009D69;
                        db $01                               ;018988|        |      ;
@@ -1594,7 +1594,7 @@ Init_all_the_things_2:
                        db $00                               ;0189B4|        |      ;
                        db $00                               ;0189B5|        |      ;
                        db $00                               ;0189B6|        |      ;
-                       db $05                               ;0189B7|        |000007;
+                       db $05                               ;0189B7|        |      ; RTL
          Sub_Do_stuff:
                        db $07                               ;0189B8|        |      ;
                        dl GetPtr_3b_Do_stuff_1b             ;0189B9|        |00A097;
@@ -1646,7 +1646,7 @@ Init_all_the_things_2:
                        dw $0048                             ;018A01|        |000048;
                        dw $0000                             ;018A03|        |      ;
                        db $05                               ;018A05|        |      ; RTL
-    Xfer_lots_of_data:
+      Xfer_1577_stuff:
                        db $07                               ;018A06|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;018A07|        |00A140;
                        dl $001577                           ;018A0A|        |001577;
@@ -1665,7 +1665,7 @@ Init_all_the_things_2:
                        db $73                               ;018A21|        |      ;
                        db $02                               ;018A22|        |      ;
                        db $00                               ;018A23|        |      ;
-                       db $05                               ;018A24|        |      ;
+                       db $05                               ;018A24|        |      ; RTL
         Is_Curr_Event:
                        JSL.L GetEventCode_1b_far            ;018A25|22F89A00|009AF8; Read the next byte at [$10]
                        STA.B $20                            ;018A29|8520    |000020;
@@ -4974,7 +4974,7 @@ Refresh_Window_Color_Menu:
                        db $01                               ;019C52|        |      ;
                        db $02                               ;019C53|        |      ;
                        db $07                               ;019C54|        |      ;
-                       dl Decomp_setup_3b                   ;019C55|        |009CF9;
+                       dl Decomp80_setup_3b                 ;019C55|        |009CF9;
                        dl DATA8_038756                      ;019C58|        |038756;
                        db $07                               ;019C5B|        |      ;
                        dl Map_stuff_and_vblank              ;019C5C|        |03883F;
@@ -11563,7 +11563,7 @@ Input_loop_Equipment_menu:
                        JSL.L Wait_Vblank_far                ;01B7E8|22DE8800|0088DE;
                        JSL.L CODE_008E29                    ;01B7EC|22298E00|008E29;
                        LDA.W #$B7FE                         ;01B7F0|A9FEB7  |      ;
-                       JSL.L RAM_Decomp                     ;01B7F3|22FE8400|0084FE;
+                       JSL.L RAM_Decomp80                   ;01B7F3|22FE8400|0084FE;
                        LDA.W $063B                          ;01B7F7|AD3B06  |00063B;
                        BPL CODE_01B7E8                      ;01B7FA|10EC    |01B7E8;
                        db $80                               ;01B7FC|        |01B7FC; Infinite loop?
@@ -11607,7 +11607,7 @@ Input_loop_Equipment_menu:
                        dw $6000                             ;01B833|        |      ;
                        db $00                               ;01B835|        |      ;
                        db $07                               ;01B836|        |      ;
-                       dl Decomp_setup_3b                   ;01B837|        |009CF9;
+                       dl Decomp80_setup_3b                 ;01B837|        |009CF9;
                        dl More_Decomp_Data                  ;01B83A|        |01BCB3;
                        db $06                               ;01B83D|        |      ;
                        db $0A                               ;01B83E|        |      ;
@@ -11756,7 +11756,7 @@ Part_of_mountain_scene:
                        dw $0080                             ;01B905|        |      ;
 Load_after_mtn_fadeout:
                        db $07                               ;01B907|        |      ;
-                       dl Decomp_setup_3b                   ;01B908|        |009CF9;
+                       dl Decomp80_setup_3b                 ;01B908|        |009CF9;
                        dl DATA8_01BCF4                      ;01B90B|        |01BCF4;
                        db $07                               ;01B90E|        |      ;
                        dl MainScr_AND_1b                    ;01B90F|        |009DB6;

@@ -681,7 +681,7 @@ Gfx_Dungeon_Stuff_far:
                        db $8C                               ;0084FB|        |      ;
                        db $80                               ;0084FC|        |      ;
                        db $80                               ;0084FD|        |      ;
-           RAM_Decomp:
+         RAM_Decomp80:
                        PHD                                  ;0084FE|0B      |      ; Input A: RAM source
                        PHA                                  ;0084FF|48      |      ;
                        TDC                                  ;008500|7B      |      ;
@@ -702,13 +702,13 @@ Gfx_Dungeon_Stuff_far:
           CODE_008514:
                        STA.B $02                            ;008514|8502    |000002;
                        REP #$20                             ;008516|C220    |      ;
-                       JSR.W Decomp_setup                   ;008518|202185  |008521;
+                       JSR.W Decomp80_Setup                 ;008518|202185  |008521;
                        PLD                                  ;00851B|2B      |      ; Return dp to $1E00
                        RTL                                  ;00851C|6B      |      ;
           _008521_far:
-                       JSR.W Decomp_setup                   ;00851D|202185  |008521;
+                       JSR.W Decomp80_Setup                 ;00851D|202185  |008521;
                        RTL                                  ;008520|6B      |      ;
-         Decomp_setup:
+       Decomp80_Setup:
                        LDY.W #$0000                         ;008521|A00000  |      ; $03 $04 [ptr $05-07] $09-0A; usually looks like 80 00 xx [xx/xxxx] xx xx
           CODE_008524:
                        SEP #$20                             ;008524|E220    |      ;
@@ -4220,12 +4220,12 @@ Event_Anim_C8_CF_1b_2b:
                        PLX                                  ;009CF5|FA      |      ;
                        BPL CODE_009CE8                      ;009CF6|10F0    |009CE8;
                        RTL                                  ;009CF8|6B      |      ;
-      Decomp_setup_3b:
+    Decomp80_setup_3b:
                        JSR.W GetEventCode_2b                ;009CF9|20009B  |009B00; Reads long ptr to decomp entry (80 00 xx [decomp_start_ptr] xx xx)
                        STA.B $00                            ;009CFC|8500    |000000;
                        JSR.W GetEventCode_1b                ;009CFE|20F09A  |009AF0;
                        STA.B $02                            ;009D01|8502    |000002;
-                       JSR.W Decomp_setup                   ;009D03|202185  |008521;
+                       JSR.W Decomp80_Setup                 ;009D03|202185  |008521;
                        RTL                                  ;009D06|6B      |      ;
        _8698_setup_3b:
                        JSR.W GetEventCode_2b                ;009D07|20009B  |009B00;
