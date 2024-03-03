@@ -13994,7 +13994,7 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CA7D|        |      ;
                        dl Travel_subasm                     ;03CA7E|        |18D55F;
                        db $04                               ;03CA81|        |      ;
-                       dl Spaghetti_setup                   ;03CA82|        |03CDC2;
+                       dl Setup_Draw_Field_Sprites          ;03CA82|        |03CDC2;
                        db $07                               ;03CA85|        |      ;
                        dl Dungeon_Enter                     ;03CA86|        |03E254;
                        db $07                               ;03CA89|        |      ;
@@ -14758,7 +14758,7 @@ SpiritHealer_A_pressed:
                        db $00                               ;03CDBF|        |      ;
                        db $06                               ;03CDC0|        |      ;
                        db $04                               ;03CDC1|        |      ;
-      Spaghetti_setup:
+Setup_Draw_Field_Sprites:
                        db $04                               ;03CDC2|        |      ;
                        dl DATA8_01895A                      ;03CDC3|        |01895A;
                        db $04                               ;03CDC6|        |      ;
@@ -14769,41 +14769,41 @@ SpiritHealer_A_pressed:
                        db $04                               ;03CDD1|        |      ;
                        dl Xfer_lots_of_data                 ;03CDD2|        |018A06;
                        db $1B                               ;03CDD5|        |      ;
-                       dw DATA8_03CE75                      ;03CDD6|        |03CE75;
+                       dw Load_Gfx_Rooks                    ;03CDD6|        |03CE75;
                        db $07                               ;03CDD8|        |      ;
                        dl Slot2_WeirdOffset                 ;03CDD9|        |07ABBA;
                        db $12                               ;03CDDC|        |      ;
                        db $05                               ;03CDDD|        |      ;
-                       dw LOOSE_OP_00CE84                   ;03CDDE|        |00CE84;
-                       dw LOOSE_OP_00CEA6                   ;03CDE0|        |00CEA6;
-                       dw LOOSE_OP_00CEBD                   ;03CDE2|        |00CEBD;
-                       dw DATA16_00CED4                     ;03CDE4|        |00CED4;
-                       dw DATA8_00CEEB                      ;03CDE6|        |00CEEB;
+                       dw Check_Sylph_Dead                  ;03CDDE|        |03CE84;
+                       dw Check_Marid_Dead                  ;03CDE0|        |03CEA6;
+                       dw Check_Dao_Dead                    ;03CDE2|        |03CEBD;
+                       dw Check_Efrite_Dead                 ;03CDE4|        |03CED4;
+                       dw Load_Gfx_Rooks                    ;03CDE6|        |03CEEB;
                        db $07                               ;03CDE8|        |      ;
                        dl RAM_Decomp_801A                   ;03CDE9|        |0E8012;
                        db $07                               ;03CDEC|        |      ;
                        dl Slot3_WeirdOffset                 ;03CDED|        |07ABCB;
                        db $12                               ;03CDF0|        |      ;
                        db $03                               ;03CDF1|        |      ;
-                       dw DATA8_03CEF6                      ;03CDF2|        |03CEF6;
+                       dw Check_Red_Teefa                   ;03CDF2|        |03CEF6;
                        dw Load_Gfx_Salah                    ;03CDF4|        |03CF13;
-                       dw DATA8_03CF1E                      ;03CDF6|        |03CF1E;
+                       dw Load_Gfx_Skull_Card1              ;03CDF6|        |03CF1E;
                        db $07                               ;03CDF8|        |      ;
                        dl RAM_Decomp_802B                   ;03CDF9|        |0E8023;
                        db $07                               ;03CDFC|        |      ;
                        dl Slot4_WeirdOffset                 ;03CDFD|        |07ABDC;
                        db $12                               ;03CE00|        |      ;
                        db $03                               ;03CE01|        |      ;
-                       dw DATA8_03CF29                      ;03CE02|        |03CF29;
-                       dw DATA8_03CF34                      ;03CE04|        |03CF34;
-                       dw DATA8_03CF3F                      ;03CE06|        |03CF3F;
+                       dw Load_Gfx_Darwin                   ;03CE02|        |03CF29;
+                       dw Load_Gfx_Axs                      ;03CE04|        |03CF34;
+                       dw Load_Gfx_Skull_Card2              ;03CE06|        |03CF3F;
                        db $07                               ;03CE08|        |      ;
                        dl RAM_Decomp_803C                   ;03CE09|        |0E8034;
                        db $0F                               ;03CE0C|        |      ;
                        db $02                               ;03CE0D|        |      ;
                        dw $0000                             ;03CE0E|        |      ;
                        db $1B                               ;03CE10|        |      ;
-                       dw DATA8_03CF4A                      ;03CE11|        |03CF4A;
+                       dw Load_Data_03CF4A                  ;03CE11|        |03CF4A;
                        db $07                               ;03CE13|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CE14|        |00A140;
                        dl RLE_0D_91F0                       ;03CE17|        |0D91F0;
@@ -14860,17 +14860,17 @@ SpiritHealer_A_pressed:
                        dl Color_stuff_2b                    ;03CE6F|        |03E562;
                        dw $003F                             ;03CE72|        |      ;
                        db $05                               ;03CE74|        |      ; RTL
-         DATA8_03CE75:
+       Load_Gfx_Rooks:
                        db $07                               ;03CE75|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CE76|        |00A035;
-                       dl DATA8_0E8191                      ;03CE79|        |0E8191;
+                       dl Sprite_Field_Rooks                ;03CE79|        |0E8191;
                        dl $7E8000                           ;03CE7C|        |7E8000;
                        db $07                               ;03CE7F|        |      ;
                        dl RAM_Decomp_8009                   ;03CE80|        |0E8001;
                        db $1C                               ;03CE83|        |      ; RTL
+     Check_Sylph_Dead:
                        db $1E                               ;03CE84|        |      ;
                        dw $0001                             ;03CE85|        |      ;
-     Check_Sylph_Dead:
                        db $07                               ;03CE87|        |      ;
                        dl Condition_Check_2b                ;03CE88|        |07B0B0;
                        dw $0001                             ;03CE8B|        |      ;
@@ -14879,13 +14879,13 @@ SpiritHealer_A_pressed:
        Load_Gfx_Sylph:
                        db $07                               ;03CE90|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CE91|        |00A035;
-                       dl DATA8_0E95A3                      ;03CE94|        |0E95A3;
+                       dl Sprite_Field_Sylph                ;03CE94|        |0E95A3;
                        dl $7E8500                           ;03CE97|        |7E8500;
                        db $1C                               ;03CE9A|        |      ;
      Load_Dead_Spirit:
                        db $07                               ;03CE9B|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CE9C|        |00A035;
-                       dl Gfx_Dead_Spirit                   ;03CE9F|        |0E8FCC;
+                       dl Sprite_Dead_Spirit                ;03CE9F|        |0E8FCC;
                        dl $7E8500                           ;03CEA2|        |7E8500;
                        db $1C                               ;03CEA5|        |      ; RTL
      Check_Marid_Dead:
@@ -14899,9 +14899,10 @@ SpiritHealer_A_pressed:
        Load_Gfx_Marid:
                        db $07                               ;03CEB2|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CEB3|        |00A035;
-                       dl Gfx_Marid                         ;03CEB6|        |0EA12C;
+                       dl Sprite_Field_Dao                  ;03CEB6|        |0EA12C;
                        dl $7E8500                           ;03CEB9|        |7E8500;
                        db $1C                               ;03CEBC|        |      ; RTL
+       Check_Dao_Dead:
                        db $1E                               ;03CEBD|        |      ;
                        dw $0001                             ;03CEBE|        |      ;
                        db $07                               ;03CEC0|        |      ;
@@ -14912,9 +14913,10 @@ SpiritHealer_A_pressed:
          Load_Gfx_Dao:
                        db $07                               ;03CEC9|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CECA|        |00A035;
-                       dl Gfx_Dao                           ;03CECD|        |0EAC91;
+                       dl Sprite_Field_Marid                ;03CECD|        |0EAC91;
                        dl $7E8500                           ;03CED0|        |7E8500;
                        db $1C                               ;03CED3|        |      ; RTL
+    Check_Efrite_Dead:
                        db $1E                               ;03CED4|        |      ;
                        dw $0001                             ;03CED5|        |      ;
                        db $07                               ;03CED7|        |      ;
@@ -14925,63 +14927,63 @@ SpiritHealer_A_pressed:
       Load_Gfx_Efrite:
                        db $07                               ;03CEE0|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CEE1|        |00A035;
-                       dl Gfx_Efrite                        ;03CEE4|        |0EB715;
+                       dl Sprite_Field_Efrite               ;03CEE4|        |0EB715;
                        dl $7E8500                           ;03CEE7|        |7E8500;
                        db $1C                               ;03CEEA|        |      ; RTL
        Load_Gfx_Rooks:
                        db $07                               ;03CEEB|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CEEC|        |00A035;
-                       dl Gfx_Rooks                         ;03CEEF|        |0E92F9;
+                       dl Sprite_Skull_Card                 ;03CEEF|        |0E92F9;
                        dl $7E8500                           ;03CEF2|        |7E8500;
                        db $1C                               ;03CEF5|        |      ; RTL
-         DATA8_03CEF6:
-                       db $07                               ;03CEF6|        |      ;
+      Check_Red_Teefa:
+                       db $07                               ;03CEF6|        |      ; Loads Red-eyed Teefa if not in Chapter 5
                        dl Chapter5_Check                    ;03CEF7|        |058E09;
                        db $0C                               ;03CEFA|        |      ;
                        dw Load_Good_Teefa                   ;03CEFB|        |03CF08;
     Load_Gfx_RedTeefa:
                        db $07                               ;03CEFD|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CEFE|        |00A035;
-                       dl Gfx_Red_Teefa                     ;03CF01|        |0EC292;
+                       dl Sprite_Field_BadTeefa             ;03CF01|        |0EC292;
                        dl $7E8A00                           ;03CF04|        |7E8A00;
                        db $1C                               ;03CF07|        |      ; RTL
       Load_Good_Teefa:
                        db $07                               ;03CF08|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF09|        |00A035;
-                       dl Gfx_Good_Teefa                    ;03CF0C|        |0EC6AB;
+                       dl Sprite_Field_GdTeefa              ;03CF0C|        |0EC6AB;
                        dl $7E8A00                           ;03CF0F|        |7E8A00;
                        db $1C                               ;03CF12|        |      ; RTL
        Load_Gfx_Salah:
                        db $07                               ;03CF13|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF14|        |00A035;
-                       dl DATA8_0ED25C                      ;03CF17|        |0ED25C;
+                       dl Sprite_Field_Salah                ;03CF17|        |0ED25C;
                        dl $7E8A00                           ;03CF1A|        |7E8A00;
                        db $1C                               ;03CF1D|        |      ;
-         DATA8_03CF1E:
+ Load_Gfx_Skull_Card1:
                        db $07                               ;03CF1E|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF1F|        |00A035;
-                       dl Gfx_Rooks                         ;03CF22|        |0E92F9;
+                       dl Sprite_Skull_Card                 ;03CF22|        |0E92F9;
                        dl $7E8A00                           ;03CF25|        |7E8A00;
                        db $1C                               ;03CF28|        |      ; RTL
-         DATA8_03CF29:
+      Load_Gfx_Darwin:
                        db $07                               ;03CF29|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF2A|        |00A035;
-                       dl DATA8_0EDDF8                      ;03CF2D|        |0EDDF8;
+                       dl Sprite_Field_Darwin               ;03CF2D|        |0EDDF8;
                        dl $7E8F00                           ;03CF30|        |7E8F00;
                        db $1C                               ;03CF33|        |      ; RTL
-         DATA8_03CF34:
+         Load_Gfx_Axs:
                        db $07                               ;03CF34|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF35|        |00A035;
-                       dl DATA8_0EE863                      ;03CF38|        |0EE863;
+                       dl Sprite_Field_Axs                  ;03CF38|        |0EE863;
                        dl $7E8F00                           ;03CF3B|        |7E8F00;
                        db $1C                               ;03CF3E|        |      ; RTL
-         DATA8_03CF3F:
+ Load_Gfx_Skull_Card2:
                        db $07                               ;03CF3F|        |      ;
                        dl Decomp_Setup2_3b_3b               ;03CF40|        |00A035;
-                       dl Gfx_Rooks                         ;03CF43|        |0E92F9;
+                       dl Sprite_Skull_Card                 ;03CF43|        |0E92F9;
                        dl $7E8F00                           ;03CF46|        |7E8F00;
                        db $1C                               ;03CF49|        |      ; RTL
-         DATA8_03CF4A:
+     Load_Data_03CF4A:
                        db $07                               ;03CF4A|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;03CF4B|        |00A140;
                        dl Data_3CF4A                        ;03CF4E|        |0D922A;

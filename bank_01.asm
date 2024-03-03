@@ -1479,7 +1479,7 @@ Init_all_the_things_2:
          DATA8_018902:
                        db $07                               ;018902|        |      ; 07: Call 00/A0AC
                        dl Setup_Text_Parser_3b              ;018903|        |00A0AC;
-                       dl Bank_08_Small_Script              ;018906|        |088001;
+                       dl Text_06_0C_0C                     ;018906|        |088001;
                        db $00                               ;018909|        |      ;
                        db $01                               ;01890A|        |      ; 01 06
                        db $06                               ;01890B|        |      ;
@@ -2301,7 +2301,7 @@ Any_direction_pressed:
                        dl Travel_subasm                     ;018D3A|        |18D55F;
      Long_ass_section:
                        db $04                               ;018D3D|        |      ;
-                       dl Spaghetti_setup                   ;018D3E|        |03CDC2;
+                       dl Setup_Draw_Field_Sprites          ;018D3E|        |03CDC2;
                        db $07                               ;018D41|        |      ;
                        dl CODE_03B351                       ;018D42|        |03B351;
                        db $07                               ;018D45|        |      ;
@@ -2470,7 +2470,7 @@ Any_direction_pressed:
                        db $05                               ;018E27|        |      ;
                        db $07                               ;018E28|        |      ;
                        dl Setup_Text_Parser_3b              ;018E29|        |00A0AC;
-                       dl Bank_08_Small_Script              ;018E2C|        |088001;
+                       dl Text_06_0C_0C                     ;018E2C|        |088001;
                        db $00                               ;018E2F|        |      ;
                        db $06                               ;018E30|        |      ;
                        db $01                               ;018E31|        |      ;
@@ -2493,15 +2493,17 @@ Any_direction_pressed:
                        dw $1579                             ;018E4B|        |      ;
                        db $11                               ;018E4D|        |      ;
                        db $04                               ;018E4E|        |      ;
-                       dw LOOSE_OP_008E61                   ;018E4F|        |008E61;
-                       dw LOOSE_OP_008E61                   ;018E51|        |008E61;
-                       dw CODE_008E57                       ;018E53|        |008E57;
-                       dw LOOSE_OP_008E61                   ;018E55|        |008E61;
+                       dw DATA8_018E61                      ;018E4F|        |018E61;
+                       dw DATA8_018E61                      ;018E51|        |018E61;
+                       dw DATA8_018E57                      ;018E53|        |018E57;
+                       dw DATA8_018E61                      ;018E55|        |018E61;
+         DATA8_018E57:
                        db $07                               ;018E57|        |      ;
                        dl Transfer_Data_3b_1b_2b            ;018E58|        |00A140;
                        dl _189A85_2_bytes                   ;018E5B|        |0D958C;
                        db $02                               ;018E5E|        |      ;
                        dw $0002                             ;018E5F|        |      ;
+         DATA8_018E61:
                        db $07                               ;018E61|        |      ;
                        dl CODE_07B645                       ;018E62|        |07B645;
          DATA8_018E65:
@@ -4746,7 +4748,7 @@ Refresh_Window_Color_Menu:
                        dl Do_Stuff_far                      ;019AFF|        |00A0A8;
                        db $07                               ;019B02|        |      ; Draw Ability screen (Status screen)
                        dl Setup_Text_Parser_3b              ;019B03|        |00A0AC;
-                       dl Bank_08_Small_Script              ;019B06|        |088001;
+                       dl Text_06_0C_0C                     ;019B06|        |088001;
                        db $01                               ;019B09|        |      ;
                        db $07                               ;019B0A|        |      ;
                        dl Color_stuff_2b                    ;019B0B|        |03E562;
@@ -5878,7 +5880,7 @@ Input_loop_Equipment_menu:
                        dw $0020                             ;01A152|        |      ;
                        db $07                               ;01A154|        |      ;
                        dl Decomp_Setup2_3b_3b               ;01A155|        |00A035;
-                       dl DATA8_0DB711                      ;01A158|        |0DB711;
+                       dl Gfx_Compass                       ;01A158|        |0DB711;
                        dl $7E9400                           ;01A15B|        |7E9400;
                        db $07                               ;01A15E|        |      ;
                        dl CODE_009D34                       ;01A15F|        |009D34;

@@ -2195,7 +2195,6 @@ MapProgress_OR_filters:
                        BPL CODE_008E5A                      ;008E4F|1009    |008E5A;
                        AND.W #$7FFF                         ;008E51|29FF7F  |      ;
                        STA.W $06D3,Y                        ;008E54|99D306  |0006D3;
-          CODE_008E57:
                        JSR.W Update_Restart_MainLp          ;008E57|20E08F  |008FE0;
           CODE_008E5A:
                        LDY.W $1045                          ;008E5A|AC4510  |001045;
@@ -11950,7 +11949,6 @@ Spell_INT_damage_bonus:
                        dw $0000                             ;00CED0|        |      ;
         DATA16_00CED2:
                        dw $CECC                             ;00CED2|        |      ;
-        DATA16_00CED4:
                        dw $CECE                             ;00CED4|        |      ;
                        dw $CECE                             ;00CED6|        |      ;
         DATA16_00CED8:

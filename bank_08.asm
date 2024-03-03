@@ -1,6 +1,6 @@
                        ORG $088000
                        db $FF                               ;088000|        |      ;
- Bank_08_Small_Script:
+        Text_06_0C_0C:
                        db $06                               ;088001|        |      ; Status screen (I don't get how it works)
                        db $0C                               ;088002|        |      ;
                        db $0C                               ;088003|        |      ;
@@ -17,7 +17,8 @@
               Text_0D:
                        db $0D                               ;08800B|        |      ;
                        db $00                               ;08800C|        |      ;
-                       db $06                               ;08800D|        |      ; Unused menu 1
+    Text_Unused_Menu1:
+                       db $06                               ;08800D|        |      ; This uses 2-byte characters only readable in the Japanese version.
                        db $0D                               ;08800E|        |      ;
                        db $0C                               ;08800F|        |      ;
                        db $01                               ;088010|        |      ;
@@ -51,7 +52,8 @@
                        dw $5382                             ;08803F|        |      ;
                        db $0D                               ;088041|        |      ;
                        db $00                               ;088042|        |      ;
-                       db $06                               ;088043|        |      ; Unused menu 2
+    Text_Unused_Menu2:
+                       db $06                               ;088043|        |      ;
                        db $0D                               ;088044|        |      ;
                        db $0C                               ;088045|        |      ;
                        db $01                               ;088046|        |      ;
@@ -85,7 +87,7 @@
                        dw $5382                             ;088075|        |      ;
                        db $0D                               ;088077|        |      ;
                        db $00                               ;088078|        |      ;
-  Gratuitous_Japanese:
+    Text_Unused_Menu3:
                        db $06                               ;088079|        |      ; Unused menu 3
                        db $0D                               ;08807A|        |      ;
                        db $0C                               ;08807B|        |      ;
@@ -124,7 +126,7 @@
                        db $06                               ;0880AD|        |      ;
                        db $0D                               ;0880AE|        |      ;
                        dw $4081                             ;0880AF|        |      ;
- Unused_Message_Speed:
+Text_Unused_Message_Speed:
                        dw $8191                             ;0880B1|        |      ; 早い  (Fast)
                        dw $A282                             ;0880B3|        |      ;
                        dw $4081                             ;0880B5|        |      ;
@@ -138,7 +140,7 @@
                        dw $A282                             ;0880C5|        |      ;
                        db $0D                               ;0880C7|        |      ;
                        db $00                               ;0880C8|        |      ;
-       X_is_defending:
+  Text_X_is_defending:
                        db $06                               ;0880C9|        |      ;
                        db $0D                               ;0880CA|        |      ;
                        db $0C                               ;0880CB|        |      ;

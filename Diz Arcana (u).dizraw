@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectXmlSerializer-Root xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:ns1="clr-namespace:Diz.Core.model;assembly=Diz.Core" xmlns:ns2="clr-namespace:Diz.Core.model.snes;assembly=Diz.Core" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns:ns3="clr-namespace:IX.Observable;assembly=IX.Observable" xmlns:ns4="clr-namespace:Diz.Core.export;assembly=Diz.Core" SaveVersion="102" Watermark="DiztinGUIsh" Extra1="" Extra2="" xmlns="clr-namespace:Diz.Core.serialization.xml_serializer;assembly=Diz.Core">
-  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="36715">
+  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="118210">
     <LogWriterSettings Format="%label:-22% %code:37%;%pc%|%bytes%|%ia%; %comment%" DataPerLine="1" Unlabeled="ShowInPoints" Structure="OneBankPerFile" NewLine="true" OutputExtraWhitespace="false" GenerateFullLine="false" IncludeUnusedLabels="true" PrintLabelSpecificComments="true" RomSizeOverride="-1" FileOrFolderOutPath="..\Diz" OutputToString="false" ErrorFilename="errors.txt" />
     <ProjectSettings exs:member="" BsnesUsageMapImportOnlyChangedUnmarked="true">
       <RomBytesOutputFormatSettings CompressGroupBlock="true" CompressUsingTable1="true" InsertCommentIntoOutputLinesEveryNBytes="2048" />
@@ -4136,8 +4136,8 @@
         <sys:Item Key="557089" Value="ファイル２ (File 2)" />
         <sys:Item Key="557100" Value="ファイル３ (File 3)" />
         <sys:Item Key="557111" Value="ファイル４ (File 4)" />
-        <sys:Item Key="557123" Value="Unused menu 2" />
-        <sys:Item Key="557069" Value="Unused menu 1" />
+        <sys:Item Key="249590" Value="Loads Red-eyed Teefa if not in Chapter 5" />
+        <sys:Item Key="557069" Value="This uses 2-byte characters only readable in the Japanese version." />
         <sys:Item Key="557132" Value="ファイル１ (File 1)" />
         <sys:Item Key="557177" Value="Unused menu 3" />
         <sys:Item Key="557143" Value="ファイル２ (File 2)" />
@@ -5257,6 +5257,7 @@
         <sys:Item Key="102261" Value="Check if fighting final boss" />
         <sys:Item Key="102265" Value="If false, skip ahead past the pause" />
         <sys:Item Key="102268" Value="Final boss: pause 1 second per turn for dramatic tension or something" />
+        <sys:Item Key="975315" Value="Darwin battle sprite" />
       </Comments>
       <Labels>
         <sys:Item Key="65508">
@@ -7426,7 +7427,7 @@
           <Value exs:type="ns1:Label" Name="Load_Card_name" Comment="" />
         </sys:Item>
         <sys:Item Key="557057">
-          <Value exs:type="ns1:Label" Name="Bank_08_Small_Script" Comment="" />
+          <Value exs:type="ns1:Label" Name="Text_06_0C_0C" Comment="" />
         </sys:Item>
         <sys:Item Key="559251">
           <Value exs:type="ns1:Label" Name="Cast_the_Spell_of" Comment="" />
@@ -8428,7 +8429,7 @@
           <Value exs:type="ns1:Label" Name="Battle_Items_Menu" Comment="" />
         </sys:Item>
         <sys:Item Key="557257">
-          <Value exs:type="ns1:Label" Name="X_is_defending" Comment="" />
+          <Value exs:type="ns1:Label" Name="Text_X_is_defending" Comment="" />
         </sys:Item>
         <sys:Item Key="507353">
           <Value exs:type="ns1:Label" Name="Store_results_in_2b" Comment="" />
@@ -10582,7 +10583,7 @@
           <Value exs:type="ns1:Label" Name="Something" Comment="" />
         </sys:Item>
         <sys:Item Key="249282">
-          <Value exs:type="ns1:Label" Name="Spaghetti_setup" Comment="" />
+          <Value exs:type="ns1:Label" Name="Setup_Draw_Field_Sprites" Comment="" />
         </sys:Item>
         <sys:Item Key="101693">
           <Value exs:type="ns1:Label" Name="Long_ass_section" Comment="" />
@@ -12898,13 +12899,13 @@
           <Value exs:type="ns1:Label" Name="_058BE6_data" Comment="" />
         </sys:Item>
         <sys:Item Key="965390">
-          <Value exs:type="ns1:Label" Name="_058C11_compressed_data" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Efrite" Comment="" />
         </sys:Item>
         <sys:Item Key="954316">
-          <Value exs:type="ns1:Label" Name="Gfx_Dead_Spirit" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Dead_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="966313">
-          <Value exs:type="ns1:Label" Name="_058C99_compress_data" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Efrite" Comment="" />
         </sys:Item>
         <sys:Item Key="36261">
           <Value exs:type="ns1:Label" Name="Load_Code_Handling" Comment="" />
@@ -12957,23 +12958,23 @@
         <sys:Item Key="1605667">
           <Value exs:type="ns1:Label" Name="Roll_boss_encounter" Comment="" />
         </sys:Item>
-        <sys:Item Key="955812">
-          <Value exs:type="ns1:Label" Name="Gfx_Sylph" Comment="" />
+        <sys:Item Key="978795">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Axs" Comment="" />
         </sys:Item>
         <sys:Item Key="958764">
-          <Value exs:type="ns1:Label" Name="Gfx_Marid" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Dao" Comment="" />
         </sys:Item>
         <sys:Item Key="961681">
-          <Value exs:type="ns1:Label" Name="Gfx_Dao" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Marid" Comment="" />
         </sys:Item>
         <sys:Item Key="964373">
-          <Value exs:type="ns1:Label" Name="Gfx_Efrite" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Efrite" Comment="" />
         </sys:Item>
         <sys:Item Key="967314">
-          <Value exs:type="ns1:Label" Name="Gfx_Red_Teefa" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Field_BadTeefa" Comment="" />
         </sys:Item>
         <sys:Item Key="971358">
-          <Value exs:type="ns1:Label" Name="Gfx_Salah" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="505274">
           <Value exs:type="ns1:Label" Name="Get_Enemy_Name" Comment="" />
@@ -13435,7 +13436,7 @@
           <Value exs:type="ns1:Label" Name="Heal_about_200_HP" Comment="" />
         </sys:Item>
         <sys:Item Key="955129">
-          <Value exs:type="ns1:Label" Name="Gfx_Rooks" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Skull_Card" Comment="" />
         </sys:Item>
         <sys:Item Key="1343971">
           <Value exs:type="ns1:Label" Name="RLE_Loc_Stoned_Axs2" Comment="" />
@@ -13615,10 +13616,10 @@
           <Value exs:type="ns1:Label" Name="Teefa_Attacks" Comment="" />
         </sys:Item>
         <sys:Item Key="557177">
-          <Value exs:type="ns1:Label" Name="Gratuitous_Japanese" Comment="" />
+          <Value exs:type="ns1:Label" Name="Text_Unused_Menu3" Comment="" />
         </sys:Item>
         <sys:Item Key="557233">
-          <Value exs:type="ns1:Label" Name="Unused_Message_Speed" Comment="" />
+          <Value exs:type="ns1:Label" Name="Text_Unused_Message_Speed" Comment="" />
         </sys:Item>
         <sys:Item Key="497611">
           <Value exs:type="ns1:Label" Name="Tbl_Items_Descr" Comment="" />
@@ -13999,7 +14000,7 @@
           <Value exs:type="ns1:Label" Name="Load_Dead_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="249479">
-          <Value exs:type="ns1:Label" Name="Check_Sylph_Dead" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="249510">
           <Value exs:type="ns1:Label" Name="Check_Marid_Dead" Comment="" />
@@ -14017,7 +14018,7 @@
           <Value exs:type="ns1:Label" Name="Load_Gfx_RedTeefa" Comment="" />
         </sys:Item>
         <sys:Item Key="968363">
-          <Value exs:type="ns1:Label" Name="Gfx_Good_Teefa" Comment="" />
+          <Value exs:type="ns1:Label" Name="Sprite_Field_GdTeefa" Comment="" />
         </sys:Item>
         <sys:Item Key="249608">
           <Value exs:type="ns1:Label" Name="Load_Good_Teefa" Comment="" />
@@ -15923,6 +15924,108 @@
         </sys:Item>
         <sys:Item Key="102261">
           <Value exs:type="ns1:Label" Name="Pause_Final_Fight" Comment="" />
+        </sys:Item>
+        <sys:Item Key="557069">
+          <Value exs:type="ns1:Label" Name="Text_Unused_Menu1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="557123">
+          <Value exs:type="ns1:Label" Name="Text_Unused_Menu2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="975315">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Darwin" Comment="" />
+        </sys:Item>
+        <sys:Item Key="976152">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Darwin" Comment="" />
+        </sys:Item>
+        <sys:Item Key="970357">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Teefa" Comment="" />
+        </sys:Item>
+        <sys:Item Key="952549">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Rooks" Comment="" />
+        </sys:Item>
+        <sys:Item Key="951633">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Rooks" Comment="" />
+        </sys:Item>
+        <sys:Item Key="969413">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Teefa" Comment="" />
+        </sys:Item>
+        <sys:Item Key="957817">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Sylph" Comment="" />
+        </sys:Item>
+        <sys:Item Key="956889">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Sylph" Comment="" />
+        </sys:Item>
+        <sys:Item Key="898833">
+          <Value exs:type="ns1:Label" Name="Gfx_Compass" Comment="" />
+        </sys:Item>
+        <sys:Item Key="950673">
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Rooks" Comment="" />
+        </sys:Item>
+        <sys:Item Key="955811">
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Sylph" Comment="" />
+        </sys:Item>
+        <sys:Item Key="974328">
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Darwin" Comment="" />
+        </sys:Item>
+        <sys:Item Key="960717">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Dao" Comment="" />
+        </sys:Item>
+        <sys:Item Key="959711">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Dao" Comment="" />
+        </sys:Item>
+        <sys:Item Key="963537">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Marid" Comment="" />
+        </sys:Item>
+        <sys:Item Key="962701">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Marid" Comment="" />
+        </sys:Item>
+        <sys:Item Key="977935">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Axs" Comment="" />
+        </sys:Item>
+        <sys:Item Key="971356">
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Salah" Comment="" />
+        </sys:Item>
+        <sys:Item Key="976995">
+          <Value exs:type="ns1:Label" Name="Sprite_Field_Axs" Comment="" />
+        </sys:Item>
+        <sys:Item Key="973361">
+          <Value exs:type="ns1:Label" Name="Sprite_Attack_Salah" Comment="" />
+        </sys:Item>
+        <sys:Item Key="972399">
+          <Value exs:type="ns1:Label" Name="Sprite_Battle_Salah" Comment="" />
+        </sys:Item>
+        <sys:Item Key="953375">
+          <Value exs:type="ns1:Label" Name="Sprite_Dead_PC" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249461">
+          <Value exs:type="ns1:Label" Name="Load_Gfx_Rooks" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249476">
+          <Value exs:type="ns1:Label" Name="Check_Sylph_Dead" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249533">
+          <Value exs:type="ns1:Label" Name="Check_Dao_Dead" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249556">
+          <Value exs:type="ns1:Label" Name="Check_Efrite_Dead" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249590">
+          <Value exs:type="ns1:Label" Name="Check_Red_Teefa" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249630">
+          <Value exs:type="ns1:Label" Name="Load_Gfx_Skull_Card1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249641">
+          <Value exs:type="ns1:Label" Name="Load_Gfx_Darwin" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249652">
+          <Value exs:type="ns1:Label" Name="Load_Gfx_Axs" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249663">
+          <Value exs:type="ns1:Label" Name="Load_Gfx_Skull_Card2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="249674">
+          <Value exs:type="ns1:Label" Name="Load_Data_03CF4A" Comment="" />
         </sys:Item>
       </Labels>
       <RomBytes>
@@ -36415,7 +36518,14 @@ B
 B
 A
 A
-r 8 E
+E001
+E
+E001
+E
+E001
+E
+E001
+E
 A
 F
 F
@@ -67750,7 +67860,16 @@ F
 F
 A
 A
-r 10 E
+E003
+E
+E003
+E
+E003
+E
+E003
+E
+E003
+E
 A
 F
 F
@@ -113192,12 +113311,12 @@ r 2048 U
 ;pos=06A800
 r 2048 U
 ;pos=06B000
-r 1808 U
+r 1039 U
 A
-r 239 U
+r 768 U
+r 240 A
 ;pos=06B800
-r 247 U
-A
+r 248 A
 r 686 U
 A
 r 1080 U
@@ -113304,80 +113423,36 @@ F
 r 86 B
 r 83 A
 r 165 U
-A
-r 959 U
-A
-r 687 U
+r 1648 A
 ;pos=070800
-r 228 U
-A
-r 825 U
-A
-r 940 U
-A
-r 52 U
+r 2048 A
 ;pos=071000
-r 760 U
-A
-r 681 U
-A
-A
-r 604 U
+r 2048 A
 ;pos=071800
-r 472 U
-A
-r 1575 U
+r 2048 A
 ;pos=072000
-r 299 U
-A
-r 1748 U
+r 2048 A
 ;pos=072800
-r 1168 U
-A
-r 879 U
+r 2048 A
 ;pos=073000
-r 1812 U
-A
-r 235 U
+r 2048 A
 ;pos=073800
-r 781 U
-A
-r 922 U
-A
-r 343 U
+r 2048 A
 ;pos=074000
-r 657 U
-A
-r 1048 U
-A
-r 341 U
+r 2048 A
 ;pos=074800
-r 708 U
-A
-r 1339 U
+r 2048 A
 ;pos=075000
-r 603 U
-A
-A
-A
-r 1442 U
+r 2048 A
 ;pos=075800
-r 1527 U
-A
-A
-A
-r 518 U
+r 2048 A
 ;pos=076000
-r 2048 U
+r 2048 A
 ;pos=076800
-r 98 U
-A
-A
-A
-r 1947 U
+r 2048 A
 ;pos=077000
-r 762 U
-r 1286 X
+r 763 A
+r 1285 X
 ;pos=077800
 r 2048 X
 ;pos=078000

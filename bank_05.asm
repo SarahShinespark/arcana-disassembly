@@ -123,7 +123,7 @@ Bank_05_Stat_Handling:
                        dl Some_Death_Check                  ;0580B7|        |058449;
                        db $07                               ;0580BA|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0580BB|        |00A035;
-                       dl DATA8_0E8191                      ;0580BE|        |0E8191;
+                       dl Sprite_Field_Rooks                ;0580BE|        |0E8191;
                        dl $7E8000                           ;0580C1|        |7E8000;
                        db $06                               ;0580C4|        |      ;
                        db $01                               ;0580C5|        |      ;
@@ -139,7 +139,7 @@ Bank_05_Stat_Handling:
                        dl Some_Death_Check                  ;0580D2|        |058449;
                        db $07                               ;0580D5|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0580D6|        |00A035;
-                       dl DATA8_0E8551                      ;0580D9|        |0E8551;
+                       dl Sprite_Battle_Rooks               ;0580D9|        |0E8551;
                        dl $7E8000                           ;0580DC|        |7E8000;
                        db $06                               ;0580DF|        |      ;
                        db $01                               ;0580E0|        |      ;
@@ -177,7 +177,7 @@ Bank_05_Stat_Handling:
                        db $0A                               ;05810C|        |      ;
                        db $07                               ;05810D|        |      ;
                        dl Decomp_Setup2_3b_3b               ;05810E|        |00A035;
-                       dl DATA8_0E8C1F                      ;058111|        |0E8C1F;
+                       dl Sprite_Dead_PC                    ;058111|        |0E8C1F;
                        dl $7E8000                           ;058114|        |7E8000;
                        db $07                               ;058117|        |      ;
                        dl RAM_Decomp_8009                   ;058118|        |0E8001;
@@ -203,7 +203,7 @@ Bank_05_Stat_Handling:
          DATA8_05813A:
                        db $07                               ;05813A|        |      ;
                        dl Decomp_Setup2_3b_3b               ;05813B|        |00A035;
-                       dl DATA8_0E88E5                      ;05813E|        |0E88E5;
+                       dl Sprite_Attack_Rooks               ;05813E|        |0E88E5;
                        dl $7E8000                           ;058141|        |7E8000;
                        db $07                               ;058144|        |      ;
                        dl RAM_Decomp_8009                   ;058145|        |0E8001;
@@ -214,7 +214,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;05814E|        |      ;
                        db $07                               ;05814F|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058150|        |00A035;
-                       dl DATA8_0E8551                      ;058153|        |0E8551;
+                       dl Sprite_Battle_Rooks               ;058153|        |0E8551;
                        dl $7E8000                           ;058156|        |7E8000;
                        db $07                               ;058159|        |      ;
                        dl RAM_Decomp_8009                   ;05815A|        |0E8001;
@@ -1045,7 +1045,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;05869F|        |      ;
                        db $07                               ;0586A1|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0586A2|        |00A035;
-                       dl DATA8_0E95A3                      ;0586A5|        |0E95A3;
+                       dl Sprite_Field_Sylph                ;0586A5|        |0E95A3;
                        dl $7E8500                           ;0586A8|        |7E8500;
                        db $06                               ;0586AB|        |      ;
                        db $01                               ;0586AC|        |      ;
@@ -1064,7 +1064,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;0586C0|        |      ;
                        db $07                               ;0586C2|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0586C3|        |00A035;
-                       dl DATA8_0E99D9                      ;0586C6|        |0E99D9;
+                       dl Sprite_Battle_Sylph               ;0586C6|        |0E99D9;
                        dl $7E8500                           ;0586C9|        |7E8500;
                        db $06                               ;0586CC|        |      ;
                        db $01                               ;0586CD|        |      ;
@@ -1128,7 +1128,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;058726|        |      ;
                        db $07                               ;058728|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058729|        |00A035;
-                       dl Gfx_Dead_Spirit                   ;05872C|        |0E8FCC;
+                       dl Sprite_Dead_Spirit                ;05872C|        |0E8FCC;
                        dl $7E8500                           ;05872F|        |7E8500;
                        db $07                               ;058732|        |      ;
                        dl RAM_Decomp_801A                   ;058733|        |0E8012;
@@ -1148,7 +1148,7 @@ Bank_05_Stat_Handling:
          DATA8_05874A:
                        db $07                               ;05874A|        |      ;
                        dl Decomp_Setup2_3b_3b               ;05874B|        |00A035;
-                       dl UNREACH_0E9D79                    ;05874E|        |0E9D79;
+                       dl Sprite_Attack_Sylph               ;05874E|        |0E9D79;
                        dl $7E8500                           ;058751|        |7E8500;
                        db $07                               ;058754|        |      ;
                        dl RAM_Decomp_801A                   ;058755|        |0E8012;
@@ -1159,7 +1159,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;05875E|        |      ;
                        db $07                               ;05875F|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058760|        |00A035;
-                       dl DATA8_0E99D9                      ;058763|        |0E99D9;
+                       dl Sprite_Battle_Sylph               ;058763|        |0E99D9;
                        dl $7E8500                           ;058766|        |7E8500;
                        db $07                               ;058769|        |      ;
                        dl RAM_Decomp_801A                   ;05876A|        |0E8012;
@@ -1353,7 +1353,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;0588B0|        |      ;
                        db $07                               ;0588B2|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0588B3|        |00A035;
-                       dl Gfx_Marid                         ;0588B6|        |0EA12C;
+                       dl Sprite_Field_Dao                  ;0588B6|        |0EA12C;
                        dl $7E8500                           ;0588B9|        |7E8500;
                        db $06                               ;0588BC|        |      ;
                        db $01                               ;0588BD|        |      ;
@@ -1372,7 +1372,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;0588D1|        |      ;
                        db $07                               ;0588D3|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0588D4|        |00A035;
-                       dl UNREACH_0EA4DF                    ;0588D7|        |0EA4DF;
+                       dl Sprite_Battle_Dao                 ;0588D7|        |0EA4DF;
                        dl $7E8500                           ;0588DA|        |7E8500;
                        db $06                               ;0588DD|        |      ;
                        db $01                               ;0588DE|        |      ;
@@ -1434,7 +1434,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;058937|        |      ;
                        db $07                               ;058939|        |      ;
                        dl Decomp_Setup2_3b_3b               ;05893A|        |00A035;
-                       dl Gfx_Dead_Spirit                   ;05893D|        |0E8FCC;
+                       dl Sprite_Dead_Spirit                ;05893D|        |0E8FCC;
                        dl $7E8500                           ;058940|        |7E8500;
                        db $07                               ;058943|        |      ;
                        dl RAM_Decomp_801A                   ;058944|        |0E8012;
@@ -1454,7 +1454,7 @@ Bank_05_Stat_Handling:
          DATA8_05895B:
                        db $07                               ;05895B|        |      ;
                        dl Decomp_Setup2_3b_3b               ;05895C|        |00A035;
-                       dl UNREACH_0EA8CD                    ;05895F|        |0EA8CD;
+                       dl Sprite_Attack_Dao                 ;05895F|        |0EA8CD;
                        dl $7E8500                           ;058962|        |7E8500;
                        db $07                               ;058965|        |      ;
                        dl RAM_Decomp_801A                   ;058966|        |0E8012;
@@ -1465,7 +1465,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;05896F|        |      ;
                        db $07                               ;058970|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058971|        |00A035;
-                       dl UNREACH_0EA4DF                    ;058974|        |0EA4DF;
+                       dl Sprite_Battle_Dao                 ;058974|        |0EA4DF;
                        dl $7E8500                           ;058977|        |7E8500;
                        db $07                               ;05897A|        |      ;
                        dl RAM_Decomp_801A                   ;05897B|        |0E8012;
@@ -1587,7 +1587,7 @@ Bank_05_Stat_Handling:
                        db $00                               ;058A4E|        |      ;
                        db $07                               ;058A4F|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058A50|        |00A035;
-                       dl Gfx_Dao                           ;058A53|        |0EAC91;
+                       dl Sprite_Field_Marid                ;058A53|        |0EAC91;
                        dl $7E8500                           ;058A56|        |7E8500;
                        db $06                               ;058A59|        |      ;
                        db $01                               ;058A5A|        |      ;
@@ -1606,7 +1606,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;058A6E|        |      ;
                        db $07                               ;058A70|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058A71|        |00A035;
-                       dl UNREACH_0EB08D                    ;058A74|        |0EB08D;
+                       dl Sprite_Battle_Marid               ;058A74|        |0EB08D;
                        dl $7E8500                           ;058A77|        |7E8500;
                        db $06                               ;058A7A|        |      ;
                        db $01                               ;058A7B|        |      ;
@@ -1668,7 +1668,7 @@ Bank_05_Stat_Handling:
                        dw $0016                             ;058AD4|        |      ;
                        db $07                               ;058AD6|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058AD7|        |00A035;
-                       dl Gfx_Dead_Spirit                   ;058ADA|        |0E8FCC;
+                       dl Sprite_Dead_Spirit                ;058ADA|        |0E8FCC;
                        dl $7E8500                           ;058ADD|        |7E8500;
                        db $07                               ;058AE0|        |      ;
                        dl RAM_Decomp_801A                   ;058AE1|        |0E8012;
@@ -1688,7 +1688,7 @@ Bank_05_Stat_Handling:
          DATA8_058AF8:
                        db $07                               ;058AF8|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058AF9|        |00A035;
-                       dl UNREACH_0EB3D1                    ;058AFC|        |0EB3D1;
+                       dl Sprite_Attack_Marid               ;058AFC|        |0EB3D1;
                        dl $7E8500                           ;058AFF|        |7E8500;
                        db $07                               ;058B02|        |      ;
                        dl RAM_Decomp_801A                   ;058B03|        |0E8012;
@@ -1699,7 +1699,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;058B0C|        |      ;
                        db $07                               ;058B0D|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058B0E|        |00A035;
-                       dl UNREACH_0EB08D                    ;058B11|        |0EB08D;
+                       dl Sprite_Battle_Marid               ;058B11|        |0EB08D;
                        dl $7E8500                           ;058B14|        |7E8500;
                        db $07                               ;058B17|        |      ;
                        dl RAM_Decomp_801A                   ;058B18|        |0E8012;
@@ -1834,7 +1834,7 @@ Bank_05_Stat_Handling:
                        db $00                               ;058BEB|        |      ;
                        db $07                               ;058BEC|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058BED|        |00A035;
-                       dl Gfx_Efrite                        ;058BF0|        |0EB715;
+                       dl Sprite_Field_Efrite               ;058BF0|        |0EB715;
                        dl $7E8500                           ;058BF3|        |7E8500;
                        db $06                               ;058BF6|        |      ;
                        db $01                               ;058BF7|        |      ;
@@ -1854,7 +1854,7 @@ Bank_05_Stat_Handling:
                        db $00                               ;058C0C|        |      ;
                        db $07                               ;058C0D|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058C0E|        |00A035;
-                       dl _058C11_compressed_data           ;058C11|        |0EBB0E;
+                       dl Sprite_Battle_Efrite              ;058C11|        |0EBB0E;
                        dl $7E8500                           ;058C14|        |7E8500;
                        db $06                               ;058C17|        |      ;
                        db $01                               ;058C18|        |      ;
@@ -1920,7 +1920,7 @@ Bank_05_Stat_Handling:
                        db $00                               ;058C72|        |      ;
                        db $07                               ;058C73|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058C74|        |00A035;
-                       dl Gfx_Dead_Spirit                   ;058C77|        |0E8FCC;
+                       dl Sprite_Dead_Spirit                ;058C77|        |0E8FCC;
                        dl $7E8500                           ;058C7A|        |7E8500;
                        db $07                               ;058C7D|        |      ;
                        dl RAM_Decomp_801A                   ;058C7E|        |0E8012;
@@ -1940,7 +1940,7 @@ Bank_05_Stat_Handling:
          DATA8_058C95:
                        db $07                               ;058C95|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058C96|        |00A035;
-                       dl _058C99_compress_data             ;058C99|        |0EBEA9;
+                       dl Sprite_Attack_Efrite              ;058C99|        |0EBEA9;
                        dl $7E8500                           ;058C9C|        |7E8500;
                        db $07                               ;058C9F|        |      ;
                        dl RAM_Decomp_801A                   ;058CA0|        |0E8012;
@@ -1951,7 +1951,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;058CA9|        |      ;
                        db $07                               ;058CAA|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058CAB|        |00A035;
-                       dl _058C11_compressed_data           ;058CAE|        |0EBB0E;
+                       dl Sprite_Battle_Efrite              ;058CAE|        |0EBB0E;
                        dl $7E8500                           ;058CB1|        |7E8500;
                        db $07                               ;058CB4|        |      ;
                        dl RAM_Decomp_801A                   ;058CB5|        |0E8012;
@@ -2136,13 +2136,13 @@ Bank_05_Stat_Handling:
                        dw CODE_008DF6                       ;058DE7|        |008DF6;
                        db $07                               ;058DE9|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058DEA|        |00A035;
-                       dl Gfx_Red_Teefa                     ;058DED|        |0EC292;
+                       dl Sprite_Field_BadTeefa             ;058DED|        |0EC292;
                        dl $7E8A00                           ;058DF0|        |7E8A00;
                        db $1A                               ;058DF3|        |      ;
                        dw LOOSE_OP_008E00                   ;058DF4|        |008E00;
                        db $07                               ;058DF6|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058DF7|        |00A035;
-                       dl Gfx_Good_Teefa                    ;058DFA|        |0EC6AB;
+                       dl Sprite_Field_GdTeefa              ;058DFA|        |0EC6AB;
                        dl $7E8A00                           ;058DFD|        |7E8A00;
                        db $06                               ;058E00|        |      ;
                        db $01                               ;058E01|        |      ;
@@ -2167,7 +2167,7 @@ Bank_05_Stat_Handling:
                        dl Some_Death_Check                  ;058E1E|        |058449;
                        db $07                               ;058E21|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058E22|        |00A035;
-                       dl DATA8_0ECAC5                      ;058E25|        |0ECAC5;
+                       dl Sprite_Battle_Teefa               ;058E25|        |0ECAC5;
                        dl $7E8A00                           ;058E28|        |7E8A00;
                        db $06                               ;058E2B|        |      ;
                        db $01                               ;058E2C|        |      ;
@@ -2202,7 +2202,7 @@ Bank_05_Stat_Handling:
                        db $1E                               ;058E56|        |      ;
                        db $07                               ;058E57|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058E58|        |00A035;
-                       dl DATA8_0E8C1F                      ;058E5B|        |0E8C1F;
+                       dl Sprite_Dead_PC                    ;058E5B|        |0E8C1F;
                        dl $7E8A00                           ;058E5E|        |7E8A00;
                        db $07                               ;058E61|        |      ;
                        dl RAM_Decomp_802B                   ;058E62|        |0E8023;
@@ -2215,7 +2215,7 @@ Bank_05_Stat_Handling:
          DATA8_058E70:
                        db $07                               ;058E70|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058E71|        |00A035;
-                       dl UNREACH_0ECE75                    ;058E74|        |0ECE75;
+                       dl Sprite_Attack_Teefa               ;058E74|        |0ECE75;
                        dl $7E8A00                           ;058E77|        |7E8A00;
                        db $07                               ;058E7A|        |      ;
                        dl RAM_Decomp_802B                   ;058E7B|        |0E8023;
@@ -2226,7 +2226,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;058E84|        |      ;
                        db $07                               ;058E85|        |      ;
                        dl Decomp_Setup2_3b_3b               ;058E86|        |00A035;
-                       dl DATA8_0ECAC5                      ;058E89|        |0ECAC5;
+                       dl Sprite_Battle_Teefa               ;058E89|        |0ECAC5;
                        dl $7E8A00                           ;058E8C|        |7E8A00;
                        db $07                               ;058E8F|        |      ;
                        dl RAM_Decomp_802B                   ;058E90|        |0E8023;
@@ -2468,7 +2468,7 @@ Bank_05_Stat_Handling:
                        dl Some_Death_Check                  ;059011|        |058449;
                        db $07                               ;059014|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059015|        |00A035;
-                       dl DATA8_0ED25C                      ;059018|        |0ED25C;
+                       dl Sprite_Field_Salah                ;059018|        |0ED25C;
                        dl $7E8A00                           ;05901B|        |7E8A00;
                        db $06                               ;05901E|        |      ;
                        db $01                               ;05901F|        |      ;
@@ -2484,7 +2484,7 @@ Bank_05_Stat_Handling:
                        dl Some_Death_Check                  ;05902C|        |058449;
                        db $07                               ;05902F|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059030|        |00A035;
-                       dl UNREACH_0ED66F                    ;059033|        |0ED66F;
+                       dl Sprite_Battle_Salah               ;059033|        |0ED66F;
                        dl $7E8A00                           ;059036|        |7E8A00;
                        db $06                               ;059039|        |      ;
                        db $01                               ;05903A|        |      ;
@@ -2520,7 +2520,7 @@ Bank_05_Stat_Handling:
                        db $1E                               ;059064|        |      ;
                        db $07                               ;059065|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059066|        |00A035;
-                       dl DATA8_0E8C1F                      ;059069|        |0E8C1F;
+                       dl Sprite_Dead_PC                    ;059069|        |0E8C1F;
                        dl $7E8A00                           ;05906C|        |7E8A00;
                        db $07                               ;05906F|        |      ;
                        dl RAM_Decomp_802B                   ;059070|        |0E8023;
@@ -2533,7 +2533,7 @@ Bank_05_Stat_Handling:
          DATA8_05907E:
                        db $07                               ;05907E|        |      ;
                        dl Decomp_Setup2_3b_3b               ;05907F|        |00A035;
-                       dl UNREACH_0EDA31                    ;059082|        |0EDA31;
+                       dl Sprite_Attack_Salah               ;059082|        |0EDA31;
                        dl $7E8A00                           ;059085|        |7E8A00;
                        db $07                               ;059088|        |      ;
                        dl RAM_Decomp_802B                   ;059089|        |0E8023;
@@ -2544,7 +2544,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;059092|        |      ;
                        db $07                               ;059093|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059094|        |00A035;
-                       dl UNREACH_0ED66F                    ;059097|        |0ED66F;
+                       dl Sprite_Battle_Salah               ;059097|        |0ED66F;
                        dl $7E8A00                           ;05909A|        |7E8A00;
                        db $07                               ;05909D|        |      ;
                        dl RAM_Decomp_802B                   ;05909E|        |0E8023;
@@ -2727,7 +2727,7 @@ Bank_05_Stat_Handling:
                        dl Some_Death_Check                  ;0591C4|        |058449;
                        db $07                               ;0591C7|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0591C8|        |00A035;
-                       dl DATA8_0EDDF8                      ;0591CB|        |0EDDF8;
+                       dl Sprite_Field_Darwin               ;0591CB|        |0EDDF8;
                        dl $7E8F00                           ;0591CE|        |7E8F00;
                        db $06                               ;0591D1|        |      ;
                        db $01                               ;0591D2|        |      ;
@@ -2743,7 +2743,7 @@ Bank_05_Stat_Handling:
                        dl Some_Death_Check                  ;0591DF|        |058449;
                        db $07                               ;0591E2|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0591E3|        |00A035;
-                       dl UNREACH_0EE1D3                    ;0591E6|        |0EE1D3;
+                       dl Sprite_Battle_Darwin              ;0591E6|        |0EE1D3;
                        dl $7E8F00                           ;0591E9|        |7E8F00;
                        db $06                               ;0591EC|        |      ;
                        db $01                               ;0591ED|        |      ;
@@ -2777,7 +2777,7 @@ Bank_05_Stat_Handling:
                        db $1E                               ;059217|        |      ;
                        db $07                               ;059218|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059219|        |00A035;
-                       dl DATA8_0E8C1F                      ;05921C|        |0E8C1F;
+                       dl Sprite_Dead_PC                    ;05921C|        |0E8C1F;
                        dl $7E8F00                           ;05921F|        |7E8F00;
                        db $07                               ;059222|        |      ;
                        dl RAM_Decomp_803C                   ;059223|        |0E8034;
@@ -2790,7 +2790,7 @@ Bank_05_Stat_Handling:
          DATA8_059231:
                        db $07                               ;059231|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059232|        |00A035;
-                       dl UNREACH_0EE518                    ;059235|        |0EE518;
+                       dl Sprite_Attack_Darwin              ;059235|        |0EE518;
                        dl $7E8F00                           ;059238|        |7E8F00;
                        db $07                               ;05923B|        |      ;
                        dl RAM_Decomp_803C                   ;05923C|        |0E8034;
@@ -2801,7 +2801,7 @@ Bank_05_Stat_Handling:
                        db $14                               ;059245|        |      ;
                        db $07                               ;059246|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059247|        |00A035;
-                       dl UNREACH_0EE1D3                    ;05924A|        |0EE1D3;
+                       dl Sprite_Battle_Darwin              ;05924A|        |0EE1D3;
                        dl $7E8F00                           ;05924D|        |7E8F00;
                        db $07                               ;059250|        |      ;
                        dl RAM_Decomp_803C                   ;059251|        |0E8034;
@@ -3042,7 +3042,7 @@ Sub_Another_setup_again:
                        dl Some_Death_Check                  ;0593D2|        |058449;
                        db $07                               ;0593D5|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0593D6|        |00A035;
-                       dl DATA8_0EE863                      ;0593D9|        |0EE863;
+                       dl Sprite_Field_Axs                  ;0593D9|        |0EE863;
                        dl $7E8F00                           ;0593DC|        |7E8F00;
                        db $06                               ;0593DF|        |      ;
                        db $01                               ;0593E0|        |      ;
@@ -3058,7 +3058,7 @@ Sub_Another_setup_again:
                        dl Some_Death_Check                  ;0593ED|        |058449;
                        db $07                               ;0593F0|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0593F1|        |00A035;
-                       dl UNREACH_0EEC0F                    ;0593F4|        |0EEC0F;
+                       dl Sprite_Battle_Axs                 ;0593F4|        |0EEC0F;
                        dl $7E8F00                           ;0593F7|        |7E8F00;
                        db $06                               ;0593FA|        |      ;
                        db $01                               ;0593FB|        |      ;
@@ -3092,7 +3092,7 @@ Sub_Another_setup_again:
                        db $1E                               ;059425|        |      ;
                        db $07                               ;059426|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059427|        |00A035;
-                       dl DATA8_0E8C1F                      ;05942A|        |0E8C1F;
+                       dl Sprite_Dead_PC                    ;05942A|        |0E8C1F;
                        dl $7E8F00                           ;05942D|        |7E8F00;
                        db $07                               ;059430|        |      ;
                        dl RAM_Decomp_803C                   ;059431|        |0E8034;
@@ -3105,7 +3105,7 @@ Sub_Another_setup_again:
          DATA8_05943F:
                        db $07                               ;05943F|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059440|        |00A035;
-                       dl UNREACH_0EEF6B                    ;059443|        |0EEF6B;
+                       dl Sprite_Attack_Axs                 ;059443|        |0EEF6B;
                        dl $7E8F00                           ;059446|        |7E8F00;
                        db $07                               ;059449|        |      ;
                        dl RAM_Decomp_803C                   ;05944A|        |0E8034;
@@ -3243,7 +3243,7 @@ Sub_Another_setup_again:
                        dl _07906F_far                       ;059530|        |07906B;
                        db $07                               ;059533|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059534|        |00A035;
-                       dl Gfx_Rooks                         ;059537|        |0E92F9;
+                       dl Sprite_Skull_Card                 ;059537|        |0E92F9;
                        dl $7E8500                           ;05953A|        |7E8500;
                        db $07                               ;05953D|        |      ;
                        dl RAM_Decomp_801A                   ;05953E|        |0E8012;
@@ -3318,7 +3318,7 @@ Sub_Another_setup_again:
                        dl _07906F_far                       ;0595AF|        |07906B;
                        db $07                               ;0595B2|        |      ;
                        dl Decomp_Setup2_3b_3b               ;0595B3|        |00A035;
-                       dl Gfx_Rooks                         ;0595B6|        |0E92F9;
+                       dl Sprite_Skull_Card                 ;0595B6|        |0E92F9;
                        dl $7E8A00                           ;0595B9|        |7E8A00;
                        db $07                               ;0595BC|        |      ;
                        dl RAM_Decomp_802B                   ;0595BD|        |0E8023;
@@ -3393,7 +3393,7 @@ Sub_Another_setup_again:
                        dl _07906F_far                       ;05962E|        |07906B;
                        db $07                               ;059631|        |      ;
                        dl Decomp_Setup2_3b_3b               ;059632|        |00A035;
-                       dl Gfx_Rooks                         ;059635|        |0E92F9;
+                       dl Sprite_Skull_Card                 ;059635|        |0E92F9;
                        dl $7E8F00                           ;059638|        |7E8F00;
                        db $07                               ;05963B|        |      ;
                        dl RAM_Decomp_803C                   ;05963C|        |0E8034;
@@ -4579,7 +4579,7 @@ Sub_Another_setup_again:
                        db $FF                               ;059CDB|        |      ;
                        db $07                               ;059CDC|        |      ; X is defending
                        dl Setup_Text_Parser_3b              ;059CDD|        |00A0AC;
-                       dl X_is_defending                    ;059CE0|        |0880C9;
+                       dl Text_X_is_defending               ;059CE0|        |0880C9;
                        db $00                               ;059CE3|        |      ;
          DATA8_059CE4:
                        db $06                               ;059CE4|        |      ; Delay 01

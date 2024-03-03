@@ -322,7 +322,6 @@
                        LOOSE_OP_008CF6 = $008CF6
                        LOOSE_OP_008DAE = $008DAE
                        LOOSE_OP_008C85 = $008C85
-                       LOOSE_OP_008E61 = $008E61
                        LOOSE_OP_009122 = $009122
                        LOOSE_OP_0091A2 = $0091A2
                        LOOSE_OP_009197 = $009197
@@ -615,9 +614,6 @@
                        PTR24_00CFD4 = $00CFD4
                        LOOSE_OP_00BFF0 = $00BFF0
                        LOOSE_OP_00C000 = $00C000
-                       LOOSE_OP_00CE84 = $00CE84
-                       LOOSE_OP_00CEA6 = $00CEA6
-                       LOOSE_OP_00CEBD = $00CEBD
                        PTR24_00CFEA = $00CFEA
                        LOOSE_OP_009F86 = $009F86
                        LOOSE_OP_009F91 = $009F91
