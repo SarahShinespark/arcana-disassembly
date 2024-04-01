@@ -472,31 +472,31 @@ Init_all_the_things_2:
                        db $1A                               ;0183BA|      ;
                        dw LOOSE_OP_008561                   ;0183BB|008561;
                        db $16                               ;0183BD|      ;
-                       dw $1901                             ;0183BE|001901;
+                       dw $1901                             ;0183BE|      ;
                        dw $0000                             ;0183C0|      ;
                        db $16                               ;0183C2|      ;
-                       dw $11C1                             ;0183C3|0011C1;
+                       dw $11C1                             ;0183C3|      ;
                        dw $0005                             ;0183C5|      ;
                        db $16                               ;0183C7|      ;
-                       dw $1575                             ;0183C8|001575;
+                       dw $1575                             ;0183C8|      ;
                        dw $FFFF                             ;0183CA|      ;
                        db $16                               ;0183CC|      ;
-                       dw $13A3                             ;0183CD|0013A3;
+                       dw $13A3                             ;0183CD|      ;
                        dw $0000                             ;0183CF|      ;
                        db $16                               ;0183D1|      ;
-                       dw $13A5                             ;0183D2|0013A5;
+                       dw $13A5                             ;0183D2|      ;
                        dw $0000                             ;0183D4|      ;
                        db $16                               ;0183D6|      ;
-                       dw $1095                             ;0183D7|001095;
+                       dw $1095                             ;0183D7|      ;
                        dw $0000                             ;0183D9|      ;
                        db $16                               ;0183DB|      ;
-                       dw $157B                             ;0183DC|00157B;
+                       dw $157B                             ;0183DC|      ;
                        dw $0000                             ;0183DE|      ;
                        db $16                               ;0183E0|      ;
-                       dw $157D                             ;0183E1|00157D;
+                       dw $157D                             ;0183E1|      ;
                        dw $0000                             ;0183E3|      ;
                        db $16                               ;0183E5|      ;
-                       dw $1127                             ;0183E6|001127;
+                       dw $1127                             ;0183E6|      ;
                        dw $FFFF                             ;0183E8|      ;
      Wipe_enemy_stats:
                        db $07                               ;0183EA|      ;
@@ -2523,21 +2523,22 @@ Any_direction_pressed:
                        dl Setup_Text_Parser_3b              ;018E76|00A0AC;
                        dl Enemy1_Num                        ;018E79|088F1D;
                        db $00                               ;018E7C|      ;
-                       db $1B                               ;018E7D|      ;
+                       db $1B                               ;018E7D|      ; 1B: Call sub 8F00
                        dw DATA8_018F00                      ;018E7E|018F00;
-                       db $24                               ;018E80|      ;
+                       db $24                               ;018E80|      ; 24: Load var1
                        db $01                               ;018E81|      ;
-                       db $0B                               ;018E82|      ;
+                       db $0B                               ;018E82|      ; 0B: If zero, jump to 8F27
                        dw DATA8_018F27                      ;018E83|018F27;
+       Text_EnemyNum2:
                        db $07                               ;018E85|      ;
                        dl Setup_Text_Parser_3b              ;018E86|00A0AC;
                        dl Enemy2_Num                        ;018E89|088F35;
                        db $00                               ;018E8C|      ;
-                       db $1B                               ;018E8D|      ;
+                       db $1B                               ;018E8D|      ; 1B: Call sub 8F00
                        dw DATA8_018F00                      ;018E8E|018F00;
-                       db $24                               ;018E90|      ;
+                       db $24                               ;018E90|      ; 24: Load var1
                        db $01                               ;018E91|      ;
-                       db $0B                               ;018E92|      ;
+                       db $0B                               ;018E92|      ; 0B: If zero, jump to 8F27
                        dw DATA8_018F27                      ;018E93|018F27;
                        db $07                               ;018E95|      ;
                        dl Setup_Text_Parser_3b              ;018E96|00A0AC;
@@ -2573,11 +2574,12 @@ Any_direction_pressed:
                        db $00                               ;018EC9|      ;
                        db $1B                               ;018ECA|      ;
                        dw DATA8_018F00                      ;018ECB|018F00;
-                       db $24                               ;018ECD|      ;
+                       db $24                               ;018ECD|      ; 24: Load var1
                        db $01                               ;018ECE|      ;
-                       db $0B                               ;018ECF|      ;
+                       db $0B                               ;018ECF|      ; 0B: If false/0 jump to sub 8F13
                        dw DATA8_018F13                      ;018ED0|018F13;
-                       db $07                               ;018ED2|      ;
+      Text_Enemy6_Num:
+                       db $07                               ;018ED2|      ; Unused
                        dl Setup_Text_Parser_3b              ;018ED3|00A0AC;
                        dl Enemy6_Num                        ;018ED6|088F72;
                        db $00                               ;018ED9|      ;
@@ -2606,9 +2608,9 @@ Any_direction_pressed:
                        db $1A                               ;018EFD|      ;
                        dw DATA8_018F32                      ;018EFE|018F32;
          DATA8_018F00:
-                       db $25                               ;018F00|      ;
+                       db $25                               ;018F00|      ; 25 03: Set var3 to loopvar
                        db $03                               ;018F01|      ;
-                       db $15                               ;018F02|      ;
+                       db $15                               ;018F02|      ; 15: Load var1 - 1
                        db $01                               ;018F03|      ;
                        db $02                               ;018F04|      ;
                        dw $FFFF                             ;018F05|      ;
@@ -4121,7 +4123,7 @@ Levelup_Pause_for_input:
 Draw_Window_Color_menu:
                        db $07                               ;019766|      ;
                        dl Setup_Text_Parser_3b              ;019767|00A0AC;
-                       dl Window_Color                      ;01976A|0883F7;
+                       dl Draw_Color_Menu                   ;01976A|0883F7;
                        db $00                               ;01976D|      ;
                        db $07                               ;01976E|      ; Uh, read a lot
                        dl Some_Setup_12b                    ;01976F|009C5D;
@@ -4220,7 +4222,7 @@ Draw_Window_Color_menu:
 Refresh_Window_Color_Menu:
                        db $07                               ;0197FC|      ;
                        dl Setup_Text_Parser_3b              ;0197FD|00A0AC;
-                       dl Window_Color                      ;019800|0883F7;
+                       dl Draw_Color_Menu                   ;019800|0883F7;
                        db $00                               ;019803|      ;
                        db $1A                               ;019804|      ;
                        dw DATA8_0197AD                      ;019805|0197AD;
@@ -5801,7 +5803,7 @@ Input_loop_Equipment_menu:
                        db $23                               ;01A0DB|      ;
                        db $03                               ;01A0DC|      ;
                        db $08                               ;01A0DD|      ;
-                       dw DATA8_01A196                      ;01A0DE|01A196;
+                       dw Event_Load_Area_Name              ;01A0DE|01A196;
                        db $1B                               ;01A0E0|      ;
                        dw DATA8_01A14A                      ;01A0E1|01A14A;
                        db $09                               ;01A0E3|      ;
@@ -5916,12 +5918,12 @@ Input_loop_Equipment_menu:
                        db $7E                               ;01A192|      ;
                        dw $7C00                             ;01A193|      ;
                        db $1C                               ;01A195|      ; 1C: RTS
-         DATA8_01A196:
+ Event_Load_Area_Name:
                        db $07                               ;01A196|      ;
-                       dl CODE_07B8D8                       ;01A197|07B8D8;
+                       dl Get_Area_Name                     ;01A197|07B8D8;
                        db $07                               ;01A19A|      ;
                        dl Setup_Text_Parser_3b              ;01A19B|00A0AC;
-                       dl Loads_1_thing                     ;01A19E|08843A;
+                       dl Draw_Area_Name                    ;01A19E|08843A;
                        db $00                               ;01A1A1|      ;
                        db $0D                               ;01A1A2|      ; 0D: Some kinda return
           CODE_01A1A3:

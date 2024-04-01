@@ -431,20 +431,17 @@ Gfx_Dungeon_Stuff_far:
                        PEA.W $0000                          ;00833B|000000;
                        PLD                                  ;00833E|      ;
                        PHB                                  ;00833F|      ;
-          CODE_008340:
                        PHK                                  ;008340|      ;
                        PLB                                  ;008341|      ;
                        SEP #$20                             ;008342|      ;
                        LDA.W NMI_flag                       ;008344|004210;
                        INC.B $20                            ;008347|000020;
                        REP #$20                             ;008349|      ;
-          CODE_00834B:
                        LDA.W $1055                          ;00834B|001055;
                        BNE CODE_008353                      ;00834E|008353;
                        JSR.W DMA_OAM_xfer                   ;008350|008379;
           CODE_008353:
                        JSR.W Video_stuff                    ;008353|008465;
-          CODE_008356:
                        JSR.W Update_bgscroll                ;008356|008400;
                        LDA.W HDMA_ch_temp                   ;008359|00105A;
                        STA.W HDMA_enable                    ;00835C|00420C;
@@ -459,7 +456,6 @@ Gfx_Dungeon_Stuff_far:
                        PLB                                  ;008373|      ;
                        PLD                                  ;008374|      ;
                        PLY                                  ;008375|      ;
-          CODE_008376:
                        PLX                                  ;008376|      ;
                        PLA                                  ;008377|      ;
                        RTI                                  ;008378|      ;
@@ -3566,7 +3562,7 @@ Event_Anim_C8_CF_1b_2b:
                        INC.B $10                            ;009861|000010;
                        RTS                                  ;009863|      ;
         Event_Code_25:
-                       INC.B $10                            ;009864|000010;
+                       INC.B $10                            ;009864|000010; Sets $0B9F Loop var from var0,var1,var2,var3
                        LDA.B [$10]                          ;009866|000010;
                        AND.W #$00FF                         ;009868|      ;
                        ASL A                                ;00986B|      ;
@@ -4791,27 +4787,27 @@ GetPtr_3b_Do_stuff_1b:
                        JSR.W Display_stuff                  ;00A101|008585;
                        RTL                                  ;00A104|      ;
    Transfer_Setup2_6b:
-                       JSR.W GetEventCode_2b                ;00A105|009B00;
+                       JSR.W GetEventCode_2b                ;00A105|009B00; Reads (3b ptr), dest (1b offset), #bytes (2b)
                        STA.B $18                            ;00A108|000018; Reads src (3b) into $18
           CODE_00A10A:
                        JSR.W GetEventCode_1b                ;00A10A|009AF0;
                        STA.B $1A                            ;00A10D|00001A;
-                       JSR.W GetEventCode_1b                ;00A10F|009AF0;
-                       STA.B $09                            ;00A112|000009; Reads some weird offset into $09
+                       JSR.W GetEventCode_1b                ;00A10F|009AF0; Reads dest offset
+                       STA.B $09                            ;00A112|000009; Sets offset
                        JSR.W GetEventCode_2b                ;00A114|009B00; Bytes to transfer(2b)
                        TAY                                  ;00A117|      ;
                        LDX.W Selection                      ;00A118|00103F;
                        LDA.W Selection_value,X              ;00A11B|0009EB;
                        ASL A                                ;00A11E|      ;
                        TAX                                  ;00A11F|      ;
-                       LDA.L Tbl_A105,X                     ;00A120|00A138;
+                       LDA.L Tbl_A105,X                     ;00A120|00A138; Read dest offset based on context table
                        CLC                                  ;00A124|      ;
                        ADC.B $09                            ;00A125|000009;
                        ASL A                                ;00A127|      ;
           CODE_00A128:
                        ADC.W #$0420                         ;00A128|      ;
           CODE_00A12B:
-                       STA.B $1C                            ;00A12B|00001C;
+                       STA.B $1C                            ;00A12B|00001C; Dest RAM = $420 + 2 x (table value + parameter 2)
           CODE_00A12D:
                        DEY                                  ;00A12D|      ;
           CODE_00A12E:
@@ -6469,7 +6465,7 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AD23|      ;
                        db $00                               ;00AD24|      ;
                        db $00                               ;00AD25|      ;
-                       db $18                               ;00AD26|      ;
+                       db $18                               ;00AD26|      ; $21
                        db $03                               ;00AD27|      ;
                        db $80                               ;00AD28|      ;
                        db $38                               ;00AD29|      ;
@@ -12708,7 +12704,7 @@ Tbl_Subtraction_values:
          DATA8_00D3D4:
                        db $07                               ;00D3D4|      ;
                        dl Setup_Text_Parser_3b              ;00D3D5|00A0AC;
-                       dl DATA8_08E39D                      ;00D3D8|08E39D;
+                       dl Text_Music_Number                 ;00D3D8|08E39D;
                        db $01                               ;00D3DB|      ;
                        db $06                               ;00D3DC|      ;
                        db $01                               ;00D3DD|      ;
@@ -21138,7 +21134,6 @@ Check_for_Start_press:
                        db $FF                               ;00F4C7|      ;
                        db $FF                               ;00F4C8|      ;
                        db $FF                               ;00F4C9|      ;
-         EMPTY_00F4CA:
                        db $FF                               ;00F4CA|      ;
                        db $FF                               ;00F4CB|      ;
                        db $FF                               ;00F4CC|      ;
@@ -21158,7 +21153,6 @@ Check_for_Start_press:
                        db $FF                               ;00F4DA|      ;
                        db $FF                               ;00F4DB|      ;
                        db $FF                               ;00F4DC|      ;
-         EMPTY_00F4DD:
                        db $FF                               ;00F4DD|      ;
                        db $FF                               ;00F4DE|      ;
                        db $FF                               ;00F4DF|      ;
@@ -21256,7 +21250,6 @@ Check_for_Start_press:
                        db $FF                               ;00F53B|      ;
                        db $FF                               ;00F53C|      ;
                        db $FF                               ;00F53D|      ;
-         EMPTY_00F53E:
                        db $FF                               ;00F53E|      ;
                        db $FF                               ;00F53F|      ;
                        db $FF                               ;00F540|      ;
@@ -21279,7 +21272,6 @@ Check_for_Start_press:
                        db $FF                               ;00F551|      ;
                        db $FF                               ;00F552|      ;
                        db $FF                               ;00F553|      ;
-         EMPTY_00F554:
                        db $FF                               ;00F554|      ;
                        db $FF                               ;00F555|      ;
                        db $FF                               ;00F556|      ;
@@ -21363,7 +21355,6 @@ Check_for_Start_press:
                        db $FF                               ;00F5A4|      ;
                        db $FF                               ;00F5A5|      ;
                        db $FF                               ;00F5A6|      ;
-         EMPTY_00F5A7:
                        db $FF                               ;00F5A7|      ;
                        db $FF                               ;00F5A8|      ;
                        db $FF                               ;00F5A9|      ;
@@ -21420,7 +21411,6 @@ Check_for_Start_press:
                        db $FF                               ;00F5DC|      ;
                        db $FF                               ;00F5DD|      ;
                        db $FF                               ;00F5DE|      ;
-         EMPTY_00F5DF:
                        db $FF                               ;00F5DF|      ;
                        db $FF                               ;00F5E0|      ;
                        db $FF                               ;00F5E1|      ;

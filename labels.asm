@@ -625,8 +625,6 @@
                        LOOSE_OP_009E3B = $009E3B
                        LOOSE_OP_009E6D = $009E6D
                        LOOSE_OP_009F03 = $009F03
-                       LOOSE_OP_008361 = $008361
-                       LOOSE_OP_00836C = $00836C
                        LOOSE_OP_008574 = $008574
                        LOOSE_OP_0085BB = $0085BB
                        LOOSE_OP_008910 = $008910
@@ -656,8 +654,6 @@
                        LOOSE_OP_009BEF = $009BEF
                        LOOSE_OP_009BC0 = $009BC0
                        LOOSE_OP_009B2E = $009B2E
-                       LOOSE_OP_009748 = $009748
-                       LOOSE_OP_009D04 = $009D04
                        LOOSE_OP_008A66 = $008A66
                        LOOSE_OP_008A7E = $008A7E
                        LOOSE_OP_008A96 = $008A96

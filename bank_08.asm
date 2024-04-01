@@ -1,7 +1,7 @@
                        ORG $088000
                        db $FF                               ;088000|      ;
         Text_06_0C_0C:
-                       db $06                               ;088001|      ; Status screen (I don't get how it works)
+                       db $06                               ;088001|      ; Loads a black screen and clears the screen for the status screen
                        db $0C                               ;088002|      ;
                        db $0C                               ;088003|      ;
                        db $00                               ;088004|      ; End of string
@@ -15,7 +15,7 @@
                        db $7F                               ;088009|      ;
                        db $00                               ;08800A|      ;
               Text_0D:
-                       db $0D                               ;08800B|      ;
+                       db $0D                               ;08800B|      ; Used when displaying monsters at the start of battle
                        db $00                               ;08800C|      ;
     Text_Unused_Menu1:
                        db $06                               ;08800D|      ; This uses 2-byte characters only readable in the Japanese version.
@@ -141,45 +141,19 @@ Text_Unused_Message_Speed:
                        db $0D                               ;0880C7|      ;
                        db $00                               ;0880C8|      ;
   Text_X_is_defending:
-                       db $06                               ;0880C9|      ;
-                       db $0D                               ;0880CA|      ;
-                       db $0C                               ;0880CB|      ;
-                       db $05                               ;0880CC|      ;
-                       db $01                               ;0880CD|      ;
-                       db $05                               ;0880CE|      ;
-                       db $20                               ;0880CF|      ;
-                       db $0C                               ;0880D0|      ;
-                       db $01                               ;0880D1|      ;
-                       db $00                               ;0880D2|      ;
-                       db $06                               ;0880D3|      ;
-                       db $03                               ;0880D4|      ;
-                       db $0E                               ;0880D5|      ;
-                       db $1C                               ;0880D6|      ;
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1C;0880C9|      ;
                        db $10                               ;0880D7|      ;
                        dl $001581                           ;0880D8|001581;
-                       db $0D                               ;0880DB|      ;
-                       db "is defending."                   ;0880DC|      ;
-                       db $0D                               ;0880E9|      ;
+                       db $0D, "is defending.", $0D         ;0880DB|      ;
                        db $7F                               ;0880EA|      ;
                        db $00                               ;0880EB|      ;
      Weapons_sub_menu:
-                       db $06                               ;0880EC|      ;
-                       db $0D                               ;0880ED|      ;
-                       db $0C                               ;0880EE|      ;
-                       db $01                               ;0880EF|      ;
-                       db $00                               ;0880F0|      ;
-                       db $06                               ;0880F1|      ;
-                       db $03                               ;0880F2|      ;
-                       db $0E                               ;0880F3|      ;
-                       db $1C                               ;0880F4|      ;
-                       db $20                               ;0880F5|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, " ";0880EC|      ;
                        db $10                               ;0880F6|      ;
                        dl $001697                           ;0880F7|001697;
                        db $08                               ;0880FA|      ;
                        db $68                               ;0880FB|      ;
-                       db "Attack"                          ;0880FC|      ;
-                       db $0D                               ;088102|      ;
-                       db $20                               ;088103|      ;
+                       db "Attack", $0D, " "                ;0880FC|      ;
                        db $10                               ;088104|      ;
                        dl $0016A8                           ;088105|0016A8;
                        db $08                               ;088108|      ;
@@ -187,15 +161,12 @@ Text_Unused_Message_Speed:
                        db $11                               ;08810A|      ;
                        db $02                               ;08810B|      ;
                        dl $0016DB                           ;08810C|0016DB;
-                       db $0D                               ;08810F|      ;
-                       db $20                               ;088110|      ;
+                       db $0D, " "                          ;08810F|      ;
                        db $10                               ;088111|      ;
                        dl $0016B9                           ;088112|0016B9;
                        db $08                               ;088115|      ;
                        db $68                               ;088116|      ;
-                       db "Defend"                          ;088117|      ;
-                       db $0D                               ;08811D|      ;
-                       db " "                               ;08811E|      ;
+                       db "Defend", $0D, " "                ;088117|      ;
                        db $10                               ;08811F|      ;
                        dl $0016CA                           ;088120|0016CA;
                        db $08                               ;088123|      ;
@@ -205,240 +176,110 @@ Text_Unused_Message_Speed:
                        dl $0016DD                           ;088127|0016DD;
                        db $00                               ;08812A|      ;
             Town_menu:
-                       db $06                               ;08812B|      ;
-                       db $0D                               ;08812C|      ;
-                       db $0C                               ;08812D|      ;
-                       db $01                               ;08812E|      ;
-                       db $00                               ;08812F|      ;
-                       db $06                               ;088130|      ;
-                       db $03                               ;088131|      ;
-                       db $0E                               ;088132|      ;
-                       db $1C                               ;088133|      ;
-                       db "  Look   Magic   Equi"           ;088134|      ;
-                       db "pment"                           ;088149|      ;
-                       db $0D                               ;08814E|      ;
-                       db "  Call"                          ;08814F|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Look   Mag";08812B|      ;
+                       db "ic   Equipment", $0D, "  Call"   ;088140|      ;
                        db $08                               ;088155|      ;
                        db $2E                               ;088156|      ;
                        db "Ability"                         ;088157|      ;
                        db $08                               ;08815E|      ;
                        db $59                               ;08815F|      ;
-                       db "Inventory"                       ;088160|      ;
-                       db $0D                               ;088169|      ;
-                       db $06                               ;08816A|      ; Grayed out
-                       db $0E                               ;08816B|      ;
-                       db "  Map"                           ;08816C|      ;
+                       db "Inventory", $0D, $06, $0E, "  Map";088160|      ;
                        db $08                               ;088171|      ;
                        db $2E                               ;088172|      ;
-                       db $06                               ;088173|      ; White text
-                       db $0D                               ;088174|      ;
-                       db "Color"                           ;088175|      ;
+                       db $06, $0D, "Color"                 ;088173|      ; White text
                        db $08                               ;08817A|      ;
                        db $59                               ;08817B|      ;
-                       db "Formation"                       ;08817C|      ;
-                       db $0D                               ;088185|      ;
-                       db "Money          "                 ;088186|      ;
+                       db "Formation", $0D, "Money      "   ;08817C|      ;
+                       db "    "                            ;088191|      ;
                        db $11                               ;088195|      ;
                        db $04                               ;088196|      ;
                        dl $001559                           ;088197|001559;
-                       db "GP"                              ;08819A|      ;
-                       db $00                               ;08819C|      ;
+                       db "GP", $00                         ;08819A|      ;
          Dungeon_menu:
-                       db $06                               ;08819D|      ;
-                       db $0D                               ;08819E|      ;
-                       db $0C                               ;08819F|      ;
-                       db $01                               ;0881A0|      ;
-                       db $00                               ;0881A1|      ;
-                       db $06                               ;0881A2|      ;
-                       db $03                               ;0881A3|      ;
-                       db $0E                               ;0881A4|      ;
-                       db $1C                               ;0881A5|      ;
-                       db "  Look   Magic   Equi"           ;0881A6|      ;
-                       db "pment"                           ;0881BB|      ;
-                       db $0D                               ;0881C0|      ;
-                       db "  Call"                          ;0881C1|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Look   Mag";08819D|      ;
+                       db "ic   Equipment", $0D, "  Call"   ;0881B2|      ;
                        db $08                               ;0881C7|      ;
                        db $2E                               ;0881C8|      ;
                        db "Ability"                         ;0881C9|      ;
                        db $08                               ;0881D0|      ;
                        db $59                               ;0881D1|      ;
-                       db "Inventory"                       ;0881D2|      ;
-                       db $0D                               ;0881DB|      ;
-                       db $20                               ;0881DC|      ;
-                       db " Map"                            ;0881DD|      ;
+                       db "Inventory", $0D, "  Map"         ;0881D2|      ;
                        db $08                               ;0881E1|      ;
                        db $2E                               ;0881E2|      ;
                        db "Color"                           ;0881E3|      ;
                        db $08                               ;0881E8|      ;
                        db $59                               ;0881E9|      ;
-                       db "Formation"                       ;0881EA|      ;
-                       db $0D                               ;0881F3|      ;
-                       db "Money          "                 ;0881F4|      ;
+                       db "Formation", $0D, "Money      "   ;0881EA|      ;
+                       db "    "                            ;0881FF|      ;
                        db $11                               ;088203|      ;
                        db $04                               ;088204|      ;
                        dl $001559                           ;088205|001559;
-                       db "GP"                              ;088208|      ;
-                       db $00                               ;08820A|      ;
+                       db "GP", $00                         ;088208|      ;
            Battle_won:
-                       db $06                               ;08820B|      ;
-                       db $0D                               ;08820C|      ;
-                       db $0C                               ;08820D|      ;
-                       db $05                               ;08820E|      ;
-                       db $01                               ;08820F|      ;
-                       db $05                               ;088210|      ;
-                       db $20                               ;088211|      ;
-                       db $0C                               ;088212|      ;
-                       db $01                               ;088213|      ;
-                       db $00                               ;088214|      ;
-                       db $06                               ;088215|      ;
-                       db $1D                               ;088216|      ;
-                       db "All monsters defeated"           ;088217|      ;
-                       db "."                               ;08822C|      ;
-                       db $0D                               ;08822D|      ;
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $1D, "All monst";08820B|      ;
+                       db "ers defeated.", $0D              ;088220|      ;
                        db $11                               ;08822E|      ; ($13A3) EXP won
                        db $00                               ;08822F|      ;
                        dl $0013A3                           ;088230|0013A3;
-                       db "Experience Points"               ;088233|      ;
-                       db $0D                               ;088244|      ;
-                       db "gained."                         ;088245|      ;
-                       db $0D                               ;08824C|      ;
+                       db "Experience Points", $0D, "gai"   ;088233|      ;
+                       db "ned.", $0D                       ;088248|      ;
                        db $11                               ;08824D|      ; ($13A5) GP won
                        db $00                               ;08824E|      ;
                        dl $0013A5                           ;08824F|0013A5;
-                       db "GP gained."                      ;088252|      ;
-                       db $0D                               ;08825C|      ;
+                       db "GP gained.", $0D                 ;088252|      ;
                        db $7F                               ;08825D|      ;
                        db $00                               ;08825E|      ;
         EXP_GP_gained:
-                       db $06                               ;08825F|      ; White text
-                       db $0D                               ;088260|      ;
-                       db $0C                               ;088261|      ; idk what this does
-                       db $05                               ;088262|      ;
-                       db $01                               ;088263|      ;
-                       db $05                               ;088264|      ;
-                       db $20                               ;088265|      ;
-                       db $0C                               ;088266|      ;
-                       db $01                               ;088267|      ;
-                       db $00                               ;088268|      ;
-                       db $06                               ;088269|      ;
-                       db $1C                               ;08826A|      ;
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $1C;08825F|      ; White text
                        db $11                               ;08826B|      ;
                        db $00                               ;08826C|      ;
                        dl $0013A3                           ;08826D|0013A3;
-                       db "Experience Points"               ;088270|      ;
-                       db $0D                               ;088281|      ;
-                       db "Gained"                          ;088282|      ;
-                       db $0D                               ;088288|      ;
+                       db "Experience Points", $0D, "Gai"   ;088270|      ;
+                       db "ned", $0D                        ;088285|      ;
                        db $11                               ;088289|      ;
                        db $00                               ;08828A|      ;
                        dl $0013A5                           ;08828B|0013A5;
-                       db "GP gained"                       ;08828E|      ;
-                       db $0D                               ;088297|      ;
+                       db "GP gained", $0D                  ;08828E|      ;
                        db $7F                               ;088298|      ;
                        db $00                               ;088299|      ;
              Run_away:
-                       db $06                               ;08829A|      ;
-                       db $0D                               ;08829B|      ;
-                       db $0C                               ;08829C|      ;
-                       db $05                               ;08829D|      ;
-                       db $01                               ;08829E|      ;
-                       db $05                               ;08829F|      ;
-                       db $20                               ;0882A0|      ;
-                       db $0C                               ;0882A1|      ;
-                       db $01                               ;0882A2|      ;
-                       db $00                               ;0882A3|      ;
-                       db $06                               ;0882A4|      ;
-                       db $1D                               ;0882A5|      ;
-                       db "Rooks' Group has"                ;0882A6|      ;
-                       db $0D                               ;0882B6|      ;
-                       db "withdrawn."                      ;0882B7|      ;
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $1D, "Rooks' Gr";08829A|      ;
+                       db "oup has", $0D, "withdrawn."      ;0882AF|      ;
                        db $7F                               ;0882C1|      ;
                        db $00                               ;0882C2|      ;
             No_escape:
-                       db $06                               ;0882C3|      ;
-                       db $0D                               ;0882C4|      ;
-                       db $0C                               ;0882C5|      ;
-                       db $05                               ;0882C6|      ;
-                       db $01                               ;0882C7|      ;
-                       db $05                               ;0882C8|      ;
-                       db $20                               ;0882C9|      ;
-                       db $0C                               ;0882CA|      ;
-                       db $01                               ;0882CB|      ;
-                       db $00                               ;0882CC|      ;
-                       db $06                               ;0882CD|      ;
-                       db $1D                               ;0882CE|      ;
-                       db "There was no escape."            ;0882CF|      ;
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $1D, "There was";0882C3|      ;
+                       db " no escape."                     ;0882D8|      ;
                        db $7F                               ;0882E3|      ;
                        db $00                               ;0882E4|      ;
     Rooks_Battle_menu:
-                       db $06                               ;0882E5|      ; White text
-                       db $0D                               ;0882E6|      ;
-                       db $0C                               ;0882E7|      ;
-                       db $01                               ;0882E8|      ;
-                       db $00                               ;0882E9|      ;
-                       db $06                               ;0882EA|      ;
-                       db $03                               ;0882EB|      ;
-                       db $0E                               ;0882EC|      ;
-                       db $1C                               ;0882ED|      ;
-                       db "  Attack    Magic  De"           ;0882EE|      ;
-                       db "fense"                           ;088303|      ;
-                       db $0D                               ;088308|      ;
-                       db "  Weapons"                       ;088309|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Attack    ";0882E5|      ; White text
+                       db "Magic  Defense", $0D, "  Weap"   ;0882FA|      ;
+                       db "ons"                             ;08830F|      ;
                        db $08                               ;088312|      ;
                        db $3D                               ;088313|      ;
                        db "Item"                            ;088314|      ;
                        db $08                               ;088318|      ;
                        db $64                               ;088319|      ;
-                       db "Retreat"                         ;08831A|      ;
-                       db $0D                               ;088321|      ;
-                       db "  Cards"                         ;088322|      ;
+                       db "Retreat", $0D, "  Cards"         ;08831A|      ;
                        db $08                               ;088329|      ;
                        db $64                               ;08832A|      ;
-                       db "Call"                            ;08832B|      ;
-                       db $00                               ;08832F|      ;
+                       db "Call", $00                       ;08832B|      ;
    Spirit_Battle_menu:
-                       db $06                               ;088330|      ;
-                       db $0D                               ;088331|      ;
-                       db $0C                               ;088332|      ;
-                       db $01                               ;088333|      ;
-                       db $00                               ;088334|      ;
-                       db $06                               ;088335|      ;
-                       db $03                               ;088336|      ;
-                       db $0E                               ;088337|      ;
-                       db $1C                               ;088338|      ;
-                       db "  Attack    Magic  De"           ;088339|      ;
-                       db "fense"                           ;08834E|      ;
-                       db $00                               ;088353|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Attack    ";088330|      ;
+                       db "Magic  Defense", $00             ;088345|      ;
     Guest_Battle_menu:
-                       db $06                               ;088354|      ;
-                       db $0D                               ;088355|      ;
-                       db $0C                               ;088356|      ;
-                       db $01                               ;088357|      ;
-                       db $00                               ;088358|      ;
-                       db $06                               ;088359|      ;
-                       db $03                               ;08835A|      ;
-                       db $0E                               ;08835B|      ;
-                       db $1C                               ;08835C|      ;
-                       db "  Attack    Magic  De"           ;08835D|      ;
-                       db "fense"                           ;088372|      ;
-                       db $0D                               ;088377|      ;
-                       db "  Weapons"                       ;088378|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Attack    ";088354|      ;
+                       db "Magic  Defense", $0D, "  Weap"   ;088369|      ;
+                       db "ons"                             ;08837E|      ;
                        db $08                               ;088381|      ;
                        db $3D                               ;088382|      ;
                        db "Item"                            ;088383|      ;
                        db $08                               ;088387|      ;
                        db $64                               ;088388|      ;
-                       db "Retreat"                         ;088389|      ;
-                       db $00                               ;088390|      ;
-                       db $06                               ;088391|      ;
-                       db $0D                               ;088392|      ;
-                       db $0C                               ;088393|      ;
-                       db $01                               ;088394|      ;
-                       db $00                               ;088395|      ;
-                       db $06                               ;088396|      ;
-                       db $03                               ;088397|      ;
-                       db $0E                               ;088398|      ;
-                       db $1C                               ;088399|      ;
+                       db "Retreat", $00                    ;088389|      ;
+         Unknown_menu:
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C;088391|      ;
  Gratuitous_Japanese1:
                        dw $4081                             ;08839A|      ;
                        dw $558D                             ;08839C|      ; 攻撃  Attack
@@ -465,15 +306,7 @@ Text_Unused_Message_Speed:
                        dw $9691                             ;0883C5|      ;
                        db $00                               ;0883C7|      ;
  Gratuitous_Japanese2:
-                       db $06                               ;0883C8|      ;
-                       db $0D                               ;0883C9|      ;
-                       db $0C                               ;0883CA|      ;
-                       db $01                               ;0883CB|      ;
-                       db $00                               ;0883CC|      ;
-                       db $06                               ;0883CD|      ;
-                       db $03                               ;0883CE|      ;
-                       db $0E                               ;0883CF|      ;
-                       db $1C                               ;0883D0|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C;0883C8|      ;
                        dw $4081                             ;0883D1|      ;  セーブ 文字 "Save character"
                        dw $5A83                             ;0883D3|      ;
                        dw $5B81                             ;0883D5|      ;
@@ -494,41 +327,57 @@ Text_Unused_Message_Speed:
                        dw $4C83                             ;0883F2|      ;
                        dw $5B81                             ;0883F4|      ;
                        db $00                               ;0883F6|      ;
-         Window_Color:
+      Draw_Color_Menu:
                        db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Window Col";0883F7|      ;
-                       db "or", $0D, "  Red", $08, "-", $11, $01;08840C|      ;
+                       db "or", $0D, "  Red", $08, "-"      ;08840C|      ;
+                       db $11                               ;088416|      ;
+                       db $01                               ;088417|      ;
                        dl $0016DB                           ;088418|0016DB;
-                       db $0D, "  Green", $08, "-", $11, $01;08841B|      ;
+                       db $0D, "  Green", $08, "-"          ;08841B|      ;
+                       db $11                               ;088425|      ;
+                       db $01                               ;088426|      ;
                        dl $0016DD                           ;088427|0016DD;
-                       db $0D, "  Blue", $08, "-", $11, $01 ;08842A|      ;
+                       db $0D, "  Blue", $08, "-"           ;08842A|      ;
+                       db $11                               ;088433|      ;
+                       db $01                               ;088434|      ;
                        dl $0016DF                           ;088435|0016DF;
                        db $0D, $00                          ;088438|      ;
-        Loads_1_thing:
-                       db $06, $0D, $0C, $01, $18, $0C, $1C, $10;08843A|      ;
+       Draw_Area_Name:
+                       db $06, $0D, $0C, $01, $18, $0C, $1C ;08843A|      ;
+                       db $10                               ;088441|      ;
                        dl $0015AF                           ;088442|0015AF;
                        db $00                               ;088445|      ;
       BattleMagicMenu:
-                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  ", $10;088446|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  ";088446|      ;
+                       db $10                               ;088451|      ;
                        dl $0015AF                           ;088452|0015AF;
-                       db $0D, "  ", $10                    ;088455|      ;
+                       db $0D, "  "                         ;088455|      ;
+                       db $10                               ;088458|      ;
                        dl $0015C7                           ;088459|0015C7;
-                       db $0D, "  ", $10                    ;08845C|      ;
+                       db $0D, "  "                         ;08845C|      ;
+                       db $10                               ;08845F|      ;
                        dl $0015DF                           ;088460|0015DF;
-                       db $0D, "  ", $10                    ;088463|      ;
+                       db $0D, "  "                         ;088463|      ;
+                       db $10                               ;088466|      ;
                        dl $0015F7                           ;088467|0015F7;
                        db $0D, $00                          ;08846A|      ;
     Battle_Items_Menu:
-                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  ", $10;08846C|      ;
+                       db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  ";08846C|      ;
+                       db $10                               ;088477|      ;
                        dl $0015AF                           ;088478|0015AF;
-                       db $0D, "  ", $10                    ;08847B|      ;
+                       db $0D, "  "                         ;08847B|      ;
+                       db $10                               ;08847E|      ;
                        dl $0015C5                           ;08847F|0015C5;
-                       db $0D, "  ", $10                    ;088482|      ;
+                       db $0D, "  "                         ;088482|      ;
+                       db $10                               ;088485|      ;
                        dl $0015DB                           ;088486|0015DB;
-                       db $0D, "  ", $10                    ;088489|      ;
+                       db $0D, "  "                         ;088489|      ;
+                       db $10                               ;08848C|      ;
                        dl $0015F1                           ;08848D|0015F1;
                        db $0D, $00                          ;088490|      ;
             X_Attacks:
-                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D, $10;088492|      ;
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D;088492|      ;
+                       db $10                               ;0884A0|      ; ($1581) Name
                        dl $001581                           ;0884A1|001581;
                        db " Attacks!", $0D                  ;0884A4|      ;
                        db $7F                               ;0884AE|      ;
@@ -546,19 +395,26 @@ Text_Unused_Message_Speed:
                        db $7F                               ;0884D2|      ;
                        db $00                               ;0884D3|      ;
    X_damaged_defeated:
-                       db $0C, $01, $00, $06, $10           ;0884D4|      ;
+                       db $0C, $01, $00, $06                ;0884D4|      ;
+                       db $10                               ;0884D8|      ;
                        dl $001598                           ;0884D9|001598;
-                       db " suffered", $0D, $06, $0E, $11, $00;0884DC|      ;
+                       db " suffered", $0D, $06, $0E        ;0884DC|      ;
+                       db $11                               ;0884E8|      ;
+                       db $00                               ;0884E9|      ;
                        dl $0016DB                           ;0884EA|0016DB;
-                       db $06, $0D, " points damage.", $0D, $10;0884ED|      ;
+                       db $06, $0D, " points damage.", $0D  ;0884ED|      ;
+                       db $10                               ;0884FF|      ;
                        dl $001598                           ;088500|001598;
                        db " is", $0D, "defeated."           ;088503|      ;
                        db $7F                               ;088510|      ;
                        db $00                               ;088511|      ;
     X_suffered_damage:
-                       db $0C, $01, $00, $06, $10           ;088512|      ;
+                       db $0C, $01, $00, $06                ;088512|      ;
+                       db $10                               ;088516|      ;
                        dl $001598                           ;088517|001598;
-                       db " suffered", $0D, $06, $0E, $11, $00;08851A|      ;
+                       db " suffered", $0D, $06, $0E        ;08851A|      ;
+                       db $11                               ;088526|      ;
+                       db $00                               ;088527|      ;
                        dl $0016DB                           ;088528|0016DB;
                        db $06, $0D, " points damage."       ;08852B|      ;
                        db $7F                               ;08853C|      ;
@@ -566,12 +422,15 @@ Text_Unused_Message_Speed:
        X_taken_damage:
                        db $10                               ;08853E|      ;
                        dl $001598                           ;08853F|001598;
-                       db " has taken", $0D, $06, $0E, $11, $00;088542|      ;
+                       db " has taken", $0D, $06, $0E       ;088542|      ;
+                       db $11                               ;08854F|      ;
+                       db $00                               ;088550|      ;
                        dl $0016DB                           ;088551|0016DB;
                        db $06, $0D, " points damage.", $0D, $0C, $05, $01;088554|      ;
                        db $05, " ", $0C, $01, $00           ;088569|      ;
            X_perished:
-                       db $06, $03, $0E, $1D, $10           ;08856E|      ; Game over, man!
+                       db $06, $03, $0E, $1D                ;08856E|      ; Game over, man!
+                       db $10                               ;088572|      ;
                        dl $001598                           ;088573|001598;
                        db " has perished."                  ;088576|      ;
                        db $7F                               ;088584|      ;
@@ -579,7 +438,9 @@ Text_Unused_Message_Speed:
       X_taken_damage2:
                        db $10                               ;088586|      ; Duplicate?
                        dl $001598                           ;088587|001598;
-                       db " has taken", $0D, $06, $0E, $11, $00;08858A|      ;
+                       db " has taken", $0D, $06, $0E       ;08858A|      ;
+                       db $11                               ;088597|      ;
+                       db $00                               ;088598|      ;
                        dl $0016DB                           ;088599|0016DB;
                        db $06, $0D, " points damage."       ;08859C|      ;
                        db $7F                               ;0885AD|      ;
@@ -616,7 +477,9 @@ Text_Unused_Message_Speed:
                        dl Battle_Text_Format                ;088625|088601;
                        db $10                               ;088628|      ;
                        dl $001598                           ;088629|001598;
-                       db " suffered", $0D, $06, $0E, $11, $00;08862C|      ;
+                       db " suffered", $0D, $06, $0E        ;08862C|      ;
+                       db $11                               ;088638|      ;
+                       db $00                               ;088639|      ;
                        dl $0016DB                           ;08863A|0016DB;
                        db $06, $0D, " points damage."       ;08863D|      ;
                        db $7F                               ;08864E|      ;
@@ -626,9 +489,12 @@ Suffered_damage_defeated2:
                        dl Battle_Text_Format                ;088651|088601;
                        db $10                               ;088654|      ;
                        dl $001598                           ;088655|001598;
-                       db " suffered", $0D, $06, $0E, $11, $00;088658|      ;
+                       db " suffered", $0D, $06, $0E        ;088658|      ;
+                       db $11                               ;088664|      ;
+                       db $00                               ;088665|      ;
                        dl $0016DB                           ;088666|0016DB;
-                       db $06, $0D, " points damage.", $0D, $10;088669|      ;
+                       db $06, $0D, " points damage.", $0D  ;088669|      ;
+                       db $10                               ;08867B|      ;
                        dl $001598                           ;08867C|001598;
                        db " is", $0D, "defeated."           ;08867F|      ;
                        db $7F                               ;08868C|      ;
@@ -638,7 +504,9 @@ Suffered_damage_defeated2:
                        dl Battle_Text_Format                ;08868F|088601;
                        db $10                               ;088692|      ;
                        dl $001598                           ;088693|001598;
-                       db "'s ", $06, $0E, $11, $00         ;088696|      ;
+                       db "'s ", $06, $0E                   ;088696|      ;
+                       db $11                               ;08869B|      ; Load HP value
+                       db $00                               ;08869C|      ;
                        dl $0016DB                           ;08869D|0016DB;
                        db $06, $0D, " HP", $0D, "has been restor";0886A0|      ; Default text
                        db "ed."                             ;0886B5|      ;
@@ -649,7 +517,8 @@ Suffered_damage_defeated2:
                        dl Battle_Text_Format                ;0886BB|088601;
                        db $10                               ;0886BE|      ;
                        dl $001598                           ;0886BF|001598;
-                       db " has", $0D, $10                  ;0886C2|      ;
+                       db " has", $0D                       ;0886C2|      ;
+                       db $10                               ;0886C7|      ;
                        dl $0015AF                           ;0886C8|0015AF;
                        db "."                               ;0886CB|      ;
                        db $7F                               ;0886CC|      ;
@@ -659,7 +528,8 @@ Suffered_damage_defeated2:
                        dl Battle_Text_Format                ;0886CF|088601;
                        db $10                               ;0886D2|      ;
                        dl $001598                           ;0886D3|001598;
-                       db "'s ", $0D, $10                   ;0886D6|      ;
+                       db "'s ", $0D                        ;0886D6|      ;
+                       db $10                               ;0886DA|      ;
                        dl $001581                           ;0886DB|001581;
                        db $0D, "has decreased."             ;0886DE|      ;
                        db $7F                               ;0886ED|      ;
@@ -679,7 +549,8 @@ Suffered_damage_defeated2:
                        dl Battle_Text_Format                ;088725|088601;
                        db $10                               ;088728|      ;
                        dl $001598                           ;088729|001598;
-                       db "'s ", $0D, $10                   ;08872C|      ;
+                       db "'s ", $0D                        ;08872C|      ;
+                       db $10                               ;088730|      ;
                        dl $001581                           ;088731|001581;
                        db $0D, "has been increased."        ;088734|      ;
                        db $7F                               ;088748|      ;
@@ -690,7 +561,8 @@ Suffered_damage_defeated2:
                        db $10                               ;08874E|      ;
                        dl $001598                           ;08874F|001598;
                        db "'s attribute", $0D, "has beco"   ;088752|      ;
-                       db "me ", $10                        ;088767|      ;
+                       db "me "                             ;088767|      ;
+                       db $10                               ;08876A|      ;
                        dl $001581                           ;08876B|001581;
                        db "."                               ;08876E|      ;
                        db $7F                               ;08876F|      ;
@@ -700,7 +572,8 @@ Suffered_damage_defeated2:
                        dl Battle_Text_Format                ;088772|088601;
                        db $10                               ;088775|      ;
                        dl $001598                           ;088776|001598;
-                       db $0D, "has recovered", $0D, "from ", $10;088779|      ;
+                       db $0D, "has recovered", $0D, "from ";088779|      ;
+                       db $10                               ;08878D|      ;
                        dl $001581                           ;08878E|001581;
                        db "."                               ;088791|      ;
                        db $7F                               ;088792|      ;
@@ -708,7 +581,8 @@ Suffered_damage_defeated2:
 Restoration_of_Spirit:
                        db $10                               ;088794|      ;
                        dl Battle_Text_Format                ;088795|088601;
-                       db "The ", $10                       ;088798|      ;
+                       db "The "                            ;088798|      ;
+                       db $10                               ;08879C|      ;
                        dl $001581                           ;08879D|001581;
                        db " Spirit", $0D, "has been rege"   ;0887A0|      ;
                        db "nerated."                        ;0887B5|      ;
@@ -718,7 +592,8 @@ Restoration_of_Spirit:
                        db $10                               ;0887BF|      ;
                        dl Battle_Text_Format                ;0887C0|088601;
                        db "There was no effect", $0D, "o"   ;0887C3|      ;
-                       db "n ", $10                         ;0887D8|      ;
+                       db "n "                              ;0887D8|      ;
+                       db $10                               ;0887DA|      ;
                        dl $001598                           ;0887DB|001598;
                        db "."                               ;0887DE|      ;
                        db $7F                               ;0887DF|      ;
@@ -735,7 +610,8 @@ Restoration_of_Spirit:
             Card_Torn:
                        db $10                               ;08880D|      ;
                        dl Battle_Text_Format                ;08880E|088601;
-                       db "The ", $10                       ;088811|      ;
+                       db "The "                            ;088811|      ;
+                       db $10                               ;088815|      ;
                        dl $001581                           ;088816|001581;
                        db " Card is torn."                  ;088819|      ;
                        db $7F                               ;088827|      ;
@@ -754,8 +630,8 @@ Restoration_of_Spirit:
                        db "ct."                             ;088867|      ;
                        db $7F                               ;08886A|      ;
                        db $00                               ;08886B|      ;
-           No_escape2:
-                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1C, "But the";08886C|      ; Not sure if this section starts here or lower, need the pointer table
+       No_escape_boss:
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1C, "But the";08886C|      ;
                        db "re was no escape.", $00          ;088881|      ;
     Cast_the_Spell_of:
                        db $10                               ;088893|      ;
@@ -763,7 +639,8 @@ Restoration_of_Spirit:
                        db $10                               ;088897|      ;
                        dl $001581                           ;088898|001581;
                        db " has", $0D, "cast the Spell o"   ;08889B|      ;
-                       db "f", $0D, $10                     ;0888B0|      ;
+                       db "f", $0D                          ;0888B0|      ;
+                       db $10                               ;0888B2|      ;
                        dl $001598                           ;0888B3|001598;
                        db "."                               ;0888B6|      ;
                        db $7F                               ;0888B7|      ;
@@ -773,7 +650,9 @@ Restoration_of_Spirit:
                        dl Battle_Text_Format                ;0888BA|088601;
                        db $10                               ;0888BD|      ;
                        dl $001598                           ;0888BE|001598;
-                       db "'s ", $11, $00                   ;0888C1|      ;
+                       db "'s "                             ;0888C1|      ;
+                       db $11                               ;0888C4|      ;
+                       db $00                               ;0888C5|      ;
                        dl $0016DB                           ;0888C6|0016DB;
                        db $06, $0D, $0D, " HP has been resto";0888C9|      ;
                        db "red."                            ;0888DE|      ;
@@ -782,9 +661,12 @@ Restoration_of_Spirit:
      Rooks_used_cards:
                        db $10                               ;0888E4|      ;
                        dl Battle_Text_Format                ;0888E5|088601;
-                       db "Rooks has used", $0D, $11, $00   ;0888E8|      ;
+                       db "Rooks has used", $0D             ;0888E8|      ;
+                       db $11                               ;0888F7|      ;
+                       db $00                               ;0888F8|      ;
                        dl $0016DB                           ;0888F9|0016DB;
-                       db " of ", $10                       ;0888FC|      ;
+                       db " of "                            ;0888FC|      ;
+                       db $10                               ;088900|      ;
                        dl $001598                           ;088901|001598;
                        db "."                               ;088904|      ;
                        db $7F                               ;088905|      ;
@@ -1215,7 +1097,7 @@ The_best_you_can_do_x9:
                        db $00                               ;088F9E|      ; End section
  LineByLine_TextSetup:
                        db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D, $00;088F9F|      ;
-NormalLines_TextSetup:
+    Instant_TextSetup:
                        db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1C, $00;088FAE|      ;
          Nothing_here:
                        db $10                               ;088FBD|      ;
@@ -1276,7 +1158,7 @@ NormalLines_TextSetup:
                        db $00                               ;0890C1|      ;
         MonsterInABox:
                        db $10                               ;0890C2|      ; Dummied, the treasure type must be set to Monster
-                       dl NormalLines_TextSetup             ;0890C3|088FAE;
+                       dl Instant_TextSetup                 ;0890C3|088FAE;
                        db "Rooks", $0D, $22, "Oh no !", $22, $00;0890C6|      ;
       Item_Text_Setup:
                        db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, $00;0890D6|      ; Sub: Setup for cards
@@ -3730,47 +3612,16 @@ NormalLines_TextSetup:
                        db $0D                               ;08CCB8|      ;
                        db $00                               ;08CCB9|      ;
   Speaking_text_setup:
-                       db $06                               ;08CCBA|      ; 06 0D
-                       db $0D                               ;08CCBB|      ;
-                       db $0C                               ;08CCBC|      ; 0C
-                       db $03                               ;08CCBD|      ; 03 0E
-                       db $0E                               ;08CCBE|      ;
-                       db $04                               ;08CCBF|      ; 04 06
-                       db $06                               ;08CCC0|      ;
-                       db $01                               ;08CCC1|      ; 01 00 06
-                       db $00                               ;08CCC2|      ;
-                       db $06                               ;08CCC3|      ;
-                       db $1E                               ;08CCC4|      ; 1E
-                       db $00                               ;08CCC5|      ; 00
+                       db $06, $0D, $0C, $03, $0E, $04, $06, $01, $00, $06, $1E, $00;08CCBA|      ; 06 0D
    Delayed_text_setup:
-                       db $06                               ;08CCC6|      ; 06 0D
-                       db $0D                               ;08CCC7|      ;
-                       db $0C                               ;08CCC8|      ; 0C
-                       db $05                               ;08CCC9|      ; 05 01 14 20 (Spend 14 frames printing a space)
-                       db $01                               ;08CCCA|      ;
-                       db $14                               ;08CCCB|      ;
-                       db $20                               ;08CCCC|      ;
-                       db $0C                               ;08CCCD|      ; 0C
-                       db $03                               ;08CCCE|      ; 03 0E
-                       db $0E                               ;08CCCF|      ;
-                       db $04                               ;08CCD0|      ; 04 06
-                       db $06                               ;08CCD1|      ;
-                       db $01                               ;08CCD2|      ; 01 00 06
-                       db $00                               ;08CCD3|      ;
-                       db $06                               ;08CCD4|      ;
-                       db $1E                               ;08CCD5|      ; 1E
-                       db $00                               ;08CCD6|      ; 00
+                       db $06, $0D, $0C, $05, $01, $14, " ", $0C, $03, $0E, $04, $06, $01, $00, $06, $1E, $00;08CCC6|      ; 06 0D
             Sub_Pause:
                        db $7F                               ;08CCD7|      ;
                        db $00                               ;08CCD8|      ;
        Sub_White_Text:
-                       db $06                               ;08CCD9|      ;
-                       db $0D                               ;08CCDA|      ;
-                       db $00                               ;08CCDB|      ;
+                       db $06, $0D, $00                     ;08CCD9|      ;
        Sub_Color_Text:
-                       db $06                               ;08CCDC|      ;
-                       db $0E                               ;08CCDD|      ;
-                       db $00                               ;08CCDE|      ;
+                       db $06, $0E, $00                     ;08CCDC|      ;
    Sub_Speaking_Setup:
                        db $10                               ;08CCDF|      ;
                        dl Speaking_text_setup               ;08CCE0|08CCBA;
@@ -3788,6 +3639,7 @@ NormalLines_TextSetup:
                        dl $001559                           ;08CCFA|001559;
                        db "GP"                              ;08CCFD|      ;
                        db $00                               ;08CCFF|      ; End string
+ Sub_Money_TradeGoods:
                        db $1C                               ;08CD00|      ;
                        db $01                               ;08CD01|      ;
                        db $06                               ;08CD02|      ;
@@ -3812,7 +3664,7 @@ NormalLines_TextSetup:
                        dl $0016DB                           ;08CD30|0016DB;
                        db "GP"                              ;08CD33|      ;
                        db $00                               ;08CD35|      ;
-            Money_sub:
+            Sub_Money:
                        db $1C                               ;08CD36|      ;
                        db $01                               ;08CD37|      ;
                        db $06                               ;08CD38|      ;
@@ -3854,7 +3706,7 @@ NormalLines_TextSetup:
                        db $22, "A room     Save"            ;08CDA6|      ;
                        db $7F                               ;08CDB6|      ;
                        db $00                               ;08CDB7|      ;
-   Save_in_which_file:
+Inn_Save_in_which_file:
                        db $10                               ;08CDB8|      ;
                        dl Speaking_text_setup               ;08CDB9|08CCBA;
                        db "Save as which file?"             ;08CDBC|      ;
@@ -3873,7 +3725,7 @@ NormalLines_TextSetup:
                        db "File 3"                          ;08CDE5|      ;
                        db $7F                               ;08CDEB|      ;
                        db $00                               ;08CDEC|      ;
-        Saving_file_x:
+    Inn_Saving_file_x:
                        db $10                               ;08CDED|      ;
                        dl Speaking_text_setup               ;08CDEE|08CCBA;
                        db "Save in "                        ;08CDF1|      ;
@@ -3890,7 +3742,7 @@ NormalLines_TextSetup:
                        db "Please wait."                    ;08CE0D|      ;
                        db $7F                               ;08CE19|      ;
                        db $00                               ;08CE1A|      ;
-      File_x_is_saved:
+  Inn_File_x_is_saved:
                        db $10                               ;08CE1B|      ;
                        dl Speaking_text_setup               ;08CE1C|08CCBA;
                        db $10                               ;08CE1F|      ;
@@ -3906,7 +3758,7 @@ NormalLines_TextSetup:
                        db "ed."                             ;08CE47|      ;
                        db $7F                               ;08CE4A|      ;
                        db $00                               ;08CE4B|      ;
-     File_x_not_saved:
+ Inn_File_x_not_saved:
                        db $10                               ;08CE4C|      ; (Is this even a thing?)
                        dl Speaking_text_setup               ;08CE4D|08CCBA;
                        db $10                               ;08CE50|      ;
@@ -3923,7 +3775,7 @@ NormalLines_TextSetup:
                        db "Try again."                      ;08CE76|      ;
                        db $7F                               ;08CE80|      ;
                        db $00                               ;08CE81|      ;
-         Loading_save:
+     Inn_Loading_save:
                        db $10                               ;08CE82|      ;
                        dl Speaking_text_setup               ;08CE83|08CCBA;
                        db "Good morning."                   ;08CE86|      ;
@@ -3931,7 +3783,7 @@ NormalLines_TextSetup:
                        db "Do your best today!"             ;08CE94|      ;
                        db $7F                               ;08CEA7|      ;
                        db $00                               ;08CEA8|      ;
-    One_night_costs_x:
+Inn_One_night_costs_x:
                        db $10                               ;08CEA9|      ;
                        dl Speaking_text_setup               ;08CEAA|08CCBA;
                        db "One night's stay cost"           ;08CEAD|      ;
@@ -3947,7 +3799,7 @@ NormalLines_TextSetup:
                        db "on"                              ;08CEE3|      ;
                        db $7F                               ;08CEE5|      ;
                        db $00                               ;08CEE6|      ;
-          Leaving_inn:
+              Inn_Bye:
                        db $10                               ;08CEE7|      ;
                        dl Speaking_text_setup               ;08CEE8|08CCBA;
                        db "Come back whenever yo"           ;08CEEB|      ;
@@ -3963,14 +3815,14 @@ NormalLines_TextSetup:
                        db "Not enough."                     ;08CF21|      ;
                        db $7F                               ;08CF2C|      ;
                        db $00                               ;08CF2D|      ;
-           Good_night:
+       Inn_Good_night:
                        db $10                               ;08CF2E|      ;
                        dl Speaking_text_setup               ;08CF2F|08CCBA;
                        db "Good night. Sleep wel"           ;08CF32|      ;
                        db "l."                              ;08CF47|      ;
                        db $7F                               ;08CF49|      ;
                        db $00                               ;08CF4A|      ;
-   Good_morning_Crono:
+Inn_Good_morning_Crono:
                        db $10                               ;08CF4B|      ;
                        dl Speaking_text_setup               ;08CF4C|08CCBA;
                        db "Good morning."                   ;08CF4F|      ;
@@ -3994,7 +3846,7 @@ NormalLines_TextSetup:
                        db "Buy       Healing"               ;08CFAC|      ;
                        db $7F                               ;08CFBD|      ;
                        db $00                               ;08CFBE|      ;
-   No_money_for_cards:
+ Healer_Cant_Buy_Card:
                        db $10                               ;08CFBF|      ;
                        dl Speaking_text_setup               ;08CFC0|08CCBA;
                        db "You don't have enough"           ;08CFC3|      ;
@@ -4003,7 +3855,7 @@ NormalLines_TextSetup:
                        db "d."                              ;08CFEE|      ;
                        db $7F                               ;08CFF0|      ;
                        db $00                               ;08CFF1|      ;
-Cant_carry_more_cards:
+    Healer_Full_Cards:
                        db $10                               ;08CFF2|      ;
                        dl Speaking_text_setup               ;08CFF3|08CCBA;
                        db "You can't carry any m"           ;08CFF6|      ;
@@ -4030,7 +3882,7 @@ Cant_carry_more_cards:
                        db "Buy       Healing"               ;08D051|      ;
                        db $7F                               ;08D062|      ;
                        db $00                               ;08D063|      ;
-      Revive_a_spirit:
+        Healer_Revive:
                        db $10                               ;08D064|      ;
                        dl Speaking_text_setup               ;08D065|08CCBA;
                        db "Which Spirit would yo"           ;08D068|      ;
@@ -4039,17 +3891,16 @@ Cant_carry_more_cards:
                        db "like healed?"                    ;08D07F|      ;
                        db $7F                               ;08D08B|      ;
                        db $00                               ;08D08C|      ;
-         DATA8_08D08D:
+Healer_No_Torn_Spirits:
                        db $10                               ;08D08D|      ;
                        dl Speaking_text_setup               ;08D08E|08CCBA;
-      No_torn_spirits:
                        db "Are there no spirits "           ;08D091|      ;
                        db "that"                            ;08D0A6|      ;
                        db $0D                               ;08D0AA|      ;
                        db "need treatment?"                 ;08D0AB|      ;
                        db $7F                               ;08D0BA|      ;
                        db $00                               ;08D0BB|      ;
-      Healing_costs_x:
+  Healer_Revive_Price:
                        db $10                               ;08D0BC|      ;
                        dl Speaking_text_setup               ;08D0BD|08CCBA;
                        db "Healing that spirit w"           ;08D0C0|      ;
@@ -4071,7 +3922,7 @@ Cant_carry_more_cards:
                        db "Yes       No"                    ;08D103|      ;
                        db $7F                               ;08D10F|      ;
                        db $00                               ;08D110|      ;
- No_money_for_revival:
+Healer_Cant_buy_revive:
                        db $10                               ;08D111|      ;
                        dl Speaking_text_setup               ;08D112|08CCBA;
                        db "You don't seem to hav"           ;08D115|      ;
@@ -4085,7 +3936,7 @@ Cant_carry_more_cards:
                        db "to heal that spirit."            ;08D155|      ;
                        db $7F                               ;08D169|      ;
                        db $00                               ;08D16A|      ;
-Successful_spirit_heal:
+Healer_Revive_Complete:
                        db $10                               ;08D16B|      ;
                        dl Speaking_text_setup               ;08D16C|08CCBA;
                        db "The healing has been"            ;08D16F|      ;
@@ -4093,8 +3944,8 @@ Successful_spirit_heal:
                        db "successful."                     ;08D184|      ;
                        db $7F                               ;08D18F|      ;
                        db $00                               ;08D190|      ;
-Choose_Spirit_to_revive:
-                       db $10                               ;08D191|      ;
+ Healer_Choose_Spirit:
+                       db $10                               ;08D191|      ; Choose a spirit to revive
                        dl Speaking_text_setup               ;08D192|08CCBA;
                        db $1C                               ;08D195|      ;
                        db $01                               ;08D196|      ; Cursor to (0B,14)
@@ -4120,7 +3971,7 @@ Choose_Spirit_to_revive:
                        db $10                               ;08D1B2|      ; Write the GP shop display
                        dl Sub_Shop_menu_GP                  ;08D1B3|08CCE3;
                        db $00                               ;08D1B6|      ; End section
-       Alchemist_menu:
+      Speak_Alchemist:
                        db $1C                               ;08D1B7|      ;
                        db "Alchemist"                       ;08D1B8|      ;
                        db $0D                               ;08D1C1|      ;
@@ -4248,7 +4099,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D3C3|      ;
                        dl Speaking_text_setup               ;08D3C4|08CCBA;
                        db $10                               ;08D3C7|      ;
-                       dl Alchemist_menu                    ;08D3C8|08D1B7;
+                       dl Speak_Alchemist                   ;08D3C8|08D1B7;
                        db $22, "If you get some recr"       ;08D3CB|      ;
                        db "uits"                            ;08D3E0|      ;
                        db $0D                               ;08D3E4|      ;
@@ -4262,7 +4113,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D413|      ;
                        dl Speaking_text_setup               ;08D414|08CCBA;
                        db $10                               ;08D417|      ;
-                       dl Alchemist_menu                    ;08D418|08D1B7;
+                       dl Speak_Alchemist                   ;08D418|08D1B7;
                        db $22, "It's just a rumor th"       ;08D41B|      ;
                        db "at"                              ;08D430|      ;
                        db $0D                               ;08D432|      ;
@@ -4274,7 +4125,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D44D|      ;
                        dl Speaking_text_setup               ;08D44E|08CCBA;
                        db $10                               ;08D451|      ;
-                       dl Alchemist_menu                    ;08D452|08D1B7;
+                       dl Speak_Alchemist                   ;08D452|08D1B7;
                        db $22, "You look fit. Are yo"       ;08D455|      ;
                        db "u in"                            ;08D46A|      ;
                        db $0D                               ;08D46E|      ;
@@ -4285,7 +4136,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D482|      ;
                        dl Speaking_text_setup               ;08D483|08CCBA;
                        db $10                               ;08D486|      ;
-                       dl Alchemist_menu                    ;08D487|08D1B7;
+                       dl Speak_Alchemist                   ;08D487|08D1B7;
                        db $22, "People say that thos"       ;08D48A|      ;
                        db "e"                               ;08D49F|      ;
                        db $0D                               ;08D4A0|      ;
@@ -4302,7 +4153,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D4DF|      ;
                        dl Speaking_text_setup               ;08D4E0|08CCBA;
                        db $10                               ;08D4E3|      ;
-                       dl Alchemist_menu                    ;08D4E4|08D1B7;
+                       dl Speak_Alchemist                   ;08D4E4|08D1B7;
                        db $22, "Long ago he went to "       ;08D4E7|      ;
                        db "the"                             ;08D4FC|      ;
                        db $0D                               ;08D4FF|      ;
@@ -4319,7 +4170,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D538|      ;
                        dl Speaking_text_setup               ;08D539|08CCBA;
                        db $10                               ;08D53C|      ;
-                       dl Alchemist_menu                    ;08D53D|08D1B7;
+                       dl Speak_Alchemist                   ;08D53D|08D1B7;
                        db $22, "Thanks to the rumors"       ;08D540|      ;
                        db $0D                               ;08D555|      ;
                        db " business has been go"           ;08D556|      ;
@@ -4330,7 +4181,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D571|      ;
                        dl Speaking_text_setup               ;08D572|08CCBA;
                        db $10                               ;08D575|      ;
-                       dl Alchemist_menu                    ;08D576|08D1B7;
+                       dl Speak_Alchemist                   ;08D576|08D1B7;
                        db $22, "Recently even around"       ;08D579|      ;
                        db $0D                               ;08D58E|      ;
                        db " here the monsters"              ;08D58F|      ;
@@ -4344,7 +4195,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D5CC|      ;
                        dl Speaking_text_setup               ;08D5CD|08CCBA;
                        db $10                               ;08D5D0|      ;
-                       dl Alchemist_menu                    ;08D5D1|08D1B7;
+                       dl Speak_Alchemist                   ;08D5D1|08D1B7;
                        db $22, "In the old days even"       ;08D5D4|      ;
                        db " the"                            ;08D5E9|      ;
                        db $0D                               ;08D5ED|      ;
@@ -4359,7 +4210,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D623|      ;
                        dl Speaking_text_setup               ;08D624|08CCBA;
                        db $10                               ;08D627|      ;
-                       dl Alchemist_menu                    ;08D628|08D1B7;
+                       dl Speak_Alchemist                   ;08D628|08D1B7;
                        db $22, "I've heard that ther"       ;08D62B|      ;
                        db "e are"                           ;08D640|      ;
                        db $0D                               ;08D645|      ;
@@ -4373,7 +4224,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D670|      ;
                        dl Speaking_text_setup               ;08D671|08CCBA;
                        db $10                               ;08D674|      ;
-                       dl Alchemist_menu                    ;08D675|08D1B7;
+                       dl Speak_Alchemist                   ;08D675|08D1B7;
                        db $22, "Because of the monst"       ;08D678|      ;
                        db "ers,"                            ;08D68D|      ;
                        db $0D                               ;08D691|      ;
@@ -4385,7 +4236,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D6AD|      ;
                        dl Speaking_text_setup               ;08D6AE|08CCBA;
                        db $10                               ;08D6B1|      ;
-                       dl Alchemist_menu                    ;08D6B2|08D1B7;
+                       dl Speak_Alchemist                   ;08D6B2|08D1B7;
                        db $22, "They say there's a s"       ;08D6B5|      ;
                        db "ecret"                           ;08D6CA|      ;
                        db $0D                               ;08D6CF|      ;
@@ -4397,7 +4248,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D6EC|      ;
                        dl Speaking_text_setup               ;08D6ED|08CCBA;
                        db $10                               ;08D6F0|      ;
-                       dl Alchemist_menu                    ;08D6F1|08D1B7;
+                       dl Speak_Alchemist                   ;08D6F1|08D1B7;
                        db $22, "Are you the guy Axs"        ;08D6F4|      ;
                        db $0D                               ;08D708|      ;
                        db " brought here?", $22             ;08D709|      ;
@@ -4407,7 +4258,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D71A|      ;
                        dl Speaking_text_setup               ;08D71B|08CCBA;
                        db $10                               ;08D71E|      ;
-                       dl Alchemist_menu                    ;08D71F|08D1B7;
+                       dl Speak_Alchemist                   ;08D71F|08D1B7;
                        db $22, "There is talk that"         ;08D722|      ;
                        db $0D                               ;08D735|      ;
                        db " soldiers have been s"           ;08D736|      ;
@@ -4421,7 +4272,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D76B|      ;
                        dl Speaking_text_setup               ;08D76C|08CCBA;
                        db $10                               ;08D76F|      ;
-                       dl Alchemist_menu                    ;08D770|08D1B7;
+                       dl Speak_Alchemist                   ;08D770|08D1B7;
                        db $22, "Speaking of that,"          ;08D773|      ;
                        db $0D                               ;08D785|      ;
                        db " people are saying th"           ;08D786|      ;
@@ -4437,7 +4288,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D7CA|      ;
                        dl Speaking_text_setup               ;08D7CB|08CCBA;
                        db $10                               ;08D7CE|      ;
-                       dl Alchemist_menu                    ;08D7CF|08D1B7;
+                       dl Speak_Alchemist                   ;08D7CF|08D1B7;
                        db $22, "Axs,"                       ;08D7D2|      ;
                        db $0D                               ;08D7D7|      ;
                        db " You really have aged"           ;08D7D8|      ;
@@ -4450,7 +4301,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D808|      ;
                        dl Speaking_text_setup               ;08D809|08CCBA;
                        db $10                               ;08D80C|      ;
-                       dl Alchemist_menu                    ;08D80D|08D1B7;
+                       dl Speak_Alchemist                   ;08D80D|08D1B7;
                        db $22, "They say there are p"       ;08D810|      ;
                        db "laces"                           ;08D825|      ;
                        db $0D                               ;08D82A|      ;
@@ -4464,7 +4315,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D84F|      ;
                        dl Speaking_text_setup               ;08D850|08CCBA;
                        db $10                               ;08D853|      ;
-                       dl Alchemist_menu                    ;08D854|08D1B7;
+                       dl Speak_Alchemist                   ;08D854|08D1B7;
                        db $22, "No, I'm just worried"       ;08D857|      ;
                        db $0D                               ;08D86C|      ;
                        db " about all the earthq"           ;08D86D|      ;
@@ -4477,7 +4328,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D89F|      ;
                        dl Speaking_text_setup               ;08D8A0|08CCBA;
                        db $10                               ;08D8A3|      ;
-                       dl Alchemist_menu                    ;08D8A4|08D1B7;
+                       dl Speak_Alchemist                   ;08D8A4|08D1B7;
                        db $22, "There is danger if y"       ;08D8A7|      ;
                        db "ou go"                           ;08D8BC|      ;
                        db $0D                               ;08D8C1|      ;
@@ -4488,7 +4339,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D8D9|      ;
                        dl Speaking_text_setup               ;08D8DA|08CCBA;
                        db $10                               ;08D8DD|      ;
-                       dl Alchemist_menu                    ;08D8DE|08D1B7;
+                       dl Speak_Alchemist                   ;08D8DE|08D1B7;
                        db $22, "Lately there seems t"       ;08D8E1|      ;
                        db "o be"                            ;08D8F6|      ;
                        db $0D                               ;08D8FA|      ;
@@ -4503,7 +4354,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D92D|      ;
                        dl Speaking_text_setup               ;08D92E|08CCBA;
                        db $10                               ;08D931|      ;
-                       dl Alchemist_menu                    ;08D932|08D1B7;
+                       dl Speak_Alchemist                   ;08D932|08D1B7;
                        db $22, "A lot of soldiers ha"       ;08D935|      ;
                        db "ve"                              ;08D94A|      ;
                        db $0D                               ;08D94C|      ;
@@ -4519,7 +4370,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D98C|      ;
                        dl Speaking_text_setup               ;08D98D|08CCBA;
                        db $10                               ;08D990|      ;
-                       dl Alchemist_menu                    ;08D991|08D1B7;
+                       dl Speak_Alchemist                   ;08D991|08D1B7;
                        db $22, "That tower holds som"       ;08D994|      ;
                        db "e"                               ;08D9A9|      ;
                        db $0D                               ;08D9AA|      ;
@@ -4530,7 +4381,7 @@ Alchemist_Anything_else:
                        db $10                               ;08D9BE|      ;
                        dl Speaking_text_setup               ;08D9BF|08CCBA;
                        db $10                               ;08D9C2|      ;
-                       dl Alchemist_menu                    ;08D9C3|08D1B7;
+                       dl Speak_Alchemist                   ;08D9C3|08D1B7;
                        db $22, "There's something"          ;08D9C6|      ;
                        db $0D                               ;08D9D8|      ;
                        db " strange about that t"           ;08D9D9|      ;
@@ -4545,7 +4396,7 @@ Alchemist_Anything_else:
                        db $10                               ;08DA2E|      ;
                        dl Speaking_text_setup               ;08DA2F|08CCBA;
                        db $10                               ;08DA32|      ;
-                       dl Alchemist_menu                    ;08DA33|08D1B7;
+                       dl Speak_Alchemist                   ;08DA33|08D1B7;
                        db $22, "That's right."              ;08DA36|      ;
                        db $0D                               ;08DA44|      ;
                        db " It's a secret, but i"           ;08DA45|      ;
@@ -4561,7 +4412,7 @@ Alchemist_Anything_else:
                        db $10                               ;08DA8A|      ;
                        dl Speaking_text_setup               ;08DA8B|08CCBA;
                        db $10                               ;08DA8E|      ;
-                       dl Alchemist_menu                    ;08DA8F|08D1B7;
+                       dl Speak_Alchemist                   ;08DA8F|08D1B7;
                        db $22, "It seems like even"         ;08DA92|      ;
                        db $0D                               ;08DAA5|      ;
                        db " monsters don't want "           ;08DAA6|      ;
@@ -4574,7 +4425,7 @@ Alchemist_Anything_else:
                        db $10                               ;08DAD3|      ;
                        dl Speaking_text_setup               ;08DAD4|08CCBA;
                        db $10                               ;08DAD7|      ;
-                       dl Alchemist_menu                    ;08DAD8|08D1B7;
+                       dl Speak_Alchemist                   ;08DAD8|08D1B7;
                        db $22, "That's right. It's"         ;08DADB|      ;
                        db $0D                               ;08DAEE|      ;
                        db " a secret, but it loo"           ;08DAEF|      ;
@@ -4588,7 +4439,7 @@ Alchemist_Anything_else:
                        db $10                               ;08DB28|      ;
                        dl Speaking_text_setup               ;08DB29|08CCBA;
                        db $10                               ;08DB2C|      ;
-                       dl Alchemist_menu                    ;08DB2D|08D1B7;
+                       dl Speak_Alchemist                   ;08DB2D|08D1B7;
                        db $22, "Everyone with enough"       ;08DB30|      ;
                        db $0D                               ;08DB45|      ;
                        db " money has already fl"           ;08DB46|      ;
@@ -4601,7 +4452,7 @@ Alchemist_Anything_else:
                        db $10                               ;08DB71|      ;
                        dl Speaking_text_setup               ;08DB72|08CCBA;
                        db $10                               ;08DB75|      ;
-                       dl Alchemist_menu                    ;08DB76|08D1B7;
+                       dl Speak_Alchemist                   ;08DB76|08D1B7;
                        db $22, "If I had the money I"       ;08DB79|      ;
                        db "'d"                              ;08DB8E|      ;
                        db $0D                               ;08DB90|      ;
@@ -4666,6 +4517,7 @@ Alchemist_Anything_else:
                        db "ell"                             ;08DC5F|      ;
                        db $7F                               ;08DC62|      ;
                        db $00                               ;08DC63|      ;
+    Outfitter_Pay_How:
                        db $10                               ;08DC64|      ;
                        dl Speaking_text_setup               ;08DC65|08CCBA;
                        db "How will you pay?"               ;08DC68|      ;
@@ -4676,6 +4528,7 @@ Alchemist_Anything_else:
                        db "de"                              ;08DC91|      ;
                        db $7F                               ;08DC93|      ;
                        db $00                               ;08DC94|      ;
+     Outfitter_Thanks:
                        db $10                               ;08DC95|      ;
                        dl Speaking_text_setup               ;08DC96|08CCBA;
                        db "Thank you. Anything e"           ;08DC99|      ;
@@ -4687,7 +4540,7 @@ Alchemist_Anything_else:
                        db "ell"                             ;08DCCA|      ;
                        db $7F                               ;08DCCD|      ;
                        db $00                               ;08DCCE|      ;
-         DATA8_08DCCF:
+Outfitter_Anything_else:
                        db $10                               ;08DCCF|      ;
                        dl Speaking_text_setup               ;08DCD0|08CCBA;
                        db "Anything else you'd l"           ;08DCD3|      ;
@@ -4699,7 +4552,7 @@ Alchemist_Anything_else:
                        db "ell"                             ;08DD04|      ;
                        db $7F                               ;08DD07|      ;
                        db $00                               ;08DD08|      ;
-    Sell_to_Outfitter:
+Outfitter_Sell_Choice:
                        db $10                               ;08DD09|      ;
                        dl Speaking_text_setup               ;08DD0A|08CCBA;
                        db "What do you want to"             ;08DD0D|      ;
@@ -4711,7 +4564,7 @@ Alchemist_Anything_else:
                        db "s"                               ;08DD40|      ;
                        db $7F                               ;08DD41|      ;
                        db $00                               ;08DD42|      ;
-  Thanks_for_shopping:
+        Outfitter_Bye:
                        db $10                               ;08DD43|      ;
                        dl Speaking_text_setup               ;08DD44|08CCBA;
                        db "Thank you."                      ;08DD47|      ;
@@ -4723,7 +4576,7 @@ Alchemist_Anything_else:
                        db "help."                           ;08DD82|      ;
                        db $7F                               ;08DD87|      ;
                        db $00                               ;08DD88|      ;
-     Not_enough_money:
+   Outfitter_No_Money:
                        db $10                               ;08DD89|      ;
                        dl Speaking_text_setup               ;08DD8A|08CCBA;
                        db "You don't have enough"           ;08DD8D|      ;
@@ -4732,7 +4585,7 @@ Alchemist_Anything_else:
                        db "m."                              ;08DDB8|      ;
                        db $7F                               ;08DDBA|      ;
                        db $00                               ;08DDBB|      ;
-Inventory_full_cant_buy:
+ Outfitter_Full_Items:
                        db $10                               ;08DDBC|      ;
                        dl Speaking_text_setup               ;08DDBD|08CCBA;
                        db "Your inventory is ful"           ;08DDC0|      ;
@@ -4742,7 +4595,7 @@ Inventory_full_cant_buy:
                        db "tems."                           ;08DDED|      ;
                        db $7F                               ;08DDF2|      ;
                        db $00                               ;08DDF3|      ;
-   No_weapons_to_sell:
+Outfitter_No_Equipment:
                        db $10                               ;08DDF4|      ;
                        dl Speaking_text_setup               ;08DDF5|08CCBA;
                        db "You are not holding a"           ;08DDF8|      ;
@@ -4751,7 +4604,7 @@ Inventory_full_cant_buy:
                        db "weapons."                        ;08DE10|      ;
                        db $7F                               ;08DE18|      ;
                        db $00                               ;08DE19|      ;
-     No_items_to_sell:
+   Outfitter_No_Items:
                        db $10                               ;08DE1A|      ;
                        dl Speaking_text_setup               ;08DE1B|08CCBA;
                        db "You are not holding a"           ;08DE1E|      ;
@@ -4760,14 +4613,14 @@ Inventory_full_cant_buy:
                        db "items."                          ;08DE36|      ;
                        db $7F                               ;08DE3C|      ;
                        db $00                               ;08DE3D|      ;
-    No_items_to_trade:
+   Outfitter_No_Trade:
                        db $10                               ;08DE3E|      ;
                        dl Speaking_text_setup               ;08DE3F|08CCBA;
                        db "You have nothing to t"           ;08DE42|      ;
                        db "rade."                           ;08DE57|      ;
                        db $7F                               ;08DE5C|      ;
                        db $00                               ;08DE5D|      ;
-        Traded_X_item:
+   Outfitter_Traded_X:
                        db $10                               ;08DE5E|      ;
                        dl Speaking_text_setup               ;08DE5F|08CCBA;
                        db "Trade "                          ;08DE62|      ;
@@ -4777,7 +4630,7 @@ Inventory_full_cant_buy:
                        dl $0015AF                           ;08DE6D|0015AF;
                        db $7F                               ;08DE70|      ;
                        db $00                               ;08DE71|      ;
- Cant_trade_with_that:
+ Outfitter_Cant_Trade:
                        db $10                               ;08DE72|      ;
                        dl Speaking_text_setup               ;08DE73|08CCBA;
                        db "Too bad, but you can'"           ;08DE76|      ;
@@ -4786,7 +4639,7 @@ Inventory_full_cant_buy:
                        db "trade with that."                ;08DE8D|      ;
                        db $7F                               ;08DE9D|      ;
                        db $00                               ;08DE9E|      ;
-       Cant_sell_that:
+  Outfitter_Cant_Sell:
                        db $10                               ;08DE9F|      ;
                        dl Speaking_text_setup               ;08DEA0|08CCBA;
                        db "Sorry, but you can't "           ;08DEA3|      ;
@@ -4801,6 +4654,7 @@ Inventory_full_cant_buy:
                        db "."                               ;08DEC9|      ;
                        db $7F                               ;08DECA|      ;
                        db $00                               ;08DECB|      ;
+ Outfitter_Sell_Price:
                        db $10                               ;08DECC|      ;
                        dl Speaking_text_setup               ;08DECD|08CCBA;
                        db $10                               ;08DED0|      ;
@@ -4818,9 +4672,12 @@ Inventory_full_cant_buy:
                        db $0D                               ;08DEEA|      ;
                        db $1C                               ;08DEEB|      ;
                        db $01                               ;08DEEC|      ;
-                       db " ", $22, "Sell        Refuse"    ;08DEED|      ;
+                       db $20                               ;08DEED|      ;
+                       db $22                               ;08DEEE|      ;
+                       db "Sell        Refuse"              ;08DEEF|      ;
                        db $7F                               ;08DF01|      ;
                        db $00                               ;08DF02|      ;
+Outfitter_Trade_6_Weapons:
                        db $10                               ;08DF03|      ;
                        dl Speaking_text_setup               ;08DF04|08CCBA;
                        db $1C                               ;08DF07|      ;
@@ -4885,9 +4742,9 @@ Inventory_full_cant_buy:
                        db $14                               ;08DF58|      ;
                        dl $001603                           ;08DF59|001603;
                        db $10                               ;08DF5C|      ;
-                       dl Money_sub                         ;08DF5D|08CD36;
+                       dl Sub_Money                         ;08DF5D|08CD36;
                        db $00                               ;08DF60|      ; End of section
-    Draw_8_Sale_Items:
+Outfitter_4_Items_For_Sale:
                        db $10                               ;08DF61|      ;
                        dl Speaking_text_setup               ;08DF62|08CCBA;
                        db $1C                               ;08DF65|      ;
@@ -4942,7 +4799,7 @@ Inventory_full_cant_buy:
                        db $10                               ;08DFAA|      ;
                        dl Sub_Shop_menu_GP                  ;08DFAB|08CCE3;
                        db $00                               ;08DFAE|      ;
-         DATA8_08DFAF:
+Outfitter_3_Items_For_Sale:
                        db $10                               ;08DFAF|      ;
                        dl Speaking_text_setup               ;08DFB0|08CCBA;
                        db $1C                               ;08DFB3|      ;
@@ -4985,7 +4842,7 @@ Inventory_full_cant_buy:
                        db $10                               ;08DFE7|      ;
                        dl Sub_Shop_menu_GP                  ;08DFE8|08CCE3;
                        db $00                               ;08DFEB|      ;
-         DATA8_08DFEC:
+Outfitter_2_Items_For_Sale:
                        db $10                               ;08DFEC|      ;
                        dl Speaking_text_setup               ;08DFED|08CCBA;
                        db $1C                               ;08DFF0|      ;
@@ -5016,7 +4873,7 @@ Inventory_full_cant_buy:
                        db $10                               ;08E013|      ;
                        dl Sub_Shop_menu_GP                  ;08E014|08CCE3;
                        db $00                               ;08E017|      ;
-         DATA8_08E018:
+Outfitter_1_Item_For_Sale:
                        db $10                               ;08E018|      ;
                        dl Speaking_text_setup               ;08E019|08CCBA;
                        db $1C                               ;08E01C|      ;
@@ -5035,7 +4892,7 @@ Inventory_full_cant_buy:
                        db $10                               ;08E02E|      ;
                        dl Sub_Shop_menu_GP                  ;08E02F|08CCE3;
                        db $00                               ;08E032|      ;
-         DATA8_08E033:
+Healer_4_Items_For_Sale:
                        db $10                               ;08E033|      ;
                        dl Speaking_text_setup               ;08E034|08CCBA;
                        db $1C                               ;08E037|      ;
@@ -5090,6 +4947,7 @@ Inventory_full_cant_buy:
                        db $10                               ;08E07C|      ;
                        dl Sub_Shop_menu_GP                  ;08E07D|08CCE3;
                        db $00                               ;08E080|      ;
+Healer_3_Items_For_Sale:
                        db $10                               ;08E081|      ;
                        dl Speaking_text_setup               ;08E082|08CCBA;
                        db $1C                               ;08E085|      ;
@@ -5132,6 +4990,7 @@ Inventory_full_cant_buy:
                        db $10                               ;08E0B9|      ;
                        dl Sub_Shop_menu_GP                  ;08E0BA|08CCE3;
                        db $00                               ;08E0BD|      ;
+Outfitter_Trade_6_Items:
                        db $10                               ;08E0BE|      ;
                        dl Speaking_text_setup               ;08E0BF|08CCBA;
                        db $1C                               ;08E0C2|      ;
@@ -5166,9 +5025,10 @@ Inventory_full_cant_buy:
                        db $14                               ;08E0E9|      ;
                        dl $0015C3                           ;08E0EA|0015C3;
                        db $10                               ;08E0ED|      ;
-                       dl Money_sub                         ;08E0EE|08CD36;
+                       dl Sub_Money                         ;08E0EE|08CD36;
                        db $00                               ;08E0F1|      ;
-                       db $10                               ;08E0F2|      ;
+  Menu_Sell_8_Weapons:
+                       db $10                               ;08E0F2|      ; Shows the bearer and weapon name
                        dl Speaking_text_setup               ;08E0F3|08CCBA;
                        db $1C                               ;08E0F6|      ;
                        db $01                               ;08E0F7|      ;
@@ -5273,6 +5133,7 @@ Inventory_full_cant_buy:
                        db $14                               ;08E18B|      ;
                        dl $00164B                           ;08E18C|00164B;
                        db $00                               ;08E18F|      ; End section
+    Menu_Sell_8_Items:
                        db $10                               ;08E190|      ;
                        dl Speaking_text_setup               ;08E191|08CCBA;
                        db $1C                               ;08E194|      ; 1C
@@ -5323,29 +5184,29 @@ Inventory_full_cant_buy:
                        db $14                               ;08E1E2|      ;
                        dl $00160B                           ;08E1E3|00160B;
                        db $00                               ;08E1E6|      ;
-       Rooks_speaking:
+          Speak_Rooks:
                        db $1C                               ;08E1E7|      ;
                        db "Rooks"                           ;08E1E8|      ;
                        db $0D                               ;08E1ED|      ;
                        db $1E                               ;08E1EE|      ;
                        db $00                               ;08E1EF|      ;
-         Axs_speaking:
+            Speak_Axs:
                        db $1C                               ;08E1F0|      ;
                        db "Axs"                             ;08E1F1|      ;
                        db $0D                               ;08E1F4|      ;
                        db $1E                               ;08E1F5|      ;
                        db $00                               ;08E1F6|      ;
-     Icorina_speaking:
+        Speak_Icorina:
                        db $1C                               ;08E1F7|      ;
                        db "Icorina"                         ;08E1F8|      ;
                        db $0D                               ;08E1FF|      ;
                        db $1E                               ;08E200|      ;
                        db $00                               ;08E201|      ;
- Entrust_the_princess:
+Text_Entrust_the_princess:
                        db $10                               ;08E202|      ;
                        dl Speaking_text_setup               ;08E203|08CCBA;
                        db $10                               ;08E206|      ;
-                       dl Axs_speaking                      ;08E207|08E1F0;
+                       dl Speak_Axs                         ;08E207|08E1F0;
                        db $22, "Rooks, I entrust the"       ;08E20A|      ;
                        db $0D                               ;08E21F|      ;
                        db " Princess to you.", $22          ;08E220|      ;
@@ -5354,16 +5215,16 @@ Inventory_full_cant_buy:
                        db $10                               ;08E234|      ;
                        dl Delayed_text_setup                ;08E235|08CCC6;
                        db $10                               ;08E238|      ;
-                       dl Rooks_speaking                    ;08E239|08E1E7;
+                       dl Speak_Rooks                       ;08E239|08E1E7;
                        db $22, "Leave everything to "       ;08E23C|      ;
                        db "me.", $22                        ;08E251|      ;
                        db $7F                               ;08E255|      ;
                        db $00                               ;08E256|      ;
-        Axs_isnt_here:
+   Text_Axs_isnt_here:
                        db $10                               ;08E257|      ;
                        dl Speaking_text_setup               ;08E258|08CCBA;
                        db $10                               ;08E25B|      ;
-                       dl Rooks_speaking                    ;08E25C|08E1E7;
+                       dl Speak_Rooks                       ;08E25C|08E1E7;
                        db $22, "What? Axs isn't here"       ;08E25F|      ;
                        db "."                               ;08E274|      ;
                        db $0D                               ;08E275|      ;
@@ -5371,21 +5232,21 @@ Inventory_full_cant_buy:
                        db "nt?", $22                        ;08E28B|      ;
                        db $7F                               ;08E28F|      ;
                        db $00                               ;08E290|      ;
-         Axs_not_back:
+    Text_Axs_not_back:
                        db $10                               ;08E291|      ;
                        dl Speaking_text_setup               ;08E292|08CCBA;
                        db $10                               ;08E295|      ;
-                       dl Rooks_speaking                    ;08E296|08E1E7;
+                       dl Speak_Rooks                       ;08E296|08E1E7;
                        db $22, "Axs hasn't come back"       ;08E299|      ;
                        db $0D                               ;08E2AE|      ;
                        db " yet.", $22                      ;08E2AF|      ;
                        db $7F                               ;08E2B5|      ;
                        db $00                               ;08E2B6|      ;
-      Is_Anyone_there:
+ Text_Is_Anyone_there:
                        db $10                               ;08E2B7|      ;
                        dl Speaking_text_setup               ;08E2B8|08CCBA;
                        db $10                               ;08E2BB|      ;
-                       dl Rooks_speaking                    ;08E2BC|08E1E7;
+                       dl Speak_Rooks                       ;08E2BC|08E1E7;
                        db $22, "Anyone there?", $22         ;08E2BF|      ;
                        db $0D                               ;08E2CE|      ;
                        db $05                               ;08E2CF|      ;
@@ -5400,68 +5261,49 @@ Inventory_full_cant_buy:
                        db " here.", $22                     ;08E2F4|      ;
                        db $7F                               ;08E2FB|      ;
                        db $00                               ;08E2FC|      ;
-         DATA8_08E2FD:
+Text_Is_Salah_All_right:
                        db $10                               ;08E2FD|      ;
                        dl Speaking_text_setup               ;08E2FE|08CCBA;
                        db $10                               ;08E301|      ;
-                       dl Rooks_speaking                    ;08E302|08E1E7;
+                       dl Speak_Rooks                       ;08E302|08E1E7;
                        db $22, "Is Salah all right?", $22   ;08E305|      ;
                        db $7F                               ;08E31A|      ;
                        db $10                               ;08E31B|      ;
                        dl Delayed_text_setup                ;08E31C|08CCC6;
                        db $10                               ;08E31F|      ;
-                       dl Icorina_speaking                  ;08E320|08E1F7;
+                       dl Speak_Icorina                     ;08E320|08E1F7;
                        db $22, "Don't worry, I'm her"       ;08E323|      ;
                        db "e.", $22                         ;08E338|      ;
                        db $7F                               ;08E33B|      ;
                        db $10                               ;08E33C|      ;
                        dl Delayed_text_setup                ;08E33D|08CCC6;
                        db $10                               ;08E340|      ;
-                       dl Rooks_speaking                    ;08E341|08E1E7;
+                       dl Speak_Rooks                       ;08E341|08E1E7;
                        db $22, "Thank you. I'll leav"       ;08E344|      ;
-                       db "e it up"                         ;08E359|      ;
-                       db $0D                               ;08E360|      ;
-                       db "to you.", $22                    ;08E361|      ;
+                       db "e it up", $0D, "to you.", $22    ;08E359|      ;
                        db $7F                               ;08E369|      ;
                        db $00                               ;08E36A|      ;
-         DATA8_08E36B:
+      Text_Be_Careful:
                        db $10                               ;08E36B|      ;
                        dl Speaking_text_setup               ;08E36C|08CCBA;
                        db $10                               ;08E36F|      ;
-                       dl Icorina_speaking                  ;08E370|08E1F7;
+                       dl Speak_Icorina                     ;08E370|08E1F7;
                        db $22, "Be careful.", $22           ;08E373|      ;
                        db $7F                               ;08E380|      ;
                        db $00                               ;08E381|      ;
            Sound_test:
-                       db $06                               ;08E382|      ;
-                       db $0D                               ;08E383|      ;
-                       db $0C                               ;08E384|      ;
-                       db $04                               ;08E385|      ;
-                       db $06                               ;08E386|      ;
-                       db $01                               ;08E387|      ;
-                       db $04                               ;08E388|      ;
-                       db $02                               ;08E389|      ;
-                       db $1C                               ;08E38A|      ;
-                       db "ARCANA SOUND ROOM"               ;08E38B|      ;
-                       db $00                               ;08E39C|      ; End string
-         DATA8_08E39D:
-                       db $06                               ;08E39D|      ;
-                       db $0D                               ;08E39E|      ;
-                       db $0C                               ;08E39F|      ;
-                       db $04                               ;08E3A0|      ;
-                       db $06                               ;08E3A1|      ;
+                       db $06, $0D, $0C, $04, $06, $01, $04, $02, $1C, "ARCANA SOUND";08E382|      ;
+                       db " ROOM", $00                      ;08E397|      ;
+    Text_Music_Number:
+                       db $06, $0D, $0C, $04, $06           ;08E39D|      ;
                        db $01                               ;08E3A2|      ;
-                       dw $0222                             ;08E3A3|      ;
-                       db $1C                               ;08E3A5|      ;
-                       db $06                               ;08E3A6|      ;
-                       db $0E                               ;08E3A7|      ;
-                       db "MUSIC NUMBER"                    ;08E3A8|      ;
+                       db $22                               ;08E3A3|      ;
+                       db $02                               ;08E3A4|      ;
+                       db $1C, $06, $0E, "MUSIC NUMBER"     ;08E3A5|      ;
                        db $01                               ;08E3B4|      ; 01: Cursor (4C, 10)
-                       dw $104C                             ;08E3B5|      ;
-                       db $06                               ;08E3B7|      ; 06 0D
-                       db $0D                               ;08E3B8|      ;
-                       db $11                               ;08E3B9|      ; 11: Load value $119F
-                       db $01                               ;08E3BA|      ;
+                       db $4C                               ;08E3B5|      ;
+                       db $10                               ;08E3B6|      ;
+                       db $06, $0D, $11, $01                ;08E3B7|      ; 06 0D
                        dl $00119F                           ;08E3BB|00119F;
                        db $00                               ;08E3BE|      ;
                        db $FF                               ;08E3BF|      ;

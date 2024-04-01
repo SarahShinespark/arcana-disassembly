@@ -464,47 +464,53 @@ Bank_05_Stat_Handling:
                        dl Check_A_bits                      ;05832F|07AA88;
                        db $11                               ;058332|      ; 11: Jump based on return value 0CB3,x (must be less than 6)
                        db $06                               ;058333|      ;
-                       dw CODE_008340                       ;058334|008340;
-                       dw CODE_00834B                       ;058336|00834B;
-                       dw CODE_008356                       ;058338|008356;
-                       dw LOOSE_OP_008361                   ;05833A|008361;
-                       dw LOOSE_OP_00836C                   ;05833C|00836C;
-                       dw CODE_008376                       ;05833E|008376;
+                       dw DATA8_058340                      ;058334|058340;
+                       dw DATA8_05834B                      ;058336|05834B;
+                       dw DATA8_058356                      ;058338|058356;
+                       dw DATA8_058361                      ;05833A|058361;
+                       dw DATA8_05836C                      ;05833C|05836C;
+                       dw DATA8_058376                      ;05833E|058376;
+         DATA8_058340:
                        db $07                               ;058340|      ; 07: Call 00/A105 (832E returned 0)
                        dl Transfer_Setup2_6b                ;058341|00A105;
                        dl DATA8_0D9562                      ;058344|0D9562; Store $0D/9562 in $18
                        db $03                               ;058347|      ;
                        db $04                               ;058348|      ;
                        db $00                               ;058349|      ;
-                       db $1C                               ;05834A|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;05834A|      ; RTS
+         DATA8_05834B:
                        db $07                               ;05834B|      ; 07: Call 00/A105 (832E returned 1)
                        dl Transfer_Setup2_6b                ;05834C|00A105;
                        dl DATA8_0D9566                      ;05834F|0D9566; Store $0D/9566 in $18
                        db $03                               ;058352|      ;
                        db $04                               ;058353|      ;
                        db $00                               ;058354|      ;
-                       db $1C                               ;058355|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;058355|      ; RTS
+         DATA8_058356:
                        db $07                               ;058356|      ; 07: Call 00/A105 (832E returned 02)
                        dl Transfer_Setup2_6b                ;058357|00A105;
                        dl DATA8_0D956A                      ;05835A|0D956A; Store $0D/956A in $18
                        db $03                               ;05835D|      ;
                        db $04                               ;05835E|      ;
                        db $00                               ;05835F|      ;
-                       db $1C                               ;058360|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;058360|      ; RTS
+         DATA8_058361:
                        db $07                               ;058361|      ; 07: Call 00/A105 (832E returned 03)
                        dl Transfer_Setup2_6b                ;058362|00A105;
                        dl DATA8_0D956E                      ;058365|0D956E; Store $0D/956E in $18
                        db $03                               ;058368|      ;
                        db $04                               ;058369|      ;
                        db $00                               ;05836A|      ;
-                       db $1C                               ;05836B|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;05836B|      ; RTS
+         DATA8_05836C:
                        db $07                               ;05836C|      ; 07: Call 00/A105 (832E returned 04)
                        dl Transfer_Setup2_6b                ;05836D|00A105;
                        dl DATA8_0D9572                      ;058370|0D9572; Store $0D/9572 in $18
                        db $03                               ;058373|      ;
                        db $04                               ;058374|      ;
                        db $00                               ;058375|      ;
-                       db $1C                               ;058376|      ; 1C: Do stuff, return from jump (832E returned 5)
+         DATA8_058376:
+                       db $1C                               ;058376|      ; RTS
          DATA8_058377:
                        db $07                               ;058377|      ; Condition 00 / Call $00/A105
                        dl Transfer_Setup2_6b                ;058378|00A105;
@@ -512,7 +518,7 @@ Bank_05_Stat_Handling:
                        db $01                               ;05837E|      ;
                        db $02                               ;05837F|      ;
                        db $00                               ;058380|      ;
-                       db $1C                               ;058381|      ; 1C: Do stuff, return from jump (->832C)
+                       db $1C                               ;058381|      ; RTS
          DATA8_058382:
                        db $07                               ;058382|      ; 07: Call 00/A105 (8316 returned 1)
                        dl Transfer_Setup2_6b                ;058383|00A105;
@@ -520,7 +526,7 @@ Bank_05_Stat_Handling:
                        db $01                               ;058389|      ;
                        db $02                               ;05838A|      ;
                        db $00                               ;05838B|      ;
-                       db $1C                               ;05838C|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;05838C|      ; RTS
          DATA8_05838D:
                        db $07                               ;05838D|      ; 07: Call 00/A105 (8316 returned 2)
                        dl Transfer_Setup2_6b                ;05838E|00A105;
@@ -528,7 +534,7 @@ Bank_05_Stat_Handling:
                        db $01                               ;058394|      ;
                        db $02                               ;058395|      ;
                        db $00                               ;058396|      ;
-                       db $1C                               ;058397|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;058397|      ; RTS
          DATA8_058398:
                        db $07                               ;058398|      ; 07: Call 00/A105 (8316 returned 3)
                        dl Transfer_Setup2_6b                ;058399|00A105;
@@ -536,7 +542,7 @@ Bank_05_Stat_Handling:
                        db $01                               ;05839F|      ;
                        db $02                               ;0583A0|      ;
                        db $00                               ;0583A1|      ;
-                       db $1C                               ;0583A2|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;0583A2|      ; RTS
          DATA8_0583A3:
                        db $07                               ;0583A3|      ; 07: Call 00/A105 (8316 returned 4)
                        dl Transfer_Setup2_6b                ;0583A4|00A105;
@@ -544,7 +550,7 @@ Bank_05_Stat_Handling:
                        db $01                               ;0583AA|      ;
                        db $02                               ;0583AB|      ;
                        db $00                               ;0583AC|      ;
-                       db $1C                               ;0583AD|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;0583AD|      ; RTS
          DATA8_0583AE:
                        db $07                               ;0583AE|      ; 07: Call 00/A105 (8316 returned 5)
                        dl Transfer_Setup2_6b                ;0583AF|00A105;
@@ -552,7 +558,7 @@ Bank_05_Stat_Handling:
                        db $01                               ;0583B5|      ;
                        db $02                               ;0583B6|      ;
                        db $00                               ;0583B7|      ;
-                       db $1C                               ;0583B8|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;0583B8|      ; RTS
          DATA8_0583B9:
                        db $07                               ;0583B9|      ; 07: Call 00/A105 (8316 returned 6)
                        dl Transfer_Setup2_6b                ;0583BA|00A105;
@@ -560,7 +566,7 @@ Bank_05_Stat_Handling:
                        db $01                               ;0583C0|      ;
                        db $02                               ;0583C1|      ;
                        db $00                               ;0583C2|      ;
-                       db $1C                               ;0583C3|      ; 1C: Do stuff, return from jump
+                       db $1C                               ;0583C3|      ; RTS
          DATA8_0583C4:
                        db $07                               ;0583C4|      ; 07: Call 00/A105 (8316 returned 7)
                        dl Transfer_Setup2_6b                ;0583C5|00A105;
@@ -633,7 +639,7 @@ Bank_05_Stat_Handling:
                        db $07                               ;058427|      ;
                        dl CODE_07B9E2                       ;058428|07B9E2;
                        db $1F                               ;05842B|      ;
-                       dw $1097                             ;05842C|001097;
+                       dw $1097                             ;05842C|      ;
                        db $23                               ;05842E|      ;
                        db $01                               ;05842F|      ;
                        db $25                               ;058430|      ;
@@ -4532,7 +4538,7 @@ Sub_Another_setup_again:
                        db $0C                               ;059C98|      ; If true, jump to 9CB8
                        dw DATA8_059CB8                      ;059C99|059CB8;
                        db $1A                               ;059C9B|      ; End menu loop
-                       dw LOOSE_OP_009C77                   ;059C9C|009C77;
+                       dw DATA8_059C77                      ;059C9C|059C77;
          DATA8_059C9E:
                        db $07                               ;059C9E|      ; Play SFX 11
                        dl GetSet_SFX                        ;059C9F|009C44;
@@ -4548,15 +4554,15 @@ Sub_Another_setup_again:
                        db $06                               ;059CB0|      ;
                        db $0A                               ;059CB1|      ;
                        db $0B                               ;059CB2|      ;
-                       dw LOOSE_OP_009C77                   ;059CB3|009C77;
+                       dw DATA8_059C77                      ;059CB3|059C77;
                        db $1A                               ;059CB5|      ;
-                       dw CODE_0097D0                       ;059CB6|0097D0;
+                       dw SaveResult                        ;059CB6|0597D0;
          DATA8_059CB8:
                        db $07                               ;059CB8|      ; Play SFX 06
                        dl GetSet_SFX                        ;059CB9|009C44;
                        db $06                               ;059CBC|      ;
                        db $1A                               ;059CBD|      ;
-                       dw LOOSE_OP_009748                   ;059CBE|009748;
+                       dw DATA8_059748                      ;059CBE|059748;
     Battle_Cards_Menu:
                        db $04                               ;059CC0|      ;
                        dl Battle_Cards_Open                 ;059CC1|05F95F;
@@ -4602,6 +4608,7 @@ Sub_Another_setup_again:
                        dw $0400                             ;059CFE|      ;
                        db $04                               ;059D00|      ;
                        dl Running_away                      ;059D01|059D19;
+         DATA8_059D04:
                        db $31                               ;059D04|      ;
                        db $FF                               ;059D05|      ;
                        db $1A                               ;059D06|      ;
@@ -4617,7 +4624,7 @@ Sub_Another_setup_again:
                        db $1B                               ;059D13|      ;
                        dw DATA8_059942                      ;059D14|059942;
                        db $1A                               ;059D16|      ;
-                       dw LOOSE_OP_009D04                   ;059D17|009D04;
+                       dw DATA8_059D04                      ;059D17|059D04;
          Running_away:
                        db $07                               ;059D19|      ; Escape SFX
                        dl GetSet_SFX                        ;059D1A|009C44;
@@ -14978,7 +14985,7 @@ Loop_for_button_press:
                        db $00                               ;05F493|      ;
 Removing_MP_casting_spells:
                        db $1F                               ;05F494|      ; 1F: Store ($18C1) in $0CB3,x (Jumped from F47D)
-                       dw $18C1                             ;05F495|0018C1;
+                       dw $18C1                             ;05F495|      ;
                        db $0C                               ;05F497|      ; 0C: Jump if true/nonzero to F4A5
                        dw DATA8_05F4A5                      ;05F498|05F4A5;
                        db $07                               ;05F49A|      ; 07: Call  07/C2E1 (Writes the spell name to the text buffer)
@@ -15007,27 +15014,29 @@ Removing_MP_casting_spells:
                        db $07                               ;05F4B9|      ;
                        dl Move_spell_ID_to_11B5             ;05F4BA|05F5D2;
                        db $1B                               ;05F4BD|      ;
-                       dw EMPTY_00F5A7                      ;05F4BE|00F5A7;
+                       dw DATA8_05F5A7                      ;05F4BE|05F5A7;
                        db $07                               ;05F4C0|      ;
                        dl CODE_05F566                       ;05F4C1|05F566;
                        db $0B                               ;05F4C4|      ;
-                       dw EMPTY_00F4CA                      ;05F4C5|00F4CA;
+                       dw DATA8_05F4CA                      ;05F4C5|05F4CA;
                        db $1B                               ;05F4C7|      ;
-                       dw EMPTY_00F5A7                      ;05F4C8|00F5A7;
+                       dw DATA8_05F5A7                      ;05F4C8|05F5A7;
+         DATA8_05F4CA:
                        db $07                               ;05F4CA|      ;
                        dl Get_spell_ID_minus_1b             ;05F4CB|07BF2D;
                        db $3E                               ;05F4CE|      ;
                        db $0B                               ;05F4CF|      ;
-                       dw EMPTY_00F53E                      ;05F4D0|00F53E;
+                       dw DATA8_05F53E                      ;05F4D0|05F53E;
                        db $07                               ;05F4D2|      ;
                        dl Get_spell_ID_minus_1b             ;05F4D3|07BF2D;
                        db $3D                               ;05F4D6|      ;
                        db $0C                               ;05F4D7|      ;
-                       dw EMPTY_00F4DD                      ;05F4D8|00F4DD;
+                       dw DATA8_05F4DD                      ;05F4D8|05F4DD;
                        db $1B                               ;05F4DA|      ;
-                       dw EMPTY_00F5DF                      ;05F4DB|00F5DF;
+                       dw DATA8_05F5DF                      ;05F4DB|05F5DF;
+         DATA8_05F4DD:
                        db $16                               ;05F4DD|      ;
-                       dw $1123                             ;05F4DE|001123;
+                       dw $1123                             ;05F4DE|      ;
                        dw $0000                             ;05F4E0|      ;
                        db $01                               ;05F4E2|      ;
                        db $0C                               ;05F4E3|      ;
@@ -15102,20 +15111,22 @@ Removing_MP_casting_spells:
                        db $1E                               ;05F53A|      ;
                        dw $0001                             ;05F53B|      ;
                        db $05                               ;05F53D|      ; RTL
+         DATA8_05F53E:
                        db $06                               ;05F53E|      ; 06 01
                        db $01                               ;05F53F|      ;
-                       db $07                               ;05F540|      ;
+                       db $07                               ;05F540|      ; Not in a boss fight?
                        dl Runnable_Check                    ;05F541|07BF3A;
-                       db $0C                               ;05F544|      ;
-                       dw EMPTY_00F554                      ;05F545|00F554;
-                       db $07                               ;05F547|      ; "No escape" 2
+                       db $0C                               ;05F544|      ; If true jump to F554
+                       dw DATA8_05F554                      ;05F545|05F554;
+                       db $07                               ;05F547|      ; No escape boss
                        dl Setup_Text_Parser_3b              ;05F548|00A0AC;
-                       dl No_escape2                        ;05F54B|08886C;
+                       dl No_escape_boss                    ;05F54B|08886C;
                        db $00                               ;05F54E|      ;
                        db $06                               ;05F54F|      ;
                        db $3C                               ;05F550|      ;
                        db $1A                               ;05F551|      ;
                        dw DATA8_05F562                      ;05F552|05F562;
+         DATA8_05F554:
                        db $07                               ;05F554|      ;
                        dl Store_Byte_At_Offset_6b           ;05F555|07C8F4;
                        dw $11C3                             ;05F558|      ;
@@ -15157,6 +15168,7 @@ Removing_MP_casting_spells:
                        STA.W Spell_ID                       ;05F5A0|001127;
                        LDA.W #$0001                         ;05F5A3|      ;
                        RTL                                  ;05F5A6|      ;
+         DATA8_05F5A7:
                        db $07                               ;05F5A7|      ;
                        dl Load_Sprite_14b                   ;05F5A8|009CAE;
                        db $00                               ;05F5AB|      ;
@@ -15196,6 +15208,7 @@ Move_spell_ID_to_11B5:
                        LDA.W #$0056                         ;05F5D8|      ;
                        STA.W Spell_ID                       ;05F5DB|001127;
                        RTL                                  ;05F5DE|      ;
+         DATA8_05F5DF:
                        db $06                               ;05F5DF|      ;
                        db $1E                               ;05F5E0|      ;
                        db $07                               ;05F5E1|      ;

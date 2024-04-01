@@ -6562,7 +6562,7 @@ Tbl_Spell_List_Offsets:
                        CMP.W #$0001                         ;07AF46|      ; If word=1, store $09C7,x in $1575
                        BEQ CODE_07AF5E                      ;07AF49|07AF5E;
                        CMP.W #$0002                         ;07AF4B|      ; If word=2, store $09EB,x in $1575
-                       BEQ $15                              ;07AF4E|07AF65;
+                       BEQ CODE_07AF65                      ;07AF4E|07AF65;
                        LDA.W $0A0F,X                        ;07AF50|000A0F; If word not 0-2, store $0A0F,x in $1575
                        STA.W $1575                          ;07AF53|001575;
                        RTL                                  ;07AF56|      ;
@@ -6574,6 +6574,7 @@ Tbl_Spell_List_Offsets:
                        LDA.W Temp_09C7,X                    ;07AF5E|0009C7;
                        STA.W $1575                          ;07AF61|001575;
                        RTL                                  ;07AF64|      ;
+          CODE_07AF65:
                        LDA.W Selection_value,X              ;07AF65|0009EB;
                        STA.W $1575                          ;07AF68|001575;
                        RTL                                  ;07AF6B|      ;
@@ -7834,7 +7835,7 @@ Bank_Getting_crit_text:
                        dw $0055                             ;07B8D2|      ;
                        dw $0066                             ;07B8D4|      ;
                        dw $0077                             ;07B8D6|      ;
-          CODE_07B8D8:
+        Get_Area_Name:
                        LDA.W Curr_area                      ;07B8D8|001573;
                        AND.W #$00FF                         ;07B8DB|      ;
                        LDX.W #$0011                         ;07B8DE|      ;
@@ -8649,7 +8650,7 @@ Get_spell_ID_minus_1b:
        Runnable_Check:
                        LDX.W #$0000                         ;07BF3A|      ; Searches for boss monsters (they prevent running)
  Loop_BossFlag_Search:
-                       LDA.W Affinity,X                     ;07BF3D|00120B;
+                       LDA.W Affinity,X                     ;07BF3D|00120B; Returns 0 if in a boss fight
                        AND.W #$0010                         ;07BF40|      ;
                        BNE CODE_07BF50                      ;07BF43|07BF50; If boss monster, return 0 (fail)
                        INX                                  ;07BF45|      ;
