@@ -40,6 +40,7 @@
           CODE_07803F:
                        LDA.W #$0001                         ;07803F|      ;
                        RTL                                  ;078042|      ;
+    Get_Spell_List_2b:
                        PHA                                  ;078043|      ;
                        JSL.L GetEventCode_2b_far            ;078044|009B07;
                        STA.B $20                            ;078048|000020;
@@ -2593,7 +2594,7 @@ Set_attacker_target_using_0A0F:
                        LDA.W #$0001                         ;079189|      ;
                        RTL                                  ;07918C|      ;
      Call_Roll_to_hit:
-                       JSL.L Roll_to_hit                    ;07918D|00C055; Stores damage in $16DB if nonzero
+                       JSL.L Damage_Hit_Roll                ;07918D|00C055; Stores damage in $16DB if nonzero
                        BNE CODE_079194                      ;079191|079194;
                        RTL                                  ;079193|      ;
           CODE_079194:
@@ -6452,7 +6453,7 @@ Tbl_Spell_List_Offsets:
                        STA.W $07AB,Y                        ;07AE79|0007AB;
                        RTL                                  ;07AE7C|      ;
            Tbl_07AE6E:
-                       dw $003E                             ;07AE7D|      ; 9 entries
+                       dw $003E                             ;07AE7D|      ; 9 entries; probably X distance of the menu cursor
                        dw $003E                             ;07AE7F|      ;
                        dw $003E                             ;07AE81|      ;
                        dw $0063                             ;07AE83|      ;
@@ -6462,7 +6463,7 @@ Tbl_Spell_List_Offsets:
                        dw $008E                             ;07AE8B|      ;
                        dw $008E                             ;07AE8D|      ;
            Tbl_07AE75:
-                       dw $00A4                             ;07AE8F|      ; 9 entries
+                       dw $00A4                             ;07AE8F|      ; 9 entries; probably Y distance of the menu cursor
                        dw $00B2                             ;07AE91|      ;
                        dw $00C0                             ;07AE93|      ;
                        dw $00A4                             ;07AE95|      ;
@@ -8271,7 +8272,7 @@ Heal_plus_variance_2b_1b:
                        STA.B $00                            ;07BC46|000000;
                        JSL.L GetEventCode_1b_far            ;07BC48|009AF8;
                        TAX                                  ;07BC4C|      ;
-                       JML.L Healing_RNG                    ;07BC4D|00C2AE;
+                       JML.L Variance_RNG                   ;07BC4D|00C2AE;
           CODE_07BC51:
                        JSL.L CODE_07BDB1                    ;07BC51|07BDB1;
                        BNE CODE_07BC5B                      ;07BC55|07BC5B;
@@ -8362,7 +8363,7 @@ Heal_plus_variance_2b_1b:
                        BEQ CODE_07BD13                      ;07BD0A|07BD13;
                        PHX                                  ;07BD0C|      ;
                        TAX                                  ;07BD0D|      ;
-                       JSL.L Healing_RNG                    ;07BD0E|00C2AE;
+                       JSL.L Variance_RNG                   ;07BD0E|00C2AE;
                        PLX                                  ;07BD12|      ;
           CODE_07BD13:
                        LDA.W Current_HP,X                   ;07BD13|0012F3;
@@ -8380,7 +8381,7 @@ Heal_plus_variance_2b_1b:
                        BEQ CODE_07BD36                      ;07BD2D|07BD36;
                        PHX                                  ;07BD2F|      ;
                        TAX                                  ;07BD30|      ;
-                       JSL.L Healing_RNG                    ;07BD31|00C2AE;
+                       JSL.L Variance_RNG                   ;07BD31|00C2AE;
                        PLX                                  ;07BD35|      ;
           CODE_07BD36:
                        LDA.W Current_MP,X                   ;07BD36|001323;

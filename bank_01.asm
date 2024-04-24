@@ -2943,7 +2943,8 @@ Any_direction_pressed:
                        db $07                               ;0190D5|      ;
                        dl CODE_078014                       ;0190D6|078014;
                        db $0C                               ;0190D9|      ;
-                       dw LOOSE_OP_009122                   ;0190DA|009122;
+                       dw DATA8_019122                      ;0190DA|019122;
+         DATA8_0190DC:
                        db $1F                               ;0190DC|      ;
                        dw $1097                             ;0190DD|      ;
                        db $23                               ;0190DF|      ;
@@ -2957,154 +2958,125 @@ Any_direction_pressed:
                        dl LearnedSpell                      ;0190EA|088E8E;
                        db $00                               ;0190ED|      ;
                        db $1B                               ;0190EE|      ;
-                       dw CODE_00918F                       ;0190EF|00918F;
+                       dw DATA8_01918F                      ;0190EF|01918F;
                        db $24                               ;0190F1|      ;
                        db $01                               ;0190F2|      ;
                        db $0B                               ;0190F3|      ;
-                       dw CODE_009114                       ;0190F4|009114;
+                       dw DATA8_019114                      ;0190F4|019114;
                        db $1B                               ;0190F6|      ;
-                       dw LOOSE_OP_0091A2                   ;0190F7|0091A2;
+                       dw DATA8_0191A2                      ;0190F7|0191A2;
                        db $07                               ;0190F9|      ;
                        dl Setup_Text_Parser_3b              ;0190FA|00A0AC;
                        dl LearnedSpell2                     ;0190FD|088EAE;
                        db $00                               ;019100|      ;
                        db $1B                               ;019101|      ;
-                       dw CODE_00918F                       ;019102|00918F;
+                       dw DATA8_01918F                      ;019102|01918F;
                        db $24                               ;019104|      ;
                        db $01                               ;019105|      ;
                        db $0B                               ;019106|      ;
-                       dw CODE_009114                       ;019107|009114;
+                       dw DATA8_019114                      ;019107|019114;
                        db $1B                               ;019109|      ;
-                       dw LOOSE_OP_0091A2                   ;01910A|0091A2;
+                       dw DATA8_0191A2                      ;01910A|0191A2;
                        db $07                               ;01910C|      ;
                        dl Setup_Text_Parser_3b              ;01910D|00A0AC;
                        dl LearnedSpell3                     ;019110|088EB9;
                        db $00                               ;019113|      ;
+         DATA8_019114:
                        db $1B                               ;019114|      ;
-                       dw LOOSE_OP_0091A2                   ;019115|0091A2;
+                       dw DATA8_0191A2                      ;019115|0191A2;
                        db $07                               ;019117|      ;
                        dl Setup_Text_Parser_3b              ;019118|00A0AC;
                        dl TEXT_088EC4                       ;01911B|088EC4;
                        db $00                               ;01911E|      ;
                        db $1B                               ;01911F|      ;
-                       dw LOOSE_OP_009197                   ;019120|009197;
+                       dw Levelup_Pause_for_input           ;019120|019197;
+         DATA8_019122:
                        db $24                               ;019122|      ;
                        db $02                               ;019123|      ;
                        db $0B                               ;019124|      ;
-                       dw CODE_00912A                       ;019125|00912A;
+                       dw DATA8_01912A                      ;019125|01912A;
                        db $06                               ;019127|      ;
                        db $01                               ;019128|      ;
          DATA8_019129:
                        db $1C                               ;019129|      ; Return
-                       db $15                               ;01912A|000002;
+         DATA8_01912A:
+                       db $15                               ;01912A|      ;
                        db $02                               ;01912B|      ;
                        db $02                               ;01912C|      ;
-                       db $01                               ;01912D|000000;
-                       db $00                               ;01912E|      ;
-                       db $24                               ;01912F|000002;
+                       dw $0001                             ;01912D|      ;
+                       db $24                               ;01912F|      ;
                        db $02                               ;019130|      ;
-                       db $07                               ;019131|000007;
-                       db $07                               ;019132|0000B3;
-                       db $B3                               ;019133|000007;
-                       db $07                               ;019134|000024;
-                       db $24                               ;019135|000002;
+                       db $07                               ;019131|      ;
+                       dl LevelJoinStats                    ;019132|07B307;
+                       db $24                               ;019135|      ;
                        db $02                               ;019136|      ;
-                       db $07                               ;019137|000043;
-                       db $43                               ;019138|000080;
-                       db $80                               ;019139|019142;
-                       db $07                               ;01913A|000001;
-                       db $01                               ;01913B|000000;
-                       db $00                               ;01913C|      ;
-                       db $0C                               ;01913D|00914A;
-                       db $4A                               ;01913E|      ;
-                       db $91                               ;01913F|00001E;
-                       db $1E                               ;019140|000001;
-                       db $01                               ;019141|000000;
-                       db $00                               ;019142|      ;
-                       db $07                               ;019143|0000DC;
-                       db $DC                               ;019144|0007B4;
-                       db $B4                               ;019145|000007;
-                       db $07                               ;019146|00001B;
+                       db $07                               ;019137|      ;
+                       dl Get_Spell_List_2b                 ;019138|078043;
+                       dw $0001                             ;01913B|      ;
+                       db $0C                               ;01913D|      ;
+                       dw DATA8_01914A                      ;01913E|01914A;
+                       db $1E                               ;019140|      ;
+                       dw $0001                             ;019141|      ;
+                       db $07                               ;019143|      ;
+                       dl Get_PC_Name1_far                  ;019144|07B4DC;
                        db $1B                               ;019147|      ;
-                       db $DC                               ;019148|002490;
-                       db $90                               ;019149|01916F;
-                       db $24                               ;01914A|000002;
+                       dw DATA8_0190DC                      ;019148|0190DC;
+         DATA8_01914A:
+                       db $24                               ;01914A|      ;
                        db $02                               ;01914B|      ;
-                       db $07                               ;01914C|000043;
-                       db $43                               ;01914D|000080;
-                       db $80                               ;01914E|019157;
-                       db $07                               ;01914F|000002;
-                       db $02                               ;019150|      ;
-                       db $00                               ;019151|      ;
-                       db $0C                               ;019152|00915F;
-                       db $5F                               ;019153|021E91;
-                       db $91                               ;019154|00001E;
-                       db $1E                               ;019155|000002;
-                       db $02                               ;019156|      ;
-                       db $00                               ;019157|      ;
-                       db $07                               ;019158|0000DC;
-                       db $DC                               ;019159|0007B4;
-                       db $B4                               ;01915A|000007;
-                       db $07                               ;01915B|00001B;
+                       db $07                               ;01914C|      ;
+                       dl Get_Spell_List_2b                 ;01914D|078043;
+                       dw $0002                             ;019150|      ;
+                       db $0C                               ;019152|      ;
+                       dw DATA8_01915F                      ;019153|01915F;
+                       db $1E                               ;019155|      ;
+                       dw $0002                             ;019156|      ;
+                       db $07                               ;019158|      ;
+                       dl Get_PC_Name1_far                  ;019159|07B4DC;
                        db $1B                               ;01915C|      ;
-                       db $DC                               ;01915D|002490;
-                       db $90                               ;01915E|019184;
-                       db $24                               ;01915F|000002;
+                       dw DATA8_0190DC                      ;01915D|0190DC;
+         DATA8_01915F:
+                       db $24                               ;01915F|      ;
                        db $02                               ;019160|      ;
-                       db $07                               ;019161|000043;
-                       db $43                               ;019162|000080;
-                       db $80                               ;019163|01916C;
-                       db $07                               ;019164|000003;
-                       db $03                               ;019165|000000;
-                       db $00                               ;019166|      ;
-                       db $0C                               ;019167|009174;
-                       db $74                               ;019168|000091;
-                       db $91                               ;019169|00001E;
-                       db $1E                               ;01916A|000003;
-                       db $03                               ;01916B|000000;
-                       db $00                               ;01916C|      ;
-                       db $07                               ;01916D|0000DC;
-                       db $DC                               ;01916E|0007B4;
-                       db $B4                               ;01916F|000007;
-                       db $07                               ;019170|00001B;
+                       db $07                               ;019161|      ;
+                       dl Get_Spell_List_2b                 ;019162|078043;
+                       dw $0003                             ;019165|      ;
+                       db $0C                               ;019167|      ;
+                       dw DATA8_019174                      ;019168|019174;
+                       db $1E                               ;01916A|      ;
+                       dw $0003                             ;01916B|      ;
+                       db $07                               ;01916D|      ;
+                       dl Get_PC_Name1_far                  ;01916E|07B4DC;
                        db $1B                               ;019171|      ;
-                       db $DC                               ;019172|002490;
-                       db $90                               ;019173|019199;
-                       db $24                               ;019174|000002;
+                       dw DATA8_0190DC                      ;019172|0190DC;
+         DATA8_019174:
+                       db $24                               ;019174|      ;
                        db $02                               ;019175|      ;
-                       db $07                               ;019176|000043;
-                       db $43                               ;019177|000080;
-                       db $80                               ;019178|019181;
-                       db $07                               ;019179|000004;
-                       db $04                               ;01917A|000000;
-                       db $00                               ;01917B|      ;
-                       db $0C                               ;01917C|009189;
-                       db $89                               ;01917D|      ;
-                       db $91                               ;01917E|00001E;
-                       db $1E                               ;01917F|000004;
-                       db $04                               ;019180|000000;
-                       db $00                               ;019181|      ;
-                       db $07                               ;019182|0000DC;
-                       db $DC                               ;019183|0007B4;
-                       db $B4                               ;019184|000007;
-                       db $07                               ;019185|00001B;
+                       db $07                               ;019176|      ;
+                       dl Get_Spell_List_2b                 ;019177|078043;
+                       dw $0004                             ;01917A|      ;
+                       db $0C                               ;01917C|      ;
+                       dw DATA8_019189                      ;01917D|019189;
+                       db $1E                               ;01917F|      ;
+                       dw $0004                             ;019180|      ;
+                       db $07                               ;019182|      ;
+                       dl Get_PC_Name1_far                  ;019183|07B4DC;
                        db $1B                               ;019186|      ;
-                       db $DC                               ;019187|001590;
-                       db $90                               ;019188|01919F;
-                       db $15                               ;019189|000002;
+                       dw DATA8_0190DC                      ;019187|0190DC;
+         DATA8_019189:
+                       db $15                               ;019189|      ;
                        db $02                               ;01918A|      ;
                        db $02                               ;01918B|      ;
-                       db $FF                               ;01918C|251CFF;
-                       db $FF                               ;01918D|03251C;
-                       db $1C                               ;01918E|000325;
-                       db $25                               ;01918F|000003;
-                       db $03                               ;019190|000015;
-                       db $15                               ;019191|000001;
-                       db $01                               ;019192|000002;
+                       dw $FFFF                             ;01918C|      ;
+                       db $1C                               ;01918E|      ;
+         DATA8_01918F:
+                       db $25                               ;01918F|      ;
+                       db $03                               ;019190|      ;
+                       db $15                               ;019191|      ;
+                       db $01                               ;019192|      ;
                        db $02                               ;019193|      ;
-                       db $FF                               ;019194|061CFF;
-                       db $FF                               ;019195|01061C;
-                       db $1C                               ;019196|000106;
+                       dw $FFFF                             ;019194|      ;
+                       db $1C                               ;019196|      ;
 Levelup_Pause_for_input:
                        db $06                               ;019197|      ;
                        db $01                               ;019198|      ;
@@ -3112,24 +3084,25 @@ Levelup_Pause_for_input:
                        dl Wait_For_A_Press                  ;01919A|07BA03;
                        db $00                               ;01919D|      ;
                        db $0B                               ;01919E|      ;
-                       dw LOOSE_OP_009197                   ;01919F|009197;
+                       dw Levelup_Pause_for_input           ;01919F|019197;
                        db $1C                               ;0191A1|      ;
+         DATA8_0191A2:
                        db $06                               ;0191A2|      ;
                        db $01                               ;0191A3|      ;
                        db $07                               ;0191A4|      ;
                        dl Some_1095_check_1b                ;0191A5|07BA4F;
                        db $00                               ;0191A8|      ;
                        db $0B                               ;0191A9|      ; Another loop
-                       dw LOOSE_OP_0091A2                   ;0191AA|0091A2;
+                       dw DATA8_0191A2                      ;0191AA|0191A2;
                        db $1F                               ;0191AC|      ;
-                       dw $1097                             ;0191AD|001097;
-                       db $23                               ;0191AF|000000;
+                       dw $1097                             ;0191AD|      ;
+                       db $23                               ;0191AF|      ;
                        db $00                               ;0191B0|      ;
-                       db $25                               ;0191B1|000000;
+                       db $25                               ;0191B1|      ;
                        db $00                               ;0191B2|      ;
-                       db $06                               ;0191B3|00000A;
+                       db $06                               ;0191B3|      ;
                        db $0A                               ;0191B4|      ;
-                       db $1C                               ;0191B5|004007;
+                       db $1C                               ;0191B5|      ;
          DATA8_0191B6:
                        db $07                               ;0191B6|      ;
                        dl Transfer_Data_3b_1b_2b            ;0191B7|00A140;
@@ -3137,12 +3110,11 @@ Levelup_Pause_for_input:
                        db $02                               ;0191BD|      ;
                        db $02                               ;0191BE|      ;
                        db $00                               ;0191BF|      ;
-                       db $06                               ;0191C0|000001;
-                       db $01                               ;0191C1|00000F;
-                       db $0F                               ;0191C2|000000;
+                       db $06                               ;0191C0|      ;
+                       db $01                               ;0191C1|      ;
+                       db $0F                               ;0191C2|      ;
                        db $00                               ;0191C3|      ;
-                       db $00                               ;0191C4|      ;
-                       db $00                               ;0191C5|      ;
+                       dw $0000                             ;0191C4|      ;
                        db $07                               ;0191C6|      ;
                        dl CODE_07AE65                       ;0191C7|07AE65;
         Open_the_menu:
@@ -3153,11 +3125,9 @@ Levelup_Pause_for_input:
                        db $07                               ;0191D0|      ;
                        dl _8698_setup_3b                    ;0191D1|009D07;
                        dl _9D07_data                        ;0191D4|01B52F;
-                       db $16                               ;0191D7|00007B;
-                       db $7B                               ;0191D8|      ;
-                       db $15                               ;0191D9|000000;
-                       db $00                               ;0191DA|      ;
-                       db $00                               ;0191DB|      ;
+                       db $16                               ;0191D7|      ;
+                       dw $157B                             ;0191D8|      ;
+                       dw $0000                             ;0191DA|      ;
                        db $07                               ;0191DC|      ; Play SFX 11
                        dl GetSet_SFX                        ;0191DD|009C44;
                        db $11                               ;0191E0|      ;
@@ -3173,29 +3143,28 @@ Levelup_Pause_for_input:
                        db $00                               ;0191EA|      ;
                        db $80                               ;0191EB|      ;
                        db $0B                               ;0191EC|      ; If false, jump to 9205
-                       dw LOOSE_OP_009205                   ;0191ED|009205;
+                       dw DATA8_019205                      ;0191ED|019205;
                        db $07                               ;0191EF|      ; Play Cancel SFX
                        dl GetSet_SFX                        ;0191F0|009C44;
                        db $06                               ;0191F3|      ;
-                       db $30                               ;0191F4|0191F5;
-                       db $FF                               ;0191F5|9D0707;
+                       db $30                               ;0191F4|      ;
+                       db $FF                               ;0191F5|      ;
                        db $07                               ;0191F6|      ;
                        dl _8698_setup_3b                    ;0191F7|009D07;
                        dl _9D07_data2                       ;0191FA|01B674;
-                       db $16                               ;0191FD|00007B;
-                       db $7B                               ;0191FE|      ;
-                       db $15                               ;0191FF|000001;
-                       db $01                               ;019200|000000;
-                       db $00                               ;019201|      ;
+                       db $16                               ;0191FD|      ;
+                       dw $157B                             ;0191FE|      ;
+                       dw $0001                             ;019200|      ;
                        db $06                               ;019202|      ;
                        db $01                               ;019203|      ;
                        db $1C                               ;019204|      ;
+         DATA8_019205:
                        db $07                               ;019205|      ;
                        dl MoveMenuCursor_2b                 ;019206|07ACAE;
                        dw $0000                             ;019209|      ;
                        db $07                               ;01920B|      ;
                        dl CODE_07AE65                       ;01920C|07AE65;
-                       db $30                               ;01920F|019211;
+                       db $30                               ;01920F|      ;
                        db $00                               ;019210|      ;
                        db $1E                               ;019211|      ;
                        dw $0000                             ;019212|      ;
@@ -3205,7 +3174,7 @@ Levelup_Pause_for_input:
                        db $80                               ;019218|      ;
                        db $00                               ;019219|      ;
                        db $0B                               ;01921A|      ; Jump if false to 91E1
-                       dw CODE_0091E1                       ;01921B|0091E1;
+                       dw DATA8_0191E1                      ;01921B|0191E1;
                        db $07                               ;01921D|      ; Play SFX (Confirm)
                        dl GetSet_SFX                        ;01921E|009C44;
                        db $11                               ;019221|      ; SFX 11
@@ -3213,17 +3182,17 @@ Levelup_Pause_for_input:
                        db $00                               ;019223|      ;
                        db $11                               ;019224|      ; Branch: Dungeon menu
                        db $09                               ;019225|      ;
-                       dw LOOSE_OP_009260                   ;019226|009260; Look
-                       dw LOOSE_OP_009FEC                   ;019228|009FEC; Call
-                       dw LOOSE_OP_009BE5                   ;01922A|009BE5; Map
-                       dw LOOSE_OP_009838                   ;01922C|009838; Magic
-                       dw LOOSE_OP_009AE7                   ;01922E|009AE7; Ability
-                       dw Tbl_Actor_Arrays                  ;019230|009739; Color
-                       dw LOOSE_OP_009C77                   ;019232|009C77; Equipment
-                       dw CODE_0092DE                       ;019234|0092DE; Inventory
-                       dw CODE_009F30                       ;019236|009F30; Order
+                       dw Look                              ;019226|019260; Look
+                       dw Call_menu                         ;019228|019FEC; Call
+                       dw Map_menu                          ;01922A|019BE5; Map
+                       dw Magic_menu1                       ;01922C|019838; Magic
+                       dw Status_screen1                    ;01922E|019AE7; Ability
+                       dw Color_menu                        ;019230|019739; Color
+                       dw Equipment_menu                    ;019232|019C77; Equipment
+                       dw Inventory_menu                    ;019234|0192DE; Inventory
+                       dw Order                             ;019236|019F30; Order
                        db $1A                               ;019238|      ; Else: Exit menu
-                       dw CODE_0091E1                       ;019239|0091E1;
+                       dw DATA8_0191E1                      ;019239|0191E1;
             Open_menu:
                        db $07                               ;01923B|      ; In a dungeon?
                        dl Sub_Dungeon_check                 ;01923C|07B220;
@@ -3255,19 +3224,21 @@ Levelup_Pause_for_input:
                        db $07                               ;019262|      ; In a dungeon?
                        dl Sub_Dungeon_check                 ;019263|07B220;
                        db $0B                               ;019266|      ; If false, jump to 9272
-                       dw LOOSE_OP_009272                   ;019267|009272;
+                       dw DATA8_019272                      ;019267|019272;
                        db $07                               ;019269|      ; Standing on (a chest)?
                        dl Compare_floor_tile_2b             ;01926A|07A816;
                        db $80                               ;01926D|      ;
                        db $00                               ;01926E|      ;
                        db $0C                               ;01926F|      ; If true, jump to 927D
-                       dw CODE_00927D                       ;019270|00927D;
-                       db $07                               ;019272|      ; Set 08/8FBD in $10B3,x
+                       dw DATA8_01927D                      ;019270|01927D;
+         DATA8_019272:
+                       db $07                               ;019272|      ; Nothing here !
                        dl Setup_Text_Parser_3b              ;019273|00A0AC;
                        dl Nothing_here                      ;019276|088FBD;
                        db $00                               ;019279|      ;
                        db $1A                               ;01927A|      ; Jump always to 928A
-                       dw CODE_00928A                       ;01927B|00928A;
+                       dw DATA8_01928A                      ;01927B|01928A;
+         DATA8_01927D:
                        db $07                               ;01927D|      ; Save treasure value
                        dl Treasure_Save_Value               ;01927E|07A827;
                        db $06                               ;019281|      ; Delay 1E (30 frames)
@@ -3275,14 +3246,15 @@ Levelup_Pause_for_input:
                        db $07                               ;019283|      ; Get treasure contents
                        dl Get_Treasure_Contents             ;019284|07A83D;
                        db $0C                               ;019287|      ; If true (MIAB), jump to 92A5
-                       dw CODE_0092A5                       ;019288|0092A5;
+                       dw Monster_in_a_box                  ;019288|0192A5;
+         DATA8_01928A:
                        db $06                               ;01928A|      ; Delay 01
                        db $01                               ;01928B|      ;
                        db $07                               ;01928C|      ; Chest opening?
                        dl Wait_For_A_Press                  ;01928D|07BA03;
                        db $00                               ;019290|      ;
                        db $0B                               ;019291|      ; If false, branch to 928A
-                       dw CODE_00928A                       ;019292|00928A;
+                       dw DATA8_01928A                      ;019292|01928A;
                        db $06                               ;019294|      ; Delay 0A
                        db $0A                               ;019295|      ;
                        db $07                               ;019296|      ;
@@ -3291,7 +3263,7 @@ Levelup_Pause_for_input:
                        db $06                               ;01929D|      ;
                        db $01                               ;01929E|      ;
                        db $16                               ;01929F|      ;
-                       dw $157B                             ;0192A0|00157B;
+                       dw $157B                             ;0192A0|      ;
                        db $01                               ;0192A2|      ;
                        db $00                               ;0192A3|      ;
                        db $1C                               ;0192A4|      ; End section
@@ -3336,15 +3308,15 @@ Levelup_Pause_for_input:
                        db $07                               ;0192D9|      ;
                        dl Roll_encounter                    ;0192DA|188210;
                        db $1C                               ;0192DD|      ; End section
-            Inventory:
+       Inventory_menu:
                        db $1B                               ;0192DE|      ; JSR to 925A
-                       dw LOOSE_OP_00925A                   ;0192DF|00925A;
+                       dw DATA8_01925A                      ;0192DF|01925A;
                        db $0F                               ;0192E1|      ;
                        db $01                               ;0192E2|      ;
                        db $00                               ;0192E3|      ;
                        db $00                               ;0192E4|      ;
                        db $16                               ;0192E5|      ; Set $11B9 to 0?
-                       dw $11B9                             ;0192E6|0011B9;
+                       dw $11B9                             ;0192E6|      ;
                        db $00                               ;0192E8|      ;
                        db $00                               ;0192E9|      ;
                        db $07                               ;0192EA|      ; Draw Card menu
@@ -3365,11 +3337,9 @@ Levelup_Pause_for_input:
                        db $1F                               ;019307|      ;
                        db $07                               ;019308|      ;
                        dl Some_enemy_ID_check               ;019309|03ADE0;
-                       db $16                               ;01930C|000087;
-                       db $87                               ;01930D|000011;
-                       db $11                               ;01930E|000000;
-                       db $00                               ;01930F|      ;
-                       db $00                               ;019310|      ;
+                       db $16                               ;01930C|      ;
+                       dw $1187                             ;01930D|      ;
+                       dw $0000                             ;01930F|      ;
                        db $06                               ;019311|      ;
                        db $01                               ;019312|      ;
                        db $07                               ;019313|      ;
@@ -3407,7 +3377,7 @@ Levelup_Pause_for_input:
                        db $0C                               ;019345|      ;
                        dw DATA8_0193BF                      ;019346|0193BF;
                        db $1E                               ;019348|      ;
-                       dw $0000                             ;019349|000000;
+                       dw $0000                             ;019349|      ;
                        db $07                               ;01934B|      ;
                        dl WasBtnPressed_2b                  ;01934C|00A00F;
                        dw $8000                             ;01934F|      ;
@@ -4901,20 +4871,21 @@ Refresh_Window_Color_Menu:
                        RTL                                  ;019BE4|      ;
              Map_menu:
                        db $1B                               ;019BE5|      ;
-                       dw LOOSE_OP_00925A                   ;019BE6|00925A;
+                       dw DATA8_01925A                      ;019BE6|01925A;
                        db $07                               ;019BE8|      ; In a dungeon?
                        dl Sub_Dungeon_check                 ;019BE9|07B220;
                        db $0C                               ;019BEC|      ; If true, jump to 9BF4
-                       dw LOOSE_OP_009BF4                   ;019BED|009BF4;
+                       dw DATA8_019BF4                      ;019BED|019BF4;
                        db $06                               ;019BEF|      ; Delay 0A
                        db $0A                               ;019BF0|      ;
                        db $1A                               ;019BF1|      ; Jump always 91E1
-                       dw CODE_0091E1                       ;019BF2|0091E1;
+                       dw DATA8_0191E1                      ;019BF2|0191E1;
+         DATA8_019BF4:
                        db $07                               ;019BF4|      ; Save a ptr
                        dl _8698_setup_3b                    ;019BF5|009D07;
                        dl _9D07_data2                       ;019BF8|01B674;
                        db $16                               ;019BFB|      ;
-                       dw $157B                             ;019BFC|00157B;
+                       dw $157B                             ;019BFC|      ;
                        db $01                               ;019BFE|      ;
                        db $00                               ;019BFF|      ;
                        db $30                               ;019C00|      ;
@@ -4996,6 +4967,7 @@ Refresh_Window_Color_Menu:
                        db $1B                               ;019C73|      ;
                        dw DATA8_019254                      ;019C74|019254;
                        db $1C                               ;019C76|      ;
+       Equipment_menu:
                        db $1B                               ;019C77|      ;
                        dw DATA8_01925A                      ;019C78|01925A;
                        db $0F                               ;019C7A|      ;
@@ -5465,37 +5437,30 @@ Input_loop_Equipment_menu:
                 Order:
                        db $0F                               ;019F30|      ; Change party order menu
                        db $01                               ;019F31|      ;
-                       db $00                               ;019F32|      ;
-                       db $00                               ;019F33|      ;
+                       dw $0000                             ;019F32|      ;
                        db $38                               ;019F34|      ;
-                       db $1C                               ;019F35|      ;
-                       db $00                               ;019F36|      ;
+                       dw $001C                             ;019F35|      ;
                        db $40                               ;019F37|      ;
-                       db $38                               ;019F38|      ;
-                       db $00                               ;019F39|      ;
+                       dw $0038                             ;019F38|      ;
                        db $30                               ;019F3A|      ;
                        db $07                               ;019F3B|      ;
          DATA8_019F3C:
                        db $0F                               ;019F3C|      ;
                        db $02                               ;019F3D|      ;
-                       db $FF                               ;019F3E|      ;
-                       db $FF                               ;019F3F|      ;
+                       dw $FFFF                             ;019F3E|      ;
                        db $0F                               ;019F40|      ;
                        db $03                               ;019F41|      ;
-                       db $FF                               ;019F42|      ;
-                       db $FF                               ;019F43|      ;
+                       dw $FFFF                             ;019F42|      ;
          DATA8_019F44:
                        db $06                               ;019F44|      ; Delay 01
                        db $01                               ;019F45|      ;
                        db $1E                               ;019F46|      ;
-                       db $00                               ;019F47|      ;
-                       db $00                               ;019F48|      ;
+                       dw $0000                             ;019F47|      ;
                        db $07                               ;019F49|      ; Check for B press
                        dl WasBtnPressed_2b                  ;019F4A|00A00F;
-                       db $00                               ;019F4D|      ;
-                       db $80                               ;019F4E|      ;
+                       dw $8000                             ;019F4D|      ;
                        db $0C                               ;019F4F|      ; If true, jump to 9FD3
-                       dw LOOSE_OP_009FD3                   ;019F50|009FD3;
+                       dw DATA8_019FD3                      ;019F50|019FD3;
                        db $1E                               ;019F52|      ;
                        db $00                               ;019F53|      ;
                        db $00                               ;019F54|      ;
@@ -5504,11 +5469,11 @@ Input_loop_Equipment_menu:
                        db $80                               ;019F59|      ;
                        db $00                               ;019F5A|      ;
                        db $0C                               ;019F5B|      ; If true, jump to 9F92
-                       dw LOOSE_OP_009F92                   ;019F5C|009F92;
+                       dw DATA8_019F92                      ;019F5C|019F92;
                        db $07                               ;019F5E|      ;
                        dl Checks_for_input_probably         ;019F5F|07933A;
                        db $0B                               ;019F62|      ; If false, jump to 9F44
-                       dw CODE_009F44                       ;019F63|009F44;
+                       dw DATA8_019F44                      ;019F63|019F44;
                        db $24                               ;019F65|      ;
                        db $01                               ;019F66|      ;
                        db $12                               ;019F67|      ;
@@ -5545,6 +5510,7 @@ Input_loop_Equipment_menu:
                        db $40                               ;019F8E|      ;
                        dw $00A0                             ;019F8F|      ;
                        db $1C                               ;019F91|      ;
+         DATA8_019F92:
                        db $07                               ;019F92|      ; Play SFX 11 (Confirm)
                        dl GetSet_SFX                        ;019F93|009C44;
                        db $11                               ;019F96|      ;
@@ -5589,6 +5555,7 @@ Input_loop_Equipment_menu:
                        db $00                               ;019FCF|      ;
                        db $1A                               ;019FD0|      ;
                        dw DATA8_019F44                      ;019FD1|019F44;
+         DATA8_019FD3:
                        db $07                               ;019FD3|      ; Play SFX 06 (Cancel)
                        dl GetSet_SFX                        ;019FD4|009C44;
                        db $06                               ;019FD7|      ;
@@ -5647,12 +5614,12 @@ Input_loop_Equipment_menu:
                        dl WasBtnPressed_2b                  ;01A019|00A00F;
                        dw $0080                             ;01A01C|      ;
                        db $0C                               ;01A01E|      ;
-                       dw Unfade                            ;01A01F|00A0CB;
+                       dw DATA8_01A0CB                      ;01A01F|01A0CB;
          DATA8_01A021:
                        db $07                               ;01A021|      ;
                        dl CODE_07A57A                       ;01A022|07A57A;
                        db $0B                               ;01A025|      ;
-                       dw LOOSE_OP_00A013                   ;01A026|00A013;
+                       dw DATA8_01A013                      ;01A026|01A013;
                        db $24                               ;01A028|      ;
                        db $03                               ;01A029|      ;
                        db $07                               ;01A02A|      ;
@@ -5789,6 +5756,7 @@ Input_loop_Equipment_menu:
                        db $01                               ;01A0C7|      ;
                        dw $0001                             ;01A0C8|      ;
                        db $1C                               ;01A0CA|      ; 1C: RTS
+         DATA8_01A0CB:
                        db $07                               ;01A0CB|      ;
                        dl GetSet_SFX                        ;01A0CC|009C44;
                        db $11                               ;01A0CF|      ;
@@ -5835,7 +5803,7 @@ Input_loop_Equipment_menu:
          DATA8_01A10F:
                        db $07                               ;01A10F|      ;
                        dl CODE_07BAC3                       ;01A110|07BAC3;
-           Loop_start:
+         DATA8_01A113:
                        db $06                               ;01A113|      ;
                        db $01                               ;01A114|      ;
                        db $07                               ;01A115|      ;
@@ -5846,9 +5814,8 @@ Input_loop_Equipment_menu:
                        dw CODE_00A12D                       ;01A11D|00A12D;
                        db $07                               ;01A11F|      ;
                        dl CODE_07BAC3                       ;01A120|07BAC3;
-             Loop_end:
                        db $1A                               ;01A123|      ;
-                       dw LOOSE_OP_00A113                   ;01A124|00A113;
+                       dw DATA8_01A113                      ;01A124|01A113;
                        db $0E                               ;01A126|      ; 0E: $157D + #E000
                        dw $157D                             ;01A127|      ;
                        db $02                               ;01A129|      ;
@@ -11839,14 +11806,13 @@ Load_before_card_spin:
    Loads_blank_spinny:
                        db $07                               ;01B978|      ;
                        dl CODE_01BB96                       ;01B979|01BB96;
-                       db $80                               ;01B97C|01B97E;
+                       db $80                               ;01B97C|      ;
                        db $00                               ;01B97D|      ;
-                       db $00                               ;01B97E|      ;
-                       db $00                               ;01B97F|      ;
+                       dw $0000                             ;01B97E|      ;
                        db $1E                               ;01B980|      ;
                        dw $002B                             ;01B981|      ;
-                       db $23                               ;01B983|000001;
-                       db $01                               ;01B984|000001;
+                       db $23                               ;01B983|      ;
+                       db $01                               ;01B984|      ;
                        db $01                               ;01B985|      ;
                        db $2C                               ;01B986|      ;
   Card_spin_animation:
@@ -11860,34 +11826,31 @@ Load_before_card_spin:
                        db $14                               ;01B991|000001;
                        db $01                               ;01B992|00000A;
                        db $0A                               ;01B993|      ;
-                       db $01                               ;01B994|000010;
-                       db $10                               ;01B995|01B99E;
+                       db $01                               ;01B994|      ;
+                       db $10                               ;01B995|      ;
                        db $07                               ;01B996|      ;
                        dl Unfade                            ;01B997|00A0CB;
-                       db $06                               ;01B99A|000028;
+                       db $06                               ;01B99A|      ;
                        db $28                               ;01B99B|      ;
                        db $02                               ;01B99C|      ;
                        db $0D                               ;01B99D|00C806;
-                       db $06                               ;01B99E|0000C8;
+                       db $06                               ;01B99E|      ;
                        db $C8                               ;01B99F|      ;
-                       db $06                               ;01B9A0|0000C8;
+                       db $06                               ;01B9A0|      ;
                        db $C8                               ;01B9A1|      ;
-                       db $01                               ;01B9A2|00000E;
-                       db $0E                               ;01B9A3|001406;
-                       db $06                               ;01B9A4|000014;
-                       db $14                               ;01B9A5|000098;
+                       db $01                               ;01B9A2|      ;
+                       db $0E                               ;01B9A3|      ;
+                       db $06                               ;01B9A4|      ;
+                       db $14                               ;01B9A5|      ;
                        db $98                               ;01B9A6|      ;
                        db $00                               ;01B9A7|      ;
-                       db $80                               ;01B9A8|01B9A9;
-                       db $FF                               ;01B9A9|C00198;
+                       dw $FF80                             ;01B9A8|      ;
                        db $98                               ;01B9AA|      ;
-                       db $01                               ;01B9AB|0000C0;
-                       db $C0                               ;01B9AC|      ;
-                       db $FF                               ;01B9AD|E00298;
+                       db $01                               ;01B9AB|      ;
+                       dw $FFC0                             ;01B9AC|      ;
                        db $98                               ;01B9AE|      ;
                        db $02                               ;01B9AF|      ;
-                       db $E0                               ;01B9B0|      ;
-                       db $FF                               ;01B9B1|AE0D02;
+                       dw $FFE0                             ;01B9B0|      ;
                        db $02                               ;01B9B2|      ;
                        db $0D                               ;01B9B3|003FAE;
           CODE_01B9B4:

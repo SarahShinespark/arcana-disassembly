@@ -268,7 +268,7 @@ Text_Unused_Message_Speed:
    Spirit_Battle_menu:
                        db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Attack    ";088330|      ;
                        db "Magic  Defense", $00             ;088345|      ;
-    Guest_Battle_menu:
+   Guest1_Battle_menu:
                        db $06, $0D, $0C, $01, $00, $06, $03, $0E, $1C, "  Attack    ";088354|      ;
                        db "Magic  Defense", $0D, "  Weap"   ;088369|      ;
                        db "ons"                             ;08837E|      ;

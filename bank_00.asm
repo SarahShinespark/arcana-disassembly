@@ -1580,7 +1580,6 @@ Gfx_Dungeon_Stuff_far:
           CODE_008A98:
                        STA.B $0C                            ;008A98|00000C;
                        TYA                                  ;008A9A|      ;
-          CODE_008A9B:
                        STA.B $08                            ;008A9B|000008;
                        BPL CODE_008AA3                      ;008A9D|008AA3;
                        EOR.W #$FFFF                         ;008A9F|      ;
@@ -1611,7 +1610,6 @@ Gfx_Dungeon_Stuff_far:
                        INC.B $0A                            ;008ACA|00000A;
           CODE_008ACC:
                        LDX.B $0E                            ;008ACC|00000E;
-          CODE_008ACE:
                        JSR.W MultiplyTo1E00                 ;008ACE|008A3D;
                        LDA.B $01                            ;008AD1|000001;
                        LSR.B $0A                            ;008AD3|00000A;
@@ -1647,7 +1645,6 @@ Gfx_Dungeon_Stuff_far:
                        LDX.B $0C                            ;008B02|00000C;
                        JSR.W MultiplyTo1E00                 ;008B04|008A3D;
                        LDA.B $01                            ;008B07|000001;
-          CODE_008B09:
                        LSR.B $0A                            ;008B09|00000A;
                        BCC Set_Mode7                        ;008B0B|008B11;
                        EOR.W #$FFFF                         ;008B0D|      ;
@@ -2516,7 +2513,6 @@ Update_Restart_MainLp:
                        PLA                                  ;00910F|      ;
                        SEP #$20                             ;009110|      ;
                        STA.B [$14],Y                        ;009112|000014;
-          CODE_009114:
                        REP #$20                             ;009114|      ;
                        INY                                  ;009116|      ;
                        TYA                                  ;009117|      ;
@@ -2530,7 +2526,6 @@ Update_Restart_MainLp:
                        SEP #$20                             ;009125|      ;
                        LDA.B [$14],Y                        ;009127|000014;
                        DEC A                                ;009129|      ;
-          CODE_00912A:
                        STA.B [$14],Y                        ;00912A|000014;
                        REP #$20                             ;00912C|      ;
                        BNE CODE_009139                      ;00912E|009139;
@@ -2595,7 +2590,6 @@ Update_Restart_MainLp:
                        RTS                                  ;00918C|      ;
         Event_Code_04:
                        INC.B $10                            ;00918D|000010; JSL (3 bytes), saves return ptr
-          CODE_00918F:
                        LDA.B [$10]                          ;00918F|000010;
                        PHA                                  ;009191|      ;
                        INC.B $10                            ;009192|000010;
@@ -2722,7 +2716,6 @@ Update_Restart_MainLp:
                        LDA.W $0817,X                        ;009276|000817;
                        CLC                                  ;009279|      ;
                        ADC.W $1007,Y                        ;00927A|001007;
-          CODE_00927D:
                        STA.W $0817,X                        ;00927D|000817;
                        LDA.W $07AB,X                        ;009280|0007AB;
                        ADC.W $0FF7,Y                        ;009283|000FF7;
@@ -2770,7 +2763,6 @@ Update_Restart_MainLp:
                        INC.B $10                            ;0092D7|000010;
                        LDX.W Selection                      ;0092D9|00103F;
                        LDA.B [$10]                          ;0092DC|000010;
-          CODE_0092DE:
                        PHA                                  ;0092DE|      ;
                        AND.W #$00FF                         ;0092DF|      ;
                        XBA                                  ;0092E2|      ;
@@ -4517,7 +4509,6 @@ Set_Pixellation_hi_1b:
                        AND.W Tbl_HDMA_ch,X                  ;009F28|008C04;
                        STA.W HDMA_ch_temp                   ;009F2B|00105A;
                        REP #$20                             ;009F2E|      ;
-          CODE_009F30:
                        RTL                                  ;009F30|      ;
          HDMA_disable:
                        STZ.W HDMA_enable                    ;009F31|00420C;
@@ -4530,7 +4521,6 @@ Set_Pixellation_hi_1b:
                        JSR.W Color_Math_Desig_2b            ;009F3C|009F4F;
                        SEP #$20                             ;009F3F|      ;
                        LDA.W Color_Add_temp                 ;009F41|001061;
-          CODE_009F44:
                        AND.B #$FD                           ;009F44|      ;
           CODE_009F46:
                        STA.W Color_Add_temp                 ;009F46|001061;
@@ -10001,7 +9991,7 @@ Text_Opcode_Helper_Fn3:
                        dw $0080                             ;00C04F|      ; 80 = neutral (not buffed nor debuffed)
                        dw $00FF                             ;00C051|      ; FF = buffed
                        dw $0000                             ;00C053|      ; 00 = debuffed
-          Roll_to_hit:
+      Damage_Hit_Roll:
                        LDX.W Target                         ;00C055|001123;
                        LDY.W #$0004                         ;00C058|      ;
                        JSR.W Get_Alertness_mod              ;00C05B|00C494; Add the target's evasion bonus to the totals $20 and $00
@@ -10018,11 +10008,10 @@ Text_Opcode_Helper_Fn3:
           CODE_00C073:
                        LDX.W Attacker                       ;00C073|001121;
                        LDY.W Target                         ;00C076|001123;
-     Death_check_more:
-                       JSR.W Death_check_more2              ;00C079|00C5B1;
-      Probably_adds_0:
-                       TAX                                  ;00C07C|      ; Unknown mod
-                       LDA.L DATA16_00C16C,X                ;00C07D|00C16C;
+        Get_row_bonus:
+                       JSR.W Battle_Row_check               ;00C079|00C5B1;
+                       TAX                                  ;00C07C|      ;
+                       LDA.L ToHit_Row_Bonus,X              ;00C07D|00C16C;
                        CLC                                  ;00C081|      ;
                        ADC.B $00                            ;00C082|000000;
                        STA.B $00                            ;00C084|000000;
@@ -10056,9 +10045,9 @@ Text_Opcode_Helper_Fn3:
           CODE_00C0C1:
                        STZ.W $1125                          ;00C0C1|001125; If the threshold for $00 is met; check against $02 as well
                        CMP.B $02                            ;00C0C4|000002;
-                       BCS CODE_00C0CB                      ;00C0C6|00C0CB;
+                       BCS Damage_Attack_Roll               ;00C0C6|00C0CB;
                        INC.W $1125                          ;00C0C8|001125; Critical hit
-          CODE_00C0CB:
+   Damage_Attack_Roll:
                        LDX.W Attacker                       ;00C0CB|001121;
                        JSL.L Load_Attack_power              ;00C0CE|00C4CA;
                        STA.B $00                            ;00C0D2|000000;
@@ -10090,9 +10079,9 @@ Text_Opcode_Helper_Fn3:
                        STA.B $00                            ;00C10F|000000;
                        LDX.W Attacker                       ;00C111|001121;
                        LDY.W Target                         ;00C114|001123;
-                       JSR.W Death_check_more2              ;00C117|00C5B1;
+                       JSR.W Battle_Row_check               ;00C117|00C5B1;
                        TAX                                  ;00C11A|      ;
-                       LDA.L DATA16_00C176,X                ;00C11B|00C176;
+                       LDA.L Attack_Row_Bonus,X             ;00C11B|00C176;
                        LDX.B $00                            ;00C11F|000000;
                        JSL.L MultiplyTo1E00_far             ;00C121|008A39;
                        LDA.B $01                            ;00C125|000001;
@@ -10124,13 +10113,13 @@ Text_Opcode_Helper_Fn3:
           CODE_00C167:
                        STA.B $00                            ;00C167|000000;
                        JMP.W CODE_00C2AB                    ;00C169|00C2AB;
-        DATA16_00C16C:
+      ToHit_Row_Bonus:
                        dw $0000                             ;00C16C|      ;
                        dw $0000                             ;00C16E|      ;
                        dw $001A                             ;00C170|      ;
                        dw $0033                             ;00C172|      ;
                        dw $004C                             ;00C174|      ;
-        DATA16_00C176:
+     Attack_Row_Bonus:
                        dw $0100                             ;00C176|      ;
                        dw $0100                             ;00C178|      ;
                        dw $00E1                             ;00C17A|      ;
@@ -10164,7 +10153,7 @@ Text_Opcode_Helper_Fn3:
                        JSR.W Get_spell_acc                  ;00C1B3|00C849;
                        STA.B $00                            ;00C1B6|000000;
                        LDX.W #$000D                         ;00C1B8|      ;
-                       JMP.W Healing_RNG                    ;00C1BB|00C2AE;
+                       JMP.W Variance_RNG                   ;00C1BB|00C2AE;
       Spell_acc_check:
                        LDX.W Attacker                       ;00C1BE|001121; Damaging, Death, Status, Debuff spells accuracy check
                        LDY.W Target                         ;00C1C1|001123;
@@ -10274,7 +10263,7 @@ Text_Opcode_Helper_Fn3:
                        STA.B $00                            ;00C2A9|000000;
           CODE_00C2AB:
                        LDX.W #$0026                         ;00C2AB|      ;
-          Healing_RNG:
+         Variance_RNG:
                        LDA.B $00                            ;00C2AE|000000; $00 power, x affects variance
                        JSR.W Multiply_AA_times_X            ;00C2B0|00C8A1;
                        AND.W #$FF00                         ;00C2B3|      ;
@@ -10680,18 +10669,18 @@ Get_Buff_Debuff_offset:
           CODE_00C5AD:
                        LDX.W #$0000                         ;00C5AD|      ; No modifier found for that stat; return X=0
                        RTL                                  ;00C5B0|      ;
-    Death_check_more2:
+     Battle_Row_check:
                        STX.B $04                            ;00C5B1|000004; $04 <- $1121
                        STY.B $06                            ;00C5B3|000006; $06 <- $1123
                        STZ.B $08                            ;00C5B5|000008;
                        STZ.B $0A                            ;00C5B7|00000A;
                        STZ.B $0C                            ;00C5B9|00000C;
                        LDY.W #$0000                         ;00C5BB|      ;
-  LpFind_Dead_Missing:
+LpDetermine_Battle_Rows:
                        LDA.W Party_order,Y                  ;00C5BE|0011F3;
                        LDX.W #$0000                         ;00C5C1|      ;
           CODE_00C5C4:
-                       CMP.L DATA16_00C64E,X                ;00C5C4|00C64E;
+                       CMP.L Tbl_BattleRow,X                ;00C5C4|00C64E;
                        BCC CODE_00C5D1                      ;00C5C8|00C5D1;
                        INX                                  ;00C5CA|      ;
                        INX                                  ;00C5CB|      ;
@@ -10723,7 +10712,7 @@ Get_Buff_Debuff_offset:
                        INY                                  ;00C5F7|      ;
                        INY                                  ;00C5F8|      ;
                        CPY.W #$0018                         ;00C5F9|      ;
-                       BCC LpFind_Dead_Missing              ;00C5FC|00C5BE;
+                       BCC LpDetermine_Battle_Rows          ;00C5FC|00C5BE;
                        LDA.B $08                            ;00C5FE|000008;
                        XBA                                  ;00C600|      ;
                        STA.B $08                            ;00C601|000008;
@@ -10773,7 +10762,7 @@ Get_Buff_Debuff_offset:
           CODE_00C64C:
                        ASL A                                ;00C64C|      ;
                        RTS                                  ;00C64D|      ; End of C5B1
-        DATA16_00C64E:
+        Tbl_BattleRow:
                        dw $0002                             ;00C64E|      ;
                        dw $0004                             ;00C650|      ;
                        dw $0024                             ;00C652|      ;

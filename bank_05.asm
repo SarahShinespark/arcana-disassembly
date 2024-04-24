@@ -3604,14 +3604,14 @@ Sub_Another_setup_again:
      Guest1BattleMenu:
                        db $07                               ;05976A|      ;
                        dl Setup_Text_Parser_3b              ;05976B|00A0AC;
-                       dl Guest_Battle_menu                 ;05976E|088354;
+                       dl Guest1_Battle_menu                ;05976E|088354;
                        db $00                               ;059771|      ;
                        db $1A                               ;059772|      ; Jump always to 977D
                        dw BattleMenuLoop                    ;059773|05977D;
      Guest2BattleMenu:
                        db $07                               ;059775|      ;
                        dl Setup_Text_Parser_3b              ;059776|00A0AC;
-                       dl Guest_Battle_menu                 ;059779|088354;
+                       dl Guest1_Battle_menu                ;059779|088354;
                        db $00                               ;05977C|      ;
        BattleMenuLoop:
                        db $06                               ;05977D|      ; Delay 01
@@ -3672,7 +3672,7 @@ Sub_Another_setup_again:
                        dw DATA8_059A0C                      ;0597CE|059A0C; Call
            SaveResult:
                        db $1F                               ;0597D0|      ; Store ($11BF) in result $0CB3,x
-                       dw $11BF                             ;0597D1|0011BF;
+                       dw $11BF                             ;0597D1|      ;
                        db $23                               ;0597D3|      ;
                        db $00                               ;0597D4|      ;
                        db $07                               ;0597D5|      ;
