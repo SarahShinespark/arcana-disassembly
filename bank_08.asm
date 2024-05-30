@@ -419,24 +419,22 @@ Text_Unused_Message_Speed:
                        db $06, $0D, " points damage."       ;08852B|      ;
                        db $7F                               ;08853C|      ;
                        db $00                               ;08853D|      ;
-       X_taken_damage:
-                       db $10                               ;08853E|      ;
+   X_damaged_perished:
+                       db $10                               ;08853E|      ; Game over, man!
                        dl $001598                           ;08853F|001598;
                        db " has taken", $0D, $06, $0E       ;088542|      ;
                        db $11                               ;08854F|      ;
                        db $00                               ;088550|      ;
                        dl $0016DB                           ;088551|0016DB;
                        db $06, $0D, " points damage.", $0D, $0C, $05, $01;088554|      ;
-                       db $05, " ", $0C, $01, $00           ;088569|      ;
-           X_perished:
-                       db $06, $03, $0E, $1D                ;08856E|      ; Game over, man!
+                       db $05, " ", $0C, $01, $00, $06, $03, $0E, $1D;088569|      ;
                        db $10                               ;088572|      ;
                        dl $001598                           ;088573|001598;
                        db " has perished."                  ;088576|      ;
                        db $7F                               ;088584|      ;
                        db $00                               ;088585|      ;
-      X_taken_damage2:
-                       db $10                               ;088586|      ; Duplicate?
+       X_taken_damage:
+                       db $10                               ;088586|      ;
                        dl $001598                           ;088587|001598;
                        db " has taken", $0D, $06, $0E       ;08858A|      ;
                        db $11                               ;088597|      ;
@@ -723,7 +721,7 @@ Restoration_of_Spirit:
                        db " has awakened."                  ;08899E|      ;
                        db $7F                               ;0889AC|      ;
                        db $00                               ;0889AD|      ;
-     ItemUseTextSetup:
+             ItemUsed:
                        db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1C, $10;0889AE|      ;
                        dl $001581                           ;0889BD|001581;
                        db $0D, "has been used.", $00        ;0889C0|      ;
@@ -754,56 +752,73 @@ Restoration_of_Spirit:
                        db $7F                               ;088A3D|      ;
                        db $00                               ;088A3E|      ;
         CritTextSetup:
-                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D, $00, $10;088A3F|      ; Sub for critical hit text
-         Take_That_x9:
-                       dl CritTextSetup                     ;088A4F|088A3F; 9 copies, each character has their own.
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D, $00;088A3F|      ; Sub for critical hit text
+      Take_That_Rooks:
+                       db $10                               ;088A4E|      ; 9 copies, each character has their own.
+                       dl CritTextSetup                     ;088A4F|088A3F;
                        db $10                               ;088A52|      ;
                        dl $001581                           ;088A53|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088A56|      ;
                        db $7F                               ;088A64|      ;
-                       db $00, $10                          ;088A65|      ;
+                       db $00                               ;088A65|      ;
+      Take_That_Sylph:
+                       db $10                               ;088A66|      ;
                        dl CritTextSetup                     ;088A67|088A3F;
                        db $10                               ;088A6A|      ;
                        dl $001581                           ;088A6B|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088A6E|      ;
                        db $7F                               ;088A7C|      ;
-                       db $00, $10                          ;088A7D|      ;
+                       db $00                               ;088A7D|      ;
+        Take_That_Dao:
+                       db $10                               ;088A7E|      ;
                        dl CritTextSetup                     ;088A7F|088A3F;
                        db $10                               ;088A82|      ;
                        dl $001581                           ;088A83|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088A86|      ;
                        db $7F                               ;088A94|      ;
-                       db $00, $10                          ;088A95|      ;
+                       db $00                               ;088A95|      ;
+      Take_That_Marid:
+                       db $10                               ;088A96|      ;
                        dl CritTextSetup                     ;088A97|088A3F;
                        db $10                               ;088A9A|      ;
                        dl $001581                           ;088A9B|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088A9E|      ;
                        db $7F                               ;088AAC|      ;
-                       db $00, $10                          ;088AAD|      ;
+                       db $00                               ;088AAD|      ;
+     Take_That_Efrite:
+                       db $10                               ;088AAE|      ;
                        dl CritTextSetup                     ;088AAF|088A3F;
                        db $10                               ;088AB2|      ;
                        dl $001581                           ;088AB3|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088AB6|      ;
                        db $7F                               ;088AC4|      ;
-                       db $00, $10                          ;088AC5|      ;
+                       db $00                               ;088AC5|      ;
+      Take_That_Teefa:
+                       db $10                               ;088AC6|      ;
                        dl CritTextSetup                     ;088AC7|088A3F;
                        db $10                               ;088ACA|      ;
                        dl $001581                           ;088ACB|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088ACE|      ;
                        db $7F                               ;088ADC|      ;
-                       db $00, $10                          ;088ADD|      ;
+                       db $00                               ;088ADD|      ;
+      Take_That_Salah:
+                       db $10                               ;088ADE|      ;
                        dl CritTextSetup                     ;088ADF|088A3F;
                        db $10                               ;088AE2|      ;
                        dl $001581                           ;088AE3|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088AE6|      ;
                        db $7F                               ;088AF4|      ;
-                       db $00, $10                          ;088AF5|      ;
+                       db $00                               ;088AF5|      ;
+     Take_That_Darwin:
+                       db $10                               ;088AF6|      ;
                        dl CritTextSetup                     ;088AF7|088A3F;
                        db $10                               ;088AFA|      ;
                        dl $001581                           ;088AFB|001581;
                        db $0D, $22, "Take that!", $22, $0D  ;088AFE|      ;
                        db $7F                               ;088B0C|      ;
-                       db $00, $10                          ;088B0D|      ;
+                       db $00                               ;088B0D|      ;
+        Take_That_Axs:
+                       db $10                               ;088B0E|      ;
                        dl CritTextSetup                     ;088B0F|088A3F;
                        db $10                               ;088B12|      ;
                        dl $001581                           ;088B13|001581;
@@ -811,56 +826,73 @@ Restoration_of_Spirit:
                        db $7F                               ;088B24|      ;
                        db $00                               ;088B25|      ;
      CrittedTextSetup:
-                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D, $00, $10;088B26|      ; Sub: Text setup for Getting crit
-              Ouch_x9:
+                       db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D, $00;088B26|      ; Sub: Text setup for Getting crit
+           Ouch_Rooks:
+                       db $10                               ;088B35|      ;
                        dl CrittedTextSetup                  ;088B36|088B26;
                        db $10                               ;088B39|      ;
                        dl $001598                           ;088B3A|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088B3D|      ;
                        db $7F                               ;088B46|      ;
-                       db $00, $10                          ;088B47|      ;
+                       db $00                               ;088B47|      ;
+           Ouch_Sylph:
+                       db $10                               ;088B48|      ;
                        dl CrittedTextSetup                  ;088B49|088B26;
                        db $10                               ;088B4C|      ;
                        dl $001598                           ;088B4D|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088B50|      ;
                        db $7F                               ;088B59|      ;
-                       db $00, $10                          ;088B5A|      ;
+                       db $00                               ;088B5A|      ;
+             Ouch_Dao:
+                       db $10                               ;088B5B|      ;
                        dl CrittedTextSetup                  ;088B5C|088B26;
                        db $10                               ;088B5F|      ;
                        dl $001598                           ;088B60|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088B63|      ;
                        db $7F                               ;088B6C|      ;
-                       db $00, $10                          ;088B6D|      ;
+                       db $00                               ;088B6D|      ;
+           Ouch_Marid:
+                       db $10                               ;088B6E|      ;
                        dl CrittedTextSetup                  ;088B6F|088B26;
                        db $10                               ;088B72|      ;
                        dl $001598                           ;088B73|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088B76|      ;
                        db $7F                               ;088B7F|      ;
-                       db $00, $10                          ;088B80|      ;
+                       db $00                               ;088B80|      ;
+          Ouch_Efrite:
+                       db $10                               ;088B81|      ;
                        dl CrittedTextSetup                  ;088B82|088B26;
                        db $10                               ;088B85|      ;
                        dl $001598                           ;088B86|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088B89|      ;
                        db $7F                               ;088B92|      ;
-                       db $00, $10                          ;088B93|      ;
+                       db $00                               ;088B93|      ;
+           Ouch_Teefa:
+                       db $10                               ;088B94|      ;
                        dl CrittedTextSetup                  ;088B95|088B26;
                        db $10                               ;088B98|      ;
                        dl $001598                           ;088B99|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088B9C|      ;
                        db $7F                               ;088BA5|      ;
-                       db $00, $10                          ;088BA6|      ;
+                       db $00                               ;088BA6|      ;
+           Ouch_Salah:
+                       db $10                               ;088BA7|      ;
                        dl CrittedTextSetup                  ;088BA8|088B26;
                        db $10                               ;088BAB|      ;
                        dl $001598                           ;088BAC|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088BAF|      ;
                        db $7F                               ;088BB8|      ;
-                       db $00, $10                          ;088BB9|      ;
+                       db $00                               ;088BB9|      ;
+          Ouch_Darwin:
+                       db $10                               ;088BBA|      ;
                        dl CrittedTextSetup                  ;088BBB|088B26;
                        db $10                               ;088BBE|      ;
                        dl $001598                           ;088BBF|001598;
                        db $0D, $22, "Ouch!", $22, $0D       ;088BC2|      ;
                        db $7F                               ;088BCB|      ;
-                       db $00, $10                          ;088BCC|      ;
+                       db $00                               ;088BCC|      ;
+             Ouch_Axs:
+                       db $10                               ;088BCD|      ;
                        dl CrittedTextSetup                  ;088BCE|088B26;
                        db $10                               ;088BD1|      ;
                        dl $001598                           ;088BD2|001598;
@@ -869,7 +901,7 @@ Restoration_of_Spirit:
                        db $00                               ;088BDF|      ;
        TauntTextSetup:
                        db $06, $0D, $0C, $05, $01, $05, " ", $0C, $01, $00, $06, $03, $0E, $1D, $00;088BE0|      ; Sub: Set up dodge message
-The_best_you_can_do_x9:
+          Dodge_Rooks:
                        db $10                               ;088BEF|      ; Rooks' dodge message
                        dl TauntTextSetup                    ;088BF0|088BE0;
                        db $10                               ;088BF3|      ;
@@ -877,56 +909,72 @@ The_best_you_can_do_x9:
                        db $0D, $22, "That's the best you"   ;088BF7|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088C0C|      ;
                        db $7F                               ;088C17|      ;
-                       db $00, $10                          ;088C18|      ;
+                       db $00                               ;088C18|      ;
+          Dodge_Sylph:
+                       db $10                               ;088C19|      ;
                        dl TauntTextSetup                    ;088C1A|088BE0;
                        db $10                               ;088C1D|      ;
                        dl $001598                           ;088C1E|001598;
                        db $0D, $22, "That's the best you"   ;088C21|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088C36|      ;
                        db $7F                               ;088C41|      ;
-                       db $00, $10                          ;088C42|      ;
+                       db $00                               ;088C42|      ;
+            Dodge_Dao:
+                       db $10                               ;088C43|      ;
                        dl TauntTextSetup                    ;088C44|088BE0;
                        db $10                               ;088C47|      ;
                        dl $001598                           ;088C48|001598;
                        db $0D, $22, "That's the best you"   ;088C4B|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088C60|      ;
                        db $7F                               ;088C6B|      ;
-                       db $00, $10                          ;088C6C|      ;
+                       db $00                               ;088C6C|      ;
+          Dodge_Marid:
+                       db $10                               ;088C6D|      ;
                        dl TauntTextSetup                    ;088C6E|088BE0;
                        db $10                               ;088C71|      ;
                        dl $001598                           ;088C72|001598;
                        db $0D, $22, "That's the best you"   ;088C75|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088C8A|      ;
                        db $7F                               ;088C95|      ;
-                       db $00, $10                          ;088C96|      ;
+                       db $00                               ;088C96|      ;
+         Dodge_Efrite:
+                       db $10                               ;088C97|      ;
                        dl TauntTextSetup                    ;088C98|088BE0;
                        db $10                               ;088C9B|      ;
                        dl $001598                           ;088C9C|001598;
                        db $0D, $22, "That's the best you"   ;088C9F|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088CB4|      ;
                        db $7F                               ;088CBF|      ;
-                       db $00, $10                          ;088CC0|      ;
+                       db $00                               ;088CC0|      ;
+          Dodge_Teefa:
+                       db $10                               ;088CC1|      ;
                        dl TauntTextSetup                    ;088CC2|088BE0;
                        db $10                               ;088CC5|      ;
                        dl $001598                           ;088CC6|001598;
                        db $0D, $22, "That's the best you"   ;088CC9|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088CDE|      ;
                        db $7F                               ;088CE9|      ;
-                       db $00, $10                          ;088CEA|      ;
+                       db $00                               ;088CEA|      ;
+          Dodge_Salah:
+                       db $10                               ;088CEB|      ;
                        dl TauntTextSetup                    ;088CEC|088BE0;
                        db $10                               ;088CEF|      ;
                        dl $001598                           ;088CF0|001598;
                        db $0D, $22, "That's the best you"   ;088CF3|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088D08|      ;
                        db $7F                               ;088D13|      ;
-                       db $00, $10                          ;088D14|      ;
+                       db $00                               ;088D14|      ;
+         Dodge_Darwin:
+                       db $10                               ;088D15|      ;
                        dl TauntTextSetup                    ;088D16|088BE0;
                        db $10                               ;088D19|      ;
                        dl $001598                           ;088D1A|001598;
                        db $0D, $22, "That's the best you"   ;088D1D|      ;
                        db " can", $0D, "do ?", $22, $0D     ;088D32|      ;
                        db $7F                               ;088D3D|      ;
-                       db $00, $10                          ;088D3E|      ;
+                       db $00                               ;088D3E|      ;
+            Dodge_Axs:
+                       db $10                               ;088D3F|      ;
                        dl TauntTextSetup                    ;088D40|088BE0;
                        db $10                               ;088D43|      ;
                        dl $001598                           ;088D44|001598;
@@ -972,14 +1020,12 @@ The_best_you_can_do_x9:
                        db $06, $0D, "."                     ;088E89|      ;
                        db $7F                               ;088E8C|      ;
                        db $00                               ;088E8D|      ;
-         LearnedSpell:
+        LearnedSpell1:
                        db $10                               ;088E8E|      ;
                        dl Battle_Text_Format                ;088E8F|088601;
                        db $10                               ;088E92|      ;
                        dl $001581                           ;088E93|001581;
-                       db " has mastered"                   ;088E96|      ;
-        LearnedSpell1:
-                       db $0D, $06, $0E, $10                ;088EA3|      ; Newline
+                       db " has mastered", $0D, $06, $0E, $10;088E96|      ;
                        dl $0015AF                           ;088EA7|0015AF;
                        db $06, $0D                          ;088EAA|      ; White text
                        db $7F                               ;088EAC|      ;
@@ -996,7 +1042,7 @@ The_best_you_can_do_x9:
                        db $06, $0D                          ;088EC0|      ;
                        db $7F                               ;088EC2|      ;
                        db $00                               ;088EC3|      ;
-          TEXT_088EC4:
+      LearnedSpellEnd:
                        db "."                               ;088EC4|      ;
                        db $7F                               ;088EC5|      ;
                        db $00                               ;088EC6|      ;
@@ -3622,8 +3668,7 @@ The_best_you_can_do_x9:
                        db $06, $0D, $00                     ;08CCD9|      ;
        Sub_Color_Text:
                        db $06, $0E, $00                     ;08CCDC|      ;
-   Sub_Speaking_Setup:
-                       db $10                               ;08CCDF|      ;
+                       db $10                               ;08CCDF|      ; Not sure where this is called, but it sure aint at the alchemist and healer
                        dl Speaking_text_setup               ;08CCE0|08CCBA;
      Sub_Shop_menu_GP:
                        db $1C                               ;08CCE3|      ;
@@ -3864,7 +3909,7 @@ Inn_Good_morning_Crono:
                        db "of those cards."                 ;08D00F|      ;
                        db $7F                               ;08D01E|      ;
                        db $00                               ;08D01F|      ;
-     Healer_Thank_You:
+           Healer_Bye:
                        db $10                               ;08D020|      ;
                        dl Speaking_text_setup               ;08D021|08CCBA;
                        db "Thank you."                      ;08D024|      ;

@@ -5458,7 +5458,7 @@ Get_name_from_party_ID:
                        LDY.W #$0000                         ;07A6E8|      ;
                        SEP #$20                             ;07A6EB|      ;
 Write_title_to_buffer:
-                       LDA.L Job_titles,X                   ;07A6ED|05A554;
+                       LDA.L Job_titles,X                   ;07A6ED|05A554; * This was removed from the US status screen
                        STA.W $15D6,Y                        ;07A6F1|0015D6;
                        INX                                  ;07A6F4|      ;
                        INY                                  ;07A6F5|      ;
@@ -5469,7 +5469,7 @@ Write_title_to_buffer:
                        STA.W $15D6,Y                        ;07A6FE|0015D6;
                        REP #$20                             ;07A701|      ;
        Load_condition:
-                       PLA                                  ;07A703|      ; * This was removed from the US status screen
+                       PLA                                  ;07A703|      ;
                        PHA                                  ;07A704|      ;
                        TAX                                  ;07A705|      ;
                        LDA.W Condition,X                    ;07A706|0011C3;
@@ -7481,9 +7481,10 @@ Get_character_offset_far:
                        LDA.L Flag_Boss_music,X              ;07B61C|05D195;
                        AND.W #$00FF                         ;07B620|      ;
                        RTL                                  ;07B623|      ;
-                       JSR.W CODE_07B628                    ;07B624|07B628;
+BattleStart_ChooseSpeaker_far:
+                       JSR.W BattleStart_ChooseSpeaker      ;07B624|07B628;
                        RTL                                  ;07B627|      ;
-          CODE_07B628:
+BattleStart_ChooseSpeaker:
                        LDA.W #$0004                         ;07B628|      ;
                        JSL.L RNG                            ;07B62B|0089F1;
                        ASL A                                ;07B62F|      ;
@@ -7491,55 +7492,55 @@ Get_character_offset_far:
                        LDA.W Condition,X                    ;07B631|0011C3;
                        AND.W #$00FF                         ;07B634|      ;
                        CMP.W #$0001                         ;07B637|      ;
-                       BEQ CODE_07B628                      ;07B63A|07B628;
+                       BEQ BattleStart_ChooseSpeaker        ;07B63A|07B628;
                        CMP.W #$0002                         ;07B63C|      ;
-                       BEQ CODE_07B628                      ;07B63F|07B628;
+                       BEQ BattleStart_ChooseSpeaker        ;07B63F|07B628;
                        LDA.W Curr_party,X                   ;07B641|00155B;
                        RTS                                  ;07B644|      ;
-          CODE_07B645:
-                       JSR.W CODE_07B628                    ;07B645|07B628;
+Battle_Start_Reaction:
+                       JSR.W BattleStart_ChooseSpeaker      ;07B645|07B628;
                        ASL A                                ;07B648|      ;
                        TAX                                  ;07B649|      ;
                        LDA.W Encounter_Type                 ;07B64A|001579;
                        CMP.W #$0001                         ;07B64D|      ;
-                       BEQ CODE_07B65D                      ;07B650|07B65D;
+                       BEQ Combat_Text_Load2                ;07B650|07B65D;
                        CMP.W #$0002                         ;07B652|      ;
-                       BEQ Load_from_tables_1               ;07B655|07B66B;
+                       BEQ Yikes_Text_Load                  ;07B655|07B66B;
                        CMP.W #$0003                         ;07B657|      ;
-                       BEQ Load_from_tables_2               ;07B65A|07B679;
+                       BEQ Combat2_Text_Load                ;07B65A|07B679;
                        RTL                                  ;07B65C|      ;
-          CODE_07B65D:
-                       LDA.L Tbl_Character_stuff_1,X        ;07B65D|07B68D;
+    Combat_Text_Load2:
+                       LDA.L Tbl_COMBAT_Text2,X             ;07B65D|07B68D; This is probably unused, so it's #2
                        STA.B $00                            ;07B661|000000;
-                       LDA.L Tbl_Character_stuff_2,X        ;07B663|07B69F;
+                       LDA.L Bank_COMBAT_Text2,X            ;07B663|07B69F;
                        STA.B $02                            ;07B667|000002;
                        BRA CODE_07B685                      ;07B669|07B685;
-   Load_from_tables_1:
-                       LDA.L Tbl_Character_stuff_3,X        ;07B66B|07B6B1;
+      Yikes_Text_Load:
+                       LDA.L Tbl_YIKES_Text,X               ;07B66B|07B6B1;
                        STA.B $00                            ;07B66F|000000;
-                       LDA.L Tbl_Character_stuff_4,X        ;07B671|07B6C3;
+                       LDA.L Bank_YIKES_Text,X              ;07B671|07B6C3;
                        STA.B $02                            ;07B675|000002;
                        BRA CODE_07B685                      ;07B677|07B685;
-   Load_from_tables_2:
-                       LDA.L Tbl_Character_stuff_5,X        ;07B679|07B6D5;
+    Combat2_Text_Load:
+                       LDA.L Tbl_COMBAT_Text,X              ;07B679|07B6D5;
                        STA.B $00                            ;07B67D|000000;
-                       LDA.L Tbl_Character_stuff_6,X        ;07B67F|07B6E7;
+                       LDA.L Bank_COMBAT_Text,X             ;07B67F|07B6E7;
                        STA.B $02                            ;07B683|000002;
           CODE_07B685:
                        LDA.W #$0000                         ;07B685|      ;
                        JSL.L Set_Text_Parser_long           ;07B688|00A688;
                        RTL                                  ;07B68C|      ;
-Tbl_Character_stuff_1:
-                       dw $8F0C                             ;07B68D|      ; 9 playable characters, each table is 9 nybbles. Coincidence?
-                       dw $8F0C                             ;07B68F|      ;
-                       dw $8F0C                             ;07B691|      ;
-                       dw $8F0C                             ;07B693|      ;
-                       dw $8F0C                             ;07B695|      ;
-                       dw $8F0C                             ;07B697|      ;
-                       dw $8F0C                             ;07B699|      ;
-                       dw $8F0C                             ;07B69B|      ;
-                       dw $8F0C                             ;07B69D|      ;
-Tbl_Character_stuff_2:
+     Tbl_COMBAT_Text2:
+                       dw COMBAT                            ;07B68D|088F0C; I have no idea why there's one for every PC
+                       dw COMBAT                            ;07B68F|088F0C;
+                       dw COMBAT                            ;07B691|088F0C;
+                       dw COMBAT                            ;07B693|088F0C;
+                       dw COMBAT                            ;07B695|088F0C;
+                       dw COMBAT                            ;07B697|088F0C;
+                       dw COMBAT                            ;07B699|088F0C;
+                       dw COMBAT                            ;07B69B|088F0C;
+                       dw COMBAT                            ;07B69D|088F0C;
+    Bank_COMBAT_Text2:
                        dw $0008                             ;07B69F|      ;
                        dw $0008                             ;07B6A1|      ;
                        dw $0008                             ;07B6A3|      ;
@@ -7549,17 +7550,17 @@ Tbl_Character_stuff_2:
                        dw $0008                             ;07B6AB|      ;
                        dw $0008                             ;07B6AD|      ;
                        dw $0008                             ;07B6AF|      ;
-Tbl_Character_stuff_3:
-                       dw $8EF0                             ;07B6B1|      ;
-                       dw $8EF0                             ;07B6B3|      ;
-                       dw $8EF0                             ;07B6B5|      ;
-                       dw $8EF0                             ;07B6B7|      ;
-                       dw $8EF0                             ;07B6B9|      ;
-                       dw $8EF0                             ;07B6BB|      ;
-                       dw $8EF0                             ;07B6BD|      ;
-                       dw $8EF0                             ;07B6BF|      ;
-                       dw $8EF0                             ;07B6C1|      ;
-Tbl_Character_stuff_4:
+       Tbl_YIKES_Text:
+                       dw Yikes                             ;07B6B1|088EF0;
+                       dw Yikes                             ;07B6B3|088EF0;
+                       dw Yikes                             ;07B6B5|088EF0;
+                       dw Yikes                             ;07B6B7|088EF0;
+                       dw Yikes                             ;07B6B9|088EF0;
+                       dw Yikes                             ;07B6BB|088EF0;
+                       dw Yikes                             ;07B6BD|088EF0;
+                       dw Yikes                             ;07B6BF|088EF0;
+                       dw Yikes                             ;07B6C1|088EF0;
+      Bank_YIKES_Text:
                        dw $0008                             ;07B6C3|      ;
                        dw $0008                             ;07B6C5|      ;
                        dw $0008                             ;07B6C7|      ;
@@ -7569,17 +7570,17 @@ Tbl_Character_stuff_4:
                        dw $0008                             ;07B6CF|      ;
                        dw $0008                             ;07B6D1|      ;
                        dw $0008                             ;07B6D3|      ;
-Tbl_Character_stuff_5:
-                       dw $8F0C                             ;07B6D5|      ;
-                       dw $8F0C                             ;07B6D7|      ;
-                       dw $8F0C                             ;07B6D9|      ;
-                       dw $8F0C                             ;07B6DB|      ;
-                       dw $8F0C                             ;07B6DD|      ;
-                       dw $8F0C                             ;07B6DF|      ;
-                       dw $8F0C                             ;07B6E1|      ;
-                       dw $8F0C                             ;07B6E3|      ;
-                       dw $8F0C                             ;07B6E5|      ;
-Tbl_Character_stuff_6:
+      Tbl_COMBAT_Text:
+                       dw COMBAT                            ;07B6D5|088F0C;
+                       dw COMBAT                            ;07B6D7|088F0C;
+                       dw COMBAT                            ;07B6D9|088F0C;
+                       dw COMBAT                            ;07B6DB|088F0C;
+                       dw COMBAT                            ;07B6DD|088F0C;
+                       dw COMBAT                            ;07B6DF|088F0C;
+                       dw COMBAT                            ;07B6E1|088F0C;
+                       dw COMBAT                            ;07B6E3|088F0C;
+                       dw COMBAT                            ;07B6E5|088F0C;
+     Bank_COMBAT_Text:
                        dw $0008                             ;07B6E7|      ;
                        dw $0008                             ;07B6E9|      ;
                        dw $0008                             ;07B6EB|      ;
@@ -7589,9 +7590,9 @@ Tbl_Character_stuff_6:
                        dw $0008                             ;07B6F3|      ;
                        dw $0008                             ;07B6F5|      ;
                        dw $0008                             ;07B6F7|      ;
-          CODE_07B6F9:
-                       LDA.W $1125                          ;07B6F9|001125;
-                       BEQ CODE_07B71F                      ;07B6FC|07B71F;
+      Crit_Text_Setup:
+                       LDA.W $1125                          ;07B6F9|001125; "Take that!" $1125=1 is a crit
+                       BEQ Non_Crit_Text_Setup              ;07B6FC|07B71F;
                        LDX.W Selection                      ;07B6FE|00103F;
                        LDA.W Selection_value,X              ;07B701|0009EB;
                        ASL A                                ;07B704|      ;
@@ -7599,32 +7600,32 @@ Tbl_Character_stuff_6:
                        LDA.W Curr_party,X                   ;07B706|00155B;
                        ASL A                                ;07B709|      ;
                        TAX                                  ;07B70A|      ;
-                       LDA.L PTR16_07B731,X                 ;07B70B|07B731;
+                       LDA.L Tbl_Critical_hit_text,X        ;07B70B|07B731;
                        STA.B $00                            ;07B70F|000000;
-                       LDA.L DATA16_07B743,X                ;07B711|07B743;
+                       LDA.L Bank_Critical_hit_text,X       ;07B711|07B743;
                        STA.B $02                            ;07B715|000002;
                        LDA.W #$0000                         ;07B717|      ;
                        JSL.L Set_Text_Parser_long           ;07B71A|00A688;
                        RTL                                  ;07B71E|      ;
-          CODE_07B71F:
-                       LDA.W #$8492                         ;07B71F|      ;
+  Non_Crit_Text_Setup:
+                       LDA.W #$8492                         ;07B71F|      ; "(Name) Attacks!"
                        STA.B $00                            ;07B722|000000;
                        LDA.W #$0008                         ;07B724|      ;
                        STA.B $02                            ;07B727|000002;
                        LDA.W #$0000                         ;07B729|      ;
                        JSL.L Set_Text_Parser_long           ;07B72C|00A688;
                        RTL                                  ;07B730|      ;
-         PTR16_07B731:
-                       dw CODE_008A4E                       ;07B731|008A4E;
-                       dw LOOSE_OP_008A66                   ;07B733|008A66;
-                       dw LOOSE_OP_008A7E                   ;07B735|008A7E;
-                       dw LOOSE_OP_008A96                   ;07B737|008A96;
-                       dw LOOSE_OP_008AAE                   ;07B739|008AAE;
-                       dw CODE_008AC6                       ;07B73B|008AC6;
-                       dw CODE_008ADE                       ;07B73D|008ADE;
-                       dw CODE_008AF6                       ;07B73F|008AF6;
-                       dw LOOSE_OP_008B0E                   ;07B741|008B0E;
-        DATA16_07B743:
+Tbl_Critical_hit_text:
+                       dw Take_That_Rooks                   ;07B731|088A4E;
+                       dw Take_That_Sylph                   ;07B733|088A66;
+                       dw Take_That_Dao                     ;07B735|088A7E;
+                       dw Take_That_Marid                   ;07B737|088A96;
+                       dw Take_That_Efrite                  ;07B739|088AAE;
+                       dw Take_That_Teefa                   ;07B73B|088AC6;
+                       dw Take_That_Salah                   ;07B73D|088ADE;
+                       dw Take_That_Darwin                  ;07B73F|088AF6;
+                       dw Take_That_Axs                     ;07B741|088B0E;
+Bank_Critical_hit_text:
                        dw $0008                             ;07B743|      ;
                        dw $0008                             ;07B745|      ;
                        dw $0008                             ;07B747|      ;
@@ -7656,15 +7657,15 @@ Tbl_Character_stuff_6:
                        LDA.W #$0000                         ;07B77E|      ;
                        RTL                                  ;07B781|      ;
 Tbl_Getting_crit_text:
-                       dw LOOSE_OP_008B35                   ;07B782|008B35; "Ouch!"
-                       dw LOOSE_OP_008B48                   ;07B784|008B48;
-                       dw CODE_008B5B                       ;07B786|008B5B;
-                       dw DATA8_008B6E                      ;07B788|008B6E;
-                       dw DATA8_008B81                      ;07B78A|008B81;
-                       dw DATA8_008B94                      ;07B78C|008B94;
-                       dw DATA8_008BA7                      ;07B78E|008BA7;
-                       dw DATA8_008BBA                      ;07B790|008BBA;
-                       dw DATA8_008BCD                      ;07B792|008BCD;
+                       dw Ouch_Rooks                        ;07B782|088B35; "Ouch!"
+                       dw Ouch_Sylph                        ;07B784|088B48;
+                       dw Ouch_Dao                          ;07B786|088B5B;
+                       dw Ouch_Marid                        ;07B788|088B6E;
+                       dw Ouch_Efrite                       ;07B78A|088B81;
+                       dw Ouch_Teefa                        ;07B78C|088B94;
+                       dw Ouch_Salah                        ;07B78E|088BA7;
+                       dw Ouch_Darwin                       ;07B790|088BBA;
+                       dw Ouch_Axs                          ;07B792|088BCD;
 Bank_Getting_crit_text:
                        dw $0008                             ;07B794|      ;
                        dw $0008                             ;07B796|      ;
@@ -7694,15 +7695,15 @@ Bank_Getting_crit_text:
                        LDA.W #$0000                         ;07B7CA|      ; Unreachable?
                        RTL                                  ;07B7CD|      ;
        Tbl_Dodge_text:
-                       dw DATA8_008BEF                      ;07B7CE|008BEF; These are all the same in vanilla
-                       dw DATA8_008C19                      ;07B7D0|008C19;
-                       dw DATA16_008C43                     ;07B7D2|008C43;
-                       dw DATA16_008C6D                     ;07B7D4|008C6D;
-                       dw LOOSE_OP_008C97                   ;07B7D6|008C97;
-                       dw LOOSE_OP_008CC1                   ;07B7D8|008CC1;
-                       dw CODE_008CEB                       ;07B7DA|008CEB;
-                       dw LOOSE_OP_008D15                   ;07B7DC|008D15;
-                       dw LOOSE_OP_008D3F                   ;07B7DE|008D3F;
+                       dw Dodge_Rooks                       ;07B7CE|088BEF; These are all the same in vanilla
+                       dw Dodge_Sylph                       ;07B7D0|088C19;
+                       dw Dodge_Dao                         ;07B7D2|088C43;
+                       dw Dodge_Marid                       ;07B7D4|088C6D;
+                       dw Dodge_Efrite                      ;07B7D6|088C97;
+                       dw Dodge_Teefa                       ;07B7D8|088CC1;
+                       dw Dodge_Salah                       ;07B7DA|088CEB;
+                       dw Dodge_Darwin                      ;07B7DC|088D15;
+                       dw Dodge_Axs                         ;07B7DE|088D3F;
       Bank_Dodge_text:
                        dw $0008                             ;07B7E0|      ;
                        dw $0008                             ;07B7E2|      ;
@@ -7986,7 +7987,7 @@ Bank_Getting_crit_text:
                        STA.W $07AB,X                        ;07B9FC|0007AB;
                        STZ.W $07CF,X                        ;07B9FF|0007CF;
                        RTL                                  ;07BA02|      ;
-     Wait_For_A_Press:
+  Wait_For_A_Press_1b:
                        JSL.L GetEventCode_1b_far            ;07BA03|009AF8; $1095 stuff
                        STA.B $20                            ;07BA07|000020;
                        LDA.B $20                            ;07BA09|000020;
@@ -8238,7 +8239,7 @@ Bank_Getting_crit_text:
                        dw $00FF                             ;07BC08|      ;
                        dw $03E7                             ;07BC0A|      ;
                        dw $03E7                             ;07BC0C|      ;
-          CODE_07BC0E:
+     Remove_Status_1b:
                        JSL.L CODE_07BDB1                    ;07BC0E|07BDB1;
                        BNE CODE_07BC18                      ;07BC12|07BC18;
                        LDA.W #$0000                         ;07BC14|      ;
@@ -8539,11 +8540,11 @@ Heal_plus_variance_2b_1b:
                        RTL                                  ;07BE57|      ;
             Dbl_Space:
                        dw $2020                             ;07BE58|      ; idfk man
-          CODE_07BE5A:
-                       LDA.W $18C3                          ;07BE5A|0018C3;
+       Load_Item_Name:
+                       LDA.W $18C3                          ;07BE5A|0018C3; Load selection
                        LDX.W #$0014                         ;07BE5D|      ;
-                       JSL.L MultiplyTo1E00_far             ;07BE60|008A39;
-                       LDA.W #$EE9A                         ;07BE64|      ;
+                       JSL.L MultiplyTo1E00_far             ;07BE60|008A39; Get offset to item names
+                       LDA.W #$EE9A                         ;07BE64|      ; Load item name
                        CLC                                  ;07BE67|      ;
                        ADC.B $00                            ;07BE68|000000;
                        STA.B $00                            ;07BE6A|000000;
@@ -8552,7 +8553,7 @@ Heal_plus_variance_2b_1b:
                        LDA.W #$1581                         ;07BE71|      ;
                        STA.B $04                            ;07BE74|000004;
                        JML.L Text_to_RAM                    ;07BE76|07BE1A;
-          CODE_07BE7A:
+   Load_Status_Healed:
                        LDY.W Function_results               ;07BE7A|001041;
                        LDA.W Function_results1,Y            ;07BE7D|000CB3;
                        DEC A                                ;07BE80|      ;
@@ -9611,7 +9612,7 @@ Ruinous_Mission_Flee2:
                        LDA.W Spell_type                     ;07C7A7|0018C5;
                        ASL A                                ;07C7AA|      ;
                        TAX                                  ;07C7AB|      ;
-                       LDA.W #$8650                         ;07C7AC|      ;
+                       LDA.W #$8650                         ;07C7AC|      ; Suffered damage, was defeated
                        STA.B $00                            ;07C7AF|000000;
                        JML.L CODE_07C7E6                    ;07C7B1|07C7E6;
          Spell_effect:
@@ -9651,7 +9652,7 @@ Ruinous_Mission_Flee2:
                        LDA.W Spell_ID                       ;07C7FC|001127;
                        CMP.W #$004C                         ;07C7FF|      ;
                        BNE CODE_07C809                      ;07C802|07C809;
-                       LDA.W #$884E                         ;07C804|      ;
+                       LDA.W #$884E                         ;07C804|      ; No effect (Restoration of spirit)
                        BRA CODE_07C810                      ;07C807|07C810;
           CODE_07C809:
                        JSL.L CODE_07C82C                    ;07C809|07C82C;

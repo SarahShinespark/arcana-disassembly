@@ -2524,7 +2524,7 @@
                        db $1B                               ;028D2F|      ;
                        dw Sub_8F65                          ;028D30|028F65;
                        db $07                               ;028D32|      ; Call RNG (1/4 chance to wake up)
-                       dl RNG_1b_something                  ;028D33|00A0BD;
+                       dl RNG_1b                            ;028D33|00A0BD;
                        db $04                               ;028D36|      ;
                        db $0B                               ;028D37|      ; If false, wake up
                        dw LOOSE_OP_008D3B                   ;028D38|008D3B;
@@ -2546,7 +2546,7 @@
                        db $01                               ;028D4F|      ;
   Enemy_Target_Select:
                        db $07                               ;028D50|      ; Roll 1d4
-                       dl RNG_1b_something                  ;028D51|00A0BD;
+                       dl RNG_1b                            ;028D51|00A0BD;
                        db $04                               ;028D54|      ;
                        db $12                               ;028D55|      ;
                        db $04                               ;028D56|      ; Roll PC target
@@ -2560,7 +2560,7 @@
                        dw Enemy_Action                      ;028D63|028E83;
   Confusion_Targeting:
                        db $07                               ;028D65|      ; Roll RNG (1/12)
-                       dl RNG_1b_something                  ;028D66|00A0BD;
+                       dl RNG_1b                            ;028D66|00A0BD;
                        db $0C                               ;028D69|      ;
                        db $12                               ;028D6A|      ;
 Roll_Confusion_Target:
@@ -2768,7 +2768,7 @@ Roll_Confusion_Target:
                        dw Enemy_Physical_Attack             ;028E88|028EB6;
    Enemy_Spell_Attack:
                        db $07                               ;028E8A|      ; Roll 1d4
-                       dl RNG_1b_something                  ;028E8B|00A0BD;
+                       dl RNG_1b                            ;028E8B|00A0BD;
                        db $04                               ;028E8E|      ;
                        db $12                               ;028E8F|      ;
                        db $04                               ;028E90|      ; Check if target is available
@@ -2820,7 +2820,7 @@ Enemy_Physical_Attack:
                        db $0B                               ;028EDC|      ; If false, jump to 8F37
                        dw Nonfatal_damage                   ;028EDD|028F37;
                        db $1A                               ;028EDF|      ; Jump always to 8F4C (Ouch!)
-                       dw LOOSE_OP_008F4C                   ;028EE0|008F4C;
+                       dw DATA8_028F4C                      ;028EE0|028F4C;
      Confusion_damage:
                        db $07                               ;028EE2|      ; Hit check
                        dl Call_Roll_to_hit                  ;028EE3|07918D;
@@ -2888,27 +2888,30 @@ Enemy_Surprised_by_his_wounds:
                        db $07                               ;028F37|      ;
                        dl CODE_07B755                       ;028F38|07B755;
                        db $0B                               ;028F3B|      ; If false, jump to X has taken X damage
-                       dw LOOSE_OP_008F41                   ;028F3C|008F41;
+                       dw DATA8_028F41                      ;028F3C|028F41;
                        db $1B                               ;028F3E|      ; Sub 8F65
-                       dw LOOSE_OP_008F65                   ;028F3F|008F65;
+                       dw Sub_8F65                          ;028F3F|028F65;
+         DATA8_028F41:
                        db $07                               ;028F41|      ; X has taken X damage
                        dl Setup_Text_Parser_3b              ;028F42|00A0AC;
-                       dl X_taken_damage2                   ;028F45|088586;
+                       dl X_taken_damage                    ;028F45|088586;
                        db $00                               ;028F48|      ;
                        db $1A                               ;028F49|      ; Jump to 8F65
-                       dw LOOSE_OP_008F65                   ;028F4A|008F65;
+                       dw Sub_8F65                          ;028F4A|028F65;
+         DATA8_028F4C:
                        db $07                               ;028F4C|      ; Ouch! (Party member gets crit)
                        dl CODE_07B755                       ;028F4D|07B755;
                        db $0B                               ;028F50|      ; Jump if false to 8F56 (X has taken X damage)
-                       dw CODE_008F56                       ;028F51|008F56;
+                       dw DATA8_028F56                      ;028F51|028F56;
                        db $1B                               ;028F53|      ; JSR 8F65
-                       dw LOOSE_OP_008F65                   ;028F54|008F65;
+                       dw Sub_8F65                          ;028F54|028F65;
+         DATA8_028F56:
                        db $07                               ;028F56|      ; X has taken X damage
                        dl Setup_Text_Parser_3b              ;028F57|00A0AC;
-                       dl X_taken_damage                    ;028F5A|08853E;
+                       dl X_damaged_perished                ;028F5A|08853E;
                        db $00                               ;028F5D|      ;
                        db $1A                               ;028F5E|      ;
-                       dw LOOSE_OP_008F65                   ;028F5F|008F65;
+                       dw Sub_8F65                          ;028F5F|028F65;
          DATA8_028F61:
                        db $07                               ;028F61|      ; Show dodge message
                        dl Show_Dodge_text                   ;028F62|07B7A6;
@@ -2919,7 +2922,7 @@ Enemy_Surprised_by_his_wounds:
                        dl Some_1095_check_1b                ;028F68|07BA4F;
                        db $00                               ;028F6B|      ;
                        db $0B                               ;028F6C|      ; Loop if no input
-                       dw LOOSE_OP_008F65                   ;028F6D|008F65;
+                       dw Sub_8F65                          ;028F6D|028F65;
                        db $1F                               ;028F6F|      ;
                        dw $1097                             ;028F70|      ;
                        db $23                               ;028F72|      ;

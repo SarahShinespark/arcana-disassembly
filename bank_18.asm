@@ -4002,33 +4002,33 @@ Formation_Zone_0B_Layout_0F:
                        db $1D                               ;18968E|      ;
        TBL_ASM_EVENTS:
                        dw ASM_Ch01_start                    ;18968F|1896CC; Rooks intro
-                       dw DATA8_189795                      ;189691|189795; Ariel; Teefa joins
-                       dw DATA8_189843                      ;189693|189843; (Galia open)
-                       dw DATA8_18985D                      ;189695|18985D; Stung and Betrayed
-                       dw DATA8_18A002                      ;189697|18A002; Ch2; Salah joins
+                       dw ASM_Ch1_Teefa                     ;189691|189795; Ariel; Teefa joins
+                       dw ASM_Leave_Galia                   ;189693|189843; (Galia open)
+                       dw ASM_Crystal_Sword                 ;189695|18985D; Stung and Betrayed
+                       dw ASM_Ch2_Salah                     ;189697|18A002; Ch2; Salah joins
                        dw ASM_Ch2_The_Man                   ;189699|18A1B7; The Man
                        dw ASM_Ch2_Darwin_Join               ;18969B|18A369; Darwin joins
                        dw ASM_Ch2_Darwin_leaves             ;18969D|18A430; Darwin leaves; Efrite joins
                        dw ASM_Reinoll_Event                 ;18969F|18A4C3; Reinoll; Salah leaves; Zerel
                        dw ASM_Ch3_Start                     ;1896A1|18AA80; Ch3; Axs isn't here
-                       dw DATA8_18ABD9                      ;1896A3|18ABD9; Axs is stoned
+                       dw ASM_Ch3_Axs                       ;1896A3|18ABD9; Axs is stoned
                        dw ASM_Ch3_Marid                     ;1896A5|18AD16; Marid joins aka you had one job
                        dw ASM_Lava_Room                     ;1896A7|18AD51; Lava Room, Axs leaves
-                       dw DATA8_18B254                      ;1896A9|18B254; Ch4; Axs joins
-                       dw DATA8_18B451                      ;1896AB|18B451; Darah; Dao joins
-                       dw DATA8_18B4FE                      ;1896AD|18B4FE; The door is locked
-                       dw DATA8_18B537                      ;1896AF|18B537; Enter Icorina's; Salah joins
-                       dw DATA8_18B633                      ;1896B1|18B633; Door it open
-                       dw DATA8_18B753                      ;1896B3|18B753; Darah/Barah; Dao leaves/joins
-                       dw DATA8_18B89D                      ;1896B5|18B89D; If it's a trap; Axs/Salah leave
-                       dw DATA8_18BB43                      ;1896B7|18BB43; To lend a hand; Darwin joins
-                       dw DATA8_18BBC4                      ;1896B9|18BBC4; Teefa rematch; Darwin leaves
-                       dw DATA8_18BD26                      ;1896BB|18BD26; Door to Galneon; light show
-                       dw DATA8_18C226                      ;1896BD|18C226; Ch5; Teefa/Darwin join
-                       dw DATA8_18C373                      ;1896BF|18C373; Vs Karul; Crystal Sword
+                       dw ASM_Ch4_Axs                       ;1896A9|18B254; Ch4; Axs joins
+                       dw ASM_Darah                         ;1896AB|18B451; Darah; Dao joins
+                       dw ASM_Closed_Sesame                 ;1896AD|18B4FE; The door is locked
+                       dw ASM_Ch4_Salah                     ;1896AF|18B537; Enter Icorina's; Salah joins
+                       dw ASM_Open_Sesame                   ;1896B1|18B633; Door it open
+                       dw ASM_Darah_Barah                   ;1896B3|18B753; Darah/Barah; Dao leaves/joins
+                       dw ASM_A_Trap                        ;1896B5|18B89D; If it's a trap; Axs/Salah leave
+                       dw ASM_Ch4_Darwin                    ;1896B7|18BB43; To lend a hand; Darwin joins
+                       dw ASM_Vs_Teefa                      ;1896B9|18BBC4; Teefa rematch; Darwin leaves
+                       dw ASM_Galneon_Door                  ;1896BB|18BD26; Door to Galneon; light show
+                       dw ASM_Ch5_TeefaDarwin               ;1896BD|18C226; Ch5; Teefa/Darwin join
+                       dw ASM_Vs_Karul                      ;1896BF|18C373; Vs Karul; Crystal Sword
                        dw ASM_Vs_Galneon                    ;1896C1|18C446; Vs Galneon; Spirit Sword/Enchanted Jewel
-                       dw DATA8_18C56D                      ;1896C3|18C56D; Vs Cardboard Cutouts
-                       dw DATA8_18C6ED                      ;1896C5|18C6ED; Vs Cardboard v2; Darwin/Teefa leave
+                       dw ASM_Vs_Guardians                  ;1896C3|18C56D; Vs Cardboard Cutouts
+                       dw ASM_Vs_Tiamat                     ;1896C5|18C6ED; Vs Cardboard v2; Darwin/Teefa leave
                        dw ASM_Final_Door                    ;1896C7|18C840; Final Door
                        db $0A                               ;1896C9|      ;
              EVENT_00:
@@ -4155,7 +4155,7 @@ Formation_Zone_0B_Layout_0F:
           CODE_189793:
                        CLC                                  ;189793|      ; Return failure
                        RTS                                  ;189794|      ;
-         DATA8_189795:
+        ASM_Ch1_Teefa:
                        db $24                               ;189795|      ;
                        db $01                               ;189796|      ;
                        db $11                               ;189797|      ;
@@ -4282,7 +4282,7 @@ Formation_Zone_0B_Layout_0F:
   EVENT_02_Galia_open:
                        SEC                                  ;189841|      ;
                        RTS                                  ;189842|      ;
-         DATA8_189843:
+      ASM_Leave_Galia:
                        db $16                               ;189843|      ;
                        dw $1901                             ;189844|      ;
                        dw $0000                             ;189846|      ;
@@ -4299,7 +4299,7 @@ Formation_Zone_0B_Layout_0F:
           CODE_18985B:
                        CLC                                  ;18985B|      ;
                        RTS                                  ;18985C|      ;
-         DATA8_18985D:
+    ASM_Crystal_Sword:
                        db $24                               ;18985D|      ; Get $09C7,x
                        db $01                               ;18985E|      ;
        Scenes_Ch1_End:
@@ -5611,7 +5611,7 @@ ArielTeefa_Attack_Text:
           CODE_18A000:
                        CLC                                  ;18A000|      ;
                        RTS                                  ;18A001|      ;
-         DATA8_18A002:
+        ASM_Ch2_Salah:
                        db $24                               ;18A002|      ;
                        db $01                               ;18A003|      ;
                        db $11                               ;18A004|      ;
@@ -6593,7 +6593,7 @@ ASM_Ch2_Darwin_leaves:
                        db $1B                               ;18A4FE|      ;
                        dw DATA8_18D42E                      ;18A4FF|18D42E;
                        db $1B                               ;18A501|      ;
-                       dw CODE_00D44D                       ;18A502|00D44D;
+                       dw Sub_LoadSomething                 ;18A502|18D44D;
        Text_SCRIPT033:
                        db $07                               ;18A504|      ; Reinoll introduction
                        dl Load_Event_Text                   ;18A505|18D4CC;
@@ -7989,7 +7989,7 @@ Load_3_Treasures_Shine:
           CODE_18ABD7:
                        CLC                                  ;18ABD7|      ;
                        RTS                                  ;18ABD8|      ;
-         DATA8_18ABD9:
+          ASM_Ch3_Axs:
                        db $24                               ;18ABD9|      ;
                        db $01                               ;18ABDA|      ;
                        db $11                               ;18ABDB|      ;
@@ -9316,7 +9316,7 @@ LavaRoom_Load_2_sprites:
           CODE_18B252:
                        CLC                                  ;18B252|      ;
                        RTS                                  ;18B253|      ;
-         DATA8_18B254:
+          ASM_Ch4_Axs:
                        db $24                               ;18B254|      ;
                        db $01                               ;18B255|      ;
                        db $11                               ;18B256|      ;
@@ -9420,16 +9420,16 @@ LavaRoom_Load_2_sprites:
                        dw $1091                             ;18B2ED|      ;
                        dw $0001                             ;18B2EF|      ;
                        db $1B                               ;18B2F1|      ;
-                       dw CODE_00D44D                       ;18B2F2|00D44D;
+                       dw Sub_LoadSomething                 ;18B2F2|18D44D;
        Text_SCRIPT063:
                        db $07                               ;18B2F4|      ;
                        dl Load_Event_Text                   ;18B2F5|18D4CC;
                        dl SCRIPT_063                        ;18B2F8|0CD2BE;
                        db $00                               ;18B2FB|      ;
                        db $08                               ;18B2FC|      ;
-                       dw CODE_00971B                       ;18B2FD|00971B;
+                       dw Sub_Some_Anim                     ;18B2FD|18971B;
                        db $1B                               ;18B2FF|      ;
-                       dw UNREACH_00D4C3                    ;18B300|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18B300|18D4C3;
                        db $07                               ;18B302|      ;
                        dl Load_Sprite_14b                   ;18B303|009CAE;
                        db $08                               ;18B306|      ;
@@ -9700,7 +9700,7 @@ LavaRoom_Load_2_sprites:
           CODE_18B44F:
                        CLC                                  ;18B44F|      ;
                        RTS                                  ;18B450|      ;
-         DATA8_18B451:
+            ASM_Darah:
                        db $24                               ;18B451|      ;
                        db $01                               ;18B452|      ;
                        db $11                               ;18B453|      ;
@@ -9814,7 +9814,7 @@ LavaRoom_Load_2_sprites:
           CODE_18B4FC:
                        CLC                                  ;18B4FC|      ;
                        RTS                                  ;18B4FD|      ;
-         DATA8_18B4FE:
+    ASM_Closed_Sesame:
                        db $1B                               ;18B4FE|      ;
                        dw Sub_LoadSomething                 ;18B4FF|18D44D;
        Text_SCRIPT069:
@@ -9848,18 +9848,18 @@ LavaRoom_Load_2_sprites:
           CODE_18B535:
                        CLC                                  ;18B535|      ;
                        RTS                                  ;18B536|      ;
-         DATA8_18B537:
+        ASM_Ch4_Salah:
                        db $24                               ;18B537|      ;
                        db $01                               ;18B538|      ;
                        db $11                               ;18B539|      ;
                        db $02                               ;18B53A|      ;
-                       dw LOOSE_OP_00B604                   ;18B53B|00B604;
-                       dw CODE_00B60F                       ;18B53D|00B60F;
+                       dw DATA8_18B604                      ;18B53B|18B604;
+                       dw DATA8_18B60F                      ;18B53D|18B60F;
                        db $0F                               ;18B53F|      ;
                        db $00                               ;18B540|      ;
                        dw $0002                             ;18B541|      ;
                        db $1B                               ;18B543|      ;
-                       dw Playing_sound_test                ;18B544|00D416;
+                       dw SetB6_FadeOut                     ;18B544|18D416;
                        db $07                               ;18B546|      ;
                        dl Display_near_1b_1b_2b_2b          ;18B547|009D6F;
                        db $01                               ;18B54A|      ;
@@ -9867,7 +9867,7 @@ LavaRoom_Load_2_sprites:
                        dw $3000                             ;18B54C|      ;
                        dw $0400                             ;18B54E|      ;
                        db $1B                               ;18B550|      ;
-                       dw DATA8_00D389                      ;18B551|00D389;
+                       dw DATA8_18D389                      ;18B551|18D389;
                        db $07                               ;18B553|      ;
                        dl Zero_18FD                         ;18B554|188321;
                        db $07                               ;18B557|      ;
@@ -9875,7 +9875,7 @@ LavaRoom_Load_2_sprites:
                        dl DATA8_148215                      ;18B55B|148215;
                        dw $0400                             ;18B55E|      ;
                        db $1B                               ;18B560|      ;
-                       dw UNREACH_00D4B9                    ;18B561|00D4B9;
+                       dw Make_Animation_Loop1              ;18B561|18D4B9;
                        db $07                               ;18B563|      ;
                        dl Transfer_Data_3b_1b_2b            ;18B564|00A140;
                        dl DATA8_18B3A5                      ;18B567|18B3A5;
@@ -9930,29 +9930,29 @@ LavaRoom_Load_2_sprites:
                        dw $0420                             ;18B5AB|      ;
                        dw $0000                             ;18B5AD|      ;
                        db $1B                               ;18B5AF|      ;
-                       dw DATA8_00D3F6                      ;18B5B0|00D3F6;
+                       dw Sub_Turn_off_sound                ;18B5B0|18D3F6;
                        db $07                               ;18B5B2|      ; BGM: Rooks' theme (when is this??)
                        dl GetSet_Music                      ;18B5B3|009C3C;
                        db $47                               ;18B5B6|      ;
                        db $1B                               ;18B5B7|      ;
-                       dw LOOSE_OP_00D435                   ;18B5B8|00D435;
+                       dw Sub_FadeIn                        ;18B5B8|18D435;
                        db $1B                               ;18B5BA|      ;
-                       dw CODE_00D44D                       ;18B5BB|00D44D;
+                       dw Sub_LoadSomething                 ;18B5BB|18D44D;
        Text_SCRIPT070:
                        db $07                               ;18B5BD|      ; Oh, getting Salah back.
                        dl Load_Event_Text                   ;18B5BE|18D4CC;
                        dl SCRIPT_070                        ;18B5C1|0CD785;
                        db $00                               ;18B5C4|      ;
                        db $08                               ;18B5C5|      ;
-                       dw CODE_00971B                       ;18B5C6|00971B;
+                       dw Sub_Some_Anim                     ;18B5C6|18971B;
                        db $1B                               ;18B5C8|      ;
-                       dw UNREACH_00D4C3                    ;18B5C9|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18B5C9|18D4C3;
                        db $1B                               ;18B5CB|      ;
-                       dw LOOSE_OP_00D45C                   ;18B5CC|00D45C;
+                       dw Some_sub                          ;18B5CC|18D45C;
                        db $1B                               ;18B5CE|      ;
-                       dw LOOSE_OP_00D2C1                   ;18B5CF|00D2C1;
+                       dw Salah_joins                       ;18B5CF|18D2C1;
                        db $1B                               ;18B5D1|      ;
-                       dw Playing_sound_test                ;18B5D2|00D416;
+                       dw SetB6_FadeOut                     ;18B5D2|18D416;
                        db $07                               ;18B5D4|      ;
                        dl Check_Party                       ;18B5D5|18D4D9;
                        db $07                               ;18B5D8|      ;
@@ -9971,16 +9971,17 @@ LavaRoom_Load_2_sprites:
                        dl MainScr_OR_1b                     ;18B5EF|009DA8;
                        db $04                               ;18B5F2|      ;
                        db $1B                               ;18B5F3|      ;
-                       dw DATA8_00D3F6                      ;18B5F4|00D3F6;
+                       dw Sub_Turn_off_sound                ;18B5F4|18D3F6;
                        db $07                               ;18B5F6|      ; BGM "Crowded Marketplace"
                        dl GetSet_Music                      ;18B5F7|009C3C;
                        db $59                               ;18B5FA|      ;
                        db $1B                               ;18B5FB|      ;
-                       dw LOOSE_OP_00D435                   ;18B5FC|00D435;
+                       dw Sub_FadeIn                        ;18B5FC|18D435;
                        db $16                               ;18B5FE|      ;
                        dw $1901                             ;18B5FF|      ;
                        dw $0000                             ;18B601|      ;
                        db $00                               ;18B603|      ;
+         DATA8_18B604:
                        db $30                               ;18B604|      ;
                        db $42                               ;18B605|      ;
                        db $07                               ;18B606|      ;
@@ -9988,6 +9989,7 @@ LavaRoom_Load_2_sprites:
                        dw $1091                             ;18B60A|      ;
                        dw $00FF                             ;18B60C|      ;
                        db $00                               ;18B60E|      ;
+         DATA8_18B60F:
                        db $30                               ;18B60F|      ;
                        db $4E                               ;18B610|      ;
                        db $0A                               ;18B611|      ;
@@ -10008,12 +10010,12 @@ LavaRoom_Load_2_sprites:
           CODE_18B631:
                        CLC                                  ;18B631|      ;
                        RTS                                  ;18B632|      ;
-         DATA8_18B633:
+      ASM_Open_Sesame:
                        db $24                               ;18B633|      ;
                        db $01                               ;18B634|      ;
                        db $11                               ;18B635|      ;
                        db $01                               ;18B636|      ;
-                       dw CODE_00B720                       ;18B637|00B720;
+                       dw DATA8_18B720                      ;18B637|18B720;
                        db $07                               ;18B639|      ;
                        dl Zero_18FD                         ;18B63A|188321;
                        db $07                               ;18B63D|      ;
@@ -10021,23 +10023,23 @@ LavaRoom_Load_2_sprites:
                        dl DATA8_14823E                      ;18B641|14823E;
                        dw $0400                             ;18B644|      ;
                        db $1B                               ;18B646|      ;
-                       dw UNREACH_00D4B9                    ;18B647|00D4B9;
+                       dw Make_Animation_Loop1              ;18B647|18D4B9;
                        db $07                               ;18B649|      ;
                        dl Transfer_Data_3b_1b_2b            ;18B64A|00A140;
                        dl _18C5A4_data                      ;18B64D|18A131;
                        db $D0                               ;18B650|      ;
                        dw $0020                             ;18B651|      ;
                        db $1B                               ;18B653|      ;
-                       dw CODE_00D44D                       ;18B654|00D44D;
+                       dw Sub_LoadSomething                 ;18B654|18D44D;
        Text_SCRIPT071:
                        db $07                               ;18B656|      ;
                        dl Load_Event_Text                   ;18B657|18D4CC;
                        dl SCRIPT_071                        ;18B65A|0CD917;
                        db $00                               ;18B65D|      ;
                        db $08                               ;18B65E|      ;
-                       dw CODE_00971B                       ;18B65F|00971B;
+                       dw Sub_Some_Anim                     ;18B65F|18971B;
                        db $1B                               ;18B661|      ;
-                       dw UNREACH_00D4C3                    ;18B662|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18B662|18D4C3;
                        db $07                               ;18B664|      ; BGM "Crystal Sword"
                        dl GetSet_Music                      ;18B665|009C3C;
                        db $45                               ;18B668|      ;
@@ -10047,7 +10049,7 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_072                        ;18B66D|0CD979;
                        db $00                               ;18B670|      ;
                        db $1B                               ;18B671|      ;
-                       dw UNREACH_00D4C3                    ;18B672|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18B672|18D4C3;
                        db $07                               ;18B674|      ;
                        dl Battle_related1b                  ;18B675|009CDD;
                        db $10                               ;18B678|      ;
@@ -10181,6 +10183,7 @@ LavaRoom_Load_2_sprites:
                        dw $1901                             ;18B71B|      ;
                        dw $0000                             ;18B71D|      ;
                        db $00                               ;18B71F|      ;
+         DATA8_18B720:
                        db $30                               ;18B720|      ;
                        db $42                               ;18B721|      ;
                        db $07                               ;18B722|      ;
@@ -10211,7 +10214,7 @@ LavaRoom_Load_2_sprites:
           CODE_18B751:
                        CLC                                  ;18B751|      ;
                        RTS                                  ;18B752|      ;
-         DATA8_18B753:
+      ASM_Darah_Barah:
                        db $24                               ;18B753|      ;
                        db $01                               ;18B754|      ;
                        db $11                               ;18B755|      ;
@@ -10466,7 +10469,7 @@ LavaRoom_Load_2_sprites:
           CODE_18B89B:
                        CLC                                  ;18B89B|      ;
                        RTS                                  ;18B89C|      ;
-         DATA8_18B89D:
+           ASM_A_Trap:
                        db $24                               ;18B89D|      ;
                        db $01                               ;18B89E|      ;
                        db $11                               ;18B89F|      ;
@@ -10977,7 +10980,7 @@ LavaRoom_Load_2_sprites:
           CODE_18BB41:
                        CLC                                  ;18BB41|      ;
                        RTS                                  ;18BB42|      ;
-         DATA8_18BB43:
+       ASM_Ch4_Darwin:
                        db $24                               ;18BB43|      ;
                        db $01                               ;18BB44|      ;
                        db $11                               ;18BB45|      ;
@@ -11015,16 +11018,16 @@ LavaRoom_Load_2_sprites:
                        db $06                               ;18BB75|      ;
                        db $28                               ;18BB76|      ;
                        db $1B                               ;18BB77|      ;
-                       dw CODE_00D44D                       ;18BB78|00D44D;
+                       dw Sub_LoadSomething                 ;18BB78|18D44D;
        Text_SCRIPT086:
                        db $07                               ;18BB7A|      ;
                        dl Load_Event_Text                   ;18BB7B|18D4CC;
                        dl SCRIPT_086                        ;18BB7E|0CE398;
                        db $00                               ;18BB81|      ;
                        db $08                               ;18BB82|      ;
-                       dw CODE_00971B                       ;18BB83|00971B;
+                       dw Sub_Some_Anim                     ;18BB83|18971B;
                        db $1B                               ;18BB85|      ;
-                       dw UNREACH_00D4C3                    ;18BB86|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BB86|18D4C3;
                        db $07                               ;18BB88|      ; BGM "Trusted Circle"
                        dl GetSet_Music                      ;18BB89|009C3C;
                        db $56                               ;18BB8C|      ;
@@ -11063,7 +11066,7 @@ LavaRoom_Load_2_sprites:
           CODE_18BBC2:
                        CLC                                  ;18BBC2|      ;
                        RTS                                  ;18BBC3|      ;
-         DATA8_18BBC4:
+         ASM_Vs_Teefa:
                        db $24                               ;18BBC4|      ;
                        db $01                               ;18BBC5|      ;
                        db $11                               ;18BBC6|      ;
@@ -11128,16 +11131,16 @@ LavaRoom_Load_2_sprites:
                        db $06                               ;18BC18|      ; 06 28
                        db $28                               ;18BC19|      ;
                        db $1B                               ;18BC1A|      ;
-                       dw CODE_00D44D                       ;18BC1B|00D44D;
+                       dw Sub_LoadSomething                 ;18BC1B|18D44D;
        Text_SCRIPT087:
                        db $07                               ;18BC1D|      ;
                        dl Load_Event_Text                   ;18BC1E|18D4CC;
                        dl SCRIPT_087                        ;18BC21|0CE425;
                        db $00                               ;18BC24|      ;
                        db $08                               ;18BC25|      ;
-                       dw CODE_00971B                       ;18BC26|00971B;
+                       dw Sub_Some_Anim                     ;18BC26|18971B;
                        db $1B                               ;18BC28|      ;
-                       dw UNREACH_00D4C3                    ;18BC29|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BC29|18D4C3;
                        db $06                               ;18BC2B|      ;
                        db $1E                               ;18BC2C|      ;
                        db $16                               ;18BC2D|      ;
@@ -11171,18 +11174,18 @@ LavaRoom_Load_2_sprites:
                        db $07                               ;18BC50|      ;
                        dl Roll_encounter                    ;18BC51|188210;
                        db $1B                               ;18BC54|      ;
-                       dw DATA8_00D3D4                      ;18BC55|00D3D4;
+                       dw Sub_Sauza_1                       ;18BC55|18D3D4;
                        db $1B                               ;18BC57|      ;
-                       dw PTR24_00D3C3                      ;18BC58|00D3C3;
+                       dw Sub_Check_11C1                    ;18BC58|18D3C3;
                        db $1B                               ;18BC5A|      ;
-                       dw DATA8_00D3E0                      ;18BC5B|00D3E0;
+                       dw Sub_Sauza_2                       ;18BC5B|18D3E0;
                        db $07                               ;18BC5D|      ; Load Darwin NPC sprite
                        dl Compressed_Setup_3b_2b            ;18BC5E|18D4F7;
                        dl DATA8_1482C4                      ;18BC61|1482C4;
                        db $00                               ;18BC64|      ;
                        db $04                               ;18BC65|      ;
                        db $1B                               ;18BC66|      ;
-                       dw UNREACH_00D4B9                    ;18BC67|00D4B9;
+                       dw Make_Animation_Loop1              ;18BC67|18D4B9;
                        db $07                               ;18BC69|      ;
                        dl Transfer_Data_3b_1b_2b            ;18BC6A|00A140;
                        dl _18C72E_data                      ;18BC6D|18A2B0;
@@ -11208,7 +11211,7 @@ LavaRoom_Load_2_sprites:
                        db $03                               ;18BC85|      ;
                        db $00                               ;18BC86|      ;
                        db $1B                               ;18BC87|      ;
-                       dw DATA8_00D3F6                      ;18BC88|00D3F6;
+                       dw Sub_Turn_off_sound                ;18BC88|18D3F6;
                        db $07                               ;18BC8A|      ; Crystal Sword bgm
                        dl GetSet_Music                      ;18BC8B|009C3C;
                        db $45                               ;18BC8E|      ;
@@ -11230,13 +11233,13 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_089                        ;18BC9F|0CE62D;
                        db $00                               ;18BCA2|      ;
                        db $08                               ;18BCA3|      ;
-                       dw CODE_00971B                       ;18BCA4|00971B;
+                       dw Sub_Some_Anim                     ;18BCA4|18971B;
                        db $1B                               ;18BCA6|      ;
-                       dw UNREACH_00D4C3                    ;18BCA7|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BCA7|18D4C3;
                        db $06                               ;18BCA9|      ;
                        db $1E                               ;18BCAA|      ;
                        db $1B                               ;18BCAB|      ;
-                       dw CODE_00D35C                       ;18BCAC|00D35C;
+                       dw Darwin_leaves                     ;18BCAC|18D35C;
                        db $07                               ;18BCAE|      ;
                        dl Load_Sprite_14b                   ;18BCAF|009CAE;
                        db $08                               ;18BCB2|      ;
@@ -11261,15 +11264,15 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_090                        ;18BCC6|0CE6E6;
                        db $00                               ;18BCC9|      ;
                        db $1B                               ;18BCCA|      ;
-                       dw UNREACH_00D4C3                    ;18BCCB|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BCCB|18D4C3;
                        db $1B                               ;18BCCD|      ;
-                       dw DATA8_00D3F6                      ;18BCCE|00D3F6;
+                       dw Sub_Turn_off_sound                ;18BCCE|18D3F6;
                        db $07                               ;18BCD0|      ;
                        dl Sub_Default_BGM                   ;18BCD1|03A520;
                        db $07                               ;18BCD4|      ;
                        dl Check_Party                       ;18BCD5|18D4D9;
                        db $1B                               ;18BCD8|      ;
-                       dw LOOSE_OP_00D45C                   ;18BCD9|00D45C;
+                       dw Some_sub                          ;18BCD9|18D45C;
                        db $16                               ;18BCDB|      ; 16: $1901 = 0000
                        db $01                               ;18BCDC|      ;
                        db $19                               ;18BCDD|      ;
@@ -11324,7 +11327,7 @@ LavaRoom_Load_2_sprites:
           CODE_18BD24:
                        CLC                                  ;18BD24|      ; Do nothing
                        RTS                                  ;18BD25|      ;
-         DATA8_18BD26:
+     ASM_Galneon_Door:
                        db $24                               ;18BD26|      ;
                        db $01                               ;18BD27|      ;
                        db $11                               ;18BD28|      ;
@@ -11339,7 +11342,7 @@ LavaRoom_Load_2_sprites:
                        db $00                               ;18BD36|      ;
                        dw $0002                             ;18BD37|      ;
                        db $1B                               ;18BD39|      ;
-                       dw Playing_sound_test                ;18BD3A|00D416;
+                       dw SetB6_FadeOut                     ;18BD3A|18D416;
                        db $07                               ;18BD3C|      ;
                        dl Display_near_1b_1b_2b_2b          ;18BD3D|009D6F;
                        db $01                               ;18BD40|      ;
@@ -11347,7 +11350,7 @@ LavaRoom_Load_2_sprites:
                        dw $3000                             ;18BD42|      ;
                        dw $0400                             ;18BD44|      ;
                        db $1B                               ;18BD46|      ;
-                       dw DATA8_00D389                      ;18BD47|00D389;
+                       dw DATA8_18D389                      ;18BD47|18D389;
                        db $07                               ;18BD49|      ;
                        dl Zero_18FD                         ;18BD4A|188321;
                        db $07                               ;18BD4D|      ;
@@ -11355,7 +11358,7 @@ LavaRoom_Load_2_sprites:
                        dl DATA8_1482E5                      ;18BD51|1482E5;
                        dw $0400                             ;18BD54|      ;
                        db $1B                               ;18BD56|      ;
-                       dw UNREACH_00D4B9                    ;18BD57|00D4B9;
+                       dw Make_Animation_Loop1              ;18BD57|18D4B9;
                        db $07                               ;18BD59|      ;
                        dl Decomp_Setup2_3b_3b               ;18BD5A|00A035;
                        dl Data_Post_Lightning               ;18BD5D|18BEE6;
@@ -11387,29 +11390,29 @@ LavaRoom_Load_2_sprites:
                        db $01                               ;18BD87|      ;
                        db $00                               ;18BD88|      ;
                        db $1B                               ;18BD89|      ;
-                       dw DATA8_00D3F6                      ;18BD8A|00D3F6;
+                       dw Sub_Turn_off_sound                ;18BD8A|18D3F6;
                        db $07                               ;18BD8C|      ; BGM "Trickery"
                        dl GetSet_Music                      ;18BD8D|009C3C;
                        db $42                               ;18BD90|      ;
                        db $1B                               ;18BD91|      ;
-                       dw LOOSE_OP_00D435                   ;18BD92|00D435;
+                       dw Sub_FadeIn                        ;18BD92|18D435;
                        db $06                               ;18BD94|      ;
                        db $1E                               ;18BD95|      ;
                        db $1B                               ;18BD96|      ;
-                       dw CODE_00D44D                       ;18BD97|00D44D;
+                       dw Sub_LoadSomething                 ;18BD97|18D44D;
        Text_SCRIPT091:
                        db $07                               ;18BD99|      ;
                        dl Load_Event_Text                   ;18BD9A|18D4CC;
                        dl SCRIPT_091                        ;18BD9D|0CE780;
                        db $00                               ;18BDA0|      ;
                        db $08                               ;18BDA1|      ;
-                       dw CODE_00971B                       ;18BDA2|00971B;
+                       dw Sub_Some_Anim                     ;18BDA2|18971B;
                        db $1B                               ;18BDA4|      ;
-                       dw UNREACH_00D4C3                    ;18BDA5|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BDA5|18D4C3;
                        db $1B                               ;18BDA7|      ;
-                       dw LOOSE_OP_00D2FF                   ;18BDA8|00D2FF;
+                       dw Sub_Axs_joins_Ch3                 ;18BDA8|18D2FF;
                        db $1B                               ;18BDAA|      ;
-                       dw LOOSE_OP_00D2C1                   ;18BDAB|00D2C1;
+                       dw Salah_joins                       ;18BDAB|18D2C1;
                        db $06                               ;18BDAD|      ;
                        db $28                               ;18BDAE|      ;
        Text_SCRIPT092:
@@ -11418,9 +11421,9 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_092                        ;18BDB3|0CE8AE;
                        db $00                               ;18BDB6|      ;
                        db $1B                               ;18BDB7|      ;
-                       dw UNREACH_00D4C3                    ;18BDB8|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BDB8|18D4C3;
                        db $1B                               ;18BDBA|      ;
-                       dw DATA8_00D3F6                      ;18BDBB|00D3F6;
+                       dw Sub_Turn_off_sound                ;18BDBB|18D3F6;
                        db $07                               ;18BDBD|      ; BGM (Rocket ship?)
                        dl GetSet_Music                      ;18BDBE|009C3C;
                        db $3A                               ;18BDC1|      ;
@@ -11429,7 +11432,7 @@ LavaRoom_Load_2_sprites:
                        db $06                               ;18BDC6|      ;
                        db $01                               ;18BDC7|      ;
                        db $08                               ;18BDC8|      ;
-                       dw CODE_00C04D                       ;18BDC9|00C04D;
+                       dw UNREACH_18C04D                    ;18BDC9|18C04D;
                        db $06                               ;18BDCB|      ;
                        db $F0                               ;18BDCC|      ;
                        db $06                               ;18BDCD|      ;
@@ -11440,9 +11443,9 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_093                        ;18BDD3|0CE98B;
                        db $00                               ;18BDD6|      ;
                        db $1B                               ;18BDD7|      ;
-                       dw UNREACH_00D4C3                    ;18BDD8|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BDD8|18D4C3;
                        db $1B                               ;18BDDA|      ;
-                       dw CODE_00D31E                       ;18BDDB|00D31E;
+                       dw Sub_Unequip_Axs                   ;18BDDB|18D31E;
                        db $14                               ;18BDDD|      ;
                        db $01                               ;18BDDE|      ;
                        db $07                               ;18BDDF|      ;
@@ -11477,18 +11480,18 @@ LavaRoom_Load_2_sprites:
                        db $07                               ;18BE0C|      ;
                        dl CODE_03887A                       ;18BE0D|03887A;
                        db $1B                               ;18BE10|      ;
-                       dw LOOSE_OP_00D435                   ;18BE11|00D435;
+                       dw Sub_FadeIn                        ;18BE11|18D435;
        Text_SCRIPT094:
                        db $07                               ;18BE13|      ;
                        dl Load_Event_Text                   ;18BE14|18D4CC;
                        dl SCRIPT_094                        ;18BE17|0CE9B8;
                        db $00                               ;18BE1A|      ;
                        db $1B                               ;18BE1B|      ;
-                       dw UNREACH_00D4C3                    ;18BE1C|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18BE1C|18D4C3;
                        db $06                               ;18BE1E|      ;
                        db $78                               ;18BE1F|      ;
                        db $08                               ;18BE20|      ;
-                       dw CODE_00BFBE                       ;18BE21|00BFBE;
+                       dw UNREACH_18BFBE                    ;18BE21|18BFBE;
                        db $07                               ;18BE23|      ; SFX Rumbling 1
                        dl GetSet_SFX                        ;18BE24|009C44;
                        db $0B                               ;18BE27|      ;
@@ -11529,13 +11532,13 @@ LavaRoom_Load_2_sprites:
                        dw $3000                             ;18BE53|      ;
                        dw $0400                             ;18BE55|      ;
                        db $1B                               ;18BE57|      ;
-                       dw DATA8_00D389                      ;18BE58|00D389;
+                       dw DATA8_18D389                      ;18BE58|18D389;
                        db $07                               ;18BE5A|      ;
                        dl Compressed_Setup_3b_2b            ;18BE5B|18D4F7;
                        dl DATA8_148306                      ;18BE5E|148306;
                        dw $0400                             ;18BE61|      ;
                        db $1B                               ;18BE63|      ;
-                       dw UNREACH_00D4B9                    ;18BE64|00D4B9;
+                       dw Make_Animation_Loop1              ;18BE64|18D4B9;
                        db $07                               ;18BE66|      ;
                        dl Decomp_Setup2_3b_3b               ;18BE67|00A035;
                        dl _18CC36_comp_data                 ;18BE6A|18BF43;
@@ -11626,7 +11629,7 @@ LavaRoom_Load_2_sprites:
                        db $02                               ;18BED7|      ;
                        db $02                               ;18BED8|      ; 02
                        db $1B                               ;18BED9|      ;
-                       dw DATA8_00D3F6                      ;18BEDA|00D3F6;
+                       dw Sub_Turn_off_sound                ;18BEDA|18D3F6;
                        db $07                               ;18BEDC|      ;
                        dl Check_Party                       ;18BEDD|18D4D9;
                        db $16                               ;18BEE0|      ;
@@ -11852,6 +11855,7 @@ LavaRoom_Load_2_sprites:
                        db $15                               ;18BFBB|      ;
                        db $FF                               ;18BFBC|      ;
                        db $7F                               ;18BFBD|      ;
+       UNREACH_18BFBE:
                        db $0F                               ;18BFBE|000002;
                        db $02                               ;18BFBF|      ;
                        db $00                               ;18BFC0|      ;
@@ -11995,6 +11999,7 @@ LavaRoom_Load_2_sprites:
                        db $FF                               ;18C04A|070000;
                        db $00                               ;18C04B|      ;
                        db $00                               ;18C04C|      ;
+       UNREACH_18C04D:
                        db $07                               ;18C04D|000083;
                        db $83                               ;18C04E|00009F;
                        db $9F                               ;18C04F|F4E800;
@@ -12402,7 +12407,7 @@ LavaRoom_Load_2_sprites:
           CODE_18C224:
                        CLC                                  ;18C224|      ;
                        RTS                                  ;18C225|      ;
-         DATA8_18C226:
+  ASM_Ch5_TeefaDarwin:
                        db $24                               ;18C226|      ;
                        db $01                               ;18C227|      ;
                        db $11                               ;18C228|      ;
@@ -12410,7 +12415,7 @@ LavaRoom_Load_2_sprites:
                        dw DATA8_18C33B                      ;18C22A|18C33B;
                        dw DATA8_18C349                      ;18C22C|18C349;
                        db $1B                               ;18C22E|      ;
-                       dw LOOSE_OP_00D2E0                   ;18C22F|00D2E0;
+                       dw Salah_leaves                      ;18C22F|18D2E0;
                        db $13                               ;18C231|      ;
                        dw $1893                             ;18C232|      ;
                        db $B6                               ;18C234|      ;
@@ -12450,7 +12455,7 @@ LavaRoom_Load_2_sprites:
                        dl DATA8_14831F                      ;18C266|14831F;
                        dw $0400                             ;18C269|      ;
                        db $1B                               ;18C26B|      ;
-                       dw UNREACH_00D4B9                    ;18C26C|00D4B9;
+                       dw Make_Animation_Loop1              ;18C26C|18D4B9;
                        db $07                               ;18C26E|      ;
                        dl Transfer_Data_3b_1b_2b            ;18C26F|00A140;
                        dl DATA8_18B3A5                      ;18C272|18B3A5;
@@ -12476,7 +12481,7 @@ LavaRoom_Load_2_sprites:
                        db $00                               ;18C297|      ;
                        dw $0002                             ;18C298|      ;
                        db $1B                               ;18C29A|      ;
-                       dw LOOSE_OP_00D435                   ;18C29B|00D435;
+                       dw Sub_FadeIn                        ;18C29B|18D435;
                        db $06                               ;18C29D|      ;
                        db $3C                               ;18C29E|      ;
                        db $07                               ;18C29F|      ;
@@ -12500,16 +12505,16 @@ LavaRoom_Load_2_sprites:
                        dw $1091                             ;18C2B5|      ;
                        dw $0001                             ;18C2B7|      ;
                        db $1B                               ;18C2B9|      ;
-                       dw CODE_00D44D                       ;18C2BA|00D44D;
+                       dw Sub_LoadSomething                 ;18C2BA|18D44D;
        Text_SCRIPT095:
                        db $07                               ;18C2BC|      ;
                        dl Load_Event_Text                   ;18C2BD|18D4CC;
                        dl SCRIPT_095                        ;18C2C0|0CE9C8;
                        db $00                               ;18C2C3|      ;
                        db $08                               ;18C2C4|      ;
-                       dw CODE_00971B                       ;18C2C5|00971B;
+                       dw Sub_Some_Anim                     ;18C2C5|18971B;
                        db $1B                               ;18C2C7|      ;
-                       dw UNREACH_00D4C3                    ;18C2C8|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18C2C8|18D4C3;
                        db $07                               ;18C2CA|      ;
                        dl Set_Win1_3b                       ;18C2CB|18D54C;
                        db $00                               ;18C2CE|      ;
@@ -12546,22 +12551,22 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_096                        ;18C2F6|0CEB90;
                        db $00                               ;18C2F9|      ;
                        db $1B                               ;18C2FA|      ;
-                       dw UNREACH_00D4C3                    ;18C2FB|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18C2FB|18D4C3;
                        db $1B                               ;18C2FD|      ;
-                       dw LOOSE_OP_00D45C                   ;18C2FE|00D45C;
+                       dw Some_sub                          ;18C2FE|18D45C;
                        db $07                               ;18C300|      ;
                        dl Check_Party                       ;18C301|18D4D9;
                        db $07                               ;18C304|      ;
                        dl Clear_Winmask_Lo                  ;18C305|18D544;
                        db $1B                               ;18C308|      ;
-                       dw CODE_00D33D                       ;18C309|00D33D;
+                       dw Darwin_joins                      ;18C309|18D33D;
                        db $1B                               ;18C30B|      ;
-                       dw PTR24_00D283                      ;18C30C|00D283;
+                       dw Teefa_joins                       ;18C30C|18D283;
                        db $0F                               ;18C30E|      ;
                        db $00                               ;18C30F|      ;
                        dw $0002                             ;18C310|      ;
                        db $1B                               ;18C312|      ;
-                       dw Playing_sound_test                ;18C313|00D416;
+                       dw SetB6_FadeOut                     ;18C313|18D416;
                        db $80                               ;18C315|      ;
                        db $01                               ;18C316|      ;
                        db $00                               ;18C317|      ;
@@ -12573,9 +12578,9 @@ LavaRoom_Load_2_sprites:
                        db $07                               ;18C321|      ;
                        dl More_Town_Loading                 ;18C322|03B3FD;
                        db $1B                               ;18C325|      ;
-                       dw LOOSE_OP_00D435                   ;18C326|00D435;
+                       dw Sub_FadeIn                        ;18C326|18D435;
                        db $1B                               ;18C328|      ;
-                       dw DATA8_00D3F6                      ;18C329|00D3F6;
+                       dw Sub_Turn_off_sound                ;18C329|18D3F6;
                        db $07                               ;18C32B|      ;
                        dl GetSet_Music                      ;18C32C|009C3C;
                        db $59                               ;18C32F|      ;
@@ -12627,7 +12632,7 @@ LavaRoom_Load_2_sprites:
           CODE_18C371:
                        CLC                                  ;18C371|      ;
                        RTS                                  ;18C372|      ;
-         DATA8_18C373:
+         ASM_Vs_Karul:
                        db $24                               ;18C373|      ;
                        db $01                               ;18C374|      ;
                        db $11                               ;18C375|      ;
@@ -12641,7 +12646,7 @@ LavaRoom_Load_2_sprites:
                        db $14                               ;18C383|      ;
                        dw $0400                             ;18C384|      ;
                        db $1B                               ;18C386|      ;
-                       dw UNREACH_00D4B9                    ;18C387|00D4B9;
+                       dw Make_Animation_Loop1              ;18C387|18D4B9;
                        db $07                               ;18C389|      ;
                        dl Transfer_Data_3b_1b_2b            ;18C38A|00A140;
                        dl _18C38D_data                      ;18C38D|198D42;
@@ -12666,7 +12671,7 @@ LavaRoom_Load_2_sprites:
                        db $06                               ;18C3A5|      ;
                        db $28                               ;18C3A6|      ;
                        db $1B                               ;18C3A7|      ;
-                       dw CODE_00D44D                       ;18C3A8|00D44D;
+                       dw Sub_LoadSomething                 ;18C3A8|18D44D;
        Text_SCRIPT097:
                        db $07                               ;18C3AA|      ; Karul appears
                        dl Load_Event_Text                   ;18C3AB|18D4CC;
@@ -12677,12 +12682,12 @@ LavaRoom_Load_2_sprites:
                        db $1B                               ;18C3B5|      ;
                        dw Loop_til_1091_is_FF               ;18C3B6|18D4C3;
                        db $16                               ;18C3B8|      ;
-                       dw $1091                             ;18C3B9|001091;
+                       dw $1091                             ;18C3B9|      ;
                        dw $0001                             ;18C3BB|      ;
                        db $1E                               ;18C3BD|      ;
                        dw $0000                             ;18C3BE|      ;
                        db $1B                               ;18C3C0|      ;
-                       dw DATA8_00D392                      ;18C3C1|00D392;
+                       dw Dungeon_loop                      ;18C3C1|18D392;
        Text_SCRIPT098:
                        db $07                               ;18C3C3|      ; Karul talking behind you
                        dl Load_Event_Text                   ;18C3C4|18D4CC;
@@ -12695,25 +12700,25 @@ LavaRoom_Load_2_sprites:
                        db $1E                               ;18C3D0|      ;
                        dw $0001                             ;18C3D1|      ;
                        db $1B                               ;18C3D3|      ;
-                       dw DATA8_00D392                      ;18C3D4|00D392;
+                       dw Dungeon_loop                      ;18C3D4|18D392;
                        db $02                               ;18C3D6|      ;
                        db $14                               ;18C3D7|      ;
                        db $01                               ;18C3D8|      ;
                        db $30                               ;18C3D9|      ;
                        db $FF                               ;18C3DA|      ;
                        db $16                               ;18C3DB|      ;
-                       dw $18E1                             ;18C3DC|0018E1;
+                       dw $18E1                             ;18C3DC|      ;
                        dw $0008                             ;18C3DE|      ;
                        db $07                               ;18C3E0|      ;
                        dl Check_map_tile_value              ;18C3E1|18800B;
                        db $07                               ;18C3E4|      ;
                        dl Roll_encounter                    ;18C3E5|188210;
                        db $1B                               ;18C3E8|      ;
-                       dw DATA8_00D3D4                      ;18C3E9|00D3D4;
+                       dw Sub_Sauza_1                       ;18C3E9|18D3D4;
                        db $1B                               ;18C3EB|      ;
-                       dw PTR24_00D3C3                      ;18C3EC|00D3C3;
+                       dw Sub_Check_11C1                    ;18C3EC|18D3C3;
                        db $1B                               ;18C3EE|      ;
-                       dw DATA8_00D3E0                      ;18C3EF|00D3E0;
+                       dw Sub_Sauza_2                       ;18C3EF|18D3E0;
                        db $06                               ;18C3F1|      ;
                        db $1E                               ;18C3F2|      ;
        Text_SCRIPT099:
@@ -12722,11 +12727,11 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_099                        ;18C3F7|0CEF0E;
                        db $00                               ;18C3FA|      ;
                        db $08                               ;18C3FB|      ;
-                       dw CODE_00971B                       ;18C3FC|00971B;
+                       dw Sub_Some_Anim                     ;18C3FC|18971B;
                        db $1B                               ;18C3FE|      ;
-                       dw UNREACH_00D4C3                    ;18C3FF|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18C3FF|18D4C3;
                        db $1B                               ;18C401|      ;
-                       dw PTR24_00D37B                      ;18C402|00D37B;
+                       dw Fanfare_and_Refresh_Music         ;18C402|18D37B;
                        db $07                               ;18C404|      ; Add item 0D (Crystal Sword)
                        dl AddNewItem_3b                     ;18C405|07AB27;
                        db $01                               ;18C408|      ;
@@ -12737,11 +12742,11 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_100                        ;18C40F|0CEF39;
                        db $00                               ;18C412|      ;
                        db $1B                               ;18C413|      ;
-                       dw UNREACH_00D4C3                    ;18C414|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18C414|18D4C3;
                        db $1B                               ;18C416|      ;
-                       dw LOOSE_OP_00D45C                   ;18C417|00D45C;
+                       dw Some_sub                          ;18C417|18D45C;
                        db $16                               ;18C419|      ;
-                       dw $1901                             ;18C41A|001901;
+                       dw $1901                             ;18C41A|      ;
                        dw $0000                             ;18C41C|      ;
                        db $00                               ;18C41E|      ; End section
       Sub_Karul_macro:
@@ -12814,9 +12819,9 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_101                        ;18C483|0CEFDB;
                        db $00                               ;18C486|      ;
                        db $08                               ;18C487|      ;
-                       dw CODE_00971B                       ;18C488|00971B;
+                       dw Sub_Some_Anim                     ;18C488|18971B;
                        db $1B                               ;18C48A|      ;
-                       dw UNREACH_00D4C3                    ;18C48B|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18C48B|18D4C3;
                        db $07                               ;18C48D|      ;
                        dl Check_Party                       ;18C48E|18D4D9;
                        db $14                               ;18C491|      ; 14 01
@@ -12824,7 +12829,7 @@ LavaRoom_Load_2_sprites:
                        db $30                               ;18C493|      ; 30 FF
                        db $FF                               ;18C494|      ;
                        db $16                               ;18C495|      ; 16 $18E1 = 09
-                       dw $18E1                             ;18C496|0018E1;
+                       dw $18E1                             ;18C496|      ;
                        dw $0009                             ;18C498|      ;
        Galneon1_fight:
                        db $07                               ;18C49A|      ;
@@ -12872,11 +12877,11 @@ LavaRoom_Load_2_sprites:
                        dl SCRIPT_103                        ;18C4D5|0CF114;
                        db $00                               ;18C4D8|      ;
                        db $08                               ;18C4D9|      ;
-                       dw CODE_00971B                       ;18C4DA|00971B;
+                       dw Sub_Some_Anim                     ;18C4DA|18971B;
                        db $1B                               ;18C4DC|      ;
-                       dw UNREACH_00D4C3                    ;18C4DD|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18C4DD|18D4C3;
                        db $16                               ;18C4DF|      ; 16: $1091 = 01
-                       dw $1091                             ;18C4E0|001091;
+                       dw $1091                             ;18C4E0|      ;
                        dw $0001                             ;18C4E2|      ;
                        db $06                               ;18C4E4|      ;
                        db $5A                               ;18C4E5|      ;
@@ -12887,7 +12892,7 @@ LavaRoom_Load_2_sprites:
                        db $30                               ;18C4EC|      ;
                        db $FF                               ;18C4ED|      ;
                        db $16                               ;18C4EE|      ; 16: $18E1 = 0A
-                       dw $18E1                             ;18C4EF|0018E1;
+                       dw $18E1                             ;18C4EF|      ;
                        dw $000A                             ;18C4F1|      ;
                        db $07                               ;18C4F3|      ; Check floor for boss encounter
                        dl Check_map_tile_value              ;18C4F4|18800B;
@@ -12924,7 +12929,7 @@ LavaRoom_Load_2_sprites:
                        db $1B                               ;18C526|      ;
                        dw Some_sub                          ;18C527|18D45C;
                        db $16                               ;18C529|      ;
-                       dw $1901                             ;18C52A|001901;
+                       dw $1901                             ;18C52A|      ;
                        dw $0000                             ;18C52C|      ;
                        db $00                               ;18C52E|      ; 00: End section
          DATA8_18C52F:
@@ -12974,7 +12979,7 @@ LavaRoom_Load_2_sprites:
           CODE_18C56B:
                        CLC                                  ;18C56B|      ;
                        RTS                                  ;18C56C|      ;
-         DATA8_18C56D:
+     ASM_Vs_Guardians:
                        db $24                               ;18C56D|      ;
                        db $01                               ;18C56E|      ;
                        db $11                               ;18C56F|      ;
@@ -13276,7 +13281,7 @@ Draw_Salah_Axs_entrance:
           CODE_18C6EB:
                        CLC                                  ;18C6EB|      ;
                        RTS                                  ;18C6EC|      ;
-         DATA8_18C6ED:
+        ASM_Vs_Tiamat:
                        db $24                               ;18C6ED|      ;
                        db $01                               ;18C6EE|      ;
                        db $11                               ;18C6EF|      ;
@@ -13405,34 +13410,35 @@ Draw_Salah_Axs_entrance:
                        dl SCRIPT_109                        ;18C7A2|0CF49C;
                        db $00                               ;18C7A5|      ;
                        db $1B                               ;18C7A6|      ;
-                       dw UNREACH_00D4C3                    ;18C7A7|00D4C3;
+                       dw Loop_til_1091_is_FF               ;18C7A7|18D4C3;
                        db $1B                               ;18C7A9|      ;
-                       dw LOOSE_OP_00D45C                   ;18C7AA|00D45C;
+                       dw Some_sub                          ;18C7AA|18D45C;
                        db $07                               ;18C7AC|      ;
                        dl Check_Party                       ;18C7AD|18D4D9;
                        db $1F                               ;18C7B0|      ;
-                       dw $16FB                             ;18C7B1|0016FB;
+                       dw $16FB                             ;18C7B1|      ;
                        db $0C                               ;18C7B3|      ;
-                       dw CODE_00C7BF                       ;18C7B4|00C7BF;
+                       dw DATA8_18C7BF                      ;18C7B4|18C7BF;
                        db $01                               ;18C7B6|      ;
                        db $02                               ;18C7B7|      ;
                        db $1E                               ;18C7B8|      ;
                        dw $0001                             ;18C7B9|      ;
                        db $1B                               ;18C7BB|      ;
-                       dw DATA8_00D392                      ;18C7BC|00D392;
+                       dw Dungeon_loop                      ;18C7BC|18D392;
                        db $02                               ;18C7BE|      ;
+         DATA8_18C7BF:
                        db $1E                               ;18C7BF|      ;
                        dw $0000                             ;18C7C0|      ;
                        db $1B                               ;18C7C2|      ;
-                       dw DATA8_00D392                      ;18C7C3|00D392;
+                       dw Dungeon_loop                      ;18C7C3|18D392;
                        db $1B                               ;18C7C5|      ;
-                       dw DATA8_00D3F6                      ;18C7C6|00D3F6;
+                       dw Sub_Turn_off_sound                ;18C7C6|18D3F6;
                        db $07                               ;18C7C8|      ;
                        dl Sub_Default_BGM                   ;18C7C9|03A520;
                        db $1B                               ;18C7CC|      ;
-                       dw UNREACH_00D4B1                    ;18C7CD|00D4B1;
+                       dw Sub_Mock_Battle_end               ;18C7CD|18D4B1;
                        db $16                               ;18C7CF|      ;
-                       dw $1901                             ;18C7D0|001901;
+                       dw $1901                             ;18C7D0|      ;
                        dw $0000                             ;18C7D2|      ;
                        db $00                               ;18C7D4|      ; 00: End section
          _18C71A_data:
@@ -15419,7 +15425,7 @@ Fanfare_and_Refresh_Music:
                        db $1C                               ;18D39E|      ;
          Screen_Flash:
                        db $13                               ;18D39F|      ;
-                       dw $1893                             ;18D3A0|001893;
+                       dw $1893                             ;18D3A0|      ;
                        db $06                               ;18D3A2|      ;
                        db $07                               ;18D3A3|      ;
                        dl Set_RGB_3b                        ;18D3A4|009F83;
@@ -15562,7 +15568,7 @@ Fanfare_and_Refresh_Music:
                        db $1C                               ;18D44C|      ; Return
     Sub_LoadSomething:
                        db $16                               ;18D44D|      ;
-                       dw $157B                             ;18D44E|00157B;
+                       dw $157B                             ;18D44E|      ;
                        dw $0000                             ;18D450|      ;
                        db $06                               ;18D452|      ;
                        db $01                               ;18D453|      ;
@@ -15602,7 +15608,7 @@ Fanfare_and_Refresh_Music:
                        db $1C                               ;18D47F|      ; Return
       Sub_Sting_Flash:
                        db $13                               ;18D480|      ; $1893=22
-                       dw $1893                             ;18D481|001893;
+                       dw $1893                             ;18D481|      ;
                        db $22                               ;18D483|      ;
                        db $07                               ;18D484|      ;
                        dl Set_RGB_3b                        ;18D485|009F83;
@@ -15636,14 +15642,14 @@ Fanfare_and_Refresh_Music:
                        db $4F                               ;18D4A8|      ;
       Battle_Poses_On:
                        db $16                               ;18D4A9|      ; Turn on battle poses
-                       dw $11C1                             ;18D4AA|0011C1;
+                       dw $11C1                             ;18D4AA|      ;
                        dw $0002                             ;18D4AC|      ;
                        db $06                               ;18D4AE|      ; Delay $08
                        db $08                               ;18D4AF|      ;
                        db $1C                               ;18D4B0|      ; End sub
   Sub_Mock_Battle_end:
                        db $16                               ;18D4B1|      ; Turn off battle poses
-                       dw $11C1                             ;18D4B2|0011C1;
+                       dw $11C1                             ;18D4B2|      ;
                        dw $0000                             ;18D4B4|      ;
                        db $06                               ;18D4B6|      ; Delay $08
                        db $08                               ;18D4B7|      ;
@@ -15791,7 +15797,7 @@ Compressed_Setup_3b_2b:
                        db $07                               ;18D5A4|      ;
                        dl Xfer_shit                         ;18D5A5|18D6D7;
                        db $16                               ;18D5A8|      ; Set $1913 to 3 (counter?)
-                       dw $1913                             ;18D5A9|001913;
+                       dw $1913                             ;18D5A9|      ;
                        dw $0003                             ;18D5AB|      ;
           Chibis_load:
                        db $07                               ;18D5AD|      ;
@@ -15809,7 +15815,7 @@ Compressed_Setup_3b_2b:
                        db $06                               ;18D5C1|      ; 06: Wait 1F
                        db $01                               ;18D5C2|      ;
                        db $16                               ;18D5C3|      ; 16: $157D to 0000
-                       dw $157D                             ;18D5C4|00157D;
+                       dw $157D                             ;18D5C4|      ;
                        dw $0000                             ;18D5C6|      ;
                        db $01                               ;18D5C8|      ; 01: Loop $10 times
                        db $10                               ;18D5C9|      ;
@@ -15835,9 +15841,9 @@ Compressed_Setup_3b_2b:
                        db $0C                               ;18D5E2|      ; If true, fade out travel screen
                        dw Travel_fadeout                    ;18D5E3|18D5ED;
                        db $1F                               ;18D5E5|      ; Store $1913 in result
-                       dw $1913                             ;18D5E6|001913;
+                       dw $1913                             ;18D5E6|      ;
                        db $0C                               ;18D5E8|      ; If true, keep walking
-                       dw UNREACH_00D5D7                    ;18D5E9|00D5D7;
+                       dw Travel_loop                       ;18D5E9|18D5D7;
                        db $06                               ;18D5EB|      ;
                        db $1E                               ;18D5EC|      ;
        Travel_fadeout:
@@ -15920,7 +15926,7 @@ Compressed_Setup_3b_2b:
                        db $06                               ;18D644|      ; 06: Delay 0F
                        db $0F                               ;18D645|      ;
                        db $1F                               ;18D646|      ; Store $1913 in result
-                       dw $1913                             ;18D647|001913;
+                       dw $1913                             ;18D647|      ;
                        db $0C                               ;18D649|      ; Loop if nonzero
                        dw Walking_sfx                       ;18D64A|18D63F;
                        db $0A                               ;18D64C|      ; End section?

@@ -832,7 +832,7 @@ Init_all_the_things_2:
                        db $06                               ;01861E|      ; 06 01
                        db $01                               ;01861F|      ;
                        db $07                               ;018620|      ; Event = 04?
-                       dl Is_Curr_Event                     ;018621|018A25;
+                       dl Is_Curr_Event_1b                  ;018621|018A25;
                        db $04                               ;018624|      ;
                        db $0B                               ;018625|      ;
                        dw Loop_Chapter_2                    ;018626|01861E;
@@ -943,7 +943,7 @@ Init_all_the_things_2:
                        db $06                               ;0186C8|      ; End of Ch 2?
                        db $01                               ;0186C9|      ;
                        db $07                               ;0186CA|      ;
-                       dl Is_Curr_Event                     ;0186CB|018A25;
+                       dl Is_Curr_Event_1b                  ;0186CB|018A25;
                        db $09                               ;0186CE|      ;
                        db $0B                               ;0186CF|      ;
                        dw Loop_Chapter_3                    ;0186D0|0186C8;
@@ -1070,12 +1070,10 @@ Init_all_the_things_2:
                        db $EE                               ;01875E|001895;
                        db $95                               ;01875F|000018;
                        db $18                               ;018760|      ;
-                       db $07                               ;018761|0000BC;
-                       db $BC                               ;018762|00009C;
-                       db $9C                               ;018763|000200;
-                       db $00                               ;018764|      ;
+                       db $07                               ;018761|      ;
+                       dl Character_Join_13b                ;018762|009CBC;
                        db $02                               ;018765|      ;
-                       db $01                               ;018766|000000;
+                       db $01                               ;018766|      ;
                        db $00                               ;018767|      ;
                        db $00                               ;018768|      ;
                        db $00                               ;018769|      ;
@@ -1087,13 +1085,11 @@ Init_all_the_things_2:
                        db $00                               ;01876F|      ;
                        db $00                               ;018770|      ;
                        db $00                               ;018771|      ;
-                       db $06                               ;018772|000001;
-                       db $01                               ;018773|000007;
-                       db $07                               ;018774|000025;
-                       db $25                               ;018775|00008A;
-                       db $8A                               ;018776|      ;
-                       db $01                               ;018777|00000D;
-                       db $0D                               ;018778|00720B;
+                       db $06                               ;018772|      ; 06 01
+                       db $01                               ;018773|      ;
+                       db $07                               ;018774|      ;
+                       dl Is_Curr_Event_1b                  ;018775|018A25;
+                       db $0D                               ;018778|      ;
                        db $0B                               ;018779|      ;
                        db $72                               ;01877A|000087;
                        db $87                               ;01877B|00001F;
@@ -1432,7 +1428,7 @@ Init_all_the_things_2:
                        db $06                               ;0188C8|      ; 06 01: Bye Felicia!
                        db $01                               ;0188C9|      ;
                        db $07                               ;0188CA|      ; 07: Call 01/8A25 Check Event Byte
-                       dl Is_Curr_Event                     ;0188CB|018A25;
+                       dl Is_Curr_Event_1b                  ;0188CB|018A25;
                        db $20                               ;0188CE|      ;
                        db $0B                               ;0188CF|      ; 0B: Jump if false to 88C8
                        dw LOOSE_OP_0088C8                   ;0188D0|0088C8;
@@ -1666,7 +1662,7 @@ Sub_Setup_Field_Sprites2:
                        db $02                               ;018A22|      ;
                        db $00                               ;018A23|      ;
                        db $05                               ;018A24|      ; RTL
-        Is_Curr_Event:
+     Is_Curr_Event_1b:
                        JSL.L GetEventCode_1b_far            ;018A25|009AF8; Read the next byte at [$10]
                        STA.B $20                            ;018A29|000020;
                        CMP.W Story_Progress                 ;018A2B|0018FF; If it matches the event byte, return 1
@@ -1736,7 +1732,7 @@ Is_BattleState_Negative:
                        db $06                               ;018A73|      ; Script language, seems to run while standing in town. Loops from 8A73-8AB5.
                        db $01                               ;018A74|      ;
                        db $07                               ;018A75|      ; 07: Call 00/A0BD (Read next byte, call RNG and save in $0CB3,x)
-                       dl RNG_1b_something                  ;018A76|00A0BD;
+                       dl RNG_1b                            ;018A76|00A0BD;
                        db $FA                               ;018A79|      ; RNG: 0...FA stored in $0CB3,x
                        db $1F                               ;018A7A|      ; 1F: Store ($1901) in $0CB3,x. Why??
                        db $01                               ;018A7B|      ;
@@ -1813,7 +1809,7 @@ Is_BattleState_Negative:
                        db $06                               ;018AE9|      ;
                        db $01                               ;018AEA|      ;
                        db $07                               ;018AEB|      ;
-                       dl RNG_1b_something                  ;018AEC|00A0BD;
+                       dl RNG_1b                            ;018AEC|00A0BD;
                        db $FA                               ;018AEF|      ;
                        db $1F                               ;018AF0|      ; 1F: Load $1901
                        dw $1901                             ;018AF1|      ;
@@ -2179,7 +2175,7 @@ Any_direction_pressed:
                        db $06                               ;018C85|      ;
                        db $01                               ;018C86|      ;
                        db $07                               ;018C87|      ;
-                       dl RNG_1b_something                  ;018C88|00A0BD;
+                       dl RNG_1b                            ;018C88|00A0BD;
                        db $FA                               ;018C8B|      ;
                        db $1F                               ;018C8C|      ; Store $1901 in result
                        dw $1901                             ;018C8D|001901;
@@ -2409,7 +2405,7 @@ Any_direction_pressed:
                        dw DATA8_018E08                      ;018DD7|018E08;
          DATA8_018DD9:
                        db $07                               ;018DD9|      ; Roll 1d2
-                       dl RNG_1b_something                  ;018DDA|00A0BD;
+                       dl RNG_1b                            ;018DDA|00A0BD;
                        db $02                               ;018DDD|      ;
                        db $0B                               ;018DDE|      ; Jump if 0
                        dw DATA8_018DF6                      ;018DDF|018DF6;
@@ -2505,12 +2501,12 @@ Any_direction_pressed:
                        dw $0002                             ;018E5F|      ;
          DATA8_018E61:
                        db $07                               ;018E61|      ;
-                       dl CODE_07B645                       ;018E62|07B645;
+                       dl Battle_Start_Reaction             ;018E62|07B645;
          DATA8_018E65:
                        db $06                               ;018E65|      ;
                        db $01                               ;018E66|      ;
                        db $07                               ;018E67|      ;
-                       dl Wait_For_A_Press                  ;018E68|07BA03;
+                       dl Wait_For_A_Press_1b               ;018E68|07BA03;
                        db $00                               ;018E6B|      ;
                        db $0B                               ;018E6C|      ;
                        dw DATA8_018E65                      ;018E6D|018E65;
@@ -2540,6 +2536,7 @@ Any_direction_pressed:
                        db $01                               ;018E91|      ;
                        db $0B                               ;018E92|      ; 0B: If zero, jump to 8F27
                        dw DATA8_018F27                      ;018E93|018F27;
+       Text_EnemyNum3:
                        db $07                               ;018E95|      ;
                        dl Setup_Text_Parser_3b              ;018E96|00A0AC;
                        dl Enemy3_Num                        ;018E99|088F44;
@@ -2550,6 +2547,7 @@ Any_direction_pressed:
                        db $01                               ;018EA1|      ;
                        db $0B                               ;018EA2|      ;
                        dw DATA8_018F27                      ;018EA3|018F27;
+       Text_EnemyNum4:
                        db $07                               ;018EA5|      ;
                        dl Setup_Text_Parser_3b              ;018EA6|00A0AC;
                        dl Enemy4_Num                        ;018EA9|088F53;
@@ -2619,8 +2617,9 @@ Any_direction_pressed:
                        db $06                               ;018F08|      ;
                        db $01                               ;018F09|      ;
                        db $07                               ;018F0A|      ;
-                       dl Wait_For_A_Press                  ;018F0B|07BA03;
-                       dw $0B00                             ;018F0E|      ;
+                       dl Wait_For_A_Press_1b               ;018F0B|07BA03;
+                       db $00                               ;018F0E|      ;
+                       db $0B                               ;018F0F|      ;
                        dw DATA8_018F08                      ;018F10|018F08;
                        db $1C                               ;018F12|      ;
          DATA8_018F13:
@@ -2750,7 +2749,7 @@ Any_direction_pressed:
                        db $06                               ;018FCB|      ;
                        db $01                               ;018FCC|      ;
                        db $07                               ;018FCD|      ;
-                       dl Wait_For_A_Press                  ;018FCE|07BA03;
+                       dl Wait_For_A_Press_1b               ;018FCE|07BA03;
                        db $00                               ;018FD1|      ;
                        db $0B                               ;018FD2|      ;
                        dw DATA8_018FCB                      ;018FD3|018FCB;
@@ -2798,7 +2797,7 @@ Any_direction_pressed:
                        db $06                               ;01900C|      ;
                        db $01                               ;01900D|      ;
                        db $07                               ;01900E|      ;
-                       dl Wait_For_A_Press                  ;01900F|07BA03;
+                       dl Wait_For_A_Press_1b               ;01900F|07BA03;
                        db $00                               ;019012|      ;
                        db $0B                               ;019013|      ;
                        dw DATA8_01900C                      ;019014|01900C;
@@ -2955,7 +2954,7 @@ Any_direction_pressed:
                        db $01                               ;0190E5|      ;
                        db $07                               ;0190E6|      ; Learned a spell
                        dl Setup_Text_Parser_3b              ;0190E7|00A0AC;
-                       dl LearnedSpell                      ;0190EA|088E8E;
+                       dl LearnedSpell1                     ;0190EA|088E8E;
                        db $00                               ;0190ED|      ;
                        db $1B                               ;0190EE|      ;
                        dw DATA8_01918F                      ;0190EF|01918F;
@@ -2986,7 +2985,7 @@ Any_direction_pressed:
                        dw DATA8_0191A2                      ;019115|0191A2;
                        db $07                               ;019117|      ;
                        dl Setup_Text_Parser_3b              ;019118|00A0AC;
-                       dl TEXT_088EC4                       ;01911B|088EC4;
+                       dl LearnedSpellEnd                   ;01911B|088EC4;
                        db $00                               ;01911E|      ;
                        db $1B                               ;01911F|      ;
                        dw Levelup_Pause_for_input           ;019120|019197;
@@ -3081,7 +3080,7 @@ Levelup_Pause_for_input:
                        db $06                               ;019197|      ;
                        db $01                               ;019198|      ;
                        db $07                               ;019199|      ;
-                       dl Wait_For_A_Press                  ;01919A|07BA03;
+                       dl Wait_For_A_Press_1b               ;01919A|07BA03;
                        db $00                               ;01919D|      ;
                        db $0B                               ;01919E|      ;
                        dw Levelup_Pause_for_input           ;01919F|019197;
@@ -3251,7 +3250,7 @@ Levelup_Pause_for_input:
                        db $06                               ;01928A|      ; Delay 01
                        db $01                               ;01928B|      ;
                        db $07                               ;01928C|      ; Chest opening?
-                       dl Wait_For_A_Press                  ;01928D|07BA03;
+                       dl Wait_For_A_Press_1b               ;01928D|07BA03;
                        db $00                               ;019290|      ;
                        db $0B                               ;019291|      ; If false, branch to 928A
                        dw DATA8_01928A                      ;019292|01928A;

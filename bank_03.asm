@@ -715,77 +715,79 @@ Tbl_Compressed_Gfx_Banks_4:
                        dw Map_Stavery1F_12F_CH5             ;0383C0|13F9A6;
                        dw Map_Stavery1F_12F_CH5             ;0383C2|13F9A6;
       Some_Ptr_Tables:
-                       dw LOOSE_OP_00844C                   ;0383C4|00844C;
-                       dw LOOSE_OP_00844C                   ;0383C6|00844C;
-                       dw DATA8_0084CE                      ;0383C8|0084CE;
-                       dw DATA8_0084CE                      ;0383CA|0084CE;
-                       dw LOOSE_OP_008550                   ;0383CC|008550;
-                       dw LOOSE_OP_008592                   ;0383CE|008592;
-                       dw LOOSE_OP_008592                   ;0383D0|008592;
-                       dw LOOSE_OP_008592                   ;0383D2|008592;
-                       dw LOOSE_OP_00844C                   ;0383D4|00844C;
-                       dw LOOSE_OP_00844C                   ;0383D6|00844C;
-                       dw LOOSE_OP_00844C                   ;0383D8|00844C;
-                       dw LOOSE_OP_00844C                   ;0383DA|00844C;
-                       dw LOOSE_OP_00844C                   ;0383DC|00844C;
-                       dw LOOSE_OP_00844C                   ;0383DE|00844C;
-                       dw LOOSE_OP_00844C                   ;0383E0|00844C;
-                       dw LOOSE_OP_00844C                   ;0383E2|00844C;
-                       dw CODE_008654                       ;0383E4|008654;
-                       dw CODE_008654                       ;0383E6|008654;
-                       dw CODE_008654                       ;0383E8|008654;
-                       dw CODE_008654                       ;0383EA|008654;
-                       dw CODE_008654                       ;0383EC|008654;
-                       dw LOOSE_OP_008592                   ;0383EE|008592;
-                       dw LOOSE_OP_00844C                   ;0383F0|00844C;
-                       dw LOOSE_OP_00844C                   ;0383F2|00844C;
-                       dw LOOSE_OP_00844C                   ;0383F4|00844C;
-                       dw LOOSE_OP_00844C                   ;0383F6|00844C;
-                       dw LOOSE_OP_00844C                   ;0383F8|00844C;
-                       dw LOOSE_OP_00844C                   ;0383FA|00844C;
-                       dw LOOSE_OP_00844C                   ;0383FC|00844C;
-                       dw LOOSE_OP_00844C                   ;0383FE|00844C;
-                       dw CODE_008654                       ;038400|008654;
-                       dw CODE_008654                       ;038402|008654;
-                       dw CODE_008654                       ;038404|008654;
-                       dw CODE_008654                       ;038406|008654;
+                       dw DATA8_03844C                      ;0383C4|03844C;
+                       dw DATA8_03844C                      ;0383C6|03844C;
+                       dw DATA8_0384CE                      ;0383C8|0384CE;
+                       dw DATA8_0384CE                      ;0383CA|0384CE;
+                       dw DATA8_038550                      ;0383CC|038550;
+                       dw DATA8_038592                      ;0383CE|038592;
+                       dw DATA8_038592                      ;0383D0|038592;
+                       dw DATA8_038592                      ;0383D2|038592;
+                       dw DATA8_03844C                      ;0383D4|03844C;
+                       dw DATA8_03844C                      ;0383D6|03844C;
+                       dw DATA8_03844C                      ;0383D8|03844C;
+                       dw DATA8_03844C                      ;0383DA|03844C;
+                       dw DATA8_03844C                      ;0383DC|03844C;
+                       dw DATA8_03844C                      ;0383DE|03844C;
+                       dw DATA8_03844C                      ;0383E0|03844C;
+                       dw DATA8_03844C                      ;0383E2|03844C;
+                       dw DATA8_038654                      ;0383E4|038654;
+                       dw DATA8_038654                      ;0383E6|038654;
+                       dw DATA8_038654                      ;0383E8|038654;
+                       dw DATA8_038654                      ;0383EA|038654;
+                       dw DATA8_038654                      ;0383EC|038654;
+                       dw DATA8_038592                      ;0383EE|038592;
+                       dw DATA8_03844C                      ;0383F0|03844C;
+                       dw DATA8_03844C                      ;0383F2|03844C;
+                       dw DATA8_03844C                      ;0383F4|03844C;
+                       dw DATA8_03844C                      ;0383F6|03844C;
+                       dw DATA8_03844C                      ;0383F8|03844C;
+                       dw DATA8_03844C                      ;0383FA|03844C;
+                       dw DATA8_03844C                      ;0383FC|03844C;
+                       dw DATA8_03844C                      ;0383FE|03844C;
+                       dw DATA8_038654                      ;038400|038654;
+                       dw DATA8_038654                      ;038402|038654;
+                       dw DATA8_038654                      ;038404|038654;
+                       dw DATA8_038654                      ;038406|038654;
          PTR16_038408:
-                       dw LOOSE_OP_00844E                   ;038408|00844E;
-                       dw LOOSE_OP_00844E                   ;03840A|00844E;
-                       dw Tbl_DMA_Dest                      ;03840C|0084D0;
-                       dw CODE_008510                       ;03840E|008510;
-                       dw LOOSE_OP_008552                   ;038410|008552;
-                       dw CODE_008594                       ;038412|008594;
-                       dw LOOSE_OP_0085D4                   ;038414|0085D4;
-                       dw LOOSE_OP_008614                   ;038416|008614;
-                       dw CODE_008656                       ;038418|008656;
-                       dw CODE_008656                       ;03841A|008656;
-                       dw CODE_008656                       ;03841C|008656;
-                       dw CODE_008656                       ;03841E|008656;
-                       dw LOOSE_OP_008696                   ;038420|008696;
-                       dw LOOSE_OP_008696                   ;038422|008696;
-                       dw LOOSE_OP_008696                   ;038424|008696;
-                       dw LOOSE_OP_008696                   ;038426|008696;
-                       dw LOOSE_OP_0086D6                   ;038428|0086D6;
-                       dw LOOSE_OP_0086D6                   ;03842A|0086D6;
-                       dw LOOSE_OP_0086D6                   ;03842C|0086D6;
-                       dw LOOSE_OP_0086D6                   ;03842E|0086D6;
-                       dw LOOSE_OP_0086D6                   ;038430|0086D6;
-                       dw CODE_008716                       ;038432|008716;
-                       dw CODE_008656                       ;038434|008656;
-                       dw CODE_008656                       ;038436|008656;
-                       dw CODE_008656                       ;038438|008656;
-                       dw CODE_008656                       ;03843A|008656;
-                       dw LOOSE_OP_008696                   ;03843C|008696;
-                       dw LOOSE_OP_008696                   ;03843E|008696;
-                       dw LOOSE_OP_008696                   ;038440|008696;
-                       dw LOOSE_OP_008696                   ;038442|008696;
-                       dw LOOSE_OP_0086D6                   ;038444|0086D6;
-                       dw LOOSE_OP_0086D6                   ;038446|0086D6;
-                       dw LOOSE_OP_0086D6                   ;038448|0086D6;
-                       dw LOOSE_OP_0086D6                   ;03844A|0086D6;
+                       dw DATA8_03844E                      ;038408|03844E;
+                       dw DATA8_03844E                      ;03840A|03844E;
+                       dw DATA8_0384D0                      ;03840C|0384D0;
+                       dw DATA8_038510                      ;03840E|038510;
+                       dw DATA8_038552                      ;038410|038552;
+                       dw DATA8_038594                      ;038412|038594;
+                       dw DATA8_0385D4                      ;038414|0385D4;
+                       dw DATA8_038614                      ;038416|038614;
+                       dw DATA8_038656                      ;038418|038656;
+                       dw DATA8_038656                      ;03841A|038656;
+                       dw DATA8_038656                      ;03841C|038656;
+                       dw DATA8_038656                      ;03841E|038656;
+                       dw DATA8_038696                      ;038420|038696;
+                       dw DATA8_038696                      ;038422|038696;
+                       dw DATA8_038696                      ;038424|038696;
+                       dw DATA8_038696                      ;038426|038696;
+                       dw DATA8_0386D6                      ;038428|0386D6;
+                       dw DATA8_0386D6                      ;03842A|0386D6;
+                       dw DATA8_0386D6                      ;03842C|0386D6;
+                       dw DATA8_0386D6                      ;03842E|0386D6;
+                       dw DATA8_0386D6                      ;038430|0386D6;
+                       dw DATA8_038716                      ;038432|038716;
+                       dw DATA8_038656                      ;038434|038656;
+                       dw DATA8_038656                      ;038436|038656;
+                       dw DATA8_038656                      ;038438|038656;
+                       dw DATA8_038656                      ;03843A|038656;
+                       dw DATA8_038696                      ;03843C|038696;
+                       dw DATA8_038696                      ;03843E|038696;
+                       dw DATA8_038696                      ;038440|038696;
+                       dw DATA8_038696                      ;038442|038696;
+                       dw DATA8_0386D6                      ;038444|0386D6;
+                       dw DATA8_0386D6                      ;038446|0386D6;
+                       dw DATA8_0386D6                      ;038448|0386D6;
+                       dw DATA8_0386D6                      ;03844A|0386D6;
+         DATA8_03844C:
                        db $00                               ;03844C|      ;
                        db $00                               ;03844D|      ;
+         DATA8_03844E:
                        db $00                               ;03844E|      ;
                        db $00                               ;03844F|      ;
                        db $00                               ;038450|      ;
@@ -914,8 +916,10 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $1C                               ;0384CB|001063;
                        db $63                               ;0384CC|000010;
                        db $10                               ;0384CD|0384CF;
+         DATA8_0384CE:
                        db $00                               ;0384CE|      ;
                        db $00                               ;0384CF|      ;
+         DATA8_0384D0:
                        db $00                               ;0384D0|      ;
                        db $00                               ;0384D1|      ;
                        db $4A                               ;0384D2|      ;
@@ -980,6 +984,7 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $60                               ;03850D|      ;
                        db $00                               ;03850E|      ;
                        db $00                               ;03850F|      ;
+         DATA8_038510:
                        db $00                               ;038510|      ;
                        db $00                               ;038511|      ;
                        db $2F                               ;038512|5A4F5A;
@@ -1044,8 +1049,10 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $60                               ;03854D|      ;
                        db $00                               ;03854E|      ;
                        db $00                               ;03854F|      ;
+         DATA8_038550:
                        db $A0                               ;038550|      ;
                        db $6D                               ;038551|000000;
+         DATA8_038552:
                        db $00                               ;038552|      ;
                        db $00                               ;038553|      ;
                        db $7C                               ;038554|037273;
@@ -1110,8 +1117,10 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $14                               ;03858F|000086;
                        db $86                               ;038590|00000C;
                        db $0C                               ;038591|000000;
+         DATA8_038592:
                        db $00                               ;038592|      ;
                        db $00                               ;038593|      ;
+         DATA8_038594:
                        db $00                               ;038594|      ;
                        db $00                               ;038595|      ;
                        db $00                               ;038596|      ;
@@ -1176,6 +1185,7 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $1C                               ;0385D1|001063;
                        db $63                               ;0385D2|000010;
                        db $10                               ;0385D3|0385D5;
+         DATA8_0385D4:
                        db $00                               ;0385D4|      ;
                        db $00                               ;0385D5|      ;
                        db $00                               ;0385D6|      ;
@@ -1240,6 +1250,7 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $1C                               ;038611|001063;
                        db $63                               ;038612|000010;
                        db $10                               ;038613|038615;
+         DATA8_038614:
                        db $00                               ;038614|      ;
                        db $00                               ;038615|      ;
                        db $00                               ;038616|      ;
@@ -1304,8 +1315,10 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $0C                               ;038651|001484;
                        db $84                               ;038652|000014;
                        db $14                               ;038653|000000;
+         DATA8_038654:
                        db $00                               ;038654|      ;
                        db $00                               ;038655|      ;
+         DATA8_038656:
                        db $00                               ;038656|      ;
                        db $00                               ;038657|      ;
                        db $00                               ;038658|      ;
@@ -1370,6 +1383,7 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $14                               ;038693|000020;
                        db $20                               ;038694|03000C;
                        db $0C                               ;038695|000000;
+         DATA8_038696:
                        db $00                               ;038696|      ;
                        db $00                               ;038697|      ;
                        db $00                               ;038698|      ;
@@ -1434,6 +1448,7 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $1C                               ;0386D3|001063;
                        db $63                               ;0386D4|000010;
                        db $10                               ;0386D5|0386D7;
+         DATA8_0386D6:
                        db $00                               ;0386D6|      ;
                        db $00                               ;0386D7|      ;
                        db $00                               ;0386D8|      ;
@@ -1498,6 +1513,7 @@ Tbl_Compressed_Gfx_Banks_4:
                        db $1C                               ;038713|001063;
                        db $63                               ;038714|000010;
                        db $10                               ;038715|038717;
+         DATA8_038716:
                        db $00                               ;038716|      ;
                        db $00                               ;038717|      ;
                        db $00                               ;038718|      ;
@@ -1949,35 +1965,35 @@ Dungeon_Load_FieldOfView:
                        PLX                                  ;0389D4|      ;
                        LDY.W #$E000                         ;0389D5|      ;
                        JSL.L Decompression_far              ;0389D8|008762;
-                       LDA.W CODE_00A69C                    ;0389DC|00A69C;
+                       LDA.W $A69C                          ;0389DC|7EA69C;
                        BNE CODE_0389ED                      ;0389DF|0389ED;
                        LDA.W #$0000                         ;0389E1|      ;
                        LDX.W #$0264                         ;0389E4|      ;
                        LDY.W #$0044                         ;0389E7|      ;
                        JSR.W Some_RAM_xfer                  ;0389EA|0399FE;
           CODE_0389ED:
-                       LDA.W LOOSE_OP_00A698                ;0389ED|00A698;
+                       LDA.W $A698                          ;0389ED|7EA698;
                        AND.W #$00F0                         ;0389F0|      ;
                        CMP.W #$0060                         ;0389F3|      ;
                        BNE CODE_038A20                      ;0389F6|038A20;
                        LDX.W #$00DE                         ;0389F8|      ;
           CODE_0389FB:
-                       STZ.W CODE_00CCF0,X                  ;0389FB|00CCF0; Zero out a bunch of RAM
-                       STZ.W LOOSE_OP_00CE00,X              ;0389FE|00CE00;
-                       STZ.W PTR24_00CF10,X                 ;038A01|00CF10;
-                       STZ.W CODE_00D020,X                  ;038A04|00D020;
-                       STZ.W CODE_00D130,X                  ;038A07|00D130;
-                       STZ.W PTR24_00D240,X                 ;038A0A|00D240;
-                       STZ.W CODE_00D350,X                  ;038A0D|00D350;
-                       STZ.W LOOSE_OP_00D460,X              ;038A10|00D460;
-                       STZ.W UNREACH_00D570,X               ;038A13|00D570;
+                       STZ.W $CCF0,X                        ;0389FB|7ECCF0; Zero out a bunch of RAM
+                       STZ.W $CE00,X                        ;0389FE|7ECE00;
+                       STZ.W $CF10,X                        ;038A01|7ECF10;
+                       STZ.W $D020,X                        ;038A04|7ED020;
+                       STZ.W $D130,X                        ;038A07|7ED130;
+                       STZ.W $D240,X                        ;038A0A|7ED240;
+                       STZ.W $D350,X                        ;038A0D|7ED350;
+                       STZ.W $D460,X                        ;038A10|7ED460;
+                       STZ.W $D570,X                        ;038A13|7ED570;
                        DEX                                  ;038A16|      ;
                        DEX                                  ;038A17|      ;
                        BPL CODE_0389FB                      ;038A18|0389FB;
                        INC.W $16EF                          ;038A1A|0016EF;
                        JMP.W CODE_038BD9                    ;038A1D|038BD9;
           CODE_038A20:
-                       LDA.W LOOSE_OP_00A698                ;038A20|00A698;
+                       LDA.W $A698                          ;038A20|7EA698;
                        JSR.W CODE_03A36D                    ;038A23|03A36D;
                        DEY                                  ;038A26|      ;
                        BNE CODE_038A38                      ;038A27|038A38;
@@ -2003,9 +2019,9 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038A56|0399FE;
                        JMP.W CODE_038BD9                    ;038A59|038BD9;
           CODE_038A5C:
-                       LDA.W CODE_00A69C                    ;038A5C|00A69C;
+                       LDA.W $A69C                          ;038A5C|7EA69C;
                        BEQ CODE_038AC1                      ;038A5F|038AC1;
-                       LDA.W LOOSE_OP_00A696                ;038A61|00A696;
+                       LDA.W $A696                          ;038A61|7EA696;
                        JSR.W CODE_03A36D                    ;038A64|03A36D;
                        DEY                                  ;038A67|      ;
                        BNE CODE_038A85                      ;038A68|038A85;
@@ -2044,11 +2060,11 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_038BD9                    ;038ABE|038BD9;
           CODE_038AC1:
                        LDA.W #$0000                         ;038AC1|      ;
-                       LDX.W LOOSE_OP_00A696                ;038AC4|00A696;
+                       LDX.W $A696                          ;038AC4|7EA696;
                        BNE CODE_038ACC                      ;038AC7|038ACC;
                        ORA.W #$0004                         ;038AC9|      ;
           CODE_038ACC:
-                       LDX.W LOOSE_OP_00A698                ;038ACC|00A698;
+                       LDX.W $A698                          ;038ACC|7EA698;
                        BNE CODE_038AD4                      ;038ACF|038AD4;
                        ORA.W #$0002                         ;038AD1|      ;
           CODE_038AD4:
@@ -2066,21 +2082,21 @@ Dungeon_Load_FieldOfView:
                        AND.W #$0002                         ;038AEB|      ;
                        BNE CODE_038B23                      ;038AEE|038B23;
           CODE_038AF0:
-                       LDA.W CODE_00A690                    ;038AF0|00A690;
+                       LDA.W $A690                          ;038AF0|7EA690;
                        AND.W #$00F0                         ;038AF3|      ;
                        CMP.W #$0060                         ;038AF6|      ;
                        BNE CODE_038B23                      ;038AF9|038B23;
                        LDX.W #$007E                         ;038AFB|      ;
           CODE_038AFE:
-                       STZ.W LOOSE_OP_00CD20,X              ;038AFE|00CD20;
-                       STZ.W CODE_00CE30,X                  ;038B01|00CE30;
-                       STZ.W DATA8_00CF40,X                 ;038B04|00CF40;
-                       STZ.W Zero_117x_vals,X               ;038B07|00D050;
-                       STZ.W CODE_00D160,X                  ;038B0A|00D160;
-                       STZ.W PTR24_00D270,X                 ;038B0D|00D270;
-                       STZ.W PTR24_00D380,X                 ;038B10|00D380;
-                       STZ.W DATA8_00D490,X                 ;038B13|00D490;
-                       STZ.W UNREACH_00D5A0,X               ;038B16|00D5A0;
+                       STZ.W $CD20,X                        ;038AFE|7ECD20;
+                       STZ.W $CE30,X                        ;038B01|7ECE30;
+                       STZ.W $CF40,X                        ;038B04|7ECF40;
+                       STZ.W $D050,X                        ;038B07|7ED050;
+                       STZ.W $D160,X                        ;038B0A|7ED160;
+                       STZ.W $D270,X                        ;038B0D|7ED270;
+                       STZ.W $D380,X                        ;038B10|7ED380;
+                       STZ.W $D490,X                        ;038B13|7ED490;
+                       STZ.W $D5A0,X                        ;038B16|7ED5A0;
                        DEX                                  ;038B19|      ;
                        DEX                                  ;038B1A|      ;
                        BPL CODE_038AFE                      ;038B1B|038AFE;
@@ -2088,15 +2104,15 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_038BD9                    ;038B20|038BD9;
           CODE_038B23:
                        LDA.W #$0000                         ;038B23|      ;
-                       LDX.W Set_Text_Parser                ;038B26|00A68C;
+                       LDX.W $A68C                          ;038B26|7EA68C;
                        BNE CODE_038B2E                      ;038B29|038B2E;
                        ORA.W #$0008                         ;038B2B|      ;
           CODE_038B2E:
-                       LDX.W CODE_00A68E                    ;038B2E|00A68E;
+                       LDX.W $A68E                          ;038B2E|7EA68E;
                        BNE CODE_038B36                      ;038B31|038B36;
                        ORA.W #$0004                         ;038B33|      ;
           CODE_038B36:
-                       LDX.W CODE_00A690                    ;038B36|00A690;
+                       LDX.W $A690                          ;038B36|7EA690;
                        BNE CODE_038B3E                      ;038B39|038B3E;
                        ORA.W #$0002                         ;038B3B|      ;
           CODE_038B3E:
@@ -2119,11 +2135,11 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038B63|0399FE;
           CODE_038B66:
                        LDA.W #$0000                         ;038B66|      ;
-                       LDX.W CODE_00A682                    ;038B69|00A682;
+                       LDX.W $A682                          ;038B69|7EA682;
                        BNE CODE_038B71                      ;038B6C|038B71;
                        ORA.W #$0008                         ;038B6E|      ;
           CODE_038B71:
-                       LDX.W CODE_00A684                    ;038B71|00A684;
+                       LDX.W $A684                          ;038B71|7EA684;
                        BNE CODE_038B79                      ;038B74|038B79;
                        ORA.W #$0004                         ;038B76|      ;
           CODE_038B79:
@@ -2150,15 +2166,15 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038BA6|0399FE;
           CODE_038BA9:
                        LDA.W #$0000                         ;038BA9|      ;
-                       LDX.W LOOSE_OP_00A678                ;038BAC|00A678;
+                       LDX.W $A678                          ;038BAC|7EA678;
                        BNE CODE_038BB4                      ;038BAF|038BB4;
                        ORA.W #$0008                         ;038BB1|      ;
           CODE_038BB4:
-                       LDX.W CODE_00A67A                    ;038BB4|00A67A;
+                       LDX.W $A67A                          ;038BB4|7EA67A;
                        BNE CODE_038BBC                      ;038BB7|038BBC;
                        ORA.W #$0004                         ;038BB9|      ;
           CODE_038BBC:
-                       LDX.W LOOSE_OP_00A67C                ;038BBC|00A67C;
+                       LDX.W $A67C                          ;038BBC|7EA67C;
                        BNE CODE_038BC4                      ;038BBF|038BC4;
                        ORA.W #$0002                         ;038BC1|      ;
           CODE_038BC4:
@@ -2178,35 +2194,35 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038BE2|0399FE;
                        LDA.W #$99DA                         ;038BE5|      ;
                        JSL.L RAM_Decomp80                   ;038BE8|0084FE;
-                       LDA.W CODE_00A69E                    ;038BEC|00A69E;
+                       LDA.W $A69E                          ;038BEC|7EA69E;
                        BNE CODE_038BFD                      ;038BEF|038BFD;
                        LDA.W #$1320                         ;038BF1|      ;
                        LDX.W #$0264                         ;038BF4|      ;
                        LDY.W #$0044                         ;038BF7|      ;
                        JSR.W Some_RAM_xfer                  ;038BFA|0399FE;
           CODE_038BFD:
-                       LDA.W LOOSE_OP_00A698                ;038BFD|00A698;
+                       LDA.W $A698                          ;038BFD|7EA698;
                        AND.W #$00F0                         ;038C00|      ;
                        CMP.W #$0060                         ;038C03|      ;
                        BNE CODE_038C30                      ;038C06|038C30;
                        LDX.W #$00DE                         ;038C08|      ;
           CODE_038C0B:
-                       STZ.W UNREACH_00D680,X               ;038C0B|00D680;
-                       STZ.W UNREACH_00D790,X               ;038C0E|00D790;
-                       STZ.W UNREACH_00D8A0,X               ;038C11|00D8A0;
-                       STZ.W UNREACH_00D9B0,X               ;038C14|00D9B0;
-                       STZ.W UNREACH_00DAC0,X               ;038C17|00DAC0;
-                       STZ.W UNREACH_00DBD0,X               ;038C1A|00DBD0;
-                       STZ.W UNREACH_00DCE0,X               ;038C1D|00DCE0;
-                       STZ.W UNREACH_00DDF0,X               ;038C20|00DDF0;
-                       STZ.W UNREACH_00DF00,X               ;038C23|00DF00;
+                       STZ.W $D680,X                        ;038C0B|7ED680;
+                       STZ.W $D790,X                        ;038C0E|7ED790;
+                       STZ.W $D8A0,X                        ;038C11|7ED8A0;
+                       STZ.W $D9B0,X                        ;038C14|7ED9B0;
+                       STZ.W $DAC0,X                        ;038C17|7EDAC0;
+                       STZ.W $DBD0,X                        ;038C1A|7EDBD0;
+                       STZ.W $DCE0,X                        ;038C1D|7EDCE0;
+                       STZ.W $DDF0,X                        ;038C20|7EDDF0;
+                       STZ.W $DF00,X                        ;038C23|7EDF00;
                        DEX                                  ;038C26|      ;
                        DEX                                  ;038C27|      ;
                        BPL CODE_038C0B                      ;038C28|038C0B;
                        INC.W $16EF                          ;038C2A|0016EF;
                        JMP.W CODE_038DE9                    ;038C2D|038DE9;
           CODE_038C30:
-                       LDA.W LOOSE_OP_00A698                ;038C30|00A698;
+                       LDA.W $A698                          ;038C30|7EA698;
                        JSR.W CODE_03A36D                    ;038C33|03A36D;
                        DEY                                  ;038C36|      ;
                        BNE CODE_038C48                      ;038C37|038C48;
@@ -2232,9 +2248,9 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038C66|0399FE;
                        JMP.W CODE_038DE9                    ;038C69|038DE9;
           CODE_038C6C:
-                       LDA.W CODE_00A69E                    ;038C6C|00A69E;
+                       LDA.W $A69E                          ;038C6C|7EA69E;
                        BEQ CODE_038CD1                      ;038C6F|038CD1;
-                       LDA.W LOOSE_OP_00A69A                ;038C71|00A69A;
+                       LDA.W $A69A                          ;038C71|7EA69A;
                        JSR.W CODE_03A36D                    ;038C74|03A36D;
                        DEY                                  ;038C77|      ;
                        BNE CODE_038C95                      ;038C78|038C95;
@@ -2273,11 +2289,11 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_038DE9                    ;038CCE|038DE9;
           CODE_038CD1:
                        LDA.W #$0000                         ;038CD1|      ;
-                       LDX.W LOOSE_OP_00A69A                ;038CD4|00A69A;
+                       LDX.W $A69A                          ;038CD4|7EA69A;
                        BNE CODE_038CDC                      ;038CD7|038CDC;
                        ORA.W #$0004                         ;038CD9|      ;
           CODE_038CDC:
-                       LDX.W LOOSE_OP_00A698                ;038CDC|00A698;
+                       LDX.W $A698                          ;038CDC|7EA698;
                        BNE CODE_038CE4                      ;038CDF|038CE4;
                        ORA.W #$0002                         ;038CE1|      ;
           CODE_038CE4:
@@ -2296,21 +2312,21 @@ Dungeon_Load_FieldOfView:
                        AND.W #$0002                         ;038CFB|      ;
                        BNE CODE_038D33                      ;038CFE|038D33;
           CODE_038D00:
-                       LDA.W CODE_00A690                    ;038D00|00A690;
+                       LDA.W $A690                          ;038D00|7EA690;
                        AND.W #$00F0                         ;038D03|      ;
                        CMP.W #$0060                         ;038D06|      ;
                        BNE CODE_038D33                      ;038D09|038D33;
                        LDX.W #$007E                         ;038D0B|      ;
           CODE_038D0E:
-                       STZ.W UNREACH_00D6B0,X               ;038D0E|00D6B0;
-                       STZ.W UNREACH_00D7C0,X               ;038D11|00D7C0;
-                       STZ.W UNREACH_00D8D0,X               ;038D14|00D8D0;
-                       STZ.W UNREACH_00D9E0,X               ;038D17|00D9E0;
-                       STZ.W UNREACH_00DAF0,X               ;038D1A|00DAF0;
-                       STZ.W UNREACH_00DC00,X               ;038D1D|00DC00;
-                       STZ.W UNREACH_00DD10,X               ;038D20|00DD10;
-                       STZ.W UNREACH_00DE20,X               ;038D23|00DE20;
-                       STZ.W UNREACH_00DF30,X               ;038D26|00DF30;
+                       STZ.W $D6B0,X                        ;038D0E|7ED6B0;
+                       STZ.W $D7C0,X                        ;038D11|7ED7C0;
+                       STZ.W $D8D0,X                        ;038D14|7ED8D0;
+                       STZ.W $D9E0,X                        ;038D17|7ED9E0;
+                       STZ.W $DAF0,X                        ;038D1A|7EDAF0;
+                       STZ.W $DC00,X                        ;038D1D|7EDC00;
+                       STZ.W $DD10,X                        ;038D20|7EDD10;
+                       STZ.W $DE20,X                        ;038D23|7EDE20;
+                       STZ.W $DF30,X                        ;038D26|7EDF30;
                        DEX                                  ;038D29|      ;
                        DEX                                  ;038D2A|      ;
                        BPL CODE_038D0E                      ;038D2B|038D0E;
@@ -2318,15 +2334,15 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_038DE9                    ;038D30|038DE9;
           CODE_038D33:
                        LDA.W #$0000                         ;038D33|      ;
-                       LDX.W CODE_00A694                    ;038D36|00A694;
+                       LDX.W $A694                          ;038D36|7EA694;
                        BNE CODE_038D3E                      ;038D39|038D3E;
                        ORA.W #$0008                         ;038D3B|      ;
           CODE_038D3E:
-                       LDX.W LOOSE_OP_00A692                ;038D3E|00A692;
+                       LDX.W $A692                          ;038D3E|7EA692;
                        BNE CODE_038D46                      ;038D41|038D46;
                        ORA.W #$0004                         ;038D43|      ;
           CODE_038D46:
-                       LDX.W CODE_00A690                    ;038D46|00A690;
+                       LDX.W $A690                          ;038D46|7EA690;
                        BNE CODE_038D4E                      ;038D49|038D4E;
                        ORA.W #$0002                         ;038D4B|      ;
           CODE_038D4E:
@@ -2349,15 +2365,15 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038D73|0399FE;
           CODE_038D76:
                        LDA.W #$0000                         ;038D76|      ;
-                       LDX.W LOOSE_OP_00A68A                ;038D79|00A68A;
+                       LDX.W $A68A                          ;038D79|7EA68A;
                        BNE CODE_038D81                      ;038D7C|038D81;
                        ORA.W #$0008                         ;038D7E|      ;
           CODE_038D81:
-                       LDX.W Set_Text_Parser_long           ;038D81|00A688;
+                       LDX.W $A688                          ;038D81|7EA688;
                        BNE CODE_038D89                      ;038D84|038D89;
                        ORA.W #$0004                         ;038D86|      ;
           CODE_038D89:
-                       LDX.W LOOSE_OP_00A686                ;038D89|00A686;
+                       LDX.W $A686                          ;038D89|7EA686;
                        BNE CODE_038D91                      ;038D8C|038D91;
                        ORA.W #$0002                         ;038D8E|      ;
           CODE_038D91:
@@ -2380,15 +2396,15 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038DB6|0399FE;
           CODE_038DB9:
                        LDA.W #$0000                         ;038DB9|      ;
-                       LDX.W LOOSE_OP_00A680                ;038DBC|00A680;
+                       LDX.W $A680                          ;038DBC|7EA680;
                        BNE CODE_038DC4                      ;038DBF|038DC4;
                        ORA.W #$0008                         ;038DC1|      ;
           CODE_038DC4:
-                       LDX.W CODE_00A67E                    ;038DC4|00A67E;
+                       LDX.W $A67E                          ;038DC4|7EA67E;
                        BNE CODE_038DCC                      ;038DC7|038DCC;
                        ORA.W #$0004                         ;038DC9|      ;
           CODE_038DCC:
-                       LDX.W LOOSE_OP_00A67C                ;038DCC|00A67C;
+                       LDX.W $A67C                          ;038DCC|7EA67C;
                        BNE CODE_038DD4                      ;038DCF|038DD4;
                        ORA.W #$0002                         ;038DD1|      ;
           CODE_038DD4:
@@ -2668,28 +2684,28 @@ Dungeon_Load_FieldOfView:
                        PLX                                  ;038F2B|      ;
                        LDY.W #$E000                         ;038F2C|      ;
                        JSL.L Decompression_far              ;038F2F|008762;
-                       LDA.W CODE_00A69E                    ;038F33|00A69E;
+                       LDA.W $A69E                          ;038F33|7EA69E;
                        BNE CODE_038F44                      ;038F36|038F44;
                        LDA.W #$1320                         ;038F38|      ;
                        LDX.W #$0264                         ;038F3B|      ;
                        LDY.W #$0055                         ;038F3E|      ;
                        JSR.W Some_RAM_xfer                  ;038F41|0399FE;
           CODE_038F44:
-                       LDA.W LOOSE_OP_00A698                ;038F44|00A698;
+                       LDA.W $A698                          ;038F44|7EA698;
                        AND.W #$00F0                         ;038F47|      ;
                        CMP.W #$0060                         ;038F4A|      ;
                        BNE CODE_038F77                      ;038F4D|038F77;
                        LDX.W #$00AE                         ;038F4F|      ;
           CODE_038F52:
-                       STZ.W UNREACH_00D698,X               ;038F52|00D698;
-                       STZ.W UNREACH_00D7A8,X               ;038F55|00D7A8;
-                       STZ.W UNREACH_00D8B8,X               ;038F58|00D8B8;
-                       STZ.W UNREACH_00D9C8,X               ;038F5B|00D9C8;
-                       STZ.W UNREACH_00DAD8,X               ;038F5E|00DAD8;
-                       STZ.W UNREACH_00DBE8,X               ;038F61|00DBE8;
-                       STZ.W UNREACH_00DCF8,X               ;038F64|00DCF8;
-                       STZ.W UNREACH_00DE08,X               ;038F67|00DE08;
-                       STZ.W UNREACH_00DF18,X               ;038F6A|00DF18;
+                       STZ.W $D698,X                        ;038F52|7ED698;
+                       STZ.W $D7A8,X                        ;038F55|7ED7A8;
+                       STZ.W $D8B8,X                        ;038F58|7ED8B8;
+                       STZ.W $D9C8,X                        ;038F5B|7ED9C8;
+                       STZ.W $DAD8,X                        ;038F5E|7EDAD8;
+                       STZ.W $DBE8,X                        ;038F61|7EDBE8;
+                       STZ.W $DCF8,X                        ;038F64|7EDCF8;
+                       STZ.W $DE08,X                        ;038F67|7EDE08;
+                       STZ.W $DF18,X                        ;038F6A|7EDF18;
                        DEX                                  ;038F6D|      ;
                        DEX                                  ;038F6E|      ;
                        BPL CODE_038F52                      ;038F6F|038F52;
@@ -2697,11 +2713,11 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_039042                    ;038F74|039042;
           CODE_038F77:
                        LDA.W #$0000                         ;038F77|      ;
-                       LDX.W LOOSE_OP_00A69A                ;038F7A|00A69A;
+                       LDX.W $A69A                          ;038F7A|7EA69A;
                        BNE CODE_038F82                      ;038F7D|038F82;
                        ORA.W #$0004                         ;038F7F|      ;
           CODE_038F82:
-                       LDX.W LOOSE_OP_00A698                ;038F82|00A698;
+                       LDX.W $A698                          ;038F82|7EA698;
                        BNE CODE_038F8A                      ;038F85|038F8A;
                        ORA.W #$0002                         ;038F87|      ;
           CODE_038F8A:
@@ -2709,31 +2725,31 @@ Dungeon_Load_FieldOfView:
                        BEQ CODE_038F9F                      ;038F8B|038F9F;
                        LDA.L LOOSE_OP_039194,X              ;038F8D|039194;
                        TAY                                  ;038F91|      ;
-                       LDA.L UNREACH_03919A,X               ;038F92|03919A;
+                       LDA.L DATA8_03919A,X                 ;038F92|03919A;
                        PHA                                  ;038F96|      ;
-                       LDA.L UNREACH_0391A6,X               ;038F97|0391A6;
+                       LDA.L DATA8_0391A6,X                 ;038F97|0391A6;
                        PLX                                  ;038F9B|      ;
                        JSR.W Some_RAM_xfer                  ;038F9C|0399FE;
           CODE_038F9F:
                        LDA.W #$0000                         ;038F9F|      ;
-                       LDX.W CODE_00A694                    ;038FA2|00A694;
+                       LDX.W $A694                          ;038FA2|7EA694;
                        BNE CODE_038FAA                      ;038FA5|038FAA;
                        ORA.W #$0008                         ;038FA7|      ;
           CODE_038FAA:
-                       LDX.W LOOSE_OP_00A692                ;038FAA|00A692;
+                       LDX.W $A692                          ;038FAA|7EA692;
                        BNE CODE_038FB2                      ;038FAD|038FB2;
                        ORA.W #$0004                         ;038FAF|      ;
           CODE_038FB2:
-                       LDX.W CODE_00A690                    ;038FB2|00A690;
+                       LDX.W $A690                          ;038FB2|7EA690;
                        BNE CODE_038FBA                      ;038FB5|038FBA;
                        ORA.W #$0002                         ;038FB7|      ;
           CODE_038FBA:
                        TAX                                  ;038FBA|      ;
                        BEQ CODE_038FE2                      ;038FBB|038FE2;
                        PHX                                  ;038FBD|      ;
-                       LDA.L UNREACH_0391AC,X               ;038FBE|0391AC;
+                       LDA.L DATA8_0391AC,X                 ;038FBE|0391AC;
                        TAY                                  ;038FC2|      ;
-                       LDA.L UNREACH_0391BA,X               ;038FC3|0391BA;
+                       LDA.L DATA8_0391BA,X                 ;038FC3|0391BA;
                        PHA                                  ;038FC7|      ;
                        LDA.L UNREACH_0391D6,X               ;038FC8|0391D6;
                        PLX                                  ;038FCC|      ;
@@ -2747,48 +2763,48 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;038FDF|0399FE;
           CODE_038FE2:
                        LDA.W #$0000                         ;038FE2|      ;
-                       LDX.W LOOSE_OP_00A68A                ;038FE5|00A68A;
+                       LDX.W $A68A                          ;038FE5|7EA68A;
                        BNE CODE_038FED                      ;038FE8|038FED;
                        ORA.W #$0008                         ;038FEA|      ;
           CODE_038FED:
-                       LDX.W Set_Text_Parser_long           ;038FED|00A688;
+                       LDX.W $A688                          ;038FED|7EA688;
                        BNE CODE_038FF5                      ;038FF0|038FF5;
                        ORA.W #$0004                         ;038FF2|      ;
           CODE_038FF5:
-                       LDX.W LOOSE_OP_00A686                ;038FF5|00A686;
+                       LDX.W $A686                          ;038FF5|7EA686;
                        BNE CODE_038FFD                      ;038FF8|038FFD;
                        ORA.W #$0002                         ;038FFA|      ;
           CODE_038FFD:
                        TAX                                  ;038FFD|      ;
                        BEQ CODE_039012                      ;038FFE|039012;
-                       LDA.L UNREACH_0391E4,X               ;039000|0391E4;
+                       LDA.L DATA8_0391E4,X                 ;039000|0391E4;
                        TAY                                  ;039004|      ;
-                       LDA.L UNREACH_0391F2,X               ;039005|0391F2;
+                       LDA.L DATA8_0391F2,X                 ;039005|0391F2;
                        PHA                                  ;039009|      ;
-                       LDA.L UNREACH_03920E,X               ;03900A|03920E;
+                       LDA.L DATA8_03920E,X                 ;03900A|03920E;
                        PLX                                  ;03900E|      ;
                        JSR.W Some_RAM_xfer                  ;03900F|0399FE;
           CODE_039012:
                        LDA.W #$0000                         ;039012|      ;
-                       LDX.W LOOSE_OP_00A680                ;039015|00A680;
+                       LDX.W $A680                          ;039015|7EA680;
                        BNE CODE_03901D                      ;039018|03901D;
                        ORA.W #$0008                         ;03901A|      ;
           CODE_03901D:
-                       LDX.W CODE_00A67E                    ;03901D|00A67E;
+                       LDX.W $A67E                          ;03901D|7EA67E;
                        BNE CODE_039025                      ;039020|039025;
                        ORA.W #$0004                         ;039022|      ;
           CODE_039025:
-                       LDX.W LOOSE_OP_00A67C                ;039025|00A67C;
+                       LDX.W $A67C                          ;039025|7EA67C;
                        BNE CODE_03902D                      ;039028|03902D;
                        ORA.W #$0002                         ;03902A|      ;
           CODE_03902D:
                        TAX                                  ;03902D|      ;
                        BEQ CODE_039042                      ;03902E|039042;
-                       LDA.L UNREACH_03921C,X               ;039030|03921C;
+                       LDA.L DATA8_03921C,X                 ;039030|03921C;
                        TAY                                  ;039034|      ;
-                       LDA.L UNREACH_03922A,X               ;039035|03922A;
+                       LDA.L DATA8_03922A,X                 ;039035|03922A;
                        PHA                                  ;039039|      ;
-                       LDA.L UNREACH_039246,X               ;03903A|039246;
+                       LDA.L DATA8_039246,X                 ;03903A|039246;
                        PLX                                  ;03903E|      ;
                        JSR.W Some_RAM_xfer                  ;03903F|0399FE;
           CODE_039042:
@@ -2798,28 +2814,28 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;03904B|0399FE;
                        LDA.W #$99F5                         ;03904E|      ;
                        JSL.L RAM_Decomp80                   ;039051|0084FE;
-                       LDA.W CODE_00A69C                    ;039055|00A69C;
+                       LDA.W $A69C                          ;039055|7EA69C;
                        BNE CODE_039066                      ;039058|039066;
                        LDA.W #$0000                         ;03905A|      ;
                        LDX.W #$0264                         ;03905D|      ;
                        LDY.W #$0055                         ;039060|      ;
                        JSR.W Some_RAM_xfer                  ;039063|0399FE;
           CODE_039066:
-                       LDA.W LOOSE_OP_00A698                ;039066|00A698;
+                       LDA.W $A698                          ;039066|7EA698;
                        AND.W #$00F0                         ;039069|      ;
                        CMP.W #$0060                         ;03906C|      ;
                        BNE CODE_039099                      ;03906F|039099;
                        LDX.W #$00AE                         ;039071|      ;
           CODE_039074:
-                       STZ.W CODE_00CD08,X                  ;039074|00CD08;
-                       STZ.W CODE_00CE18,X                  ;039077|00CE18;
-                       STZ.W DATA8_00CF28,X                 ;03907A|00CF28;
-                       STZ.W CODE_00D038,X                  ;03907D|00D038;
-                       STZ.W CODE_00D148,X                  ;039080|00D148;
-                       STZ.W PTR24_00D258,X                 ;039083|00D258;
-                       STZ.W LOOSE_OP_00D368,X              ;039086|00D368;
-                       STZ.W LOOSE_OP_00D478,X              ;039089|00D478;
-                       STZ.W UNREACH_00D588,X               ;03908C|00D588;
+                       STZ.W $CD08,X                        ;039074|7ECD08;
+                       STZ.W $CE18,X                        ;039077|7ECE18;
+                       STZ.W $CF28,X                        ;03907A|7ECF28;
+                       STZ.W $D038,X                        ;03907D|7ED038;
+                       STZ.W $D148,X                        ;039080|7ED148;
+                       STZ.W $D258,X                        ;039083|7ED258;
+                       STZ.W $D368,X                        ;039086|7ED368;
+                       STZ.W $D478,X                        ;039089|7ED478;
+                       STZ.W $D588,X                        ;03908C|7ED588;
                        DEX                                  ;03908F|      ;
                        DEX                                  ;039090|      ;
                        BPL CODE_039074                      ;039091|039074;
@@ -2827,11 +2843,11 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_039164                    ;039096|039164;
           CODE_039099:
                        LDA.W #$0000                         ;039099|      ;
-                       LDX.W LOOSE_OP_00A696                ;03909C|00A696;
+                       LDX.W $A696                          ;03909C|7EA696;
                        BNE CODE_0390A4                      ;03909F|0390A4;
                        ORA.W #$0004                         ;0390A1|      ;
           CODE_0390A4:
-                       LDX.W LOOSE_OP_00A698                ;0390A4|00A698;
+                       LDX.W $A698                          ;0390A4|7EA698;
                        BNE CODE_0390AC                      ;0390A7|0390AC;
                        ORA.W #$0002                         ;0390A9|      ;
           CODE_0390AC:
@@ -2839,33 +2855,33 @@ Dungeon_Load_FieldOfView:
                        BEQ CODE_0390C1                      ;0390AD|0390C1;
                        LDA.L LOOSE_OP_039194,X              ;0390AF|039194;
                        TAY                                  ;0390B3|      ;
-                       LDA.L UNREACH_03919A,X               ;0390B4|03919A;
+                       LDA.L DATA8_03919A,X                 ;0390B4|03919A;
                        PHA                                  ;0390B8|      ;
-                       LDA.L UNREACH_0391A0,X               ;0390B9|0391A0;
+                       LDA.L DATA8_0391A0,X                 ;0390B9|0391A0;
                        PLX                                  ;0390BD|      ;
                        JSR.W Some_RAM_xfer                  ;0390BE|0399FE;
           CODE_0390C1:
                        LDA.W #$0000                         ;0390C1|      ;
-                       LDX.W Set_Text_Parser                ;0390C4|00A68C;
+                       LDX.W $A68C                          ;0390C4|7EA68C;
                        BNE CODE_0390CC                      ;0390C7|0390CC;
                        ORA.W #$0008                         ;0390C9|      ;
           CODE_0390CC:
-                       LDX.W CODE_00A68E                    ;0390CC|00A68E;
+                       LDX.W $A68E                          ;0390CC|7EA68E;
                        BNE CODE_0390D4                      ;0390CF|0390D4;
                        ORA.W #$0004                         ;0390D1|      ;
           CODE_0390D4:
-                       LDX.W CODE_00A690                    ;0390D4|00A690;
+                       LDX.W $A690                          ;0390D4|7EA690;
                        BNE CODE_0390DC                      ;0390D7|0390DC;
                        ORA.W #$0002                         ;0390D9|      ;
           CODE_0390DC:
                        TAX                                  ;0390DC|      ;
                        BEQ CODE_039104                      ;0390DD|039104;
                        PHX                                  ;0390DF|      ;
-                       LDA.L UNREACH_0391AC,X               ;0390E0|0391AC;
+                       LDA.L DATA8_0391AC,X                 ;0390E0|0391AC;
                        TAY                                  ;0390E4|      ;
-                       LDA.L UNREACH_0391BA,X               ;0390E5|0391BA;
+                       LDA.L DATA8_0391BA,X                 ;0390E5|0391BA;
                        PHA                                  ;0390E9|      ;
-                       LDA.L UNREACH_0391C8,X               ;0390EA|0391C8;
+                       LDA.L DATA8_0391C8,X                 ;0390EA|0391C8;
                        PLX                                  ;0390EE|      ;
                        JSR.W Some_RAM_xfer                  ;0390EF|0399FE;
                        PLX                                  ;0390F2|      ;
@@ -2877,48 +2893,48 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;039101|0399FE;
           CODE_039104:
                        LDA.W #$0000                         ;039104|      ;
-                       LDX.W CODE_00A682                    ;039107|00A682;
+                       LDX.W $A682                          ;039107|7EA682;
                        BNE CODE_03910F                      ;03910A|03910F;
                        ORA.W #$0008                         ;03910C|      ;
           CODE_03910F:
-                       LDX.W CODE_00A684                    ;03910F|00A684;
+                       LDX.W $A684                          ;03910F|7EA684;
                        BNE CODE_039117                      ;039112|039117;
                        ORA.W #$0004                         ;039114|      ;
           CODE_039117:
-                       LDX.W LOOSE_OP_00A686                ;039117|00A686;
+                       LDX.W $A686                          ;039117|7EA686;
                        BNE CODE_03911F                      ;03911A|03911F;
                        ORA.W #$0002                         ;03911C|      ;
           CODE_03911F:
                        TAX                                  ;03911F|      ;
                        BEQ CODE_039134                      ;039120|039134;
-                       LDA.L UNREACH_0391E4,X               ;039122|0391E4;
+                       LDA.L DATA8_0391E4,X                 ;039122|0391E4;
                        TAY                                  ;039126|      ;
-                       LDA.L UNREACH_0391F2,X               ;039127|0391F2;
+                       LDA.L DATA8_0391F2,X                 ;039127|0391F2;
                        PHA                                  ;03912B|      ;
-                       LDA.L UNREACH_039200,X               ;03912C|039200;
+                       LDA.L DATA8_039200,X                 ;03912C|039200;
                        PLX                                  ;039130|      ;
                        JSR.W Some_RAM_xfer                  ;039131|0399FE;
           CODE_039134:
                        LDA.W #$0000                         ;039134|      ;
-                       LDX.W LOOSE_OP_00A678                ;039137|00A678;
+                       LDX.W $A678                          ;039137|7EA678;
                        BNE CODE_03913F                      ;03913A|03913F;
                        ORA.W #$0008                         ;03913C|      ;
           CODE_03913F:
-                       LDX.W CODE_00A67A                    ;03913F|00A67A;
+                       LDX.W $A67A                          ;03913F|7EA67A;
                        BNE CODE_039147                      ;039142|039147;
                        ORA.W #$0004                         ;039144|      ;
           CODE_039147:
-                       LDX.W LOOSE_OP_00A67C                ;039147|00A67C;
+                       LDX.W $A67C                          ;039147|7EA67C;
                        BNE CODE_03914F                      ;03914A|03914F;
                        ORA.W #$0002                         ;03914C|      ;
           CODE_03914F:
                        TAX                                  ;03914F|      ;
                        BEQ CODE_039164                      ;039150|039164;
-                       LDA.L UNREACH_03921C,X               ;039152|03921C;
+                       LDA.L DATA8_03921C,X                 ;039152|03921C;
                        TAY                                  ;039156|      ;
-                       LDA.L UNREACH_03922A,X               ;039157|03922A;
+                       LDA.L DATA8_03922A,X                 ;039157|03922A;
                        PHA                                  ;03915B|      ;
-                       LDA.L UNREACH_039238,X               ;03915C|039238;
+                       LDA.L DATA8_039238,X                 ;03915C|039238;
                        PLX                                  ;039160|      ;
                        JSR.W Some_RAM_xfer                  ;039161|0399FE;
           CODE_039164:
@@ -2946,29 +2962,29 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;039197|      ;
                        db $77                               ;039198|000000;
                        db $00                               ;039199|      ;
-       UNREACH_03919A:
-                       db $99                               ;03919A|000E00;
+         DATA8_03919A:
+                       db $99                               ;03919A|      ;
                        db $00                               ;03919B|      ;
                        db $0E                               ;03919C|00FC03;
                        db $03                               ;03919D|0000FC;
                        db $FC                               ;03919E|03EA03;
                        db $03                               ;03919F|0000EA;
-       UNREACH_0391A0:
+         DATA8_0391A0:
                        db $EA                               ;0391A0|      ;
                        db $04                               ;0391A1|000040;
                        db $40                               ;0391A2|      ;
                        db $04                               ;0391A3|000000;
                        db $00                               ;0391A4|      ;
                        db $00                               ;0391A5|      ;
-       UNREACH_0391A6:
+         DATA8_0391A6:
                        db $00                               ;0391A6|      ;
                        db $00                               ;0391A7|      ;
                        db $60                               ;0391A8|      ;
                        db $17                               ;0391A9|000020;
                        db $20                               ;0391AA|032013;
                        db $13                               ;0391AB|000020;
-       UNREACH_0391AC:
-                       db $20                               ;0391AC|034413;
+         DATA8_0391AC:
+                       db $20                               ;0391AC|      ;
                        db $13                               ;0391AD|000044;
                        db $44                               ;0391AE|      ;
                        db $00                               ;0391AF|      ;
@@ -2982,8 +2998,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;0391B7|      ;
                        db $88                               ;0391B8|      ;
                        db $00                               ;0391B9|      ;
-       UNREACH_0391BA:
-                       db $99                               ;0391BA|001C00;
+         DATA8_0391BA:
+                       db $99                               ;0391BA|      ;
                        db $00                               ;0391BB|      ;
                        db $1C                               ;0391BC|00A406;
                        db $06                               ;0391BD|0000A4;
@@ -2997,8 +3013,8 @@ Dungeon_Load_FieldOfView:
                        db $08                               ;0391C5|      ;
                        db $A4                               ;0391C6|000006;
                        db $06                               ;0391C7|0000B4;
-       UNREACH_0391C8:
-                       db $B4                               ;0391C8|000007;
+         DATA8_0391C8:
+                       db $B4                               ;0391C8|      ;
                        db $07                               ;0391C9|0000A0;
                        db $A0                               ;0391CA|      ;
                        db $0A                               ;0391CB|      ;
@@ -3027,8 +3043,8 @@ Dungeon_Load_FieldOfView:
                        db $13                               ;0391E1|000020;
                        db $20                               ;0391E2|032013;
                        db $13                               ;0391E3|000020;
-       UNREACH_0391E4:
-                       db $20                               ;0391E4|032213;
+         DATA8_0391E4:
+                       db $20                               ;0391E4|      ;
                        db $13                               ;0391E5|000022;
                        db $22                               ;0391E6|005500;
                        db $00                               ;0391E7|      ;
@@ -3042,8 +3058,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;0391EF|      ;
                        db $99                               ;0391F0|009900;
                        db $00                               ;0391F1|      ;
-       UNREACH_0391F2:
-                       db $99                               ;0391F2|009000;
+         DATA8_0391F2:
+                       db $99                               ;0391F2|      ;
                        db $00                               ;0391F3|      ;
                        db $90                               ;0391F4|0391FF;
                        db $09                               ;0391F5|      ;
@@ -3057,8 +3073,8 @@ Dungeon_Load_FieldOfView:
                        db $0C                               ;0391FD|000D6A;
                        db $6A                               ;0391FE|      ;
                        db $0D                               ;0391FF|000E9C;
-       UNREACH_039200:
-                       db $9C                               ;039200|00E00E;
+         DATA8_039200:
+                       db $9C                               ;039200|      ;
                        db $0E                               ;039201|000EE0;
                        db $E0                               ;039202|      ;
                        db $0E                               ;039203|000880;
@@ -3072,7 +3088,7 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03920B|      ;
                        db $00                               ;03920C|      ;
                        db $00                               ;03920D|      ;
-       UNREACH_03920E:
+         DATA8_03920E:
                        db $00                               ;03920E|      ;
                        db $00                               ;03920F|      ;
                        db $00                               ;039210|      ;
@@ -3087,8 +3103,8 @@ Dungeon_Load_FieldOfView:
                        db $13                               ;039219|000020;
                        db $20                               ;03921A|032013;
                        db $13                               ;03921B|000020;
-       UNREACH_03921C:
-                       db $20                               ;03921C|031113;
+         DATA8_03921C:
+                       db $20                               ;03921C|      ;
                        db $13                               ;03921D|000011;
                        db $11                               ;03921E|000000;
                        db $00                               ;03921F|      ;
@@ -3102,8 +3118,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;039227|      ;
                        db $99                               ;039228|009900;
                        db $00                               ;039229|      ;
-       UNREACH_03922A:
-                       db $99                               ;03922A|00CE00;
+         DATA8_03922A:
+                       db $99                               ;03922A|      ;
                        db $00                               ;03922B|      ;
                        db $CE                               ;03922C|00F00F;
                        db $0F                               ;03922D|340FF0;
@@ -3117,8 +3133,8 @@ Dungeon_Load_FieldOfView:
                        db $11                               ;039235|0000DC;
                        db $DC                               ;039236|000E12;
                        db $12                               ;039237|00000E;
-       UNREACH_039238:
-                       db $0E                               ;039238|000014;
+         DATA8_039238:
+                       db $0E                               ;039238|      ;
                        db $14                               ;039239|000000;
                        db $00                               ;03923A|      ;
                        db $11                               ;03923B|0000E0;
@@ -3132,7 +3148,7 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;039243|      ;
                        db $00                               ;039244|      ;
                        db $00                               ;039245|      ;
-       UNREACH_039246:
+         DATA8_039246:
                        db $00                               ;039246|      ;
                        db $00                               ;039247|      ;
                        db $20                               ;039248|030024;
@@ -3214,7 +3230,7 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;0392E4|0399FE;
                        JMP.W CODE_039479                    ;0392E7|039479;
           CODE_0392EA:
-                       LDA.W LOOSE_OP_00A68A                ;0392EA|00A68A;
+                       LDA.W $A68A                          ;0392EA|7EA68A;
                        AND.W #$00F0                         ;0392ED|      ;
                        CMP.W #$0060                         ;0392F0|      ;
                        BNE CODE_039329                      ;0392F3|039329;
@@ -3224,15 +3240,15 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;0392FE|0399FE;
                        LDX.W #$0096                         ;039301|      ;
           CODE_039304:
-                       STZ.W UNREACH_00D6A4,X               ;039304|00D6A4;
-                       STZ.W UNREACH_00D7B4,X               ;039307|00D7B4;
-                       STZ.W UNREACH_00D8C4,X               ;03930A|00D8C4;
-                       STZ.W UNREACH_00D9D4,X               ;03930D|00D9D4;
-                       STZ.W UNREACH_00DAE4,X               ;039310|00DAE4;
-                       STZ.W UNREACH_00DBF4,X               ;039313|00DBF4;
-                       STZ.W UNREACH_00DD04,X               ;039316|00DD04;
-                       STZ.W UNREACH_00DE14,X               ;039319|00DE14;
-                       STZ.W UNREACH_00DF24,X               ;03931C|00DF24;
+                       STZ.W $D6A4,X                        ;039304|7ED6A4;
+                       STZ.W $D7B4,X                        ;039307|7ED7B4;
+                       STZ.W $D8C4,X                        ;03930A|7ED8C4;
+                       STZ.W $D9D4,X                        ;03930D|7ED9D4;
+                       STZ.W $DAE4,X                        ;039310|7EDAE4;
+                       STZ.W $DBF4,X                        ;039313|7EDBF4;
+                       STZ.W $DD04,X                        ;039316|7EDD04;
+                       STZ.W $DE14,X                        ;039319|7EDE14;
+                       STZ.W $DF24,X                        ;03931C|7EDF24;
                        DEX                                  ;03931F|      ;
                        DEX                                  ;039320|      ;
                        BPL CODE_039304                      ;039321|039304;
@@ -3240,40 +3256,40 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_039479                    ;039326|039479;
           CODE_039329:
                        LDA.W #$0000                         ;039329|      ;
-                       LDX.W CODE_00A682                    ;03932C|00A682;
+                       LDX.W $A682                          ;03932C|7EA682;
                        BNE CODE_039334                      ;03932F|039334;
                        ORA.W #$0004                         ;039331|      ;
           CODE_039334:
-                       LDX.W LOOSE_OP_00A68A                ;039334|00A68A;
+                       LDX.W $A68A                          ;039334|7EA68A;
                        BNE CODE_03933C                      ;039337|03933C;
                        ORA.W #$0002                         ;039339|      ;
           CODE_03933C:
                        TAX                                  ;03933C|      ;
                        BEQ CODE_03938C                      ;03933D|03938C;
                        PHX                                  ;03933F|      ;
-                       LDA.L UNREACH_039699,X               ;039340|039699;
+                       LDA.L DATA8_039699,X                 ;039340|039699;
                        TAY                                  ;039344|      ;
-                       LDA.L UNREACH_03969F,X               ;039345|03969F;
+                       LDA.L DATA8_03969F,X                 ;039345|03969F;
                        PHA                                  ;039349|      ;
-                       LDA.L UNREACH_0396A5,X               ;03934A|0396A5;
+                       LDA.L DATA8_0396A5,X                 ;03934A|0396A5;
                        PLX                                  ;03934E|      ;
                        JSR.W Some_RAM_xfer                  ;03934F|0399FE;
                        PLX                                  ;039352|      ;
-                       LDA.W CODE_00A682                    ;039353|00A682;
+                       LDA.W $A682                          ;039353|7EA682;
                        AND.W #$00F0                         ;039356|      ;
                        CMP.W #$0060                         ;039359|      ;
                        BNE CODE_039386                      ;03935C|039386;
                        LDX.W #$0096                         ;03935E|      ;
           CODE_039361:
-                       STZ.W UNREACH_00D6A4,X               ;039361|00D6A4;
-                       STZ.W UNREACH_00D7B4,X               ;039364|00D7B4;
-                       STZ.W UNREACH_00D8C4,X               ;039367|00D8C4;
-                       STZ.W UNREACH_00D9D4,X               ;03936A|00D9D4;
-                       STZ.W UNREACH_00DAE4,X               ;03936D|00DAE4;
-                       STZ.W UNREACH_00DBF4,X               ;039370|00DBF4;
-                       STZ.W UNREACH_00DD04,X               ;039373|00DD04;
-                       STZ.W UNREACH_00DE14,X               ;039376|00DE14;
-                       STZ.W UNREACH_00DF24,X               ;039379|00DF24;
+                       STZ.W $D6A4,X                        ;039361|7ED6A4;
+                       STZ.W $D7B4,X                        ;039364|7ED7B4;
+                       STZ.W $D8C4,X                        ;039367|7ED8C4;
+                       STZ.W $D9D4,X                        ;03936A|7ED9D4;
+                       STZ.W $DAE4,X                        ;03936D|7EDAE4;
+                       STZ.W $DBF4,X                        ;039370|7EDBF4;
+                       STZ.W $DD04,X                        ;039373|7EDD04;
+                       STZ.W $DE14,X                        ;039376|7EDE14;
+                       STZ.W $DF24,X                        ;039379|7EDF24;
                        DEX                                  ;03937C|      ;
                        DEX                                  ;03937D|      ;
                        BPL CODE_039361                      ;03937E|039361;
@@ -3284,7 +3300,7 @@ Dungeon_Load_FieldOfView:
                        AND.W #$0002                         ;039387|      ;
                        BNE CODE_0393CB                      ;03938A|0393CB;
           CODE_03938C:
-                       LDA.W Set_Text_Parser                ;03938C|00A68C;
+                       LDA.W $A68C                          ;03938C|7EA68C;
                        AND.W #$00F0                         ;03938F|      ;
                        CMP.W #$0060                         ;039392|      ;
                        BNE CODE_0393CB                      ;039395|0393CB;
@@ -3294,15 +3310,15 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;0393A0|0399FE;
                        LDX.W #$005E                         ;0393A3|      ;
           CODE_0393A6:
-                       STZ.W UNREACH_00D6C0,X               ;0393A6|00D6C0;
-                       STZ.W UNREACH_00D7D0,X               ;0393A9|00D7D0;
-                       STZ.W UNREACH_00D8E0,X               ;0393AC|00D8E0;
-                       STZ.W UNREACH_00D9F0,X               ;0393AF|00D9F0;
-                       STZ.W UNREACH_00DB00,X               ;0393B2|00DB00;
-                       STZ.W UNREACH_00DC10,X               ;0393B5|00DC10;
-                       STZ.W UNREACH_00DD20,X               ;0393B8|00DD20;
-                       STZ.W UNREACH_00DE30,X               ;0393BB|00DE30;
-                       STZ.W UNREACH_00DF40,X               ;0393BE|00DF40;
+                       STZ.W $D6C0,X                        ;0393A6|7ED6C0;
+                       STZ.W $D7D0,X                        ;0393A9|7ED7D0;
+                       STZ.W $D8E0,X                        ;0393AC|7ED8E0;
+                       STZ.W $D9F0,X                        ;0393AF|7ED9F0;
+                       STZ.W $DB00,X                        ;0393B2|7EDB00;
+                       STZ.W $DC10,X                        ;0393B5|7EDC10;
+                       STZ.W $DD20,X                        ;0393B8|7EDD20;
+                       STZ.W $DE30,X                        ;0393BB|7EDE30;
+                       STZ.W $DF40,X                        ;0393BE|7EDF40;
                        DEX                                  ;0393C1|      ;
                        DEX                                  ;0393C2|      ;
                        BPL CODE_0393A6                      ;0393C3|0393A6;
@@ -3310,87 +3326,87 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_039479                    ;0393C8|039479;
           CODE_0393CB:
                        LDA.W #$0000                         ;0393CB|      ;
-                       LDX.W LOOSE_OP_00A67C                ;0393CE|00A67C;
+                       LDX.W $A67C                          ;0393CE|7EA67C;
                        BNE CODE_0393D6                      ;0393D1|0393D6;
                        ORA.W #$0008                         ;0393D3|      ;
           CODE_0393D6:
-                       LDX.W CODE_00A684                    ;0393D6|00A684;
+                       LDX.W $A684                          ;0393D6|7EA684;
                        BNE CODE_0393DE                      ;0393D9|0393DE;
                        ORA.W #$0004                         ;0393DB|      ;
           CODE_0393DE:
-                       LDX.W Set_Text_Parser                ;0393DE|00A68C;
+                       LDX.W $A68C                          ;0393DE|7EA68C;
                        BNE CODE_0393E6                      ;0393E1|0393E6;
                        ORA.W #$0002                         ;0393E3|      ;
           CODE_0393E6:
                        TAX                                  ;0393E6|      ;
                        BEQ CODE_0393FD                      ;0393E7|0393FD;
-                       LDA.L UNREACH_0396D5,X               ;0393E9|0396D5;
+                       LDA.L DATA8_0396D5,X                 ;0393E9|0396D5;
                        BEQ CODE_0393FD                      ;0393ED|0393FD;
                        TAY                                  ;0393EF|      ;
-                       LDA.L UNREACH_0396E3,X               ;0393F0|0396E3;
+                       LDA.L DATA8_0396E3,X                 ;0393F0|0396E3;
                        PHA                                  ;0393F4|      ;
-                       LDA.L UNREACH_0396F1,X               ;0393F5|0396F1;
+                       LDA.L DATA8_0396F1,X                 ;0393F5|0396F1;
                        PLX                                  ;0393F9|      ;
                        JSR.W Some_RAM_xfer                  ;0393FA|0399FE;
           CODE_0393FD:
                        LDA.W #$0000                         ;0393FD|      ;
-                       LDX.W LOOSE_OP_00A678                ;039400|00A678;
+                       LDX.W $A678                          ;039400|7EA678;
                        BNE CODE_039408                      ;039403|039408;
                        ORA.W #$0010                         ;039405|      ;
           CODE_039408:
-                       LDX.W CODE_00A67E                    ;039408|00A67E;
+                       LDX.W $A67E                          ;039408|7EA67E;
                        BNE CODE_039410                      ;03940B|039410;
                        ORA.W #$0008                         ;03940D|      ;
           CODE_039410:
-                       LDX.W LOOSE_OP_00A686                ;039410|00A686;
+                       LDX.W $A686                          ;039410|7EA686;
                        BNE CODE_039418                      ;039413|039418;
                        ORA.W #$0004                         ;039415|      ;
           CODE_039418:
-                       LDX.W CODE_00A68E                    ;039418|00A68E;
+                       LDX.W $A68E                          ;039418|7EA68E;
                        BNE CODE_039420                      ;03941B|039420;
                        ORA.W #$0002                         ;03941D|      ;
           CODE_039420:
                        TAX                                  ;039420|      ;
                        BEQ CODE_03943F                      ;039421|03943F;
-                       LDA.L UNREACH_039787,X               ;039423|039787;
+                       LDA.L DATA8_039787,X                 ;039423|039787;
                        BEQ CODE_03943F                      ;039427|03943F;
                        PHX                                  ;039429|      ;
                        TAY                                  ;03942A|      ;
-                       LDA.L UNREACH_0397A9,X               ;03942B|0397A9;
+                       LDA.L DATA8_0397A9,X                 ;03942B|0397A9;
                        PHA                                  ;03942F|      ;
-                       LDA.L UNREACH_0397CB,X               ;039430|0397CB;
+                       LDA.L DATA8_0397CB,X                 ;039430|0397CB;
                        PLX                                  ;039434|      ;
                        JSR.W Some_RAM_xfer                  ;039435|0399FE;
                        PLX                                  ;039438|      ;
-                       LDA.L UNREACH_0397ED,X               ;039439|0397ED;
+                       LDA.L DATA8_0397ED,X                 ;039439|0397ED;
                        BPL CODE_039420                      ;03943D|039420;
           CODE_03943F:
                        LDA.W #$0000                         ;03943F|      ;
-                       LDX.W CODE_00A67A                    ;039442|00A67A;
+                       LDX.W $A67A                          ;039442|7EA67A;
                        BNE CODE_03944A                      ;039445|03944A;
                        ORA.W #$0008                         ;039447|      ;
           CODE_03944A:
-                       LDX.W LOOSE_OP_00A680                ;03944A|00A680;
+                       LDX.W $A680                          ;03944A|7EA680;
                        BNE CODE_039452                      ;03944D|039452;
                        ORA.W #$0004                         ;03944F|      ;
           CODE_039452:
-                       LDX.W Set_Text_Parser_long           ;039452|00A688;
+                       LDX.W $A688                          ;039452|7EA688;
                        BNE CODE_03945A                      ;039455|03945A;
                        ORA.W #$0002                         ;039457|      ;
           CODE_03945A:
                        TAX                                  ;03945A|      ;
                        BEQ CODE_039479                      ;03945B|039479;
-                       LDA.L UNREACH_03984F,X               ;03945D|03984F;
+                       LDA.L DATA8_03984F,X                 ;03945D|03984F;
                        BEQ CODE_039479                      ;039461|039479;
                        PHX                                  ;039463|      ;
                        TAY                                  ;039464|      ;
-                       LDA.L UNREACH_03985F,X               ;039465|03985F;
+                       LDA.L DATA8_03985F,X                 ;039465|03985F;
                        PHA                                  ;039469|      ;
-                       LDA.L UNREACH_03986F,X               ;03946A|03986F;
+                       LDA.L DATA8_03986F,X                 ;03946A|03986F;
                        PLX                                  ;03946E|      ;
                        JSR.W Some_RAM_xfer                  ;03946F|0399FE;
                        PLX                                  ;039472|      ;
-                       LDA.L UNREACH_03987F,X               ;039473|03987F;
+                       LDA.L DATA8_03987F,X                 ;039473|03987F;
                        BPL CODE_03945A                      ;039477|03945A;
           CODE_039479:
                        LDA.W #$1320                         ;039479|      ;
@@ -3399,7 +3415,7 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;039482|0399FE;
                        LDA.W #$99F5                         ;039485|      ;
                        JSL.L RAM_Decomp80                   ;039488|0084FE;
-                       LDA.W CODE_00A682                    ;03948C|00A682;
+                       LDA.W $A682                          ;03948C|7EA682;
                        JSR.W CODE_03A36D                    ;03948F|03A36D;
                        DEY                                  ;039492|      ;
                        BNE CODE_0394A4                      ;039493|0394A4;
@@ -3425,7 +3441,7 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;0394C2|0399FE;
                        JMP.W CODE_039657                    ;0394C5|039657;
           CODE_0394C8:
-                       LDA.W CODE_00A682                    ;0394C8|00A682;
+                       LDA.W $A682                          ;0394C8|7EA682;
                        AND.W #$00F0                         ;0394CB|      ;
                        CMP.W #$0060                         ;0394CE|      ;
                        BNE CODE_039507                      ;0394D1|039507;
@@ -3435,15 +3451,15 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;0394DC|0399FE;
                        LDX.W #$0096                         ;0394DF|      ;
           CODE_0394E2:
-                       STZ.W LOOSE_OP_00CD14,X              ;0394E2|00CD14;
-                       STZ.W LOOSE_OP_00CE24,X              ;0394E5|00CE24;
-                       STZ.W DATA8_00CF34,X                 ;0394E8|00CF34;
-                       STZ.W LOOSE_OP_00D044,X              ;0394EB|00D044;
-                       STZ.W CODE_00D154,X                  ;0394EE|00D154;
-                       STZ.W PTR24_00D264,X                 ;0394F1|00D264;
-                       STZ.W CODE_00D374,X                  ;0394F4|00D374;
-                       STZ.W CODE_00D484,X                  ;0394F7|00D484;
-                       STZ.W UNREACH_00D594,X               ;0394FA|00D594;
+                       STZ.W $CD14,X                        ;0394E2|7ECD14;
+                       STZ.W $CE24,X                        ;0394E5|7ECE24;
+                       STZ.W $CF34,X                        ;0394E8|7ECF34;
+                       STZ.W $D044,X                        ;0394EB|7ED044;
+                       STZ.W $D154,X                        ;0394EE|7ED154;
+                       STZ.W $D264,X                        ;0394F1|7ED264;
+                       STZ.W $D374,X                        ;0394F4|7ED374;
+                       STZ.W $D484,X                        ;0394F7|7ED484;
+                       STZ.W $D594,X                        ;0394FA|7ED594;
                        DEX                                  ;0394FD|      ;
                        DEX                                  ;0394FE|      ;
                        BPL CODE_0394E2                      ;0394FF|0394E2;
@@ -3451,40 +3467,41 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_039657                    ;039504|039657;
           CODE_039507:
                        LDA.W #$0000                         ;039507|      ;
-                       LDX.W CODE_00A682                    ;03950A|00A682;
+                       LDX.W $A682                          ;03950A|7EA682;
                        BNE CODE_039512                      ;03950D|039512;
                        ORA.W #$0004                         ;03950F|      ;
           CODE_039512:
-                       LDX.W LOOSE_OP_00A68A                ;039512|00A68A;
+                       LDX.W $A68A                          ;039512|7EA68A;
                        BNE CODE_03951A                      ;039515|03951A;
                        ORA.W #$0002                         ;039517|      ;
           CODE_03951A:
                        TAX                                  ;03951A|      ;
                        BEQ CODE_03956A                      ;03951B|03956A;
                        PHX                                  ;03951D|      ;
+         Error_Read03:
                        LDA.L LOOSE_OP_039687,X              ;03951E|039687;
                        TAY                                  ;039522|      ;
-                       LDA.L UNREACH_03968D,X               ;039523|03968D;
+                       LDA.L DATA8_03968D,X                 ;039523|03968D;
                        PHA                                  ;039527|      ;
-                       LDA.L UNREACH_039693,X               ;039528|039693;
+                       LDA.L DATA8_039693,X                 ;039528|039693;
                        PLX                                  ;03952C|      ;
                        JSR.W Some_RAM_xfer                  ;03952D|0399FE;
                        PLX                                  ;039530|      ;
-                       LDA.W LOOSE_OP_00A68A                ;039531|00A68A;
+                       LDA.W $A68A                          ;039531|7EA68A;
                        AND.W #$00F0                         ;039534|      ;
                        CMP.W #$0060                         ;039537|      ;
                        BNE CODE_039564                      ;03953A|039564;
                        LDX.W #$0096                         ;03953C|      ;
           CODE_03953F:
-                       STZ.W LOOSE_OP_00CD14,X              ;03953F|00CD14;
-                       STZ.W LOOSE_OP_00CE24,X              ;039542|00CE24;
-                       STZ.W DATA8_00CF34,X                 ;039545|00CF34;
-                       STZ.W LOOSE_OP_00D044,X              ;039548|00D044;
-                       STZ.W CODE_00D154,X                  ;03954B|00D154;
-                       STZ.W PTR24_00D264,X                 ;03954E|00D264;
-                       STZ.W CODE_00D374,X                  ;039551|00D374;
-                       STZ.W CODE_00D484,X                  ;039554|00D484;
-                       STZ.W UNREACH_00D594,X               ;039557|00D594;
+                       STZ.W $CD14,X                        ;03953F|7ECD14;
+                       STZ.W $CE24,X                        ;039542|7ECE24;
+                       STZ.W $CF34,X                        ;039545|7ECF34;
+                       STZ.W $D044,X                        ;039548|7ED044;
+                       STZ.W $D154,X                        ;03954B|7ED154;
+                       STZ.W $D264,X                        ;03954E|7ED264;
+                       STZ.W $D374,X                        ;039551|7ED374;
+                       STZ.W $D484,X                        ;039554|7ED484;
+                       STZ.W $D594,X                        ;039557|7ED594;
                        DEX                                  ;03955A|      ;
                        DEX                                  ;03955B|      ;
                        BPL CODE_03953F                      ;03955C|03953F;
@@ -3495,7 +3512,7 @@ Dungeon_Load_FieldOfView:
                        AND.W #$0004                         ;039565|      ;
                        BNE CODE_0395A9                      ;039568|0395A9;
           CODE_03956A:
-                       LDA.W LOOSE_OP_00A67C                ;03956A|00A67C;
+                       LDA.W $A67C                          ;03956A|7EA67C;
                        AND.W #$00F0                         ;03956D|      ;
                        CMP.W #$0060                         ;039570|      ;
                        BNE CODE_0395A9                      ;039573|0395A9;
@@ -3505,15 +3522,15 @@ Dungeon_Load_FieldOfView:
                        JSR.W Some_RAM_xfer                  ;03957E|0399FE;
                        LDX.W #$005E                         ;039581|      ;
           CODE_039584:
-                       STZ.W LOOSE_OP_00CD30,X              ;039584|00CD30;
-                       STZ.W LOOSE_OP_00CE40,X              ;039587|00CE40;
-                       STZ.W DATA8_00CF50,X                 ;03958A|00CF50;
-                       STZ.W LOOSE_OP_00D060,X              ;03958D|00D060;
-                       STZ.W CODE_00D170,X                  ;039590|00D170;
-                       STZ.W PTR24_00D280,X                 ;039593|00D280;
-                       STZ.W PTR24_00D390,X                 ;039596|00D390;
-                       STZ.W UNREACH_00D4A0,X               ;039599|00D4A0;
-                       STZ.W UNREACH_00D5B0,X               ;03959C|00D5B0;
+                       STZ.W $CD30,X                        ;039584|7ECD30;
+                       STZ.W $CE40,X                        ;039587|7ECE40;
+                       STZ.W $CF50,X                        ;03958A|7ECF50;
+                       STZ.W $D060,X                        ;03958D|7ED060;
+                       STZ.W $D170,X                        ;039590|7ED170;
+                       STZ.W $D280,X                        ;039593|7ED280;
+                       STZ.W $D390,X                        ;039596|7ED390;
+                       STZ.W $D4A0,X                        ;039599|7ED4A0;
+                       STZ.W $D5B0,X                        ;03959C|7ED5B0;
                        DEX                                  ;03959F|      ;
                        DEX                                  ;0395A0|      ;
                        BPL CODE_039584                      ;0395A1|039584;
@@ -3521,87 +3538,87 @@ Dungeon_Load_FieldOfView:
                        JMP.W CODE_039657                    ;0395A6|039657;
           CODE_0395A9:
                        LDA.W #$0000                         ;0395A9|      ;
-                       LDX.W LOOSE_OP_00A67C                ;0395AC|00A67C;
+                       LDX.W $A67C                          ;0395AC|7EA67C;
                        BNE CODE_0395B4                      ;0395AF|0395B4;
                        ORA.W #$0008                         ;0395B1|      ;
           CODE_0395B4:
-                       LDX.W CODE_00A684                    ;0395B4|00A684;
+                       LDX.W $A684                          ;0395B4|7EA684;
                        BNE CODE_0395BC                      ;0395B7|0395BC;
                        ORA.W #$0004                         ;0395B9|      ;
           CODE_0395BC:
-                       LDX.W Set_Text_Parser                ;0395BC|00A68C;
+                       LDX.W $A68C                          ;0395BC|7EA68C;
                        BNE CODE_0395C4                      ;0395BF|0395C4;
                        ORA.W #$0002                         ;0395C1|      ;
           CODE_0395C4:
                        TAX                                  ;0395C4|      ;
                        BEQ CODE_0395DB                      ;0395C5|0395DB;
-                       LDA.L UNREACH_0396AB,X               ;0395C7|0396AB;
+                       LDA.L DATA8_0396AB,X                 ;0395C7|0396AB;
                        BEQ CODE_0395DB                      ;0395CB|0395DB;
                        TAY                                  ;0395CD|      ;
-                       LDA.L UNREACH_0396B9,X               ;0395CE|0396B9;
+                       LDA.L DATA8_0396B9,X                 ;0395CE|0396B9;
                        PHA                                  ;0395D2|      ;
-                       LDA.L UNREACH_0396C7,X               ;0395D3|0396C7;
+                       LDA.L DATA8_0396C7,X                 ;0395D3|0396C7;
                        PLX                                  ;0395D7|      ;
                        JSR.W Some_RAM_xfer                  ;0395D8|0399FE;
           CODE_0395DB:
                        LDA.W #$0000                         ;0395DB|      ;
-                       LDX.W LOOSE_OP_00A678                ;0395DE|00A678;
+                       LDX.W $A678                          ;0395DE|7EA678;
                        BNE CODE_0395E6                      ;0395E1|0395E6;
                        ORA.W #$0010                         ;0395E3|      ;
           CODE_0395E6:
-                       LDX.W CODE_00A67E                    ;0395E6|00A67E;
+                       LDX.W $A67E                          ;0395E6|7EA67E;
                        BNE CODE_0395EE                      ;0395E9|0395EE;
                        ORA.W #$0008                         ;0395EB|      ;
           CODE_0395EE:
-                       LDX.W LOOSE_OP_00A686                ;0395EE|00A686;
+                       LDX.W $A686                          ;0395EE|7EA686;
                        BNE CODE_0395F6                      ;0395F1|0395F6;
                        ORA.W #$0004                         ;0395F3|      ;
           CODE_0395F6:
-                       LDX.W CODE_00A68E                    ;0395F6|00A68E;
+                       LDX.W $A68E                          ;0395F6|7EA68E;
                        BNE CODE_0395FE                      ;0395F9|0395FE;
                        ORA.W #$0002                         ;0395FB|      ;
           CODE_0395FE:
                        TAX                                  ;0395FE|      ;
                        BEQ CODE_03961D                      ;0395FF|03961D;
-                       LDA.L UNREACH_0396FF,X               ;039601|0396FF;
+                       LDA.L DATA8_0396FF,X                 ;039601|0396FF;
                        BEQ CODE_03961D                      ;039605|03961D;
                        PHX                                  ;039607|      ;
                        TAY                                  ;039608|      ;
-                       LDA.L UNREACH_039721,X               ;039609|039721;
+                       LDA.L DATA8_039721,X                 ;039609|039721;
                        PHA                                  ;03960D|      ;
-                       LDA.L UNREACH_039743,X               ;03960E|039743;
+                       LDA.L DATA8_039743,X                 ;03960E|039743;
                        PLX                                  ;039612|      ;
                        JSR.W Some_RAM_xfer                  ;039613|0399FE;
                        PLX                                  ;039616|      ;
-                       LDA.L UNREACH_039765,X               ;039617|039765;
+                       LDA.L DATA8_039765,X                 ;039617|039765;
                        BPL CODE_0395FE                      ;03961B|0395FE;
           CODE_03961D:
                        LDA.W #$0000                         ;03961D|      ;
-                       LDX.W CODE_00A67A                    ;039620|00A67A;
+                       LDX.W $A67A                          ;039620|7EA67A;
                        BNE CODE_039628                      ;039623|039628;
                        ORA.W #$0008                         ;039625|      ;
           CODE_039628:
-                       LDX.W LOOSE_OP_00A680                ;039628|00A680;
+                       LDX.W $A680                          ;039628|7EA680;
                        BNE CODE_039630                      ;03962B|039630;
                        ORA.W #$0004                         ;03962D|      ;
           CODE_039630:
-                       LDX.W Set_Text_Parser_long           ;039630|00A688;
+                       LDX.W $A688                          ;039630|7EA688;
                        BNE CODE_039638                      ;039633|039638;
                        ORA.W #$0002                         ;039635|      ;
           CODE_039638:
                        TAX                                  ;039638|      ;
                        BEQ CODE_039657                      ;039639|039657;
-                       LDA.L UNREACH_03980F,X               ;03963B|03980F;
+                       LDA.L DATA8_03980F,X                 ;03963B|03980F;
                        BEQ CODE_039657                      ;03963F|039657;
                        PHX                                  ;039641|      ;
                        TAY                                  ;039642|      ;
-                       LDA.L UNREACH_03981F,X               ;039643|03981F;
+                       LDA.L DATA8_03981F,X                 ;039643|03981F;
                        PHA                                  ;039647|      ;
-                       LDA.L UNREACH_03982F,X               ;039648|03982F;
+                       LDA.L DATA8_03982F,X                 ;039648|03982F;
                        PLX                                  ;03964C|      ;
                        JSR.W Some_RAM_xfer                  ;03964D|0399FE;
                        PLX                                  ;039650|      ;
-                       LDA.L UNREACH_03983F,X               ;039651|03983F;
+                       LDA.L DATA8_03983F,X                 ;039651|03983F;
                        BPL CODE_039638                      ;039655|039638;
           CODE_039657:
                        LDA.W #$0000                         ;039657|      ;
@@ -3628,43 +3645,43 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03968A|      ;
                        db $99                               ;03968B|009900;
                        db $00                               ;03968C|      ;
-       UNREACH_03968D:
-                       db $99                               ;03968D|00B800;
+         DATA8_03968D:
+                       db $99                               ;03968D|      ;
                        db $00                               ;03968E|      ;
                        db $B8                               ;03968F|      ;
                        db $03                               ;039690|000064;
                        db $64                               ;039691|000002;
                        db $02                               ;039692|      ;
-       UNREACH_039693:
-                       db $0C                               ;039693|000005;
+         DATA8_039693:
+                       db $0C                               ;039693|      ;
                        db $05                               ;039694|000000;
                        db $00                               ;039695|      ;
                        db $11                               ;039696|000000;
                        db $00                               ;039697|      ;
                        db $00                               ;039698|      ;
-       UNREACH_039699:
+         DATA8_039699:
                        db $00                               ;039699|      ;
                        db $00                               ;03969A|      ;
                        db $99                               ;03969B|001100;
                        db $00                               ;03969C|      ;
                        db $11                               ;03969D|000000;
                        db $00                               ;03969E|      ;
-       UNREACH_03969F:
-                       db $99                               ;03969F|00DA00;
+         DATA8_03969F:
+                       db $99                               ;03969F|      ;
                        db $00                               ;0396A0|      ;
                        db $DA                               ;0396A1|      ;
                        db $03                               ;0396A2|000096;
                        db $96                               ;0396A3|000003;
                        db $03                               ;0396A4|00003E;
-       UNREACH_0396A5:
-                       db $3E                               ;0396A5|002006;
+         DATA8_0396A5:
+                       db $3E                               ;0396A5|      ;
                        db $06                               ;0396A6|000020;
                        db $20                               ;0396A7|032013;
                        db $13                               ;0396A8|000020;
                        db $20                               ;0396A9|032013;
                        db $13                               ;0396AA|000020;
-       UNREACH_0396AB:
-                       db $20                               ;0396AB|030013;
+         DATA8_0396AB:
+                       db $20                               ;0396AB|      ;
                        db $13                               ;0396AC|000000;
                        db $00                               ;0396AD|      ;
                        db $00                               ;0396AE|      ;
@@ -3678,8 +3695,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;0396B6|      ;
                        db $99                               ;0396B7|009900;
                        db $00                               ;0396B8|      ;
-       UNREACH_0396B9:
-                       db $99                               ;0396B9|000000;
+         DATA8_0396B9:
+                       db $99                               ;0396B9|      ;
                        db $00                               ;0396BA|      ;
                        db $00                               ;0396BB|      ;
                        db $00                               ;0396BC|      ;
@@ -3693,8 +3710,8 @@ Dungeon_Load_FieldOfView:
                        db $07                               ;0396C4|00005C;
                        db $5C                               ;0396C5|0A5C0A;
                        db $0A                               ;0396C6|      ;
-       UNREACH_0396C7:
-                       db $5C                               ;0396C7|00000A;
+         DATA8_0396C7:
+                       db $5C                               ;0396C7|      ;
                        db $0A                               ;0396C8|      ;
                        db $00                               ;0396C9|      ;
                        db $00                               ;0396CA|      ;
@@ -3708,7 +3725,7 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;0396D2|      ;
                        db $00                               ;0396D3|      ;
                        db $00                               ;0396D4|      ;
-       UNREACH_0396D5:
+         DATA8_0396D5:
                        db $00                               ;0396D5|      ;
                        db $00                               ;0396D6|      ;
                        db $55                               ;0396D7|000000;
@@ -3723,8 +3740,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;0396E0|      ;
                        db $66                               ;0396E1|000000;
                        db $00                               ;0396E2|      ;
-       UNREACH_0396E3:
-                       db $99                               ;0396E3|001A00;
+         DATA8_0396E3:
+                       db $99                               ;0396E3|      ;
                        db $00                               ;0396E4|      ;
                        db $1A                               ;0396E5|      ;
                        db $08                               ;0396E6|      ;
@@ -3738,8 +3755,8 @@ Dungeon_Load_FieldOfView:
                        db $08                               ;0396EE|      ;
                        db $90                               ;0396EF|0396FA;
                        db $09                               ;0396F0|      ;
-       UNREACH_0396F1:
-                       db $8E                               ;0396F1|00A00B;
+         DATA8_0396F1:
+                       db $8E                               ;0396F1|      ;
                        db $0B                               ;0396F2|      ;
                        db $A0                               ;0396F3|      ;
                        db $1B                               ;0396F4|      ;
@@ -3753,8 +3770,8 @@ Dungeon_Load_FieldOfView:
                        db $1B                               ;0396FC|      ;
                        db $20                               ;0396FD|032013;
                        db $13                               ;0396FE|000020;
-       UNREACH_0396FF:
-                       db $20                               ;0396FF|030013;
+         DATA8_0396FF:
+                       db $20                               ;0396FF|      ;
                        db $13                               ;039700|000000;
                        db $00                               ;039701|      ;
                        db $00                               ;039702|      ;
@@ -3788,8 +3805,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03971E|      ;
                        db $55                               ;03971F|000000;
                        db $00                               ;039720|      ;
-       UNREACH_039721:
-                       db $55                               ;039721|000000;
+         DATA8_039721:
+                       db $55                               ;039721|      ;
                        db $00                               ;039722|      ;
                        db $00                               ;039723|      ;
                        db $00                               ;039724|      ;
@@ -3823,7 +3840,7 @@ Dungeon_Load_FieldOfView:
                        db $0C                               ;039740|000D48;
                        db $48                               ;039741|      ;
                        db $0D                               ;039742|001078;
-       UNREACH_039743:
+         DATA8_039743:
                        db $78                               ;039743|      ;
                        db $10                               ;039744|039746;
                        db $00                               ;039745|      ;
@@ -3858,8 +3875,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;039762|      ;
                        db $80                               ;039763|03976D;
                        db $08                               ;039764|      ;
-       UNREACH_039765:
-                       db $80                               ;039765|03976F;
+         DATA8_039765:
+                       db $80                               ;039765|      ;
                        db $08                               ;039766|      ;
                        db $FF                               ;039767|FFFFFF;
                        db $FF                               ;039768|FFFFFF;
@@ -3893,8 +3910,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;039784|      ;
                        db $FF                               ;039785|FFFFFF;
                        db $FF                               ;039786|22FFFF;
-       UNREACH_039787:
-                       db $FF                               ;039787|0022FF;
+         DATA8_039787:
+                       db $FF                               ;039787|      ;
                        db $FF                               ;039788|550022;
                        db $22                               ;039789|005500;
                        db $00                               ;03978A|      ;
@@ -3928,7 +3945,7 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;0397A6|      ;
                        db $44                               ;0397A7|      ;
                        db $00                               ;0397A8|      ;
-       UNREACH_0397A9:
+         DATA8_0397A9:
                        db $44                               ;0397A9|      ;
                        db $00                               ;0397AA|      ;
                        db $58                               ;0397AB|      ;
@@ -3963,7 +3980,7 @@ Dungeon_Load_FieldOfView:
                        db $11                               ;0397C8|0000CC;
                        db $CC                               ;0397C9|006811;
                        db $11                               ;0397CA|000068;
-       UNREACH_0397CB:
+         DATA8_0397CB:
                        db $68                               ;0397CB|      ;
                        db $0F                               ;0397CC|202200;
                        db $00                               ;0397CD|      ;
@@ -3998,7 +4015,7 @@ Dungeon_Load_FieldOfView:
                        db $13                               ;0397EA|0000C0;
                        db $C0                               ;0397EB|      ;
                        db $1D                               ;0397EC|001DC0;
-       UNREACH_0397ED:
+         DATA8_0397ED:
                        db $C0                               ;0397ED|      ;
                        db $1D                               ;0397EE|00FFFF;
                        db $FF                               ;0397EF|0020FF;
@@ -4033,8 +4050,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03980C|      ;
                        db $FF                               ;03980D|FFFFFF;
                        db $FF                               ;03980E|00FFFF;
-       UNREACH_03980F:
-                       db $FF                               ;03980F|0000FF;
+         DATA8_03980F:
+                       db $FF                               ;03980F|      ;
                        db $FF                               ;039810|990000;
                        db $00                               ;039811|      ;
                        db $00                               ;039812|      ;
@@ -4050,8 +4067,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03981C|      ;
                        db $44                               ;03981D|      ;
                        db $00                               ;03981E|      ;
-       UNREACH_03981F:
-                       db $55                               ;03981F|000000;
+         DATA8_03981F:
+                       db $55                               ;03981F|      ;
                        db $00                               ;039820|      ;
                        db $00                               ;039821|      ;
                        db $00                               ;039822|      ;
@@ -4067,8 +4084,8 @@ Dungeon_Load_FieldOfView:
                        db $12                               ;03982C|000054;
                        db $54                               ;03982D|      ;
                        db $12                               ;03982E|0000FC;
-       UNREACH_03982F:
-                       db $FC                               ;03982F|030014;
+         DATA8_03982F:
+                       db $FC                               ;03982F|      ;
                        db $14                               ;039830|000000;
                        db $00                               ;039831|      ;
                        db $00                               ;039832|      ;
@@ -4084,8 +4101,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03983C|      ;
                        db $00                               ;03983D|      ;
                        db $00                               ;03983E|      ;
-       UNREACH_03983F:
-                       db $80                               ;03983F|039849;
+         DATA8_03983F:
+                       db $80                               ;03983F|      ;
                        db $08                               ;039840|      ;
                        db $FF                               ;039841|FFFFFF;
                        db $FF                               ;039842|FFFFFF;
@@ -4101,8 +4118,8 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03984C|      ;
                        db $10                               ;03984D|03984F;
                        db $00                               ;03984E|      ;
-       UNREACH_03984F:
-                       db $FF                               ;03984F|0088FF;
+         DATA8_03984F:
+                       db $FF                               ;03984F|      ;
                        db $FF                               ;039850|990088;
                        db $88                               ;039851|      ;
                        db $00                               ;039852|      ;
@@ -4118,7 +4135,7 @@ Dungeon_Load_FieldOfView:
                        db $00                               ;03985C|      ;
                        db $55                               ;03985D|000000;
                        db $00                               ;03985E|      ;
-       UNREACH_03985F:
+         DATA8_03985F:
                        db $44                               ;03985F|      ;
                        db $00                               ;039860|      ;
                        db $64                               ;039861|000013;
@@ -4135,8 +4152,8 @@ Dungeon_Load_FieldOfView:
                        db $15                               ;03986C|0000A6;
                        db $A6                               ;03986D|000015;
                        db $15                               ;03986E|0000EC;
-       UNREACH_03986F:
-                       db $EC                               ;03986F|004013;
+         DATA8_03986F:
+                       db $EC                               ;03986F|      ;
                        db $13                               ;039870|000040;
                        db $40                               ;039871|      ;
                        db $15                               ;039872|000020;
@@ -4152,7 +4169,7 @@ Dungeon_Load_FieldOfView:
                        db $13                               ;03987C|000020;
                        db $20                               ;03987D|03C013;
                        db $13                               ;03987E|0000C0;
-       UNREACH_03987F:
+         DATA8_03987F:
                        db $C0                               ;03987F|      ;
                        db $1D                               ;039880|00FFFF;
                        db $FF                               ;039881|FFFFFF;
@@ -4434,7 +4451,7 @@ Dungeon_View_Offsets4:
         Some_RAM_xfer:
                        STA.B $00                            ;0399FE|000000;
           CODE_039A00:
-                       LDA.W UNREACH_00E000,X               ;039A00|00E000;
+                       LDA.W $E000,X                        ;039A00|7EE000;
                        BNE CODE_039A13                      ;039A03|039A13;
           CODE_039A05:
                        INX                                  ;039A05|      ;
@@ -4468,157 +4485,157 @@ Dungeon_View_Offsets4:
                        LSR A                                ;039A37|      ;
                        TAX                                  ;039A38|      ;
                        STX.B $02                            ;039A39|000002;
-                       LDA.W LOOSE_OP_00CCE0,X              ;039A3B|00CCE0;
+                       LDA.W $CCE0,X                        ;039A3B|7ECCE0;
                        BEQ CODE_039A6A                      ;039A3E|039A6A;
                        STA.B $0C                            ;039A40|00000C;
                        LDX.B $08                            ;039A42|000008;
                        AND.L $7F0000,X                      ;039A44|7F0000;
-                       ORA.W CODE_00A6A0,Y                  ;039A48|00A6A0;
-                       STA.W CODE_00A6A0,Y                  ;039A4B|00A6A0;
+                       ORA.W $A6A0,Y                        ;039A48|7EA6A0;
+                       STA.W $A6A0,Y                        ;039A4B|7EA6A0;
                        LDA.B $0C                            ;039A4E|00000C;
                        AND.L $7F0010,X                      ;039A50|7F0010;
-                       ORA.W CODE_00A6B0,Y                  ;039A54|00A6B0;
-                       STA.W CODE_00A6B0,Y                  ;039A57|00A6B0;
-                       ORA.W CODE_00A6A0,Y                  ;039A5A|00A6A0;
+                       ORA.W $A6B0,Y                        ;039A54|7EA6B0;
+                       STA.W $A6B0,Y                        ;039A57|7EA6B0;
+                       ORA.W $A6A0,Y                        ;039A5A|7EA6A0;
                        STA.B $0A                            ;039A5D|00000A;
                        XBA                                  ;039A5F|      ;
                        ORA.B $0A                            ;039A60|00000A;
                        EOR.W #$FFFF                         ;039A62|      ;
                        LDX.B $02                            ;039A65|000002;
-                       STA.W LOOSE_OP_00CCE0,X              ;039A67|00CCE0;
+                       STA.W $CCE0,X                        ;039A67|7ECCE0;
           CODE_039A6A:
-                       LDA.W CODE_00CCE2,X                  ;039A6A|00CCE2;
+                       LDA.W $CCE2,X                        ;039A6A|7ECCE2;
                        BEQ CODE_039A99                      ;039A6D|039A99;
                        STA.B $0C                            ;039A6F|00000C;
                        LDX.B $08                            ;039A71|000008;
                        AND.L $7F0002,X                      ;039A73|7F0002;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;039A77|00A6A2;
-                       STA.W LOOSE_OP_00A6A2,Y              ;039A7A|00A6A2;
+                       ORA.W $A6A2,Y                        ;039A77|7EA6A2;
+                       STA.W $A6A2,Y                        ;039A7A|7EA6A2;
                        LDA.B $0C                            ;039A7D|00000C;
                        AND.L $7F0012,X                      ;039A7F|7F0012;
-                       ORA.W CODE_00A6B2,Y                  ;039A83|00A6B2;
-                       STA.W CODE_00A6B2,Y                  ;039A86|00A6B2;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;039A89|00A6A2;
+                       ORA.W $A6B2,Y                        ;039A83|7EA6B2;
+                       STA.W $A6B2,Y                        ;039A86|7EA6B2;
+                       ORA.W $A6A2,Y                        ;039A89|7EA6A2;
                        STA.B $0A                            ;039A8C|00000A;
                        XBA                                  ;039A8E|      ;
                        ORA.B $0A                            ;039A8F|00000A;
                        EOR.W #$FFFF                         ;039A91|      ;
                        LDX.B $02                            ;039A94|000002;
-                       STA.W CODE_00CCE2,X                  ;039A96|00CCE2;
+                       STA.W $CCE2,X                        ;039A96|7ECCE2;
           CODE_039A99:
-                       LDA.W CODE_00CCE4,X                  ;039A99|00CCE4;
+                       LDA.W $CCE4,X                        ;039A99|7ECCE4;
                        BEQ CODE_039AC8                      ;039A9C|039AC8;
                        STA.B $0C                            ;039A9E|00000C;
                        LDX.B $08                            ;039AA0|000008;
                        AND.L $7F0004,X                      ;039AA2|7F0004;
-                       ORA.W CODE_00A6A4,Y                  ;039AA6|00A6A4;
-                       STA.W CODE_00A6A4,Y                  ;039AA9|00A6A4;
+                       ORA.W $A6A4,Y                        ;039AA6|7EA6A4;
+                       STA.W $A6A4,Y                        ;039AA9|7EA6A4;
                        LDA.B $0C                            ;039AAC|00000C;
                        AND.L $7F0014,X                      ;039AAE|7F0014;
-                       ORA.W LOOSE_OP_00A6B4,Y              ;039AB2|00A6B4;
-                       STA.W LOOSE_OP_00A6B4,Y              ;039AB5|00A6B4;
-                       ORA.W CODE_00A6A4,Y                  ;039AB8|00A6A4;
+                       ORA.W $A6B4,Y                        ;039AB2|7EA6B4;
+                       STA.W $A6B4,Y                        ;039AB5|7EA6B4;
+                       ORA.W $A6A4,Y                        ;039AB8|7EA6A4;
                        STA.B $0A                            ;039ABB|00000A;
                        XBA                                  ;039ABD|      ;
                        ORA.B $0A                            ;039ABE|00000A;
                        EOR.W #$FFFF                         ;039AC0|      ;
                        LDX.B $02                            ;039AC3|000002;
-                       STA.W CODE_00CCE4,X                  ;039AC5|00CCE4;
+                       STA.W $CCE4,X                        ;039AC5|7ECCE4;
           CODE_039AC8:
-                       LDA.W CODE_00CCE6,X                  ;039AC8|00CCE6;
+                       LDA.W $CCE6,X                        ;039AC8|7ECCE6;
                        BEQ CODE_039AF7                      ;039ACB|039AF7;
                        STA.B $0C                            ;039ACD|00000C;
                        LDX.B $08                            ;039ACF|000008;
                        AND.L $7F0006,X                      ;039AD1|7F0006;
-                       ORA.W CODE_00A6A6,Y                  ;039AD5|00A6A6;
-                       STA.W CODE_00A6A6,Y                  ;039AD8|00A6A6;
+                       ORA.W $A6A6,Y                        ;039AD5|7EA6A6;
+                       STA.W $A6A6,Y                        ;039AD8|7EA6A6;
                        LDA.B $0C                            ;039ADB|00000C;
                        AND.L $7F0016,X                      ;039ADD|7F0016;
-                       ORA.W LOOSE_OP_00A6B6,Y              ;039AE1|00A6B6;
-                       STA.W LOOSE_OP_00A6B6,Y              ;039AE4|00A6B6;
-                       ORA.W CODE_00A6A6,Y                  ;039AE7|00A6A6;
+                       ORA.W $A6B6,Y                        ;039AE1|7EA6B6;
+                       STA.W $A6B6,Y                        ;039AE4|7EA6B6;
+                       ORA.W $A6A6,Y                        ;039AE7|7EA6A6;
                        STA.B $0A                            ;039AEA|00000A;
                        XBA                                  ;039AEC|      ;
                        ORA.B $0A                            ;039AED|00000A;
                        EOR.W #$FFFF                         ;039AEF|      ;
                        LDX.B $02                            ;039AF2|000002;
-                       STA.W CODE_00CCE6,X                  ;039AF4|00CCE6;
+                       STA.W $CCE6,X                        ;039AF4|7ECCE6;
           CODE_039AF7:
-                       LDA.W CODE_00CCE8,X                  ;039AF7|00CCE8;
+                       LDA.W $CCE8,X                        ;039AF7|7ECCE8;
                        BEQ CODE_039B26                      ;039AFA|039B26;
                        STA.B $0C                            ;039AFC|00000C;
                        LDX.B $08                            ;039AFE|000008;
                        AND.L $7F0008,X                      ;039B00|7F0008;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;039B04|00A6A8;
-                       STA.W LOOSE_OP_00A6A8,Y              ;039B07|00A6A8;
+                       ORA.W $A6A8,Y                        ;039B04|7EA6A8;
+                       STA.W $A6A8,Y                        ;039B07|7EA6A8;
                        LDA.B $0C                            ;039B0A|00000C;
                        AND.L $7F0018,X                      ;039B0C|7F0018;
-                       ORA.W CODE_00A6B8,Y                  ;039B10|00A6B8;
-                       STA.W CODE_00A6B8,Y                  ;039B13|00A6B8;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;039B16|00A6A8;
+                       ORA.W $A6B8,Y                        ;039B10|7EA6B8;
+                       STA.W $A6B8,Y                        ;039B13|7EA6B8;
+                       ORA.W $A6A8,Y                        ;039B16|7EA6A8;
                        STA.B $0A                            ;039B19|00000A;
                        XBA                                  ;039B1B|      ;
                        ORA.B $0A                            ;039B1C|00000A;
                        EOR.W #$FFFF                         ;039B1E|      ;
                        LDX.B $02                            ;039B21|000002;
-                       STA.W CODE_00CCE8,X                  ;039B23|00CCE8;
+                       STA.W $CCE8,X                        ;039B23|7ECCE8;
           CODE_039B26:
-                       LDA.W CODE_00CCEA,X                  ;039B26|00CCEA;
+                       LDA.W $CCEA,X                        ;039B26|7ECCEA;
                        BEQ CODE_039B55                      ;039B29|039B55;
                        STA.B $0C                            ;039B2B|00000C;
                        LDX.B $08                            ;039B2D|000008;
                        AND.L $7F000A,X                      ;039B2F|7F000A;
-                       ORA.W CODE_00A6AA,Y                  ;039B33|00A6AA;
-                       STA.W CODE_00A6AA,Y                  ;039B36|00A6AA;
+                       ORA.W $A6AA,Y                        ;039B33|7EA6AA;
+                       STA.W $A6AA,Y                        ;039B36|7EA6AA;
                        LDA.B $0C                            ;039B39|00000C;
                        AND.L $7F001A,X                      ;039B3B|7F001A;
-                       ORA.W LOOSE_OP_00A6BA,Y              ;039B3F|00A6BA;
-                       STA.W LOOSE_OP_00A6BA,Y              ;039B42|00A6BA;
-                       ORA.W CODE_00A6AA,Y                  ;039B45|00A6AA;
+                       ORA.W $A6BA,Y                        ;039B3F|7EA6BA;
+                       STA.W $A6BA,Y                        ;039B42|7EA6BA;
+                       ORA.W $A6AA,Y                        ;039B45|7EA6AA;
                        STA.B $0A                            ;039B48|00000A;
                        XBA                                  ;039B4A|      ;
                        ORA.B $0A                            ;039B4B|00000A;
                        EOR.W #$FFFF                         ;039B4D|      ;
                        LDX.B $02                            ;039B50|000002;
-                       STA.W CODE_00CCEA,X                  ;039B52|00CCEA;
+                       STA.W $CCEA,X                        ;039B52|7ECCEA;
           CODE_039B55:
-                       LDA.W LOOSE_OP_00CCEC,X              ;039B55|00CCEC;
+                       LDA.W $CCEC,X                        ;039B55|7ECCEC;
                        BEQ CODE_039B84                      ;039B58|039B84;
                        STA.B $0C                            ;039B5A|00000C;
                        LDX.B $08                            ;039B5C|000008;
                        AND.L $7F000C,X                      ;039B5E|7F000C;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;039B62|00A6AC;
-                       STA.W LOOSE_OP_00A6AC,Y              ;039B65|00A6AC;
+                       ORA.W $A6AC,Y                        ;039B62|7EA6AC;
+                       STA.W $A6AC,Y                        ;039B65|7EA6AC;
                        LDA.B $0C                            ;039B68|00000C;
                        AND.L $7F001C,X                      ;039B6A|7F001C;
-                       ORA.W LOOSE_OP_00A6BC,Y              ;039B6E|00A6BC;
-                       STA.W LOOSE_OP_00A6BC,Y              ;039B71|00A6BC;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;039B74|00A6AC;
+                       ORA.W $A6BC,Y                        ;039B6E|7EA6BC;
+                       STA.W $A6BC,Y                        ;039B71|7EA6BC;
+                       ORA.W $A6AC,Y                        ;039B74|7EA6AC;
                        STA.B $0A                            ;039B77|00000A;
                        XBA                                  ;039B79|      ;
                        ORA.B $0A                            ;039B7A|00000A;
                        EOR.W #$FFFF                         ;039B7C|      ;
                        LDX.B $02                            ;039B7F|000002;
-                       STA.W LOOSE_OP_00CCEC,X              ;039B81|00CCEC;
+                       STA.W $CCEC,X                        ;039B81|7ECCEC;
           CODE_039B84:
-                       LDA.W CODE_00CCEE,X                  ;039B84|00CCEE;
+                       LDA.W $CCEE,X                        ;039B84|7ECCEE;
                        BEQ CODE_039BB3                      ;039B87|039BB3;
                        STA.B $0C                            ;039B89|00000C;
                        LDX.B $08                            ;039B8B|000008;
                        AND.L $7F000E,X                      ;039B8D|7F000E;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;039B91|00A6AE;
-                       STA.W LOOSE_OP_00A6AE,Y              ;039B94|00A6AE;
+                       ORA.W $A6AE,Y                        ;039B91|7EA6AE;
+                       STA.W $A6AE,Y                        ;039B94|7EA6AE;
                        LDA.B $0C                            ;039B97|00000C;
                        AND.L $7F001E,X                      ;039B99|7F001E;
-                       ORA.W CODE_00A6BE,Y                  ;039B9D|00A6BE;
-                       STA.W CODE_00A6BE,Y                  ;039BA0|00A6BE;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;039BA3|00A6AE;
+                       ORA.W $A6BE,Y                        ;039B9D|7EA6BE;
+                       STA.W $A6BE,Y                        ;039BA0|7EA6BE;
+                       ORA.W $A6AE,Y                        ;039BA3|7EA6AE;
                        STA.B $0A                            ;039BA6|00000A;
                        XBA                                  ;039BA8|      ;
                        ORA.B $0A                            ;039BA9|00000A;
                        EOR.W #$FFFF                         ;039BAB|      ;
                        LDX.B $02                            ;039BAE|000002;
-                       STA.W CODE_00CCEE,X                  ;039BB0|00CCEE;
+                       STA.W $CCEE,X                        ;039BB0|7ECCEE;
           CODE_039BB3:
                        LDX.B $04                            ;039BB3|000004;
                        LDY.B $06                            ;039BB5|000006;
@@ -4631,157 +4648,157 @@ Dungeon_View_Offsets4:
                        LSR A                                ;039BC2|      ;
                        TAX                                  ;039BC3|      ;
                        STX.B $02                            ;039BC4|000002;
-                       LDA.W LOOSE_OP_00CCE0,X              ;039BC6|00CCE0;
+                       LDA.W $CCE0,X                        ;039BC6|7ECCE0;
                        BEQ CODE_039BF5                      ;039BC9|039BF5;
                        STA.B $0C                            ;039BCB|00000C;
                        LDX.B $08                            ;039BCD|000008;
                        AND.L $7F000E,X                      ;039BCF|7F000E;
-                       ORA.W CODE_00A6A0,Y                  ;039BD3|00A6A0;
-                       STA.W CODE_00A6A0,Y                  ;039BD6|00A6A0;
+                       ORA.W $A6A0,Y                        ;039BD3|7EA6A0;
+                       STA.W $A6A0,Y                        ;039BD6|7EA6A0;
                        LDA.B $0C                            ;039BD9|00000C;
                        AND.L $7F001E,X                      ;039BDB|7F001E;
-                       ORA.W CODE_00A6B0,Y                  ;039BDF|00A6B0;
-                       STA.W CODE_00A6B0,Y                  ;039BE2|00A6B0;
-                       ORA.W CODE_00A6A0,Y                  ;039BE5|00A6A0;
+                       ORA.W $A6B0,Y                        ;039BDF|7EA6B0;
+                       STA.W $A6B0,Y                        ;039BE2|7EA6B0;
+                       ORA.W $A6A0,Y                        ;039BE5|7EA6A0;
                        STA.B $0A                            ;039BE8|00000A;
                        XBA                                  ;039BEA|      ;
                        ORA.B $0A                            ;039BEB|00000A;
                        EOR.W #$FFFF                         ;039BED|      ;
                        LDX.B $02                            ;039BF0|000002;
-                       STA.W LOOSE_OP_00CCE0,X              ;039BF2|00CCE0;
+                       STA.W $CCE0,X                        ;039BF2|7ECCE0;
           CODE_039BF5:
-                       LDA.W CODE_00CCE2,X                  ;039BF5|00CCE2;
+                       LDA.W $CCE2,X                        ;039BF5|7ECCE2;
                        BEQ CODE_039C24                      ;039BF8|039C24;
                        STA.B $0C                            ;039BFA|00000C;
                        LDX.B $08                            ;039BFC|000008;
                        AND.L $7F000C,X                      ;039BFE|7F000C;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;039C02|00A6A2;
-                       STA.W LOOSE_OP_00A6A2,Y              ;039C05|00A6A2;
+                       ORA.W $A6A2,Y                        ;039C02|7EA6A2;
+                       STA.W $A6A2,Y                        ;039C05|7EA6A2;
                        LDA.B $0C                            ;039C08|00000C;
                        AND.L $7F001C,X                      ;039C0A|7F001C;
-                       ORA.W CODE_00A6B2,Y                  ;039C0E|00A6B2;
-                       STA.W CODE_00A6B2,Y                  ;039C11|00A6B2;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;039C14|00A6A2;
+                       ORA.W $A6B2,Y                        ;039C0E|7EA6B2;
+                       STA.W $A6B2,Y                        ;039C11|7EA6B2;
+                       ORA.W $A6A2,Y                        ;039C14|7EA6A2;
                        STA.B $0A                            ;039C17|00000A;
                        XBA                                  ;039C19|      ;
                        ORA.B $0A                            ;039C1A|00000A;
                        EOR.W #$FFFF                         ;039C1C|      ;
                        LDX.B $02                            ;039C1F|000002;
-                       STA.W CODE_00CCE2,X                  ;039C21|00CCE2;
+                       STA.W $CCE2,X                        ;039C21|7ECCE2;
           CODE_039C24:
-                       LDA.W CODE_00CCE4,X                  ;039C24|00CCE4;
+                       LDA.W $CCE4,X                        ;039C24|7ECCE4;
                        BEQ CODE_039C53                      ;039C27|039C53;
                        STA.B $0C                            ;039C29|00000C;
                        LDX.B $08                            ;039C2B|000008;
                        AND.L $7F000A,X                      ;039C2D|7F000A;
-                       ORA.W CODE_00A6A4,Y                  ;039C31|00A6A4;
-                       STA.W CODE_00A6A4,Y                  ;039C34|00A6A4;
+                       ORA.W $A6A4,Y                        ;039C31|7EA6A4;
+                       STA.W $A6A4,Y                        ;039C34|7EA6A4;
                        LDA.B $0C                            ;039C37|00000C;
                        AND.L $7F001A,X                      ;039C39|7F001A;
-                       ORA.W LOOSE_OP_00A6B4,Y              ;039C3D|00A6B4;
-                       STA.W LOOSE_OP_00A6B4,Y              ;039C40|00A6B4;
-                       ORA.W CODE_00A6A4,Y                  ;039C43|00A6A4;
+                       ORA.W $A6B4,Y                        ;039C3D|7EA6B4;
+                       STA.W $A6B4,Y                        ;039C40|7EA6B4;
+                       ORA.W $A6A4,Y                        ;039C43|7EA6A4;
                        STA.B $0A                            ;039C46|00000A;
                        XBA                                  ;039C48|      ;
                        ORA.B $0A                            ;039C49|00000A;
                        EOR.W #$FFFF                         ;039C4B|      ;
                        LDX.B $02                            ;039C4E|000002;
-                       STA.W CODE_00CCE4,X                  ;039C50|00CCE4;
+                       STA.W $CCE4,X                        ;039C50|7ECCE4;
           CODE_039C53:
-                       LDA.W CODE_00CCE6,X                  ;039C53|00CCE6;
+                       LDA.W $CCE6,X                        ;039C53|7ECCE6;
                        BEQ CODE_039C82                      ;039C56|039C82;
                        STA.B $0C                            ;039C58|00000C;
                        LDX.B $08                            ;039C5A|000008;
                        AND.L $7F0008,X                      ;039C5C|7F0008;
-                       ORA.W CODE_00A6A6,Y                  ;039C60|00A6A6;
-                       STA.W CODE_00A6A6,Y                  ;039C63|00A6A6;
+                       ORA.W $A6A6,Y                        ;039C60|7EA6A6;
+                       STA.W $A6A6,Y                        ;039C63|7EA6A6;
                        LDA.B $0C                            ;039C66|00000C;
                        AND.L $7F0018,X                      ;039C68|7F0018;
-                       ORA.W LOOSE_OP_00A6B6,Y              ;039C6C|00A6B6;
-                       STA.W LOOSE_OP_00A6B6,Y              ;039C6F|00A6B6;
-                       ORA.W CODE_00A6A6,Y                  ;039C72|00A6A6;
+                       ORA.W $A6B6,Y                        ;039C6C|7EA6B6;
+                       STA.W $A6B6,Y                        ;039C6F|7EA6B6;
+                       ORA.W $A6A6,Y                        ;039C72|7EA6A6;
                        STA.B $0A                            ;039C75|00000A;
                        XBA                                  ;039C77|      ;
                        ORA.B $0A                            ;039C78|00000A;
                        EOR.W #$FFFF                         ;039C7A|      ;
                        LDX.B $02                            ;039C7D|000002;
-                       STA.W CODE_00CCE6,X                  ;039C7F|00CCE6;
+                       STA.W $CCE6,X                        ;039C7F|7ECCE6;
           CODE_039C82:
-                       LDA.W CODE_00CCE8,X                  ;039C82|00CCE8;
+                       LDA.W $CCE8,X                        ;039C82|7ECCE8;
                        BEQ CODE_039CB1                      ;039C85|039CB1;
                        STA.B $0C                            ;039C87|00000C;
                        LDX.B $08                            ;039C89|000008;
                        AND.L $7F0006,X                      ;039C8B|7F0006;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;039C8F|00A6A8;
-                       STA.W LOOSE_OP_00A6A8,Y              ;039C92|00A6A8;
+                       ORA.W $A6A8,Y                        ;039C8F|7EA6A8;
+                       STA.W $A6A8,Y                        ;039C92|7EA6A8;
                        LDA.B $0C                            ;039C95|00000C;
                        AND.L $7F0016,X                      ;039C97|7F0016;
-                       ORA.W CODE_00A6B8,Y                  ;039C9B|00A6B8;
-                       STA.W CODE_00A6B8,Y                  ;039C9E|00A6B8;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;039CA1|00A6A8;
+                       ORA.W $A6B8,Y                        ;039C9B|7EA6B8;
+                       STA.W $A6B8,Y                        ;039C9E|7EA6B8;
+                       ORA.W $A6A8,Y                        ;039CA1|7EA6A8;
                        STA.B $0A                            ;039CA4|00000A;
                        XBA                                  ;039CA6|      ;
                        ORA.B $0A                            ;039CA7|00000A;
                        EOR.W #$FFFF                         ;039CA9|      ;
                        LDX.B $02                            ;039CAC|000002;
-                       STA.W CODE_00CCE8,X                  ;039CAE|00CCE8;
+                       STA.W $CCE8,X                        ;039CAE|7ECCE8;
           CODE_039CB1:
-                       LDA.W CODE_00CCEA,X                  ;039CB1|00CCEA;
+                       LDA.W $CCEA,X                        ;039CB1|7ECCEA;
                        BEQ CODE_039CE0                      ;039CB4|039CE0;
                        STA.B $0C                            ;039CB6|00000C;
                        LDX.B $08                            ;039CB8|000008;
                        AND.L $7F0004,X                      ;039CBA|7F0004;
-                       ORA.W CODE_00A6AA,Y                  ;039CBE|00A6AA;
-                       STA.W CODE_00A6AA,Y                  ;039CC1|00A6AA;
+                       ORA.W $A6AA,Y                        ;039CBE|7EA6AA;
+                       STA.W $A6AA,Y                        ;039CC1|7EA6AA;
                        LDA.B $0C                            ;039CC4|00000C;
                        AND.L $7F0014,X                      ;039CC6|7F0014;
-                       ORA.W LOOSE_OP_00A6BA,Y              ;039CCA|00A6BA;
-                       STA.W LOOSE_OP_00A6BA,Y              ;039CCD|00A6BA;
-                       ORA.W CODE_00A6AA,Y                  ;039CD0|00A6AA;
+                       ORA.W $A6BA,Y                        ;039CCA|7EA6BA;
+                       STA.W $A6BA,Y                        ;039CCD|7EA6BA;
+                       ORA.W $A6AA,Y                        ;039CD0|7EA6AA;
                        STA.B $0A                            ;039CD3|00000A;
                        XBA                                  ;039CD5|      ;
                        ORA.B $0A                            ;039CD6|00000A;
                        EOR.W #$FFFF                         ;039CD8|      ;
                        LDX.B $02                            ;039CDB|000002;
-                       STA.W CODE_00CCEA,X                  ;039CDD|00CCEA;
+                       STA.W $CCEA,X                        ;039CDD|7ECCEA;
           CODE_039CE0:
-                       LDA.W LOOSE_OP_00CCEC,X              ;039CE0|00CCEC;
+                       LDA.W $CCEC,X                        ;039CE0|7ECCEC;
                        BEQ CODE_039D0F                      ;039CE3|039D0F;
                        STA.B $0C                            ;039CE5|00000C;
                        LDX.B $08                            ;039CE7|000008;
                        AND.L $7F0002,X                      ;039CE9|7F0002;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;039CED|00A6AC;
-                       STA.W LOOSE_OP_00A6AC,Y              ;039CF0|00A6AC;
+                       ORA.W $A6AC,Y                        ;039CED|7EA6AC;
+                       STA.W $A6AC,Y                        ;039CF0|7EA6AC;
                        LDA.B $0C                            ;039CF3|00000C;
                        AND.L $7F0012,X                      ;039CF5|7F0012;
-                       ORA.W LOOSE_OP_00A6BC,Y              ;039CF9|00A6BC;
-                       STA.W LOOSE_OP_00A6BC,Y              ;039CFC|00A6BC;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;039CFF|00A6AC;
+                       ORA.W $A6BC,Y                        ;039CF9|7EA6BC;
+                       STA.W $A6BC,Y                        ;039CFC|7EA6BC;
+                       ORA.W $A6AC,Y                        ;039CFF|7EA6AC;
                        STA.B $0A                            ;039D02|00000A;
                        XBA                                  ;039D04|      ;
                        ORA.B $0A                            ;039D05|00000A;
                        EOR.W #$FFFF                         ;039D07|      ;
                        LDX.B $02                            ;039D0A|000002;
-                       STA.W LOOSE_OP_00CCEC,X              ;039D0C|00CCEC;
+                       STA.W $CCEC,X                        ;039D0C|7ECCEC;
           CODE_039D0F:
-                       LDA.W CODE_00CCEE,X                  ;039D0F|00CCEE;
+                       LDA.W $CCEE,X                        ;039D0F|7ECCEE;
                        BEQ CODE_039D3E                      ;039D12|039D3E;
                        STA.B $0C                            ;039D14|00000C;
                        LDX.B $08                            ;039D16|000008;
                        AND.L $7F0000,X                      ;039D18|7F0000;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;039D1C|00A6AE;
-                       STA.W LOOSE_OP_00A6AE,Y              ;039D1F|00A6AE;
+                       ORA.W $A6AE,Y                        ;039D1C|7EA6AE;
+                       STA.W $A6AE,Y                        ;039D1F|7EA6AE;
                        LDA.B $0C                            ;039D22|00000C;
                        AND.L $7F0010,X                      ;039D24|7F0010;
-                       ORA.W CODE_00A6BE,Y                  ;039D28|00A6BE;
-                       STA.W CODE_00A6BE,Y                  ;039D2B|00A6BE;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;039D2E|00A6AE;
+                       ORA.W $A6BE,Y                        ;039D28|7EA6BE;
+                       STA.W $A6BE,Y                        ;039D2B|7EA6BE;
+                       ORA.W $A6AE,Y                        ;039D2E|7EA6AE;
                        STA.B $0A                            ;039D31|00000A;
                        XBA                                  ;039D33|      ;
                        ORA.B $0A                            ;039D34|00000A;
                        EOR.W #$FFFF                         ;039D36|      ;
                        LDX.B $02                            ;039D39|000002;
-                       STA.W CODE_00CCEE,X                  ;039D3B|00CCEE;
+                       STA.W $CCEE,X                        ;039D3B|7ECCEE;
           CODE_039D3E:
                        LDX.B $04                            ;039D3E|000004;
                        LDY.B $06                            ;039D40|000006;
@@ -4793,7 +4810,7 @@ Dungeon_View_Offsets4:
                        LSR A                                ;039D4C|      ;
                        TAX                                  ;039D4D|      ;
                        STX.B $02                            ;039D4E|000002;
-                       LDA.W LOOSE_OP_00CCE0,X              ;039D50|00CCE0;
+                       LDA.W $CCE0,X                        ;039D50|7ECCE0;
                        BEQ CODE_039DA9                      ;039D53|039DA9;
                        STA.B $0C                            ;039D55|00000C;
                        LDX.B $08                            ;039D57|000008;
@@ -4809,8 +4826,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039D6C|      ;
                        AND.B $0C                            ;039D6E|00000C;
                        LDY.B $00                            ;039D70|000000;
-                       ORA.W CODE_00A6A0,Y                  ;039D72|00A6A0;
-                       STA.W CODE_00A6A0,Y                  ;039D75|00A6A0;
+                       ORA.W $A6A0,Y                        ;039D72|7EA6A0;
+                       STA.W $A6A0,Y                        ;039D75|7EA6A0;
                        LDX.B $08                            ;039D78|000008;
                        LDA.L $7F0010,X                      ;039D7A|7F0010;
                        PHA                                  ;039D7E|      ;
@@ -4824,17 +4841,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039D8D|      ;
                        AND.B $0C                            ;039D8F|00000C;
                        LDY.B $00                            ;039D91|000000;
-                       ORA.W CODE_00A6B0,Y                  ;039D93|00A6B0;
-                       STA.W CODE_00A6B0,Y                  ;039D96|00A6B0;
-                       ORA.W CODE_00A6A0,Y                  ;039D99|00A6A0;
+                       ORA.W $A6B0,Y                        ;039D93|7EA6B0;
+                       STA.W $A6B0,Y                        ;039D96|7EA6B0;
+                       ORA.W $A6A0,Y                        ;039D99|7EA6A0;
                        STA.B $0A                            ;039D9C|00000A;
                        XBA                                  ;039D9E|      ;
                        ORA.B $0A                            ;039D9F|00000A;
                        EOR.W #$FFFF                         ;039DA1|      ;
                        LDX.B $02                            ;039DA4|000002;
-                       STA.W LOOSE_OP_00CCE0,X              ;039DA6|00CCE0;
+                       STA.W $CCE0,X                        ;039DA6|7ECCE0;
           CODE_039DA9:
-                       LDA.W CODE_00CCE2,X                  ;039DA9|00CCE2;
+                       LDA.W $CCE2,X                        ;039DA9|7ECCE2;
                        BEQ CODE_039E02                      ;039DAC|039E02;
                        STA.B $0C                            ;039DAE|00000C;
                        LDX.B $08                            ;039DB0|000008;
@@ -4850,8 +4867,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039DC5|      ;
                        AND.B $0C                            ;039DC7|00000C;
                        LDY.B $00                            ;039DC9|000000;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;039DCB|00A6A2;
-                       STA.W LOOSE_OP_00A6A2,Y              ;039DCE|00A6A2;
+                       ORA.W $A6A2,Y                        ;039DCB|7EA6A2;
+                       STA.W $A6A2,Y                        ;039DCE|7EA6A2;
                        LDX.B $08                            ;039DD1|000008;
                        LDA.L $7F0012,X                      ;039DD3|7F0012;
                        PHA                                  ;039DD7|      ;
@@ -4865,17 +4882,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039DE6|      ;
                        AND.B $0C                            ;039DE8|00000C;
                        LDY.B $00                            ;039DEA|000000;
-                       ORA.W CODE_00A6B2,Y                  ;039DEC|00A6B2;
-                       STA.W CODE_00A6B2,Y                  ;039DEF|00A6B2;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;039DF2|00A6A2;
+                       ORA.W $A6B2,Y                        ;039DEC|7EA6B2;
+                       STA.W $A6B2,Y                        ;039DEF|7EA6B2;
+                       ORA.W $A6A2,Y                        ;039DF2|7EA6A2;
                        STA.B $0A                            ;039DF5|00000A;
                        XBA                                  ;039DF7|      ;
                        ORA.B $0A                            ;039DF8|00000A;
                        EOR.W #$FFFF                         ;039DFA|      ;
                        LDX.B $02                            ;039DFD|000002;
-                       STA.W CODE_00CCE2,X                  ;039DFF|00CCE2;
+                       STA.W $CCE2,X                        ;039DFF|7ECCE2;
           CODE_039E02:
-                       LDA.W CODE_00CCE4,X                  ;039E02|00CCE4;
+                       LDA.W $CCE4,X                        ;039E02|7ECCE4;
                        BEQ CODE_039E5B                      ;039E05|039E5B;
                        STA.B $0C                            ;039E07|00000C;
                        LDX.B $08                            ;039E09|000008;
@@ -4891,8 +4908,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039E1E|      ;
                        AND.B $0C                            ;039E20|00000C;
                        LDY.B $00                            ;039E22|000000;
-                       ORA.W CODE_00A6A4,Y                  ;039E24|00A6A4;
-                       STA.W CODE_00A6A4,Y                  ;039E27|00A6A4;
+                       ORA.W $A6A4,Y                        ;039E24|7EA6A4;
+                       STA.W $A6A4,Y                        ;039E27|7EA6A4;
                        LDX.B $08                            ;039E2A|000008;
                        LDA.L $7F0014,X                      ;039E2C|7F0014;
                        PHA                                  ;039E30|      ;
@@ -4906,17 +4923,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039E3F|      ;
                        AND.B $0C                            ;039E41|00000C;
                        LDY.B $00                            ;039E43|000000;
-                       ORA.W LOOSE_OP_00A6B4,Y              ;039E45|00A6B4;
-                       STA.W LOOSE_OP_00A6B4,Y              ;039E48|00A6B4;
-                       ORA.W CODE_00A6A4,Y                  ;039E4B|00A6A4;
+                       ORA.W $A6B4,Y                        ;039E45|7EA6B4;
+                       STA.W $A6B4,Y                        ;039E48|7EA6B4;
+                       ORA.W $A6A4,Y                        ;039E4B|7EA6A4;
                        STA.B $0A                            ;039E4E|00000A;
                        XBA                                  ;039E50|      ;
                        ORA.B $0A                            ;039E51|00000A;
                        EOR.W #$FFFF                         ;039E53|      ;
                        LDX.B $02                            ;039E56|000002;
-                       STA.W CODE_00CCE4,X                  ;039E58|00CCE4;
+                       STA.W $CCE4,X                        ;039E58|7ECCE4;
           CODE_039E5B:
-                       LDA.W CODE_00CCE6,X                  ;039E5B|00CCE6;
+                       LDA.W $CCE6,X                        ;039E5B|7ECCE6;
                        BEQ CODE_039EB4                      ;039E5E|039EB4;
                        STA.B $0C                            ;039E60|00000C;
                        LDX.B $08                            ;039E62|000008;
@@ -4932,8 +4949,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039E77|      ;
                        AND.B $0C                            ;039E79|00000C;
                        LDY.B $00                            ;039E7B|000000;
-                       ORA.W CODE_00A6A6,Y                  ;039E7D|00A6A6;
-                       STA.W CODE_00A6A6,Y                  ;039E80|00A6A6;
+                       ORA.W $A6A6,Y                        ;039E7D|7EA6A6;
+                       STA.W $A6A6,Y                        ;039E80|7EA6A6;
                        LDX.B $08                            ;039E83|000008;
                        LDA.L $7F0016,X                      ;039E85|7F0016;
                        PHA                                  ;039E89|      ;
@@ -4947,17 +4964,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039E98|      ;
                        AND.B $0C                            ;039E9A|00000C;
                        LDY.B $00                            ;039E9C|000000;
-                       ORA.W LOOSE_OP_00A6B6,Y              ;039E9E|00A6B6;
-                       STA.W LOOSE_OP_00A6B6,Y              ;039EA1|00A6B6;
-                       ORA.W CODE_00A6A6,Y                  ;039EA4|00A6A6;
+                       ORA.W $A6B6,Y                        ;039E9E|7EA6B6;
+                       STA.W $A6B6,Y                        ;039EA1|7EA6B6;
+                       ORA.W $A6A6,Y                        ;039EA4|7EA6A6;
                        STA.B $0A                            ;039EA7|00000A;
                        XBA                                  ;039EA9|      ;
                        ORA.B $0A                            ;039EAA|00000A;
                        EOR.W #$FFFF                         ;039EAC|      ;
                        LDX.B $02                            ;039EAF|000002;
-                       STA.W CODE_00CCE6,X                  ;039EB1|00CCE6;
+                       STA.W $CCE6,X                        ;039EB1|7ECCE6;
           CODE_039EB4:
-                       LDA.W CODE_00CCE8,X                  ;039EB4|00CCE8;
+                       LDA.W $CCE8,X                        ;039EB4|7ECCE8;
                        BEQ CODE_039F0D                      ;039EB7|039F0D;
                        STA.B $0C                            ;039EB9|00000C;
                        LDX.B $08                            ;039EBB|000008;
@@ -4973,8 +4990,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039ED0|      ;
                        AND.B $0C                            ;039ED2|00000C;
                        LDY.B $00                            ;039ED4|000000;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;039ED6|00A6A8;
-                       STA.W LOOSE_OP_00A6A8,Y              ;039ED9|00A6A8;
+                       ORA.W $A6A8,Y                        ;039ED6|7EA6A8;
+                       STA.W $A6A8,Y                        ;039ED9|7EA6A8;
                        LDX.B $08                            ;039EDC|000008;
                        LDA.L $7F0018,X                      ;039EDE|7F0018;
                        PHA                                  ;039EE2|      ;
@@ -4988,17 +5005,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039EF1|      ;
                        AND.B $0C                            ;039EF3|00000C;
                        LDY.B $00                            ;039EF5|000000;
-                       ORA.W CODE_00A6B8,Y                  ;039EF7|00A6B8;
-                       STA.W CODE_00A6B8,Y                  ;039EFA|00A6B8;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;039EFD|00A6A8;
+                       ORA.W $A6B8,Y                        ;039EF7|7EA6B8;
+                       STA.W $A6B8,Y                        ;039EFA|7EA6B8;
+                       ORA.W $A6A8,Y                        ;039EFD|7EA6A8;
                        STA.B $0A                            ;039F00|00000A;
                        XBA                                  ;039F02|      ;
                        ORA.B $0A                            ;039F03|00000A;
                        EOR.W #$FFFF                         ;039F05|      ;
                        LDX.B $02                            ;039F08|000002;
-                       STA.W CODE_00CCE8,X                  ;039F0A|00CCE8;
+                       STA.W $CCE8,X                        ;039F0A|7ECCE8;
           CODE_039F0D:
-                       LDA.W CODE_00CCEA,X                  ;039F0D|00CCEA;
+                       LDA.W $CCEA,X                        ;039F0D|7ECCEA;
                        BEQ CODE_039F66                      ;039F10|039F66;
                        STA.B $0C                            ;039F12|00000C;
                        LDX.B $08                            ;039F14|000008;
@@ -5014,8 +5031,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039F29|      ;
                        AND.B $0C                            ;039F2B|00000C;
                        LDY.B $00                            ;039F2D|000000;
-                       ORA.W CODE_00A6AA,Y                  ;039F2F|00A6AA;
-                       STA.W CODE_00A6AA,Y                  ;039F32|00A6AA;
+                       ORA.W $A6AA,Y                        ;039F2F|7EA6AA;
+                       STA.W $A6AA,Y                        ;039F32|7EA6AA;
                        LDX.B $08                            ;039F35|000008;
                        LDA.L $7F001A,X                      ;039F37|7F001A;
                        PHA                                  ;039F3B|      ;
@@ -5029,17 +5046,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039F4A|      ;
                        AND.B $0C                            ;039F4C|00000C;
                        LDY.B $00                            ;039F4E|000000;
-                       ORA.W LOOSE_OP_00A6BA,Y              ;039F50|00A6BA;
-                       STA.W LOOSE_OP_00A6BA,Y              ;039F53|00A6BA;
-                       ORA.W CODE_00A6AA,Y                  ;039F56|00A6AA;
+                       ORA.W $A6BA,Y                        ;039F50|7EA6BA;
+                       STA.W $A6BA,Y                        ;039F53|7EA6BA;
+                       ORA.W $A6AA,Y                        ;039F56|7EA6AA;
                        STA.B $0A                            ;039F59|00000A;
                        XBA                                  ;039F5B|      ;
                        ORA.B $0A                            ;039F5C|00000A;
                        EOR.W #$FFFF                         ;039F5E|      ;
                        LDX.B $02                            ;039F61|000002;
-                       STA.W CODE_00CCEA,X                  ;039F63|00CCEA;
+                       STA.W $CCEA,X                        ;039F63|7ECCEA;
           CODE_039F66:
-                       LDA.W LOOSE_OP_00CCEC,X              ;039F66|00CCEC;
+                       LDA.W $CCEC,X                        ;039F66|7ECCEC;
                        BEQ CODE_039FBF                      ;039F69|039FBF;
                        STA.B $0C                            ;039F6B|00000C;
                        LDX.B $08                            ;039F6D|000008;
@@ -5055,8 +5072,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039F82|      ;
                        AND.B $0C                            ;039F84|00000C;
                        LDY.B $00                            ;039F86|000000;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;039F88|00A6AC;
-                       STA.W LOOSE_OP_00A6AC,Y              ;039F8B|00A6AC;
+                       ORA.W $A6AC,Y                        ;039F88|7EA6AC;
+                       STA.W $A6AC,Y                        ;039F8B|7EA6AC;
                        LDX.B $08                            ;039F8E|000008;
                        LDA.L $7F001C,X                      ;039F90|7F001C;
                        PHA                                  ;039F94|      ;
@@ -5070,17 +5087,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039FA3|      ;
                        AND.B $0C                            ;039FA5|00000C;
                        LDY.B $00                            ;039FA7|000000;
-                       ORA.W LOOSE_OP_00A6BC,Y              ;039FA9|00A6BC;
-                       STA.W LOOSE_OP_00A6BC,Y              ;039FAC|00A6BC;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;039FAF|00A6AC;
+                       ORA.W $A6BC,Y                        ;039FA9|7EA6BC;
+                       STA.W $A6BC,Y                        ;039FAC|7EA6BC;
+                       ORA.W $A6AC,Y                        ;039FAF|7EA6AC;
                        STA.B $0A                            ;039FB2|00000A;
                        XBA                                  ;039FB4|      ;
                        ORA.B $0A                            ;039FB5|00000A;
                        EOR.W #$FFFF                         ;039FB7|      ;
                        LDX.B $02                            ;039FBA|000002;
-                       STA.W LOOSE_OP_00CCEC,X              ;039FBC|00CCEC;
+                       STA.W $CCEC,X                        ;039FBC|7ECCEC;
           CODE_039FBF:
-                       LDA.W CODE_00CCEE,X                  ;039FBF|00CCEE;
+                       LDA.W $CCEE,X                        ;039FBF|7ECCEE;
                        BEQ CODE_03A018                      ;039FC2|03A018;
                        STA.B $0C                            ;039FC4|00000C;
                        LDX.B $08                            ;039FC6|000008;
@@ -5096,8 +5113,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039FDB|      ;
                        AND.B $0C                            ;039FDD|00000C;
                        LDY.B $00                            ;039FDF|000000;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;039FE1|00A6AE;
-                       STA.W LOOSE_OP_00A6AE,Y              ;039FE4|00A6AE;
+                       ORA.W $A6AE,Y                        ;039FE1|7EA6AE;
+                       STA.W $A6AE,Y                        ;039FE4|7EA6AE;
                        LDX.B $08                            ;039FE7|000008;
                        LDA.L $7F001E,X                      ;039FE9|7F001E;
                        PHA                                  ;039FED|      ;
@@ -5111,15 +5128,15 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;039FFC|      ;
                        AND.B $0C                            ;039FFE|00000C;
                        LDY.B $00                            ;03A000|000000;
-                       ORA.W CODE_00A6BE,Y                  ;03A002|00A6BE;
-                       STA.W CODE_00A6BE,Y                  ;03A005|00A6BE;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;03A008|00A6AE;
+                       ORA.W $A6BE,Y                        ;03A002|7EA6BE;
+                       STA.W $A6BE,Y                        ;03A005|7EA6BE;
+                       ORA.W $A6AE,Y                        ;03A008|7EA6AE;
                        STA.B $0A                            ;03A00B|00000A;
                        XBA                                  ;03A00D|      ;
                        ORA.B $0A                            ;03A00E|00000A;
                        EOR.W #$FFFF                         ;03A010|      ;
                        LDX.B $02                            ;03A013|000002;
-                       STA.W CODE_00CCEE,X                  ;03A015|00CCEE;
+                       STA.W $CCEE,X                        ;03A015|7ECCEE;
           CODE_03A018:
                        LDX.B $04                            ;03A018|000004;
                        LDY.B $06                            ;03A01A|000006;
@@ -5132,7 +5149,7 @@ Dungeon_View_Offsets4:
                        LSR A                                ;03A027|      ;
                        TAX                                  ;03A028|      ;
                        STX.B $02                            ;03A029|000002;
-                       LDA.W LOOSE_OP_00CCE0,X              ;03A02B|00CCE0;
+                       LDA.W $CCE0,X                        ;03A02B|7ECCE0;
                        BEQ CODE_03A084                      ;03A02E|03A084;
                        STA.B $0C                            ;03A030|00000C;
                        LDX.B $08                            ;03A032|000008;
@@ -5148,8 +5165,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A047|      ;
                        AND.B $0C                            ;03A049|00000C;
                        LDY.B $00                            ;03A04B|000000;
-                       ORA.W CODE_00A6A0,Y                  ;03A04D|00A6A0;
-                       STA.W CODE_00A6A0,Y                  ;03A050|00A6A0;
+                       ORA.W $A6A0,Y                        ;03A04D|7EA6A0;
+                       STA.W $A6A0,Y                        ;03A050|7EA6A0;
                        LDX.B $08                            ;03A053|000008;
                        LDA.L $7F001E,X                      ;03A055|7F001E;
                        PHA                                  ;03A059|      ;
@@ -5163,17 +5180,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A068|      ;
                        AND.B $0C                            ;03A06A|00000C;
                        LDY.B $00                            ;03A06C|000000;
-                       ORA.W CODE_00A6B0,Y                  ;03A06E|00A6B0;
-                       STA.W CODE_00A6B0,Y                  ;03A071|00A6B0;
-                       ORA.W CODE_00A6A0,Y                  ;03A074|00A6A0;
+                       ORA.W $A6B0,Y                        ;03A06E|7EA6B0;
+                       STA.W $A6B0,Y                        ;03A071|7EA6B0;
+                       ORA.W $A6A0,Y                        ;03A074|7EA6A0;
                        STA.B $0A                            ;03A077|00000A;
                        XBA                                  ;03A079|      ;
                        ORA.B $0A                            ;03A07A|00000A;
                        EOR.W #$FFFF                         ;03A07C|      ;
                        LDX.B $02                            ;03A07F|000002;
-                       STA.W LOOSE_OP_00CCE0,X              ;03A081|00CCE0;
+                       STA.W $CCE0,X                        ;03A081|7ECCE0;
           CODE_03A084:
-                       LDA.W CODE_00CCE2,X                  ;03A084|00CCE2;
+                       LDA.W $CCE2,X                        ;03A084|7ECCE2;
                        BEQ CODE_03A0DD                      ;03A087|03A0DD;
                        STA.B $0C                            ;03A089|00000C;
                        LDX.B $08                            ;03A08B|000008;
@@ -5189,8 +5206,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A0A0|      ;
                        AND.B $0C                            ;03A0A2|00000C;
                        LDY.B $00                            ;03A0A4|000000;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;03A0A6|00A6A2;
-                       STA.W LOOSE_OP_00A6A2,Y              ;03A0A9|00A6A2;
+                       ORA.W $A6A2,Y                        ;03A0A6|7EA6A2;
+                       STA.W $A6A2,Y                        ;03A0A9|7EA6A2;
                        LDX.B $08                            ;03A0AC|000008;
                        LDA.L $7F001C,X                      ;03A0AE|7F001C;
                        PHA                                  ;03A0B2|      ;
@@ -5204,17 +5221,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A0C1|      ;
                        AND.B $0C                            ;03A0C3|00000C;
                        LDY.B $00                            ;03A0C5|000000;
-                       ORA.W CODE_00A6B2,Y                  ;03A0C7|00A6B2;
-                       STA.W CODE_00A6B2,Y                  ;03A0CA|00A6B2;
-                       ORA.W LOOSE_OP_00A6A2,Y              ;03A0CD|00A6A2;
+                       ORA.W $A6B2,Y                        ;03A0C7|7EA6B2;
+                       STA.W $A6B2,Y                        ;03A0CA|7EA6B2;
+                       ORA.W $A6A2,Y                        ;03A0CD|7EA6A2;
                        STA.B $0A                            ;03A0D0|00000A;
                        XBA                                  ;03A0D2|      ;
                        ORA.B $0A                            ;03A0D3|00000A;
                        EOR.W #$FFFF                         ;03A0D5|      ;
                        LDX.B $02                            ;03A0D8|000002;
-                       STA.W CODE_00CCE2,X                  ;03A0DA|00CCE2;
+                       STA.W $CCE2,X                        ;03A0DA|7ECCE2;
           CODE_03A0DD:
-                       LDA.W CODE_00CCE4,X                  ;03A0DD|00CCE4;
+                       LDA.W $CCE4,X                        ;03A0DD|7ECCE4;
                        BEQ CODE_03A136                      ;03A0E0|03A136;
                        STA.B $0C                            ;03A0E2|00000C;
                        LDX.B $08                            ;03A0E4|000008;
@@ -5230,8 +5247,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A0F9|      ;
                        AND.B $0C                            ;03A0FB|00000C;
                        LDY.B $00                            ;03A0FD|000000;
-                       ORA.W CODE_00A6A4,Y                  ;03A0FF|00A6A4;
-                       STA.W CODE_00A6A4,Y                  ;03A102|00A6A4;
+                       ORA.W $A6A4,Y                        ;03A0FF|7EA6A4;
+                       STA.W $A6A4,Y                        ;03A102|7EA6A4;
                        LDX.B $08                            ;03A105|000008;
                        LDA.L $7F001A,X                      ;03A107|7F001A;
                        PHA                                  ;03A10B|      ;
@@ -5245,17 +5262,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A11A|      ;
                        AND.B $0C                            ;03A11C|00000C;
                        LDY.B $00                            ;03A11E|000000;
-                       ORA.W LOOSE_OP_00A6B4,Y              ;03A120|00A6B4;
-                       STA.W LOOSE_OP_00A6B4,Y              ;03A123|00A6B4;
-                       ORA.W CODE_00A6A4,Y                  ;03A126|00A6A4;
+                       ORA.W $A6B4,Y                        ;03A120|7EA6B4;
+                       STA.W $A6B4,Y                        ;03A123|7EA6B4;
+                       ORA.W $A6A4,Y                        ;03A126|7EA6A4;
                        STA.B $0A                            ;03A129|00000A;
                        XBA                                  ;03A12B|      ;
                        ORA.B $0A                            ;03A12C|00000A;
                        EOR.W #$FFFF                         ;03A12E|      ;
                        LDX.B $02                            ;03A131|000002;
-                       STA.W CODE_00CCE4,X                  ;03A133|00CCE4;
+                       STA.W $CCE4,X                        ;03A133|7ECCE4;
           CODE_03A136:
-                       LDA.W CODE_00CCE6,X                  ;03A136|00CCE6;
+                       LDA.W $CCE6,X                        ;03A136|7ECCE6;
                        BEQ CODE_03A18F                      ;03A139|03A18F;
                        STA.B $0C                            ;03A13B|00000C;
                        LDX.B $08                            ;03A13D|000008;
@@ -5271,8 +5288,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A152|      ;
                        AND.B $0C                            ;03A154|00000C;
                        LDY.B $00                            ;03A156|000000;
-                       ORA.W CODE_00A6A6,Y                  ;03A158|00A6A6;
-                       STA.W CODE_00A6A6,Y                  ;03A15B|00A6A6;
+                       ORA.W $A6A6,Y                        ;03A158|7EA6A6;
+                       STA.W $A6A6,Y                        ;03A15B|7EA6A6;
                        LDX.B $08                            ;03A15E|000008;
                        LDA.L $7F0018,X                      ;03A160|7F0018;
                        PHA                                  ;03A164|      ;
@@ -5287,16 +5304,16 @@ Dungeon_View_Offsets4:
                        AND.B $0C                            ;03A175|00000C;
                        LDY.B $00                            ;03A177|000000;
                        ORA.W LOOSE_OP_00A6B6,Y              ;03A179|00A6B6;
-                       STA.W LOOSE_OP_00A6B6,Y              ;03A17C|00A6B6;
-                       ORA.W CODE_00A6A6,Y                  ;03A17F|00A6A6;
+                       STA.W $A6B6,Y                        ;03A17C|7EA6B6;
+                       ORA.W $A6A6,Y                        ;03A17F|7EA6A6;
                        STA.B $0A                            ;03A182|00000A;
                        XBA                                  ;03A184|      ;
                        ORA.B $0A                            ;03A185|00000A;
                        EOR.W #$FFFF                         ;03A187|      ;
                        LDX.B $02                            ;03A18A|000002;
-                       STA.W CODE_00CCE6,X                  ;03A18C|00CCE6;
+                       STA.W $CCE6,X                        ;03A18C|7ECCE6;
           CODE_03A18F:
-                       LDA.W CODE_00CCE8,X                  ;03A18F|00CCE8;
+                       LDA.W $CCE8,X                        ;03A18F|7ECCE8;
                        BEQ CODE_03A1E8                      ;03A192|03A1E8;
                        STA.B $0C                            ;03A194|00000C;
                        LDX.B $08                            ;03A196|000008;
@@ -5312,8 +5329,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A1AB|      ;
                        AND.B $0C                            ;03A1AD|00000C;
                        LDY.B $00                            ;03A1AF|000000;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;03A1B1|00A6A8;
-                       STA.W LOOSE_OP_00A6A8,Y              ;03A1B4|00A6A8;
+                       ORA.W $A6A8,Y                        ;03A1B1|7EA6A8;
+                       STA.W $A6A8,Y                        ;03A1B4|7EA6A8;
                        LDX.B $08                            ;03A1B7|000008;
                        LDA.L $7F0016,X                      ;03A1B9|7F0016;
                        PHA                                  ;03A1BD|      ;
@@ -5327,17 +5344,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A1CC|      ;
                        AND.B $0C                            ;03A1CE|00000C;
                        LDY.B $00                            ;03A1D0|000000;
-                       ORA.W CODE_00A6B8,Y                  ;03A1D2|00A6B8;
-                       STA.W CODE_00A6B8,Y                  ;03A1D5|00A6B8;
-                       ORA.W LOOSE_OP_00A6A8,Y              ;03A1D8|00A6A8;
+                       ORA.W $A6B8,Y                        ;03A1D2|7EA6B8;
+                       STA.W $A6B8,Y                        ;03A1D5|7EA6B8;
+                       ORA.W $A6A8,Y                        ;03A1D8|7EA6A8;
                        STA.B $0A                            ;03A1DB|00000A;
                        XBA                                  ;03A1DD|      ;
                        ORA.B $0A                            ;03A1DE|00000A;
                        EOR.W #$FFFF                         ;03A1E0|      ;
                        LDX.B $02                            ;03A1E3|000002;
-                       STA.W CODE_00CCE8,X                  ;03A1E5|00CCE8;
+                       STA.W $CCE8,X                        ;03A1E5|7ECCE8;
           CODE_03A1E8:
-                       LDA.W CODE_00CCEA,X                  ;03A1E8|00CCEA;
+                       LDA.W $CCEA,X                        ;03A1E8|7ECCEA;
                        BEQ CODE_03A241                      ;03A1EB|03A241;
                        STA.B $0C                            ;03A1ED|00000C;
                        LDX.B $08                            ;03A1EF|000008;
@@ -5353,8 +5370,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A204|      ;
                        AND.B $0C                            ;03A206|00000C;
                        LDY.B $00                            ;03A208|000000;
-                       ORA.W CODE_00A6AA,Y                  ;03A20A|00A6AA;
-                       STA.W CODE_00A6AA,Y                  ;03A20D|00A6AA;
+                       ORA.W $A6AA,Y                        ;03A20A|7EA6AA;
+                       STA.W $A6AA,Y                        ;03A20D|7EA6AA;
                        LDX.B $08                            ;03A210|000008;
                        LDA.L $7F0014,X                      ;03A212|7F0014;
                        PHA                                  ;03A216|      ;
@@ -5368,17 +5385,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A225|      ;
                        AND.B $0C                            ;03A227|00000C;
                        LDY.B $00                            ;03A229|000000;
-                       ORA.W LOOSE_OP_00A6BA,Y              ;03A22B|00A6BA;
-                       STA.W LOOSE_OP_00A6BA,Y              ;03A22E|00A6BA;
-                       ORA.W CODE_00A6AA,Y                  ;03A231|00A6AA;
+                       ORA.W $A6BA,Y                        ;03A22B|7EA6BA;
+                       STA.W $A6BA,Y                        ;03A22E|7EA6BA;
+                       ORA.W $A6AA,Y                        ;03A231|7EA6AA;
                        STA.B $0A                            ;03A234|00000A;
                        XBA                                  ;03A236|      ;
                        ORA.B $0A                            ;03A237|00000A;
                        EOR.W #$FFFF                         ;03A239|      ;
                        LDX.B $02                            ;03A23C|000002;
-                       STA.W CODE_00CCEA,X                  ;03A23E|00CCEA;
+                       STA.W $CCEA,X                        ;03A23E|7ECCEA;
           CODE_03A241:
-                       LDA.W LOOSE_OP_00CCEC,X              ;03A241|00CCEC;
+                       LDA.W $CCEC,X                        ;03A241|7ECCEC;
                        BEQ CODE_03A29A                      ;03A244|03A29A;
                        STA.B $0C                            ;03A246|00000C;
                        LDX.B $08                            ;03A248|000008;
@@ -5394,8 +5411,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A25D|      ;
                        AND.B $0C                            ;03A25F|00000C;
                        LDY.B $00                            ;03A261|000000;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;03A263|00A6AC;
-                       STA.W LOOSE_OP_00A6AC,Y              ;03A266|00A6AC;
+                       ORA.W $A6AC,Y                        ;03A263|7EA6AC;
+                       STA.W $A6AC,Y                        ;03A266|7EA6AC;
                        LDX.B $08                            ;03A269|000008;
                        LDA.L $7F0012,X                      ;03A26B|7F0012;
                        PHA                                  ;03A26F|      ;
@@ -5409,17 +5426,17 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A27E|      ;
                        AND.B $0C                            ;03A280|00000C;
                        LDY.B $00                            ;03A282|000000;
-                       ORA.W LOOSE_OP_00A6BC,Y              ;03A284|00A6BC;
-                       STA.W LOOSE_OP_00A6BC,Y              ;03A287|00A6BC;
-                       ORA.W LOOSE_OP_00A6AC,Y              ;03A28A|00A6AC;
+                       ORA.W $A6BC,Y                        ;03A284|7EA6BC;
+                       STA.W $A6BC,Y                        ;03A287|7EA6BC;
+                       ORA.W $A6AC,Y                        ;03A28A|7EA6AC;
                        STA.B $0A                            ;03A28D|00000A;
                        XBA                                  ;03A28F|      ;
                        ORA.B $0A                            ;03A290|00000A;
                        EOR.W #$FFFF                         ;03A292|      ;
                        LDX.B $02                            ;03A295|000002;
-                       STA.W LOOSE_OP_00CCEC,X              ;03A297|00CCEC;
+                       STA.W $CCEC,X                        ;03A297|7ECCEC;
           CODE_03A29A:
-                       LDA.W CODE_00CCEE,X                  ;03A29A|00CCEE;
+                       LDA.W $CCEE,X                        ;03A29A|7ECCEE;
                        BEQ CODE_03A2F3                      ;03A29D|03A2F3;
                        STA.B $0C                            ;03A29F|00000C;
                        LDX.B $08                            ;03A2A1|000008;
@@ -5435,8 +5452,8 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A2B6|      ;
                        AND.B $0C                            ;03A2B8|00000C;
                        LDY.B $00                            ;03A2BA|000000;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;03A2BC|00A6AE;
-                       STA.W LOOSE_OP_00A6AE,Y              ;03A2BF|00A6AE;
+                       ORA.W $A6AE,Y                        ;03A2BC|7EA6AE;
+                       STA.W $A6AE,Y                        ;03A2BF|7EA6AE;
                        LDX.B $08                            ;03A2C2|000008;
                        LDA.L $7F0010,X                      ;03A2C4|7F0010;
                        PHA                                  ;03A2C8|      ;
@@ -5450,15 +5467,15 @@ Dungeon_View_Offsets4:
                        REP #$30                             ;03A2D7|      ;
                        AND.B $0C                            ;03A2D9|00000C;
                        LDY.B $00                            ;03A2DB|000000;
-                       ORA.W CODE_00A6BE,Y                  ;03A2DD|00A6BE;
-                       STA.W CODE_00A6BE,Y                  ;03A2E0|00A6BE;
-                       ORA.W LOOSE_OP_00A6AE,Y              ;03A2E3|00A6AE;
+                       ORA.W $A6BE,Y                        ;03A2DD|7EA6BE;
+                       STA.W $A6BE,Y                        ;03A2E0|7EA6BE;
+                       ORA.W $A6AE,Y                        ;03A2E3|7EA6AE;
                        STA.B $0A                            ;03A2E6|00000A;
                        XBA                                  ;03A2E8|      ;
                        ORA.B $0A                            ;03A2E9|00000A;
                        EOR.W #$FFFF                         ;03A2EB|      ;
                        LDX.B $02                            ;03A2EE|000002;
-                       STA.W CODE_00CCEE,X                  ;03A2F0|00CCEE;
+                       STA.W $CCEE,X                        ;03A2F0|7ECCEE;
           CODE_03A2F3:
                        LDX.B $04                            ;03A2F3|000004;
                        LDY.B $06                            ;03A2F5|000006;
@@ -9356,11 +9373,11 @@ Check_for_exit_location:
                        STA.W $1187                          ;03B47A|001187;
                        RTL                                  ;03B47D|      ;
  Chapter_Decomp_data2:
-                       dw DATA8_00B379                      ;03B47E|00B379;
-                       dw DATA8_00CF7D                      ;03B480|00CF7D;
-                       dw DATA8_00CF7D                      ;03B482|00CF7D;
-                       dw UNREACH_00D9BF                    ;03B484|00D9BF;
-                       dw CODE_00C1D4                       ;03B486|00C1D4;
+                       dw DATA8_04B379                      ;03B47E|04B379;
+                       dw DATA8_04CF7D                      ;03B480|04CF7D;
+                       dw DATA8_04CF7D                      ;03B482|04CF7D;
+                       dw DATA8_04D9BF                      ;03B484|04D9BF;
+                       dw DATA8_04C1D4                      ;03B486|04C1D4;
  Chapter_Decomp_bank2:
                        dw $0004                             ;03B488|000004;
                        dw $0004                             ;03B48A|000004;
@@ -9368,11 +9385,11 @@ Check_for_exit_location:
                        dw $0004                             ;03B48E|000004;
                        dw $0004                             ;03B490|000004;
  Chapter_Decomp_data3:
-                       dw LOOSE_OP_00B6E4                   ;03B492|00B6E4;
-                       dw PTR24_00D292                      ;03B494|00D292;
-                       dw PTR24_00D292                      ;03B496|00D292;
-                       dw UNREACH_00DEB4                    ;03B498|00DEB4;
-                       dw CODE_00C583                       ;03B49A|00C583;
+                       dw DATA8_04B6E4                      ;03B492|04B6E4;
+                       dw DATA8_04D292                      ;03B494|04D292;
+                       dw DATA8_04D292                      ;03B496|04D292;
+                       dw DATA8_04DEB4                      ;03B498|04DEB4;
+                       dw DATA8_04C583                      ;03B49A|04C583;
  Chapter_Decomp_bank3:
                        dw $0004                             ;03B49C|000004;
                        dw $0004                             ;03B49E|000004;
@@ -10131,12 +10148,12 @@ Check_for_exit_location:
                        db $FF                               ;03B816|230000;
                        db $00                               ;03B817|      ;
                        db $00                               ;03B818|      ;
-         PTR16_03B819:
-                       dw DATA16_00B823                     ;03B819|00B823;
-                       dw DATA16_00B83B                     ;03B81B|00B83B;
-                       dw DATA16_00B83B                     ;03B81D|00B83B;
-                       dw LOOSE_OP_00B857                   ;03B81F|00B857;
-                       dw CODE_00B873                       ;03B821|00B873;
+        Tbl_Town_data:
+                       dw Ch1_town_data                     ;03B819|03B823;
+                       dw Ch2_3_town_data                   ;03B81B|03B83B;
+                       dw Ch2_3_town_data                   ;03B81D|03B83B;
+                       dw Ch4_town_data                     ;03B81F|03B857;
+                       dw Ch5_town_data                     ;03B821|03B873;
         Ch1_town_data:
                        db $00                               ;03B823|      ; For some ungodly reason, it's faster to go left
                        db $04                               ;03B824|      ;
@@ -10437,16 +10454,15 @@ Check_for_exit_location:
                        dw $1881                             ;03B9BF|      ;
                        db $11                               ;03B9C1|      ;
                        db $06                               ;03B9C2|      ;
-                       dw Call_Outfitter_menu               ;03B9C3|03C130;
+                       dw Event_Outfitter_Start             ;03B9C3|03C130;
                        dw Event_Inn_Start                   ;03B9C5|03BD3D;
                        dw Event_Healer_Start                ;03B9C7|03BED1;
                        dw Event_Alchemist_Start             ;03B9C9|03BB35;
-                       dw DATA8_03B9CF                      ;03B9CB|03B9CF;
-                       dw Enter_Icorina_house               ;03B9CD|03BA99;
-         DATA8_03B9CF:
+                       dw Icorina_house_events              ;03B9CB|03B9CF;
+                       dw Event_Icorina_House               ;03B9CD|03BA99;
+ Icorina_house_events:
                        db $07                               ;03B9CF|      ;
                        dl CODE_03D025                       ;03B9D0|03D025;
- Icorina_house_events:
                        db $07                               ;03B9D3|      ;
                        dl Check_some_events                 ;03B9D4|03BA79;
                        db $11                               ;03B9D7|      ;
@@ -10568,7 +10584,7 @@ Entrust_the_princess1:
                        dw $0009                             ;03BA93|      ;
                        dw $000B                             ;03BA95|      ;
                        dw $00FF                             ;03BA97|      ;
-  Enter_Icorina_house:
+  Event_Icorina_House:
                        db $07                               ;03BA99|      ;
                        dl CODE_03D025                       ;03BA9A|03D025;
                        db $16                               ;03BA9D|      ;
@@ -10582,8 +10598,8 @@ Entrust_the_princess1:
                        dl Check_Salah                       ;03BAAB|03BB28;
                        db $11                               ;03BAAE|      ;
                        db $02                               ;03BAAF|      ;
-                       dw DATA16_00BAB4                     ;03BAB0|00BAB4;
-                       dw DATA16_00BAF4                     ;03BAB2|00BAF4;
+                       dw Icorina1                          ;03BAB0|03BAB4;
+                       dw Icorina2                          ;03BAB2|03BAF4;
              Icorina1:
                        db $07                               ;03BAB4|      ;
                        dl Setup_Text_Parser_3b              ;03BAB5|00A0AC;
@@ -11294,7 +11310,7 @@ SH_Set_up_shop_cursor:
                        dl DATA8_03E79D                      ;03BF15|03E79D;
                        db $07                               ;03BF18|      ;
                        dl Setup_Text_Parser_3b              ;03BF19|00A0AC;
-                       dl Healer_Thank_You                  ;03BF1C|08D020;
+                       dl Healer_Bye                        ;03BF1C|08D020;
                        db $00                               ;03BF1F|      ;
                        db $1B                               ;03BF20|      ;
                        dw Pause_Loop                        ;03BF21|03CFD4;
@@ -11413,7 +11429,7 @@ SpiritHealer_A_pressed:
                        db $07                               ;03BFCD|      ;
                        dl Buy_Revival                       ;03BFCE|03E1C3;
                        db $0C                               ;03BFD1|      ; Branch if can't pay
-                       dw LOOSE_OP_00BFF0                   ;03BFD2|00BFF0;
+                       dw No_money_revival                  ;03BFD2|03BFF0;
                        db $07                               ;03BFD4|      ;
                        dl Some_purchase_helper              ;03BFD5|03E1D7;
                        db $07                               ;03BFD8|      ;
@@ -11424,19 +11440,19 @@ SpiritHealer_A_pressed:
                        dl Healer_Revive_Complete            ;03BFE1|08D16B;
                        db $00                               ;03BFE4|      ;
                        db $1B                               ;03BFE5|      ;
-                       dw PTR24_00CFD4                      ;03BFE6|00CFD4;
+                       dw Pause_Loop                        ;03BFE6|03CFD4;
                        db $07                               ;03BFE8|      ;
                        dl GetSet_SFX                        ;03BFE9|009C44;
                        db $11                               ;03BFEC|      ;
                        db $1A                               ;03BFED|      ; Branch to $C000
-                       dw LOOSE_OP_00C000                   ;03BFEE|00C000;
+                       dw DATA8_03C000                      ;03BFEE|03C000;
      No_money_revival:
                        db $07                               ;03BFF0|      ;
                        dl Setup_Text_Parser_3b              ;03BFF1|00A0AC;
                        dl Healer_Cant_buy_revive            ;03BFF4|08D111;
                        db $00                               ;03BFF7|      ;
                        db $1B                               ;03BFF8|      ;
-                       dw PTR24_00CFD4                      ;03BFF9|00CFD4;
+                       dw Pause_Loop                        ;03BFF9|03CFD4;
                        db $07                               ;03BFFB|      ;
                        dl GetSet_SFX                        ;03BFFC|009C44;
                        db $11                               ;03BFFF|      ;
@@ -11466,10 +11482,9 @@ SpiritHealer_A_pressed:
                        dl Setup_Text_Parser_3b              ;03C01D|00A0AC;
                        dl Healer_What_Else                  ;03C020|08D030;
                        db $00                               ;03C023|      ;
-                       db $0F                               ;03C024|000100;
+                       db $0F                               ;03C024|      ;
                        db $00                               ;03C025|      ;
-                       db $01                               ;03C026|000000;
-                       db $00                               ;03C027|      ;
+                       dw $0001                             ;03C026|      ;
                        db $1A                               ;03C028|      ;
                        dw Healer_Main_Menu                  ;03C029|03BEDD;
          DATA8_03C02B:
@@ -11646,7 +11661,7 @@ SpiritHealer_A_pressed:
                        db $11                               ;03C12C|      ;
                        db $1A                               ;03C12D|      ; Jump always to C097
                        dw Healer_Anything_Else              ;03C12E|03C097;
-  Call_Outfitter_menu:
+Event_Outfitter_Start:
                        db $07                               ;03C130|      ;
                        dl Setup_Text_Parser_3b              ;03C131|00A0AC;
                        dl Outfitter_menu                    ;03C134|08DC27;
@@ -14206,7 +14221,7 @@ Sub_Load_Gfx_Skull_Card2:
                        db $06                               ;03CFD4|      ;
                        db $01                               ;03CFD5|      ;
                        db $07                               ;03CFD6|      ;
-                       dl Wait_For_A_Press                  ;03CFD7|07BA03;
+                       dl Wait_For_A_Press_1b               ;03CFD7|07BA03;
                        db $00                               ;03CFDA|      ;
                        db $0B                               ;03CFDB|      ;
                        dw Pause_Loop                        ;03CFDC|03CFD4;
@@ -14989,9 +15004,9 @@ Sub_Load_Gfx_Skull_Card2:
                        LDA.W Curr_area                      ;03D589|001573;
                        ASL A                                ;03D58C|      ;
                        TAY                                  ;03D58D|      ;
-                       LDA.W CODE_00D46B,Y                  ;03D58E|00D46B;
+                       LDA.W $D46B,Y                        ;03D58E|7ED46B;
                        STA.B $00                            ;03D591|000000;
-                       LDA.W UNREACH_00D49F,Y               ;03D593|00D49F;
+                       LDA.W $D49F,Y                        ;03D593|7ED49F;
                        STA.B $02                            ;03D596|000002;
                        LDA.W $189F                          ;03D598|00189F;
                        ASL A                                ;03D59B|      ;
@@ -16431,11 +16446,11 @@ Tbl_Alchemist_Convo_Sets:
                        LDA.W #$0001                         ;03E146|      ;
                        RTL                                  ;03E149|      ;
          Spirit_names:
-                       dw LOOSE_OP_009FDE                   ;03E14A|009FDE; Clear text
-                       dw LOOSE_OP_009F86                   ;03E14C|009F86; Sylph
-                       dw LOOSE_OP_009F91                   ;03E14E|009F91; Dao
-                       dw CODE_009F9C                       ;03E150|009F9C; Marid
-                       dw LOOSE_OP_009FA7                   ;03E152|009FA7; Efrite
+                       dw Name_Blank                        ;03E14A|059FDE; Clear text
+                       dw Name_Sylph                        ;03E14C|059F86; Sylph
+                       dw Name_Dao                          ;03E14E|059F91; Dao
+                       dw Name_Marid                        ;03E150|059F9C; Marid
+                       dw Name_Efrite                       ;03E152|059FA7; Efrite
        Revival_prices:
                        dw $0032                             ;03E154|      ; Galia
                        dw $0064                             ;03E156|      ; Doraf
@@ -16992,7 +17007,7 @@ Add_color_math_designation:
                        LDA.W Curr_area                      ;03E63B|001573;
                        ASL A                                ;03E63E|      ;
                        TAX                                  ;03E63F|      ;
-                       LDA.L PTR16_03B819,X                 ;03E640|03B819;
+                       LDA.L Tbl_Town_data,X                ;03E640|03B819;
                        STA.B $18                            ;03E644|000018;
                        LDA.W #$0003                         ;03E646|      ;
                        STA.B $1A                            ;03E649|00001A;

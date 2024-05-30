@@ -623,7 +623,6 @@ Gfx_Dungeon_Stuff_far:
                        db $01                               ;0084CB|      ;
                        db $01                               ;0084CC|      ;
                        db $01                               ;0084CD|      ;
-         DATA8_0084CE:
                        db $00                               ;0084CE|      ;
                        db $80                               ;0084CF|      ;
          Tbl_DMA_Dest:
@@ -691,7 +690,6 @@ Gfx_Dungeon_Stuff_far:
                        SEP #$20                             ;00850A|      ;
                        BMI CODE_008512                      ;00850C|008512;
                        LDA.B #$7E                           ;00850E|      ;
-          CODE_008510:
                        BRA CODE_008514                      ;008510|008514;
           CODE_008512:
                        LDA.B $05,S                          ;008512|000005;
@@ -781,7 +779,6 @@ Gfx_Dungeon_Stuff_far:
                        SEC                                  ;00858F|      ;
                        SBC.W $0002                          ;008590|000002;
                        TAX                                  ;008593|      ;
-          CODE_008594:
                        CPX.B #$F8                           ;008594|      ;
                        BCC CODE_00859F                      ;008596|00859F;
                        REP #$10                             ;008598|      ;
@@ -884,9 +881,7 @@ Gfx_Dungeon_Stuff_far:
                        PLA                                  ;008650|      ;
                        STA.B $00                            ;008651|000000;
                        TAX                                  ;008653|      ;
-          CODE_008654:
                        SEP #$20                             ;008654|      ;
-          CODE_008656:
                        BMI CODE_00865C                      ;008656|00865C;
                        LDA.B #$7E                           ;008658|      ;
                        BRA CODE_00865E                      ;00865A|00865E;
@@ -1021,7 +1016,6 @@ Gfx_Dungeon_Stuff_far:
                        STA.B $00                            ;008710|000000;
                        STX.B $09                            ;008712|000009;
                        STY.B $0B                            ;008714|00000B;
-          CODE_008716:
                        TAX                                  ;008716|      ;
                        SEP #$20                             ;008717|      ;
                        BMI CODE_00871F                      ;008719|00871F;
@@ -1281,7 +1275,6 @@ Gfx_Dungeon_Stuff_far:
                        INX                                  ;0088A1|      ;
                        INX                                  ;0088A2|      ;
                        INX                                  ;0088A3|      ;
-          CODE_0088A4:
                        INX                                  ;0088A4|      ;
                        CPX.W #$0400                         ;0088A5|      ;
                        BCC CODE_00889F                      ;0088A8|00889F;
@@ -1533,7 +1526,6 @@ Gfx_Dungeon_Stuff_far:
                        STX.W Multiply_hi                    ;008A49|004203;
                        NOP                                  ;008A4C|      ;
                        NOP                                  ;008A4D|      ;
-          CODE_008A4E:
                        LDA.L Mult_Divide_Result             ;008A4E|004216;
                        STA.B $00                            ;008A52|000000;
                        PLX                                  ;008A54|      ;
@@ -1604,7 +1596,6 @@ Gfx_Dungeon_Stuff_far:
                        PHA                                  ;008AC0|      ;
                        STZ.B $0A                            ;008AC1|00000A;
                        JSR.W CODE_008B38                    ;008AC3|008B38;
-          CODE_008AC6:
                        LDX.B $08                            ;008AC6|000008;
                        BPL CODE_008ACC                      ;008AC8|008ACC;
                        INC.B $0A                            ;008ACA|00000A;
@@ -1619,7 +1610,6 @@ Gfx_Dungeon_Stuff_far:
           CODE_008ADB:
                        PHA                                  ;008ADB|      ;
                        STZ.B $0A                            ;008ADC|00000A;
-          CODE_008ADE:
                        JSR.W CODE_008B38                    ;008ADE|008B38;
                        LDX.B $06                            ;008AE1|000006;
                        BPL CODE_008AE7                      ;008AE3|008AE7;
@@ -1694,7 +1684,6 @@ Gfx_Dungeon_Stuff_far:
                        AND.W #$007F                         ;008B54|      ;
                        TAX                                  ;008B57|      ;
                        LDA.W Unknown_Tables,X               ;008B58|008B64;
-          CODE_008B5B:
                        AND.W #$00FF                         ;008B5B|      ;
                        PLX                                  ;008B5E|      ;
                        BPL CODE_008B63                      ;008B5F|008B63;
@@ -1713,7 +1702,6 @@ Gfx_Dungeon_Stuff_far:
                        db $2B                               ;008B6B|      ;
                        db $31                               ;008B6C|      ;
                        db $38                               ;008B6D|      ;
-         DATA8_008B6E:
                        db $3E                               ;008B6E|      ;
                        db $44                               ;008B6F|      ;
                        db $4A                               ;008B70|      ;
@@ -1733,7 +1721,6 @@ Gfx_Dungeon_Stuff_far:
                        db $98                               ;008B7E|      ;
                        db $9D                               ;008B7F|      ;
                        db $A2                               ;008B80|      ;
-         DATA8_008B81:
                        db $A7                               ;008B81|      ;
                        db $AB                               ;008B82|      ;
                        db $B0                               ;008B83|      ;
@@ -1753,7 +1740,6 @@ Gfx_Dungeon_Stuff_far:
                        db $E4                               ;008B91|      ;
                        db $E7                               ;008B92|      ;
                        db $EA                               ;008B93|      ;
-         DATA8_008B94:
                        db $EC                               ;008B94|      ;
                        db $EE                               ;008B95|      ;
                        db $F1                               ;008B96|      ;
@@ -1773,7 +1759,6 @@ Gfx_Dungeon_Stuff_far:
                        db $FF                               ;008BA4|      ;
                        db $FF                               ;008BA5|      ;
                        db $FF                               ;008BA6|      ;
-         DATA8_008BA7:
                        db $FF                               ;008BA7|      ;
          DATA8_008BA8:
                        db $FE                               ;008BA8|      ;
@@ -1794,7 +1779,6 @@ Gfx_Dungeon_Stuff_far:
                        db $E4                               ;008BB7|      ;
                        db $E1                               ;008BB8|      ;
                        db $DE                               ;008BB9|      ;
-         DATA8_008BBA:
                        db $DB                               ;008BBA|      ;
                        db $D8                               ;008BBB|      ;
                        db $D4                               ;008BBC|      ;
@@ -1814,7 +1798,6 @@ Gfx_Dungeon_Stuff_far:
                        db $98                               ;008BCA|      ;
                        db $93                               ;008BCB|      ;
                        db $8E                               ;008BCC|      ;
-         DATA8_008BCD:
                        db $88                               ;008BCD|      ;
                        db $83                               ;008BCE|      ;
                        db $7E                               ;008BCF|      ;
@@ -1851,7 +1834,6 @@ Gfx_Dungeon_Stuff_far:
                        db $EF                               ;008BEC|      ;
                        db $FF                               ;008BED|      ;
                        db $DF                               ;008BEE|      ;
-         DATA8_008BEF:
                        db $FF                               ;008BEF|      ;
                        db $BF                               ;008BF0|      ;
                        db $FF                               ;008BF1|      ;
@@ -1898,7 +1880,6 @@ Gfx_Dungeon_Stuff_far:
                        db $FF                               ;008C16|      ;
                        db $FB                               ;008C17|      ;
                        db $FF                               ;008C18|      ;
-         DATA8_008C19:
                        db $FD                               ;008C19|      ;
                        db $FF                               ;008C1A|      ;
                        db $FE                               ;008C1B|      ;
@@ -2023,7 +2004,6 @@ MapProgress_OR_filters:
                        STZ.W $101F,X                        ;008CE2|00101F;
                        STZ.W $1027,X                        ;008CE5|001027;
                        STZ.W $0FEF,X                        ;008CE8|000FEF;
-          CODE_008CEB:
                        STZ.W $0FF7,X                        ;008CEB|000FF7;
                        DEX                                  ;008CEE|      ;
                        DEX                                  ;008CEF|      ;
@@ -2292,7 +2272,6 @@ MapProgress_OR_filters:
                        ADC.W #$0000                         ;008F4E|      ;
                        STA.B $02                            ;008F51|000002;
                        LDA.W $0817,X                        ;008F53|000817;
-          CODE_008F56:
                        CLC                                  ;008F56|      ;
                        ADC.B $00                            ;008F57|000000;
                        LDA.W $07AB,X                        ;008F59|0007AB;
@@ -4573,7 +4552,6 @@ Set_Pixellation_hi_1b:
                        STA.W RGB_Blue                       ;009F96|00108E;
                        REP #$20                             ;009F99|      ;
                        TYA                                  ;009F9B|      ;
-          CODE_009F9C:
                        CLC                                  ;009F9C|      ;
                        ADC.B $10                            ;009F9D|000010;
                        STA.B $10                            ;009F9F|000010;
@@ -4740,10 +4718,11 @@ GetPtr_3b_Do_stuff_1b:
                        JSR.W GetEventCode_1b                ;00A0B6|009AF0; Get offset for A68C
                        JSR.W Set_Text_Parser                ;00A0B9|00A68C;
                        RTL                                  ;00A0BC|      ;
-     RNG_1b_something:
+               RNG_1b:
                        JSR.W GetEventCode_1b                ;00A0BD|009AF0;
           CODE_00A0C0:
                        JML.L RNG                            ;00A0C0|0089F1;
+        Update_scn_1b:
                        JSR.W GetEventCode_1b                ;00A0C4|009AF0;
                        JSR.W Update_scn                     ;00A0C7|008327;
                        RTL                                  ;00A0CA|      ;
@@ -5402,16 +5381,12 @@ Confusing_RAM_Xfer_3b_4b:
                        STA.W $0022,X                        ;00A673|000022;
                        STA.W $0020,X                        ;00A676|000020;
                        TXA                                  ;00A679|      ;
-          CODE_00A67A:
                        CLC                                  ;00A67A|      ;
                        ADC.W #$0028                         ;00A67B|      ;
-          CODE_00A67E:
                        TAX                                  ;00A67E|      ;
           CODE_00A67F:
                        CPX.W #$10E7                         ;00A67F|      ;
-          CODE_00A682:
                        BMI CODE_00A65B                      ;00A682|00A65B;
-          CODE_00A684:
                        JSR.W CODE_00C015                    ;00A684|00C015;
                        RTS                                  ;00A687|      ;
  Set_Text_Parser_long:
@@ -5423,41 +5398,29 @@ Confusing_RAM_Xfer_3b_4b:
           CODE_00A68E:
                        TDC                                  ;00A68E|      ;
                        SEC                                  ;00A68F|      ;
-          CODE_00A690:
                        SBC.W #$0002                         ;00A690|      ;
                        TCD                                  ;00A693|      ; Change where $00 points
-          CODE_00A694:
                        PLA                                  ;00A694|      ;
                        STA.B $00                            ;00A695|000000; Store the offset in $00
                        LDA.B $00                            ;00A697|000000;
                        SEP #$20                             ;00A699|      ;
                        XBA                                  ;00A69B|      ;
-          CODE_00A69C:
                        LDA.B #$28                           ;00A69C|      ;
-          CODE_00A69E:
                        REP #$20                             ;00A69E|      ;
-          CODE_00A6A0:
                        STA.L Multiply_lo                    ;00A6A0|004202; Multiply offset by #$28 (entry size?)
-          CODE_00A6A4:
                        NOP                                  ;00A6A4|      ;
           CODE_00A6A5:
                        NOP                                  ;00A6A5|      ;
-          CODE_00A6A6:
                        LDA.L Mult_Divide_Result             ;00A6A6|004216;
-          CODE_00A6AA:
                        TAX                                  ;00A6AA|      ;
           CODE_00A6AB:
                        LDA.B $02                            ;00A6AB|000002;
                        STA.W $10B3,X                        ;00A6AD|0010B3; Store the pointer in $10B3,x (?)
-          CODE_00A6B0:
                        LDA.B $04                            ;00A6B0|000004;
-          CODE_00A6B2:
                        STA.W $10B5,X                        ;00A6B2|0010B5;
                        LDA.W #$0000                         ;00A6B5|      ;
-          CODE_00A6B8:
                        STA.W $10B7,X                        ;00A6B8|0010B7;
                        STA.W $10B9,X                        ;00A6BB|0010B9;
-          CODE_00A6BE:
                        LDA.W #$0001                         ;00A6BE|      ;
                        STA.W $10B1,X                        ;00A6C1|0010B1;
                        PLD                                  ;00A6C4|      ;
@@ -8126,7 +8089,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00B376|      ;
                        db $00                               ;00B377|      ;
                        db $00                               ;00B378|      ;
-         DATA8_00B379:
                        db $00                               ;00B379|      ;
                        db $00                               ;00B37A|      ;
                        db $00                               ;00B37B|      ;
@@ -8572,7 +8534,6 @@ Text_Opcode_Helper_Fn3:
                        STZ.B $0A                            ;00B60A|00000A;
                        LDA.B [$06]                          ;00B60C|000006;
                        XBA                                  ;00B60E|      ;
-          CODE_00B60F:
                        LSR A                                ;00B60F|      ;
                        LSR A                                ;00B610|      ;
                        LSR A                                ;00B611|      ;
@@ -8740,7 +8701,6 @@ Text_Opcode_Helper_Fn3:
                        STA.B $10                            ;00B718|000010;
                        LDA.L DATA16_00B7FA,X                ;00B71A|00B7FA;
                        STA.B $12                            ;00B71E|000012;
-          CODE_00B720:
                        LDA.B $00                            ;00B720|000000;
                        JSR.W CODE_00B3D4                    ;00B722|00B3D4;
                        JSR.W CODE_00B44D                    ;00B725|00B44D;
@@ -8911,7 +8871,6 @@ Text_Opcode_Helper_Fn3:
                        LSR A                                ;00B870|      ;
                        LSR A                                ;00B871|      ;
                        LSR A                                ;00B872|      ;
-          CODE_00B873:
                        STA.B $02                            ;00B873|000002;
                        LDA.W $1111                          ;00B875|001111;
           CODE_00B878:
@@ -9204,7 +9163,6 @@ Text_Opcode_Helper_Fn3:
                        dw $1F1F                             ;00BAAE|      ;
                        dw $0F0F                             ;00BAB0|      ;
                        dw $0707                             ;00BAB2|      ;
-        DATA16_00BAB4:
                        dw $0303                             ;00BAB4|      ;
                        dw $0101                             ;00BAB6|      ;
                        dw $FCFC                             ;00BAB8|      ;
@@ -9238,7 +9196,6 @@ Text_Opcode_Helper_Fn3:
                        dw $1F1F                             ;00BAEE|      ;
                        dw $0F0F                             ;00BAF0|      ;
                        dw $0707                             ;00BAF2|      ;
-        DATA16_00BAF4:
                        dw $0303                             ;00BAF4|      ;
                        dw $0101                             ;00BAF6|      ;
                        dw $FFFF                             ;00BAF8|      ;
@@ -9907,7 +9864,6 @@ Text_Opcode_Helper_Fn3:
                        BEQ CODE_00C015                      ;00BFBA|00C015;
                        PHD                                  ;00BFBC|      ;
                        PHA                                  ;00BFBD|      ;
-          CODE_00BFBE:
                        TDC                                  ;00BFBE|      ;
                        SEC                                  ;00BFBF|      ;
                        SBC.W #$000B                         ;00BFC0|      ;
@@ -9984,7 +9940,6 @@ Text_Opcode_Helper_Fn3:
                        STA.B $09                            ;00C047|000009;
                        JSR.W Display_stuff                  ;00C049|008585;
                        PLB                                  ;00C04C|      ;
-          CODE_00C04D:
                        PLD                                  ;00C04D|      ;
                        RTS                                  ;00C04E|      ;
      Stat_Multipliers:
@@ -10165,7 +10120,6 @@ Text_Opcode_Helper_Fn3:
           CODE_00C1D0:
                        STZ.B $00                            ;00C1D0|000000;
                        STZ.B $02                            ;00C1D2|000002;
-          CODE_00C1D4:
                        LDA.W Spell_type                     ;00C1D4|0018C5;
                        CMP.W #$0003                         ;00C1D7|      ;
                        BCC CODE_00C203                      ;00C1DA|00C203;
@@ -10639,7 +10593,6 @@ Text_Opcode_Helper_Fn3:
                        LDA.W #$00FF                         ;00C57F|      ;
           CODE_00C582:
                        PHA                                  ;00C582|      ;
-          CODE_00C583:
                        PLA                                  ;00C583|      ;
                        RTS                                  ;00C584|      ;
 Get_Buff_Debuff_offset:
@@ -10956,7 +10909,6 @@ Spell_INT_damage_bonus:
                        TAX                                  ;00C7B9|      ;
                        CPY.W #$0008                         ;00C7BA|      ;
                        BCC CODE_00C7C3                      ;00C7BD|00C7C3;
-          CODE_00C7BF:
                        LDA.W #$0000                         ;00C7BF|      ;
                        RTS                                  ;00C7C2|      ;
           CODE_00C7C3:
@@ -11668,19 +11620,12 @@ Spell_INT_damage_bonus:
                        STA.B $04                            ;00CCDB|000004;
                        PHX                                  ;00CCDD|      ;
                        JSL.L CODE_00CB47                    ;00CCDE|00CB47;
-          CODE_00CCE2:
                        CMP.B [$08]                          ;00CCE2|000008;
-          CODE_00CCE4:
                        BNE CODE_00CD0E                      ;00CCE4|00CD0E;
-          CODE_00CCE6:
                        INC.B $08                            ;00CCE6|000008;
-          CODE_00CCE8:
                        INC.B $08                            ;00CCE8|000008;
-          CODE_00CCEA:
                        JSL.L CODE_00CB61                    ;00CCEA|00CB61;
-          CODE_00CCEE:
                        CMP.B [$08]                          ;00CCEE|000008;
-          CODE_00CCF0:
                        BNE CODE_00CD0E                      ;00CCF0|00CD0E;
                        INC.B $08                            ;00CCF2|000008;
                        INC.B $08                            ;00CCF4|000008;
@@ -11693,7 +11638,6 @@ Spell_INT_damage_bonus:
                        INX                                  ;00CD03|      ;
                        INX                                  ;00CD04|      ;
                        CPX.W #$000A                         ;00CD05|      ;
-          CODE_00CD08:
                        BCC CODE_00CCC6                      ;00CD08|00CCC6;
                        LDA.W #$0001                         ;00CD0A|      ;
                        RTL                                  ;00CD0D|      ;
@@ -11838,7 +11782,6 @@ Spell_INT_damage_bonus:
                        LDA.W #$0000                         ;00CE14|      ;
           CODE_00CE17:
                        ASL A                                ;00CE17|      ;
-          CODE_00CE18:
                        TAX                                  ;00CE18|      ;
           CODE_00CE19:
                        LDA.W $1181,X                        ;00CE19|001181;
@@ -11854,7 +11797,6 @@ Spell_INT_damage_bonus:
                        LSR A                                ;00CE2B|      ;
                        STA.W $09A3,Y                        ;00CE2C|0009A3;
                        CLC                                  ;00CE2F|      ;
-          CODE_00CE30:
                        ADC.W #$0003                         ;00CE30|      ;
                        STA.W Temp_09C7,Y                    ;00CE33|0009C7;
                        JML.L CODE_00CE3E                    ;00CE36|00CE3E;
@@ -11995,7 +11937,6 @@ Spell_INT_damage_bonus:
                        db $06                               ;00CF25|      ;
                        db $01                               ;00CF26|      ;
                        db $24                               ;00CF27|      ;
-         DATA8_00CF28:
                        db $00                               ;00CF28|      ;
                        db $07                               ;00CF29|      ;
                        dl CODE_00CC67                       ;00CF2A|00CC67;
@@ -12005,7 +11946,6 @@ Spell_INT_damage_bonus:
                        db $01                               ;00CF31|      ;
                        db $24                               ;00CF32|      ;
                        db $00                               ;00CF33|      ;
-         DATA8_00CF34:
                        db $07                               ;00CF34|      ;
                        dl Stage_Select_xfer                 ;00CF35|00CABE;
                        db $06                               ;00CF38|      ;
@@ -12016,7 +11956,6 @@ Spell_INT_damage_bonus:
         Loop_for_CEE4:
                        db $06                               ;00CF3E|      ;
                        db $01                               ;00CF3F|      ;
-         DATA8_00CF40:
                        db $07                               ;00CF40|      ;
                        dl CODE_00CE9E                       ;00CF41|00CE9E;
                        db $1E                               ;00CF44|      ;
@@ -12028,7 +11967,6 @@ Spell_INT_damage_bonus:
                        dw $11DB                             ;00CF4B|0011DB;
                        db $08                               ;00CF4D|      ;
                        dw $11F3                             ;00CF4E|0011F3;
-         DATA8_00CF50:
                        db $08                               ;00CF50|      ;
                        dw $1223                             ;00CF51|001223;
                        db $08                               ;00CF53|      ;
@@ -12059,7 +11997,6 @@ Spell_INT_damage_bonus:
                        dw $135B                             ;00CF78|00135B;
                        db $08                               ;00CF7A|      ;
                        dw $1363                             ;00CF7B|001363;
-         DATA8_00CF7D:
                        db $08                               ;00CF7D|      ;
                        dw $137B                             ;00CF7E|00137B;
                        db $08                               ;00CF80|      ;
@@ -12175,7 +12112,6 @@ Spell_INT_damage_bonus:
                        db $00                               ;00D01C|      ;
 Load_Stage_Select_data:
                        LDX.W $18D3                          ;00D01D|0018D3; Stores in bank $70 for xfer
-          CODE_00D020:
                        LDA.L DATA16_00D048,X                ;00D020|00D048;
                        STA.B $00                            ;00D024|000000;
                        LDA.W #$0006                         ;00D026|      ;
@@ -12322,7 +12258,6 @@ Tbl_Subtraction_values:
                        BEQ CODE_00D145                      ;00D128|00D145;
                        LDX.W Current_Music                  ;00D12A|001064;
                        CPX.W #$0033                         ;00D12D|      ;
-          CODE_00D130:
                        BNE CODE_00D137                      ;00D130|00D137;
                        PHA                                  ;00D132|      ;
                        JSR.W CODE_00D1B1                    ;00D133|00D1B1;
@@ -12335,7 +12270,6 @@ Tbl_Subtraction_values:
                        JSR.W Setup_music                    ;00D142|00D1D6;
           CODE_00D145:
                        LDA.W Current_Music                  ;00D145|001064;
-          CODE_00D148:
                        CMP.W #$0033                         ;00D148|      ;
                        BCC CODE_00D166                      ;00D14B|00D166;
                        BEQ CODE_00D154                      ;00D14D|00D154;
@@ -12346,7 +12280,6 @@ Tbl_Subtraction_values:
                        LDA.W #$C91F                         ;00D157|      ;
                        LDY.W #$0002                         ;00D15A|      ;
                        JSR.W Wait_for_SPC                   ;00D15D|00D2AB;
-          CODE_00D160:
                        JSR.W Song_related                   ;00D160|00D1F4;
                        LDA.W #$0004                         ;00D163|      ;
           CODE_00D166:
@@ -12354,7 +12287,6 @@ Tbl_Subtraction_values:
                        STA.W APU0                           ;00D168|002140;
                        LDA.B #$D0                           ;00D16B|      ;
                        STA.W APU2                           ;00D16D|002142;
-          CODE_00D170:
                        STA.W APC_temp                       ;00D170|001063;
                        REP #$20                             ;00D173|      ;
                        RTL                                  ;00D175|      ;
@@ -12462,7 +12394,6 @@ Tbl_Subtraction_values:
                        dl $001ED8                           ;00D238|001ED8;
                        dl Song3F                            ;00D23B|1EDE50; Ariel ~ Soldier of Betrayal
                        dw $3300                             ;00D23E|      ;
-         PTR24_00D240:
                        dl $001EE1                           ;00D240|001EE1;
                        dl Song41                            ;00D243|1F8001; Rimsala Revived
                        dw $0300                             ;00D246|      ;
@@ -12472,7 +12403,6 @@ Tbl_Subtraction_values:
                        dl $001EF1                           ;00D250|001EF1;
                        dl Song45                            ;00D253|1EF3DB; Crystal Sword
                        dw $B300                             ;00D256|      ;
-         PTR24_00D258:
                        dl $001EF5                           ;00D258|001EF5;
                        dl Song47                            ;00D25B|1F80FC; Rooks ~ The Card Master (Chapter 1 start)
                        dw $0B00                             ;00D25E|      ;
@@ -12482,16 +12412,13 @@ Tbl_Subtraction_values:
                        dl $001F85                           ;00D268|001F85;
                        dl Song4B                            ;00D26B|1F8A6F; Shrine for the Worship of Chaos (Balnea)
                        dw $3400                             ;00D26E|      ;
-         PTR24_00D270:
                        dl $001F92                           ;00D270|001F92;
                        dl Song4D                            ;00D273|1F96FF; Silent Forest of Doubt
                        dw $2E00                             ;00D276|      ;
                        dl $001F9A                           ;00D278|001F9A;
                        dl Song4F                            ;00D27B|1FA7F3; Conflict
                        dw $E600                             ;00D27E|      ;
-         PTR24_00D280:
                        dl $001FB0                           ;00D280|001FB0;
-         PTR24_00D283:
                        dl Song51                            ;00D283|1FBA47; Second Armageddon (Rimsala 2)
                        dw $2D00                             ;00D286|      ;
                        dl $001FC4                           ;00D288|001FC4;
@@ -12569,7 +12496,6 @@ Tbl_Subtraction_values:
                        STA.B $02                            ;00D318|000002;
                        SEP #$20                             ;00D31A|      ;
                        LDA.B #$CC                           ;00D31C|      ;
-          CODE_00D31E:
                        BRA CODE_00D346                      ;00D31E|00D346;
           CODE_00D320:
                        LDA.B [$00],Y                        ;00D320|000000;
@@ -12606,14 +12532,12 @@ Tbl_Subtraction_values:
                        INY                                  ;00D34C|      ;
                        TAX                                  ;00D34D|      ;
                        LDA.B [$00],Y                        ;00D34E|000000;
-          CODE_00D350:
                        INY                                  ;00D350|      ;
                        INY                                  ;00D351|      ;
                        STA.W APU2                           ;00D352|002142;
                        SEP #$20                             ;00D355|      ;
                        CPX.W #$0001                         ;00D357|      ;
                        LDA.B #$00                           ;00D35A|      ;
-          CODE_00D35C:
                        ROL A                                ;00D35C|      ;
                        STA.W APU1                           ;00D35D|002141;
                        ADC.B #$7F                           ;00D360|      ;
@@ -12627,7 +12551,6 @@ Tbl_Subtraction_values:
           CODE_00D36F:
                        LDA.W APU0                           ;00D36F|002140;
                        BNE CODE_00D36F                      ;00D372|00D36F;
-          CODE_00D374:
                        RTS                                  ;00D374|      ;
      Event_Sound_test:
                        db $30                               ;00D375|      ;
@@ -12690,7 +12613,6 @@ Tbl_Subtraction_values:
                        db $00                               ;00D3D1|      ;
                        db $06                               ;00D3D2|      ;
                        db $01                               ;00D3D3|      ;
-         DATA8_00D3D4:
                        db $07                               ;00D3D4|      ;
                        dl Setup_Text_Parser_3b              ;00D3D5|00A0AC;
                        dl Text_Music_Number                 ;00D3D8|08E39D;
@@ -12699,7 +12621,6 @@ Tbl_Subtraction_values:
                        db $01                               ;00D3DD|      ;
                        db $01                               ;00D3DE|      ;
                        db $10                               ;00D3DF|      ;
-         DATA8_00D3E0:
                        db $07                               ;00D3E0|      ;
                        dl Unfade                            ;00D3E1|00A0CB;
                        db $06                               ;00D3E4|      ;
@@ -12758,7 +12679,6 @@ Check_for_Start_press:
                        BEQ CODE_00D453                      ;00D444|00D453;
                        LDA.W #$0000                         ;00D446|      ;
                        JSL.L Play_SFX                       ;00D449|009C47;
-          CODE_00D44D:
                        LDA.W #$0000                         ;00D44D|      ;
                        JMP.W Sub_Set_Music                  ;00D450|00D118;
           CODE_00D453:
@@ -12773,7 +12693,6 @@ Check_for_Start_press:
           CODE_00D466:
                        BIT.W #$0400                         ;00D466|      ;
                        BEQ CODE_00D48A                      ;00D469|00D48A;
-          CODE_00D46B:
                        LDA.W $119F                          ;00D46B|00119F;
                        INC A                                ;00D46E|      ;
                        CMP.W #$005B                         ;00D46F|      ;
@@ -12785,7 +12704,6 @@ Check_for_Start_press:
                        STA.B $00                            ;00D47D|000000;
                        LDA.W #$0008                         ;00D47F|      ;
                        STA.B $02                            ;00D482|000002;
-          CODE_00D484:
                        LDA.W #$0001                         ;00D484|      ;
                        JSR.W Set_Text_Parser                ;00D487|00A68C;
           CODE_00D48A:
@@ -12814,7 +12732,6 @@ Check_for_Start_press:
                        db $0B                               ;00D49E|      ;
        UNREACH_00D49F:
                        db $00                               ;00D49F|      ;
-       UNREACH_00D4A0:
                        db $08                               ;00D4A0|      ;
                        db $20                               ;00D4A1|00CFCD;
                        db $CD                               ;00D4A2|00BDCF;
@@ -12832,7 +12749,6 @@ Check_for_Start_press:
                        db $3F                               ;00D4AE|A20EB0;
                        db $B0                               ;00D4AF|00D4BF;
                        db $0E                               ;00D4B0|0048A2;
-       UNREACH_00D4B1:
                        db $A2                               ;00D4B1|      ;
                        db $48                               ;00D4B2|      ;
                        db $8F                               ;00D4B3|8F0600;
@@ -13026,7 +12942,6 @@ Check_for_Start_press:
                        db $C4                               ;00D56D|0000F2;
                        db $F2                               ;00D56E|0000E4;
                        db $E4                               ;00D56F|0000F3;
-       UNREACH_00D570:
                        db $F3                               ;00D570|0000D0;
                        db $D0                               ;00D571|00D576;
                        db $03                               ;00D572|000009;
@@ -13051,7 +12966,6 @@ Check_for_Start_press:
                        db $F4                               ;00D585|00FAD0;
                        db $D0                               ;00D586|00D582;
                        db $FA                               ;00D587|      ;
-       UNREACH_00D588:
                        db $D4                               ;00D588|000000;
                        db $00                               ;00D589|      ;
                        db $6F                               ;00D58A|90CAAD;
@@ -13064,7 +12978,6 @@ Check_for_Start_press:
                        db $02                               ;00D591|      ;
                        db $09                               ;00D592|      ;
                        db $47                               ;00D593|00005F;
-       UNREACH_00D594:
                        db $5F                               ;00D594|ADA48D;
                        db $8D                               ;00D595|00ADA4;
                        db $A4                               ;00D596|0000AD;
@@ -13077,7 +12990,6 @@ Check_for_Start_press:
                        db $24                               ;00D59D|000019;
                        db $19                               ;00D59E|004FF0;
                        db $F0                               ;00D59F|00D5F0;
-       UNREACH_00D5A0:
                        db $4F                               ;00D5A0|B0F56D;
                        db $6D                               ;00D5A1|00B0F5;
                        db $F5                               ;00D5A2|0000B0;
@@ -13094,7 +13006,6 @@ Check_for_Start_press:
                        db $CE                               ;00D5AD|00A0D5;
                        db $D5                               ;00D5AE|0000A0;
                        db $A0                               ;00D5AF|      ;
-       UNREACH_00D5B0:
                        db $03                               ;00D5B0|00004E;
                        db $4E                               ;00D5B1|00001D;
                        db $1D                               ;00D5B2|008D00;
@@ -13134,7 +13045,6 @@ Check_for_Start_press:
                        db $10                               ;00D5D4|00D5C1;
                        db $EB                               ;00D5D5|      ;
                        db $E8                               ;00D5D6|      ;
-       UNREACH_00D5D7:
                        db $00                               ;00D5D7|      ;
                        db $D5                               ;00D5D8|0000B0;
                        db $B0                               ;00D5D9|00D5DE;
@@ -13304,7 +13214,6 @@ Check_for_Start_press:
                        db $5D                               ;00D67D|0082F6;
                        db $F6                               ;00D67E|000082;
                        db $82                               ;00D67F|009A94;
-       UNREACH_00D680:
                        db $12                               ;00D680|0000C4;
                        db $C4                               ;00D681|000015;
                        db $15                               ;00D682|0000F6;
@@ -13329,7 +13238,6 @@ Check_for_Start_press:
                        db $DD                               ;00D695|00008D;
                        db $8D                               ;00D696|007A00;
                        db $00                               ;00D697|      ;
-       UNREACH_00D698:
                        db $7A                               ;00D698|      ;
                        db $14                               ;00D699|0000CB;
                        db $CB                               ;00D69A|      ;
@@ -13342,7 +13250,6 @@ Check_for_Start_press:
                        db $2F                               ;00D6A1|154B04;
                        db $04                               ;00D6A2|00004B;
                        db $4B                               ;00D6A3|      ;
-       UNREACH_00D6A4:
                        db $15                               ;00D6A4|00007C;
                        db $7C                               ;00D6A5|00C83D;
                        db $3D                               ;00D6A6|0006C8;
@@ -13355,7 +13262,6 @@ Check_for_Start_press:
                        db $CE                               ;00D6AD|0020F5;
                        db $F5                               ;00D6AE|000020;
                        db $20                               ;00D6AF|00EB02;
-       UNREACH_00D6B0:
                        db $02                               ;00D6B0|      ;
                        db $EB                               ;00D6B1|      ;
                        db $15                               ;00D6B2|0000CF;
@@ -13372,7 +13278,6 @@ Check_for_Start_press:
                        db $F5                               ;00D6BD|000021;
                        db $21                               ;00D6BE|000002;
                        db $02                               ;00D6BF|      ;
-       UNREACH_00D6C0:
                        db $EB                               ;00D6C0|      ;
                        db $14                               ;00D6C1|0000CF;
                        db $CF                               ;00D6C2|DA167A;
@@ -13581,7 +13486,6 @@ Check_for_Start_press:
                        db $58                               ;00D78D|      ;
                        db $0D                               ;00D78E|0011D5;
                        db $D5                               ;00D78F|000011;
-       UNREACH_00D790:
                        db $11                               ;00D790|000002;
                        db $02                               ;00D791|      ;
                        db $D5                               ;00D792|000081;
@@ -13606,7 +13510,6 @@ Check_for_Start_press:
                        db $C4                               ;00D7A5|000068;
                        db $68                               ;00D7A6|      ;
                        db $C4                               ;00D7A7|000054;
-       UNREACH_00D7A8:
                        db $54                               ;00D7A8|      ;
                        db $C4                               ;00D7A9|000050;
                        db $50                               ;00D7AA|00D770;
@@ -13619,7 +13522,6 @@ Check_for_Start_press:
                        db $C4                               ;00D7B1|000019;
                        db $19                               ;00D7B2|001BC4;
                        db $C4                               ;00D7B3|00001B;
-       UNREACH_00D7B4:
                        db $1B                               ;00D7B4|      ;
                        db $C4                               ;00D7B5|00001C;
                        db $1C                               ;00D7B6|0013C4;
@@ -13632,7 +13534,6 @@ Check_for_Start_press:
                        db $8F                               ;00D7BD|8F59C0;
                        db $C0                               ;00D7BE|      ;
                        db $59                               ;00D7BF|00208F;
-       UNREACH_00D7C0:
                        db $8F                               ;00D7C0|6F5320;
                        db $20                               ;00D7C1|006F53;
                        db $53                               ;00D7C2|00006F;
@@ -13649,7 +13550,6 @@ Check_for_Start_press:
                        db $FF                               ;00D7CD|7E98F0;
                        db $F0                               ;00D7CE|00D768;
                        db $98                               ;00D7CF|      ;
-       UNREACH_00D7D0:
                        db $7E                               ;00D7D0|00D000;
                        db $00                               ;00D7D1|      ;
                        db $D0                               ;00D7D2|00D76D;
@@ -13858,7 +13758,6 @@ Check_for_Start_press:
                        db $49                               ;00D89D|      ;
                        db $30                               ;00D89E|00D8C0;
                        db $20                               ;00D89F|0000D5;
-       UNREACH_00D8A0:
                        db $D5                               ;00D8A0|000000;
                        db $00                               ;00D8A1|      ;
                        db $02                               ;00D8A2|      ;
@@ -13883,7 +13782,6 @@ Check_for_Start_press:
                        db $0F                               ;00D8B5|08F6FD;
                        db $FD                               ;00D8B6|0008F6;
                        db $F6                               ;00D8B7|000008;
-       UNREACH_00D8B8:
                        db $08                               ;00D8B8|      ;
                        db $07                               ;00D8B9|0000D5;
                        db $D5                               ;00D8BA|000010;
@@ -13896,7 +13794,6 @@ Check_for_Start_press:
                        db $E0                               ;00D8C1|      ;
                        db $90                               ;00D8C2|00D8C9;
                        db $05                               ;00D8C3|00003F;
-       UNREACH_00D8C4:
                        db $3F                               ;00D8C4|2F0CC5;
                        db $C5                               ;00D8C5|00000C;
                        db $0C                               ;00D8C6|009B2F;
@@ -13909,7 +13806,6 @@ Check_for_Start_press:
                        db $00                               ;00D8CD|      ;
                        db $02                               ;00D8CE|      ;
                        db $D4                               ;00D8CF|000070;
-       UNREACH_00D8D0:
                        db $70                               ;00D8D0|00D8CF;
                        db $FD                               ;00D8D1|0001F5;
                        db $F5                               ;00D8D2|000001;
@@ -13926,7 +13822,6 @@ Check_for_Start_press:
                        db $03                               ;00D8DD|00003F;
                        db $3F                               ;00D8DE|3F1029;
                        db $29                               ;00D8DF|      ;
-       UNREACH_00D8E0:
                        db $10                               ;00D8E0|00D921;
                        db $3F                               ;00D8E1|3F10DF;
                        db $DF                               ;00D8E2|173F10;
@@ -14135,7 +14030,6 @@ Check_for_Start_press:
                        db $03                               ;00D9AD|000024;
                        db $24                               ;00D9AE|000018;
                        db $18                               ;00D9AF|      ;
-       UNREACH_00D9B0:
                        db $D0                               ;00D9B0|00D9F8;
                        db $46                               ;00D9B1|00008F;
                        db $8F                               ;00D9B2|2F13FF;
@@ -14151,7 +14045,6 @@ Check_for_Start_press:
                        db $3B                               ;00D9BC|      ;
                        db $F7                               ;00D9BD|000014;
                        db $14                               ;00D9BE|000010;
-       UNREACH_00D9BF:
                        db $10                               ;00D9BF|00D9D8;
                        db $17                               ;00D9C0|000028;
                        db $28                               ;00D9C1|      ;
@@ -14161,7 +14054,6 @@ Check_for_Start_press:
                        db $48                               ;00D9C5|      ;
                        db $0E                               ;00D9C6|000048;
                        db $48                               ;00D9C7|      ;
-       UNREACH_00D9C8:
                        db $00                               ;00D9C8|      ;
                        db $E4                               ;00D9C9|000047;
                        db $47                               ;00D9CA|000013;
@@ -14174,7 +14066,6 @@ Check_for_Start_press:
                        db $0E                               ;00D9D1|000049;
                        db $49                               ;00D9D2|      ;
                        db $00                               ;00D9D3|      ;
-       UNREACH_00D9D4:
                        db $E8                               ;00D9D4|      ;
                        db $00                               ;00D9D5|      ;
                        db $2F                               ;00D9D6|47E40D;
@@ -14187,7 +14078,6 @@ Check_for_Start_press:
                        db $F5                               ;00D9DD|0000A0;
                        db $A0                               ;00D9DE|      ;
                        db $03                               ;00D9DF|00004E;
-       UNREACH_00D9E0:
                        db $4E                               ;00D9E0|000049;
                        db $49                               ;00D9E1|      ;
                        db $00                               ;00D9E2|      ;
@@ -14204,7 +14094,6 @@ Check_for_Start_press:
                        db $F7                               ;00D9ED|000014;
                        db $14                               ;00D9EE|0000D5;
                        db $D5                               ;00D9EF|000021;
-       UNREACH_00D9F0:
                        db $21                               ;00D9F0|000002;
                        db $02                               ;00D9F1|      ;
                        db $FC                               ;00D9F2|0014F7;
@@ -14413,7 +14302,6 @@ Check_for_Start_press:
                        db $80                               ;00DABD|00DA74;
                        db $B5                               ;00DABE|000001;
                        db $01                               ;00DABF|000003;
-       UNREACH_00DAC0:
                        db $03                               ;00DAC0|0000CE;
                        db $CE                               ;00DAC1|00023F;
                        db $3F                               ;00DAC2|D50F02;
@@ -14438,7 +14326,6 @@ Check_for_Start_press:
                        db $D7                               ;00DAD5|00000C;
                        db $0C                               ;00DAD6|0041D5;
                        db $D5                               ;00DAD7|000041;
-       UNREACH_00DAD8:
                        db $41                               ;00DAD8|000002;
                        db $02                               ;00DAD9|      ;
                        db $3F                               ;00DADA|D40CD7;
@@ -14451,7 +14338,6 @@ Check_for_Start_press:
                        db $D5                               ;00DAE1|000030;
                        db $30                               ;00DAE2|00DAE6;
                        db $02                               ;00DAE3|      ;
-       UNREACH_00DAE4:
                        db $F4                               ;00DAE4|00D531;
                        db $31                               ;00DAE5|0000D5;
                        db $D5                               ;00DAE6|000031;
@@ -14464,7 +14350,6 @@ Check_for_Start_press:
                        db $30                               ;00DAED|00DAE4;
                        db $F5                               ;00DAEE|000041;
                        db $41                               ;00DAEF|000002;
-       UNREACH_00DAF0:
                        db $02                               ;00DAF0|      ;
                        db $D4                               ;00DAF1|000031;
                        db $31                               ;00DAF2|00006F;
@@ -14481,7 +14366,6 @@ Check_for_Start_press:
                        db $3F                               ;00DAFD|E80CD7;
                        db $D7                               ;00DAFE|00000C;
                        db $0C                               ;00DAFF|0000E8;
-       UNREACH_00DB00:
                        db $E8                               ;00DB00|      ;
                        db $00                               ;00DB01|      ;
                        db $DA                               ;00DB02|      ;
@@ -14690,7 +14574,6 @@ Check_for_Start_press:
                        db $BF                               ;00DBCD|0DC40D;
                        db $0D                               ;00DBCE|000DC4;
                        db $C4                               ;00DBCF|00000D;
-       UNREACH_00DBD0:
                        db $0D                               ;00DBD0|000DD6;
                        db $D6                               ;00DBD1|00000D;
                        db $0D                               ;00DBD2|000DD9;
@@ -14715,7 +14598,6 @@ Check_for_Start_press:
                        db $06                               ;00DBE5|00000E;
                        db $0E                               ;00DBE6|000E2C;
                        db $2C                               ;00DBE7|00530E;
-       UNREACH_00DBE8:
                        db $0E                               ;00DBE8|000E53;
                        db $53                               ;00DBE9|00000E;
                        db $0E                               ;00DBEA|000E87;
@@ -14728,7 +14610,6 @@ Check_for_Start_press:
                        db $EF                               ;00DBF1|0EF210;
                        db $10                               ;00DBF2|00DBE6;
                        db $F2                               ;00DBF3|00000E;
-       UNREACH_00DBF4:
                        db $0E                               ;00DBF4|000EF5;
                        db $F5                               ;00DBF5|00000E;
                        db $0E                               ;00DBF6|000101;
@@ -14741,7 +14622,6 @@ Check_for_Start_press:
                        db $02                               ;00DBFD|      ;
                        db $01                               ;00DBFE|000002;
                        db $02                               ;00DBFF|      ;
-       UNREACH_00DC00:
                        db $01                               ;00DC00|000001;
                        db $01                               ;00DC01|000003;
                        db $03                               ;00DC02|000000;
@@ -14758,7 +14638,6 @@ Check_for_Start_press:
                        db $00                               ;00DC0D|      ;
                        db $03                               ;00DC0E|000003;
                        db $03                               ;00DC0F|000003;
-       UNREACH_00DC10:
                        db $03                               ;00DC10|000001;
                        db $01                               ;00DC11|000002;
                        db $02                               ;00DC12|      ;
@@ -14967,7 +14846,6 @@ Check_for_Start_press:
                        db $C4                               ;00DCDD|000017;
                        db $17                               ;00DCDE|0000F4;
                        db $F4                               ;00DCDF|00FB30;
-       UNREACH_00DCE0:
                        db $30                               ;00DCE0|00DCDD;
                        db $FB                               ;00DCE1|      ;
                        db $31                               ;00DCE2|0000DA;
@@ -14992,7 +14870,6 @@ Check_for_Start_press:
                        db $3C                               ;00DCF5|00C968;
                        db $68                               ;00DCF6|      ;
                        db $C9                               ;00DCF7|      ;
-       UNREACH_00DCF8:
                        db $F0                               ;00DCF8|00DD35;
                        db $3B                               ;00DCF9|      ;
                        db $68                               ;00DCFA|      ;
@@ -15005,7 +14882,6 @@ Check_for_Start_press:
                        db $35                               ;00DD01|00006D;
                        db $6D                               ;00DD02|00AEFD;
                        db $FD                               ;00DD03|0096AE;
-       UNREACH_00DD04:
                        db $AE                               ;00DD04|007696;
                        db $96                               ;00DD05|000076;
                        db $76                               ;00DD06|00000E;
@@ -15018,7 +14894,6 @@ Check_for_Start_press:
                        db $F0                               ;00DD0D|00DD37;
                        db $28                               ;00DD0E|      ;
                        db $8B                               ;00DD0F|      ;
-       UNREACH_00DD10:
                        db $17                               ;00DD10|0000D0;
                        db $D0                               ;00DD11|00DD1D;
                        db $0A                               ;00DD12|      ;
@@ -15035,7 +14910,6 @@ Check_for_Start_press:
                        db $F5                               ;00DD1D|000041;
                        db $41                               ;00DD1E|000002;
                        db $02                               ;00DD1F|      ;
-       UNREACH_00DD20:
                        db $2D                               ;00DD20|0040F5;
                        db $F5                               ;00DD21|000040;
                        db $40                               ;00DD22|      ;
@@ -15244,7 +15118,6 @@ Check_for_Start_press:
                        db $F5                               ;00DDED|0000C1;
                        db $C1                               ;00DDEE|000002;
                        db $02                               ;00DDEF|      ;
-       UNREACH_00DDF0:
                        db $2F                               ;00DDF0|BB400D;
                        db $0D                               ;00DDF1|00BB40;
                        db $40                               ;00DDF2|      ;
@@ -15269,7 +15142,6 @@ Check_for_Start_press:
                        db $95                               ;00DE05|0000A1;
                        db $A1                               ;00DE06|000002;
                        db $02                               ;00DE07|      ;
-       UNREACH_00DE08:
                        db $D5                               ;00DE08|0000A0;
                        db $A0                               ;00DE09|      ;
                        db $02                               ;00DE0A|      ;
@@ -15282,7 +15154,6 @@ Check_for_Start_press:
                        db $48                               ;00DE11|      ;
                        db $FF                               ;00DE12|B1F4FD;
                        db $FD                               ;00DE13|00B1F4;
-       UNREACH_00DE14:
                        db $F4                               ;00DE14|0068B1;
                        db $B1                               ;00DE15|000068;
                        db $68                               ;00DE16|      ;
@@ -15295,7 +15166,6 @@ Check_for_Start_press:
                        db $2F                               ;00DE1D|DDCF04;
                        db $04                               ;00DE1E|0000CF;
                        db $CF                               ;00DE1F|008DDD;
-       UNREACH_00DE20:
                        db $DD                               ;00DE20|00008D;
                        db $8D                               ;00DE21|003F00;
                        db $00                               ;00DE22|      ;
@@ -15312,7 +15182,6 @@ Check_for_Start_press:
                        db $F8                               ;00DE2D|      ;
                        db $6F                               ;00DE2E|F413F2;
                        db $F2                               ;00DE2F|000013;
-       UNREACH_00DE30:
                        db $13                               ;00DE30|0000F4;
                        db $F4                               ;00DE31|00F0C1;
                        db $C1                               ;00DE32|0000F0;
@@ -15445,7 +15314,6 @@ Check_for_Start_press:
                        db $EB                               ;00DEB1|      ;
                        db $51                               ;00DEB2|0000F5;
                        db $F5                               ;00DEB3|0000D1;
-       UNREACH_00DEB4:
                        db $D1                               ;00DEB4|000002;
                        db $02                               ;00DEB5|      ;
                        db $CF                               ;00DEB6|9560DD;
@@ -15522,7 +15390,6 @@ Check_for_Start_press:
                        db $0C                               ;00DEFD|00210C;
                        db $0C                               ;00DEFE|002B21;
                        db $21                               ;00DEFF|00002B;
-       UNREACH_00DF00:
                        db $2B                               ;00DF00|      ;
                        db $2B                               ;00DF01|      ;
                        db $13                               ;00DF02|0000FE;
@@ -15547,7 +15414,6 @@ Check_for_Start_press:
                        db $3D                               ;00DF15|005C2D;
                        db $2D                               ;00DF16|00615C;
                        db $5C                               ;00DF17|4E6361;
-       UNREACH_00DF18:
                        db $61                               ;00DF18|000063;
                        db $63                               ;00DF19|00004E;
                        db $4E                               ;00DF1A|00484A;
@@ -15560,7 +15426,6 @@ Check_for_Start_press:
                        db $46                               ;00DF21|00005F;
                        db $5F                               ;00DF22|08DE08;
                        db $08                               ;00DF23|      ;
-       UNREACH_00DF24:
                        db $DE                               ;00DF24|006508;
                        db $08                               ;00DF25|      ;
                        db $65                               ;00DF26|000009;
@@ -15573,7 +15438,6 @@ Check_for_Start_press:
                        db $0B                               ;00DF2D|      ;
                        db $D6                               ;00DF2E|00000B;
                        db $0B                               ;00DF2F|      ;
-       UNREACH_00DF30:
                        db $8B                               ;00DF30|      ;
                        db $0C                               ;00DF31|000D4A;
                        db $4A                               ;00DF32|      ;
@@ -15590,7 +15454,6 @@ Check_for_Start_press:
                        db $09                               ;00DF3D|      ;
                        db $E4                               ;00DF3E|000001;
                        db $01                               ;00DF3F|0000C4;
-       UNREACH_00DF40:
                        db $C4                               ;00DF40|000009;
                        db $09                               ;00DF41|      ;
                        db $7E                               ;00DF42|00F001;
@@ -15783,7 +15646,6 @@ Check_for_Start_press:
                        db $FB                               ;00DFFD|      ;
                        db $BA                               ;00DFFE|      ;
                        db $F6                               ;00DFFF|0000AB;
-       UNREACH_00E000:
                        db $AB                               ;00E000|      ;
                        db $12                               ;00E001|0000FA;
                        db $FA                               ;00E002|      ;
@@ -18872,7 +18734,6 @@ Check_for_Start_press:
                        db $FF                               ;00EC0C|      ;
                        db $FF                               ;00EC0D|      ;
                        db $FF                               ;00EC0E|      ;
-         EMPTY_00EC0F:
                        db $FF                               ;00EC0F|      ;
                        db $FF                               ;00EC10|      ;
                        db $FF                               ;00EC11|      ;
@@ -20591,7 +20452,6 @@ Check_for_Start_press:
                        db $FF                               ;00F2C2|      ;
                        db $FF                               ;00F2C3|      ;
                        db $FF                               ;00F2C4|      ;
-         EMPTY_00F2C5:
                        db $FF                               ;00F2C5|      ;
                        db $FF                               ;00F2C6|      ;
                        db $FF                               ;00F2C7|      ;

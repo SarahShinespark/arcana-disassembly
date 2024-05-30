@@ -1282,19 +1282,19 @@ Case_Condition_05857F:
           CODE_058833:
                        RTL                                  ;058833|      ;
            Tbl_058834:
-                       dw UNREACH_059D4B                    ;058834|059D4B;
-                       dw UNREACH_059D50                    ;058836|059D50;
-                       dw UNREACH_059D55                    ;058838|059D55;
-                       dw UNREACH_059D5A                    ;05883A|059D5A;
-                       dw UNREACH_059D5F                    ;05883C|059D5F;
-                       dw UNREACH_059D64                    ;05883E|059D64;
-                       dw UNREACH_059D69                    ;058840|059D69;
-                       dw UNREACH_059D9B                    ;058842|059D9B;
-                       dw UNREACH_059DC3                    ;058844|059DC3;
-                       dw UNREACH_059DF5                    ;058846|059DF5;
-                       dw UNREACH_059E3B                    ;058848|059E3B;
-                       dw UNREACH_059E6D                    ;05884A|059E6D;
-                       dw UNREACH_059F03                    ;05884C|059F03;
+                       dw Data_059D4B                       ;058834|059D4B;
+                       dw DATA8_059D50                      ;058836|059D50;
+                       dw DATA8_059D55                      ;058838|059D55;
+                       dw DATA8_059D5A                      ;05883A|059D5A;
+                       dw DATA8_059D5F                      ;05883C|059D5F;
+                       dw DATA8_059D64                      ;05883E|059D64;
+                       dw DATA8_059D69                      ;058840|059D69;
+                       dw DATA8_059D9B                      ;058842|059D9B;
+                       dw DATA8_059DC3                      ;058844|059DC3;
+                       dw DATA8_059DF5                      ;058846|059DF5;
+                       dw DATA8_059E3B                      ;058848|059E3B;
+                       dw DATA8_059E6D                      ;05884A|059E6D;
+                       dw DATA8_059F03                      ;05884C|059F03;
          DATA8_05884E:
                        db $0F                               ;05884E|      ;
                        db $02                               ;05884F|      ;
@@ -1309,16 +1309,17 @@ Case_Condition_05857F:
                        dl OR_element_with_2b                ;05885B|07B169;
                        dw $0200                             ;05885E|      ;
                        db $1B                               ;058860|      ;
-                       dw LOOSE_OP_0085BB                   ;058861|0085BB;
+                       dw DATA8_0585BB                      ;058861|0585BB;
                        db $24                               ;058863|      ;
                        db $02                               ;058864|      ;
                        db $07                               ;058865|      ;
                        dl Condition_Check_2b                ;058866|07B0B0;
                        dw $0001                             ;058869|      ;
                        db $0C                               ;05886B|      ;
-                       dw LOOSE_OP_008910                   ;05886C|008910;
+                       dw DATA8_058910                      ;05886C|058910;
+         DATA8_05886E:
                        db $08                               ;05886E|      ;
-                       dw LOOSE_OP_008993                   ;05886F|008993;
+                       dw DATA8_058993                      ;05886F|058993;
                        db $07                               ;058871|      ;
                        dl CODE_07B11C                       ;058872|07B11C;
                        dw $0002                             ;058875|      ;
@@ -1338,18 +1339,19 @@ Case_Condition_05857F:
                        db $07                               ;05888B|      ;
                        dl Is_Equals_1575                    ;05888C|07AEDD;
                        db $0C                               ;05888F|      ;
-                       dw LOOSE_OP_0088E6                   ;058890|0088E6;
+                       dw DATA8_0588E6                      ;058890|0588E6;
                        db $1F                               ;058892|      ;
-                       dw $11C1                             ;058893|0011C1;
+                       dw $11C1                             ;058893|      ;
                        db $11                               ;058895|      ;
                        db $06                               ;058896|      ;
-                       dw CODE_0088A4                       ;058897|0088A4;
-                       dw CODE_0088A4                       ;058899|0088A4;
-                       dw LOOSE_OP_0088C5                   ;05889B|0088C5;
-                       dw CODE_0088A4                       ;05889D|0088A4;
-                       dw CODE_0088A4                       ;05889F|0088A4;
-                       dw CODE_0088A4                       ;0588A1|0088A4;
+                       dw DATA8_0588A4                      ;058897|0588A4;
+                       dw DATA8_0588A4                      ;058899|0588A4;
+                       dw DATA8_0588C5                      ;05889B|0588C5;
+                       dw DATA8_0588A4                      ;05889D|0588A4;
+                       dw DATA8_0588A4                      ;05889F|0588A4;
+                       dw DATA8_0588A4                      ;0588A1|0588A4;
                        db $0A                               ;0588A3|      ;
+         DATA8_0588A4:
                        db $09                               ;0588A4|      ;
                        dl CODE_05899F                       ;0588A5|05899F;
                        db $07                               ;0588A8|      ;
@@ -1387,6 +1389,7 @@ Case_Condition_05857F:
                        db $06                               ;0588E3|      ;
                        db $01                               ;0588E4|      ;
                        db $0A                               ;0588E5|      ;
+         DATA8_0588E6:
                        db $09                               ;0588E6|      ;
                        dl CODE_05899F                       ;0588E7|05899F;
                        db $0F                               ;0588EA|      ;
@@ -1399,7 +1402,8 @@ Case_Condition_05857F:
                        db $00                               ;0588F5|      ;
                        dw $FEFF                             ;0588F6|      ;
                        db $1A                               ;0588F8|      ;
-                       dw CODE_009683                       ;0588F9|009683;
+                       dw DATA8_059683                      ;0588F9|059683;
+         DATA8_0588FB:
                        db $07                               ;0588FB|      ;
                        dl GetSet_SFX                        ;0588FC|009C44;
                        db $2F                               ;0588FF|      ;
@@ -1413,8 +1417,9 @@ Case_Condition_05857F:
                        dl _0582FF_far                       ;05890B|0582FB;
                        db $06                               ;05890E|      ;
                        db $1E                               ;05890F|      ;
+         DATA8_058910:
                        db $08                               ;058910|      ;
-                       dw LOOSE_OP_008993                   ;058911|008993;
+                       dw DATA8_058993                      ;058911|058993;
                        db $09                               ;058913|      ;
                        dl CODE_0589CE                       ;058914|0589CE;
                        db $24                               ;058917|      ;
@@ -1456,7 +1461,7 @@ Case_Condition_05857F:
                        db $07                               ;058954|      ;
                        dl Death_Check_A_2                   ;058955|078DB0;
                        db $1A                               ;058958|      ;
-                       dw LOOSE_OP_00886E                   ;058959|00886E;
+                       dw DATA8_05886E                      ;058959|05886E;
          DATA8_05895B:
                        db $07                               ;05895B|      ;
                        dl Decomp_Setup2_3b_3b               ;05895C|00A035;
@@ -1477,22 +1482,23 @@ Case_Condition_05857F:
                        dl RAM_Decomp_801A                   ;05897B|0E8012;
                        db $0D                               ;05897E|      ;
                        db $08                               ;05897F|      ;
-                       dw LOOSE_OP_008993                   ;058980|008993;
+                       dw DATA8_058993                      ;058980|058993;
                        db $1B                               ;058982|      ;
-                       dw LOOSE_OP_008425                   ;058983|008425;
+                       dw DATA8_058425                      ;058983|058425;
                        db $24                               ;058985|      ;
                        db $02                               ;058986|      ;
                        db $07                               ;058987|      ;
                        dl Condition_Check_2b                ;058988|07B0B0;
                        dw $0001                             ;05898B|      ;
                        db $0C                               ;05898D|      ;
-                       dw LOOSE_OP_0088FB                   ;05898E|0088FB;
+                       dw DATA8_0588FB                      ;05898E|0588FB;
                        db $1A                               ;058990|      ;
-                       dw LOOSE_OP_0088C5                   ;058991|0088C5;
+                       dw DATA8_0588C5                      ;058991|0588C5;
+         DATA8_058993:
                        db $1B                               ;058993|      ;
-                       dw CODE_008312                       ;058994|008312;
+                       dw DATA8_058312                      ;058994|058312;
                        db $1A                               ;058996|      ;
-                       dw LOOSE_OP_008993                   ;058997|008993;
+                       dw DATA8_058993                      ;058997|058993;
           CODE_058999:
                        JSL.L Is_Equals_1575                 ;058999|07AEDD;
                        BNE CODE_0589B2                      ;05899D|0589B2;
@@ -2598,19 +2604,19 @@ Case_Condition_05857F:
                        JML.L Sub_LoadStuff                  ;0590EB|008DB4;
                        RTL                                  ;0590EF|      ;
            Tbl_0590F0:
-                       dw UNREACH_059D4B                    ;0590F0|059D4B;
-                       dw UNREACH_059D50                    ;0590F2|059D50;
-                       dw UNREACH_059D55                    ;0590F4|059D55;
-                       dw UNREACH_059D5A                    ;0590F6|059D5A;
-                       dw UNREACH_059D5F                    ;0590F8|059D5F;
-                       dw UNREACH_059D64                    ;0590FA|059D64;
-                       dw UNREACH_059D69                    ;0590FC|059D69;
-                       dw UNREACH_059D9B                    ;0590FE|059D9B;
-                       dw UNREACH_059DC3                    ;059100|059DC3;
-                       dw UNREACH_059DF5                    ;059102|059DF5;
-                       dw UNREACH_059E3B                    ;059104|059E3B;
-                       dw UNREACH_059E6D                    ;059106|059E6D;
-                       dw UNREACH_059F03                    ;059108|059F03;
+                       dw Data_059D4B                       ;0590F0|059D4B;
+                       dw DATA8_059D50                      ;0590F2|059D50;
+                       dw DATA8_059D55                      ;0590F4|059D55;
+                       dw DATA8_059D5A                      ;0590F6|059D5A;
+                       dw DATA8_059D5F                      ;0590F8|059D5F;
+                       dw DATA8_059D64                      ;0590FA|059D64;
+                       dw DATA8_059D69                      ;0590FC|059D69;
+                       dw DATA8_059D9B                      ;0590FE|059D9B;
+                       dw DATA8_059DC3                      ;059100|059DC3;
+                       dw DATA8_059DF5                      ;059102|059DF5;
+                       dw DATA8_059E3B                      ;059104|059E3B;
+                       dw DATA8_059E6D                      ;059106|059E6D;
+                       dw DATA8_059F03                      ;059108|059F03;
          DATA8_05910A:
                        db $0F                               ;05910A|      ;
                        db $02                               ;05910B|      ;
@@ -2912,19 +2918,19 @@ Sub_Another_setup_again:
                        JML.L Sub_LoadStuff                  ;0592F9|008DB4;
                        RTL                                  ;0592FD|      ;
            Tbl_0592FE:
-                       dw UNREACH_059D4B                    ;0592FE|059D4B;
-                       dw UNREACH_059D50                    ;059300|059D50;
-                       dw UNREACH_059D55                    ;059302|059D55;
-                       dw UNREACH_059D5A                    ;059304|059D5A;
-                       dw UNREACH_059D5F                    ;059306|059D5F;
-                       dw UNREACH_059D64                    ;059308|059D64;
-                       dw UNREACH_059D69                    ;05930A|059D69;
-                       dw UNREACH_059D9B                    ;05930C|059D9B;
-                       dw UNREACH_059DC3                    ;05930E|059DC3;
-                       dw UNREACH_059DF5                    ;059310|059DF5;
-                       dw UNREACH_059E3B                    ;059312|059E3B;
-                       dw UNREACH_059E6D                    ;059314|059E6D;
-                       dw UNREACH_059F03                    ;059316|059F03;
+                       dw Data_059D4B                       ;0592FE|059D4B;
+                       dw DATA8_059D50                      ;059300|059D50;
+                       dw DATA8_059D55                      ;059302|059D55;
+                       dw DATA8_059D5A                      ;059304|059D5A;
+                       dw DATA8_059D5F                      ;059306|059D5F;
+                       dw DATA8_059D64                      ;059308|059D64;
+                       dw DATA8_059D69                      ;05930A|059D69;
+                       dw DATA8_059D9B                      ;05930C|059D9B;
+                       dw DATA8_059DC3                      ;05930E|059DC3;
+                       dw DATA8_059DF5                      ;059310|059DF5;
+                       dw DATA8_059E3B                      ;059312|059E3B;
+                       dw DATA8_059E6D                      ;059314|059E6D;
+                       dw DATA8_059F03                      ;059316|059F03;
          DATA8_059318:
                        db $0F                               ;059318|      ;
                        db $02                               ;059319|      ;
@@ -3086,6 +3092,7 @@ Sub_Another_setup_again:
                        dw $FEFF                             ;059413|      ;
                        db $1A                               ;059415|      ;
                        dw DATA8_059683                      ;059416|059683;
+         DATA8_059418:
                        db $24                               ;059418|      ;
                        db $02                               ;059419|      ;
                        db $07                               ;05941A|      ;
@@ -3122,30 +3129,29 @@ Sub_Another_setup_again:
                        db $14                               ;059453|      ;
                        db $07                               ;059454|      ;
                        dl Decomp_Setup2_3b_3b               ;059455|00A035;
-                       dw EMPTY_00EC0F                      ;059458|00EC0F;
-                       db $0E                               ;05945A|      ;
-                       dw LOOSE_OP_008F00                   ;05945B|008F00;
-                       db $7E                               ;05945D|      ;
+                       dl Sprite_Battle_Axs                 ;059458|0EEC0F;
+                       dl $7E8F00                           ;05945B|7E8F00;
                        db $07                               ;05945E|      ;
                        dl RAM_Decomp_803C                   ;05945F|0E8034;
                        db $0D                               ;059462|      ;
                        db $08                               ;059463|      ;
-                       dw CODE_009477                       ;059464|009477;
+                       dw DATA8_059477                      ;059464|059477;
                        db $1B                               ;059466|      ;
-                       dw LOOSE_OP_008425                   ;059467|008425;
+                       dw DATA8_058425                      ;059467|058425;
                        db $24                               ;059469|      ;
                        db $02                               ;05946A|      ;
                        db $07                               ;05946B|      ;
                        dl Condition_Check_2b                ;05946C|07B0B0;
                        dw $0001                             ;05946F|      ;
                        db $0C                               ;059471|      ;
-                       dw LOOSE_OP_009418                   ;059472|009418;
+                       dw DATA8_059418                      ;059472|059418;
                        db $1A                               ;059474|      ;
-                       dw LOOSE_OP_0093E8                   ;059475|0093E8;
+                       dw DATA8_0593E8                      ;059475|0593E8;
+         DATA8_059477:
                        db $1B                               ;059477|      ;
-                       dw CODE_008312                       ;059478|008312;
+                       dw DATA8_058312                      ;059478|058312;
                        db $1A                               ;05947A|      ;
-                       dw CODE_009477                       ;05947B|009477;
+                       dw DATA8_059477                      ;05947B|059477;
           CODE_05947D:
                        JSL.L Is_Equals_1575                 ;05947D|07AEDD;
                        BNE CODE_059495                      ;059481|059495;
@@ -3171,19 +3177,19 @@ Sub_Another_setup_again:
                        JML.L Sub_LoadStuff                  ;0594AC|008DB4;
                        RTL                                  ;0594B0|      ;
            Tbl_0594B1:
-                       dw CODE_009D4B                       ;0594B1|009D4B;
-                       dw CODE_009D50                       ;0594B3|009D50;
-                       dw LOOSE_OP_009D55                   ;0594B5|009D55;
-                       dw LOOSE_OP_009D5A                   ;0594B7|009D5A;
-                       dw LOOSE_OP_009D5F                   ;0594B9|009D5F;
-                       dw LOOSE_OP_009D64                   ;0594BB|009D64;
-                       dw CODE_009D69                       ;0594BD|009D69;
-                       dw CODE_009D9B                       ;0594BF|009D9B;
-                       dw CODE_009DC3                       ;0594C1|009DC3;
-                       dw CODE_009DF5                       ;0594C3|009DF5;
-                       dw LOOSE_OP_009E3B                   ;0594C5|009E3B;
-                       dw LOOSE_OP_009E6D                   ;0594C7|009E6D;
-                       dw LOOSE_OP_009F03                   ;0594C9|009F03;
+                       dw Data_059D4B                       ;0594B1|059D4B;
+                       dw DATA8_059D50                      ;0594B3|059D50;
+                       dw DATA8_059D55                      ;0594B5|059D55;
+                       dw DATA8_059D5A                      ;0594B7|059D5A;
+                       dw DATA8_059D5F                      ;0594B9|059D5F;
+                       dw DATA8_059D64                      ;0594BB|059D64;
+                       dw DATA8_059D69                      ;0594BD|059D69;
+                       dw DATA8_059D9B                      ;0594BF|059D9B;
+                       dw DATA8_059DC3                      ;0594C1|059DC3;
+                       dw DATA8_059DF5                      ;0594C3|059DF5;
+                       dw DATA8_059E3B                      ;0594C5|059E3B;
+                       dw DATA8_059E6D                      ;0594C7|059E6D;
+                       dw DATA8_059F03                      ;0594C9|059F03;
          DATA8_0594CB:
                        db $0F                               ;0594CB|      ;
                        db $00                               ;0594CC|      ;
@@ -3255,14 +3261,14 @@ Sub_Another_setup_again:
                        dl RAM_Decomp_801A                   ;05953E|0E8012;
                        db $0A                               ;059541|      ; 0A
            Tbl_059542:
-                       dw CODE_009D4B                       ;059542|009D4B;
-                       dw CODE_009D50                       ;059544|009D50;
-                       dw LOOSE_OP_009D55                   ;059546|009D55;
-                       dw LOOSE_OP_009D5A                   ;059548|009D5A;
-                       dw LOOSE_OP_009D5F                   ;05954A|009D5F;
-                       dw LOOSE_OP_009D64                   ;05954C|009D64;
-                       dw CODE_009D69                       ;05954E|009D69;
-                       dw CODE_009D9B                       ;059550|009D9B;
+                       dw Data_059D4B                       ;059542|059D4B;
+                       dw DATA8_059D50                      ;059544|059D50;
+                       dw DATA8_059D55                      ;059546|059D55;
+                       dw DATA8_059D5A                      ;059548|059D5A;
+                       dw DATA8_059D5F                      ;05954A|059D5F;
+                       dw DATA8_059D64                      ;05954C|059D64;
+                       dw DATA8_059D69                      ;05954E|059D69;
+                       dw DATA8_059D9B                      ;059550|059D9B;
          DATA8_059552:
                        db $0F                               ;059552|      ;
                        db $00                               ;059553|      ;
@@ -3330,14 +3336,14 @@ Sub_Another_setup_again:
                        dl RAM_Decomp_802B                   ;0595BD|0E8023;
                        db $0A                               ;0595C0|      ;
            Tbl_0595C1:
-                       dw UNREACH_059D4B                    ;0595C1|059D4B;
-                       dw UNREACH_059D50                    ;0595C3|059D50;
-                       dw UNREACH_059D55                    ;0595C5|059D55;
-                       dw UNREACH_059D5A                    ;0595C7|059D5A;
-                       dw UNREACH_059D5F                    ;0595C9|059D5F;
-                       dw UNREACH_059D64                    ;0595CB|059D64;
-                       dw UNREACH_059D69                    ;0595CD|059D69;
-                       dw UNREACH_059D9B                    ;0595CF|059D9B;
+                       dw Data_059D4B                       ;0595C1|059D4B;
+                       dw DATA8_059D50                      ;0595C3|059D50;
+                       dw DATA8_059D55                      ;0595C5|059D55;
+                       dw DATA8_059D5A                      ;0595C7|059D5A;
+                       dw DATA8_059D5F                      ;0595C9|059D5F;
+                       dw DATA8_059D64                      ;0595CB|059D64;
+                       dw DATA8_059D69                      ;0595CD|059D69;
+                       dw DATA8_059D9B                      ;0595CF|059D9B;
          DATA8_0595D1:
                        db $0F                               ;0595D1|      ;
                        db $00                               ;0595D2|      ;
@@ -3405,14 +3411,14 @@ Sub_Another_setup_again:
                        dl RAM_Decomp_803C                   ;05963C|0E8034;
                        db $0A                               ;05963F|      ; 0A
            Tbl_059640:
-                       dw UNREACH_059D4B                    ;059640|059D4B;
-                       dw UNREACH_059D50                    ;059642|059D50;
-                       dw UNREACH_059D55                    ;059644|059D55;
-                       dw UNREACH_059D5A                    ;059646|059D5A;
-                       dw UNREACH_059D5F                    ;059648|059D5F;
-                       dw UNREACH_059D64                    ;05964A|059D64;
-                       dw UNREACH_059D69                    ;05964C|059D69;
-                       dw UNREACH_059D9B                    ;05964E|059D9B;
+                       dw Data_059D4B                       ;059640|059D4B;
+                       dw DATA8_059D50                      ;059642|059D50;
+                       dw DATA8_059D55                      ;059644|059D55;
+                       dw DATA8_059D5A                      ;059646|059D5A;
+                       dw DATA8_059D5F                      ;059648|059D5F;
+                       dw DATA8_059D64                      ;05964A|059D64;
+                       dw DATA8_059D69                      ;05964C|059D69;
+                       dw DATA8_059D9B                      ;05964E|059D9B;
                        db $07                               ;059650|      ;
                        dl Is_FightingFinalBoss              ;059651|078001;
                        db $0C                               ;059654|      ;
@@ -3490,7 +3496,7 @@ Sub_Another_setup_again:
                        dw Display_Petrified                 ;0596B6|0596C9;
                        dw Display_Confused                  ;0596B8|0596E9;
                        dw Display_Asleep                    ;0596BA|059716;
-                       dw DATA8_059748                      ;0596BC|059748;
+                       dw Display_Satisfactory              ;0596BC|059748;
     Display_Paralyzed:
                        db $07                               ;0596BE|      ;
                        dl Setup_Text_Parser_3b              ;0596BF|00A0AC;
@@ -3553,7 +3559,7 @@ Sub_Another_setup_again:
                        db $1B                               ;05971E|      ;
                        dw CODE_009942                       ;05971F|009942;
                        db $07                               ;059721|      ;
-                       dl RNG_1b_something                  ;059722|00A0BD;
+                       dl RNG_1b                            ;059722|00A0BD;
                        db $04                               ;059725|      ;
                        db $0C                               ;059726|      ;
                        dw CODE_0097D0                       ;059727|0097D0;
@@ -3577,7 +3583,7 @@ Sub_Another_setup_again:
                        dw $0000                             ;059744|      ;
                        db $06                               ;059746|      ;
                        db $02                               ;059747|      ;
-         DATA8_059748:
+ Display_Satisfactory:
                        db $24                               ;059748|      ; Load attacker ID
                        db $02                               ;059749|      ;
                        db $11                               ;05974A|      ; Switch-case (0-3)
@@ -3834,7 +3840,7 @@ Sub_Another_setup_again:
                        dw SaveResult                        ;0598B9|0597D0;
          DATA8_0598BB:
                        db $07                               ;0598BB|      ;
-                       dl RNG_1b_something                  ;0598BC|00A0BD;
+                       dl RNG_1b                            ;0598BC|00A0BD;
                        db $02                               ;0598BF|      ;
                        db $0B                               ;0598C0|      ; If 0, jump to 98CE
                        dw DATA8_0598CE                      ;0598C1|0598CE;
@@ -3916,7 +3922,7 @@ Sub_Another_setup_again:
                        dw DATA8_05992C                      ;05992A|05992C;
          DATA8_05992C:
                        db $07                               ;05992C|      ;
-                       dl CODE_07B6F9                       ;05992D|07B6F9;
+                       dl Crit_Text_Setup                   ;05992D|07B6F9;
                        db $1A                               ;059930|      ;
                        dw DATA8_059942                      ;059931|059942;
          DATA8_059933:
@@ -4043,7 +4049,7 @@ Sub_Another_setup_again:
                        dl GetSet_SFX                        ;0599EA|009C44;
                        db $06                               ;0599ED|      ;
                        db $1A                               ;0599EE|      ;
-                       dw DATA8_059748                      ;0599EF|059748;
+                       dw Display_Satisfactory              ;0599EF|059748;
          DATA8_0599F1:
                        db $30                               ;0599F1|      ;
                        db $FF                               ;0599F2|      ;
@@ -4398,7 +4404,7 @@ Sub_Another_setup_again:
                        dl GetSet_SFX                        ;059BD7|009C44;
                        db $06                               ;059BDA|      ;
                        db $1A                               ;059BDB|      ;
-                       dw DATA8_059748                      ;059BDC|059748;
+                       dw Display_Satisfactory              ;059BDC|059748;
          DATA8_059BDE:
                        db $30                               ;059BDE|      ;
                        db $FF                               ;059BDF|      ;
@@ -4562,7 +4568,7 @@ Sub_Another_setup_again:
                        dl GetSet_SFX                        ;059CB9|009C44;
                        db $06                               ;059CBC|      ;
                        db $1A                               ;059CBD|      ;
-                       dw DATA8_059748                      ;059CBE|059748;
+                       dw Display_Satisfactory              ;059CBE|059748;
     Battle_Cards_Menu:
                        db $04                               ;059CC0|      ;
                        dl Battle_Cards_Open                 ;059CC1|05F95F;
@@ -4575,7 +4581,7 @@ Sub_Another_setup_again:
                        dl GetSet_SFX                        ;059CCB|009C44;
                        db $06                               ;059CCE|      ;
                        db $1A                               ;059CCF|      ; Return to battle menu
-                       dw DATA8_059748                      ;059CD0|059748;
+                       dw Display_Satisfactory              ;059CD0|059748;
         Combat_Defend:
                        db $07                               ;059CD2|      ;
                        dl CODE_07B11C                       ;059CD3|07B11C;
@@ -4591,7 +4597,7 @@ Sub_Another_setup_again:
                        db $06                               ;059CE4|      ; Delay 01
                        db $01                               ;059CE5|      ;
                        db $07                               ;059CE6|      ;
-                       dl Wait_For_A_Press                  ;059CE7|07BA03;
+                       dl Wait_For_A_Press_1b               ;059CE7|07BA03;
                        db $00                               ;059CEA|      ;
                        db $0B                               ;059CEB|      ; Jump if false to 9CE4
                        dw DATA8_059CE4                      ;059CEC|059CE4;
@@ -4656,44 +4662,44 @@ Sub_Another_setup_again:
                        dl Battle_related1b                  ;059D46|009CDD;
                        db $22                               ;059D49|      ;
                        db $05                               ;059D4A|      ; RTL
-       UNREACH_059D4B:
+          Data_059D4B:
                        db $02                               ;059D4B|      ;
                        db $FC                               ;059D4C|05C6FC;
                        db $FC                               ;059D4D|0531C6;
                        db $C6                               ;059D4E|000031;
                        db $31                               ;059D4F|000002;
-       UNREACH_059D50:
+         DATA8_059D50:
                        db $02                               ;059D50|      ;
                        db $FC                               ;059D51|05C6FC;
                        db $FC                               ;059D52|0531C6;
                        db $C6                               ;059D53|000031;
                        db $31                               ;059D54|000002;
-       UNREACH_059D55:
+         DATA8_059D55:
                        db $02                               ;059D55|      ;
                        db $FC                               ;059D56|05C6FC;
                        db $FC                               ;059D57|0531C6;
                        db $C6                               ;059D58|000031;
                        db $31                               ;059D59|000002;
-       UNREACH_059D5A:
+         DATA8_059D5A:
                        db $02                               ;059D5A|      ;
                        db $FC                               ;059D5B|05C6FC;
                        db $FC                               ;059D5C|0531C6;
                        db $C6                               ;059D5D|000031;
                        db $31                               ;059D5E|000002;
-       UNREACH_059D5F:
+         DATA8_059D5F:
                        db $02                               ;059D5F|      ;
                        db $FC                               ;059D60|05C6FC;
                        db $FC                               ;059D61|0531C6;
                        db $C6                               ;059D62|000031;
                        db $31                               ;059D63|000002;
-       UNREACH_059D64:
+         DATA8_059D64:
                        db $02                               ;059D64|      ;
                        db $FC                               ;059D65|05C6FC;
                        db $FC                               ;059D66|0531C6;
                        db $C6                               ;059D67|000031;
                        db $31                               ;059D68|000001;
-       UNREACH_059D69:
-                       db $01                               ;059D69|000004;
+         DATA8_059D69:
+                       db $01                               ;059D69|      ;
                        db $04                               ;059D6A|000010;
                        db $10                               ;059D6B|059D2D;
                        db $C0                               ;059D6C|      ;
@@ -4743,7 +4749,7 @@ Sub_Another_setup_again:
                        db $E0                               ;059D98|      ;
                        db $C0                               ;059D99|      ;
                        db $31                               ;059D9A|000000;
-       UNREACH_059D9B:
+         DATA8_059D9B:
                        db $00                               ;059D9B|      ;
                        db $08                               ;059D9C|      ;
                        db $00                               ;059D9D|      ;
@@ -4784,8 +4790,8 @@ Sub_Another_setup_again:
                        db $E8                               ;059DC0|      ;
                        db $E2                               ;059DC1|      ;
                        db $31                               ;059DC2|000001;
-       UNREACH_059DC3:
-                       db $01                               ;059DC3|000008;
+         DATA8_059DC3:
+                       db $01                               ;059DC3|      ;
                        db $08                               ;059DC4|      ;
                        db $10                               ;059DC5|059D87;
                        db $C0                               ;059DC6|      ;
@@ -4835,8 +4841,8 @@ Sub_Another_setup_again:
                        db $E0                               ;059DF2|      ;
                        db $C0                               ;059DF3|      ;
                        db $31                               ;059DF4|000001;
-       UNREACH_059DF5:
-                       db $01                               ;059DF5|0000F0;
+         DATA8_059DF5:
+                       db $01                               ;059DF5|      ;
                        db $F0                               ;059DF6|059DD0;
                        db $D8                               ;059DF7|      ;
                        db $C2                               ;059DF8|      ;
@@ -4906,8 +4912,8 @@ Sub_Another_setup_again:
                        db $D8                               ;059E38|      ;
                        db $C0                               ;059E39|      ;
                        db $31                               ;059E3A|000001;
-       UNREACH_059E3B:
-                       db $01                               ;059E3B|000004;
+         DATA8_059E3B:
+                       db $01                               ;059E3B|      ;
                        db $04                               ;059E3C|000010;
                        db $10                               ;059E3D|059DFF;
                        db $C0                               ;059E3E|      ;
@@ -4957,7 +4963,7 @@ Sub_Another_setup_again:
                        db $E0                               ;059E6A|      ;
                        db $C0                               ;059E6B|      ;
                        db $31                               ;059E6C|000000;
-       UNREACH_059E6D:
+         DATA8_059E6D:
                        db $00                               ;059E6D|      ;
                        db $E8                               ;059E6E|      ;
                        db $E0                               ;059E6F|      ;
@@ -5108,7 +5114,7 @@ Sub_Another_setup_again:
                        db $F0                               ;059F00|059E8E;
                        db $8C                               ;059F01|00003F;
                        db $3F                               ;059F02|18E800;
-       UNREACH_059F03:
+         DATA8_059F03:
                        db $00                               ;059F03|      ;
                        db $E8                               ;059F04|      ;
                        db $18                               ;059F05|      ;
@@ -14507,10 +14513,10 @@ Names_Enchanted_Jewel:
                        db $06                               ;05F1CF|      ;
                        db $01                               ;05F1D0|      ;
                        db $07                               ;05F1D1|      ; "X has been used"
-                       dl CODE_07BE5A                       ;05F1D2|07BE5A;
+                       dl Load_Item_Name                    ;05F1D2|07BE5A;
                        db $07                               ;05F1D5|      ;
                        dl Setup_Text_Parser_3b              ;05F1D6|00A0AC;
-                       dl ItemUseTextSetup                  ;05F1D9|0889AE;
+                       dl ItemUsed                          ;05F1D9|0889AE;
                        db $00                               ;05F1DC|      ;
                        db $06                               ;05F1DD|      ;
                        db $14                               ;05F1DE|      ;
@@ -14529,7 +14535,7 @@ Loop_for_button_press:
                        db $06                               ;05F1F4|      ;
                        db $01                               ;05F1F5|      ;
                        db $07                               ;05F1F6|      ;
-                       dl Wait_For_A_Press                  ;05F1F7|07BA03;
+                       dl Wait_For_A_Press_1b               ;05F1F7|07BA03;
                        db $00                               ;05F1FA|      ;
                        db $0B                               ;05F1FB|      ; End loop
                        dw Loop_for_button_press             ;05F1FC|05F1F4;
@@ -14598,10 +14604,10 @@ Loop_for_button_press:
                        db $06                               ;05F254|      ;
                        db $01                               ;05F255|      ;
                        db $07                               ;05F256|      ;
-                       dl CODE_07BE5A                       ;05F257|07BE5A;
+                       dl Load_Item_Name                    ;05F257|07BE5A;
                        db $07                               ;05F25A|      ; "X has been used."
                        dl Setup_Text_Parser_3b              ;05F25B|00A0AC;
-                       dl ItemUseTextSetup                  ;05F25E|0889AE;
+                       dl ItemUsed                          ;05F25E|0889AE;
                        db $00                               ;05F261|      ;
                        db $06                               ;05F262|      ;
                        db $14                               ;05F263|      ;
@@ -14618,7 +14624,7 @@ Loop_for_button_press:
                        db $06                               ;05F275|      ;
                        db $01                               ;05F276|      ;
                        db $07                               ;05F277|      ;
-                       dl Wait_For_A_Press                  ;05F278|07BA03;
+                       dl Wait_For_A_Press_1b               ;05F278|07BA03;
                        db $00                               ;05F27B|      ;
                        db $0B                               ;05F27C|      ;
                        dw DATA8_05F275                      ;05F27D|05F275;
@@ -14631,7 +14637,7 @@ Loop_for_button_press:
                        db $1C                               ;05F286|      ;
          DATA8_05F287:
                        db $07                               ;05F287|      ;
-                       dl CODE_07BC0E                       ;05F288|07BC0E;
+                       dl Remove_Status_1b                  ;05F288|07BC0E;
                        db $03                               ;05F28B|      ;
                        db $1A                               ;05F28C|      ;
                        dw Item_Status_Heal                  ;05F28D|05F29B;
@@ -14643,7 +14649,7 @@ Loop_for_button_press:
                        db $1C                               ;05F295|      ;
          DATA8_05F296:
                        db $07                               ;05F296|      ;
-                       dl CODE_07BC0E                       ;05F297|07BC0E;
+                       dl Remove_Status_1b                  ;05F297|07BC0E;
                        db $04                               ;05F29A|      ;
      Item_Status_Heal:
                        db $07                               ;05F29B|      ;
@@ -14654,12 +14660,12 @@ Loop_for_button_press:
                        db $04                               ;05F2A3|      ;
                        dl DATA8_059C26                      ;05F2A4|059C26;
                        db $07                               ;05F2A7|      ;
-                       dl CODE_07BE7A                       ;05F2A8|07BE7A;
+                       dl Load_Status_Healed                ;05F2A8|07BE7A;
                        db $07                               ;05F2AB|      ;
-                       dl CODE_07BE5A                       ;05F2AC|07BE5A;
+                       dl Load_Item_Name                    ;05F2AC|07BE5A;
                        db $07                               ;05F2AF|      ; "X has been used."
                        dl Setup_Text_Parser_3b              ;05F2B0|00A0AC;
-                       dl ItemUseTextSetup                  ;05F2B3|0889AE;
+                       dl ItemUsed                          ;05F2B3|0889AE;
                        db $00                               ;05F2B6|      ;
                        db $06                               ;05F2B7|      ;
                        db $14                               ;05F2B8|      ;
@@ -14669,22 +14675,23 @@ Loop_for_button_press:
                        dl Setup_Text_Parser_3b              ;05F2BE|00A0AC;
                        dl ItemRecoveredStatus               ;05F2C1|088A08;
                        db $00                               ;05F2C4|      ;
+         DATA8_05F2C5:
                        db $06                               ;05F2C5|      ;
                        db $01                               ;05F2C6|      ;
                        db $07                               ;05F2C7|      ;
-                       dl Wait_For_A_Press                  ;05F2C8|07BA03;
+                       dl Wait_For_A_Press_1b               ;05F2C8|07BA03;
                        db $00                               ;05F2CB|      ;
                        db $0B                               ;05F2CC|      ;
-                       dw EMPTY_00F2C5                      ;05F2CD|00F2C5;
+                       dw DATA8_05F2C5                      ;05F2CD|05F2C5;
                        db $1C                               ;05F2CF|      ;
        Item_No_Effect:
                        db $04                               ;05F2D0|      ;
                        dl DATA8_059C26                      ;05F2D1|059C26;
                        db $07                               ;05F2D4|      ;
-                       dl CODE_07BE5A                       ;05F2D5|07BE5A;
+                       dl Load_Item_Name                    ;05F2D5|07BE5A;
                        db $07                               ;05F2D8|      ; "X has been used"
                        dl Setup_Text_Parser_3b              ;05F2D9|00A0AC;
-                       dl ItemUseTextSetup                  ;05F2DC|0889AE;
+                       dl ItemUsed                          ;05F2DC|0889AE;
                        db $00                               ;05F2DF|      ;
                        db $06                               ;05F2E0|      ;
                        db $14                               ;05F2E1|      ;
@@ -14696,7 +14703,7 @@ Loop_for_button_press:
                        db $06                               ;05F2EA|      ;
                        db $01                               ;05F2EB|      ;
                        db $07                               ;05F2EC|      ;
-                       dl Wait_For_A_Press                  ;05F2ED|07BA03;
+                       dl Wait_For_A_Press_1b               ;05F2ED|07BA03;
                        db $00                               ;05F2F0|      ;
                        db $0B                               ;05F2F1|      ;
                        dw DATA8_05F2EA                      ;05F2F2|05F2EA;
