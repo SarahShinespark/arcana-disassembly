@@ -14,9 +14,9 @@ bank_06.asm - Stage select savefile data\
 bank_07.asm - Dungeons and Gameplay\
 bank_08.asm - Small scripts: menus, some conversations\
 bank_09.asm - Unknown data\
-bank_0A.asm - Mostly zeros\
-bank_0B.asm - Unknown data\
-bank_0C.asm - Main story and most dialogue\
+bank_0A.asm - Fonts: Latin, Japanese, Greek, Cyrillic and some Kanji\
+bank_0B.asm - Kanji\
+bank_0C.asm - Kanji, Main story and most dialogue\
 bank_0D.asm - Compressed data\
 bank_0E.asm - Compressed data\
 bank_0F.asm - Animations: spells and enemies\
