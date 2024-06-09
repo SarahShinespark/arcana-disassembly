@@ -10272,6 +10272,7 @@ Text_Opcode_Helper_Fn3:
                        STY.B $06                            ;00C30E|000006;
                        TXY                                  ;00C310|      ;
                        LDX.W #$0003                         ;00C311|      ;
+       Check_Affinity:
                        JSR.W Stat_Dispenser_Fn              ;00C314|00C6DC;
                        AND.W #$F000                         ;00C317|      ;
                        BNE CODE_00C333                      ;00C31A|00C333;
@@ -10295,7 +10296,7 @@ Text_Opcode_Helper_Fn3:
                        STA.B $08                            ;00C338|000008;
           CODE_00C33A:
                        LDX.B $06                            ;00C33A|000006;
-                       JSL.L CODE_00C3CA                    ;00C33C|00C3CA;
+                       JSL.L Get_Affinity_Bonus             ;00C33C|00C3CA;
                        STA.B $0A                            ;00C340|00000A;
                        BIT.W #$0001                         ;00C342|      ;
                        BEQ CODE_00C34C                      ;00C345|00C34C;
@@ -10324,7 +10325,7 @@ Text_Opcode_Helper_Fn3:
                        BIT.B $08                            ;00C36F|000008;
                        BEQ CODE_00C37D                      ;00C371|00C37D;
                        INY                                  ;00C373|      ;
-                       LDA.L DATA16_00C3AA,X                ;00C374|00C3AA;
+                       LDA.L Damage_Elem_Multiplier,X       ;00C374|00C3AA;
                        CLC                                  ;00C378|      ;
                        ADC.B $04                            ;00C379|000004;
                        STA.B $04                            ;00C37B|000004;
@@ -10355,15 +10356,15 @@ Text_Opcode_Helper_Fn3:
                        CLC                                  ;00C3A6|      ;
                        ADC.B $04                            ;00C3A7|000004;
                        RTS                                  ;00C3A9|      ;
-        DATA16_00C3AA:
-                       dw $00CC                             ;00C3AA|      ;
-                       dw $019A                             ;00C3AC|      ;
-                       dw $0134                             ;00C3AE|      ;
-                       dw $0066                             ;00C3B0|      ;
-                       dw $0066                             ;00C3B2|      ;
-                       dw $00CC                             ;00C3B4|      ;
-                       dw $019A                             ;00C3B6|      ;
-                       dw $0134                             ;00C3B8|      ;
+Damage_Elem_Multiplier:
+                       dw $00CC                             ;00C3AA|      ; Earth <- Earth multiplier
+                       dw $019A                             ;00C3AC|      ; Earth <- Wind multiplier
+                       dw $0134                             ;00C3AE|      ; Earth <- Fire multiplier
+                       dw $0066                             ;00C3B0|      ; Earth <- Water multiplier
+                       dw $0066                             ;00C3B2|      ; Water <- Fire multiplier
+                       dw $00CC                             ;00C3B4|      ; Water <- Water multiplier
+                       dw $019A                             ;00C3B6|      ; Water <- Earth multiplier
+                       dw $0134                             ;00C3B8|      ; Water <- Wind multiplier
                        dw $0134                             ;00C3BA|      ;
                        dw $0066                             ;00C3BC|      ;
                        dw $00CC                             ;00C3BE|      ;
@@ -10372,7 +10373,7 @@ Text_Opcode_Helper_Fn3:
                        dw $0134                             ;00C3C4|      ;
                        dw $0066                             ;00C3C6|      ;
                        dw $00CC                             ;00C3C8|      ;
-          CODE_00C3CA:
+   Get_Affinity_Bonus:
                        PHX                                  ;00C3CA|      ;
                        LDA.W Affinity,X                     ;00C3CB|00120B;
                        AND.W #$F000                         ;00C3CE|      ;
