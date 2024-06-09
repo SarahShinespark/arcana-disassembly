@@ -71,7 +71,7 @@ Random_encounter_check:
                        LDA.B $18                            ;18807D|000018;
                        STA.W Ptr_Enemy_list                 ;18807F|0018DA; Save ptr to the enemy list for that tile
                        LDA.B $19                            ;188082|000019;
-                       STA.W Bank_Enemy_list                ;188084|0018DB;
+                       STA.W $18DB                          ;188084|0018DB;
                        LDA.B [$18]                          ;188087|000018; Load Formation List (determines the layout of the sixteen possible encounters)
                        AND.W #$FF00                         ;188089|      ;
                        XBA                                  ;18808C|      ;
@@ -99,7 +99,7 @@ Random_encounter_check:
                        LDA.B $1C                            ;1880B3|00001C;
                        STA.W Ptr_Encounter_layout           ;1880B5|0018D7; Save a long ptr to the encounter in $18D7
                        LDA.B $1D                            ;1880B8|00001D;
-                       STA.W Bank_Encounter_layout          ;1880BA|0018D8;
+                       STA.W $18D8                          ;1880BA|0018D8;
           Weird_logic:
                        LDA.W $1901                          ;1880BD|001901; If $1901 not zero and event not "met Karul in Ch 5", force normal attacks
                        BEQ CODE_1880D4                      ;1880C0|1880D4;
@@ -205,7 +205,7 @@ Random_encounter_check:
   Xfer_RAM_and_Decomp:
                        LDA.W Ptr_Enemy_list                 ;18816E|0018DA;
                        STA.B $18                            ;188171|000018;
-                       LDA.W Bank_Enemy_list                ;188173|0018DB;
+                       LDA.W $18DB                          ;188173|0018DB;
                        STA.B $19                            ;188176|000019;
                        LDA.B [$18]                          ;188178|000018;
                        AND.W #$000F                         ;18817A|      ;
@@ -270,7 +270,7 @@ Loop_Xfer_Data_to_RAM:
                        BNE CODE_188182                      ;1881E0|188182;
                        STZ.W $18DD                          ;1881E2|0018DD;
                        RTL                                  ;1881E5|      ;
-          CODE_1881E6:
+   Load_Encounter_Gfx:
                        LDA.W $18DD                          ;1881E6|0018DD;
                        CMP.W #$0006                         ;1881E9|      ;
                        BCS CODE_18820F                      ;1881EC|18820F;
@@ -319,11 +319,11 @@ Loop_Xfer_Data_to_RAM:
                        STA.W $062D                          ;188249|00062D;
                        LDA.W Ptr_Encounter_layout           ;18824C|0018D7;
                        STA.B $18                            ;18824F|000018;
-                       LDA.W Bank_Encounter_layout          ;188251|0018D8;
+                       LDA.W $18D8                          ;188251|0018D8;
                        STA.B $19                            ;188254|000019;
                        LDA.W Ptr_Enemy_list                 ;188256|0018DA;
                        STA.B $1C                            ;188259|00001C;
-                       LDA.W Bank_Enemy_list                ;18825B|0018DB;
+                       LDA.W $18DB                          ;18825B|0018DB;
                        STA.B $1D                            ;18825E|00001D;
                        LDA.B [$1C]                          ;188260|00001C;
                        AND.W #$00F0                         ;188262|      ;
@@ -3768,13 +3768,13 @@ Formation_Zone_0B_Layout_0F:
                        db $1C                               ;18954E|      ;
            New_stuff2:
                        db $38                               ;18954F|      ;
-                       db $E4                               ;189550|000038;
+                       db $E4                               ;189550|      ;
                        db $38                               ;189551|      ;
-                       db $1C                               ;189552|00E4A0;
+                       db $1C                               ;189552|      ;
                        db $A0                               ;189553|      ;
-                       db $E4                               ;189554|0000A0;
+                       db $E4                               ;189554|      ;
                        db $A0                               ;189555|      ;
-                       db $80                               ;189556|1895D0;
+                       db $80                               ;189556|      ;
                        db $78                               ;189557|      ;
                        db $68                               ;189558|      ;
                        db $78                               ;189559|      ;
@@ -10068,7 +10068,7 @@ LavaRoom_Load_2_sprites:
                        db $00                               ;18B687|      ;
                        db $00                               ;18B688|      ;
                        db $00                               ;18B689|      ;
-                       db $06                               ;18B68A|      ;
+                       db $06                               ;18B68A|      ; 06: Delay $28
                        db $28                               ;18B68B|      ;
                        db $07                               ;18B68C|      ;
                        dl Load_Sprite_14b                   ;18B68D|009CAE;
@@ -15580,7 +15580,7 @@ Fanfare_and_Refresh_Music:
                        db $06                               ;18D45C|      ;
                        db $05                               ;18D45D|      ;
                        db $16                               ;18D45E|      ;
-                       dw $157B                             ;18D45F|00157B;
+                       dw $157B                             ;18D45F|      ;
                        dw $0001                             ;18D461|      ;
          Unknown_join:
                        db $07                               ;18D463|      ;

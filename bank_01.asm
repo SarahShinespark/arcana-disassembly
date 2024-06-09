@@ -2259,12 +2259,12 @@ Any_direction_pressed:
                        db $07                               ;018D00|      ;
                        dl CODE_188423                       ;018D01|188423;
       Encounter_check:
-                       db $07                               ;018D04|      ;
+                       db $07                               ;018D04|      ; Can an encounter happen here? Roll for one.
                        dl Check_map_tile_value              ;018D05|18800B;
                        db $0C                               ;018D08|      ; If encounter, jump to 8DAE
-                       dw LOOSE_OP_008DAE                   ;018D09|008DAE;
+                       dw Random_Encounter                  ;018D09|018DAE;
                        db $1A                               ;018D0B|      ; Else jump to 8C85
-                       dw LOOSE_OP_008C85                   ;018D0C|008C85;
+                       dw Loop_Draw_next_step               ;018D0C|018C85;
        Dungeon_move_3:
                        db $07                               ;018D0E|      ;
                        dl The_69_check                      ;018D0F|03ADEB;
@@ -2374,6 +2374,7 @@ Any_direction_pressed:
                        db $07                               ;018DA9|      ;
                        dl Map_stuff_and_vblank              ;018DAA|03883F;
                        db $1C                               ;018DAD|      ; 1C: end section?
+     Random_Encounter:
                        db $07                               ;018DAE|      ; Adjust color math: 26
                        dl Adjust_color_math                 ;018DAF|03E57D;
                        dw $0026                             ;018DB2|      ;
@@ -2396,22 +2397,23 @@ Any_direction_pressed:
                        db $07                               ;018DC8|      ;
                        dl Zero_1893_and_E000_to_2131        ;018DC9|03E595;
                        db $1F                               ;018DCC|      ; $1579 in result $0CB3,x
-                       dw $1579                             ;018DCD|001579;
-                       db $11                               ;018DCF|      ; Switch on result (0-3)
+                       dw $1579                             ;018DCD|      ;
+                       db $11                               ;018DCF|      ; Switch on encounter type (2=back, 0,1,3=normal)
                        db $04                               ;018DD0|      ;
-                       dw DATA8_018E08                      ;018DD1|018E08;
-                       dw DATA8_018E08                      ;018DD3|018E08;
-                       dw DATA8_018DD9                      ;018DD5|018DD9;
-                       dw DATA8_018E08                      ;018DD7|018E08;
-         DATA8_018DD9:
+                       dw Normal_Encounter                  ;018DD1|018E08;
+                       dw Normal_Encounter                  ;018DD3|018E08;
+                       dw Surprise_Attack                   ;018DD5|018DD9;
+                       dw Normal_Encounter                  ;018DD7|018E08;
+      Surprise_Attack:
                        db $07                               ;018DD9|      ; Roll 1d2
                        dl RNG_1b                            ;018DDA|00A0BD;
                        db $02                               ;018DDD|      ;
                        db $0B                               ;018DDE|      ; Jump if 0
                        dw DATA8_018DF6                      ;018DDF|018DF6;
+          Back_Attack:
                        db $01                               ;018DE1|      ; 01 02: Loop 2x
                        db $02                               ;018DE2|      ;
-                       db $1E                               ;018DE3|      ; Result 3
+                       db $1E                               ;018DE3|      ; Load var3
                        dw $0003                             ;018DE4|      ;
                        db $07                               ;018DE6|      ;
                        dl CODE_038761                       ;018DE7|038761;
@@ -2423,11 +2425,11 @@ Any_direction_pressed:
                        db $01                               ;018DF1|      ;
                        db $02                               ;018DF2|      ; 02: End loop
                        db $1A                               ;018DF3|      ;
-                       dw DATA8_018E08                      ;018DF4|018E08;
+                       dw Normal_Encounter                  ;018DF4|018E08;
          DATA8_018DF6:
                        db $01                               ;018DF6|      ;
                        db $02                               ;018DF7|      ;
-                       db $1E                               ;018DF8|      ;
+                       db $1E                               ;018DF8|      ; Load var1
                        db $01                               ;018DF9|      ;
                        db $00                               ;018DFA|      ;
                        db $07                               ;018DFB|      ;
@@ -2439,19 +2441,18 @@ Any_direction_pressed:
                        db $06                               ;018E05|      ;
                        db $01                               ;018E06|      ;
                        db $02                               ;018E07|      ;
-         DATA8_018E08:
+     Normal_Encounter:
                        db $07                               ;018E08|      ;
                        dl Some_decomp                       ;018E09|18814B;
                        db $01                               ;018E0C|      ; 01 06
                        db $06                               ;018E0D|      ;
-   Load_encounter_gfx:
                        db $07                               ;018E0E|      ;
-                       dl CODE_1881E6                       ;018E0F|1881E6;
+                       dl Load_Encounter_Gfx                ;018E0F|1881E6;
                        db $06                               ;018E12|      ; 06 01
                        db $01                               ;018E13|      ;
                        db $02                               ;018E14|      ; 02
- Something_encounters:
-                       db $07                               ;018E15|      ;
+   Select_which_fight:
+                       db $07                               ;018E15|      ; Usually rolls 1d16 to decide which layout to fight
                        dl Roll_encounter                    ;018E16|188210;
                        db $1C                               ;018E19|      ; 1C: End section?
      Load_fight_music:
@@ -3300,7 +3301,7 @@ Levelup_Pause_for_input:
                        db $01                               ;0192D0|      ; 01 06
                        db $06                               ;0192D1|      ;
                        db $07                               ;0192D2|      ;
-                       dl CODE_1881E6                       ;0192D3|1881E6;
+                       dl Load_Encounter_Gfx                ;0192D3|1881E6;
                        db $06                               ;0192D6|      ; 06 01
                        db $01                               ;0192D7|      ;
                        db $02                               ;0192D8|      ; 02

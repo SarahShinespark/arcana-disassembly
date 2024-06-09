@@ -105,9 +105,9 @@
                        Dao_currMP = $00135D
                        Marid_currMP = $00135F
                        Efrite_currMP = $001361
-                       Bank_Encounter_layout = $0018D8
+                       Bank_Encounter_layout = $0018D9
                        Ptr_Enemy_list = $0018DA
-                       Bank_Enemy_list = $0018DB
+                       Bank_Enemy_list = $0018DC
                        Attacker = $001121
                        Target = $001123
                        Main_scr_desig = $00212C
@@ -320,8 +320,6 @@
                        LOOSE_OP_008CDB = $008CDB
                        LOOSE_OP_008CE7 = $008CE7
                        LOOSE_OP_008CF6 = $008CF6
-                       LOOSE_OP_008DAE = $008DAE
-                       LOOSE_OP_008C85 = $008C85
                        LOOSE_OP_00924B = $00924B
                        LOOSE_OP_0099C2 = $0099C2
                        LOOSE_OP_009DA4 = $009DA4
