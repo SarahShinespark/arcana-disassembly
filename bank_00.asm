@@ -490,7 +490,6 @@ Gfx_Dungeon_Stuff_far:
                        STA.B $21,X                          ;0083B7|000021;
                        BEQ CODE_0083C6                      ;0083B9|0083C6;
                        LDA.B Input_0031,X                   ;0083BB|000031;
-          CODE_0083BD:
                        STA.B Input_New,X                    ;0083BD|000029;
                        LDA.W #$0014                         ;0083BF|      ;
                        STA.B $39,X                          ;0083C2|000039;
@@ -607,7 +606,6 @@ Gfx_Dungeon_Stuff_far:
                        db $08                               ;0084BC|      ;
                        db $00                               ;0084BD|      ;
                        db $08                               ;0084BE|      ;
-         DATA8_0084BF:
                        db $81                               ;0084BF|      ;
                        db $80                               ;0084C0|      ;
                        db $80                               ;0084C1|      ;
@@ -627,7 +625,6 @@ Gfx_Dungeon_Stuff_far:
                        db $80                               ;0084CF|      ;
          Tbl_DMA_Dest:
                        db $18                               ;0084D0|      ;
-         DATA8_0084D1:
                        db $18                               ;0084D1|      ;
                        db $18                               ;0084D2|      ;
                        db $18                               ;0084D3|      ;
@@ -646,7 +643,6 @@ Gfx_Dungeon_Stuff_far:
                        db $39                               ;0084E0|      ;
                        db $3A                               ;0084E1|      ;
                        db $18                               ;0084E2|      ;
-         DATA8_0084E3:
                        db $18                               ;0084E3|      ;
                        db $18                               ;0084E4|      ;
                        db $22                               ;0084E5|      ;
@@ -666,7 +662,6 @@ Gfx_Dungeon_Stuff_far:
                        db $01                               ;0084F2|      ;
                        db $01                               ;0084F3|      ;
                        db $81                               ;0084F4|      ;
-         DATA8_0084F5:
                        db $81                               ;0084F5|      ;
                        db $81                               ;0084F6|      ;
                        db $01                               ;0084F7|      ;
@@ -684,7 +679,6 @@ Gfx_Dungeon_Stuff_far:
                        SBC.W #$000B                         ;008502|      ;
                        TCD                                  ;008505|      ;
                        PLA                                  ;008506|      ;
-          CODE_008507:
                        STA.B $00                            ;008507|000000;
                        TAX                                  ;008509|      ;
                        SEP #$20                             ;00850A|      ;
@@ -709,12 +703,10 @@ Gfx_Dungeon_Stuff_far:
                        LDA.B [$00],Y                        ;008526|000000;
                        STA.B $03                            ;008528|000003;
                        INY                                  ;00852A|      ;
-          CODE_00852B:
                        CMP.B #$FF                           ;00852B|      ;
                        BEQ CODE_00857E                      ;00852D|00857E;
                        LDA.B [$00],Y                        ;00852F|000000;
                        STA.B $04                            ;008531|000004;
-          CODE_008533:
                        INY                                  ;008533|      ;
                        REP #$20                             ;008534|      ;
                        LDA.B [$00],Y                        ;008536|000000;
@@ -733,7 +725,6 @@ Gfx_Dungeon_Stuff_far:
                        SEP #$20                             ;008549|      ;
                        LDA.B $03                            ;00854B|000003;
                        BPL CODE_008575                      ;00854D|008575;
-          CODE_00854F:
                        LDA.B $08                            ;00854F|000008;
                        LDX.B $06                            ;008551|000006;
           CODE_008553:
@@ -742,7 +733,6 @@ Gfx_Dungeon_Stuff_far:
                        REP #$20                             ;008557|      ;
                        PHB                                  ;008559|      ;
                        PEA.W $7E7E                          ;00855A|007E7E;
-          CODE_00855D:
                        PLB                                  ;00855D|      ;
           CODE_00855E:
                        PLB                                  ;00855E|      ;
@@ -750,7 +740,6 @@ Gfx_Dungeon_Stuff_far:
                        PLB                                  ;008562|      ;
                        PLA                                  ;008563|      ;
                        STA.B $06                            ;008564|000006;
-          CODE_008566:
                        STX.W $0008                          ;008566|000008;
           CODE_008569:
                        SEP #$20                             ;008569|      ;
@@ -775,7 +764,6 @@ Gfx_Dungeon_Stuff_far:
                        LDX.W Screen_display_temp            ;008587|000041;
                        BMI CODE_0085DE                      ;00858A|0085DE;
                        LDA.W $0003                          ;00858C|000003;
-          CODE_00858F:
                        SEC                                  ;00858F|      ;
                        SBC.W $0002                          ;008590|000002;
                        TAX                                  ;008593|      ;
@@ -822,7 +810,6 @@ Gfx_Dungeon_Stuff_far:
                        LDA.W Tbl_DMA_Ctrl,X                 ;0085E2|0084B9;
                        STA.W $4310                          ;0085E5|004310;
                        LDA.W Tbl_DMA_Dest,X                 ;0085E8|0084D0;
-          CODE_0085EB:
                        STA.W $4311                          ;0085EB|004311;
                        LDA.W Tbl_Videoport_Ctrl,X           ;0085EE|0084E7;
                        STA.W Video_port_ctrl                ;0085F1|002115;
@@ -894,7 +881,6 @@ Gfx_Dungeon_Stuff_far:
                        LDA.B [$00]                          ;008664|000000;
                        STA.B $09                            ;008666|000009;
                        INC.B $00                            ;008668|000000;
-          CODE_00866A:
                        INC.B $00                            ;00866A|000000;
                        JSR.W CODE_008698                    ;00866C|008698;
                        PLD                                  ;00866F|      ; Return dp to $1E00
@@ -930,7 +916,6 @@ Gfx_Dungeon_Stuff_far:
           CODE_008698:
                        LDY.W #$0000                         ;008698|      ; Takes in a 3b ptr at $00
                        LDA.B [$00],Y                        ;00869B|000000; Store 1st byte in $03
-          CODE_00869D:
                        STA.B $03                            ;00869D|000003;
                        AND.W #$00FF                         ;00869F|      ;
                        TAX                                  ;0086A2|      ; Save 1st byte in X
@@ -947,7 +932,6 @@ Gfx_Dungeon_Stuff_far:
                        AND.W #$003F                         ;0086B2|      ; Check lower 6 bytes
                        BIT.W Bit_table,X                    ;0086B5|0086E5; ...? what? this table is the high bytes.
                        BVC CODE_0086BB                      ;0086B8|0086BB; Branch if overflow clear
-          CODE_0086BA:
                        ASL A                                ;0086BA|      ;
           CODE_0086BB:
                        STA.B $04                            ;0086BB|000004;
@@ -959,7 +943,6 @@ Gfx_Dungeon_Stuff_far:
                        BMI CODE_0086D5                      ;0086C5|0086D5;
                        LDA.B $0B                            ;0086C7|00000B;
                        AND.W #$003F                         ;0086C9|      ;
-          CODE_0086CC:
                        BVC CODE_0086CF                      ;0086CC|0086CF;
                        ASL A                                ;0086CE|      ;
           CODE_0086CF:
@@ -969,7 +952,6 @@ Gfx_Dungeon_Stuff_far:
           CODE_0086D5:
                        LDA.B $09                            ;0086D5|000009;
                        CLC                                  ;0086D7|      ;
-          CODE_0086D8:
                        ADC.W #$0020                         ;0086D8|      ;
                        STA.B $09                            ;0086DB|000009;
                        SEP #$20                             ;0086DD|      ;
@@ -987,7 +969,6 @@ Gfx_Dungeon_Stuff_far:
                        PHD                                  ;0086EC|      ; Set dp to $1DFC
                        PHA                                  ;0086ED|      ;
                        TDC                                  ;0086EE|      ;
-          CODE_0086EF:
                        SEC                                  ;0086EF|      ;
                        SBC.W #$0004                         ;0086F0|      ;
                        TCD                                  ;0086F3|      ;
@@ -1074,7 +1055,6 @@ Gfx_Dungeon_Stuff_far:
                        PLA                                  ;00876E|      ;
                        PHP                                  ;00876F|      ;
                        SEP #$20                             ;008770|      ;
-          CODE_008772:
                        STA.B $02                            ;008772|000002;
                        STX.B $00                            ;008774|000000;
                        STY.B $05                            ;008776|000005;
@@ -1106,7 +1086,6 @@ Gfx_Dungeon_Stuff_far:
                        INY                                  ;00879C|      ;
                        STA.B $03                            ;00879D|000003;
                        REP #$20                             ;00879F|      ;
-          CODE_0087A1:
                        INC.B $03                            ;0087A1|000003;
                        SEP #$20                             ;0087A3|      ;
                        BRA CODE_0087B2                      ;0087A5|0087B2;
@@ -1134,7 +1113,6 @@ Gfx_Dungeon_Stuff_far:
                        INY                                  ;0087C6|      ;
                        STA.W $0000,X                        ;0087C7|000000;
                        INX                                  ;0087CA|      ;
-          CODE_0087CB:
                        REP #$20                             ;0087CB|      ;
                        DEC.B $03                            ;0087CD|000003;
                        SEP #$20                             ;0087CF|      ;
@@ -1155,7 +1133,6 @@ Gfx_Dungeon_Stuff_far:
           CODE_0087E7:
                        REP #$20                             ;0087E7|      ;
                        LDA.B [$00],Y                        ;0087E9|000000;
-          CODE_0087EB:
                        INY                                  ;0087EB|      ;
                        INY                                  ;0087EC|      ;
                        PHY                                  ;0087ED|      ;
@@ -1178,10 +1155,8 @@ Gfx_Dungeon_Stuff_far:
                        STA.W $0000,X                        ;008804|000000;
                        INX                                  ;008807|      ;
                        INC A                                ;008808|      ;
-          CODE_008809:
                        DEY                                  ;008809|      ;
                        BNE CODE_008804                      ;00880A|008804;
-          CODE_00880C:
                        PLY                                  ;00880C|      ;
                        JMP.W Decomp_end_check               ;00880D|00877C;
           CODE_008810:
@@ -1193,7 +1168,6 @@ Gfx_Dungeon_Stuff_far:
                        ADC.B $05                            ;008818|000005;
                        INY                                  ;00881A|      ;
                        INY                                  ;00881B|      ;
-          CODE_00881C:
                        PHY                                  ;00881C|      ;
                        TAY                                  ;00881D|      ;
                        SEP #$20                             ;00881E|      ;
@@ -1303,7 +1277,6 @@ Gfx_Dungeon_Stuff_far:
                        STZ.W $0400,X                        ;0088D6|000400; Zero 0000 to 0400, because of course
                        DEX                                  ;0088D9|      ;
                        DEX                                  ;0088DA|      ;
-          CODE_0088DB:
                        BPL CODE_0088D6                      ;0088DB|0088D6;
                        RTS                                  ;0088DD|      ;
       Wait_Vblank_far:
@@ -1337,7 +1310,6 @@ Gfx_Dungeon_Stuff_far:
                        SBC.W #$0006                         ;008909|      ;
                        TCD                                  ;00890C|      ;
                        PLA                                  ;00890D|      ;
-          CODE_00890E:
                        PHY                                  ;00890E|      ;
                        STA.B $02                            ;00890F|000002;
                        STX.B $00                            ;008911|000000;
@@ -1358,7 +1330,6 @@ Gfx_Dungeon_Stuff_far:
                        LDA.B $02                            ;008930|000002;
                        SEC                                  ;008932|      ;
                        SBC.L DATA16_008961,X                ;008933|008961;
-          CODE_008937:
                        STA.B $02                            ;008937|000002;
                        LDA.B $00                            ;008939|000000;
                        SBC.L DATA16_00896D,X                ;00893B|00896D;
@@ -1369,7 +1340,6 @@ Gfx_Dungeon_Stuff_far:
                        TYA                                  ;008944|      ;
                        STA.B ($04)                          ;008945|000004;
                        INC.B $04                            ;008947|000004;
-          CODE_008949:
                        INX                                  ;008949|      ;
                        INX                                  ;00894A|      ;
                        CPX.W #$000C                         ;00894B|      ;
@@ -1453,7 +1423,6 @@ Gfx_Dungeon_Stuff_far:
                        LDA.B #$7E                           ;0089D3|      ;
                        STA.B $02                            ;0089D5|000002;
                        REP #$20                             ;0089D7|      ;
-          CODE_0089D9:
                        LDA.B $07                            ;0089D9|000007;
                        CLC                                  ;0089DB|      ;
                        ADC.W #$0007                         ;0089DC|      ;
@@ -1467,7 +1436,6 @@ Gfx_Dungeon_Stuff_far:
                        PLX                                  ;0089ED|      ;
                        PLB                                  ;0089EE|      ;
                        PLD                                  ;0089EF|      ;
-          CODE_0089F0:
                        RTL                                  ;0089F0|      ;
                   RNG:
                        PHA                                  ;0089F1|      ; Loads random number from 0 to A-1
@@ -1486,19 +1454,15 @@ Gfx_Dungeon_Stuff_far:
                        EOR.B #$FF                           ;008A06|      ;
                        AND.B #$01                           ;008A08|      ;
                        ORA.W $000A                          ;008A0A|00000A;
-          CODE_008A0D:
                        STA.W $000A                          ;008A0D|00000A;
                        REP #$20                             ;008A10|      ;
                        DEX                                  ;008A12|      ;
-          CODE_008A13:
                        BNE CODE_0089F6                      ;008A13|0089F6;
                        PLX                                  ;008A15|      ;
                        PLA                                  ;008A16|      ;
                        BEQ CODE_008A32                      ;008A17|008A32;
-          CODE_008A19:
                        SEP #$20                             ;008A19|      ;
                        STA.L Multiply_lo                    ;008A1B|004202;
-          CODE_008A1F:
                        LDA.W $000A                          ;008A1F|00000A;
                        STA.L Multiply_hi                    ;008A22|004203;
                        NOP                                  ;008A26|      ;
@@ -1613,7 +1577,6 @@ Gfx_Dungeon_Stuff_far:
                        JSR.W CODE_008B38                    ;008ADE|008B38;
                        LDX.B $06                            ;008AE1|000006;
                        BPL CODE_008AE7                      ;008AE3|008AE7;
-          CODE_008AE5:
                        INC.B $0A                            ;008AE5|00000A;
           CODE_008AE7:
                        LDX.B $0C                            ;008AE7|00000C;
@@ -1625,7 +1588,6 @@ Gfx_Dungeon_Stuff_far:
                        INC A                                ;008AF5|      ;
           CODE_008AF6:
                        PHA                                  ;008AF6|      ;
-          CODE_008AF7:
                        STZ.B $0A                            ;008AF7|00000A;
                        JSR.W CODE_008B4C                    ;008AF9|008B4C;
                        LDX.B $06                            ;008AFC|000006;
@@ -1655,7 +1617,6 @@ Gfx_Dungeon_Stuff_far:
                        PLA                                  ;008B28|      ;
                        STA.W M7C                            ;008B29|00211D;
                        PLA                                  ;008B2C|      ;
-          CODE_008B2D:
                        STA.W M7D                            ;008B2D|00211E;
           CODE_008B30:
                        PLA                                  ;008B30|      ;
@@ -1692,7 +1653,6 @@ Gfx_Dungeon_Stuff_far:
                        RTS                                  ;008B63|      ;
        Unknown_Tables:
                        db $00                               ;008B64|      ;
-         DATA8_008B65:
                        db $06                               ;008B65|      ;
                        db $0C                               ;008B66|      ;
                        db $12                               ;008B67|      ;
@@ -1808,7 +1768,6 @@ Gfx_Dungeon_Stuff_far:
                        db $61                               ;008BD4|      ;
                        db $5C                               ;008BD5|      ;
                        db $56                               ;008BD6|      ;
-         DATA8_008BD7:
                        db $50                               ;008BD7|      ;
                        db $4A                               ;008BD8|      ;
                        db $44                               ;008BD9|      ;
@@ -1856,7 +1815,6 @@ Gfx_Dungeon_Stuff_far:
                        db $FF                               ;008C00|      ;
                        db $BF                               ;008C01|      ;
                        db $FF                               ;008C02|      ;
-         DATA8_008C03:
                        db $7F                               ;008C03|      ;
           Tbl_HDMA_ch:
                        db $FE                               ;008C04|      ; AND table of all but 1 bit each
@@ -1984,11 +1942,9 @@ MapProgress_OR_filters:
                        DEX                                  ;008CBD|      ;
                        BPL CODE_008CB5                      ;008CBE|008CB5;
                        LDX.W #$0022                         ;008CC0|      ; Set all battle enemy ID's to -1
-          CODE_008CC3:
                        LDA.W #$FFFF                         ;008CC3|      ;
           CODE_008CC6:
                        STA.W Battle_Enemy_ID,X              ;008CC6|000643;
-          CODE_008CC9:
                        DEX                                  ;008CC9|      ;
                        DEX                                  ;008CCA|      ;
                        BPL CODE_008CC6                      ;008CCB|008CC6;
@@ -2021,7 +1977,6 @@ MapProgress_OR_filters:
           CODE_008D0A:
                        PHA                                  ;008D0A|      ;
                        STZ.W $062B                          ;008D0B|00062B;
-          CODE_008D0E:
                        STZ.W $062D                          ;008D0E|00062D;
                        STZ.W $062F                          ;008D11|00062F;
                        STZ.W $0631                          ;008D14|000631;
@@ -2474,12 +2429,10 @@ Update_Restart_MainLp:
                        LDA.W #$FFFF                         ;0090F0|      ;
                        STA.W Anim_Loopvar,X                 ;0090F3|000B9F; Clear X's function results
                        STA.W LoopVar_1047                   ;0090F6|001047; Clear the loop variable
-          CODE_0090F9:
                        RTS                                  ;0090F9|      ;
         Event_Code_01:
                        INC.B $10                            ;0090FA|000010; Affects $14
                        LDA.B [$10]                          ;0090FC|000010;
-          CODE_0090FE:
                        PHA                                  ;0090FE|      ;
                        LDX.W Function_results               ;0090FF|001041;
                        LDY.W $0B43,X                        ;009102|000B43;
@@ -2602,7 +2555,6 @@ Update_Restart_MainLp:
           CODE_0091C6:
                        DEY                                  ;0091C6|      ;
                        SEP #$20                             ;0091C7|      ;
-          CODE_0091C9:
                        LDA.B [$14],Y                        ;0091C9|000014;
                        STA.B $12                            ;0091CB|000012;
                        REP #$20                             ;0091CD|      ;
@@ -2617,16 +2569,13 @@ Update_Restart_MainLp:
                        INC.B $10                            ;0091DA|000010; Does a LOT of formatting stuff, hard to trace
                        LDX.W Function_results               ;0091DC|001041; Reads the next value and breaks out of a loop if nonzero
                        LDA.B [$10]                          ;0091DF|000010;
-          CODE_0091E1:
                        AND.W #$00FF                         ;0091E1|      ;
                        STA.W Anim_Loopvar,X                 ;0091E4|000B9F;
                        INC.B $10                            ;0091E7|000010;
-          CODE_0091E9:
                        RTS                                  ;0091E9|      ;
   Event_Anim_30_37_1b:
                        INC.B $10                            ;0091EA|000010; These need more examples. These are called by 903C "Script Reader 2" for values of 30+.
                        LDX.W Selection                      ;0091EC|00103F; Load target's offset
-          CODE_0091EF:
                        LDA.B [$10]                          ;0091EF|000010; Read the next byte
                        AND.W #$00FF                         ;0091F1|      ;
                        CMP.W #$00FF                         ;0091F4|      ;
@@ -2635,16 +2584,13 @@ Update_Restart_MainLp:
           CODE_0091FC:
                        STA.W Anim_ID,X                      ;0091FC|000A7B; Else for 30 xx, load xx in $0A7B,x
                        INC.B $10                            ;0091FF|000010; Advance script PC
-          CODE_009201:
                        RTS                                  ;009201|      ;
   Event_Anim_38_3F_2b:
                        INC.B $10                            ;009202|000010; Does a bunch of shit.
                        LDX.W Selection                      ;009204|00103F; Load target's offset
-          CODE_009207:
                        LDA.B [$10]                          ;009207|000010; Read the next 2 bytes and advance the script PC
                        INC.B $10                            ;009209|000010;
                        INC.B $10                            ;00920B|000010;
-          CODE_00920D:
                        STA.W $0787,X                        ;00920D|000787; Store xxxx in $0787,x and $06F7,x
                        STA.W $06F7,X                        ;009210|0006F7;
                        LDA.W #$8000                         ;009213|      ;
@@ -2703,7 +2649,6 @@ Update_Restart_MainLp:
           CODE_00928A:
                        LDA.W $0817,X                        ;00928A|000817;
                        CLC                                  ;00928D|      ;
-          CODE_00928E:
                        ADC.W $0817,Y                        ;00928E|000817;
                        STA.W $0817,X                        ;009291|000817;
                        LDA.W $07AB,X                        ;009294|0007AB;
@@ -2714,7 +2659,6 @@ Update_Restart_MainLp:
                        INC.B $10                            ;00929E|000010;
                        LDX.W Selection                      ;0092A0|00103F;
                        LDA.B [$10]                          ;0092A3|000010;
-          CODE_0092A5:
                        INC.B $10                            ;0092A5|000010;
                        INC.B $10                            ;0092A7|000010;
                        STA.W $07CF,X                        ;0092A9|0007CF;
@@ -2747,7 +2691,6 @@ Update_Restart_MainLp:
                        XBA                                  ;0092E2|      ;
                        STA.W $08CB,X                        ;0092E3|0008CB;
                        PLA                                  ;0092E6|      ;
-          CODE_0092E7:
                        AND.W #$FF00                         ;0092E7|      ;
                        BPL CODE_0092EF                      ;0092EA|0092EF;
                        ORA.W #$00FF                         ;0092EC|      ;
@@ -2818,7 +2761,6 @@ Update_Restart_MainLp:
                        INC.B $10                            ;009362|000010;
           CODE_009364:
                        LDX.W Selection                      ;009364|00103F;
-          CODE_009367:
                        LDA.B [$10]                          ;009367|000010;
                        PHA                                  ;009369|      ;
                        AND.W #$00FF                         ;00936A|      ;
@@ -2826,7 +2768,6 @@ Update_Restart_MainLp:
                        CLC                                  ;00936E|      ;
                        ADC.W $08EF,X                        ;00936F|0008EF;
                        STA.W $08EF,X                        ;009372|0008EF;
-          CODE_009375:
                        PLA                                  ;009375|      ;
                        AND.W #$FF00                         ;009376|      ;
                        BPL CODE_00937E                      ;009379|00937E;
@@ -2844,31 +2785,25 @@ Update_Restart_MainLp:
                        LDA.B [$10]                          ;00938F|000010;
                        PHA                                  ;009391|      ;
                        AND.W #$00FF                         ;009392|      ;
-          CODE_009395:
                        XBA                                  ;009395|      ;
                        CLC                                  ;009396|      ;
                        ADC.W $0913,X                        ;009397|000913;
                        STA.W $0913,X                        ;00939A|000913;
                        PLA                                  ;00939D|      ;
                        AND.W #$FF00                         ;00939E|      ;
-          CODE_0093A1:
                        BPL CODE_0093A6                      ;0093A1|0093A6;
                        ORA.W #$00FF                         ;0093A3|      ;
           CODE_0093A6:
                        XBA                                  ;0093A6|      ;
-          CODE_0093A7:
                        ADC.W $08A7,X                        ;0093A7|0008A7;
                        STA.W $08A7,X                        ;0093AA|0008A7;
-          CODE_0093AD:
                        INC.B $10                            ;0093AD|000010;
                        INC.B $10                            ;0093AF|000010;
                        RTS                                  ;0093B1|      ;
 Event_Anim_78_7F_1b_2b:
                        INC.B $10                            ;0093B2|000010; Read (1b) x offset, store (2b) in $0FEF,x and zero $0FFF,x
                        LDA.B [$10]                          ;0093B4|000010;
-          CODE_0093B6:
                        AND.W #$00FF                         ;0093B6|      ;
-          CODE_0093B9:
                        ASL A                                ;0093B9|      ;
                        TAX                                  ;0093BA|      ;
                        INC.B $10                            ;0093BB|000010;
@@ -2928,7 +2863,6 @@ Event_Anim_90_97_1b_2b:
                        PLA                                  ;00941E|      ;
                        AND.W #$FF00                         ;00941F|      ;
                        BPL CODE_009427                      ;009422|009427;
-          CODE_009424:
                        ORA.W #$00FF                         ;009424|      ;
           CODE_009427:
                        XBA                                  ;009427|      ;
@@ -2974,7 +2908,6 @@ Event_Anim_A0_A7_1b_2b:
                        XBA                                  ;00946F|      ;
                        CLC                                  ;009470|      ;
                        ADC.W $1027,X                        ;009471|001027;
-          CODE_009474:
                        STA.W $1027,X                        ;009474|001027;
           CODE_009477:
                        PLA                                  ;009477|      ;
@@ -3028,7 +2961,6 @@ Event_Anim_C0_C7_1b_2b:
                        LDA.B [$10]                          ;0094D0|000010;
                        CLC                                  ;0094D2|      ;
                        ADC.W AnimC0_Total,X                 ;0094D3|00102F;
-          CODE_0094D6:
                        STA.W AnimC0_Total,X                 ;0094D6|00102F;
                        INC.B $10                            ;0094D9|000010;
                        INC.B $10                            ;0094DB|000010;
@@ -3083,7 +3015,6 @@ Event_Anim_C8_CF_1b_2b:
                        JSL.L JumpTo1049                     ;009540|009B0E;
                        LDX.W Function_results               ;009544|001041;
                        STA.W Function_results1,X            ;009547|000CB3;
-          CODE_00954A:
                        INC.B $10                            ;00954A|000010;
                        RTS                                  ;00954C|      ;
         Event_Code_0B:
@@ -3102,7 +3033,6 @@ Event_Anim_C8_CF_1b_2b:
         Event_Code_0C:
                        INC.B $10                            ;009562|000010; Jump if true/nonzero (2 byte ptr)
                        LDA.B [$10]                          ;009564|000010;
-          CODE_009566:
                        TAY                                  ;009566|      ;
                        LDX.W Function_results               ;009567|001041;
                        LDA.W Function_results1,X            ;00956A|000CB3;
@@ -3111,13 +3041,11 @@ Event_Anim_C8_CF_1b_2b:
                        RTS                                  ;009571|      ;
           CODE_009572:
                        INC.B $10                            ;009572|000010;
-          CODE_009574:
                        INC.B $10                            ;009574|000010;
                        RTS                                  ;009576|      ;
         Event_Code_11:
                        LDX.W Function_results               ;009577|001041; If less than next byte, jump using ptr table
                        LDA.W Function_results1,X            ;00957A|000CB3;
-          CODE_00957D:
                        STA.B $20                            ;00957D|000020;
                        INC.B $10                            ;00957F|000010;
                        LDA.B [$10]                          ;009581|000010;
@@ -3136,22 +3064,18 @@ Event_Anim_C8_CF_1b_2b:
                        ASL A                                ;009596|      ;
                        TAY                                  ;009597|      ;
                        LDA.B [$10],Y                        ;009598|000010;
-          CODE_00959A:
                        STA.B $10                            ;00959A|000010;
                        RTS                                  ;00959C|      ;
         Event_Code_12:
                        LDX.W Function_results               ;00959D|001041; Very complicated (1b), JSR (2b)
-          CODE_0095A0:
                        LDA.W Function_results1,X            ;0095A0|000CB3;
                        STA.B $20                            ;0095A3|000020;
                        INC.B $10                            ;0095A5|000010;
                        LDA.B [$10]                          ;0095A7|000010;
                        AND.W #$00FF                         ;0095A9|      ;
-          CODE_0095AC:
                        INC.B $10                            ;0095AC|000010;
                        CMP.B $20                            ;0095AE|000020;
                        BCC CODE_00958E                      ;0095B0|00958E;
-          CODE_0095B2:
                        BEQ CODE_00958E                      ;0095B2|00958E;
                        LDX.W Function_results               ;0095B4|001041;
                        LDY.W $0B43,X                        ;0095B7|000B43;
@@ -3248,7 +3172,6 @@ Event_Anim_C8_CF_1b_2b:
                        LDX.W Selection                      ;009668|00103F; Decrements the animation ID
                        DEC.W Anim_ID,X                      ;00966B|000A7B;
                        INC.B $10                            ;00966E|000010;
-          CODE_009670:
                        RTS                                  ;009670|      ;
   Event_Anim_B8_BF_1b:
                        INC.B $10                            ;009671|000010; Adds (1b) to the animation ID. Can do subtraction too.
@@ -3257,7 +3180,6 @@ Event_Anim_C8_CF_1b_2b:
                        AND.W #$00FF                         ;009678|      ;
                        CMP.W #$0080                         ;00967B|      ;
                        BCC CODE_009684                      ;00967E|009684;
-          CODE_009680:
                        ORA.W #$FF00                         ;009680|      ;
           CODE_009683:
                        CLC                                  ;009683|      ;
@@ -3265,7 +3187,6 @@ Event_Anim_C8_CF_1b_2b:
                        ADC.W Anim_ID,X                      ;009684|000A7B;
                        STA.W Anim_ID,X                      ;009687|000A7B;
                        INC.B $10                            ;00968A|000010;
-          CODE_00968C:
                        RTS                                  ;00968C|      ;
         Event_Code_19:
                        INC.B $10                            ;00968D|000010; Jumps somewhere weird
@@ -3290,15 +3211,12 @@ Event_Anim_C8_CF_1b_2b:
                        RTS                                  ;0096B7|      ;
         Event_Code_15:
                        INC.B $10                            ;0096B8|000010; (4b) Compares an actor ID with a value
-          CODE_0096BA:
                        LDA.B [$10]                          ;0096BA|000010; (1b) Takes an offset to an actor array
                        AND.W #$00FF                         ;0096BC|      ;
                        ASL A                                ;0096BF|      ;
-          CODE_0096C0:
                        TAX                                  ;0096C0|      ;
                        LDA.L Tbl_Actor_Arrays,X             ;0096C1|009739; Load the actor array RAM address
                        CLC                                  ;0096C5|      ;
-          CODE_0096C6:
                        ADC.W Selection                      ;0096C6|00103F;
                        STA.B $1C                            ;0096C9|00001C; Save the RAM address we're checking
                        BRA CODE_0096D5                      ;0096CB|0096D5;
@@ -3313,7 +3231,6 @@ Event_Anim_C8_CF_1b_2b:
                        AND.W #$00FF                         ;0096D9|      ;
                        ASL A                                ;0096DC|      ;
                        TAX                                  ;0096DD|      ;
-          CODE_0096DE:
                        INC.B $10                            ;0096DE|000010;
                        LDA.B [$10]                          ;0096E0|000010;
                        STA.B $20                            ;0096E2|000020; (2b) Get comparison value
@@ -3329,7 +3246,6 @@ Event_Anim_C8_CF_1b_2b:
                        dw Operation_EOR                     ;0096F8|009710; XOR
         Operation_AND:
                        LDA.B ($1C)                          ;0096FA|00001C;
-          CODE_0096FC:
                        AND.B $20                            ;0096FC|000020;
                        STA.B ($1C)                          ;0096FE|00001C;
                        RTS                                  ;009700|      ;
@@ -3417,7 +3333,6 @@ Event_Anim_C8_CF_1b_2b:
           CODE_00978C:
                        INC.B $10                            ;00978C|000010;
                        INC.B $10                            ;00978E|000010;
-          CODE_009790:
                        RTS                                  ;009790|      ;
         Event_Code_18:
                        INC.B $10                            ;009791|000010;
@@ -3433,7 +3348,6 @@ Event_Anim_C8_CF_1b_2b:
                        LDA.B [$10]                          ;0097A5|000010;
                        STA.W $0A9F,X                        ;0097A7|000A9F;
                        INC.B $10                            ;0097AA|000010;
-          CODE_0097AC:
                        INC.B $10                            ;0097AC|000010;
                        LDA.B [$10]                          ;0097AE|000010;
                        STA.W $0AC3,X                        ;0097B0|000AC3;
@@ -3442,7 +3356,6 @@ Event_Anim_C8_CF_1b_2b:
         Event_Code_1E:
                        INC.B $10                            ;0097B6|000010; Store value (2b) in $0CB3,x
                        LDA.B [$10]                          ;0097B8|000010;
-          CODE_0097BA:
                        LDX.W Function_results               ;0097BA|001041;
                        STA.W Function_results1,X            ;0097BD|000CB3;
                        INC.B $10                            ;0097C0|000010;
@@ -3463,23 +3376,18 @@ Event_Anim_C8_CF_1b_2b:
                        LDX.W Selection                      ;0097D8|00103F;
                        LDA.W $06AF,X                        ;0097DB|0006AF;
                        BPL CODE_0097E3                      ;0097DE|0097E3;
-          CODE_0097E0:
                        JSR.W CODE_00981F                    ;0097E0|00981F;
           CODE_0097E3:
                        INC.B $10                            ;0097E3|000010;
                        LDY.W Function_results               ;0097E5|001041;
                        LDA.W Function_results1,Y            ;0097E8|000CB3;
                        TAY                                  ;0097EB|      ;
-          CODE_0097EC:
                        ORA.W #$C000                         ;0097EC|      ;
                        STA.W $06AF,X                        ;0097EF|0006AF;
-          CODE_0097F2:
                        JMP.W CODE_009B26                    ;0097F2|009B26;
         Event_Code_21:
                        LDX.W Selection                      ;0097F5|00103F;
-          CODE_0097F8:
                        LDA.W $06AF,X                        ;0097F8|0006AF;
-          CODE_0097FB:
                        BPL CODE_009800                      ;0097FB|009800;
                        JSR.W CODE_00981F                    ;0097FD|00981F;
           CODE_009800:
@@ -3591,7 +3499,6 @@ Event_Anim_C8_CF_1b_2b:
                        ADC.W $1051                          ;0098CA|001051;
                        STA.B $00,X                          ;0098CD|000000;
                        LDA.B $1C                            ;0098CF|00001C;
-          CODE_0098D1:
                        ADC.W $1052                          ;0098D1|001052;
                        BEQ CODE_0098DD                      ;0098D4|0098DD;
                        INC A                                ;0098D6|      ;
@@ -3643,7 +3550,6 @@ Event_Anim_C8_CF_1b_2b:
           CODE_00991D:
                        REP #$20                             ;00991D|      ;
                        LDA.W $0000,Y                        ;00991F|000000;
-          CODE_009922:
                        XBA                                  ;009922|      ;
                        TAY                                  ;009923|      ;
                        SEP #$20                             ;009924|      ;
@@ -3673,7 +3579,6 @@ Event_Anim_C8_CF_1b_2b:
                        BPL CODE_009954                      ;00994A|009954;
                        LDA.W $0667,X                        ;00994C|000667;
                        STA.W $063D                          ;00994F|00063D;
-          CODE_009952:
                        CLC                                  ;009952|      ;
                        RTS                                  ;009953|      ;
           CODE_009954:
@@ -3683,7 +3588,6 @@ Event_Anim_C8_CF_1b_2b:
                        RTS                                  ;00995B|      ;
    A_buncha_stuff_far:
                        JSR.W A_buncha_stuff                 ;00995C|009960; Program flow stuff
-          CODE_00995F:
                        RTL                                  ;00995F|      ;
        A_buncha_stuff:
                        PHD                                  ;009960|      ;
@@ -3734,7 +3638,6 @@ Event_Anim_C8_CF_1b_2b:
                        PHX                                  ;0099B0|      ;
                        LDA.W $06AF,X                        ;0099B1|0006AF;
                        CMP.W #$C000                         ;0099B4|      ;
-          CODE_0099B7:
                        BCS CODE_0099DD                      ;0099B7|0099DD;
                        STX.B $00                            ;0099B9|000000;
                        LDX.W #$FFFF                         ;0099BB|      ;
@@ -3752,7 +3655,6 @@ Event_Anim_C8_CF_1b_2b:
           CODE_0099D6:
                        TYX                                  ;0099D6|      ;
                        LDA.W $0667,Y                        ;0099D7|000667;
-          CODE_0099DA:
                        TAY                                  ;0099DA|      ;
                        BRA CODE_0099C1                      ;0099DB|0099C1;
           CODE_0099DD:
@@ -3800,7 +3702,6 @@ Event_Anim_C8_CF_1b_2b:
                        RTS                                  ;009A27|      ;
           CODE_009A28:
                        LDA.W $063D                          ;009A28|00063D;
-          CODE_009A2B:
                        STA.W $0667,X                        ;009A2B|000667;
                        STX.W $063D                          ;009A2E|00063D;
                        RTS                                  ;009A31|      ;
@@ -3816,7 +3717,6 @@ Event_Anim_C8_CF_1b_2b:
                        LDA.W $0AE7,X                        ;009A41|000AE7;
                        BPL CODE_009A40                      ;009A44|009A40;
                        PLA                                  ;009A46|      ;
-          CODE_009A47:
                        STA.W $0AE7,X                        ;009A47|000AE7;
                        PLX                                  ;009A4A|      ;
           CODE_009A4B:
@@ -3829,7 +3729,6 @@ Event_Anim_C8_CF_1b_2b:
                        SBC.W #$0002                         ;009A50|      ;
                        TCD                                  ;009A53|      ;
                        PLA                                  ;009A54|      ;
-          CODE_009A55:
                        STX.B $00                            ;009A55|000000;
                        LDY.W #$FFFF                         ;009A57|      ;
                        LDX.W $063B                          ;009A5A|00063B;
@@ -3860,14 +3759,12 @@ Event_Anim_C8_CF_1b_2b:
           CODE_009A81:
                        LDA.W $063F                          ;009A81|00063F;
                        STA.W $0AE7,Y                        ;009A84|000AE7;
-          CODE_009A87:
                        STY.W $063F                          ;009A87|00063F;
                        RTS                                  ;009A8A|      ;
           CODE_009A8B:
                        PHX                                  ;009A8B|      ;
                        JSR.W CODE_009AAA                    ;009A8C|009AAA;
                        LDA.W $0AE7,Y                        ;009A8F|000AE7;
-          CODE_009A92:
                        CPX.W #$FFFF                         ;009A92|      ;
                        BEQ CODE_009A9D                      ;009A95|009A9D;
                        STA.W $0AE7,X                        ;009A97|000AE7;
@@ -3895,7 +3792,6 @@ Event_Anim_C8_CF_1b_2b:
                        LDX.W #$FFFF                         ;009AB8|      ;
           CODE_009ABB:
                        CPY.B $00                            ;009ABB|000000;
-          CODE_009ABD:
                        BEQ CODE_009AC6                      ;009ABD|009AC6;
                        TYX                                  ;009ABF|      ;
                        LDA.W $0AE7,Y                        ;009AC0|000AE7;
@@ -3992,7 +3888,6 @@ Event_Anim_C8_CF_1b_2b:
                        LDA.W $07F3,X                        ;009B60|0007F3;
                        CLC                                  ;009B63|      ;
                        ADC.W $0FFF,Y                        ;009B64|000FFF;
-          CODE_009B67:
                        STA.W $07F3,X                        ;009B67|0007F3;
                        LDA.W $0787,X                        ;009B6A|000787;
                        ADC.W $0FEF,Y                        ;009B6D|000FEF;
@@ -4003,7 +3898,6 @@ Event_Anim_C8_CF_1b_2b:
                        STA.W $0817,X                        ;009B7A|000817;
                        LDA.W $07AB,X                        ;009B7D|0007AB;
                        ADC.W $0FF7,Y                        ;009B80|000FF7;
-          CODE_009B83:
                        STA.W $07AB,X                        ;009B83|0007AB;
                        RTS                                  ;009B86|      ;
           CODE_009B87:
@@ -4011,7 +3905,6 @@ Event_Anim_C8_CF_1b_2b:
                        AND.W #$3FFF                         ;009B8A|      ;
                        TAY                                  ;009B8D|      ;
                        LDA.W $07F3,X                        ;009B8E|0007F3;
-          CODE_009B91:
                        CLC                                  ;009B91|      ;
                        ADC.W $07F3,Y                        ;009B92|0007F3;
                        STA.W $07F3,X                        ;009B95|0007F3;
@@ -4024,10 +3917,8 @@ Event_Anim_C8_CF_1b_2b:
                        STA.W $0817,X                        ;009BA8|000817;
                        LDA.W $07AB,X                        ;009BAB|0007AB;
                        ADC.W $071B,Y                        ;009BAE|00071B;
-          CODE_009BB1:
                        STA.W $07AB,X                        ;009BB1|0007AB;
                        LDA.W $083B,X                        ;009BB4|00083B;
-          CODE_009BB7:
                        CLC                                  ;009BB7|      ;
                        ADC.W $083B,Y                        ;009BB8|00083B;
                        STA.W $083B,X                        ;009BBB|00083B;
@@ -4040,13 +3931,11 @@ Event_Anim_C8_CF_1b_2b:
                        LDA.W $06AF,X                        ;009BCB|0006AF;
                        AND.W #$3FFF                         ;009BCE|      ;
                        ASL A                                ;009BD1|      ;
-          CODE_009BD2:
                        TAY                                  ;009BD2|      ;
                        LDA.W $07F3,X                        ;009BD3|0007F3;
                        SEC                                  ;009BD6|      ;
                        SBC.W $0FFF,Y                        ;009BD7|000FFF;
                        STA.W $07F3,X                        ;009BDA|0007F3;
-          CODE_009BDD:
                        LDA.W $0787,X                        ;009BDD|000787;
                        SBC.W $0FEF,Y                        ;009BE0|000FEF;
                        STA.W $0787,X                        ;009BE3|000787;
@@ -4143,7 +4032,6 @@ Event_Anim_C8_CF_1b_2b:
                        STA.W $062D                          ;009CA0|00062D;
                        STX.W $062F                          ;009CA3|00062F;
                        PLX                                  ;009CA6|      ;
-          CODE_009CA7:
                        PLA                                  ;009CA7|      ;
                        AND.W #$7FFF                         ;009CA8|      ;
                        JMP.W Way_more_anim_stuff            ;009CAB|008D24;
@@ -4157,7 +4045,6 @@ Event_Anim_C8_CF_1b_2b:
                        JSR.W GetEventCode_1b                ;009CBC|009AF0; It's more than join, probably for loading gfx etc
                        STA.W $0637                          ;009CBF|000637;
                        INC A                                ;009CC2|      ;
-          CODE_009CC3:
                        INC A                                ;009CC3|      ;
                        STA.W $0639                          ;009CC4|000639;
                        BRA CODE_009C66                      ;009CC7|009C66;
@@ -4203,7 +4090,6 @@ Event_Anim_C8_CF_1b_2b:
                        LDA.B [$00]                          ;009D13|000000;
                        STA.B $09                            ;009D15|000009;
                        INC.B $00                            ;009D17|000000;
-          CODE_009D19:
                        INC.B $00                            ;009D19|000000;
                        JSR.W CODE_008698                    ;009D1B|008698;
                        RTL                                  ;009D1E|      ;
@@ -4224,7 +4110,6 @@ Event_Anim_C8_CF_1b_2b:
                        STA.B $04                            ;009D3C|000004;
                        JSR.W GetEventCode_2b                ;009D3E|009B00;
                        STA.B $06                            ;009D41|000006;
-          CODE_009D43:
                        JSR.W GetEventCode_1b                ;009D43|009AF0;
                        STA.B $08                            ;009D46|000008;
                        JSR.W GetEventCode_2b                ;009D48|009B00;
@@ -4240,7 +4125,6 @@ Event_Anim_C8_CF_1b_2b:
                        JSR.W GetEventCode_2b                ;009D5B|009B00;
                        STA.B $09                            ;009D5E|000009;
                        JSR.W GetEventCode_2b                ;009D60|009B00;
-          CODE_009D63:
                        STA.B $0B                            ;009D63|00000B;
                        JSR.W CODE_00872E                    ;009D65|00872E;
                        RTL                                  ;009D68|      ;
@@ -4256,18 +4140,15 @@ Display_near_1b_1b_2b_2b:
                        JSR.W GetEventCode_1b                ;009D7A|009AF0; Read A (1b), X (2b), Y (2b)
                        PHA                                  ;009D7D|      ;
                        JSR.W GetEventCode_2b                ;009D7E|009B00;
-          CODE_009D81:
                        PHA                                  ;009D81|      ;
                        JSR.W GetEventCode_2b                ;009D82|009B00;
                        TAY                                  ;009D85|      ;
                        PLX                                  ;009D86|      ;
-          CODE_009D87:
                        PLA                                  ;009D87|      ;
                        JMP.W (Event_CodePtr)                ;009D88|001049; Call display function
       Tbl_Display_Fns:
                        dw _00822F_far                       ;009D8B|00822B;
                        dw Gfx_Dungeon_Stuff_far             ;009D8D|00826A;
-         PTR16_009D8F:
                        dw _0082AB_far                       ;009D8F|0082A7;
                        dw _0082EA_far                       ;009D91|0082E6;
     Do_stuff_1b_2b_1b:
@@ -4324,7 +4205,6 @@ Display_near_1b_1b_2b_2b:
           CODE_009DF5:
                        STA.W $0FEF,Y                        ;009DF5|000FEF;
                        LDA.W DATA16_009E0E,X                ;009DF8|009E0E;
-          CODE_009DFB:
                        STA.W $0FF7,Y                        ;009DFB|000FF7;
                        INY                                  ;009DFE|      ;
                        INY                                  ;009DFF|      ;
@@ -4350,7 +4230,6 @@ Display_near_1b_1b_2b_2b:
                        PLA                                  ;009E20|      ;
                        STA.W M7Y                            ;009E21|002120;
                        PLA                                  ;009E24|      ;
-          CODE_009E25:
                        STA.W M7Y                            ;009E25|002120;
                        PLA                                  ;009E28|      ;
                        STA.W M7X                            ;009E29|00211F;
@@ -4379,9 +4258,7 @@ Display_near_1b_1b_2b_2b:
                        JMP.W CODE_009E39                    ;009E5F|009E39;
                        JSR.W GetEventCode_2b                ;009E62|009B00;
                        CLC                                  ;009E65|      ;
-          CODE_009E66:
                        ADC.W $106A                          ;009E66|00106A;
-          CODE_009E69:
                        STA.W $106A                          ;009E69|00106A;
                        JSR.W GetEventCode_2b                ;009E6C|009B00;
                        CLC                                  ;009E6F|      ;
@@ -4390,7 +4267,6 @@ Display_near_1b_1b_2b_2b:
                        JMP.W CODE_009E39                    ;009E76|009E39;
     Pixellation_OR_1b:
                        JSR.W GetEventCode_1b                ;009E79|009AF0;
-          CODE_009E7C:
                        SEP #$20                             ;009E7C|      ;
                        ORA.W Scn_Pixelation_temp            ;009E7E|001059;
                        STA.W Scn_Pixelation_temp            ;009E81|001059;
@@ -4449,7 +4325,6 @@ Set_Pixellation_hi_1b:
                        ASL A                                ;009EE4|      ;
                        ASL A                                ;009EE5|      ;
                        ASL A                                ;009EE6|      ;
-          CODE_009EE7:
                        ASL A                                ;009EE7|      ;
                        TAX                                  ;009EE8|      ;
                        JSR.W GetEventCode_1b                ;009EE9|009AF0;
@@ -4472,7 +4347,6 @@ Set_Pixellation_hi_1b:
                        PLA                                  ;009F0D|      ;
                        STA.W DMA0_Ctrl,X                    ;009F0E|004300;
                        PLA                                  ;009F11|      ;
-          CODE_009F12:
                        PLX                                  ;009F12|      ;
                        LDA.W HDMA_ch_temp                   ;009F13|00105A;
                        ORA.W DATA16_008C54,X                ;009F16|008C54;
@@ -4482,7 +4356,6 @@ Set_Pixellation_hi_1b:
        Rem_HDMA_ch_1b:
                        JSR.W GetEventCode_1b                ;009F1F|009AF0; Offset reads an AND table to remove a channel
                        TAX                                  ;009F22|      ;
-          CODE_009F23:
                        SEP #$20                             ;009F23|      ;
                        LDA.W HDMA_ch_temp                   ;009F25|00105A;
                        AND.W Tbl_HDMA_ch,X                  ;009F28|008C04;
@@ -4501,31 +4374,24 @@ Set_Pixellation_hi_1b:
                        SEP #$20                             ;009F3F|      ;
                        LDA.W Color_Add_temp                 ;009F41|001061;
                        AND.B #$FD                           ;009F44|      ;
-          CODE_009F46:
                        STA.W Color_Add_temp                 ;009F46|001061;
                        STA.W Color_add_select               ;009F49|002130;
-          CODE_009F4C:
                        REP #$20                             ;009F4C|      ;
                        RTL                                  ;009F4E|      ;
   Color_Math_Desig_2b:
                        JSR.W GetEventCode_1b                ;009F4F|009AF0;
-          CODE_009F52:
                        STA.B $20                            ;009F52|000020;
                        JSR.W GetEventCode_1b                ;009F54|009AF0;
                        XBA                                  ;009F57|      ;
-          CODE_009F58:
                        LSR A                                ;009F58|      ;
                        LSR A                                ;009F59|      ;
                        ORA.B $20                            ;009F5A|000020;
                        STA.B $20                            ;009F5C|000020;
-          CODE_009F5E:
                        SEP #$20                             ;009F5E|      ;
                        LDA.W Color_Math_temp                ;009F60|001062;
                        AND.B #$3F                           ;009F63|      ;
                        ORA.B $20                            ;009F65|000020;
-          CODE_009F67:
                        STA.W Color_Math_temp                ;009F67|001062;
-          CODE_009F6A:
                        STA.W Color_math_desig               ;009F6A|002131;
                        REP #$20                             ;009F6D|      ;
                        RTS                                  ;009F6F|      ;
@@ -4537,7 +4403,6 @@ Set_Pixellation_hi_1b:
                        STA.W Color_Math_temp                ;009F7A|001062;
                        STA.W Color_math_desig               ;009F7D|002131;
                        REP #$20                             ;009F80|      ;
-          CODE_009F82:
                        RTL                                  ;009F82|      ;
            Set_RGB_3b:
                        SEP #$20                             ;009F83|      ;
@@ -4604,7 +4469,6 @@ Set_Pixellation_hi_1b:
                        LDA.B [$10],Y                        ;009FF2|000010;
                        ADC.W RGB_Green                      ;009FF4|00108D;
                        STA.W RGB_Green                      ;009FF7|00108D;
-          CODE_009FFA:
                        INY                                  ;009FFA|      ;
                        CLC                                  ;009FFB|      ;
                        LDA.B [$10],Y                        ;009FFC|000010;
@@ -4613,7 +4477,6 @@ Set_Pixellation_hi_1b:
                        REP #$20                             ;00A004|      ;
                        TYA                                  ;00A006|      ;
                        CLC                                  ;00A007|      ;
-          CODE_00A008:
                        ADC.B $10                            ;00A008|000010;
                        STA.B $10                            ;00A00A|000010;
                        JMP.W Set_color_planes               ;00A00C|009FA1;
@@ -4630,20 +4493,17 @@ Set_Pixellation_hi_1b:
     WasBtnPressedX_2b:
                        LDX.W Function_results               ;00A022|001041; Takes 2 bytes (0080=A, 8000=B)
                        LDA.W Function_results1,X            ;00A025|000CB3;
-          CODE_00A028:
                        ASL A                                ;00A028|      ;
                        TAX                                  ;00A029|      ;
                        JSR.W GetEventCode_2b                ;00A02A|009B00;
                        STA.B $20                            ;00A02D|000020;
                        LDA.W $0021,X                        ;00A02F|000021;
                        AND.B $20                            ;00A032|000020;
-          CODE_00A034:
                        RTL                                  ;00A034|      ;
   Decomp_Setup2_3b_3b:
                        PHB                                  ;00A035|      ;
                        JSR.W GetEventCode_2b                ;00A036|009B00; Read source (long ptr)
                        TAX                                  ;00A039|      ;
-          CODE_00A03A:
                        JSR.W GetEventCode_1b                ;00A03A|009AF0;
                        PHA                                  ;00A03D|      ;
                        JSR.W GetEventCode_2b                ;00A03E|009B00; Read destination (long ptr)
@@ -4652,16 +4512,13 @@ Set_Pixellation_hi_1b:
                        SEP #$20                             ;00A045|      ;
                        PHA                                  ;00A047|      ;
                        PLB                                  ;00A048|      ;
-          CODE_00A049:
                        REP #$20                             ;00A049|      ;
                        PLA                                  ;00A04B|      ;
-          CODE_00A04C:
                        JSR.W Decompression                  ;00A04C|008766;
                        PLB                                  ;00A04F|      ;
                        RTL                                  ;00A050|      ;
 Loop_til_RAM_is_val_2b_2b:
                        JSR.W GetEventCode_2b                ;00A051|009B00; Compare RAM with a value. If not equal, loops back and calls again.
-          CODE_00A054:
                        STA.B $20                            ;00A054|000020; (2b) RAM address
                        JSR.W GetEventCode_2b                ;00A056|009B00;
                        CMP.B ($20)                          ;00A059|000020; (2b) Comparison value
@@ -4720,7 +4577,6 @@ GetPtr_3b_Do_stuff_1b:
                        RTL                                  ;00A0BC|      ;
                RNG_1b:
                        JSR.W GetEventCode_1b                ;00A0BD|009AF0;
-          CODE_00A0C0:
                        JML.L RNG                            ;00A0C0|0089F1;
         Update_scn_1b:
                        JSR.W GetEventCode_1b                ;00A0C4|009AF0;
@@ -4758,7 +4614,6 @@ GetPtr_3b_Do_stuff_1b:
    Transfer_Setup2_6b:
                        JSR.W GetEventCode_2b                ;00A105|009B00; Reads (3b ptr), dest (1b offset), #bytes (2b)
                        STA.B $18                            ;00A108|000018; Reads src (3b) into $18
-          CODE_00A10A:
                        JSR.W GetEventCode_1b                ;00A10A|009AF0;
                        STA.B $1A                            ;00A10D|00001A;
                        JSR.W GetEventCode_1b                ;00A10F|009AF0; Reads dest offset
@@ -4773,19 +4628,14 @@ GetPtr_3b_Do_stuff_1b:
                        CLC                                  ;00A124|      ;
                        ADC.B $09                            ;00A125|000009;
                        ASL A                                ;00A127|      ;
-          CODE_00A128:
                        ADC.W #$0420                         ;00A128|      ;
-          CODE_00A12B:
                        STA.B $1C                            ;00A12B|00001C; Dest RAM = $420 + 2 x (table value + parameter 2)
-          CODE_00A12D:
                        DEY                                  ;00A12D|      ;
-          CODE_00A12E:
                        DEY                                  ;00A12E|      ;
           CODE_00A12F:
                        LDA.B [$18],Y                        ;00A12F|000018;
                        STA.B ($1C),Y                        ;00A131|00001C;
                        DEY                                  ;00A133|      ;
-          CODE_00A134:
                        DEY                                  ;00A134|      ;
                        BPL CODE_00A12F                      ;00A135|00A12F;
                        RTL                                  ;00A137|      ;
@@ -5395,7 +5245,6 @@ Confusing_RAM_Xfer_3b_4b:
       Set_Text_Parser:
                        PHD                                  ;00A68C|      ; Sets up the text parser to start reading at [$00]. Sets 10B1-10B9,x.
                        PHA                                  ;00A68D|      ;
-          CODE_00A68E:
                        TDC                                  ;00A68E|      ;
                        SEC                                  ;00A68F|      ;
                        SBC.W #$0002                         ;00A690|      ;
@@ -5409,11 +5258,9 @@ Confusing_RAM_Xfer_3b_4b:
                        REP #$20                             ;00A69E|      ;
                        STA.L Multiply_lo                    ;00A6A0|004202; Multiply offset by #$28 (entry size?)
                        NOP                                  ;00A6A4|      ;
-          CODE_00A6A5:
                        NOP                                  ;00A6A5|      ;
                        LDA.L Mult_Divide_Result             ;00A6A6|004216;
                        TAX                                  ;00A6AA|      ;
-          CODE_00A6AB:
                        LDA.B $02                            ;00A6AB|000002;
                        STA.W $10B3,X                        ;00A6AD|0010B3; Store the pointer in $10B3,x (?)
                        LDA.B $04                            ;00A6B0|000004;
@@ -5439,7 +5286,6 @@ Confusing_RAM_Xfer_3b_4b:
                        PHA                                  ;00A6D9|      ;
                        TDC                                  ;00A6DA|      ;
                        SEC                                  ;00A6DB|      ;
-          CODE_00A6DC:
                        SBC.W #$0006                         ;00A6DC|      ;
                        TCD                                  ;00A6DF|      ;
                        PLA                                  ;00A6E0|      ;
@@ -5459,7 +5305,6 @@ Confusing_RAM_Xfer_3b_4b:
                        BPL CODE_00A6FF                      ;00A6F8|00A6FF;
           CODE_00A6FA:
                        LDA.W #$0000                         ;00A6FA|      ;
-          CODE_00A6FD:
                        BRA CODE_00A716                      ;00A6FD|00A716;
           CODE_00A6FF:
                        LDA.B $00                            ;00A6FF|000000;
@@ -5534,14 +5379,12 @@ Confusing_RAM_Xfer_3b_4b:
                        PLB                                  ;00A772|      ;
                        STZ.B $10                            ;00A773|000010;
                        LDA.W #$109B                         ;00A775|      ;
-          CODE_00A778:
                        JMP.W CODE_00AB19                    ;00A778|00AB19;
          Pause_Helper:
                        LDX.B $10                            ;00A77B|000010;
                        LDA.W Pause_status                   ;00A77D|001095;
                        AND.L Pause_Table,X                  ;00A780|00AB29; $1095 odd or even?
                        BEQ CODE_00A789                      ;00A784|00A789;
-          CODE_00A786:
                        JMP.W Text_Paused                    ;00A786|00AB0F;
           CODE_00A789:
                        LDX.B $04                            ;00A789|000004;
@@ -5562,26 +5405,22 @@ Confusing_RAM_Xfer_3b_4b:
                        LDA.W $0020,X                        ;00A7AA|000020;
                        STA.W $0016,X                        ;00A7AD|000016;
                        STZ.B $0A                            ;00A7B0|00000A; Clear pause
-          CODE_00A7B2:
                        JMP.W Get_Pause_Status               ;00A7B2|00AB08;
       Read_TextOpcode:
                        LDA.B [$06]                          ;00A7B5|000006; Handles any opcodes in the text (text scripting language) along with text itself. This text is written to the text buffer $15AF,x.
                        AND.W #$00FF                         ;00A7B7|      ;
                        STA.B $00                            ;00A7BA|000000;
                        INC.B $06                            ;00A7BC|000006;
-          CODE_00A7BE:
                        LDA.B $00                            ;00A7BE|000000;
                        BNE CODE_00A7C5                      ;00A7C0|00A7C5;
                        JMP.W Event_Text_00                  ;00A7C2|00A858;
           CODE_00A7C5:
                        CMP.W #$0001                         ;00A7C5|      ; Opcode 01: Saves next 2 bytes to cursor position ($10A5, $10A7)
                        BNE CODE_00A7CD                      ;00A7C8|00A7CD;
-          CODE_00A7CA:
                        JMP.W Event_Text_01                  ;00A7CA|00A881;
           CODE_00A7CD:
                        CMP.W #$0002                         ;00A7CD|      ;
                        BNE CODE_00A7D5                      ;00A7D0|00A7D5;
-          CODE_00A7D2:
                        JMP.W Event_Text_02                  ;00A7D2|00A898;
           CODE_00A7D5:
                        CMP.W #$0003                         ;00A7D5|      ;
@@ -5590,7 +5429,6 @@ Confusing_RAM_Xfer_3b_4b:
           CODE_00A7DD:
                        CMP.W #$0004                         ;00A7DD|      ;
                        BNE CODE_00A7E5                      ;00A7E0|00A7E5;
-          CODE_00A7E2:
                        JMP.W Event_Text_04                  ;00A7E2|00A8B5;
           CODE_00A7E5:
                        CMP.W #$0005                         ;00A7E5|      ;
@@ -5635,7 +5473,6 @@ Confusing_RAM_Xfer_3b_4b:
           CODE_00A835:
                        CMP.W #$0014                         ;00A835|      ;
                        BNE CODE_00A83D                      ;00A838|00A83D;
-          CODE_00A83A:
                        JMP.W Event_Text_14                  ;00A83A|00A919;
           CODE_00A83D:
                        CMP.W #$001B                         ;00A83D|      ;
@@ -5675,7 +5512,6 @@ Confusing_RAM_Xfer_3b_4b:
                        INC.B $06                            ;00A889|000006; Advance PC
                        LDA.B [$06]                          ;00A88B|000006;
                        AND.W #$00FF                         ;00A88D|      ; Get next byte
-          CODE_00A890:
                        STA.W $000C,X                        ;00A890|00000C; (1b) Set cursor Y pos
                        INC.B $06                            ;00A893|000006; Advance PC
                        JMP.W Event_Text_helper              ;00A895|00AAFC;
@@ -5685,7 +5521,6 @@ Confusing_RAM_Xfer_3b_4b:
                        STA.W $0024,X                        ;00A89D|000024; Stores (1b) in offset+24
                        STA.W $000A,X                        ;00A8A0|00000A; Sets X position
                        INC.B $06                            ;00A8A3|000006; Advance PC
-          CODE_00A8A5:
                        JMP.W Event_Text_helper              ;00A8A5|00AAFC;
         Event_Text_03:
                        LDA.B [$06]                          ;00A8A8|000006; (1b) Used for font spacing/positioning
@@ -5910,7 +5745,6 @@ Confusing_RAM_Xfer_3b_4b:
                        BEQ CODE_00AA89                      ;00AA7D|00AA89;
                        DEC.B $06                            ;00AA7F|000006;
                        LDA.W #$0001                         ;00AA81|      ;
-          CODE_00AA84:
                        STA.B $0A                            ;00AA84|00000A;
                        JMP.W CODE_00AAF3                    ;00AA86|00AAF3;
           CODE_00AA89:
@@ -5928,7 +5762,6 @@ Confusing_RAM_Xfer_3b_4b:
                        LDA.W $000A,X                        ;00AAA0|00000A;
                        CLC                                  ;00AAA3|      ;
                        ADC.W $0014,X                        ;00AAA4|000014;
-          CODE_00AAA7:
                        STA.W $000A,X                        ;00AAA7|00000A;
                        BRA CODE_00AAF3                      ;00AAAA|00AAF3;
           CODE_00AAAC:
@@ -5936,10 +5769,8 @@ Confusing_RAM_Xfer_3b_4b:
                        ASL A                                ;00AAAF|      ;
                        TAX                                  ;00AAB0|      ;
                        LDA.B $04                            ;00AAB1|000004;
-          CODE_00AAB3:
                        JSR.W CODE_00A6D8                    ;00AAB3|00A6D8;
                        CMP.W #$0000                         ;00AAB6|      ;
-          CODE_00AAB9:
                        BEQ CODE_00AAC4                      ;00AAB9|00AAC4;
                        DEC.B $06                            ;00AABB|000006;
                        LDA.W #$0001                         ;00AABD|      ;
@@ -5955,7 +5786,6 @@ Confusing_RAM_Xfer_3b_4b:
                        LDA.B $00                            ;00AAD2|000000;
                        XBA                                  ;00AAD4|      ;
                        ORA.B $02                            ;00AAD5|000002;
-          CODE_00AAD7:
                        TAX                                  ;00AAD7|      ;
                        LDA.B $04                            ;00AAD8|000004;
                        JSR.W CODE_00A517                    ;00AADA|00A517;
@@ -6023,7 +5853,6 @@ Text_Opcode_Helper_Fn3:
                        LDA.B $12                            ;00AB48|000012;
                        AND.W #$0010                         ;00AB4A|      ;
                        BEQ CODE_00AB56                      ;00AB4D|00AB56;
-          CODE_00AB4F:
                        LDY.W #$0002                         ;00AB4F|      ;
                        LDA.B [$14]                          ;00AB52|000014;
                        STA.B $0A                            ;00AB54|00000A;
@@ -6031,7 +5860,6 @@ Text_Opcode_Helper_Fn3:
                        LDA.B $12                            ;00AB56|000012;
                        AND.W #$000F                         ;00AB58|      ;
                        STA.B $04                            ;00AB5B|000004;
-          CODE_00AB5D:
                        CMP.W #$000A                         ;00AB5D|      ;
                        BCC CODE_00AB65                      ;00AB60|00AB65;
                        JMP.W CODE_00AC01                    ;00AB62|00AC01;
@@ -6055,7 +5883,6 @@ Text_Opcode_Helper_Fn3:
                        LDA.L Tbl_AB81,X                     ;00AB81|00AC05;
                        STA.B $0E                            ;00AB85|00000E;
                        STZ.B $02                            ;00AB87|000002;
-          CODE_00AB89:
                        BRA CODE_00AB9A                      ;00AB89|00AB9A;
           CODE_00AB8B:
                        LDA.B $08                            ;00AB8B|000008;
@@ -6071,12 +5898,10 @@ Text_Opcode_Helper_Fn3:
                        SEC                                  ;00AB9C|      ;
                        SBC.B $0C                            ;00AB9D|00000C;
                        LDA.B $0A                            ;00AB9F|00000A;
-          CODE_00ABA1:
                        SBC.B $0E                            ;00ABA1|00000E;
                        BPL CODE_00AB8B                      ;00ABA3|00AB8B;
                        BEQ CODE_00AB8B                      ;00ABA5|00AB8B;
                        LDA.B $00                            ;00ABA7|000000;
-          CODE_00ABA9:
                        BEQ CODE_00ABD2                      ;00ABA9|00ABD2;
                        LDA.B $02                            ;00ABAB|000002;
                        BNE CODE_00ABD2                      ;00ABAD|00ABD2;
@@ -6084,7 +5909,6 @@ Text_Opcode_Helper_Fn3:
                        BEQ CODE_00ABD2                      ;00ABB1|00ABD2;
                        LDA.B $04                            ;00ABB3|000004;
                        BEQ CODE_00ABF3                      ;00ABB5|00ABF3;
-          CODE_00ABB7:
                        LDA.B $12                            ;00ABB7|000012;
                        AND.W #$0020                         ;00ABB9|      ;
                        BEQ CODE_00ABC9                      ;00ABBC|00ABC9;
@@ -6137,7 +5961,6 @@ Text_Opcode_Helper_Fn3:
                        dw $0064                             ;00AC0B|      ;
                        dw $0000                             ;00AC0D|      ;
                        dw $03E8                             ;00AC0F|      ;
-        DATA16_00AC11:
                        dw $0000                             ;00AC11|      ;
                        dw $2710                             ;00AC13|      ;
                        dw $0000                             ;00AC15|      ;
@@ -6166,7 +5989,6 @@ Text_Opcode_Helper_Fn3:
                        db $01                               ;00AC38|      ;
                        db $01                               ;00AC39|      ;
                        db $01                               ;00AC3A|      ;
-         DATA8_00AC3B:
                        db $04                               ;00AC3B|      ;
                        db $05                               ;00AC3C|      ;
                        db $05                               ;00AC3D|      ;
@@ -6176,7 +5998,6 @@ Text_Opcode_Helper_Fn3:
                        db $06                               ;00AC41|      ;
                        db $03                               ;00AC42|      ;
                        db $0A                               ;00AC43|      ;
-         DATA8_00AC44:
                        db $09                               ;00AC44|      ;
                        db $09                               ;00AC45|      ;
                        db $09                               ;00AC46|      ;
@@ -6200,57 +6021,48 @@ Text_Opcode_Helper_Fn3:
                        db $09                               ;00AC58|      ;
                        db $08                               ;00AC59|      ;
                        db $08                               ;00AC5A|      ;
-         DATA8_00AC5B:
                        db $09                               ;00AC5B|      ;
                        db $09                               ;00AC5C|      ;
                        db $04                               ;00AC5D|      ;
                        db $08                               ;00AC5E|      ;
                        db $09                               ;00AC5F|      ;
                        db $08                               ;00AC60|      ;
-         DATA8_00AC61:
                        db $0A                               ;00AC61|      ;
                        db $09                               ;00AC62|      ;
                        db $09                               ;00AC63|      ;
                        db $08                               ;00AC64|      ;
                        db $09                               ;00AC65|      ;
                        db $08                               ;00AC66|      ;
-         DATA8_00AC67:
                        db $08                               ;00AC67|      ;
                        db $07                               ;00AC68|      ;
                        db $08                               ;00AC69|      ;
                        db $09                               ;00AC6A|      ;
                        db $0A                               ;00AC6B|      ;
                        db $09                               ;00AC6C|      ;
-         DATA8_00AC6D:
                        db $09                               ;00AC6D|      ;
                        db $08                               ;00AC6E|      ;
                        db $01                               ;00AC6F|      ;
                        db $01                               ;00AC70|      ;
                        db $01                               ;00AC71|      ;
                        db $01                               ;00AC72|      ;
-         DATA8_00AC73:
                        db $04                               ;00AC73|      ;
                        db $09                               ;00AC74|      ;
                        db $06                               ;00AC75|      ;
                        db $06                               ;00AC76|      ;
                        db $06                               ;00AC77|      ;
                        db $06                               ;00AC78|      ;
-         DATA8_00AC79:
                        db $06                               ;00AC79|      ;
                        db $05                               ;00AC7A|      ;
                        db $06                               ;00AC7B|      ;
-         DATA8_00AC7C:
                        db $06                               ;00AC7C|      ;
                        db $03                               ;00AC7D|      ;
                        db $04                               ;00AC7E|      ;
-         DATA8_00AC7F:
                        db $06                               ;00AC7F|      ;
                        db $03                               ;00AC80|      ;
                        db $08                               ;00AC81|      ;
                        db $06                               ;00AC82|      ;
                        db $06                               ;00AC83|      ;
                        db $06                               ;00AC84|      ;
-         DATA8_00AC85:
                        db $06                               ;00AC85|      ;
                        db $06                               ;00AC86|      ;
                        db $06                               ;00AC87|      ;
@@ -6261,7 +6073,6 @@ Text_Opcode_Helper_Fn3:
                        db $06                               ;00AC8C|      ;
                        db $06                               ;00AC8D|      ;
                        db $06                               ;00AC8E|      ;
-         DATA8_00AC8F:
                        db $01                               ;00AC8F|      ;
                        db $01                               ;00AC90|      ;
                        db $01                               ;00AC91|      ;
@@ -6348,7 +6159,6 @@ Text_Opcode_Helper_Fn3:
                        db $09                               ;00ACE2|      ;
                        db $09                               ;00ACE3|      ;
                        db $03                               ;00ACE4|      ;
-         DATA8_00ACE5:
                        db $09                               ;00ACE5|      ;
                        db $08                               ;00ACE6|      ;
                        db $09                               ;00ACE7|      ;
@@ -6377,7 +6187,6 @@ Text_Opcode_Helper_Fn3:
                        db $08                               ;00ACFE|      ;
                        db $09                               ;00ACFF|      ;
                        db $08                               ;00AD00|      ;
-         DATA8_00AD01:
                        db $0A                               ;00AD01|      ;
                        db $09                               ;00AD02|      ;
                        db $09                               ;00AD03|      ;
@@ -6392,7 +6201,6 @@ Text_Opcode_Helper_Fn3:
                        db $09                               ;00AD0C|      ;
                        db $04                               ;00AD0D|      ;
                        db $08                               ;00AD0E|      ;
-         DATA8_00AD0F:
                        db $09                               ;00AD0F|      ;
                        db $08                               ;00AD10|      ;
                        db $0A                               ;00AD11|      ;
@@ -6403,7 +6211,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AD15|      ;
                        db $00                               ;00AD16|      ;
                        db $00                               ;00AD17|      ;
-         DATA8_00AD18:
                        db $00                               ;00AD18|      ;
                        db $00                               ;00AD19|      ;
                        db $00                               ;00AD1A|      ;
@@ -6427,50 +6234,42 @@ Text_Opcode_Helper_Fn3:
                        db $30                               ;00AD2C|      ;
                        db $02                               ;00AD2D|      ;
                        db $00                               ;00AD2E|      ;
-         DATA8_00AD2F:
                        db $00                               ;00AD2F|      ;
                        db $06                               ;00AD30|      ;
                        db $00                               ;00AD31|      ;
                        db $60                               ;00AD32|      ;
                        db $00                               ;00AD33|      ;
                        db $00                               ;00AD34|      ;
-         DATA8_00AD35:
                        db $00                               ;00AD35|      ;
                        db $00                               ;00AD36|      ;
                        db $00                               ;00AD37|      ;
                        db $00                               ;00AD38|      ;
                        db $06                               ;00AD39|      ;
                        db $80                               ;00AD3A|      ;
-         DATA8_00AD3B:
                        db $50                               ;00AD3B|      ;
                        db $00                               ;00AD3C|      ;
                        db $00                               ;00AD3D|      ;
                        db $00                               ;00AD3E|      ;
                        db $00                               ;00AD3F|      ;
                        db $00                               ;00AD40|      ;
-         DATA8_00AD41:
                        db $00                               ;00AD41|      ;
                        db $00                               ;00AD42|      ;
                        db $00                               ;00AD43|      ;
                        db $00                               ;00AD44|      ;
                        db $00                               ;00AD45|      ;
                        db $00                               ;00AD46|      ;
-         DATA8_00AD47:
                        db $00                               ;00AD47|      ;
                        db $00                               ;00AD48|      ;
                        db $00                               ;00AD49|      ;
                        db $00                               ;00AD4A|      ;
                        db $00                               ;00AD4B|      ;
                        db $00                               ;00AD4C|      ;
-         DATA8_00AD4D:
                        db $00                               ;00AD4D|      ;
                        db $00                               ;00AD4E|      ;
                        db $00                               ;00AD4F|      ;
-         DATA8_00AD50:
                        db $00                               ;00AD50|      ;
                        db $0E                               ;00AD51|      ;
                        db $38                               ;00AD52|      ;
-         DATA8_00AD53:
                        db $00                               ;00AD53|      ;
                        db $00                               ;00AD54|      ;
                        db $00                               ;00AD55|      ;
@@ -6478,7 +6277,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AD57|      ;
                        db $00                               ;00AD58|      ;
                        db $00                               ;00AD59|      ;
-         DATA8_00AD5A:
                        db $00                               ;00AD5A|      ;
                        db $00                               ;00AD5B|      ;
                        db $00                               ;00AD5C|      ;
@@ -6490,7 +6288,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AD62|      ;
                        db $0E                               ;00AD63|      ;
                        db $38                               ;00AD64|      ;
-         DATA8_00AD65:
                        db $E3                               ;00AD65|      ;
                        db $80                               ;00AD66|      ;
                        db $00                               ;00AD67|      ;
@@ -6574,7 +6371,6 @@ Text_Opcode_Helper_Fn3:
                        db $80                               ;00ADB5|      ;
                        db $40                               ;00ADB6|      ;
                        db $02                               ;00ADB7|      ;
-         DATA8_00ADB8:
                        db $00                               ;00ADB8|      ;
                        db $10                               ;00ADB9|      ;
                        db $01                               ;00ADBA|      ;
@@ -6603,7 +6399,6 @@ Text_Opcode_Helper_Fn3:
                        db $11                               ;00ADD1|      ;
                        db $02                               ;00ADD2|      ;
                        db $08                               ;00ADD3|      ;
-         DATA8_00ADD4:
                        db $40                               ;00ADD4|      ;
                        db $40                               ;00ADD5|      ;
                        db $00                               ;00ADD6|      ;
@@ -6618,7 +6413,6 @@ Text_Opcode_Helper_Fn3:
                        db $40                               ;00ADDF|      ;
                        db $7F                               ;00ADE0|      ;
                        db $C0                               ;00ADE1|      ;
-         DATA8_00ADE2:
                        db $40                               ;00ADE2|      ;
                        db $04                               ;00ADE3|      ;
                        db $00                               ;00ADE4|      ;
@@ -6628,7 +6422,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00ADE8|      ;
                        db $00                               ;00ADE9|      ;
                        db $00                               ;00ADEA|      ;
-         DATA8_00ADEB:
                        db $00                               ;00ADEB|      ;
                        db $00                               ;00ADEC|      ;
                        db $00                               ;00ADED|      ;
@@ -6652,50 +6445,42 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00ADFF|      ;
                        db $00                               ;00AE00|      ;
                        db $00                               ;00AE01|      ;
-         DATA8_00AE02:
                        db $00                               ;00AE02|      ;
                        db $00                               ;00AE03|      ;
                        db $7F                               ;00AE04|      ;
                        db $80                               ;00AE05|      ;
                        db $00                               ;00AE06|      ;
                        db $00                               ;00AE07|      ;
-         DATA8_00AE08:
                        db $00                               ;00AE08|      ;
                        db $00                               ;00AE09|      ;
                        db $00                               ;00AE0A|      ;
                        db $00                               ;00AE0B|      ;
                        db $00                               ;00AE0C|      ;
                        db $00                               ;00AE0D|      ;
-         DATA8_00AE0E:
                        db $00                               ;00AE0E|      ;
                        db $00                               ;00AE0F|      ;
                        db $00                               ;00AE10|      ;
                        db $00                               ;00AE11|      ;
                        db $00                               ;00AE12|      ;
                        db $00                               ;00AE13|      ;
-         DATA8_00AE14:
                        db $00                               ;00AE14|      ;
                        db $00                               ;00AE15|      ;
                        db $00                               ;00AE16|      ;
                        db $00                               ;00AE17|      ;
                        db $00                               ;00AE18|      ;
                        db $00                               ;00AE19|      ;
-         DATA8_00AE1A:
                        db $06                               ;00AE1A|      ;
                        db $00                               ;00AE1B|      ;
                        db $60                               ;00AE1C|      ;
                        db $00                               ;00AE1D|      ;
                        db $00                               ;00AE1E|      ;
                        db $00                               ;00AE1F|      ;
-         DATA8_00AE20:
                        db $00                               ;00AE20|      ;
                        db $00                               ;00AE21|      ;
                        db $00                               ;00AE22|      ;
-         DATA8_00AE23:
                        db $40                               ;00AE23|      ;
                        db $08                               ;00AE24|      ;
                        db $01                               ;00AE25|      ;
-         DATA8_00AE26:
                        db $00                               ;00AE26|      ;
                        db $20                               ;00AE27|      ;
                        db $04                               ;00AE28|      ;
@@ -6705,7 +6490,6 @@ Text_Opcode_Helper_Fn3:
                        db $02                               ;00AE2C|      ;
                        db $00                               ;00AE2D|      ;
                        db $40                               ;00AE2E|      ;
-         DATA8_00AE2F:
                        db $00                               ;00AE2F|      ;
                        db $00                               ;00AE30|      ;
                        db $00                               ;00AE31|      ;
@@ -6719,7 +6503,6 @@ Text_Opcode_Helper_Fn3:
                        db $18                               ;00AE39|      ;
                        db $61                               ;00AE3A|      ;
                        db $86                               ;00AE3B|      ;
-         DATA8_00AE3C:
                        db $18                               ;00AE3C|      ;
                        db $61                               ;00AE3D|      ;
                        db $83                               ;00AE3E|      ;
@@ -6809,7 +6592,6 @@ Text_Opcode_Helper_Fn3:
                        db $07                               ;00AE92|      ;
                        db $F0                               ;00AE93|      ;
                        db $03                               ;00AE94|      ;
-         DATA8_00AE95:
                        db $80                               ;00AE95|      ;
                        db $18                               ;00AE96|      ;
                        db $03                               ;00AE97|      ;
@@ -6838,7 +6620,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AEAE|      ;
                        db $00                               ;00AEAF|      ;
                        db $00                               ;00AEB0|      ;
-         DATA8_00AEB1:
                        db $00                               ;00AEB1|      ;
                        db $3F                               ;00AEB2|      ;
                        db $87                               ;00AEB3|      ;
@@ -6853,7 +6634,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AEBC|      ;
                        db $80                               ;00AEBD|      ;
                        db $08                               ;00AEBE|      ;
-         DATA8_00AEBF:
                        db $00                               ;00AEBF|      ;
                        db $00                               ;00AEC0|      ;
                        db $00                               ;00AEC1|      ;
@@ -6863,7 +6643,6 @@ Text_Opcode_Helper_Fn3:
                        db $01                               ;00AEC5|      ;
                        db $10                               ;00AEC6|      ;
                        db $31                               ;00AEC7|      ;
-         DATA8_00AEC8:
                        db $83                               ;00AEC8|      ;
                        db $10                               ;00AEC9|      ;
                        db $1F                               ;00AECA|      ;
@@ -6887,50 +6666,42 @@ Text_Opcode_Helper_Fn3:
                        db $21                               ;00AEDC|      ;
                        db $81                               ;00AEDD|      ;
                        db $B0                               ;00AEDE|      ;
-         DATA8_00AEDF:
                        db $03                               ;00AEDF|      ;
                        db $00                               ;00AEE0|      ;
                        db $60                               ;00AEE1|      ;
                        db $18                               ;00AEE2|      ;
                        db $00                               ;00AEE3|      ;
                        db $00                               ;00AEE4|      ;
-         DATA8_00AEE5:
                        db $00                               ;00AEE5|      ;
                        db $00                               ;00AEE6|      ;
                        db $00                               ;00AEE7|      ;
                        db $00                               ;00AEE8|      ;
                        db $00                               ;00AEE9|      ;
                        db $00                               ;00AEEA|      ;
-         DATA8_00AEEB:
                        db $60                               ;00AEEB|      ;
                        db $06                               ;00AEEC|      ;
                        db $00                               ;00AEED|      ;
                        db $00                               ;00AEEE|      ;
                        db $00                               ;00AEEF|      ;
                        db $00                               ;00AEF0|      ;
-         DATA8_00AEF1:
                        db $60                               ;00AEF1|      ;
                        db $06                               ;00AEF2|      ;
                        db $00                               ;00AEF3|      ;
                        db $00                               ;00AEF4|      ;
                        db $00                               ;00AEF5|      ;
                        db $00                               ;00AEF6|      ;
-         DATA8_00AEF7:
                        db $00                               ;00AEF7|      ;
                        db $00                               ;00AEF8|      ;
                        db $00                               ;00AEF9|      ;
                        db $00                               ;00AEFA|      ;
                        db $00                               ;00AEFB|      ;
                        db $00                               ;00AEFC|      ;
-         DATA8_00AEFD:
                        db $30                               ;00AEFD|      ;
                        db $03                               ;00AEFE|      ;
                        db $00                               ;00AEFF|      ;
-         DATA8_00AF00:
                        db $00                               ;00AF00|      ;
                        db $00                               ;00AF01|      ;
                        db $00                               ;00AF02|      ;
-         DATA8_00AF03:
                        db $30                               ;00AF03|      ;
                        db $03                               ;00AF04|      ;
                        db $00                               ;00AF05|      ;
@@ -6939,7 +6710,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AF08|      ;
                        db $00                               ;00AF09|      ;
                        db $00                               ;00AF0A|      ;
-         DATA8_00AF0B:
                        db $00                               ;00AF0B|      ;
                        db $00                               ;00AF0C|      ;
                        db $00                               ;00AF0D|      ;
@@ -6956,7 +6726,6 @@ Text_Opcode_Helper_Fn3:
                        db $08                               ;00AF18|      ;
                        db $00                               ;00AF19|      ;
                        db $00                               ;00AF1A|      ;
-         DATA8_00AF1B:
                        db $00                               ;00AF1B|      ;
                        db $00                               ;00AF1C|      ;
                        db $00                               ;00AF1D|      ;
@@ -7049,7 +6818,6 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AF74|      ;
                        db $00                               ;00AF75|      ;
                        db $00                               ;00AF76|      ;
-         DATA8_00AF77:
                        db $00                               ;00AF77|      ;
                        db $3C                               ;00AF78|      ;
                        db $02                               ;00AF79|      ;
@@ -7078,7 +6846,6 @@ Text_Opcode_Helper_Fn3:
                        db $60                               ;00AF90|      ;
                        db $06                               ;00AF91|      ;
                        db $00                               ;00AF92|      ;
-         DATA8_00AF93:
                        db $60                               ;00AF93|      ;
                        db $83                               ;00AF94|      ;
                        db $18                               ;00AF95|      ;
@@ -7093,7 +6860,6 @@ Text_Opcode_Helper_Fn3:
                        db $30                               ;00AF9E|      ;
                        db $31                               ;00AF9F|      ;
                        db $82                               ;00AFA0|      ;
-         DATA8_00AFA1:
                        db $18                               ;00AFA1|      ;
                        db $21                               ;00AFA2|      ;
                        db $86                               ;00AFA3|      ;
@@ -7103,7 +6869,6 @@ Text_Opcode_Helper_Fn3:
                        db $30                               ;00AFA7|      ;
                        db $7C                               ;00AFA8|      ;
                        db $00                               ;00AFA9|      ;
-         DATA8_00AFAA:
                        db $00                               ;00AFAA|      ;
                        db $00                               ;00AFAB|      ;
                        db $00                               ;00AFAC|      ;
@@ -7127,50 +6892,42 @@ Text_Opcode_Helper_Fn3:
                        db $00                               ;00AFBE|      ;
                        db $00                               ;00AFBF|      ;
                        db $1F                               ;00AFC0|      ;
-         DATA8_00AFC1:
                        db $03                               ;00AFC1|      ;
                        db $00                               ;00AFC2|      ;
                        db $30                               ;00AFC3|      ;
                        db $03                               ;00AFC4|      ;
                        db $00                               ;00AFC5|      ;
                        db $7E                               ;00AFC6|      ;
-         DATA8_00AFC7:
                        db $07                               ;00AFC7|      ;
                        db $00                               ;00AFC8|      ;
                        db $60                               ;00AFC9|      ;
                        db $06                               ;00AFCA|      ;
                        db $00                               ;00AFCB|      ;
                        db $20                               ;00AFCC|      ;
-         DATA8_00AFCD:
                        db $00                               ;00AFCD|      ;
                        db $00                               ;00AFCE|      ;
                        db $00                               ;00AFCF|      ;
                        db $00                               ;00AFD0|      ;
                        db $00                               ;00AFD1|      ;
                        db $07                               ;00AFD2|      ;
-         DATA8_00AFD3:
                        db $01                               ;00AFD3|      ;
                        db $98                               ;00AFD4|      ;
                        db $30                               ;00AFD5|      ;
                        db $82                               ;00AFD6|      ;
                        db $00                               ;00AFD7|      ;
                        db $60                               ;00AFD8|      ;
-         DATA8_00AFD9:
                        db $06                               ;00AFD9|      ;
                        db $38                               ;00AFDA|      ;
                        db $71                               ;00AFDB|      ;
                        db $83                               ;00AFDC|      ;
                        db $B8                               ;00AFDD|      ;
                        db $0F                               ;00AFDE|      ;
-         DATA8_00AFDF:
                        db $00                               ;00AFDF|      ;
                        db $00                               ;00AFE0|      ;
                        db $00                               ;00AFE1|      ;
-         DATA8_00AFE2:
                        db $00                               ;00AFE2|      ;
                        db $00                               ;00AFE3|      ;
                        db $10                               ;00AFE4|      ;
-         DATA8_00AFE5:
                        db $83                               ;00AFE5|      ;
                        db $08                               ;00AFE6|      ;
                        db $31                               ;00AFE7|      ;
@@ -7179,7 +6936,6 @@ Text_Opcode_Helper_Fn3:
                        db $7F                               ;00AFEA|      ;
                        db $87                               ;00AFEB|      ;
                        db $18                               ;00AFEC|      ;
-         DATA8_00AFED:
                        db $61                               ;00AFED|      ;
                        db $86                               ;00AFEE|      ;
                        db $18                               ;00AFEF|      ;
@@ -7196,7 +6952,6 @@ Text_Opcode_Helper_Fn3:
                        db $03                               ;00AFFA|      ;
                        db $00                               ;00AFFB|      ;
                        db $20                               ;00AFFC|      ;
-         DATA8_00AFFD:
                        db $06                               ;00AFFD|      ;
                        db $00                               ;00AFFE|      ;
                        db $60                               ;00AFFF|      ;
@@ -8873,7 +8628,6 @@ Text_Opcode_Helper_Fn3:
                        LSR A                                ;00B872|      ;
                        STA.B $02                            ;00B873|000002;
                        LDA.W $1111                          ;00B875|001111;
-          CODE_00B878:
                        LSR A                                ;00B878|      ;
                        LSR A                                ;00B879|      ;
                        LSR A                                ;00B87A|      ;
@@ -9025,7 +8779,6 @@ Text_Opcode_Helper_Fn3:
                        NOP                                  ;00B998|      ;
                        LDA.L Mult_Divide_Result             ;00B999|004216;
                        CLC                                  ;00B99D|      ;
-          CODE_00B99E:
                        ADC.B $02                            ;00B99E|000002;
                        CLC                                  ;00B9A0|      ;
                        ADC.W $1119                          ;00B9A1|001119;
@@ -9183,7 +8936,6 @@ Text_Opcode_Helper_Fn3:
                        dw $0101                             ;00BAD6|      ;
                        dw $FFFF                             ;00BAD8|      ;
                        dw $7F7F                             ;00BADA|      ;
-        DATA16_00BADC:
                        dw $3F3F                             ;00BADC|      ;
                        dw $1F1F                             ;00BADE|      ;
                        dw $0F0F                             ;00BAE0|      ;
@@ -9303,7 +9055,6 @@ Text_Opcode_Helper_Fn3:
                        dw $0000                             ;00BBC2|      ;
                        dw $0000                             ;00BBC4|      ;
                        dw $0000                             ;00BBC6|      ;
-        DATA16_00BBC8:
                        dw $0000                             ;00BBC8|      ;
                        dw $0000                             ;00BBCA|      ;
                        dw $0000                             ;00BBCC|      ;
