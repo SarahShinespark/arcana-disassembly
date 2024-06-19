@@ -1888,18 +1888,18 @@ Tbl_Compressed_Spells:
           CODE_078E2B:
                        PLA                                  ;078E2B|      ;
                        LSR A                                ;078E2C|      ;
-                       BRA CODE_078E37                      ;078E2D|078E37;
+                       BRA Load_Status_Gfx                  ;078E2D|078E37;
         DATA16_078E2F:
                        dw $01A3                             ;078E2F|      ;
                        dw $01BC                             ;078E31|      ;
                        dw $0343                             ;078E33|      ;
                        dw $035C                             ;078E35|      ;
-          CODE_078E37:
-                       ASL A                                ;078E37|      ;
+      Load_Status_Gfx:
+                       ASL A                                ;078E37|      ; Displays the text for the current status effect.
                        TAX                                  ;078E38|      ;
                        CPX.W #$0002                         ;078E39|      ;
                        BEQ CODE_078E63                      ;078E3C|078E63;
-                       LDA.W Condition,X                    ;078E3E|0011C3;
+                       LDA.W Condition,X                    ;078E3E|0011C3; Jump based on current status effect
                        AND.W #$00FF                         ;078E41|      ;
                        CMP.W #$0001                         ;078E44|      ;
                        BEQ CODE_078E63                      ;078E47|078E63;
@@ -1916,19 +1916,19 @@ Tbl_Compressed_Spells:
           CODE_078E62:
                        RTL                                  ;078E62|      ;
           CODE_078E63:
-                       LDA.L Tbl_Status_Letter_Tiles,X      ;078E63|078E9A;
+                       LDA.L Tbl_Status_FINISH_Tiles,X      ;078E63|078E9A;
                        BRA CODE_078E7F                      ;078E67|078E7F;
           CODE_078E69:
-                       LDA.L PTR16_078EA2,X                 ;078E69|078EA2;
+                       LDA.L Tbl_Status_PARA_Tiles,X        ;078E69|078EA2;
                        BRA CODE_078E7F                      ;078E6D|078E7F;
           CODE_078E6F:
-                       LDA.L PTR16_078EAA,X                 ;078E6F|078EAA;
+                       LDA.L Tbl_Status_STONE_Tiles,X       ;078E6F|078EAA;
                        BRA CODE_078E7F                      ;078E73|078E7F;
           CODE_078E75:
-                       LDA.L PTR16_078EB2,X                 ;078E75|078EB2;
+                       LDA.L Tbl_Status_CONFU_Tiles,X       ;078E75|078EB2;
                        BRA CODE_078E7F                      ;078E79|078E7F;
           CODE_078E7B:
-                       LDA.L PTR16_078EBA,X                 ;078E7B|078EBA;
+                       LDA.L Tbl_Status_SLEEP_Tiles,X       ;078E7B|078EBA;
           CODE_078E7F:
                        STA.B $20                            ;078E7F|000020;
                        LDA.W Party_order,X                  ;078E81|0011F3;
@@ -1944,27 +1944,27 @@ Tbl_VRAM_Status_addresses:
                        dw $01BA                             ;078E94|      ;
                        dw $0341                             ;078E96|      ;
                        dw $035A                             ;078E98|      ;
-Tbl_Status_Letter_Tiles:
+Tbl_Status_FINISH_Tiles:
                        dw Letter_Tiles_FINIS_ROOKS          ;078E9A|078EC2; Holds the VRAM tiles for FINIS, SLEEP etc for each character
                        dw Letter_Tiles_FINIS_SPIRIT         ;078E9C|078ECF;
                        dw Letter_Tiles_FINIS_GUEST1         ;078E9E|078EDC;
                        dw Letter_Tiles_FINIS_GUEST2         ;078EA0|078EE9;
-         PTR16_078EA2:
+Tbl_Status_PARA_Tiles:
                        dw Letter_Tiles_Para_ROOKS           ;078EA2|078EF6;
                        dw Letter_Tiles_Para_ROOKS           ;078EA4|078EF6;
                        dw Letter_Tiles_Para_GUEST1          ;078EA6|078F03;
                        dw Letter_Tiles_Para_GUEST2          ;078EA8|078F10;
-         PTR16_078EAA:
+Tbl_Status_STONE_Tiles:
                        dw Letter_Tiles_Stone_ROOKS          ;078EAA|078F1D;
                        dw Letter_Tiles_Stone_ROOKS          ;078EAC|078F1D;
                        dw Letter_Tiles_Stone_GUEST1         ;078EAE|078F2A;
                        dw Letter_Tiles_Stone_GUEST2         ;078EB0|078F37;
-         PTR16_078EB2:
+Tbl_Status_CONFU_Tiles:
                        dw Letter_Tiles_Confu_ROOKS          ;078EB2|078F44;
                        dw Letter_Tiles_Confu_ROOKS          ;078EB4|078F44;
                        dw Letter_Tiles_Confu_GUEST1         ;078EB6|078F51;
                        dw Letter_Tiles_Confu_GUEST2         ;078EB8|078F5E;
-         PTR16_078EBA:
+Tbl_Status_SLEEP_Tiles:
                        dw Letter_Tiles_SLEEP_ROOKS          ;078EBA|078F6B;
                        dw Letter_Tiles_SLEEP_ROOKS          ;078EBC|078F6B;
                        dw Letter_Tiles_SLEEP_GUEST1         ;078EBE|078F78;
@@ -2219,7 +2219,7 @@ Letter_Tiles_SLEEP_GUEST2:
                        dw $01E1                             ;078FBD|      ;
                        dw $01FA                             ;078FBF|      ;
 Tbl_Character_Name_Tiles:
-                       dw DATA8_078FE9                      ;078FC1|078FE9; 10 entries
+                       dw Letter_Tiles_ROOKS                ;078FC1|078FE9; 10 entries
                        dw Letter_Tiles_SYLPH                ;078FC3|078FF6;
                        dw Letter_Tiles_DAO                  ;078FC5|079003;
                        dw Letter_Tiles_MARID                ;078FC7|079010;
@@ -2240,9 +2240,8 @@ Bank_Character_Name_Tiles:
                        dw $0007                             ;078FE3|000007;
                        dw $0007                             ;078FE5|000007;
                        dw $0007                             ;078FE7|000007;
-         DATA8_078FE9:
-                       db $00                               ;078FE9|      ;
    Letter_Tiles_ROOKS:
+                       db $00                               ;078FE9|      ;
                        db $05                               ;078FEA|      ;
                        db $01                               ;078FEB|      ;
                        db $07                               ;078FEC|      ;
