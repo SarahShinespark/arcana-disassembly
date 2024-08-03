@@ -40,7 +40,7 @@ Compressed_data_1804A:
    db $FF                               ;018052|      ;
 Init_all_the_things:
    SEP #$20                             ;018053|      ;
-   STZ.W $062A                          ;018055|00062A;
+   STZ.W APU_temp                       ;018055|00062A;
    REP #$20                             ;018058|      ;
    STZ.W $157F                          ;01805A|00157F;
    STZ.W Story_Progress                 ;01805D|0018FF;
@@ -1540,7 +1540,7 @@ DATA8_01891A:
    dl GetSet_Music                      ;018945|009C3C;
    db $00                               ;018948|      ;
    db $07                               ;018949|      ;
-   dl MainScr_AND_1b                    ;01894A|009DB6;
+   dl MainScr_Remove_1b                 ;01894A|009DB6;
    db $1F                               ;01894D|      ;
    db $10                               ;01894E|018957;
    db $07                               ;01894F|      ;
@@ -1552,10 +1552,10 @@ DATA8_01891A:
    db $00                               ;018959|      ; Exit game over
 Sub_Setup_Field_Sprites1:
    db $07                               ;01895A|      ;
-   dl MainScr_AND_1b                    ;01895B|009DB6;
+   dl MainScr_Remove_1b                 ;01895B|009DB6;
    db $1F                               ;01895E|      ;
    db $07                               ;01895F|      ;
-   dl Display_or_80_far                 ;018960|008177;
+   dl Display_Force_Blanking_far        ;018960|008177;
    db $07                               ;018963|      ;
    dl Mosaic_Clear_1b                   ;018964|009E8A;
    db $0F                               ;018967|      ;
@@ -1568,7 +1568,7 @@ Something:
    db $07                               ;018970|      ;
    dl Update_scn_far                    ;018971|008323;
    db $07                               ;018974|      ;
-   dl MainScr_OR_1b                     ;018975|009DA8;
+   dl MainScr_Add_1b                    ;018975|009DA8;
    db $17                               ;018978|      ;
    db $07                               ;018979|      ;
    dl Color_stuff_2b                    ;01897A|03E562;
@@ -1578,28 +1578,28 @@ Something:
    db $05                               ;018983|      ; RTL
 Sub_Setup_Field_Sprites2:
    db $07                               ;018984|      ;
-   dl _0081BF_1b                        ;018985|009D69;
+   dl Read_BGmode_1b                    ;018985|009D69;
    db $01                               ;018988|      ;
    db $07                               ;018989|      ;
-   dl Display_near_1b_1b_2b_2b          ;01898A|009D6F;
+   dl Display_brancher_6b               ;01898A|009D6F;
    db $00                               ;01898D|      ;
    db $00                               ;01898E|      ;
    dw $1000                             ;01898F|      ;
    dw $0000                             ;018991|      ;
    db $07                               ;018993|      ;
-   dl Display_near_1b_1b_2b_2b          ;018994|009D6F;
+   dl Display_brancher_6b               ;018994|009D6F;
    db $01                               ;018997|      ;
    db $01                               ;018998|      ;
    dw $1000                             ;018999|      ;
    dw $0400                             ;01899B|      ;
    db $07                               ;01899D|      ;
-   dl Display_near_1b_1b_2b_2b          ;01899E|009D6F;
+   dl Display_brancher_6b               ;01899E|009D6F;
    db $02                               ;0189A1|      ;
    db $00                               ;0189A2|      ;
    dw $5000                             ;0189A3|      ;
    dw $0C00                             ;0189A5|      ;
    db $07                               ;0189A7|      ;
-   dl Do_stuff_1b_2b_1b                 ;0189A8|009D93;
+   dl Set_Sprite_mode_4b                ;0189A8|009D93;
    db $00                               ;0189AB|      ;
    dw $6000                             ;0189AC|      ;
    db $00                               ;0189AE|      ;
@@ -3363,7 +3363,7 @@ Inventory_menu:
    db $06                               ;019311|      ;
    db $01                               ;019312|      ;
    db $07                               ;019313|      ;
-   dl MainScr_AND_1b                    ;019314|009DB6;
+   dl MainScr_Remove_1b                 ;019314|009DB6;
    db $02                               ;019317|      ;
    db $07                               ;019318|      ;
    dl Zero_1893_and_E000_to_2131        ;019319|03E595;
@@ -3422,7 +3422,7 @@ DATA8_019357:
    db $07                               ;01936A|      ;
    dl CODE_03887A                       ;01936B|03887A;
    db $07                               ;01936E|      ;
-   dl MainScr_OR_1b                     ;01936F|009DA8;
+   dl MainScr_Add_1b                    ;01936F|009DA8;
    db $02                               ;019372|      ;
    db $1B                               ;019373|      ;
    dw DATA8_019254                      ;019374|019254;
@@ -3867,7 +3867,7 @@ Effect_Return_Ring:
    db $07                               ;0195FB|      ;
    dl More_Town_Loading                 ;0195FC|03B3FD;
    db $07                               ;0195FF|      ;
-   dl MainScr_OR_1b                     ;019600|009DA8;
+   dl MainScr_Add_1b                    ;019600|009DA8;
    db $02                               ;019603|      ;
    db $07                               ;019604|      ;
    dl Zero_1893_and_E000_to_2131        ;019605|03E595;
@@ -4295,7 +4295,7 @@ Magic_menu1:
    db $06                               ;019873|      ;
    db $01                               ;019874|      ;
    db $07                               ;019875|      ;
-   dl MainScr_AND_1b                    ;019876|009DB6;
+   dl MainScr_Remove_1b                 ;019876|009DB6;
    db $02                               ;019879|      ;
    db $07                               ;01987A|      ;
    dl Zero_1893_and_E000_to_2131        ;01987B|03E595;
@@ -4392,7 +4392,7 @@ DATA8_0198EB:
    db $07                               ;0198FE|      ;
    dl CODE_03887A                       ;0198FF|03887A;
    db $07                               ;019902|      ;
-   dl MainScr_OR_1b                     ;019903|009DA8;
+   dl MainScr_Add_1b                    ;019903|009DA8;
    db $02                               ;019906|      ;
    db $1B                               ;019907|      ;
    dw DATA8_019254                      ;019908|019254;
@@ -4568,7 +4568,7 @@ DATA8_0199C2:
    db $07                               ;019A09|      ;
    dl More_Town_Loading                 ;019A0A|03B3FD;
    db $07                               ;019A0D|      ;
-   dl MainScr_OR_1b                     ;019A0E|009DA8;
+   dl MainScr_Add_1b                    ;019A0E|009DA8;
    db $02                               ;019A11|      ;
    db $07                               ;019A12|      ;
    dl Zero_1893_and_E000_to_2131        ;019A13|03E595;
@@ -4755,7 +4755,7 @@ Status_screen1:
    db $06                               ;019B19|      ;
    db $01                               ;019B1A|      ;
    db $07                               ;019B1B|      ;
-   dl MainScr_AND_1b                    ;019B1C|009DB6;
+   dl MainScr_Remove_1b                 ;019B1C|009DB6;
    db $02                               ;019B1F|      ;
    db $07                               ;019B20|      ;
    dl Zero_1893_and_E000_to_2131        ;019B21|03E595;
@@ -4869,7 +4869,7 @@ DATA8_019BB2:
    db $07                               ;019BBD|      ;
    dl CODE_03887A                       ;019BBE|03887A;
    db $07                               ;019BC1|      ;
-   dl MainScr_OR_1b                     ;019BC2|009DA8;
+   dl MainScr_Add_1b                    ;019BC2|009DA8;
    db $02                               ;019BC5|      ;
    db $30                               ;019BC6|      ;
    db $FF                               ;019BC7|      ;
@@ -5031,7 +5031,7 @@ Equipment_menu:
    db $06                               ;019CB2|      ;
    db $01                               ;019CB3|      ;
    db $07                               ;019CB4|      ;
-   dl MainScr_AND_1b                    ;019CB5|009DB6;
+   dl MainScr_Remove_1b                 ;019CB5|009DB6;
    db $02                               ;019CB8|      ;
    db $07                               ;019CB9|      ;
    dl Zero_1893_and_E000_to_2131        ;019CBA|03E595;
@@ -5041,32 +5041,33 @@ Equipment_menu:
    dl Setup_Text_Parser_3b              ;019CC2|00A0AC;
    dl Weapons_sub_menu                  ;019CC5|0880EC;
    db $00                               ;019CC8|      ;
-DATA8_019CC9:
-   db $06                               ;019CC9|      ;
+Equipment_Select_loop:
+   db $06                               ;019CC9|      ; Choose your character
    db $01                               ;019CCA|      ;
    db $1E                               ;019CCB|      ;
    dw $0000                             ;019CCC|      ;
-   db $07                               ;019CCE|      ;
+   db $07                               ;019CCE|      ; Was button A pressed?
    dl WasBtnPressed_2b                  ;019CCF|00A00F;
    dw $0080                             ;019CD2|      ;
-   db $0C                               ;019CD4|      ;
+   db $0C                               ;019CD4|      ; If true, jump to 9D5C
    dw DATA8_019D5C                      ;019CD5|019D5C;
    db $1E                               ;019CD7|      ;
    dw $0000                             ;019CD8|      ;
-   db $07                               ;019CDA|      ;
+   db $07                               ;019CDA|      ; Was button B pressed?
    dl WasBtnPressed_2b                  ;019CDB|00A00F;
    dw $8000                             ;019CDE|      ;
-   db $0C                               ;019CE0|      ;
+   db $0C                               ;019CE0|      ; If true, jump to 9D36
    dw DATA8_019D36                      ;019CE1|019D36;
-   db $07                               ;019CE3|      ;
+   db $07                               ;019CE3|      ; Listen for input and set position value (24 01)
    dl Checks_for_input_probably         ;019CE4|07933A;
-   db $0B                               ;019CE7|      ;
-   dw DATA8_019CC9                      ;019CE8|019CC9;
+   db $0B                               ;019CE7|      ; If no input, loop and continue listening
+   dw Equipment_Select_loop             ;019CE8|019CC9;
 DATA8_019CEA:
    db $24                               ;019CEA|      ;
    db $01                               ;019CEB|      ;
    db $12                               ;019CEC|      ;
    db $04                               ;019CED|      ;
+Equipment_menu_set_cursor:
    dw DATA8_019D1A                      ;019CEE|019D1A;
    dw DATA8_019D21                      ;019CF0|019D21;
    dw DATA8_019D28                      ;019CF2|019D28;
@@ -5092,31 +5093,31 @@ Equipment_menu1:
    dw $11B9                             ;019D13|      ;
    dw $0000                             ;019D15|      ;
    db $1A                               ;019D17|      ;
-   dw DATA8_019CC9                      ;019D18|019CC9;
+   dw Equipment_Select_loop             ;019D18|019CC9;
 DATA8_019D1A:
-   db $38                               ;019D1A|      ;
+   db $38                               ;019D1A|      ; Set X,Y to (1C, 38)
    dw $001C                             ;019D1B|      ;
    db $40                               ;019D1D|      ;
    dw $0038                             ;019D1E|      ;
-   db $1C                               ;019D20|      ;
+   db $1C                               ;019D20|      ; Return
 DATA8_019D21:
-   db $38                               ;019D21|      ;
+   db $38                               ;019D21|      ; Set X,Y to (E4, 38)
    dw $00E4                             ;019D22|      ;
    db $40                               ;019D24|      ;
    dw $0038                             ;019D25|      ;
-   db $1C                               ;019D27|      ;
+   db $1C                               ;019D27|      ; Return
 DATA8_019D28:
-   db $38                               ;019D28|      ;
+   db $38                               ;019D28|      ; Set X,Y to (1C, A0)
    dw $001C                             ;019D29|      ;
    db $40                               ;019D2B|      ;
    dw $00A0                             ;019D2C|      ;
-   db $1C                               ;019D2E|      ;
+   db $1C                               ;019D2E|      ; Return
 DATA8_019D2F:
-   db $38                               ;019D2F|      ;
+   db $38                               ;019D2F|      ; Set X,Y to (E4, A0)
    dw $00E4                             ;019D30|      ;
    db $40                               ;019D32|      ;
    dw $00A0                             ;019D33|      ;
-   db $1C                               ;019D35|      ;
+   db $1C                               ;019D35|      ; Return
 DATA8_019D36:
    db $07                               ;019D36|      ;
    dl GetSet_SFX                        ;019D37|009C44;
@@ -5129,7 +5130,7 @@ DATA8_019D36:
    db $07                               ;019D43|      ;
    dl CODE_03887A                       ;019D44|03887A;
    db $07                               ;019D47|      ;
-   dl MainScr_OR_1b                     ;019D48|009DA8;
+   dl MainScr_Add_1b                    ;019D48|009DA8;
    db $02                               ;019D4B|      ;
    db $04                               ;019D4C|      ;
    dl Open_menu                         ;019D4D|01923B;
@@ -5150,7 +5151,7 @@ DATA8_019D5C:
    db $07                               ;019D63|      ;
    dl CODE_0791C8                       ;019D64|0791C8;
    db $0C                               ;019D67|      ;
-   dw DATA8_019CC9                      ;019D68|019CC9;
+   dw Equipment_Select_loop             ;019D68|019CC9;
    db $16                               ;019D6A|      ;
    dw $11B9                             ;019D6B|      ;
    dw $0000                             ;019D6D|      ;
@@ -5159,7 +5160,7 @@ DATA8_019D5C:
    db $07                               ;019D72|      ;
    dl _07A4DA_far                       ;019D73|07A4D6;
    db $0C                               ;019D76|      ;
-   dw DATA8_019CC9                      ;019D77|019CC9;
+   dw Equipment_Select_loop             ;019D77|019CC9;
    db $0F                               ;019D79|      ;
    db $02                               ;019D7A|      ;
    dw $0004                             ;019D7B|      ;
@@ -5880,7 +5881,7 @@ DATA8_01A14A:
    dl Gfx_Compass                       ;01A158|0DB711;
    dl $7E9400                           ;01A15B|7E9400;
    db $07                               ;01A15E|      ;
-   dl CODE_009D34                       ;01A15F|009D34;
+   dl Setup_Display_stuff_8b            ;01A15F|009D34;
    db $00                               ;01A162|      ;
    dw $0800                             ;01A163|      ;
    dw $9400                             ;01A165|      ;
@@ -5906,7 +5907,7 @@ Some_decompression:
    dw $9400                             ;01A186|      ;
    db $7E                               ;01A188|      ;
    db $07                               ;01A189|      ;
-   dl CODE_009D34                       ;01A18A|009D34;
+   dl Setup_Display_stuff_8b            ;01A18A|009D34;
    db $00                               ;01A18D|      ;
    dw $0800                             ;01A18E|      ;
    dw $9400                             ;01A190|      ;
@@ -11552,7 +11553,7 @@ DMA_189E8:
    db $00                               ;01B7D7|      ;
    db $15                               ;01B7D8|000022;
 CODE_01B7D9:
-   JSL.L NMI_enable1_far                ;01B7D9|008163;
+   JSL.L NMI_enable_far                 ;01B7D9|008163;
    JSL.L Init_Loops                     ;01B7DD|008C84;
    LDA.W #$006A                         ;01B7E1|      ;
    JSL.L CODE_008D0A                    ;01B7E4|008D0A;
@@ -11576,30 +11577,30 @@ CODE_01B7E8:
    db $FF                               ;01B806|817707;
 DATA8_01B807:
    db $07                               ;01B807|      ;
-   dl Display_or_80_far                 ;01B808|008177;
+   dl Display_Force_Blanking_far        ;01B808|008177;
    db $07                               ;01B80B|      ;
-   dl _0081BF_1b                        ;01B80C|009D69;
+   dl Read_BGmode_1b                    ;01B80C|009D69;
    db $01                               ;01B80F|      ;
    db $07                               ;01B810|      ;
-   dl Display_near_1b_1b_2b_2b          ;01B811|009D6F;
+   dl Display_brancher_6b               ;01B811|009D6F;
    db $00                               ;01B814|      ;
    db $00                               ;01B815|      ;
    dw $1000                             ;01B816|      ;
    dw $0000                             ;01B818|      ;
    db $07                               ;01B81A|      ;
-   dl Display_near_1b_1b_2b_2b          ;01B81B|009D6F;
+   dl Display_brancher_6b               ;01B81B|009D6F;
    db $01                               ;01B81E|      ;
    db $00                               ;01B81F|      ;
    dw $1000                             ;01B820|      ;
    dw $0400                             ;01B822|      ;
    db $07                               ;01B824|      ;
-   dl Display_near_1b_1b_2b_2b          ;01B825|009D6F;
+   dl Display_brancher_6b               ;01B825|009D6F;
    db $02                               ;01B828|      ;
    db $00                               ;01B829|      ;
    dw $5000                             ;01B82A|      ;
    dw $0C00                             ;01B82C|      ;
    db $07                               ;01B82E|      ;
-   dl Do_stuff_1b_2b_1b                 ;01B82F|009D93;
+   dl Set_Sprite_mode_4b                ;01B82F|009D93;
    db $03                               ;01B832|      ;
    dw $6000                             ;01B833|      ;
    db $00                               ;01B835|      ;
@@ -11615,13 +11616,13 @@ Something_with_displays:
    db $00                               ;01B846|      ;
    dw $0040                             ;01B847|      ;
    db $07                               ;01B849|      ;
-   dl MainScr_AND_1b                    ;01B84A|009DB6;
+   dl MainScr_Remove_1b                 ;01B84A|009DB6;
    db $1F                               ;01B84D|      ;
    db $07                               ;01B84E|      ;
    dl Mosaic_Clear_1b                   ;01B84F|009E8A;
    db $0F                               ;01B852|      ;
    db $07                               ;01B853|      ;
-   dl MainScr_OR_1b                     ;01B854|009DA8;
+   dl MainScr_Add_1b                    ;01B854|009DA8;
    db $07                               ;01B857|      ;
    db $07                               ;01B858|      ;
    dl Set_Display_far                   ;01B859|00818B;
@@ -11717,7 +11718,7 @@ Part_of_mountain_scene:
    db $06                               ;01B8D0|      ;
    db $01                               ;01B8D1|      ;
    db $07                               ;01B8D2|      ;
-   dl Display_or_80_far                 ;01B8D3|008177;
+   dl Display_Force_Blanking_far        ;01B8D3|008177;
    db $D8                               ;01B8D6|      ;
    db $00                               ;01B8D7|      ;
    db $D8                               ;01B8D8|      ;
@@ -11739,10 +11740,10 @@ Part_of_mountain_scene:
    db $06                               ;01B8EE|      ;
    db $01                               ;01B8EF|      ;
    db $07                               ;01B8F0|      ;
-   dl _0081BF_1b                        ;01B8F1|009D69;
+   dl Read_BGmode_1b                    ;01B8F1|009D69;
    db $07                               ;01B8F4|      ;
    db $07                               ;01B8F5|      ;
-   dl Display_near_1b_1b_2b_2b          ;01B8F6|009D6F;
+   dl Display_brancher_6b               ;01B8F6|009D6F;
    db $00                               ;01B8F9|      ;
    db $00                               ;01B8FA|      ;
    dw $0000                             ;01B8FB|      ;
@@ -11756,13 +11757,13 @@ Load_after_mtn_fadeout:
    dl Decomp80_setup_3b                 ;01B908|009CF9;
    dl DATA8_01BCF4                      ;01B90B|01BCF4;
    db $07                               ;01B90E|      ;
-   dl MainScr_AND_1b                    ;01B90F|009DB6;
+   dl MainScr_Remove_1b                 ;01B90F|009DB6;
    db $1F                               ;01B912|      ;
    db $07                               ;01B913|      ;
    dl Mosaic_Clear_1b                   ;01B914|009E8A;
    db $0F                               ;01B917|      ;
    db $07                               ;01B918|      ;
-   dl MainScr_OR_1b                     ;01B919|009DA8;
+   dl MainScr_Add_1b                    ;01B919|009DA8;
    db $11                               ;01B91C|      ;
    db $13                               ;01B91D|      ;
    dw $211A                             ;01B91E|00211A;
@@ -12339,11 +12340,11 @@ Advance_Credits:
    AND.W #$00FF                         ;01BC69|      ;
    STA.W Anim_ID,Y                      ;01BC6C|000A7B;
    LDA.W #$0080                         ;01BC6F|      ;
-   STA.W $0787,Y                        ;01BC72|000787;
-   STA.W $06F7,Y                        ;01BC75|0006F7;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;01BC72|000787;
+   STA.W Cursor_Array_Xpos,Y            ;01BC75|0006F7;
    LDA.W #$00FF                         ;01BC78|      ;
-   STA.W $07AB,Y                        ;01BC7B|0007AB;
-   STA.W $071B,Y                        ;01BC7E|00071B;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;01BC7B|0007AB;
+   STA.W Cursor_Array_Ypos,Y            ;01BC7E|00071B;
    INC.W Credits_Progress               ;01BC81|001927;
    RTL                                  ;01BC84|      ;
 Credits_Anim_IDs:
