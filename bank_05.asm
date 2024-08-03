@@ -316,7 +316,7 @@ Tbl_0581F8:
    dw LOOSE_OP_009D5A                   ;0581FE|009D5A;
    dw LOOSE_OP_009D5F                   ;058200|009D5F;
    dw LOOSE_OP_009D64                   ;058202|009D64;
-   dw _0081BF_1b                        ;058204|009D69;
+   dw Read_BGmode_1b                    ;058204|009D69;
    dw CODE_009D9B                       ;058206|009D9B;
    dw CODE_009DC3                       ;058208|009DC3;
    dw CODE_009DF5                       ;05820A|009DF5;
@@ -2345,19 +2345,19 @@ CODE_058F2F:
    JML.L Sub_LoadStuff                  ;058F38|008DB4;
    RTL                                  ;058F3C|      ;
 Tbl_058F3D:
-   dw CODE_009D4B                       ;058F3D|009D4B;
-   dw CODE_009D50                       ;058F3F|009D50;
-   dw LOOSE_OP_009D55                   ;058F41|009D55;
-   dw LOOSE_OP_009D5A                   ;058F43|009D5A;
-   dw LOOSE_OP_009D5F                   ;058F45|009D5F;
-   dw LOOSE_OP_009D64                   ;058F47|009D64;
-   dw _0081BF_1b                        ;058F49|009D69;
-   dw CODE_009D9B                       ;058F4B|009D9B;
-   dw CODE_009DC3                       ;058F4D|009DC3;
-   dw CODE_009DF5                       ;058F4F|009DF5;
-   dw LOOSE_OP_009E3B                   ;058F51|009E3B;
-   dw LOOSE_OP_009E6D                   ;058F53|009E6D;
-   dw LOOSE_OP_009F03                   ;058F55|009F03;
+   dw Data_059D4B                       ;058F3D|059D4B;
+   dw DATA8_059D50                      ;058F3F|059D50;
+   dw DATA8_059D55                      ;058F41|059D55;
+   dw DATA8_059D5A                      ;058F43|059D5A;
+   dw DATA8_059D5F                      ;058F45|059D5F;
+   dw DATA8_059D64                      ;058F47|059D64;
+   dw DATA8_059D69                      ;058F49|059D69;
+   dw DATA8_059D9B                      ;058F4B|059D9B;
+   dw DATA8_059DC3                      ;058F4D|059DC3;
+   dw DATA8_059DF5                      ;058F4F|059DF5;
+   dw DATA8_059E3B                      ;058F51|059E3B;
+   dw DATA8_059E6D                      ;058F53|059E6D;
+   dw DATA8_059F03                      ;058F55|059F03;
 DATA8_058F57:
    db $0F                               ;058F57|      ;
    db $02                               ;058F58|      ;
@@ -15522,11 +15522,11 @@ CODE_05F815:
    ASL A                                ;05F81B|      ;
    TAX                                  ;05F81C|      ;
    LDA.L DATA16_05F835,X                ;05F81D|05F835;
-   STA.W $0787,Y                        ;05F821|000787;
-   STA.W $06F7,Y                        ;05F824|0006F7;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;05F821|000787;
+   STA.W Cursor_Array_Xpos,Y            ;05F824|0006F7;
    LDA.L DATA16_05F83D,X                ;05F827|05F83D;
-   STA.W $07AB,Y                        ;05F82B|0007AB;
-   STA.W $071B,Y                        ;05F82E|00071B;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;05F82B|0007AB;
+   STA.W Cursor_Array_Ypos,Y            ;05F82E|00071B;
    LDA.W #$0001                         ;05F831|      ;
    RTL                                  ;05F834|      ;
 DATA16_05F835:
@@ -15608,8 +15608,8 @@ CODE_05F8B9:
    ASL A                                ;05F8C0|      ;
    TAX                                  ;05F8C1|      ;
    LDA.L DATA16_05F8D0,X                ;05F8C2|05F8D0;
-   STA.W $0787,Y                        ;05F8C6|000787;
-   STA.W $06F7,Y                        ;05F8C9|0006F7;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;05F8C6|000787;
+   STA.W Cursor_Array_Xpos,Y            ;05F8C9|0006F7;
    LDA.W #$0001                         ;05F8CC|      ;
    RTL                                  ;05F8CF|      ;
 DATA16_05F8D0:

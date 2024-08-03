@@ -1,13 +1,13 @@
    ORG $148000
    db $FF                               ;148000|      ;
-RLE_loc_Ariel1:
+RLE_loc_Ariel:
    db $80                               ;148001|      ;
    db $00                               ;148002|      ;
    db $18                               ;148003|      ;
    dl RLE_Enemy_Ariel                   ;148004|1BB0EC;
    db $00                               ;148007|      ;
    db $60                               ;148008|      ;
-RLE_loc_Ariel2:
+RLE_loc_Teefa:
    db $80                               ;148009|      ;
    db $00                               ;14800A|      ;
    db $18                               ;14800B|      ;

@@ -345,38 +345,38 @@ DATA8_0F816C:
    db $06                               ;0F8177|      ;
    db $0D                               ;0F8178|      ;
    db $00                               ;0F8179|      ;
-Tbl_Equipment_Data:
+Tbl_Animation_Data:
    dw DATA8_0F826A                      ;0F817A|0F826A; 120 entries, 120 equipment. Coincidence?
    dw DATA8_0F82D3                      ;0F817C|0F82D3;
-   dw UNREACH_0F834B                    ;0F817E|0F834B;
-   dw UNREACH_0F83C3                    ;0F8180|0F83C3;
-   dw UNREACH_0F842C                    ;0F8182|0F842C;
-   dw UNREACH_0F84A4                    ;0F8184|0F84A4;
-   dw UNREACH_0F851C                    ;0F8186|0F851C;
-   dw UNREACH_0F85D0                    ;0F8188|0F85D0;
-   dw UNREACH_0F8675                    ;0F818A|0F8675;
-   dw UNREACH_0F870B                    ;0F818C|0F870B;
-   dw UNREACH_0F87BF                    ;0F818E|0F87BF;
-   dw UNREACH_0F8864                    ;0F8190|0F8864;
-   dw UNREACH_0F88FA                    ;0F8192|0F88FA;
-   dw UNREACH_0F89F4                    ;0F8194|0F89F4;
-   dw UNREACH_0F8B2A                    ;0F8196|0F8B2A;
-   dw UNREACH_0F8C06                    ;0F8198|0F8C06;
-   dw UNREACH_0F8D00                    ;0F819A|0F8D00;
-   dw UNREACH_0F8E36                    ;0F819C|0F8E36;
-   dw UNREACH_0F8F12                    ;0F819E|0F8F12;
-   dw UNREACH_0F8FC6                    ;0F81A0|0F8FC6;
-   dw UNREACH_0F906B                    ;0F81A2|0F906B;
-   dw UNREACH_0F9101                    ;0F81A4|0F9101;
-   dw UNREACH_0F91B5                    ;0F81A6|0F91B5;
-   dw UNREACH_0F925A                    ;0F81A8|0F925A;
-   dw UNREACH_0FAEE3                    ;0F81AA|0FAEE3;
-   dw UNREACH_0FAF3D                    ;0F81AC|0FAF3D;
-   dw UNREACH_0FAF88                    ;0F81AE|0FAF88;
-   dw UNREACH_0FAFD3                    ;0F81B0|0FAFD3;
-   dw UNREACH_0FB02D                    ;0F81B2|0FB02D;
-   dw UNREACH_0FB078                    ;0F81B4|0FB078;
-   dw UNREACH_0FB0C3                    ;0F81B6|0FB0C3;
+   dw DATA8_0F834B                      ;0F817E|0F834B;
+   dw DATA8_0F83C3                      ;0F8180|0F83C3;
+   dw DATA8_0F842C                      ;0F8182|0F842C;
+   dw DATA8_0F84A4                      ;0F8184|0F84A4;
+   dw DATA8_0F851C                      ;0F8186|0F851C;
+   dw DATA8_0F85D0                      ;0F8188|0F85D0;
+   dw DATA8_0F8675                      ;0F818A|0F8675;
+   dw DATA8_0F870B                      ;0F818C|0F870B;
+   dw DATA8_0F87BF                      ;0F818E|0F87BF;
+   dw DATA8_0F8864                      ;0F8190|0F8864;
+   dw DATA8_0F88FA                      ;0F8192|0F88FA;
+   dw DATA8_0F89F4                      ;0F8194|0F89F4;
+   dw DATA8_0F8B2A                      ;0F8196|0F8B2A;
+   dw DATA8_0F8C06                      ;0F8198|0F8C06;
+   dw DATA8_0F8D00                      ;0F819A|0F8D00;
+   dw DATA8_0F8E36                      ;0F819C|0F8E36;
+   dw DATA8_0F8F12                      ;0F819E|0F8F12;
+   dw DATA8_0F8FC6                      ;0F81A0|0F8FC6;
+   dw DATA8_0F906B                      ;0F81A2|0F906B;
+   dw DATA8_0F9101                      ;0F81A4|0F9101;
+   dw DATA8_0F91B5                      ;0F81A6|0F91B5;
+   dw DATA8_0F925A                      ;0F81A8|0F925A;
+   dw DATA8_0FAEE3                      ;0F81AA|0FAEE3;
+   dw DATA8_0FAF3D                      ;0F81AC|0FAF3D;
+   dw DATA8_0FAF88                      ;0F81AE|0FAF88;
+   dw DATA8_0FAFD3                      ;0F81B0|0FAFD3;
+   dw DATA8_0FB02D                      ;0F81B2|0FB02D;
+   dw DATA8_0FB078                      ;0F81B4|0FB078;
+   dw DATA8_0FB0C3                      ;0F81B6|0FB0C3;
    dw UNREACH_0FB14F                    ;0F81B8|0FB14F;
    dw UNREACH_0FB1CC                    ;0F81BA|0FB1CC;
    dw UNREACH_0FB249                    ;0F81BC|0FB249;
@@ -693,7 +693,7 @@ DATA8_0F82D3:
    db $F0                               ;0F8348|0F82D6;
    db $8C                               ;0F8349|00003F;
    db $3F                               ;0F834A|F00000;
-UNREACH_0F834B:
+DATA8_0F834B:
    db $00                               ;0F834B|      ;
    db $00                               ;0F834C|      ;
    db $F0                               ;0F834D|0F830E;
@@ -814,7 +814,7 @@ UNREACH_0F834B:
    db $F8                               ;0F83C0|      ;
    db $80                               ;0F83C1|0F8402;
    db $3F                               ;0F83C2|F0F800;
-UNREACH_0F83C3:
+DATA8_0F83C3:
    db $00                               ;0F83C3|      ;
    db $F8                               ;0F83C4|      ;
    db $F0                               ;0F83C5|0F8376;
@@ -920,7 +920,7 @@ UNREACH_0F83C3:
    db $E8                               ;0F8429|      ;
    db $A0                               ;0F842A|      ;
    db $7F                               ;0F842B|F00000;
-UNREACH_0F842C:
+DATA8_0F842C:
    db $00                               ;0F842C|      ;
    db $00                               ;0F842D|      ;
    db $F0                               ;0F842E|0F83E3;
@@ -1041,7 +1041,7 @@ UNREACH_0F842C:
    db $F0                               ;0F84A1|0F842F;
    db $8C                               ;0F84A2|00007F;
    db $7F                               ;0F84A3|F0F800;
-UNREACH_0F84A4:
+DATA8_0F84A4:
    db $00                               ;0F84A4|      ;
    db $F8                               ;0F84A5|      ;
    db $F0                               ;0F84A6|0F8467;
@@ -1162,7 +1162,7 @@ UNREACH_0F84A4:
    db $F8                               ;0F8519|      ;
    db $80                               ;0F851A|0F859B;
    db $7F                               ;0F851B|E0E800;
-UNREACH_0F851C:
+DATA8_0F851C:
    db $00                               ;0F851C|      ;
    db $E8                               ;0F851D|      ;
    db $E0                               ;0F851E|      ;
@@ -1343,7 +1343,7 @@ UNREACH_0F851C:
    db $E8                               ;0F85CD|      ;
    db $81                               ;0F85CE|00003F;
    db $3F                               ;0F85CF|E8F000;
-UNREACH_0F85D0:
+DATA8_0F85D0:
    db $00                               ;0F85D0|      ;
    db $F0                               ;0F85D1|0F85BB;
    db $E8                               ;0F85D2|      ;
@@ -1509,8 +1509,8 @@ UNREACH_0F85D0:
    db $E8                               ;0F8672|      ;
    db $BA                               ;0F8673|      ;
    db $7F                               ;0F8674|E80001;
-UNREACH_0F8675:
-   db $01                               ;0F8675|000000;
+DATA8_0F8675:
+   db $01                               ;0F8675|      ;
    db $00                               ;0F8676|      ;
    db $E8                               ;0F8677|      ;
    db $AE                               ;0F8678|00013F;
@@ -1660,7 +1660,7 @@ UNREACH_0F8675:
    db $E8                               ;0F8708|      ;
    db $BA                               ;0F8709|      ;
    db $7F                               ;0F870A|E01000;
-UNREACH_0F870B:
+DATA8_0F870B:
    db $00                               ;0F870B|      ;
    db $10                               ;0F870C|0F86EE;
    db $E0                               ;0F870D|      ;
@@ -1841,7 +1841,7 @@ UNREACH_0F870B:
    db $E8                               ;0F87BC|      ;
    db $81                               ;0F87BD|00007F;
    db $7F                               ;0F87BE|E80800;
-UNREACH_0F87BF:
+DATA8_0F87BF:
    db $00                               ;0F87BF|      ;
    db $08                               ;0F87C0|      ;
    db $E8                               ;0F87C1|      ;
@@ -2007,8 +2007,8 @@ UNREACH_0F87BF:
    db $E8                               ;0F8861|      ;
    db $BA                               ;0F8862|      ;
    db $3F                               ;0F8863|E8F001;
-UNREACH_0F8864:
-   db $01                               ;0F8864|0000F0;
+DATA8_0F8864:
+   db $01                               ;0F8864|      ;
    db $F0                               ;0F8865|0F884F;
    db $E8                               ;0F8866|      ;
    db $AE                               ;0F8867|00017F;
@@ -2158,7 +2158,7 @@ UNREACH_0F8864:
    db $E8                               ;0F88F7|      ;
    db $BA                               ;0F88F8|      ;
    db $3F                               ;0F88F9|201800;
-UNREACH_0F88FA:
+DATA8_0F88FA:
    db $00                               ;0F88FA|      ;
    db $18                               ;0F88FB|      ;
    db $20                               ;0F88FC|0F3FAA;
@@ -2409,7 +2409,7 @@ UNREACH_0F88FA:
    db $E0                               ;0F89F1|      ;
    db $BA                               ;0F89F2|      ;
    db $7F                               ;0F89F3|201800;
-UNREACH_0F89F4:
+DATA8_0F89F4:
    db $00                               ;0F89F4|      ;
    db $18                               ;0F89F5|      ;
    db $20                               ;0F89F6|0F3FAA;
@@ -2720,8 +2720,8 @@ UNREACH_0F89F4:
    db $E0                               ;0F8B27|      ;
    db $BA                               ;0F8B28|      ;
    db $7F                               ;0F8B29|10F801;
-UNREACH_0F8B2A:
-   db $01                               ;0F8B2A|0000F8;
+DATA8_0F8B2A:
+   db $01                               ;0F8B2A|      ;
    db $F8                               ;0F8B2B|      ;
    db $10                               ;0F8B2C|0F8ADC;
    db $AE                               ;0F8B2D|00013F;
@@ -2941,7 +2941,7 @@ UNREACH_0F8B2A:
    db $E0                               ;0F8C03|      ;
    db $BA                               ;0F8C04|      ;
    db $7F                               ;0F8C05|20E000;
-UNREACH_0F8C06:
+DATA8_0F8C06:
    db $00                               ;0F8C06|      ;
    db $E0                               ;0F8C07|      ;
    db $20                               ;0F8C08|0F7FAA;
@@ -3192,7 +3192,7 @@ UNREACH_0F8C06:
    db $E0                               ;0F8CFD|      ;
    db $BA                               ;0F8CFE|      ;
    db $3F                               ;0F8CFF|20E000;
-UNREACH_0F8D00:
+DATA8_0F8D00:
    db $00                               ;0F8D00|      ;
    db $E0                               ;0F8D01|      ;
    db $20                               ;0F8D02|0F7FAA;
@@ -3503,8 +3503,8 @@ UNREACH_0F8D00:
    db $E0                               ;0F8E33|      ;
    db $BA                               ;0F8E34|      ;
    db $3F                               ;0F8E35|10F801;
-UNREACH_0F8E36:
-   db $01                               ;0F8E36|0000F8;
+DATA8_0F8E36:
+   db $01                               ;0F8E36|      ;
    db $F8                               ;0F8E37|      ;
    db $10                               ;0F8E38|0F8DE8;
    db $AE                               ;0F8E39|00017F;
@@ -3724,8 +3724,8 @@ UNREACH_0F8E36:
    db $E0                               ;0F8F0F|      ;
    db $BA                               ;0F8F10|      ;
    db $3F                               ;0F8F11|080001;
-UNREACH_0F8F12:
-   db $01                               ;0F8F12|000000;
+DATA8_0F8F12:
+   db $01                               ;0F8F12|      ;
    db $00                               ;0F8F13|      ;
    db $08                               ;0F8F14|      ;
    db $AE                               ;0F8F15|00013F;
@@ -3905,8 +3905,8 @@ UNREACH_0F8F12:
    db $E8                               ;0F8FC3|      ;
    db $9A                               ;0F8FC4|      ;
    db $7F                               ;0F8FC5|E80001;
-UNREACH_0F8FC6:
-   db $01                               ;0F8FC6|000000;
+DATA8_0F8FC6:
+   db $01                               ;0F8FC6|      ;
    db $00                               ;0F8FC7|      ;
    db $E8                               ;0F8FC8|      ;
    db $AE                               ;0F8FC9|00003F;
@@ -4071,8 +4071,8 @@ UNREACH_0F8FC6:
    db $E8                               ;0F9068|      ;
    db $9A                               ;0F9069|      ;
    db $7F                               ;0F906A|E80001;
-UNREACH_0F906B:
-   db $01                               ;0F906B|000000;
+DATA8_0F906B:
+   db $01                               ;0F906B|      ;
    db $00                               ;0F906C|      ;
    db $E8                               ;0F906D|      ;
    db $AE                               ;0F906E|00013F;
@@ -4222,8 +4222,8 @@ UNREACH_0F906B:
    db $E8                               ;0F90FE|      ;
    db $9A                               ;0F90FF|      ;
    db $7F                               ;0F9100|08F001;
-UNREACH_0F9101:
-   db $01                               ;0F9101|0000F0;
+DATA8_0F9101:
+   db $01                               ;0F9101|      ;
    db $F0                               ;0F9102|0F910C;
    db $08                               ;0F9103|      ;
    db $AE                               ;0F9104|00017F;
@@ -4403,8 +4403,8 @@ UNREACH_0F9101:
    db $E8                               ;0F91B2|      ;
    db $9A                               ;0F91B3|      ;
    db $3F                               ;0F91B4|E8F001;
-UNREACH_0F91B5:
-   db $01                               ;0F91B5|0000F0;
+DATA8_0F91B5:
+   db $01                               ;0F91B5|      ;
    db $F0                               ;0F91B6|0F91A0;
    db $E8                               ;0F91B7|      ;
    db $AE                               ;0F91B8|00007F;
@@ -4569,8 +4569,8 @@ UNREACH_0F91B5:
    db $E8                               ;0F9257|      ;
    db $9A                               ;0F9258|      ;
    db $3F                               ;0F9259|E8F001;
-UNREACH_0F925A:
-   db $01                               ;0F925A|0000F0;
+DATA8_0F925A:
+   db $01                               ;0F925A|      ;
    db $F0                               ;0F925B|0F9245;
    db $E8                               ;0F925C|      ;
    db $AE                               ;0F925D|00017F;
@@ -11922,7 +11922,7 @@ UNREACH_0FAE2F:
    db $E8                               ;0FAEE0|      ;
    db $BA                               ;0FAEE1|      ;
    db $3F                               ;0FAEE2|000800;
-UNREACH_0FAEE3:
+DATA8_0FAEE3:
    db $00                               ;0FAEE3|      ;
    db $08                               ;0FAEE4|      ;
    db $00                               ;0FAEE5|      ;
@@ -12013,7 +12013,7 @@ UNREACH_0FAEE3:
    db $10                               ;0FAF3A|0FAEDC;
    db $A0                               ;0FAF3B|      ;
    db $3F                               ;0FAF3C|E80800;
-UNREACH_0FAF3D:
+DATA8_0FAF3D:
    db $00                               ;0FAF3D|      ;
    db $08                               ;0FAF3E|      ;
    db $E8                               ;0FAF3F|      ;
@@ -12089,7 +12089,7 @@ UNREACH_0FAF3D:
    db $F0                               ;0FAF85|0FAF0B;
    db $84                               ;0FAF86|00003F;
    db $3F                               ;0FAF87|100800;
-UNREACH_0FAF88:
+DATA8_0FAF88:
    db $00                               ;0FAF88|      ;
    db $08                               ;0FAF89|      ;
    db $10                               ;0FAF8A|0FAF15;
@@ -12165,7 +12165,7 @@ UNREACH_0FAF88:
    db $F0                               ;0FAFD0|0FAF58;
    db $86                               ;0FAFD1|00003F;
    db $3F                               ;0FAFD2|00F000;
-UNREACH_0FAFD3:
+DATA8_0FAFD3:
    db $00                               ;0FAFD3|      ;
    db $F0                               ;0FAFD4|0FAFD6;
    db $00                               ;0FAFD5|      ;
@@ -12256,7 +12256,7 @@ UNREACH_0FAFD3:
    db $10                               ;0FB02A|0FAFCC;
    db $A0                               ;0FB02B|      ;
    db $7F                               ;0FB02C|E8F000;
-UNREACH_0FB02D:
+DATA8_0FB02D:
    db $00                               ;0FB02D|      ;
    db $F0                               ;0FB02E|0FB018;
    db $E8                               ;0FB02F|      ;
@@ -12332,7 +12332,7 @@ UNREACH_0FB02D:
    db $F0                               ;0FB075|0FAFFB;
    db $84                               ;0FB076|00007F;
    db $7F                               ;0FB077|10F000;
-UNREACH_0FB078:
+DATA8_0FB078:
    db $00                               ;0FB078|      ;
    db $F0                               ;0FB079|0FB08B;
    db $10                               ;0FB07A|0FB005;
@@ -12408,7 +12408,7 @@ UNREACH_0FB078:
    db $F0                               ;0FB0C0|0FB048;
    db $86                               ;0FB0C1|00007F;
    db $7F                               ;0FB0C2|080800;
-UNREACH_0FB0C3:
+DATA8_0FB0C3:
    db $00                               ;0FB0C3|      ;
    db $08                               ;0FB0C4|      ;
    db $08                               ;0FB0C5|      ;

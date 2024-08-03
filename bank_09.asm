@@ -218,10 +218,10 @@ UNREACH_0980B5:
    db $0A                               ;0980D1|      ;
    db $32                               ;0980D2|00001F;
 Tbl_0980D3:
-   dw UNREACH_09C51F                    ;0980D3|09C51F;
-   dw UNREACH_09C597                    ;0980D5|09C597;
-   dw UNREACH_09C5B5                    ;0980D7|09C5B5;
-   dw UNREACH_09C46B                    ;0980D9|09C46B;
+   dw DATA8_09C51F                      ;0980D3|09C51F;
+   dw DATA8_09C597                      ;0980D5|09C597;
+   dw DATA8_09C5B5                      ;0980D7|09C5B5;
+   dw DATA8_09C46B                      ;0980D9|09C46B;
    dw UNREACH_098001                    ;0980DB|098001;
    dw UNREACH_09801F                    ;0980DD|09801F;
    dw UNREACH_09803D                    ;0980DF|09803D;
@@ -540,10 +540,10 @@ UNREACH_0981F7:
    db $48                               ;098213|      ;
    db $74                               ;098214|00001F;
 Tbl_098215:
-   dw UNREACH_09C51F                    ;098215|09C51F;
-   dw UNREACH_09C597                    ;098217|09C597;
-   dw UNREACH_09C5B5                    ;098219|09C5B5;
-   dw UNREACH_09C46B                    ;09821B|09C46B;
+   dw DATA8_09C51F                      ;098215|09C51F;
+   dw DATA8_09C597                      ;098217|09C597;
+   dw DATA8_09C5B5                      ;098219|09C5B5;
+   dw DATA8_09C46B                      ;09821B|09C46B;
    dw UNREACH_0980E9                    ;09821D|0980E9;
    dw UNREACH_098107                    ;09821F|098107;
    dw UNREACH_098125                    ;098221|098125;
@@ -865,10 +865,10 @@ UNREACH_09833F:
    db $48                               ;09835B|      ;
    db $74                               ;09835C|00001F;
 Tbl_09835D:
-   dw UNREACH_09C51F                    ;09835D|09C51F;
-   dw UNREACH_09C597                    ;09835F|09C597;
-   dw UNREACH_09C5B5                    ;098361|09C5B5;
-   dw UNREACH_09C46B                    ;098363|09C46B;
+   dw DATA8_09C51F                      ;09835D|09C51F;
+   dw DATA8_09C597                      ;09835F|09C597;
+   dw DATA8_09C5B5                      ;098361|09C5B5;
+   dw DATA8_09C46B                      ;098363|09C46B;
    dw UNREACH_098231                    ;098365|098231;
    dw UNREACH_09824F                    ;098367|09824F;
    dw UNREACH_09826D                    ;098369|09826D;
@@ -973,10 +973,10 @@ UNREACH_0983B5:
    db $48                               ;0983D1|      ;
    db $34                               ;0983D2|00001F;
 Tbl_0983D3:
-   dw UNREACH_09C51F                    ;0983D3|09C51F;
-   dw UNREACH_09C597                    ;0983D5|09C597;
-   dw UNREACH_09C5B5                    ;0983D7|09C5B5;
-   dw UNREACH_09C46B                    ;0983D9|09C46B;
+   dw DATA8_09C51F                      ;0983D3|09C51F;
+   dw DATA8_09C597                      ;0983D5|09C597;
+   dw DATA8_09C5B5                      ;0983D7|09C5B5;
+   dw DATA8_09C46B                      ;0983D9|09C46B;
    dw UNREACH_098379                    ;0983DB|098379;
    dw UNREACH_098397                    ;0983DD|098397;
    dw UNREACH_0983B5                    ;0983DF|0983B5;
@@ -1074,15 +1074,15 @@ UNREACH_09841D:
    db $48                               ;098439|      ;
    db $34                               ;09843A|00001F;
 Tbl_09843B:
-   dw UNREACH_09C51F                    ;09843B|09C51F;
-   dw UNREACH_09C597                    ;09843D|09C597;
-   dw UNREACH_09C5B5                    ;09843F|09C5B5;
-   dw UNREACH_09C46B                    ;098441|09C46B;
+   dw DATA8_09C51F                      ;09843B|09C51F;
+   dw DATA8_09C597                      ;09843D|09C597;
+   dw DATA8_09C5B5                      ;09843F|09C5B5;
+   dw DATA8_09C46B                      ;098441|09C46B;
    dw UNREACH_0983E1                    ;098443|0983E1;
    dw UNREACH_0983FF                    ;098445|0983FF;
    dw UNREACH_09841D                    ;098447|09841D;
-UNREACH_098449:
-   db $01                               ;098449|000000;
+DATA8_098449:
+   db $01                               ;098449|      ;
    db $00                               ;09844A|      ;
    db $08                               ;09844B|      ;
    db $8E                               ;09844C|000136;
@@ -1112,8 +1112,8 @@ UNREACH_098449:
    db $E8                               ;098464|      ;
    db $80                               ;098465|09849D;
    db $36                               ;098466|000001;
-UNREACH_098467:
-   db $01                               ;098467|000000;
+DATA8_098467:
+   db $01                               ;098467|      ;
    db $00                               ;098468|      ;
    db $08                               ;098469|      ;
    db $AE                               ;09846A|000136;
@@ -1143,8 +1143,8 @@ UNREACH_098467:
    db $E8                               ;098482|      ;
    db $84                               ;098483|000036;
    db $36                               ;098484|000001;
-UNREACH_098485:
-   db $01                               ;098485|000000;
+DATA8_098485:
+   db $01                               ;098485|      ;
    db $00                               ;098486|      ;
    db $08                               ;098487|      ;
    db $AE                               ;098488|000136;
@@ -1174,8 +1174,8 @@ UNREACH_098485:
    db $E8                               ;0984A0|      ;
    db $88                               ;0984A1|      ;
    db $36                               ;0984A2|000001;
-UNREACH_0984A3:
-   db $01                               ;0984A3|0000F0;
+DATA8_0984A3:
+   db $01                               ;0984A3|      ;
    db $F0                               ;0984A4|0984AE;
    db $08                               ;0984A5|      ;
    db $8E                               ;0984A6|000176;
@@ -1205,8 +1205,8 @@ UNREACH_0984A3:
    db $E8                               ;0984BE|      ;
    db $80                               ;0984BF|098537;
    db $76                               ;0984C0|000001;
-UNREACH_0984C1:
-   db $01                               ;0984C1|0000F0;
+DATA8_0984C1:
+   db $01                               ;0984C1|      ;
    db $F0                               ;0984C2|0984CC;
    db $08                               ;0984C3|      ;
    db $AE                               ;0984C4|000176;
@@ -1236,8 +1236,8 @@ UNREACH_0984C1:
    db $E8                               ;0984DC|      ;
    db $84                               ;0984DD|000076;
    db $76                               ;0984DE|000001;
-UNREACH_0984DF:
-   db $01                               ;0984DF|0000F0;
+DATA8_0984DF:
+   db $01                               ;0984DF|      ;
    db $F0                               ;0984E0|0984EA;
    db $08                               ;0984E1|      ;
    db $AE                               ;0984E2|000176;
@@ -1268,16 +1268,16 @@ UNREACH_0984DF:
    db $88                               ;0984FB|      ;
    db $76                               ;0984FC|00001F;
 Tbl_0984FD:
-   dw UNREACH_09C51F                    ;0984FD|09C51F;
-   dw UNREACH_09C597                    ;0984FF|09C597;
-   dw UNREACH_09C5B5                    ;098501|09C5B5;
-   dw UNREACH_09C46B                    ;098503|09C46B;
-   dw UNREACH_098449                    ;098505|098449;
-   dw UNREACH_098467                    ;098507|098467;
-   dw UNREACH_098485                    ;098509|098485;
-   dw UNREACH_0984A3                    ;09850B|0984A3;
-   dw UNREACH_0984C1                    ;09850D|0984C1;
-   dw UNREACH_0984DF                    ;09850F|0984DF;
+   dw DATA8_09C51F                      ;0984FD|09C51F;
+   dw DATA8_09C597                      ;0984FF|09C597;
+   dw DATA8_09C5B5                      ;098501|09C5B5;
+   dw DATA8_09C46B                      ;098503|09C46B;
+   dw DATA8_098449                      ;098505|098449;
+   dw DATA8_098467                      ;098507|098467;
+   dw DATA8_098485                      ;098509|098485;
+   dw DATA8_0984A3                      ;09850B|0984A3;
+   dw DATA8_0984C1                      ;09850D|0984C1;
+   dw DATA8_0984DF                      ;09850F|0984DF;
 UNREACH_098511:
    db $01                               ;098511|000000;
    db $00                               ;098512|      ;
@@ -1465,10 +1465,10 @@ UNREACH_0985A7:
    db $88                               ;0985C3|      ;
    db $76                               ;0985C4|00001F;
 Tbl_0985C5:
-   dw UNREACH_09C51F                    ;0985C5|09C51F;
-   dw UNREACH_09C597                    ;0985C7|09C597;
-   dw UNREACH_09C5B5                    ;0985C9|09C5B5;
-   dw UNREACH_09C46B                    ;0985CB|09C46B;
+   dw DATA8_09C51F                      ;0985C5|09C51F;
+   dw DATA8_09C597                      ;0985C7|09C597;
+   dw DATA8_09C5B5                      ;0985C9|09C5B5;
+   dw DATA8_09C46B                      ;0985CB|09C46B;
    dw UNREACH_098511                    ;0985CD|098511;
    dw UNREACH_09852F                    ;0985CF|09852F;
    dw UNREACH_09854D                    ;0985D1|09854D;
@@ -1661,10 +1661,10 @@ UNREACH_09866F:
    db $C4                               ;09868B|000078;
    db $78                               ;09868C|      ;
 Tbl_09868D:
-   dw UNREACH_09C51F                    ;09868D|09C51F;
-   dw UNREACH_09C597                    ;09868F|09C597;
-   dw UNREACH_09C5B5                    ;098691|09C5B5;
-   dw UNREACH_09C46B                    ;098693|09C46B;
+   dw DATA8_09C51F                      ;09868D|09C51F;
+   dw DATA8_09C597                      ;09868F|09C597;
+   dw DATA8_09C5B5                      ;098691|09C5B5;
+   dw DATA8_09C46B                      ;098693|09C46B;
    dw DATA16_0985D9                     ;098695|0985D9;
    dw UNREACH_0985F7                    ;098697|0985F7;
    dw UNREACH_098615                    ;098699|098615;
@@ -1764,10 +1764,10 @@ UNREACH_0986DD:
    db $C4                               ;0986F9|000038;
    db $38                               ;0986FA|      ;
 Tbl_0986FB:
-   dw UNREACH_09C51F                    ;0986FB|09C51F;
-   dw UNREACH_09C597                    ;0986FD|09C597;
-   dw UNREACH_09C5B5                    ;0986FF|09C5B5;
-   dw UNREACH_09C46B                    ;098701|09C46B;
+   dw DATA8_09C51F                      ;0986FB|09C51F;
+   dw DATA8_09C597                      ;0986FD|09C597;
+   dw DATA8_09C5B5                      ;0986FF|09C5B5;
+   dw DATA8_09C46B                      ;098701|09C46B;
    dw DATA16_0986A1                     ;098703|0986A1;
    dw UNREACH_0986BF                    ;098705|0986BF;
    dw UNREACH_0986DD                    ;098707|0986DD;
@@ -1864,10 +1864,10 @@ UNREACH_098745:
    db $0C                               ;098761|001F3B;
    db $3B                               ;098762|      ;
 Tbl_098763:
-   dw UNREACH_09C51F                    ;098763|09C51F; End of event 05, source 18A344
-   dw UNREACH_09C597                    ;098765|09C597;
-   dw UNREACH_09C5B5                    ;098767|09C5B5;
-   dw UNREACH_09C46B                    ;098769|09C46B;
+   dw DATA8_09C51F                      ;098763|09C51F; End of event 05, source 18A344
+   dw DATA8_09C597                      ;098765|09C597;
+   dw DATA8_09C5B5                      ;098767|09C5B5;
+   dw DATA8_09C46B                      ;098769|09C46B;
    dw DATA16_098709                     ;09876B|098709;
    dw UNREACH_098727                    ;09876D|098727;
    dw UNREACH_098745                    ;09876F|098745;
@@ -2088,10 +2088,10 @@ UNREACH_098825:
    db $0A                               ;098841|      ;
    db $32                               ;098842|00001F;
 Tbl_098843:
-   dw UNREACH_09C51F                    ;098843|09C51F;
-   dw UNREACH_09C597                    ;098845|09C597;
-   dw UNREACH_09C5B5                    ;098847|09C5B5;
-   dw UNREACH_09C46B                    ;098849|09C46B;
+   dw DATA8_09C51F                      ;098843|09C51F;
+   dw DATA8_09C597                      ;098845|09C597;
+   dw DATA8_09C5B5                      ;098847|09C5B5;
+   dw DATA8_09C46B                      ;098849|09C46B;
    dw DATA16_098771                     ;09884B|098771;
    dw UNREACH_09878F                    ;09884D|09878F;
    dw UNREACH_0987AD                    ;09884F|0987AD;
@@ -2936,10 +2936,10 @@ UNREACH_098B7D:
    db $C8                               ;098B99|      ;
    db $38                               ;098B9A|      ;
 Tbl_098B9B:
-   dw UNREACH_09C51F                    ;098B9B|09C51F;
-   dw UNREACH_09C597                    ;098B9D|09C597;
-   dw UNREACH_09C5B5                    ;098B9F|09C5B5;
-   dw UNREACH_09C46B                    ;098BA1|09C46B;
+   dw DATA8_09C51F                      ;098B9B|09C51F;
+   dw DATA8_09C597                      ;098B9D|09C597;
+   dw DATA8_09C5B5                      ;098B9F|09C5B5;
+   dw DATA8_09C46B                      ;098BA1|09C46B;
    dw DATA16_098B41                     ;098BA3|098B41;
    dw UNREACH_098B5F                    ;098BA5|098B5F;
    dw UNREACH_098B7D                    ;098BA7|098B7D;
@@ -3036,10 +3036,10 @@ UNREACH_098BE5:
    db $88                               ;098C01|      ;
    db $36                               ;098C02|00001F;
 Tbl_098C03:
-   dw UNREACH_09C51F                    ;098C03|09C51F;
-   dw UNREACH_09C597                    ;098C05|09C597;
-   dw UNREACH_09C5B5                    ;098C07|09C5B5;
-   dw UNREACH_09C46B                    ;098C09|09C46B;
+   dw DATA8_09C51F                      ;098C03|09C51F;
+   dw DATA8_09C597                      ;098C05|09C597;
+   dw DATA8_09C5B5                      ;098C07|09C5B5;
+   dw DATA8_09C46B                      ;098C09|09C46B;
    dw DATA16_098BA9                     ;098C0B|098BA9;
    dw UNREACH_098BC7                    ;098C0D|098BC7;
    dw UNREACH_098BE5                    ;098C0F|098BE5;
@@ -3136,10 +3136,10 @@ UNREACH_098C4D:
    db $88                               ;098C69|      ;
    db $36                               ;098C6A|00001F;
 Tbl_098C6B:
-   dw UNREACH_09C51F                    ;098C6B|09C51F;
-   dw UNREACH_09C597                    ;098C6D|09C597;
-   dw UNREACH_09C5B5                    ;098C6F|09C5B5;
-   dw UNREACH_09C46B                    ;098C71|09C46B;
+   dw DATA8_09C51F                      ;098C6B|09C51F;
+   dw DATA8_09C597                      ;098C6D|09C597;
+   dw DATA8_09C5B5                      ;098C6F|09C5B5;
+   dw DATA8_09C46B                      ;098C71|09C46B;
    dw DATA16_098C11                     ;098C73|098C11;
    dw UNREACH_098C2F                    ;098C75|098C2F;
    dw UNREACH_098C4D                    ;098C77|098C4D;
@@ -3267,10 +3267,10 @@ UNREACH_098CD3:
    db $00                               ;098CEF|      ;
    db $72                               ;098CF0|00001F;
 Tbl_098CF1:
-   dw UNREACH_09C51F                    ;098CF1|09C51F;
-   dw UNREACH_09C597                    ;098CF3|09C597;
-   dw UNREACH_09C5B5                    ;098CF5|09C5B5;
-   dw UNREACH_09C46B                    ;098CF7|09C46B;
+   dw DATA8_09C51F                      ;098CF1|09C51F;
+   dw DATA8_09C597                      ;098CF3|09C597;
+   dw DATA8_09C5B5                      ;098CF5|09C5B5;
+   dw DATA8_09C46B                      ;098CF7|09C46B;
    dw DATA16_098C79                     ;098CF9|098C79;
    dw UNREACH_098C97                    ;098CFB|098C97;
    dw UNREACH_098CB5                    ;098CFD|098CB5;
@@ -3399,10 +3399,10 @@ UNREACH_098D5B:
    db $00                               ;098D77|      ;
    db $72                               ;098D78|00001F;
 Tbl_098D79:
-   dw UNREACH_09C51F                    ;098D79|09C51F;
-   dw UNREACH_09C597                    ;098D7B|09C597;
-   dw UNREACH_09C5B5                    ;098D7D|09C5B5;
-   dw UNREACH_09C46B                    ;098D7F|09C46B;
+   dw DATA8_09C51F                      ;098D79|09C51F;
+   dw DATA8_09C597                      ;098D7B|09C597;
+   dw DATA8_09C5B5                      ;098D7D|09C5B5;
+   dw DATA8_09C46B                      ;098D7F|09C46B;
    dw DATA16_098D01                     ;098D81|098D01;
    dw UNREACH_098D1F                    ;098D83|098D1F;
    dw UNREACH_098D3D                    ;098D85|098D3D;
@@ -3562,10 +3562,10 @@ UNREACH_098E01:
    db $C4                               ;098E1D|000078;
    db $78                               ;098E1E|      ;
 Tbl_098E1F:
-   dw UNREACH_09C51F                    ;098E1F|09C51F;
-   dw UNREACH_09C597                    ;098E21|09C597;
-   dw UNREACH_09C5B5                    ;098E23|09C5B5;
-   dw UNREACH_09C46B                    ;098E25|09C46B;
+   dw DATA8_09C51F                      ;098E1F|09C51F;
+   dw DATA8_09C597                      ;098E21|09C597;
+   dw DATA8_09C5B5                      ;098E23|09C5B5;
+   dw DATA8_09C46B                      ;098E25|09C46B;
    dw DATA16_098D89                     ;098E27|098D89;
    dw UNREACH_098DA7                    ;098E29|098DA7;
    dw UNREACH_098DC5                    ;098E2B|098DC5;
@@ -17512,8 +17512,8 @@ UNREACH_09C461:
    db $C3                               ;09C468|0000FD;
    db $FD                               ;09C469|0001C3;
    db $C3                               ;09C46A|000001;
-UNREACH_09C46B:
-   db $01                               ;09C46B|000000;
+DATA8_09C46B:
+   db $01                               ;09C46B|      ;
    db $00                               ;09C46C|      ;
    db $08                               ;09C46D|      ;
    db $46                               ;09C46E|00003D;
@@ -17693,7 +17693,7 @@ UNREACH_09C46B:
    db $E0                               ;09C51C|      ;
    db $4C                               ;09C51D|09003D;
    db $3D                               ;09C51E|00F000;
-UNREACH_09C51F:
+DATA8_09C51F:
    db $00                               ;09C51F|      ;
    db $F0                               ;09C520|09C532;
    db $10                               ;09C521|09C4DE;
@@ -17814,8 +17814,8 @@ UNREACH_09C51F:
    db $F0                               ;09C594|09C521;
    db $8B                               ;09C595|      ;
    db $3F                               ;09C596|080001;
-UNREACH_09C597:
-   db $01                               ;09C597|000000;
+DATA8_09C597:
+   db $01                               ;09C597|      ;
    db $00                               ;09C598|      ;
    db $08                               ;09C599|      ;
    db $CE                               ;09C59A|000133;
@@ -17845,8 +17845,8 @@ UNREACH_09C597:
    db $E8                               ;09C5B2|      ;
    db $CE                               ;09C5B3|000133;
    db $33                               ;09C5B4|000001;
-UNREACH_09C5B5:
-   db $01                               ;09C5B5|000000;
+DATA8_09C5B5:
+   db $01                               ;09C5B5|      ;
    db $00                               ;09C5B6|      ;
    db $E8                               ;09C5B7|      ;
    db $A0                               ;09C5B8|      ;

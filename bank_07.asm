@@ -1060,9 +1060,9 @@ CODE_0787D9:
    ASL A                                ;0787DF|      ;
    TAX                                  ;0787E0|      ;
    LDA.L DATA16_0787F0,X                ;0787E1|0787F0;
-   STA.W $0787,Y                        ;0787E5|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;0787E5|000787;
    LDA.L DATA16_0787F8,X                ;0787E8|0787F8;
-   STA.W $07AB,Y                        ;0787EC|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;0787EC|0007AB;
    RTL                                  ;0787EF|      ;
 DATA16_0787F0:
    dw $003A                             ;0787F0|      ;
@@ -1081,9 +1081,9 @@ CODE_078800:
    ASL A                                ;078809|      ;
    TAX                                  ;07880A|      ;
    LDA.L DATA16_07881A,X                ;07880B|07881A;
-   STA.W $0787,Y                        ;07880F|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;07880F|000787;
    LDA.L DATA16_078822,X                ;078812|078822;
-   STA.W $07AB,Y                        ;078816|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;078816|0007AB;
    RTL                                  ;078819|      ;
 DATA16_07881A:
    dw $003E                             ;07881A|      ;
@@ -1401,12 +1401,12 @@ CODE_078A56:
    LDX.W $18AD,Y                        ;078A58|0018AD;
    LDA.W $18AB,Y                        ;078A5B|0018AB;
    TAY                                  ;078A5E|      ;
-   LDA.W $07AB,X                        ;078A5F|0007AB;
-   CMP.W $07AB,Y                        ;078A62|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,X       ;078A5F|0007AB;
+   CMP.W Cursor_Array_Ypos_Copy,Y       ;078A62|0007AB;
    BCC CODE_078A71                      ;078A65|078A71;
    BNE CODE_078A83                      ;078A67|078A83;
-   LDA.W $0787,X                        ;078A69|000787;
-   CMP.W $0787,Y                        ;078A6C|000787;
+   LDA.W Cursor_Array_Xpos_Copy,X       ;078A69|000787;
+   CMP.W Cursor_Array_Xpos_Copy,Y       ;078A6C|000787;
    BCS CODE_078A83                      ;078A6F|078A83;
 CODE_078A71:
    LDX.B $02                            ;078A71|000002;
@@ -1426,9 +1426,9 @@ CODE_078A83:
 CODE_078A8D:
    STZ.W $18A9                          ;078A8D|0018A9;
    LDX.W $18AD                          ;078A90|0018AD;
-   LDA.W $0787,X                        ;078A93|000787;
+   LDA.W Cursor_Array_Xpos_Copy,X       ;078A93|000787;
    STA.W $18BD                          ;078A96|0018BD;
-   LDA.W $07AB,X                        ;078A99|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,X       ;078A99|0007AB;
    STA.W $18BF                          ;078A9C|0018BF;
    RTL                                  ;078A9F|      ;
 CODE_078AA0:
@@ -1442,10 +1442,10 @@ CODE_078AA0:
    DEX                                  ;078AAF|      ;
 CODE_078AB0:
    LDY.W $18AD,X                        ;078AB0|0018AD;
-   LDA.W $07AB,Y                        ;078AB3|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078AB3|0007AB;
    CMP.W $18BF                          ;078AB6|0018BF;
    BNE CODE_078AC4                      ;078AB9|078AC4;
-   LDA.W $0787,Y                        ;078ABB|000787;
+   LDA.W Cursor_Array_Xpos_Copy,Y       ;078ABB|000787;
    STA.W $18BD                          ;078ABE|0018BD;
    STX.W $18A9                          ;078AC1|0018A9;
 CODE_078AC4:
@@ -1467,7 +1467,7 @@ CODE_078ADA:
    DEX                                  ;078ADD|      ;
    DEX                                  ;078ADE|      ;
    LDY.W $18AD,X                        ;078ADF|0018AD;
-   LDA.W $07AB,Y                        ;078AE2|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078AE2|0007AB;
    CMP.W $18BF                          ;078AE5|0018BF;
    BEQ CODE_078ADA                      ;078AE8|078ADA;
    STA.W $18BF                          ;078AEA|0018BF;
@@ -1475,7 +1475,7 @@ CODE_078ADA:
    CMP.W #$0081                         ;078AF0|      ;
    BCS CODE_078B13                      ;078AF3|078B13;
 CODE_078AF5:
-   LDA.W $0787,Y                        ;078AF5|000787;
+   LDA.W Cursor_Array_Xpos_Copy,Y       ;078AF5|000787;
    CMP.W $18BD                          ;078AF8|0018BD;
    BEQ CODE_078B40                      ;078AFB|078B40;
    BCC CODE_078B40                      ;078AFD|078B40;
@@ -1484,14 +1484,14 @@ CODE_078AF5:
    DEX                                  ;078B02|      ;
    DEX                                  ;078B03|      ;
    LDY.W $18AD,X                        ;078B04|0018AD;
-   LDA.W $07AB,Y                        ;078B07|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B07|0007AB;
    CMP.W $18BF                          ;078B0A|0018BF;
    BEQ CODE_078AF5                      ;078B0D|078AF5;
    INX                                  ;078B0F|      ;
    INX                                  ;078B10|      ;
    BRA CODE_078B40                      ;078B11|078B40;
 CODE_078B13:
-   LDA.W $0787,Y                        ;078B13|000787;
+   LDA.W Cursor_Array_Xpos_Copy,Y       ;078B13|000787;
    CMP.W $18BD                          ;078B16|0018BD;
    BEQ CODE_078B40                      ;078B19|078B40;
    BCC CODE_078B31                      ;078B1B|078B31;
@@ -1500,7 +1500,7 @@ CODE_078B13:
    DEX                                  ;078B20|      ;
    DEX                                  ;078B21|      ;
    LDY.W $18AD,X                        ;078B22|0018AD;
-   LDA.W $07AB,Y                        ;078B25|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B25|0007AB;
    CMP.W $18BF                          ;078B28|0018BF;
    BEQ CODE_078B13                      ;078B2B|078B13;
    INX                                  ;078B2D|      ;
@@ -1510,7 +1510,7 @@ CODE_078B31:
    INX                                  ;078B31|      ;
    INX                                  ;078B32|      ;
    LDY.W $18AD,X                        ;078B33|0018AD;
-   LDA.W $07AB,Y                        ;078B36|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B36|0007AB;
    CMP.W $18BF                          ;078B39|0018BF;
    BEQ CODE_078B40                      ;078B3C|078B40;
    DEX                                  ;078B3E|      ;
@@ -1528,7 +1528,7 @@ CODE_078B4B:
    INX                                  ;078B50|      ;
    INX                                  ;078B51|      ;
    LDY.W $18AD,X                        ;078B52|0018AD;
-   LDA.W $07AB,Y                        ;078B55|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B55|0007AB;
    CMP.W $18BF                          ;078B58|0018BF;
    BEQ CODE_078B4B                      ;078B5B|078B4B;
    STA.W $18BF                          ;078B5D|0018BF;
@@ -1536,7 +1536,7 @@ CODE_078B4B:
    CMP.W #$0081                         ;078B63|      ;
    BCC CODE_078B86                      ;078B66|078B86;
 CODE_078B68:
-   LDA.W $0787,Y                        ;078B68|000787;
+   LDA.W Cursor_Array_Xpos_Copy,Y       ;078B68|000787;
    CMP.W $18BD                          ;078B6B|0018BD;
    BCS CODE_078BB5                      ;078B6E|078BB5;
    CPX.W $18AB                          ;078B70|0018AB;
@@ -1544,14 +1544,14 @@ CODE_078B68:
    INX                                  ;078B75|      ;
    INX                                  ;078B76|      ;
    LDY.W $18AD,X                        ;078B77|0018AD;
-   LDA.W $07AB,Y                        ;078B7A|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B7A|0007AB;
    CMP.W $18BF                          ;078B7D|0018BF;
    BEQ CODE_078B68                      ;078B80|078B68;
    DEX                                  ;078B82|      ;
    DEX                                  ;078B83|      ;
    BRA CODE_078BB5                      ;078B84|078BB5;
 CODE_078B86:
-   LDA.W $0787,Y                        ;078B86|000787;
+   LDA.W Cursor_Array_Xpos_Copy,Y       ;078B86|000787;
    CMP.W $18BD                          ;078B89|0018BD;
    BEQ CODE_078BB5                      ;078B8C|078BB5;
    BCS CODE_078BA6                      ;078B8E|078BA6;
@@ -1560,7 +1560,7 @@ CODE_078B86:
    INX                                  ;078B95|      ;
    INX                                  ;078B96|      ;
    LDY.W $18AD,X                        ;078B97|0018AD;
-   LDA.W $07AB,Y                        ;078B9A|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B9A|0007AB;
    CMP.W $18BF                          ;078B9D|0018BF;
    BEQ CODE_078B86                      ;078BA0|078B86;
    DEX                                  ;078BA2|      ;
@@ -1570,7 +1570,7 @@ CODE_078BA6:
    DEX                                  ;078BA6|      ;
    DEX                                  ;078BA7|      ;
    LDY.W $18AD,X                        ;078BA8|0018AD;
-   LDA.W $07AB,Y                        ;078BAB|0007AB;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078BAB|0007AB;
    CMP.W $18BF                          ;078BAE|0018BF;
    BEQ CODE_078BB5                      ;078BB1|078BB5;
    INX                                  ;078BB3|      ;
@@ -1664,10 +1664,10 @@ Roll_target:
 Swap_values:
    LDX.W Selection                      ;078C75|00103F;
    LDY.W Temp_09C7,X                    ;078C78|0009C7;
-   LDA.W $0787,Y                        ;078C7B|000787;
-   STA.W $0787,X                        ;078C7E|000787;
-   LDA.W $07AB,Y                        ;078C81|0007AB;
-   STA.W $07AB,X                        ;078C84|0007AB;
+   LDA.W Cursor_Array_Xpos_Copy,Y       ;078C7B|000787;
+   STA.W Cursor_Array_Xpos_Copy,X       ;078C7E|000787;
+   LDA.W Cursor_Array_Ypos_Copy,Y       ;078C81|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,X       ;078C84|0007AB;
    LDA.W $07CF,Y                        ;078C87|0007CF;
    DEC A                                ;078C8A|      ;
    STA.W $07CF,X                        ;078C8B|0007CF;
@@ -2810,7 +2810,7 @@ CODE_079330:
    STA.W Temp_09C7,X                    ;079336|0009C7;
    RTL                                  ;079339|      ;
 Checks_for_input_probably:
-   LDX.W Selection                      ;07933A|00103F;
+   LDX.W Selection                      ;07933A|00103F; I think this returns a value depending on which portrait is highlighted.
    LDA.W Input_New                      ;07933D|000029;
    BIT.W #$0800                         ;079340|      ;
    BNE LeftRight_Press                  ;079343|079358;
@@ -3159,9 +3159,9 @@ CODE_079604:
    TAX                                  ;07960A|      ;
    SEP #$20                             ;07960B|      ;
    LDA.L DATA8_079625,X                 ;07960D|079625;
-   STA.W $0787,Y                        ;079611|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;079611|000787;
    LDA.L DATA8_079630,X                 ;079614|079630;
-   STA.W $07AB,Y                        ;079618|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;079618|0007AB;
    LDA.L DATA8_07963B,X                 ;07961B|07963B;
    STA.W Anim_ID,Y                      ;07961F|000A7B;
    REP #$20                             ;079622|      ;
@@ -3216,9 +3216,9 @@ CODE_07964E:
    TAX                                  ;079654|      ;
    SEP #$20                             ;079655|      ;
    LDA.L DATA8_07966F,X                 ;079657|07966F;
-   STA.W $0787,Y                        ;07965B|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;07965B|000787;
    LDA.L DATA8_079679,X                 ;07965E|079679;
-   STA.W $07AB,Y                        ;079662|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;079662|0007AB;
    LDA.L DATA8_079683,X                 ;079665|079683;
    STA.W Anim_ID,Y                      ;079669|000A7B;
    REP #$20                             ;07966C|      ;
@@ -3262,9 +3262,9 @@ CODE_07968D:
    TAX                                  ;079693|      ;
    SEP #$20                             ;079694|      ;
    LDA.L DATA8_0796AE,X                 ;079696|0796AE;
-   STA.W $0787,Y                        ;07969A|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;07969A|000787;
    LDA.L DATA8_0796BA,X                 ;07969D|0796BA;
-   STA.W $07AB,Y                        ;0796A1|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;0796A1|0007AB;
    LDA.L DATA8_0796C6,X                 ;0796A4|0796C6;
    STA.W Anim_ID,Y                      ;0796A8|000A7B;
    REP #$20                             ;0796AB|      ;
@@ -5217,9 +5217,9 @@ CODE_07A506:
    ASL A                                ;07A50C|      ;
    TAX                                  ;07A50D|      ;
    LDA.L Table_0787,X                   ;07A50E|07A524;
-   STA.W $0787,Y                        ;07A512|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;07A512|000787;
    LDA.L Table_07AB,X                   ;07A515|07A536;
-   STA.W $07AB,Y                        ;07A519|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;07A519|0007AB;
    LDA.L Table_0A7B,X                   ;07A51C|07A548;
    STA.W Anim_ID,Y                      ;07A520|000A7B;
    RTL                                  ;07A523|      ;
@@ -6447,9 +6447,9 @@ CODE_07AE65:
    ASL A                                ;07AE6C|      ;
    TAX                                  ;07AE6D|      ;
    LDA.L Tbl_07AE6E,X                   ;07AE6E|07AE7D;
-   STA.W $0787,Y                        ;07AE72|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;07AE72|000787;
    LDA.L Tbl_07AE75,X                   ;07AE75|07AE8F;
-   STA.W $07AB,Y                        ;07AE79|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;07AE79|0007AB;
    RTL                                  ;07AE7C|      ;
 Tbl_07AE6E:
    dw $003E                             ;07AE7D|      ; 9 entries; probably X distance of the menu cursor
@@ -6478,9 +6478,9 @@ SetBattleCursorPos:
    ASL A                                ;07AEA8|      ;
    TAX                                  ;07AEA9|      ;
    LDA.L BattleCursorXPos,X             ;07AEAA|07AEB9;
-   STA.W $0787,Y                        ;07AEAE|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;07AEAE|000787;
    LDA.L BattleCursorYPos,X             ;07AEB1|07AECB;
-   STA.W $07AB,Y                        ;07AEB5|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;07AEB5|0007AB;
    RTL                                  ;07AEB8|      ;
 BattleCursorXPos:
    dw $003E                             ;07AEB9|      ; Attack
@@ -7960,11 +7960,11 @@ CODE_07B9BF:
    LDX.W Selection                      ;07B9C8|00103F;
    PHA                                  ;07B9CB|      ;
    AND.W #$00FF                         ;07B9CC|      ;
-   STA.W $0787,X                        ;07B9CF|000787;
+   STA.W Cursor_Array_Xpos_Copy,X       ;07B9CF|000787;
    PLA                                  ;07B9D2|      ;
    XBA                                  ;07B9D3|      ;
    AND.W #$00FF                         ;07B9D4|      ;
-   STA.W $07AB,X                        ;07B9D7|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,X       ;07B9D7|0007AB;
    EOR.W #$FFFF                         ;07B9DA|      ;
    DEC A                                ;07B9DD|      ;
    STA.W $07CF,X                        ;07B9DE|0007CF;
@@ -7979,11 +7979,11 @@ CODE_07B9E2:
    LDX.W Selection                      ;07B9ED|00103F;
    PHA                                  ;07B9F0|      ;
    AND.W #$00FF                         ;07B9F1|      ;
-   STA.W $0787,X                        ;07B9F4|000787;
+   STA.W Cursor_Array_Xpos_Copy,X       ;07B9F4|000787;
    PLA                                  ;07B9F7|      ;
    XBA                                  ;07B9F8|      ;
    AND.W #$00FF                         ;07B9F9|      ;
-   STA.W $07AB,X                        ;07B9FC|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,X       ;07B9FC|0007AB;
    STZ.W $07CF,X                        ;07B9FF|0007CF;
    RTL                                  ;07BA02|      ;
 Wait_For_A_Press_1b:
@@ -8098,11 +8098,11 @@ CODE_07BAC3:
    STA.B $20                            ;07BAD9|000020;
    JSL.L GetEventCode_2b_far            ;07BADB|009B07;
    LDX.W Selection                      ;07BADF|00103F;
-   CMP.W $07AB,X                        ;07BAE2|0007AB;
+   CMP.W Cursor_Array_Ypos_Copy,X       ;07BAE2|0007AB;
    BCC CODE_07BAF3                      ;07BAE5|07BAF3;
    LDA.B $20                            ;07BAE7|000020;
    DEC A                                ;07BAE9|      ;
-   CMP.W $07AB,X                        ;07BAEA|0007AB;
+   CMP.W Cursor_Array_Ypos_Copy,X       ;07BAEA|0007AB;
    BCS CODE_07BAF3                      ;07BAED|07BAF3;
    LDA.W #$0000                         ;07BAEF|      ;
    RTL                                  ;07BAF2|      ;
@@ -8420,11 +8420,11 @@ Sets_Some_Values:
    ASL A                                ;07BD76|      ;
    TAX                                  ;07BD77|      ;
    LDA.L DATA16_07BD8D,X                ;07BD78|07BD8D;
-   STA.W $0787,Y                        ;07BD7C|000787;
-   STA.W $06F7,Y                        ;07BD7F|0006F7;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;07BD7C|000787;
+   STA.W Cursor_Array_Xpos,Y            ;07BD7F|0006F7;
    LDA.L DATA16_07BD95,X                ;07BD82|07BD95;
-   STA.W $07AB,Y                        ;07BD86|0007AB;
-   STA.W $071B,Y                        ;07BD89|00071B;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;07BD86|0007AB;
+   STA.W Cursor_Array_Ypos,Y            ;07BD89|00071B;
    RTL                                  ;07BD8C|      ;
 DATA16_07BD8D:
    dw $001C                             ;07BD8D|      ;

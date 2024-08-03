@@ -3767,7 +3767,7 @@ Formation_Zone_0B_Layout_0F:
 New_stuff:
    db $1C                               ;18954E|      ;
 New_stuff2:
-   db $38                               ;18954F|      ;
+   db $38                               ;18954F|      ; Seems related to enemy position on the screen
    db $E4                               ;189550|      ;
    db $38                               ;189551|      ;
    db $1C                               ;189552|      ;
@@ -4338,7 +4338,7 @@ Enter_Crystal_Room:
    db $1B                               ;189891|      ;
    dw SetB6_FadeOut                     ;189892|18D416;
    db $07                               ;189894|      ;
-   dl Display_near_1b_1b_2b_2b          ;189895|009D6F;
+   dl Display_brancher_6b               ;189895|009D6F;
    db $01                               ;189898|      ;
    db $00                               ;189899|      ;
    dw $3000                             ;18989A|      ;
@@ -5305,11 +5305,11 @@ Setup_07AX_vals:
    TAX                                  ;189D79|      ;
    LDA.L New_stuff,X                    ;189D7A|18954E; Load lower byte
    AND.W #$00FF                         ;189D7E|      ;
-   STA.W $0787,Y                        ;189D81|000787; Store lower byte
+   STA.W Cursor_Array_Xpos_Copy,Y       ;189D81|000787; Store lower byte
    LDA.L New_stuff,X                    ;189D84|18954E; Load upper byte
    AND.W #$FF00                         ;189D88|      ;
    XBA                                  ;189D8B|      ;
-   STA.W $07AB,Y                        ;189D8C|0007AB; Store upper byte
+   STA.W Cursor_Array_Ypos_Copy,Y       ;189D8C|0007AB; Store upper byte
    LDA.W #$0041                         ;189D8F|      ;
    STA.W Anim_ID,Y                      ;189D92|000A7B; Overwrite it with 41 (??)
    RTL                                  ;189D95|      ;
@@ -5580,9 +5580,9 @@ CODE_189FB9:
    ASL A                                ;189FBC|      ;
    TAX                                  ;189FBD|      ;
    LDA.L Question_YN,X                  ;189FBE|189FF2;
-   STA.W $0787,Y                        ;189FC2|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;189FC2|000787;
    LDA.W #$00B2                         ;189FC5|      ;
-   STA.W $07AB,Y                        ;189FC8|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;189FC8|0007AB;
    LDA.W #$005B                         ;189FCB|      ;
    STA.W Anim_ID,Y                      ;189FCE|000A7B;
    LDA.W Input_0031                     ;189FD1|000031;
@@ -5634,7 +5634,7 @@ ASM_Ch2_Salah:
    db $03                               ;18A01C|      ;
    db $02                               ;18A01D|      ;
    db $07                               ;18A01E|      ;
-   dl Display_near_1b_1b_2b_2b          ;18A01F|009D6F;
+   dl Display_brancher_6b               ;18A01F|009D6F;
    db $01                               ;18A022|      ;
    db $00                               ;18A023|      ;
    dw $3000                             ;18A024|      ;
@@ -6574,7 +6574,7 @@ ASM_Reinoll_Event:
    dl Battle_related1b                  ;18A4DE|009CDD;
    db $08                               ;18A4E1|      ;
    db $07                               ;18A4E2|      ;
-   dl Display_near_1b_1b_2b_2b          ;18A4E3|009D6F;
+   dl Display_brancher_6b               ;18A4E3|009D6F;
    db $01                               ;18A4E6|      ;
    db $01                               ;18A4E7|      ;
    dw $3000                             ;18A4E8|      ;
@@ -7761,7 +7761,7 @@ ASM_Ch3_Start:
    db $03                               ;18AA98|      ;
    db $02                               ;18AA99|      ;
    db $07                               ;18AA9A|      ;
-   dl Display_near_1b_1b_2b_2b          ;18AA9B|009D6F;
+   dl Display_brancher_6b               ;18AA9B|009D6F;
    db $01                               ;18AA9E|      ;
    db $00                               ;18AA9F|      ;
    dw $3000                             ;18AAA0|      ;
@@ -8324,7 +8324,7 @@ ASM_Lava_Room:
    db $1B                               ;18AD6E|      ; Sub: Fade out
    dw SetB6_FadeOut                     ;18AD6F|18D416;
    db $07                               ;18AD71|      ; Set main screen
-   dl MainScr_AND_1b                    ;18AD72|009DB6;
+   dl MainScr_Remove_1b                 ;18AD72|009DB6;
    db $02                               ;18AD75|      ;
    db $07                               ;18AD76|      ; Set Window1
    dl Set_Win1_3b                       ;18AD77|18D54C;
@@ -8338,7 +8338,7 @@ ASM_Lava_Room:
    db $00                               ;18AD83|      ;
    db $83                               ;18AD84|      ;
    db $07                               ;18AD85|      ; Do stuff
-   dl Display_near_1b_1b_2b_2b          ;18AD86|009D6F;
+   dl Display_brancher_6b               ;18AD86|009D6F;
    db $01                               ;18AD89|      ;
    db $01                               ;18AD8A|      ;
    db $00                               ;18AD8B|      ;
@@ -8381,7 +8381,7 @@ Decompress_stuff:
    db $09                               ;18ADC1|      ; Move lots of data
    dl Move_Lots_of_Data                 ;18ADC2|18B04D;
    db $07                               ;18ADC5|      ; Combine main screen
-   dl MainScr_OR_1b                     ;18ADC6|009DA8;
+   dl MainScr_Add_1b                    ;18ADC6|009DA8;
    db $02                               ;18ADC9|      ;
    db $1B                               ;18ADCA|      ; Sub:Turn off sound
    dw Sub_Turn_off_sound                ;18ADCB|18D3F6;
@@ -9189,7 +9189,7 @@ _18B186_data:
    db $00                               ;18B1A4|      ;
 Zeros_190X_vars:
    LDX.W Selection                      ;18B1A5|00103F; These vars are for suckers
-   LDA.W $06F7,X                        ;18B1A8|0006F7;
+   LDA.W Cursor_Array_Xpos,X            ;18B1A8|0006F7;
    CLC                                  ;18B1AB|      ;
    ADC.W #$0011                         ;18B1AC|      ;
    SEP #$20                             ;18B1AF|      ;
@@ -9339,7 +9339,7 @@ ASM_Ch4_Axs:
    db $03                               ;18B26E|      ;
    db $02                               ;18B26F|      ; End loop
    db $07                               ;18B270|      ;
-   dl Display_near_1b_1b_2b_2b          ;18B271|009D6F;
+   dl Display_brancher_6b               ;18B271|009D6F;
    db $01                               ;18B274|      ;
    db $00                               ;18B275|      ;
    dw $3000                             ;18B276|      ;
@@ -9387,7 +9387,7 @@ ASM_Ch4_Axs:
    dl GetSet_Music                      ;18B2C0|009C3C;
    db $40                               ;18B2C3|      ;
    db $07                               ;18B2C4|      ;
-   dl MainScr_AND_1b                    ;18B2C5|009DB6;
+   dl MainScr_Remove_1b                 ;18B2C5|009DB6;
    db $04                               ;18B2C8|      ;
    db $16                               ;18B2C9|      ;
    dw $0420                             ;18B2CA|      ;
@@ -9498,7 +9498,7 @@ Text_SCRIPT065:
    db $07                               ;18B366|      ;
    dl More_Town_Loading                 ;18B367|03B3FD;
    db $07                               ;18B36A|      ;
-   dl MainScr_OR_1b                     ;18B36B|009DA8;
+   dl MainScr_Add_1b                    ;18B36B|009DA8;
    db $04                               ;18B36E|      ;
    db $1B                               ;18B36F|      ;
    dw Sub_FadeIn                        ;18B370|18D435;
@@ -9861,7 +9861,7 @@ ASM_Ch4_Salah:
    db $1B                               ;18B543|      ;
    dw SetB6_FadeOut                     ;18B544|18D416;
    db $07                               ;18B546|      ;
-   dl Display_near_1b_1b_2b_2b          ;18B547|009D6F;
+   dl Display_brancher_6b               ;18B547|009D6F;
    db $01                               ;18B54A|      ;
    db $00                               ;18B54B|      ;
    dw $3000                             ;18B54C|      ;
@@ -9924,7 +9924,7 @@ ASM_Ch4_Salah:
    db $02                               ;18B5A3|      ;
    db $00                               ;18B5A4|      ;
    db $07                               ;18B5A5|      ;
-   dl MainScr_AND_1b                    ;18B5A6|009DB6;
+   dl MainScr_Remove_1b                 ;18B5A6|009DB6;
    db $04                               ;18B5A9|      ;
    db $16                               ;18B5AA|      ;
    dw $0420                             ;18B5AB|      ;
@@ -9968,7 +9968,7 @@ Text_SCRIPT070:
    db $07                               ;18B5EA|      ;
    dl More_Town_Loading                 ;18B5EB|03B3FD;
    db $07                               ;18B5EE|      ;
-   dl MainScr_OR_1b                     ;18B5EF|009DA8;
+   dl MainScr_Add_1b                    ;18B5EF|009DA8;
    db $04                               ;18B5F2|      ;
    db $1B                               ;18B5F3|      ;
    dw Sub_Turn_off_sound                ;18B5F4|18D3F6;
@@ -10286,7 +10286,7 @@ DATA8_18B79D:
    db $1B                               ;18B7B5|      ;
    dw Sub_LoadSomething                 ;18B7B6|18D44D;
 Text_SCRIPT075:
-   db $07                               ;18B7B8|      ;
+   db $07                               ;18B7B8|      ; Too bad
    dl Load_Event_Text                   ;18B7B9|18D4CC;
    dl SCRIPT_075                        ;18B7BC|0CDA78;
    db $00                               ;18B7BF|      ;
@@ -10320,7 +10320,7 @@ Text_SCRIPT075:
    db $06                               ;18B7E1|      ;
    db $78                               ;18B7E2|      ;
 Text_SCRIPT076:
-   db $07                               ;18B7E3|      ;
+   db $07                               ;18B7E3|      ; Heh heh heh
    dl Load_Event_Text                   ;18B7E4|18D4CC;
    dl SCRIPT_076                        ;18B7E7|0CDAC1;
    db $00                               ;18B7EA|      ;
@@ -10534,7 +10534,7 @@ Text_SCRIPT079:
    db $00                               ;18B8F8|      ;
    db $03                               ;18B8F9|      ;
    db $07                               ;18B8FA|      ;
-   dl Display_near_1b_1b_2b_2b          ;18B8FB|009D6F;
+   dl Display_brancher_6b               ;18B8FB|009D6F;
    db $01                               ;18B8FE|      ;
    db $01                               ;18B8FF|      ;
    dw $3000                             ;18B900|      ;
@@ -11344,7 +11344,7 @@ ASM_Galneon_Door:
    db $1B                               ;18BD39|      ;
    dw SetB6_FadeOut                     ;18BD3A|18D416;
    db $07                               ;18BD3C|      ;
-   dl Display_near_1b_1b_2b_2b          ;18BD3D|009D6F;
+   dl Display_brancher_6b               ;18BD3D|009D6F;
    db $01                               ;18BD40|      ;
    db $00                               ;18BD41|      ;
    dw $3000                             ;18BD42|      ;
@@ -11526,7 +11526,7 @@ Text_SCRIPT094:
    db $14                               ;18BE4B|      ;
    db $01                               ;18BE4C|      ;
    db $07                               ;18BE4D|      ;
-   dl Display_near_1b_1b_2b_2b          ;18BE4E|009D6F;
+   dl Display_brancher_6b               ;18BE4E|009D6F;
    db $01                               ;18BE51|      ;
    db $00                               ;18BE52|      ;
    dw $3000                             ;18BE53|      ;
@@ -11549,7 +11549,7 @@ Text_SCRIPT094:
    db $C0                               ;18BE77|      ;
    dw $0020                             ;18BE78|      ;
    db $07                               ;18BE7A|      ;
-   dl MainScr_AND_1b                    ;18BE7B|009DB6;
+   dl MainScr_Remove_1b                 ;18BE7B|009DB6;
    db $0D                               ;18BE7E|      ;
    db $06                               ;18BE7F|      ; 06 3C
    db $3C                               ;18BE80|      ;
@@ -11616,7 +11616,7 @@ Lightning_Scene:
    db $06                               ;18BEC6|      ;
    db $3C                               ;18BEC7|      ;
    db $07                               ;18BEC8|      ;
-   dl MainScr_AND_1b                    ;18BEC9|009DB6;
+   dl MainScr_Remove_1b                 ;18BEC9|009DB6;
    db $1F                               ;18BECC|      ;
    db $01                               ;18BECD|      ; 01 1F
    db $1F                               ;18BECE|      ;
@@ -12374,14 +12374,14 @@ Weird_RNG_Rolls:
    TAX                                  ;18C1DD|      ;
    LDY.W Selection                      ;18C1DE|00103F;
    LDA.L DATA16_18C202,X                ;18C1E1|18C202;
-   STA.W $0787,Y                        ;18C1E5|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;18C1E5|000787;
    LDA.W #$0006                         ;18C1E8|      ;
    JSL.L RNG                            ;18C1EB|0089F1;
    ASL A                                ;18C1EF|      ;
    TAX                                  ;18C1F0|      ;
    LDY.W Selection                      ;18C1F1|00103F;
    LDA.L DATA16_18C20E,X                ;18C1F4|18C20E;
-   STA.W $07AB,Y                        ;18C1F8|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;18C1F8|0007AB;
    LDA.W #$0002                         ;18C1FB|      ;
    JML.L RNG                            ;18C1FE|0089F1;
 DATA16_18C202:
@@ -12432,7 +12432,7 @@ ASM_Ch5_TeefaDarwin:
    db $03                               ;18C243|      ;
    db $02                               ;18C244|      ; 02
    db $07                               ;18C245|      ;
-   dl Display_near_1b_1b_2b_2b          ;18C246|009D6F;
+   dl Display_brancher_6b               ;18C246|009D6F;
    db $01                               ;18C249|      ;
    db $00                               ;18C24A|      ;
    dw $3000                             ;18C24B|      ;
@@ -13565,10 +13565,10 @@ Loop_FadeToBlack:
    db $06                               ;18C874|      ;
    db $01                               ;18C875|      ;
    db $07                               ;18C876|      ;
-   dl MainScr_AND_1b                    ;18C877|009DB6;
+   dl MainScr_Remove_1b                 ;18C877|009DB6;
    db $14                               ;18C87A|      ;
    db $07                               ;18C87B|      ;
-   dl SubScr_OR_1b                      ;18C87C|009DC6;
+   dl SubScr_Add_1b                     ;18C87C|009DC6;
    db $10                               ;18C87F|      ;
    db $13                               ;18C880|      ; 13: $2130 = 02
    dw $2130                             ;18C881|002130;
@@ -13577,7 +13577,7 @@ Loop_FadeToBlack:
    dw $2131                             ;18C885|002131;
    db $42                               ;18C887|      ;
    db $07                               ;18C888|      ;
-   dl Display_near_1b_1b_2b_2b          ;18C889|009D6F;
+   dl Display_brancher_6b               ;18C889|009D6F;
    db $01                               ;18C88C|      ;
    db $00                               ;18C88D|      ;
    dw $3000                             ;18C88E|      ;
@@ -13689,10 +13689,10 @@ Egg_Awakens_SFX:
    dw $2131                             ;18C921|      ;
    db $32                               ;18C923|      ;
    db $07                               ;18C924|      ;
-   dl MainScr_OR_1b                     ;18C925|009DA8;
+   dl MainScr_Add_1b                    ;18C925|009DA8;
    db $10                               ;18C928|      ;
    db $07                               ;18C929|      ;
-   dl SubScr_AND_1b                     ;18C92A|009DD7;
+   dl SubScr_Remove_1b                  ;18C92A|009DD7;
    db $1F                               ;18C92D|      ;
    db $07                               ;18C92E|      ;
    dl Set_RGB_3b                        ;18C92F|009F83;
@@ -13858,7 +13858,7 @@ Cool_NestedLoop:
    db $07                               ;18C9F4|      ;
    dl Check_Party                       ;18C9F5|18D4D9;
    db $07                               ;18C9F8|      ;
-   dl Display_near_1b_1b_2b_2b          ;18C9F9|009D6F;
+   dl Display_brancher_6b               ;18C9F9|009D6F;
    db $01                               ;18C9FC|      ;
    db $03                               ;18C9FD|      ;
    dw $3000                             ;18C9FE|      ;
@@ -14198,10 +14198,10 @@ Final_Battle:
    dl Rem_HDMA_ch_1b                    ;18CBC4|009F1F;
    db $07                               ;18CBC7|      ;
    db $07                               ;18CBC8|      ;
-   dl MainScr_AND_1b                    ;18CBC9|009DB6;
+   dl MainScr_Remove_1b                 ;18CBC9|009DB6;
    db $05                               ;18CBCC|      ;
    db $07                               ;18CBCD|      ;
-   dl Display_near_1b_1b_2b_2b          ;18CBCE|009D6F;
+   dl Display_brancher_6b               ;18CBCE|009D6F;
    db $00                               ;18CBD1|      ;
    db $01                               ;18CBD2|      ;
    dw $7000                             ;18CBD3|      ;
@@ -14249,10 +14249,10 @@ Final_Battle:
    db $00                               ;18CC12|      ;
    db $00                               ;18CC13|      ;
    db $07                               ;18CC14|      ;
-   dl MainScr_AND_1b                    ;18CC15|009DB6;
+   dl MainScr_Remove_1b                 ;18CC15|009DB6;
    db $11                               ;18CC18|      ;
    db $07                               ;18CC19|      ;
-   dl Display_near_1b_1b_2b_2b          ;18CC1A|009D6F;
+   dl Display_brancher_6b               ;18CC1A|009D6F;
    db $01                               ;18CC1D|      ;
    db $00                               ;18CC1E|      ;
    dw $3000                             ;18CC1F|      ;
@@ -14514,7 +14514,7 @@ DATA8_18CD23:
    dw DATA8_18CD23                      ;18CD3C|18CD23;
 DATA8_18CD3E:
    db $07                               ;18CD3E|      ;
-   dl MainScr_OR_1b                     ;18CD3F|009DA8;
+   dl MainScr_Add_1b                    ;18CD3F|009DA8;
    db $01                               ;18CD42|      ;
    db $78                               ;18CD43|      ;
    db $00                               ;18CD44|      ;
@@ -14527,7 +14527,7 @@ DATA8_18CD3E:
    db $06                               ;18CD4D|      ;
    db $03                               ;18CD4E|      ;
    db $07                               ;18CD4F|      ;
-   dl MainScr_AND_1b                    ;18CD50|009DB6;
+   dl MainScr_Remove_1b                 ;18CD50|009DB6;
    db $01                               ;18CD53|      ;
    db $06                               ;18CD54|      ;
    db $03                               ;18CD55|      ;
@@ -14977,18 +14977,18 @@ Maybe_Rimsala_beat:
    db $06                               ;18CFA2|      ;
    db $78                               ;18CFA3|      ;
    db $07                               ;18CFA4|      ;
-   dl Display_or_80_far                 ;18CFA5|008177;
+   dl Display_Force_Blanking_far        ;18CFA5|008177;
    db $07                               ;18CFA8|      ;
-   dl Display_near_1b_1b_2b_2b          ;18CFA9|009D6F;
+   dl Display_brancher_6b               ;18CFA9|009D6F;
    db $02                               ;18CFAC|      ;
    db $00                               ;18CFAD|      ;
    dw $5000                             ;18CFAE|      ;
    dw $0C00                             ;18CFB0|      ;
    db $07                               ;18CFB2|      ;
-   dl MainScr_AND_1b                    ;18CFB3|009DB6;
+   dl MainScr_Remove_1b                 ;18CFB3|009DB6;
    db $1F                               ;18CFB6|      ;
    db $07                               ;18CFB7|      ;
-   dl MainScr_OR_1b                     ;18CFB8|009DA8;
+   dl MainScr_Add_1b                    ;18CFB8|009DA8;
    db $04                               ;18CFBB|      ;
    db $07                               ;18CFBC|      ; Transfer 8 bytes from 18/D011 to RAM $420
    dl Transfer_Data_3b_1b_2b            ;18CFBD|00A140;
@@ -15760,34 +15760,34 @@ Travel_subasm:
    db $06                               ;18D56C|      ; 06: Wait 1F
    db $01                               ;18D56D|      ;
    db $07                               ;18D56E|      ; Screen stuff
-   dl Display_or_80_far                 ;18D56F|008177;
+   dl Display_Force_Blanking_far        ;18D56F|008177;
    db $07                               ;18D572|      ; Do stuff
-   dl Do_stuff_1b_2b_1b                 ;18D573|009D93;
+   dl Set_Sprite_mode_4b                ;18D573|009D93;
    db $00                               ;18D576|      ;
    dw $6000                             ;18D577|      ;
    db $00                               ;18D579|      ;
    db $07                               ;18D57A|      ; Something BG mode/char size
-   dl _0081BF_1b                        ;18D57B|009D69;
+   dl Read_BGmode_1b                    ;18D57B|009D69;
    db $01                               ;18D57E|      ;
 Setup_BG1:
    db $07                               ;18D57F|      ; Do stuff (6b)
-   dl Display_near_1b_1b_2b_2b          ;18D580|009D6F;
+   dl Display_brancher_6b               ;18D580|009D6F;
    db $00                               ;18D583|      ;
    db $03                               ;18D584|      ;
    dw $1000                             ;18D585|      ;
    dw $3000                             ;18D587|      ;
 Setup_BG2:
    db $07                               ;18D589|      ;
-   dl Display_near_1b_1b_2b_2b          ;18D58A|009D6F;
+   dl Display_brancher_6b               ;18D58A|009D6F;
    db $01                               ;18D58D|      ;
    db $03                               ;18D58E|      ;
    dw $1000                             ;18D58F|      ;
    dw $4000                             ;18D591|      ;
    db $07                               ;18D593|      ; Screen stuff
-   dl MainScr_AND_1b                    ;18D594|009DB6;
+   dl MainScr_Remove_1b                 ;18D594|009DB6;
    db $1F                               ;18D597|      ;
    db $07                               ;18D598|      ; Screen stuff
-   dl MainScr_OR_1b                     ;18D599|009DA8;
+   dl MainScr_Add_1b                    ;18D599|009DA8;
    db $13                               ;18D59C|      ;
    db $07                               ;18D59D|      ; Decomp
    dl Decomp80_setup_3b                 ;18D59E|009CF9;
@@ -16457,9 +16457,9 @@ Tbl_ChibiLoc:
    dw $0000                             ;18D909|      ;
    dw $0000                             ;18D90B|      ;
    dw RLE_Sprite_Chibi_Teefa            ;18D90D|06D4F6;
-   dw RLE_Sprites_Chibi_Salah           ;18D90F|06D744;
-   dw RLE_Graphics_Chibi_Darwin         ;18D911|06D99F;
-   dw RLE_Graphics_Chibi_Axs            ;18D913|06DB1F;
+   dw RLE_Sprite_Chibi_Salah            ;18D90F|06D744;
+   dw RLE_Sprite_Chibi_Darwin           ;18D911|06D99F;
+   dw RLE_Sprite_Chibi_Axs              ;18D913|06DB1F;
 Tbl_ChibiLoc_Bank:
    dw $0006                             ;18D915|      ;
    dw $0000                             ;18D917|      ;
@@ -16683,9 +16683,9 @@ CODE_18D9FC:
    ADC.L DATA16_18DA48,X                ;18DA0C|18DA48;
    STA.W Anim_ID,Y                      ;18DA10|000A7B;
    LDA.L DATA16_18DA5C,X                ;18DA13|18DA5C;
-   STA.W $0787,Y                        ;18DA17|000787;
+   STA.W Cursor_Array_Xpos_Copy,Y       ;18DA17|000787;
    LDA.L DATA16_18DA70,X                ;18DA1A|18DA70;
-   STA.W $07AB,Y                        ;18DA1E|0007AB;
+   STA.W Cursor_Array_Ypos_Copy,Y       ;18DA1E|0007AB;
    LDA.L UNREACH_18DA84,X               ;18DA21|18DA84;
    STA.W $08CB,Y                        ;18DA25|0008CB;
    LDA.L UNREACH_18DA98,X               ;18DA28|18DA98;

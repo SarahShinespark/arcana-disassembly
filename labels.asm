@@ -63,7 +63,7 @@
    V_Timer_lo = $004209
    H_Timer_hi = $004208
    H_Timer_lo = $004207
-   NMI_enable = $004200
+   NMI_time_n = $004200; !^ N.VH ...J (N=NMI enable) ^!
    WRAM_IO = $002180; !^ Read/write WRAM ^!
    WRAM_lo = $002181
    WRAM_mid = $002182
@@ -263,7 +263,7 @@
    SpiritLV = $00137D
    Status_Weird = $00112B; !^ 01=Confused, Slept, Para, Petri, Silence ^!
    Input_New = $000029
-   Max_Cursor_Pos = $001883
+   Shop_Max_Entries = $001883; !^ Number of entries in current menu ^!
    _4F_50_52_51_Battle = $0018EF
    Anim_Loopvar = $000B9F; !^ Value 0-7 ^!
    Ptr_EventStack = $000BFB
@@ -298,6 +298,16 @@
    ID_Enemy8 = $000665
    Loc_Font_var02 = $00AC2D
    Loc_Font_var04 = $00AC2F
+   Shop_Curr_Selection = $00188D; !^ Screen position; 0-3 for 4 weapons shop ^!
+   Cursor_Array_Xpos = $0006F7; !^ Usually 6F9; set by opcode 38 ^!
+   Cursor_Array_Xpos_Copy = $000787
+   Cursor_Xpos_Copy = $000789
+   Cursor_Array_Ypos = $00071B; !^ usually 71D; set by opcode 40 ^!
+   Cursor_Array_Ypos_Copy = $0007AB
+   BGmode_temp = $000044; !^ Stored in $2105 BGmode_Charsize ^!
+   OAM_Size_temp = $000043; !^ Temp var for $2101 ^!
+   APU_temp = $00062A; !^ Holds a value associated with $2141 APU1 ^!
+   NMI_temp = $000047
    PTR24_00A1D8 = $00A1D8
    PTR24_00A31C = $00A31C
    PTR24_00AC30 = $00AC30

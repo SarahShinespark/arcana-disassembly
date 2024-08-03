@@ -22351,7 +22351,7 @@ RLE_Sprite_Chibi_Teefa:
    db $02                               ;06D741|      ;
    db $C0                               ;06D742|      ;
    db $FF                               ;06D743|      ; End chibi Teefa gfx
-RLE_Sprites_Chibi_Salah:
+RLE_Sprite_Chibi_Salah:
    db $13                               ;06D744|      ;
    db $03                               ;06D745|      ;
    db $01                               ;06D746|      ;
@@ -22955,7 +22955,7 @@ RLE_Sprites_Chibi_Salah:
    db $02                               ;06D99C|      ;
    db $C0                               ;06D99D|      ;
    db $FF                               ;06D99E|      ; End chibi Salah gfx
-RLE_Graphics_Chibi_Darwin:
+RLE_Sprite_Chibi_Darwin:
    db $15                               ;06D99F|      ;
    db $0E                               ;06D9A0|      ;
    db $04                               ;06D9A1|      ;
@@ -23340,7 +23340,7 @@ RLE_Graphics_Chibi_Darwin:
    db $02                               ;06DB1C|      ;
    db $C0                               ;06DB1D|      ;
    db $FF                               ;06DB1E|      ; End chibi Darwin gfx
-RLE_Graphics_Chibi_Axs:
+RLE_Sprite_Chibi_Axs:
    db $13                               ;06DB1F|      ;
    db $67                               ;06DB20|      ;
    db $43                               ;06DB21|      ;
@@ -24007,7 +24007,7 @@ RLE_Graphics_Chibi_Axs:
    db $F0                               ;06DDB6|      ;
    db $F0                               ;06DDB7|      ;
    db $FF                               ;06DDB8|      ; End chibi Axs gfx
-RLE_Sprites_Chibi_End:
+RLE_Sprite_Chibi_End:
    db $E7                               ;06DDB9|      ; idk why this needs 4 compressed bytes but it does
    db $FF                               ;06DDBA|      ;
    db $00                               ;06DDBB|      ;
