@@ -1,0 +1,84 @@
+Name		Race	  Element  HP	 EXP	GP	Spell		    LV	STR	INT	ENDUR	ALERT
+
+Slime                     Earth    3	 1	4	                    1	1	40	50	0
+Pilferer                           5	 3	2	                    1	32	40	50	10
+Thief                              8	 3	5	                    2	48	40	50	20
+Goblin                    Earth    4	 4	6	                    2	48	40	50	5
+Ogre                      Earth    8	 5	12	                    3	79	40	50	10
+Hound                     Earth    10	 4	5	                    3	32	40	50	10
+Lupus                     Earth    20	 5	30	                    4	128	40	50	20
+Saurian                   Fire     15	 6	15	                    4	128	40	50	20
+Lizard                    Fire     20	 5	5	                    5	208	40	50	15
+Gurgeon                   Wind     16	 7	6	Lightning 1         8	208	40	50	25
+Jell                      Fire     6	 2	7	                    3	48	40	50	5
+Stone Guardian            Earth    150	 15	100	                    10	208	40	50	10
+Iron Guardian             Earth    300	 30	100	                    15	250	40	50	15
+Bee                       Wind     22	 5	1	                    7	48	60	100	20
+Flytrap                   Earth    20	 9	5	                    5	96	60	100	5
+Wolfsbane                 Water    30	 12	6	                    8	160	60	100	10
+Huetree                   Earth    25	 10	22	                    4	128	60	100	8
+Trunkman                  Water    30	 20	30	                    6	224	60	100	16
+Sauropod                  Fire     35	 10	21	                    10	208	60	100	15
+Assassin                           25	 30	45	Water 1             12	128	60	100	20
+Cyclops          Giant    Fire     200	 50	300	                    20	224	60	100	12
+Efrite                    Fire     300	 70	2	Flame 2             25	224	60	100	18
+Zerel                              450	 100	400	                    30	250	60	100	30
+Jeru                      Water    30	 7	17	Sleep               6	115	80	150	12
+Hobgoblin                          37	 10	25	                    6	160	80	150	14
+Fighter                            34	 35	30	                    7	179	80	150	16
+Raiton                    Wind     40	 15	52	                    6	202	80	150	20
+Mage                               53	 20	40	Flame 1             8	74	80	150	8
+Undead           Undead   Earth    67	 18	13	                    5	138	80	150	4
+Skeleton         Undead   Earth    40	 15	34	                    6	115	80	150	15
+Witch                              28	 15	45	Water 1             4	96	80	150	6
+Bajis                     Earth    45	 15	30	                    8	147	80	150	24
+Manteco                   Wind     24	 15	30	Lightning 2         12	67	80	150	20
+Bone             Undead   Earth    32	 10	19	                    8	128	80	150	16
+Ramia            Medusa            36	 15	55	                    14	128	80	150	28
+Deep One                  Water    56	 13	25	                    9	170	80	150	30
+Warlock                            40	 25	42	Smash 1             12	67	80	150	18
+Troll            Giant             60	 100	220	                    15	208	80	150	7
+Mimic                              80	 40	50	                    12	106	80	150	60
+Hydra                     Fire     600	 300	500	Flame 3             20	128	80	150	12
+Sauza                              750	 500	600	                    25	160	80	150	45
+Jara             Undead   Earth    50	 15	50	                    16	128	100	200	20
+Bugbear                            60	 50	100	                    18	147	100	200	18
+Knight                             80	 25	280	                    20	170	100	200	32
+Vampire Bee               Wind     70	 50	70	                    18	138	100	200	40
+Ghost            Undead   Wind     100	 60	80	Sleep All           22	186	100	200	45
+Rilus            Medusa            110	 32	120	                    15	186	100	200	26
+Dragonian                          120	 60	100	                    24	208	100	200	30
+Fult             Undead   Earth    72	 70	70	                    20	179	100	200	50
+Reach            Undead   Wind     84	 40	120	Sleep               18	144	100	200	42
+Nostrus                            56	 40	100	Lightning 2         23	96	100	200	32
+Merlini                            95	 30	90	Flame 2             24	72	100	200	36
+Aurane           Medusa   Water    100	 60	120	Water 3             18	192	100	200	28
+Giant            Giant             180	 100	200	                    16	224	100	200	16
+Blue Dragon      Dragon   Water    250	 140	300	Water 3             30	224	100	200	44
+Green Dragon     Dragon   Earth    260	 150	250	Smash 3             35	224	100	200	45
+Darah                     Water    450	 700	550	Smash 1             20	160	60	200	26
+Barah                     Fire     800	 800	600	Smash 2             21	224	100	200	27
+Ariel                              750	 100	1	                    30	192	100	200	20
+Teefa                              400	 100	1	Sleep All           30	96	100	200	20
+Red Dragon       Dragon   Fire     255	 300	300	Flame 3             32	128	120	250	46
+Cloud Dragon     Dragon   Wind     240	 400	350	Lightning 3         36	128	120	250	47
+Cyclops          Giant             200	 90	100	                    30	128	120	250	30
+Minotaurus       Giant             210	 100	100	                    25	128	120	250	35
+Sword Master                       180	 60	200	                    20	96	120	250	40
+Wizard                             110	 200	250	Attribute 10        40	48	120	250	36
+Desurin          Undead   Earth    160	 50	100	                    20	96	120	250	120
+Shaman                             180	 95	200	                    30	67	120	250	120
+Sphinx                    Earth    200	 50	210	Smash 3             24	250	120	250	120
+Bali             Medusa   Fire     195	 150	120	Lightning 3         22	250	120	250	120
+Medusa                    Earth    120	 230	59	Attribute 7         25	192	120	250	120
+Raenon           Undead   Wind     160	 100	110	Attribute 1         28	160	120	250	120
+Phantom          Undead   Earth    180	 95	50	Attribute 8         36	192	120	250	120
+Giant Bee                 Wind     90	 90	95	                    25	160	120	250	120
+Queen Bee                 Wind     150	 230	35	Sleep All           30	224	120	250	120
+Karul                              750	 990	872	                    38	191	120	250	120
+Galneon                            600	 750	933	                    30	224	120	250	120
+Galneon                            900	 950	1	Attribute 9         40	128	200	250	120
+Rimsala                            1500	 1	1	                    40	96	100	250	100
+Rimsala                            3500	 1	621	Attribute 11        50	250	200	250	200
+
+Name		Race	  Element  HP	 EXP	GP	Spell		    LV	STR	INT	ENDUR	ALERT

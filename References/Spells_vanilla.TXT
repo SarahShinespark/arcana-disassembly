@@ -1,0 +1,83 @@
+Name			MP	Power	Acc	Element		
+
+Lightning 1          	8	10	80%	Wind       
+Lightning 2          	14	40	80%	Wind       
+Lightning 3          	20	90	80%	Wind       
+Smash 1              	8	10	98%	Earth      
+Smash 2              	14	40	98%	Earth      
+Smash 3              	20	90	98%	Earth      
+Water 1              	8	10	80%	Water      
+Water 2              	14	40	80%	Water      
+Water 3              	20	90	80%	Water      
+Flame 1              	8	10	80%	Fire       
+Flame 2              	14	40	80%	Fire       
+Flame 3              	20	90	80%	Fire       
+Attribute 1          	10	30	98%	Wind/Earth 
+Attribute 2          	15	40	98%	Wind/Water 
+Attribute 3          	20	60	97%	Earth/Water
+Attribute 4          	15	65	98%	Wind/Fire  
+Attribute 5          	20	75	85%	Earth/Fire 
+Attribute 6          	23	70	98%	Water/Fire 
+Attribute 7          	24	115	98%	Wi Ea Wa   
+Attribute 8          	24	100	98%	Wi Ea    Fi
+Attribute 9          	30	110	98%	Wi    Wa Fi
+Attribute 10         	30	120	98%	   Ea Wa Fi
+Attribute 11         	40	200	85%	Wi Ea Wa Fi
+Call Wind Spirit     	40	180	99%	Wind       
+Call Earth Spirit    	40	180	99%	Earth      
+Call Water Spirit    	40	180	99%	Water      
+Call Fire Spirit     	40	180	99%	Fire       
+Drain Spell          	1	  	85%	           
+Psych Spell          	0	  	90%	           
+HP Restore All       	30	60	      	           
+HP Restore           	30	100	      	           
+Heal 1               	16	80	      	           
+Heal 2               	24	180	      	           
+Heal 3               	42	999	      	           
+Heal All 1           	20	80	      	           
+Heal All 2           	40	120	      	           
+Chaos Wind           	25	  	35%	Wind       
+Entomb               	25	  	35%	Earth      
+Destroy              	25	  	35%	Fire       
+Paralyze All         	23	  	35%	           
+Petrify All          	23	  	35%	           
+Stop All             	6	  	35%	           
+Sleep All            	20	  	35%	           
+Confused All         	20	  	35%	           
+Paralyze             	13	  	65%	           
+Petrify              	15	  	50%	           
+Stop                 	6	  	85%	           
+Sleep                	10	  	70%	           
+Confused             	10	  	70%	           
+Offense Impair       	4	  	85%	           
+Offense Impair All   	7	  	85%	           
+Defense Impair       	4	  	85%	           
+Defense Impair All   	7	  	85%	           
+Accuracy Impair      	4	  	85%	           
+Accuracy Impair All  	7	  	85%	           
+Attack Impair        	4	  	85%	           
+Attack Impair All    	7	  	85%	           
+Requiem              	4	  	60%	           
+Emancipation         	8	  	60%	           
+Final Liberation     	1	  	50%	           
+Ruinous Mission      	50	  	      	           
+Flee                 	32	  	      	           
+Dodge All            	5	  	      	           
+Wall All             	5	  	      	           
+Accuracy Increase All	5	  	      	           
+Stomp All            	5	  	      	           
+Change Attr. to Wind 	4	  	      	           
+Change Attr. to Earth	4	  	      	           
+Change Attr. to Water	4	  	      	           
+Change Attr. to Fire 	4	  	      	           
+Repel                	4	  	      	           
+Mirror               	6	  	      	           
+Restore All          	10	  	      	           
+Revitalize           	6	  	      	           
+Unpetrify            	4	  	      	           
+Restoration of Spirit	50	  	      	           
+Home                 	8	  	      	           
+Way Point            	0	  	      	           
+Way Point Warp       	8	  	      	           
+diminish Encounters  	4	  	      	           
+diminish Encounters 2	8	  	      	           

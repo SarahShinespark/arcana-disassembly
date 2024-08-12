@@ -1,0 +1,134 @@
+Race: Z=Zombie, D=Dragon, M=Medusa, G=Giant
+Elements: W=Wind, E=Earth, Wa=Water, F=Fire
+Equipped by: R=Rooks, D=Darwin, A=Axs, S=Salah, T=Teefa
+
+AtkBonus boosts your weapon power; higher is better.
+
+Name		 Price	Equipped by	 Atk	Race	  Element	Crit	AtkBonus   Spell
+Unarmed          0	               	 0	      	          	20%	0	   
+Dagger           100	R  D  A  S  T 	 20	      	          	2%	77	   
+Short Sword      200	R  D  A  S  T 	 40	      	          	4%	77	   
+Long Sword       500	R  D           	 60	      	          	4%	77	   
+Broad Sword      1000	R  D           	 80	      	          	6%	87	   
+Scimitar         1500	R  D  A        	 100	      	          	8%	92	   
+Ice Blade        2000	R  D           	 120	      	      Wa  	6%	92	   
+Undead Blade     3000	R              	 140	Z	          	4%	97	   
+Fire Blade       5000	R              	 160	      	         F	4%	103	   
+Dragon Blade     7500	R  D           	 180	 D	          	4%	97	   
+Magic Sword      10000	R  D           	 200	      	          	4%	113	   Sleep                
+Lightning Sword  13500	R  D           	 220	      	  W       	4%	113	   
+Desiree          20000	   D           	 240	 D G	          	4%	128	   Confused             
+Crystal Sword    2	R              	 230	ZDMG	          	6%	123	   HP Restore           
+Spirit Sword     2	R              	 260	      	  W E Wa F	4%	128	   Heal All 1           
+Giant Sword      2	R              	 280	      	  W E Wa F	8%	128	   HP Restore All       
+Golden Sword     30000	R  D  A  S  T 	 10	      	          	0%	103	   
+Cursed Sword     0	R  D  A  S  T 	 100	      	          	2%	108	   
+Flying Axe       450	R  D  A        	 50	      	          	8%	113	   
+Battle Axe       1700	R     A        	 70	      	          	12%	118	   
+Great Axe        4800	      A        	 100	      	          	12%	123	   
+Demon Axe        0	      A        	 160	  M	    E     	16%	128	   Smash 3              
+Staff            150	         S  T 	 30	      	          	4%	97	   
+Mage Staff       400	         S  T 	 50	      	          	4%	97	   
+Memory Wand      700	         S     	 60	      	          	4%	97	   
+Firebrand        1000	         S     	 100	      	         F	4%	133	   Flame 1              
+Elder's Staff    4500	         S  T 	 110	      	          	4%	138	   Sleep All            
+Wish Wand        10000	         S     	 120	      	          	4%	143	   Water 2              
+Staff of Wisdom  7500	            T 	 140	      	          	4%	138	   Confused All         
+Spirit Staff     5000	            T 	 160	      	  W E Wa F	4%	154	   Lightning 2          
+Mace             1000	      A  S     	 65	      	          	6%	154	   
+Flail            1300	      A  S     	 90	      	          	8%	154	   
+Battle Hammer    1200	      A        	 90	      	          	10%	164	   
+Morning Star     6000	      A        	 120	G	          	12%	133	   
+Whip             170	         S  T 	 35	      	          	2%	128	   
+Chain Whip       850	         S  T 	 55	      	          	2%	128	   
+Blackthorne Whip 5500	         S  T 	 60	      	          	4%	128	   
+Sword 1          2	               	 0	      	          	0%	77	   
+Sword 2          2	               	 0	      	          	0%	77	   
+Sword 3          2	               	 0	      	          	0%	77	   
+Sword 4          2	               	 0	      	          	0%	77	   
+
+Name		 Price	Equipped by	 Def	Element
+Soft Leather     100	R  D  A  S  T 	 20	        
+Hard Leather     300	R  D  A  S  T 	 30	        
+Ring Mail        500	R     A  S     	 40	        
+Scale Mail       700	R  D  A  S     	 60	        
+Chain Mail       1000	R     A  S     	 80	        
+Breast Mail      1500	   D           	 85	        
+Breast Plate     2000	R  D     S     	 100	        
+Seam Mail        3000	R     A  S     	 120	        
+Plate Mail       4500	R     A        	 145	        
+Mithril Chain    5000	R     A        	 150	        
+Mithril Plate    7500	R  D           	 160	        
+Mithril Mail     10000	R     A        	 180	W       
+Demon Mail       20000	      A        	 205	  E     
+Dragon Mail      20000	R              	 190	        
+Magic Plate      25000	R  D           	 200	        
+Magic Mail       30000	R  D           	 215	        
+Earth Plate      20000	   D           	 230	  E     
+Grand armor      30000	R              	 240	        
+Rococo Armor     50000	R  D  A  S  T 	 35	        
+Robe             150	         S  T 	 25	        
+Silver Robe      750	         S  T 	 100	        
+White Robe       1000	         S     	 145	        
+Shaman Robe      20	         S     	 160	        
+Magic Robe       15000	            T 	 180	        
+Robe of Valor    30	            T 	 200	        
+Armor 1          0	               	 0	        
+Armor 2          0	               	 0	        
+Armor 3          0	               	 0	        
+Armor 4          0	               	 0	        
+Armor 5          0	               	 0	        
+Armor 6          0	               	 0	        
+Armor 7          0	               	 0	        
+Armor 8          0	               	 0	        
+Armor 9          0	               	 0	        
+Armor 10         0	               	 0	        
+Armor 11         0	               	 0	        
+Armor 12         0	               	 0	        
+Armor 13         0	               	 0	        
+Armor 14         0	               	 0	        
+Armor 15         0	               	 0	        
+
+Name		 Price	Equipped by	 Def	Resist	MDef	Spell
+Small Shield     180	R     A  S     	 20	      	0	
+Large Shield     300	R     A  S     	 40	      	5	
+Spike Shield     750	R     A  S     	 80	      	10	
+Iron Shield      1000	R     A  S     	 120	      	15	
+Mithril Shield   1500	R     A  S     	 140	Z	20	
+Dragon Shield    2500	R              	 170	 D	25	
+Demon Shield     2480	      A        	 180	  M	30	Attribute 1          
+Magic Shield     4000	         S     	 160	      	35	Sleep                
+Caesar Shield    45000	R              	 200	      	90	Defense Impair All   
+Grand Shield     24800	R              	 220	      	100	Attribute 8          
+Cursed Shield    2	R     A  S     	 10	      	0	
+Talisman         300	   D        T 	 20	      	10	
+Rune Gauntlet    500	   D        T 	 40	      	20	
+Mithril Gauntlet 3000	   D        T 	 160	Z	30	
+Magic Gauntlet   10000	   D        T 	 180	      	40	Wall All             
+Spirit Gauntlet  2	   D        T 	 200	      	50	Accuracy Increase All
+Moon Gauntlet    4000	   D           	 220	G	60	Stomp All            
+Cursed Gauntlet  2	   D        T 	 10	      	0	
+Amulet 1         2	               	 0	      	0	
+Amulet 2         2	               	 0	      	0	
+
+Name		 Price	Equipped by
+Secret Ring      0	R  D  A  S  T 
+Life Ring        0	R  D  A  S  T 
+Euhancer Ring    0	R  D  A  S  T 
+Ring Inspiration 0	R  D  A  S  T 
+Peace Ring       0	R  D  A  S  T 
+Ancient Ring     0	R  D  A  S  T 
+Ring of Life     0	R  D  A  S  T 
+Ring of Valor    0	R  D  A  S  T 
+Ring of Hope     0	R  D  A  S  T 
+Sparkling Ring   0	R  D  A  S  T 
+Shining Ring     0	R  D  A  S  T 
+Ring Amazement   0	R  D  A  S  T 
+RingAstonishment 0	R  D  A  S  T 
+Crooked Ring     0	R  D  A  S  T 
+Twisted Ring     0	R  D  A  S  T 
+Grand Ring       0	   D  A  S  T 
+Charm Ring       0	R  D  A  S  T 
+Ring 1           0	               
+Ring 2           0	               
+Ring 3           0	               
