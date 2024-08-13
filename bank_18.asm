@@ -5809,22 +5809,22 @@ Ch2_Salah_joins:
    db $07                               ;18A10D|      ;
    dl Entering_Town                     ;18A10E|03B357;
    db $16                               ;18A111|      ; 16: $187F = 0300
-   dw $187F                             ;18A112|00187F;
+   dw $187F                             ;18A112|      ;
    dw $0300                             ;18A114|      ;
    db $16                               ;18A116|      ; 16: $1881 = 0004
-   dw $1881                             ;18A117|001881;
+   dw $1881                             ;18A117|      ;
    dw $0004                             ;18A119|      ;
    db $07                               ;18A11B|      ;
    dl Town_loading                      ;18A11C|03B379;
    db $07                               ;18A11F|      ;
    dl More_Town_Loading                 ;18A120|03B3FD;
    db $1B                               ;18A123|      ;
-   dw LOOSE_OP_00D435                   ;18A124|00D435;
+   dw Sub_FadeIn                        ;18A124|18D435;
    db $16                               ;18A126|      ; 16: $1901 = 0
-   dw $1901                             ;18A127|001901;
+   dw $1901                             ;18A127|      ;
    dw $0000                             ;18A129|      ;
    db $16                               ;18A12B|      ; 16: $11C1 = 0
-   dw $11C1                             ;18A12C|0011C1;
+   dw $11C1                             ;18A12C|      ;
    dw $0000                             ;18A12E|      ;
    db $00                               ;18A130|      ; End section (Ch2 start)
 _18C5A4_data:
@@ -6580,9 +6580,9 @@ ASM_Reinoll_Event:
    dw $3000                             ;18A4E8|      ;
    dw $0400                             ;18A4EA|      ;
    db $1B                               ;18A4EC|      ;
-   dw DATA8_00D389                      ;18A4ED|00D389;
+   dw DATA8_18D389                      ;18A4ED|18D389;
    db $1B                               ;18A4EF|      ;
-   dw LOOSE_OP_00A7E3                   ;18A4F0|00A7E3;
+   dw DATA8_18A7E3                      ;18A4F0|18A7E3;
    db $07                               ;18A4F2|      ;
    dl Transfer_Data_3b_1b_2b            ;18A4F3|00A140;
    dl _18A4F6_data                      ;18A4F6|18A839;
@@ -9396,7 +9396,7 @@ ASM_Ch4_Axs:
    db $00                               ;18B2CF|      ;
    dw $0002                             ;18B2D0|      ;
    db $1B                               ;18B2D2|      ;
-   dw LOOSE_OP_00D435                   ;18B2D3|00D435;
+   dw Sub_FadeIn                        ;18B2D3|18D435;
    db $06                               ;18B2D5|      ;
    db $3C                               ;18B2D6|      ;
    db $07                               ;18B2D7|      ;
@@ -10228,7 +10228,7 @@ ASM_Darah_Barah:
    dl DATA8_148257                      ;18B763|148257;
    dw $0400                             ;18B766|      ;
    db $1B                               ;18B768|      ;
-   dw UNREACH_00D4B9                    ;18B769|00D4B9;
+   dw Make_Animation_Loop1              ;18B769|18D4B9;
    db $07                               ;18B76B|      ;
    dl Transfer_Data_3b_1b_2b            ;18B76C|00A140;
    dl Palette_Darah                     ;18B76F|19899D;
@@ -10993,7 +10993,7 @@ ASM_Ch4_Darwin:
    dl DATA8_148292                      ;18BB51|148292;
    dw $0400                             ;18BB54|      ;
    db $1B                               ;18BB56|      ;
-   dw UNREACH_00D4B9                    ;18BB57|00D4B9;
+   dw Make_Animation_Loop1              ;18BB57|18D4B9;
    db $07                               ;18BB59|      ;
    dl Transfer_Data_3b_1b_2b            ;18BB5A|00A140;
    dl _18C72E_data                      ;18BB5D|18A2B0;
@@ -11083,7 +11083,7 @@ ASM_Vs_Teefa:
    db $00                               ;18BBDB|      ;
    db $04                               ;18BBDC|      ;
    db $1B                               ;18BBDD|      ;
-   dw UNREACH_00D4B9                    ;18BBDE|00D4B9;
+   dw Make_Animation_Loop1              ;18BBDE|18D4B9;
    db $07                               ;18BBE0|      ;
    dl Transfer_Data_3b_1b_2b            ;18BBE1|00A140;
    dl Palette_Teefa                     ;18BBE4|198AB2;
@@ -13592,7 +13592,7 @@ Loop_FadeToBlack:
    db $14                               ;18C89F|      ;
    dw $0400                             ;18C8A0|      ;
    db $1B                               ;18C8A2|      ;
-   dw UNREACH_00D4B9                    ;18C8A3|00D4B9;
+   dw Make_Animation_Loop1              ;18C8A3|18D4B9;
    db $07                               ;18C8A5|      ;
    dl Decomp_Setup2_3b_3b               ;18C8A6|00A035;
    dw $BEE6                             ;18C8A9|      ;
@@ -13644,11 +13644,11 @@ Text_SCRIPT110:
    dl SCRIPT_110                        ;18C8E5|0CF4B5;
    db $00                               ;18C8E8|      ;
    db $08                               ;18C8E9|      ;
-   dw CODE_00971B                       ;18C8EA|00971B;
+   dw Sub_Some_Anim                     ;18C8EA|18971B;
    db $1B                               ;18C8EC|      ;
-   dw UNREACH_00D4C3                    ;18C8ED|00D4C3;
+   dw Wait_for_A_press                  ;18C8ED|18D4C3;
    db $08                               ;18C8EF|      ;
-   dw CODE_00CD15                       ;18C8F0|00CD15;
+   dw DATA8_18CD15                      ;18C8F0|18CD15;
    db $06                               ;18C8F2|      ;
    db $5A                               ;18C8F3|      ;
 Text_SCRIPT111:

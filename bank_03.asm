@@ -1945,7 +1945,7 @@ CODE_038AD4:
    TAX                                  ;038AD4|      ;
    BEQ CODE_038AF0                      ;038AD5|038AF0;
    PHX                                  ;038AD7|      ;
-   LDA.L LOOSE_OP_038E19,X              ;038AD8|038E19;
+   LDA.L Error_Data_01,X                ;038AD8|038E19;
    TAY                                  ;038ADC|      ;
    LDA.L DATA8_038E1F,X                 ;038ADD|038E1F;
    PHA                                  ;038AE1|      ;
@@ -2017,7 +2017,7 @@ CODE_038B71:
    BNE CODE_038B79                      ;038B74|038B79;
    ORA.W #$0004                         ;038B76|      ;
 CODE_038B79:
-   LDX.W LOOSE_OP_00A686                ;038B79|00A686;
+   LDX.W $A686                          ;038B79|7EA686;
    BNE CODE_038B81                      ;038B7C|038B81;
    ORA.W #$0002                         ;038B7E|      ;
 CODE_038B81:
@@ -2175,7 +2175,7 @@ CODE_038CE4:
    BEQ CODE_038D00                      ;038CE5|038D00;
    PHX                                  ;038CE7|      ;
 IsThisABug:
-   LDA.L LOOSE_OP_038E19,X              ;038CE8|038E19;
+   LDA.L Error_Data_01,X                ;038CE8|038E19;
    TAY                                  ;038CEC|      ;
    LDA.L DATA8_038E1F,X                 ;038CED|038E1F;
    PHA                                  ;038CF1|      ;
@@ -2597,7 +2597,7 @@ CODE_038F82:
 CODE_038F8A:
    TAX                                  ;038F8A|      ;
    BEQ CODE_038F9F                      ;038F8B|038F9F;
-   LDA.L LOOSE_OP_039194,X              ;038F8D|039194;
+   LDA.L Error_Read_2,X                 ;038F8D|039194;
    TAY                                  ;038F91|      ;
    LDA.L DATA8_03919A,X                 ;038F92|03919A;
    PHA                                  ;038F96|      ;
@@ -2727,7 +2727,7 @@ CODE_0390A4:
 CODE_0390AC:
    TAX                                  ;0390AC|      ;
    BEQ CODE_0390C1                      ;0390AD|0390C1;
-   LDA.L LOOSE_OP_039194,X              ;0390AF|039194;
+   LDA.L Error_Read_2,X                 ;0390AF|039194;
    TAY                                  ;0390B3|      ;
    LDA.L DATA8_03919A,X                 ;0390B4|03919A;
    PHA                                  ;0390B8|      ;
@@ -3078,7 +3078,7 @@ CODE_039275:
    PLX                                  ;0392A6|      ;
    LDY.W #$E000                         ;0392A7|      ;
    JSL.L Decompression_far              ;0392AA|008762;
-   LDA.W LOOSE_OP_00A68A                ;0392AE|00A68A;
+   LDA.W $A68A                          ;0392AE|7EA68A;
    JSR.W CODE_03A36D                    ;0392B1|03A36D;
    DEY                                  ;0392B4|      ;
    BNE CODE_0392C6                      ;0392B5|0392C6;
@@ -3353,7 +3353,7 @@ CODE_03951A:
    BEQ CODE_03956A                      ;03951B|03956A;
    PHX                                  ;03951D|      ;
 Error_Read03:
-   LDA.L LOOSE_OP_039687,X              ;03951E|039687;
+   LDA.L Error_Read_3,X                 ;03951E|039687;
    TAY                                  ;039522|      ;
    LDA.L DATA8_03968D,X                 ;039523|03968D;
    PHA                                  ;039527|      ;
@@ -5125,7 +5125,7 @@ CODE_03A136:
    REP #$30                             ;03A173|      ;
    AND.B $0C                            ;03A175|00000C;
    LDY.B $00                            ;03A177|000000;
-   ORA.W LOOSE_OP_00A6B6,Y              ;03A179|00A6B6;
+   ORA.W $A6B6,Y                        ;03A179|7EA6B6;
    STA.W $A6B6,Y                        ;03A17C|7EA6B6;
    ORA.W $A6A6,Y                        ;03A17F|7EA6A6;
    STA.B $0A                            ;03A182|00000A;

@@ -400,7 +400,6 @@ CODE_0082EA:
    ORA.W $0046                          ;008309|000046;
    STA.W $0046                          ;00830C|000046;
    STA.W BG34_chr_addr                  ;00830F|00210C;
-CODE_008312:
    REP #$20                             ;008312|      ;
    TYA                                  ;008314|      ;
    SEP #$20                             ;008315|      ;
@@ -726,21 +725,18 @@ CODE_008524:
    BPL CODE_008575                      ;00854D|008575;
    LDA.B $08                            ;00854F|000008;
    LDX.B $06                            ;008551|000006;
-CODE_008553:
    LDY.W $0008                          ;008553|000008;
    PHY                                  ;008556|      ;
    REP #$20                             ;008557|      ;
    PHB                                  ;008559|      ;
    PEA.W $7E7E                          ;00855A|007E7E;
    PLB                                  ;00855D|      ;
-CODE_00855E:
    PLB                                  ;00855E|      ;
    JSR.W Decompression                  ;00855F|008766;
    PLB                                  ;008562|      ;
    PLA                                  ;008563|      ;
    STA.B $06                            ;008564|000006;
    STX.W $0008                          ;008566|000008;
-CODE_008569:
    SEP #$20                             ;008569|      ;
    LDA.B #$7E                           ;00856B|      ;
    STA.B $08                            ;00856D|000008;
@@ -907,7 +903,6 @@ CODE_008689:
    REP #$20                             ;00868D|      ;
    JSR.W CODE_008698                    ;00868F|008698;
    PLD                                  ;008692|      ; Return dp to $1E00
-CODE_008693:
    RTL                                  ;008693|      ;
 _008698_far:
    JSR.W CODE_008698                    ;008694|008698;
@@ -1516,7 +1511,6 @@ CODE_008A75:
    ADC.W Mult_Divide_Result             ;008A7C|004216;
    STA.B $02                            ;008A7F|000002;
    REP #$10                             ;008A81|      ;
-CODE_008A83:
    RTS                                  ;008A83|      ;
 CODE_008A84:
    PHD                                  ;008A84|      ;
@@ -1544,7 +1538,6 @@ CODE_008AA3:
    STZ.W $000A                          ;008AA5|00000A;
    JSR.W CODE_008B4C                    ;008AA8|008B4C;
    LDX.B $08                            ;008AAB|000008;
-CODE_008AAD:
    BPL CODE_008AB1                      ;008AAD|008AB1;
    INC.B $0A                            ;008AAF|00000A;
 CODE_008AB1:
@@ -1617,7 +1610,6 @@ Set_Mode7:
    STA.W M7C                            ;008B29|00211D;
    PLA                                  ;008B2C|      ;
    STA.W M7D                            ;008B2D|00211E;
-CODE_008B30:
    PLA                                  ;008B30|      ;
    STA.W M7D                            ;008B31|00211E;
    REP #$20                             ;008B34|      ;
@@ -1719,7 +1711,6 @@ Unknown_Tables:
    db $FF                               ;008BA5|      ;
    db $FF                               ;008BA6|      ;
    db $FF                               ;008BA7|      ;
-DATA8_008BA8:
    db $FE                               ;008BA8|      ;
    db $FE                               ;008BA9|      ;
    db $FD                               ;008BAA|      ;
@@ -1809,7 +1800,6 @@ Tbl_Bitwise2:
    db $FF                               ;008BFC|      ;
    db $EF                               ;008BFD|      ;
    db $FF                               ;008BFE|      ;
-DATA8_008BFF:
    db $DF                               ;008BFF|      ;
    db $FF                               ;008C00|      ;
    db $BF                               ;008C01|      ;
@@ -1844,7 +1834,6 @@ Tbl_HDMA_ch:
    db $FF                               ;008C1D|      ;
    db $BF                               ;008C1E|      ;
    db $FF                               ;008C1F|      ;
-DATA8_008C20:
    db $DF                               ;008C20|      ;
    db $FF                               ;008C21|      ;
    db $EF                               ;008C22|      ;
@@ -1879,7 +1868,6 @@ DATA16_008C44:
    dw $0100                             ;008C44|      ;
    dw $0200                             ;008C46|      ;
    dw $0400                             ;008C48|      ;
-DATA16_008C4A:
    dw $0800                             ;008C4A|      ;
    dw $1000                             ;008C4C|      ;
    dw $2000                             ;008C4E|      ;
@@ -1947,7 +1935,6 @@ CODE_008CC6:
    DEX                                  ;008CC9|      ;
    DEX                                  ;008CCA|      ;
    BPL CODE_008CC6                      ;008CCB|008CC6;
-CODE_008CCD:
    LDX.W #$0006                         ;008CCD|      ;
 CODE_008CD0:
    STZ.W $0FFF,X                        ;008CD0|000FFF;
@@ -2661,7 +2648,6 @@ Event_Anim_E0_E7_2b:
    INC.B $10                            ;0092A5|000010;
    INC.B $10                            ;0092A7|000010;
    STA.W $07CF,X                        ;0092A9|0007CF;
-CODE_0092AC:
    STA.W $073F,X                        ;0092AC|00073F;
    LDA.W #$8000                         ;0092AF|      ;
    STA.W $083B,X                        ;0092B2|00083B;
@@ -2669,7 +2655,6 @@ CODE_0092AC:
    BPL CODE_0092D6                      ;0092B8|0092D6;
    CMP.W #$C000                         ;0092BA|      ;
    AND.W #$3FFF                         ;0092BD|      ;
-CODE_0092C0:
    TAY                                  ;0092C0|      ;
    BCC CODE_0092D6                      ;0092C1|0092D6;
    LDA.W $07F3,X                        ;0092C3|0007F3;
@@ -2758,7 +2743,6 @@ CODE_009356:
    RTS                                  ;009361|      ;
 Event_Anim_70_77_2b:
    INC.B $10                            ;009362|000010;
-CODE_009364:
    LDX.W Selection                      ;009364|00103F;
    LDA.B [$10]                          ;009367|000010;
    PHA                                  ;009369|      ;
@@ -2908,7 +2892,6 @@ Event_Anim_A0_A7_1b_2b:
    CLC                                  ;009470|      ;
    ADC.W $1027,X                        ;009471|001027;
    STA.W $1027,X                        ;009474|001027;
-CODE_009477:
    PLA                                  ;009477|      ;
    AND.W #$FF00                         ;009478|      ;
    BPL CODE_009480                      ;00947B|009480;
@@ -3180,7 +3163,6 @@ Event_Anim_B8_BF_1b:
    CMP.W #$0080                         ;00967B|      ;
    BCC CODE_009684                      ;00967E|009684;
    ORA.W #$FF00                         ;009680|      ;
-CODE_009683:
    CLC                                  ;009683|      ;
 CODE_009684:
    ADC.W Anim_ID,X                      ;009684|000A7B;
@@ -3267,7 +3249,6 @@ Operation_EOR:
 Event_Code_0F:
    INC.B $10                            ;009717|000010; (1b) table offset for RAM set, (2b) value
    LDA.B [$10]                          ;009719|000010;
-CODE_00971B:
    AND.W #$00FF                         ;00971B|      ;
    ASL A                                ;00971E|      ;
    TAX                                  ;00971F|      ;
@@ -3940,7 +3921,6 @@ CODE_009BCB:
    STA.W Cursor_Array_Xpos_Copy,X       ;009BE3|000787;
    LDA.W $0817,X                        ;009BE6|000817;
    SEC                                  ;009BE9|      ;
-CODE_009BEA:
    SBC.W $1007,Y                        ;009BEA|001007;
    STA.W $0817,X                        ;009BED|000817;
    LDA.W Cursor_Array_Ypos_Copy,X       ;009BF0|0007AB;
@@ -4112,10 +4092,8 @@ Setup_Display_stuff_8b:
    JSR.W GetEventCode_1b                ;009D43|009AF0;
    STA.B $08                            ;009D46|000008;
    JSR.W GetEventCode_2b                ;009D48|009B00;
-CODE_009D4B:
    STA.B $09                            ;009D4B|000009;
    JSR.W Display_stuff                  ;009D4D|008585;
-CODE_009D50:
    RTL                                  ;009D50|      ;
 Setup_872E_7b:
    JSR.W GetEventCode_2b                ;009D51|009B00;
@@ -4156,7 +4134,6 @@ Set_Sprite_mode_4b:
    PHA                                  ;009D96|      ;
    JSR.W GetEventCode_2b                ;009D97|009B00;
    TAX                                  ;009D9A|      ;
-CODE_009D9B:
    PLA                                  ;009D9B|      ;
    JSL.L Set_OBJ_Addr_1b_far            ;009D9C|0081D7;
    JSR.W GetEventCode_1b                ;009DA0|009AF0;
@@ -4175,7 +4152,6 @@ MainScr_Remove_1b:
    EOR.B #$FF                           ;009DBB|      ;
    AND.W Main_screen_temp               ;009DBD|001057;
    STA.W Main_screen_temp               ;009DC0|001057;
-CODE_009DC3:
    REP #$20                             ;009DC3|      ;
    RTL                                  ;009DC5|      ;
 SubScr_Add_1b:
@@ -4202,7 +4178,6 @@ CODE_009DED:
    ASL A                                ;009DF0|      ;
    TAX                                  ;009DF1|      ;
    LDA.W Unknown_Table,X                ;009DF2|009E06;
-CODE_009DF5:
    STA.W $0FEF,Y                        ;009DF5|000FEF;
    LDA.W DATA16_009E0E,X                ;009DF8|009E0E;
    STA.W $0FF7,Y                        ;009DFB|000FF7;
@@ -11401,7 +11376,6 @@ CODE_00CD0E:
    RTL                                  ;00CD12|      ;
 CODE_00CD13:
    STA.B $20                            ;00CD13|000020;
-CODE_00CD15:
    ASL A                                ;00CD15|      ;
    TAX                                  ;00CD16|      ;
    LDA.L DATA16_00CD3D,X                ;00CD17|00CD3D;
@@ -12509,7 +12483,6 @@ UNREACH_00D49F:
    db $8F                               ;00D4B6|8F0700;
    db $00                               ;00D4B7|      ;
    db $07                               ;00D4B8|00008F;
-UNREACH_00D4B9:
    db $8F                               ;00D4B9|8FF20C;
    db $0C                               ;00D4BA|008FF2;
    db $F2                               ;00D4BB|00008F;
