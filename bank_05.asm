@@ -310,19 +310,19 @@ CODE_0581E5:
 CODE_0581F7:
    RTL                                  ;0581F7|      ;
 Tbl_0581F8:
-   dw CODE_009D4B                       ;0581F8|009D4B;
-   dw CODE_009D50                       ;0581FA|009D50;
-   dw LOOSE_OP_009D55                   ;0581FC|009D55;
-   dw LOOSE_OP_009D5A                   ;0581FE|009D5A;
-   dw LOOSE_OP_009D5F                   ;058200|009D5F;
-   dw LOOSE_OP_009D64                   ;058202|009D64;
-   dw Read_BGmode_1b                    ;058204|009D69;
-   dw CODE_009D9B                       ;058206|009D9B;
-   dw CODE_009DC3                       ;058208|009DC3;
-   dw CODE_009DF5                       ;05820A|009DF5;
-   dw LOOSE_OP_009E3B                   ;05820C|009E3B;
-   dw LOOSE_OP_009E6D                   ;05820E|009E6D;
-   dw LOOSE_OP_009F03                   ;058210|009F03;
+   dw Data_059D4B                       ;0581F8|059D4B;
+   dw DATA8_059D50                      ;0581FA|059D50;
+   dw DATA8_059D55                      ;0581FC|059D55;
+   dw DATA8_059D5A                      ;0581FE|059D5A;
+   dw DATA8_059D5F                      ;058200|059D5F;
+   dw DATA8_059D64                      ;058202|059D64;
+   dw DATA8_059D69                      ;058204|059D69;
+   dw DATA8_059D9B                      ;058206|059D9B;
+   dw DATA8_059DC3                      ;058208|059DC3;
+   dw DATA8_059DF5                      ;05820A|059DF5;
+   dw DATA8_059E3B                      ;05820C|059E3B;
+   dw DATA8_059E6D                      ;05820E|059E6D;
+   dw DATA8_059F03                      ;058210|059F03;
    JSR.W CODE_058216                    ;058212|058216;
    RTL                                  ;058215|      ;
 CODE_058216:
@@ -828,28 +828,32 @@ Case_Condition_058543:
    dl Check_Condition2                  ;058546|07AB88;
    db $11                               ;058549|      ;
    db $04                               ;05854A|      ;
-   dw CODE_008553                       ;05854B|008553;
-   dw CODE_00855E                       ;05854D|00855E;
-   dw CODE_008569                       ;05854F|008569;
-   dw LOOSE_OP_008574                   ;058551|008574;
+   dw DATA8_058553                      ;05854B|058553;
+   dw DATA8_05855E                      ;05854D|05855E;
+   dw DATA8_058569                      ;05854F|058569;
+   dw DATA8_058574                      ;058551|058574;
+DATA8_058553:
    db $07                               ;058553|      ;
    dl Transfer_Data_3b_1b_2b            ;058554|00A140;
    dl UNREACH_0D93BC                    ;058557|0D93BC;
    db $65                               ;05855A|      ;
    dw $0016                             ;05855B|      ;
    db $05                               ;05855D|      ;
+DATA8_05855E:
    db $07                               ;05855E|      ;
    dl Transfer_Data_3b_1b_2b            ;05855F|00A140;
    dl UNREACH_0D94AE                    ;058562|0D94AE;
    db $65                               ;058565|      ;
    dw $0016                             ;058566|      ;
    db $05                               ;058568|      ;
+DATA8_058569:
    db $07                               ;058569|      ;
    dl Transfer_Data_3b_1b_2b            ;05856A|00A140;
    dl UNREACH_0D942A                    ;05856D|0D942A;
    db $65                               ;058570|      ;
    dw $0016                             ;058571|      ;
    db $05                               ;058573|      ;
+DATA8_058574:
    db $07                               ;058574|      ;
    dl Transfer_Data_3b_1b_2b            ;058575|00A140;
    dl UNREACH_0D951C                    ;058578|0D951C;
@@ -1035,13 +1039,14 @@ DATA8_058665:
    dw $11C1                             ;058682|0011C1;
    db $11                               ;058684|      ;
    db $06                               ;058685|      ;
-   dw CODE_008693                       ;058686|008693;
-   dw CODE_008693                       ;058688|008693;
-   dw LOOSE_OP_0086B4                   ;05868A|0086B4;
-   dw CODE_008693                       ;05868C|008693;
-   dw CODE_008693                       ;05868E|008693;
-   dw CODE_008693                       ;058690|008693;
+   dw DATA8_058693                      ;058686|058693;
+   dw DATA8_058693                      ;058688|058693;
+   dw DATA8_0586B4                      ;05868A|0586B4;
+   dw DATA8_058693                      ;05868C|058693;
+   dw DATA8_058693                      ;05868E|058693;
+   dw DATA8_058693                      ;058690|058693;
    db $0A                               ;058692|      ;
+DATA8_058693:
    db $09                               ;058693|      ;
    dl CODE_0587E9                       ;058694|0587E9;
    db $07                               ;058697|      ;
@@ -1548,16 +1553,17 @@ DATA8_0589EB:
    dl OR_element_with_2b                ;0589F8|07B169;
    dw $0400                             ;0589FB|      ;
    db $1B                               ;0589FD|      ;
-   dw LOOSE_OP_0085BB                   ;0589FE|0085BB;
+   dw DATA8_0585BB                      ;0589FE|0585BB;
    db $24                               ;058A00|      ;
    db $02                               ;058A01|      ;
    db $07                               ;058A02|      ;
    dl Condition_Check_2b                ;058A03|07B0B0;
    dw $0001                             ;058A06|      ;
    db $0C                               ;058A08|      ;
-   dw CODE_008AAD                       ;058A09|008AAD;
+   dw DATA8_058AAD                      ;058A09|058AAD;
+DATA8_058A0B:
    db $08                               ;058A0B|      ;
-   dw CODE_008B30                       ;058A0C|008B30;
+   dw DATA8_058B30                      ;058A0C|058B30;
    db $07                               ;058A0E|      ;
    dl CODE_07B11C                       ;058A0F|07B11C;
    dw $0002                             ;058A12|      ;
@@ -1577,26 +1583,26 @@ DATA8_0589EB:
    db $07                               ;058A28|      ;
    dl Is_Equals_1575                    ;058A29|07AEDD;
    db $0C                               ;058A2C|      ;
-   dw CODE_008A83                       ;058A2D|008A83;
+   dw DATA8_058A83                      ;058A2D|058A83;
    db $1F                               ;058A2F|      ;
-   dw $11C1                             ;058A30|0011C1;
+   dw $11C1                             ;058A30|0511C1;
    db $11                               ;058A32|      ;
    db $06                               ;058A33|      ;
-   dw LOOSE_OP_008A41                   ;058A34|008A41;
-   dw LOOSE_OP_008A41                   ;058A36|008A41;
-   dw LOOSE_OP_008A62                   ;058A38|008A62;
-   dw LOOSE_OP_008A41                   ;058A3A|008A41;
-   dw LOOSE_OP_008A41                   ;058A3C|008A41;
-   dw LOOSE_OP_008A41                   ;058A3E|008A41;
+   dw DATA8_058A41                      ;058A34|058A41;
+   dw DATA8_058A41                      ;058A36|058A41;
+   dw DATA8_058A62                      ;058A38|058A62;
+   dw DATA8_058A41                      ;058A3A|058A41;
+   dw DATA8_058A41                      ;058A3C|058A41;
+   dw DATA8_058A41                      ;058A3E|058A41;
    db $0A                               ;058A40|      ;
+DATA8_058A41:
    db $09                               ;058A41|      ;
    dl CODE_058B3C                       ;058A42|058B3C;
    db $07                               ;058A45|      ;
    dl Transfer_Data_3b_1b_2b            ;058A46|00A140;
-   dw CODE_009364                       ;058A49|009364;
-   db $0D                               ;058A4B|      ;
-   dw $1675                             ;058A4C|001675;
-   db $00                               ;058A4E|      ;
+   dl DATA8_0D9364                      ;058A49|0D9364;
+   db $75                               ;058A4C|      ;
+   dw $0016                             ;058A4D|      ;
    db $07                               ;058A4F|      ;
    dl Decomp_Setup2_3b_3b               ;058A50|00A035;
    dl Sprite_Field_Marid                ;058A53|0EAC91;
@@ -1627,6 +1633,7 @@ DATA8_058A62:
    db $06                               ;058A80|      ;
    db $01                               ;058A81|      ;
    db $0A                               ;058A82|      ;
+DATA8_058A83:
    db $09                               ;058A83|      ;
    dl CODE_058B3C                       ;058A84|058B3C;
    db $0F                               ;058A87|      ;
@@ -1639,7 +1646,8 @@ DATA8_058A62:
    db $00                               ;058A92|      ;
    dw $FEFF                             ;058A93|      ;
    db $1A                               ;058A95|      ;
-   dw CODE_009683                       ;058A96|009683;
+   dw DATA8_059683                      ;058A96|059683;
+DATA8_058A98:
    db $07                               ;058A98|      ;
    dl GetSet_SFX                        ;058A99|009C44;
    db $2F                               ;058A9C|      ;
@@ -1653,8 +1661,9 @@ DATA8_058A62:
    dl Update_SpiritHP_far               ;058AA8|0582FB;
    db $06                               ;058AAB|      ;
    db $1E                               ;058AAC|      ;
+DATA8_058AAD:
    db $08                               ;058AAD|      ;
-   dw CODE_008782                       ;058AAE|008782;
+   dw DATA8_058782                      ;058AAE|058782;
    db $09                               ;058AB0|      ;
    dl CODE_058B6B                       ;058AB1|058B6B;
    db $24                               ;058AB4|      ;
@@ -1696,7 +1705,7 @@ DATA8_058A62:
    db $07                               ;058AF1|      ;
    dl Death_Check_A_2                   ;058AF2|078DB0;
    db $1A                               ;058AF5|      ;
-   dw LOOSE_OP_008A0B                   ;058AF6|008A0B;
+   dw DATA8_058A0B                      ;058AF6|058A0B;
 DATA8_058AF8:
    db $07                               ;058AF8|      ;
    dl Decomp_Setup2_3b_3b               ;058AF9|00A035;
@@ -1717,22 +1726,23 @@ DATA8_058AF8:
    dl RAM_Decomp_801A                   ;058B18|0E8012;
    db $0D                               ;058B1B|      ;
    db $08                               ;058B1C|      ;
-   dw CODE_008B30                       ;058B1D|008B30;
+   dw DATA8_058B30                      ;058B1D|058B30;
    db $1B                               ;058B1F|      ;
-   dw LOOSE_OP_008425                   ;058B20|008425;
+   dw DATA8_058425                      ;058B20|058425;
    db $24                               ;058B22|      ;
    db $02                               ;058B23|      ;
    db $07                               ;058B24|      ;
    dl Condition_Check_2b                ;058B25|07B0B0;
    dw $0001                             ;058B28|      ;
    db $0C                               ;058B2A|      ;
-   dw CODE_008A98                       ;058B2B|008A98;
+   dw DATA8_058A98                      ;058B2B|058A98;
    db $1A                               ;058B2D|      ;
-   dw LOOSE_OP_008A62                   ;058B2E|008A62;
+   dw DATA8_058A62                      ;058B2E|058A62;
+DATA8_058B30:
    db $1B                               ;058B30|      ;
-   dw CODE_008312                       ;058B31|008312;
+   dw DATA8_058312                      ;058B31|058312;
    db $1A                               ;058B33|      ;
-   dw CODE_008B30                       ;058B34|008B30;
+   dw DATA8_058B30                      ;058B34|058B30;
 CODE_058B36:
    JSL.L Is_Equals_1575                 ;058B36|07AEDD;
    BNE CODE_058B4F                      ;058B3A|058B4F;
@@ -1786,7 +1796,7 @@ Add_char_04_to_party:
    db $00                               ;058B98|      ;
    db $08                               ;058B99|      ;
    db $1B                               ;058B9A|      ;
-   dw LOOSE_OP_0085BB                   ;058B9B|0085BB;
+   dw DATA8_0585BB                      ;058B9B|0585BB;
    db $24                               ;058B9D|      ;
    db $02                               ;058B9E|      ;
    db $07                               ;058B9F|      ;
@@ -1794,9 +1804,10 @@ Add_char_04_to_party:
    db $01                               ;058BA3|      ;
    db $00                               ;058BA4|      ;
    db $0C                               ;058BA5|      ;
-   dw DATA16_008C4A                     ;058BA6|008C4A;
+   dw DATA8_058C4A                      ;058BA6|058C4A;
+DATA8_058BA8:
    db $08                               ;058BA8|      ;
-   dw CODE_008CCD                       ;058BA9|008CCD;
+   dw DATA8_058CCD                      ;058BA9|058CCD;
    db $07                               ;058BAB|      ;
    dl CODE_07B11C                       ;058BAC|07B11C;
    db $02                               ;058BAF|      ;
@@ -1822,7 +1833,7 @@ Add_char_04_to_party:
    db $07                               ;058BC5|      ;
    dl Is_Equals_1575                    ;058BC6|07AEDD;
    db $0C                               ;058BC9|      ;
-   dw DATA8_008C20                      ;058BCA|008C20;
+   dw DATA8_058C20                      ;058BCA|058C20;
    db $1F                               ;058BCC|      ;
    db $C1                               ;058BCD|      ;
    db $11                               ;058BCE|      ;
@@ -1875,6 +1886,7 @@ DATA8_058BFF:
    db $06                               ;058C1D|      ;
    db $01                               ;058C1E|      ;
    db $0A                               ;058C1F|      ;
+DATA8_058C20:
    db $09                               ;058C20|      ;
    dl CODE_058CD9                       ;058C21|058CD9;
    db $0F                               ;058C24|      ;
@@ -1890,7 +1902,8 @@ DATA8_058BFF:
    db $FF                               ;058C30|      ;
    db $FE                               ;058C31|      ;
    db $1A                               ;058C32|      ;
-   dw CODE_009683                       ;058C33|009683;
+   dw DATA8_059683                      ;058C33|059683;
+DATA8_058C35:
    db $07                               ;058C35|      ;
    dl GetSet_SFX                        ;058C36|009C44;
    db $2F                               ;058C39|      ;
@@ -1904,8 +1917,9 @@ DATA8_058BFF:
    dl Update_SpiritHP_far               ;058C45|0582FB;
    db $06                               ;058C48|      ;
    db $1E                               ;058C49|      ;
+DATA8_058C4A:
    db $08                               ;058C4A|      ;
-   dw CODE_008782                       ;058C4B|008782;
+   dw DATA8_058782                      ;058C4B|058782;
    db $09                               ;058C4D|      ;
    dl CODE_058D08                       ;058C4E|058D08;
    db $24                               ;058C51|      ;
@@ -1948,7 +1962,7 @@ DATA8_058BFF:
    db $07                               ;058C8E|      ;
    dl Death_Check_A_2                   ;058C8F|078DB0;
    db $1A                               ;058C92|      ;
-   dw DATA8_008BA8                      ;058C93|008BA8;
+   dw DATA8_058BA8                      ;058C93|058BA8;
 DATA8_058C95:
    db $07                               ;058C95|      ;
    dl Decomp_Setup2_3b_3b               ;058C96|00A035;
@@ -1969,9 +1983,9 @@ DATA8_058C95:
    dl RAM_Decomp_801A                   ;058CB5|0E8012;
    db $0D                               ;058CB8|      ;
    db $08                               ;058CB9|      ;
-   dw CODE_008CCD                       ;058CBA|008CCD;
+   dw DATA8_058CCD                      ;058CBA|058CCD;
    db $1B                               ;058CBC|      ;
-   dw LOOSE_OP_008425                   ;058CBD|008425;
+   dw DATA8_058425                      ;058CBD|058425;
    db $24                               ;058CBF|      ;
    db $02                               ;058CC0|      ;
    db $07                               ;058CC1|      ;
@@ -1979,13 +1993,14 @@ DATA8_058C95:
    db $01                               ;058CC5|      ;
    db $00                               ;058CC6|      ;
    db $0C                               ;058CC7|      ;
-   dw DATA16_008C35                     ;058CC8|008C35;
+   dw DATA8_058C35                      ;058CC8|058C35;
    db $1A                               ;058CCA|      ;
-   dw DATA8_008BFF                      ;058CCB|008BFF;
+   dw DATA8_058BFF                      ;058CCB|058BFF;
+DATA8_058CCD:
    db $1B                               ;058CCD|      ; 1B: JSR to 8312, save ptr in $14
-   dw CODE_008312                       ;058CCE|008312;
+   dw DATA8_058312                      ;058CCE|058312;
    db $1A                               ;058CD0|      ; 1A: Jump to 8CCD
-   dw CODE_008CCD                       ;058CD1|008CCD;
+   dw DATA8_058CCD                      ;058CD1|058CCD;
 CODE_058CD3:
    JSL.L Is_Equals_1575                 ;058CD3|07AEDD;
    BNE CODE_058CEC                      ;058CD7|058CEC;
@@ -2125,7 +2140,7 @@ DATA8_058D68:
    db $07                               ;058DC1|      ;
    dl Is_Equals_1575                    ;058DC2|07AEDD;
    db $0C                               ;058DC5|      ;
-   dw LOOSE_OP_008E34                   ;058DC6|008E34;
+   dw DATA8_058E34                      ;058DC6|058E34;
    db $1F                               ;058DC8|      ;
    dw $11C1                             ;058DC9|      ;
    db $11                               ;058DCB|      ;
@@ -2151,11 +2166,12 @@ DATA8_058DDA:
    dl Sprite_Field_BadTeefa             ;058DED|0EC292;
    dl $7E8A00                           ;058DF0|7E8A00;
    db $1A                               ;058DF3|      ;
-   dw LOOSE_OP_008E00                   ;058DF4|008E00;
+   dw DATA8_058E00                      ;058DF4|058E00;
    db $07                               ;058DF6|      ;
    dl Decomp_Setup2_3b_3b               ;058DF7|00A035;
    dl Sprite_Field_GdTeefa              ;058DFA|0EC6AB;
    dl $7E8A00                           ;058DFD|7E8A00;
+DATA8_058E00:
    db $06                               ;058E00|      ;
    db $01                               ;058E01|      ;
    db $07                               ;058E02|      ;
@@ -2188,6 +2204,7 @@ DATA8_058E19:
    db $06                               ;058E31|      ;
    db $01                               ;058E32|      ;
    db $0A                               ;058E33|      ; 0A
+DATA8_058E34:
    db $09                               ;058E34|      ;
    dl CODE_058F0F                       ;058E35|058F0F;
    db $0F                               ;058E38|      ;
@@ -2434,10 +2451,10 @@ DATA8_058F9A:
    dw $0004                             ;058FC8|      ;
    db $12                               ;058FCA|      ;
    db $04                               ;058FCB|      ;
-   dw LOOSE_OP_008EE1                   ;058FCC|008EE1;
-   dw LOOSE_OP_008EEB                   ;058FCE|008EEB;
-   dw LOOSE_OP_008EF5                   ;058FD0|008EF5;
-   dw LOOSE_OP_008EFF                   ;058FD2|008EFF;
+   dw DATA8_058EE1                      ;058FCC|058EE1;
+   dw DATA8_058EEB                      ;058FCE|058EEB;
+   dw DATA8_058EF5                      ;058FD0|058EF5;
+   dw DATA8_058EFF                      ;058FD2|058EFF;
    db $04                               ;058FD4|      ;
    dl Some_Death_Check                  ;058FD5|058449;
    db $08                               ;058FD8|      ;
@@ -2700,7 +2717,7 @@ Set_Character_7:
    db $04                               ;059187|      ;
    dl Some_Death_Check                  ;059188|058449;
    db $08                               ;05918B|      ;
-   dw LOOSE_OP_009269                   ;05918C|009269;
+   dw DATA8_059269                      ;05918C|059269;
    db $24                               ;05918E|      ;
    db $02                               ;05918F|      ;
    db $07                               ;059190|      ;
@@ -2720,7 +2737,7 @@ Set_Character_7:
    db $07                               ;0591A6|      ;
    dl Is_Equals_1575                    ;0591A7|07AEDD;
    db $0C                               ;0591AA|      ;
-   dw LOOSE_OP_0091F5                   ;0591AB|0091F5;
+   dw DATA8_0591F5                      ;0591AB|0591F5;
    db $1F                               ;0591AD|      ;
    dw $11C1                             ;0591AE|      ;
    db $11                               ;0591B0|      ;
@@ -2764,6 +2781,7 @@ DATA8_0591DA:
    db $06                               ;0591F2|      ;
    db $01                               ;0591F3|      ;
    db $0A                               ;0591F4|      ; 0A
+DATA8_0591F5:
    db $09                               ;0591F5|      ;
    dl CODE_0592D0                       ;0591F6|0592D0;
    db $0F                               ;0591F9|      ;
@@ -2777,6 +2795,7 @@ DATA8_0591DA:
    dw $FEFF                             ;059205|      ;
    db $1A                               ;059207|      ;
    dw DATA8_059683                      ;059208|059683;
+DATA8_05920A:
    db $24                               ;05920A|      ;
    db $02                               ;05920B|      ;
    db $07                               ;05920C|      ;
@@ -2819,22 +2838,23 @@ DATA8_059231:
    dl RAM_Decomp_803C                   ;059251|0E8034;
    db $0D                               ;059254|      ;
    db $08                               ;059255|      ;
-   dw LOOSE_OP_009269                   ;059256|009269;
+   dw DATA8_059269                      ;059256|059269;
    db $1B                               ;059258|      ;
-   dw LOOSE_OP_008425                   ;059259|008425;
+   dw DATA8_058425                      ;059259|058425;
    db $24                               ;05925B|      ;
    db $02                               ;05925C|      ;
    db $07                               ;05925D|      ;
    dl Condition_Check_2b                ;05925E|07B0B0;
    dw $0001                             ;059261|      ;
    db $0C                               ;059263|      ;
-   dw LOOSE_OP_00920A                   ;059264|00920A;
+   dw DATA8_05920A                      ;059264|05920A;
    db $1A                               ;059266|      ;
-   dw Event_Code_06                     ;059267|0091DA;
+   dw DATA8_0591DA                      ;059267|0591DA;
+DATA8_059269:
    db $1B                               ;059269|      ; 1B: JSR to 8312
-   dw CODE_008312                       ;05926A|008312;
+   dw DATA8_058312                      ;05926A|058312;
    db $1A                               ;05926C|      ; 1A: Jump to 9269 (nice)
-   dw LOOSE_OP_009269                   ;05926D|009269;
+   dw DATA8_059269                      ;05926D|059269;
 Sub_Another_setup_again:
    db $07                               ;05926F|      ;
    dl Get_ID_in_slot_2b                 ;059270|07B0E8;
@@ -3008,14 +3028,14 @@ DATA8_05935B:
    dw $0006                             ;059389|      ;
    db $12                               ;05938B|      ;
    db $04                               ;05938C|      ;
-   dw LOOSE_OP_0092A2                   ;05938D|0092A2;
-   dw CODE_0092AC                       ;05938F|0092AC;
-   dw LOOSE_OP_0092B6                   ;059391|0092B6;
-   dw CODE_0092C0                       ;059393|0092C0;
+   dw DATA8_0592A2                      ;05938D|0592A2;
+   dw DATA8_0592AC                      ;05938F|0592AC;
+   dw DATA8_0592B6                      ;059391|0592B6;
+   dw DATA8_0592C0                      ;059393|0592C0;
    db $04                               ;059395|      ;
    dl Some_Death_Check                  ;059396|058449;
    db $08                               ;059399|      ;
-   dw CODE_009477                       ;05939A|009477;
+   dw DATA8_059477                      ;05939A|059477;
    db $24                               ;05939C|      ;
    db $02                               ;05939D|      ;
    db $07                               ;05939E|      ;
@@ -3035,7 +3055,7 @@ DATA8_05935B:
    db $07                               ;0593B4|      ;
    dl Is_Equals_1575                    ;0593B5|07AEDD;
    db $0C                               ;0593B8|      ;
-   dw LOOSE_OP_009403                   ;0593B9|009403;
+   dw DATA8_059403                      ;0593B9|059403;
    db $1F                               ;0593BB|      ;
    dw $11C1                             ;0593BC|      ;
    db $11                               ;0593BE|      ;
@@ -3079,6 +3099,7 @@ DATA8_0593E8:
    db $06                               ;059400|      ;
    db $01                               ;059401|      ;
    db $0A                               ;059402|      ; 0A
+DATA8_059403:
    db $09                               ;059403|      ;
    dl CODE_059483                       ;059404|059483;
    db $0F                               ;059407|      ;
@@ -3525,7 +3546,7 @@ Display_Petrified:
    db $1B                               ;0596E3|      ;
    dw DATA8_058425                      ;0596E4|058425;
    db $1A                               ;0596E6|      ;
-   dw LOOSE_OP_009933                   ;0596E7|009933;
+   dw DATA8_059933                      ;0596E7|059933;
 Display_Confused:
    db $07                               ;0596E9|      ;
    dl Setup_Text_Parser_3b              ;0596EA|00A0AC;
@@ -4309,10 +4330,10 @@ DATA8_059B2E:
    dl CODE_07863B                       ;059B47|07863B;
    db $12                               ;059B4A|      ;
    db $04                               ;059B4B|      ;
-   dw LOOSE_OP_009BE5                   ;059B4C|009BE5;
-   dw CODE_009BEA                       ;059B4E|009BEA;
-   dw LOOSE_OP_009BEF                   ;059B50|009BEF;
-   dw LOOSE_OP_009BF4                   ;059B52|009BF4;
+   dw DATA8_059BE5                      ;059B4C|059BE5;
+   dw DATA8_059BEA                      ;059B4E|059BEA;
+   dw DATA8_059BEF                      ;059B50|059BEF;
+   dw DATA8_059BF4                      ;059B52|059BF4;
    db $07                               ;059B54|      ;
    dl CODE_07886F                       ;059B55|07886F;
    db $07                               ;059B58|      ;
@@ -4378,9 +4399,9 @@ DATA8_059BA6:
    db $0A                               ;059BB7|      ;
    db $11                               ;059BB8|      ;
    db $03                               ;059BB9|      ;
-   dw CODE_009B60                       ;059BBA|009B60;
-   dw LOOSE_OP_009BC0                   ;059BBC|009BC0;
-   dw LOOSE_OP_009B2E                   ;059BBE|009B2E;
+   dw DATA8_059B60                      ;059BBA|059B60;
+   dw DATA8_059BC0                      ;059BBC|059BC0;
+   dw DATA8_059B2E                      ;059BBE|059B2E;
 DATA8_059BC0:
    db $06                               ;059BC0|      ;
    db $01                               ;059BC1|      ;
