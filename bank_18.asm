@@ -3927,7 +3927,7 @@ New_stuff2:
    db $00                               ;1895EC|      ;
    db $00                               ;1895ED|      ;
 Get_Event:
-   LDA.W Battle_State                   ;1895EE|0011C1;
+   LDA.W Game_State                     ;1895EE|0011C1;
    CMP.W #$0001                         ;1895F1|      ; In the middle of something?
    BEQ CODE_18964E                      ;1895F4|18964E; Skip event
    CMP.W #$0002                         ;1895F6|      ; In battle?
@@ -5429,7 +5429,7 @@ Ch1_End_pt3:
    db $00                               ;189E35|      ; Return
 BeatUp_end_check:
    LDX.W Selection                      ;189E36|00103F;
-   LDA.W Spirit_Condition               ;189E39|0011C5; Checks if spirit is Not Here
+   LDA.W Condition_Spirit               ;189E39|0011C5; Checks if spirit is Not Here
    AND.W #$00FF                         ;189E3C|      ;
    CMP.W #$0002                         ;189E3F|      ;
    BEQ CODE_189E4E                      ;189E42|189E4E;
@@ -6291,7 +6291,7 @@ EVENT_06_Darwin:
    LDA.W Boss_Array                     ;18A355|0018DF; Post Cyclops scene
    AND.W #$0001                         ;18A358|      ;
    BEQ CODE_18A367                      ;18A35B|18A367;
-   LDA.W Battle_State                   ;18A35D|0011C1;
+   LDA.W Game_State                     ;18A35D|0011C1;
    CMP.W #$0002                         ;18A360|      ;
    BEQ CODE_18A367                      ;18A363|18A367;
    SEC                                  ;18A365|      ;
@@ -6439,7 +6439,7 @@ EVENT_07_Efrite:
    LDA.W Boss_Array                     ;18A41C|0018DF; Post Efrite scene
    AND.W #$0002                         ;18A41F|      ;
    BEQ CODE_18A42E                      ;18A422|18A42E;
-   LDA.W Battle_State                   ;18A424|0011C1;
+   LDA.W Game_State                     ;18A424|0011C1;
    CMP.W #$0002                         ;18A427|      ;
    BEQ CODE_18A42E                      ;18A42A|18A42E;
    SEC                                  ;18A42C|      ;
@@ -8249,7 +8249,7 @@ EVENT_0B_Marid:
    LDA.W Boss_Array                     ;18AD02|0018DF; Post Hydra scene
    AND.W #$0001                         ;18AD05|      ;
    BEQ CODE_18AD14                      ;18AD08|18AD14;
-   LDA.W Battle_State                   ;18AD0A|0011C1;
+   LDA.W Game_State                     ;18AD0A|0011C1;
    CMP.W #$0002                         ;18AD0D|      ;
    BEQ CODE_18AD14                      ;18AD10|18AD14;
    SEC                                  ;18AD12|      ;
@@ -10054,7 +10054,7 @@ Text_SCRIPT072:
    dl Battle_related1b                  ;18B675|009CDD;
    db $10                               ;18B678|      ;
    db $07                               ;18B679|      ;
-   dl Character_Join_13b                ;18B67A|009CBC;
+   dl Load_Graphics_13b                 ;18B67A|009CBC;
    db $10                               ;18B67D|      ;
    db $0E                               ;18B67E|      ;
    db $00                               ;18B67F|      ;
@@ -10157,7 +10157,7 @@ Text_SCRIPT074:
    dl Battle_related1b                  ;18B6F9|009CDD;
    db $10                               ;18B6FC|      ;
    db $07                               ;18B6FD|      ;
-   dl Character_Join_13b                ;18B6FE|009CBC;
+   dl Load_Graphics_13b                 ;18B6FE|009CBC;
    db $10                               ;18B701|      ;
    db $0A                               ;18B702|      ;
    db $00                               ;18B703|      ;
@@ -10248,7 +10248,7 @@ ASM_Darah_Barah:
    dl Battle_related1b                  ;18B788|009CDD;
    db $0E                               ;18B78B|      ;
    db $07                               ;18B78C|      ;
-   dl Character_Join_13b                ;18B78D|009CBC;
+   dl Load_Graphics_13b                 ;18B78D|009CBC;
    db $0E                               ;18B790|      ;
    db $0D                               ;18B791|      ;
    db $00                               ;18B792|      ;
@@ -11361,7 +11361,7 @@ ASM_Galneon_Door:
    dw Make_Animation_Loop1              ;18BD57|18D4B9;
    db $07                               ;18BD59|      ;
    dl Decomp_Setup2_3b_3b               ;18BD5A|00A035;
-   dl Data_Post_Lightning               ;18BD5D|18BEE6;
+   dl RLE_Post_Lightning                ;18BD5D|18BEE6;
    dl $000440                           ;18BD60|000440;
    db $07                               ;18BD63|      ;
    dl Transfer_Data_3b_1b_2b            ;18BD64|00A140;
@@ -11541,7 +11541,7 @@ Text_SCRIPT094:
    dw Make_Animation_Loop1              ;18BE64|18D4B9;
    db $07                               ;18BE66|      ;
    dl Decomp_Setup2_3b_3b               ;18BE67|00A035;
-   dl _18CC36_comp_data                 ;18BE6A|18BF43;
+   dl RLE_18CC36_data                   ;18BE6A|18BF43;
    dl $000440                           ;18BE6D|000440;
    db $07                               ;18BE70|      ;
    dl Transfer_Data_3b_1b_2b            ;18BE71|00A140;
@@ -11636,7 +11636,7 @@ Lightning_Scene:
    dw $1901                             ;18BEE1|      ;
    dw $0000                             ;18BEE3|      ;
    db $00                               ;18BEE5|      ; 00
-Data_Post_Lightning:
+RLE_Post_Lightning:
    db $1F                               ;18BEE6|      ;
    db $B8                               ;18BEE7|      ;
    db $35                               ;18BEE8|000041;
@@ -11730,7 +11730,7 @@ Data_Post_Lightning:
    db $BF                               ;18BF40|0DFF7C;
    db $7C                               ;18BF41|180DFF;
    db $FF                               ;18BF42|29060D;
-_18CC36_comp_data:
+RLE_18CC36_data:
    db $0D                               ;18BF43|      ;
    db $06                               ;18BF44|000029;
    db $29                               ;18BF45|      ;
@@ -13648,7 +13648,7 @@ Text_SCRIPT110:
    db $1B                               ;18C8EC|      ;
    dw Wait_for_A_press                  ;18C8ED|18D4C3;
    db $08                               ;18C8EF|      ;
-   dw DATA8_18CD15                      ;18C8F0|18CD15;
+   dw Event_Rimsala_Brain_Burn          ;18C8F0|18CD15;
    db $06                               ;18C8F2|      ;
    db $5A                               ;18C8F3|      ;
 Text_SCRIPT111:
@@ -14267,7 +14267,7 @@ Final_Battle:
    dw Make_Animation_Loop1              ;18CC30|18D4B9;
    db $07                               ;18CC32|      ;
    dl Decomp_Setup2_3b_3b               ;18CC33|00A035;
-   dl _18CC36_comp_data                 ;18CC36|18BF43;
+   dl RLE_18CC36_data                   ;18CC36|18BF43;
    dw $0440                             ;18CC39|      ;
    db $00                               ;18CC3B|      ;
    db $06                               ;18CC3C|      ;
@@ -14477,14 +14477,14 @@ _18CABF_data:
    db $CD                               ;18CD12|001500;
    db $00                               ;18CD13|      ;
    db $15                               ;18CD14|000007;
-DATA8_18CD15:
+Event_Rimsala_Brain_Burn:
    db $07                               ;18CD15|      ; Sss SFX
    dl GetSet_SFX                        ;18CD16|009C44;
    db $26                               ;18CD19|      ;
    db $06                               ;18CD1A|      ;
    db $18                               ;18CD1B|      ;
    db $1A                               ;18CD1C|      ;
-   dw DATA8_18CD15                      ;18CD1D|18CD15;
+   dw Event_Rimsala_Brain_Burn          ;18CD1D|18CD15;
 DATA8_18CD1F:
    db $13                               ;18CD1F|      ; Set $2131 to 2
    dw $2131                             ;18CD20|      ;
@@ -14694,7 +14694,7 @@ Full_Heal_Rooks_Spirits:
    STA.W Current_HP                     ;18CE10|0012F3;
    LDA.W MaxMP                          ;18CE13|00139B;
    STA.W Current_MP                     ;18CE16|001323;
-   STZ.W Spirit_Condition               ;18CE19|0011C5;
+   STZ.W Condition_Spirit               ;18CE19|0011C5;
    STZ.W Spirits_NotOwned               ;18CE1C|0013A7;
    LDA.W SpiritMaxHP                    ;18CE1F|001395;
    STA.W Spirit_currHP                  ;18CE22|0012F5;
@@ -15200,7 +15200,7 @@ Teefa_joins:
    dl Unequip_character                 ;18D289|07AC6E;
    dw $0010                             ;18D28C|      ;
    db $07                               ;18D28E|      ;
-   dl Character_Join_13b                ;18D28F|009CBC;
+   dl Load_Graphics_13b                 ;18D28F|009CBC;
    db $10                               ;18D292|      ;
    db $09                               ;18D293|      ;
    db $00                               ;18D294|      ;
@@ -15225,7 +15225,7 @@ Teefa_leaves:
    dl Unequip_character                 ;18D2A8|07AC6E;
    dw $0010                             ;18D2AB|      ;
    db $07                               ;18D2AD|      ;
-   dl Character_Join_13b                ;18D2AE|009CBC;
+   dl Load_Graphics_13b                 ;18D2AE|009CBC;
    db $10                               ;18D2B1|      ;
    db $0E                               ;18D2B2|      ;
    db $00                               ;18D2B3|      ;
@@ -15250,7 +15250,7 @@ Salah_joins:
    dl Unequip_character                 ;18D2C7|07AC6E;
    dw $0010                             ;18D2CA|      ;
    db $07                               ;18D2CC|      ;
-   dl Character_Join_13b                ;18D2CD|009CBC;
+   dl Load_Graphics_13b                 ;18D2CD|009CBC;
    db $10                               ;18D2D0|      ;
    db $0A                               ;18D2D1|      ;
    db $00                               ;18D2D2|      ;
@@ -15275,7 +15275,7 @@ Salah_leaves:
    dl Unequip_character                 ;18D2E6|07AC6E;
    dw $0010                             ;18D2E9|      ;
    db $07                               ;18D2EB|      ;
-   dl Character_Join_13b                ;18D2EC|009CBC;
+   dl Load_Graphics_13b                 ;18D2EC|009CBC;
    db $10                               ;18D2EF|      ;
    db $0E                               ;18D2F0|      ;
    db $00                               ;18D2F1|      ;
@@ -15300,7 +15300,7 @@ Sub_Axs_joins_Ch3:
    dl Unequip_character                 ;18D305|07AC6E;
    dw $0012                             ;18D308|      ;
    db $07                               ;18D30A|      ; Axs joins (12)
-   dl Character_Join_13b                ;18D30B|009CBC;
+   dl Load_Graphics_13b                 ;18D30B|009CBC;
    db $12                               ;18D30E|      ;
    db $0C                               ;18D30F|      ;
    db $00                               ;18D310|      ;
@@ -15326,7 +15326,7 @@ Sub_Unequip_Axs:
    dw $0012                             ;18D327|      ;
 Sub_Axs_leaves:
    db $07                               ;18D329|      ;
-   dl Character_Join_13b                ;18D32A|009CBC;
+   dl Load_Graphics_13b                 ;18D32A|009CBC;
    db $12                               ;18D32D|      ;
    db $0F                               ;18D32E|      ;
    db $00                               ;18D32F|      ;
@@ -15351,7 +15351,7 @@ Darwin_joins:
    dl Unequip_character                 ;18D343|07AC6E;
    dw $0012                             ;18D346|      ;
    db $07                               ;18D348|      ;
-   dl Character_Join_13b                ;18D349|009CBC;
+   dl Load_Graphics_13b                 ;18D349|009CBC;
    db $12                               ;18D34C|      ;
    db $0B                               ;18D34D|      ;
    db $00                               ;18D34E|      ;
@@ -15376,7 +15376,7 @@ Darwin_leaves:
    dl Unequip_character                 ;18D362|07AC6E;
    dw $0012                             ;18D365|      ;
    db $07                               ;18D367|      ;
-   dl Character_Join_13b                ;18D368|009CBC;
+   dl Load_Graphics_13b                 ;18D368|009CBC;
    db $12                               ;18D36B|      ;
    db $0F                               ;18D36C|      ;
    db $00                               ;18D36D|      ;
@@ -15583,7 +15583,7 @@ Some_sub:
    dw $0001                             ;18D461|      ;
 Unknown_join:
    db $07                               ;18D463|      ;
-   dl Character_Join_13b                ;18D464|009CBC;
+   dl Load_Graphics_13b                 ;18D464|009CBC;
    db $04                               ;18D467|      ;
    db $13                               ;18D468|      ;
    db $00                               ;18D469|      ;

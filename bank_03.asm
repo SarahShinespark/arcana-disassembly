@@ -11535,9 +11535,9 @@ DATA8_03C588:
    dw $0000                             ;03C58F|      ;
    db $07                               ;03C591|      ;
    dl Shop_cursor_setup_3b              ;03C592|03E2A8;
-   dl UNREACH_03E6F5                    ;03C595|03E6F5;
+   dl DATA8_03E6F5                      ;03C595|03E6F5;
    db $07                               ;03C598|      ;
-   dl CODE_03D845                       ;03C599|03D845;
+   dl Trade_Draw_Items                  ;03C599|03D845;
    db $07                               ;03C59C|      ;
    dl Menu_Stuffs_1b                    ;03C59D|009CC9;
    db $03                               ;03C5A0|      ;
@@ -11645,11 +11645,11 @@ DATA8_03C621:
    db $02                               ;03C647|      ;
    db $07                               ;03C648|      ;
    dl Shop_cursor_setup_3b              ;03C649|03E2A8;
-   dl UNREACH_03E6F5                    ;03C64C|03E6F5;
+   dl DATA8_03E6F5                      ;03C64C|03E6F5;
    db $07                               ;03C64F|      ;
-   dl CODE_03D9CE                       ;03C650|03D9CE;
+   dl Trade_Cursor_Sus1                 ;03C650|03D9CE;
    db $07                               ;03C653|      ;
-   dl CODE_03D845                       ;03C654|03D845;
+   dl Trade_Draw_Items                  ;03C654|03D845;
    db $07                               ;03C657|      ;
    dl _00A764_far                       ;03C658|00A760;
    db $1A                               ;03C65B|      ;
@@ -11667,6 +11667,7 @@ DATA8_03C65E:
    db $00                               ;03C66D|      ;
    db $23                               ;03C66E|      ;
    db $02                               ;03C66F|      ;
+Trade_Fail_ASM:
    db $07                               ;03C670|      ;
    dl Setup_Text_Parser_3b              ;03C671|00A0AC;
    dl Outfitter_No_Money                ;03C674|08DD89;
@@ -11678,12 +11679,13 @@ DATA8_03C65E:
    db $02                               ;03C67F|      ;
    db $07                               ;03C680|      ;
    dl Shop_cursor_setup_3b              ;03C681|03E2A8;
-   dl UNREACH_03E6F5                    ;03C684|03E6F5;
+   dl DATA8_03E6F5                      ;03C684|03E6F5;
+Trade_Investigate_Me:
    db $07                               ;03C687|      ;
-   dl CODE_03D9CE                       ;03C688|03D9CE;
-   db $07                               ;03C68B|      ;
-   dl CODE_03D845                       ;03C68C|03D845;
-   db $07                               ;03C68F|      ;
+   dl Trade_Cursor_Sus1                 ;03C688|03D9CE;
+   db $07                               ;03C68B|      ; Write pointers to the item names to temp memory
+   dl Trade_Draw_Items                  ;03C68C|03D845;
+   db $07                               ;03C68F|      ; Write everything to the screen
    dl _00A764_far                       ;03C690|00A760;
    db $1A                               ;03C693|      ;
    dw DATA8_03C5B8                      ;03C694|03C5B8;
@@ -13987,13 +13989,13 @@ CODE_03D3DC:
    LDA.W #$0006                         ;03D418|      ;
 CODE_03D41B:
    TAX                                  ;03D41B|      ;
-   LDA.L GP_displays,X                  ;03D41C|03D42E;
+   LDA.L Tbl_Disp_Num_Items_For_Sale,X  ;03D41C|03D42E;
    STA.B $00                            ;03D420|000000;
    LDA.W #$0008                         ;03D422|      ;
    STA.B $02                            ;03D425|000002;
    LDA.W #$0001                         ;03D427|      ;
    JML.L Set_Text_Parser_long           ;03D42A|00A688;
-GP_displays:
+Tbl_Disp_Num_Items_For_Sale:
    dw Outfitter_1_Item_For_Sale         ;03D42E|08E018;
    dw Outfitter_2_Items_For_Sale        ;03D430|08DFEC;
    dw Outfitter_3_Items_For_Sale        ;03D432|08DFAF;
@@ -14518,7 +14520,7 @@ CODE_03D81A:
    LDA.W #$0005                         ;03D827|      ;
    STA.W Shop_Curr_Selection            ;03D82A|00188D;
    DEC.W Shop_selection                 ;03D82D|001885;
-   BRA CODE_03D845                      ;03D830|03D845;
+   BRA Trade_Draw_Items                 ;03D830|03D845;
 CODE_03D832:
    LDX.W Selection                      ;03D832|00103F;
    LDA.W $09A3,X                        ;03D835|0009A3;
@@ -14527,8 +14529,8 @@ CODE_03D832:
    STA.W $09A3,X                        ;03D83C|0009A3;
    STZ.W Shop_Curr_Selection            ;03D83F|00188D;
    INC.W Shop_selection                 ;03D842|001885;
-CODE_03D845:
-   STZ.W Input_New                      ;03D845|000029;
+Trade_Draw_Items:
+   STZ.W Input_New                      ;03D845|000029; Find the final inventory slot in use
    LDA.W #$000F                         ;03D848|      ;
    STA.W $0039                          ;03D84B|000039;
    LDX.W #$005E                         ;03D84E|      ;
@@ -14552,8 +14554,8 @@ CODE_03D86A:
    LDA.W #$0000                         ;03D86F|      ;
    BRA CODE_03D87B                      ;03D872|03D87B;
 CODE_03D874:
-   LDA.L Inventory_Items,X              ;03D874|0013B9;
-   ORA.W #$1400                         ;03D878|      ;
+   LDA.L Inventory_Items,X              ;03D874|0013B9; Get inventory item ID
+   ORA.W #$1400                         ;03D878|      ; Multiply by item name length
 CODE_03D87B:
    STA.W Multiply_lo                    ;03D87B|004202;
    LDA.W #$0005                         ;03D87E|      ;
@@ -14706,7 +14708,7 @@ CODE_03D9A3:
    LDA.W Mult_Divide_Result             ;03D9C7|004216;
    STA.W $09A3,Y                        ;03D9CA|0009A3;
    RTL                                  ;03D9CD|      ;
-CODE_03D9CE:
+Trade_Cursor_Sus1:
    LDA.W $18A1                          ;03D9CE|0018A1;
    STA.W $4204                          ;03D9D1|004204;
    SEP #$10                             ;03D9D4|      ;
@@ -14717,7 +14719,7 @@ CODE_03D9CE:
    AND.W #$0001                         ;03D9E0|      ;
    STA.W $188B                          ;03D9E3|00188B;
    STA.W $188F                          ;03D9E6|00188F;
-   LDA.W Mult_Divide_Result             ;03D9E9|004216;
+   LDA.W Mult_Divide_Result             ;03D9E9|004216; Get remainder of 18A1 % twelve
    LSR A                                ;03D9EC|      ;
    STA.W Shop_Curr_Selection            ;03D9ED|00188D;
    LDA.W Quotient                       ;03D9F0|004214;
@@ -16358,11 +16360,11 @@ Some_Shop_setup:
    db $80                               ;03E6F2|03E762;
    db $6E                               ;03E6F3|000101;
    db $01                               ;03E6F4|000001;
-UNREACH_03E6F5:
-   db $01                               ;03E6F5|000006;
-   db $06                               ;03E6F6|000004;
-   db $04                               ;03E6F7|000006;
-   db $06                               ;03E6F8|000000;
+DATA8_03E6F5:
+   db $01                               ;03E6F5|      ;
+   db $06                               ;03E6F6|      ;
+   db $04                               ;03E6F7|      ;
+   db $06                               ;03E6F8|      ;
    db $00                               ;03E6F9|      ;
    db $80                               ;03E6FA|03E71F;
    db $23                               ;03E6FB|000005;

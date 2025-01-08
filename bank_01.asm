@@ -22,7 +22,7 @@ CODE_018018:
    STA.W $0008                          ;018034|000008;
    LDA.W $063B                          ;018037|00063B;
    BPL CODE_018018                      ;01803A|018018;
-   LDA.W Battle_State                   ;01803C|0011C1;
+   LDA.W Game_State                     ;01803C|0011C1;
    BMI CODE_018045                      ;01803F|018045;
    JML.L CODE_01B7D9                    ;018041|01B7D9;
 CODE_018045:
@@ -45,7 +45,7 @@ Init_all_the_things:
    STZ.W $157F                          ;01805A|00157F;
    STZ.W Story_Progress                 ;01805D|0018FF;
    STZ.W $1901                          ;018060|001901;
-   STZ.W Battle_State                   ;018063|0011C1;
+   STZ.W Game_State                     ;018063|0011C1;
    STZ.W $1575                          ;018066|001575;
    STZ.W Temp_EXP                       ;018069|0013A3;
    STZ.W Temp_GP                        ;01806C|0013A5;
@@ -89,9 +89,9 @@ Init_all_the_things:
    JSL.L Zero_more_stuff_far            ;0180DF|00A649;
    JSL.L Init_SPC                       ;0180E3|00D176;
    LDA.W #$000A                         ;0180E7|      ;
-   STA.W $1097                          ;0180EA|001097;
+   STA.W Text_Line_Speed                ;0180EA|001097;
    LDA.W #$0001                         ;0180ED|      ;
-   STA.W $1099                          ;0180F0|001099;
+   STA.W Text_Speed                     ;0180F0|001099;
    RTS                                  ;0180F3|      ;
 Zero_All_Stats_far:
    JSR.W Zero_All_Stats                 ;0180F4|0180F8;
@@ -111,14 +111,14 @@ CODE_0180FB:
    CPX.W #$0018                         ;018112|      ;
    BCC CODE_0180FB                      ;018115|0180FB;
    RTS                                  ;018117|      ;
-_00811C_far:
+Zero_enemy_stats_far:
    JSR.W Zero_enemy_stats               ;018118|01811C;
    RTL                                  ;01811B|      ;
 Zero_enemy_stats:
    LDX.W #$0000                         ;01811C|      ;
    LDA.W #$0001                         ;01811F|      ;
 CODE_018122:
-   STA.W Enemy_Condition,X              ;018122|0011CB; Set enemies to Deceased
+   STA.W Condition_Enemy1,X             ;018122|0011CB; Set enemies to Deceased
    STZ.W Enemy_order,X                  ;018125|0011FB; And zero their stats
    STZ.W Enemy_STR,X                    ;018128|00122B;
    STZ.W Enemy_INT,X                    ;01812B|001243;
@@ -148,14 +148,14 @@ Init_11CB_11D9_far:
    RTL                                  ;018157|      ;
 Init_11CB_11D9:
    LDA.W #$0001                         ;018158|      ; Sets a range of RAM to 0001
-   STA.W Enemy_Condition                ;01815B|0011CB;
+   STA.W Condition_Enemy1               ;01815B|0011CB;
    STA.W $11CD                          ;01815E|0011CD;
    STA.W $11CF                          ;018161|0011CF;
    STA.W $11D1                          ;018164|0011D1;
    STA.W $11D3                          ;018167|0011D3;
    STA.W $11D5                          ;01816A|0011D5;
    STA.W $11D7                          ;01816D|0011D7;
-   STA.W $11D9                          ;018170|0011D9;
+   STA.W Condition_Enemy8               ;018170|0011D9;
    RTS                                  ;018173|      ;
 Init_11FB_1209_far:
    JSR.W Init_11FB_1209                 ;018174|018178;
@@ -394,7 +394,7 @@ Script_18321:
    db $1F                               ;01832D|      ;
    dw $18CB                             ;01832E|      ;
    db $0C                               ;018330|      ;
-   dw DATA8_0183BD                      ;018331|0183BD;
+   dw Init_more_things                  ;018331|0183BD;
 DATA8_018333:
    db $16                               ;018333|      ;
    dw $18FF                             ;018334|      ;
@@ -472,37 +472,37 @@ Init_all_the_things_2:
    dl Xfer_1577_stuff                   ;0183B7|018A06;
    db $1A                               ;0183BA|      ;
    dw DATA8_018561                      ;0183BB|018561;
-DATA8_0183BD:
-   db $16                               ;0183BD|      ;
+Init_more_things:
+   db $16                               ;0183BD|      ; 16: $1901 = 0
    dw $1901                             ;0183BE|      ;
    dw $0000                             ;0183C0|      ;
-   db $16                               ;0183C2|      ;
+   db $16                               ;0183C2|      ; 16: $11C1 = 5 (?)
    dw $11C1                             ;0183C3|      ;
    dw $0005                             ;0183C5|      ;
-   db $16                               ;0183C7|      ;
+   db $16                               ;0183C7|      ; 16: $1575 = FFFF (?)
    dw $1575                             ;0183C8|      ;
    dw $FFFF                             ;0183CA|      ;
-   db $16                               ;0183CC|      ;
+   db $16                               ;0183CC|      ; 16: Temp EXP = 0
    dw $13A3                             ;0183CD|      ;
    dw $0000                             ;0183CF|      ;
-   db $16                               ;0183D1|      ;
+   db $16                               ;0183D1|      ; 16: Temp GP = 0
    dw $13A5                             ;0183D2|      ;
    dw $0000                             ;0183D4|      ;
-   db $16                               ;0183D6|      ;
+   db $16                               ;0183D6|      ; 16: Text pause = false
    dw $1095                             ;0183D7|      ;
    dw $0000                             ;0183D9|      ;
-   db $16                               ;0183DB|      ;
+   db $16                               ;0183DB|      ; 16: Hide compass
    dw $157B                             ;0183DC|      ;
    dw $0000                             ;0183DE|      ;
-   db $16                               ;0183E0|      ;
+   db $16                               ;0183E0|      ; 16: $157D = 0 (?)
    dw $157D                             ;0183E1|      ;
    dw $0000                             ;0183E3|      ;
-   db $16                               ;0183E5|      ;
+   db $16                               ;0183E5|      ; 16: Temp spell ID = FFFF
    dw $1127                             ;0183E6|      ;
    dw $FFFF                             ;0183E8|      ;
 Wipe_enemy_stats:
    db $07                               ;0183EA|      ;
-   dl _00811C_far                       ;0183EB|018118;
+   dl Zero_enemy_stats_far              ;0183EB|018118;
    db $07                               ;0183EE|      ;
    dl Erase_enemy_order_far             ;0183EF|0181A6;
    db $07                               ;0183F2|      ;
@@ -526,6 +526,7 @@ Wipe_enemy_stats:
    dw DATA8_018489                      ;018416|018489;
    db $07                               ;018418|      ;
    dl Get_Slot2_WeirdOffset             ;018419|07ABBA;
+Load_Spirit_Gfx:
    db $12                               ;01841C|      ;
    db $05                               ;01841D|      ;
    dw DATA8_01849B                      ;01841E|01849B;
@@ -535,6 +536,7 @@ Wipe_enemy_stats:
    dw DATA8_0184E3                      ;018426|0184E3;
    db $07                               ;018428|      ;
    dl Get_Slot3_WeirdOffset             ;018429|07ABCB;
+Load_Guest1_Gfx:
    db $12                               ;01842C|      ;
    db $03                               ;01842D|      ;
    dw DATA8_0184F5                      ;01842E|0184F5;
@@ -542,13 +544,14 @@ Wipe_enemy_stats:
    dw DATA8_018519                      ;018432|018519;
    db $07                               ;018434|      ;
    dl Get_Slot4_WeirdOffset             ;018435|07ABDC;
+Load_Guest2_Gfx:
    db $12                               ;018438|      ;
    db $03                               ;018439|      ;
    dw DATA8_01852B                      ;01843A|01852B;
    dw DATA8_01853D                      ;01843C|01853D;
    dw DATA8_01854F                      ;01843E|01854F;
    db $07                               ;018440|      ;
-   dl Character_Join_13b                ;018441|009CBC;
+   dl Load_Graphics_13b                 ;018441|009CBC;
    db $04                               ;018444|      ;
    db $13                               ;018445|      ;
    db $00                               ;018446|      ;
@@ -563,7 +566,7 @@ Wipe_enemy_stats:
    db $00                               ;01844F|      ;
    db $00                               ;018450|      ;
    db $07                               ;018451|      ;
-   dl Character_Join_13b                ;018452|009CBC;
+   dl Load_Graphics_13b                 ;018452|009CBC;
    db $02                               ;018455|      ;
    db $01                               ;018456|      ;
    db $00                               ;018457|      ;
@@ -597,13 +600,13 @@ Wipe_enemy_stats:
    dw Loop_Chapter_2                    ;01847C|01861E;
    dw Loop_Chapter_3                    ;01847E|0186C8;
    dw DATA8_018772                      ;018480|018772;
-   dw UNREACH_01881C                    ;018482|01881C;
+   dw DATA8_01881C                      ;018482|01881C;
    dw DATA8_0188C8                      ;018484|0188C8;
    db $1A                               ;018486|      ;
    dw DATA8_018333                      ;018487|018333;
 DATA8_018489:
    db $07                               ;018489|      ;
-   dl Character_Join_13b                ;01848A|009CBC;
+   dl Load_Graphics_13b                 ;01848A|009CBC;
    db $0C                               ;01848D|      ;
    dw $0004                             ;01848E|      ;
    dw $0000                             ;018490|      ;
@@ -614,7 +617,7 @@ DATA8_018489:
    db $1C                               ;01849A|      ;
 DATA8_01849B:
    db $07                               ;01849B|      ;
-   dl Character_Join_13b                ;01849C|009CBC;
+   dl Load_Graphics_13b                 ;01849C|009CBC;
    db $0E                               ;01849F|      ;
    dw $0005                             ;0184A0|      ;
    dw $0000                             ;0184A2|      ;
@@ -625,7 +628,7 @@ DATA8_01849B:
    db $1C                               ;0184AC|      ;
 DATA8_0184AD:
    db $07                               ;0184AD|      ;
-   dl Character_Join_13b                ;0184AE|009CBC;
+   dl Load_Graphics_13b                 ;0184AE|009CBC;
    db $0E                               ;0184B1|      ;
    dw $0006                             ;0184B2|      ;
    dw $0000                             ;0184B4|      ;
@@ -636,7 +639,7 @@ DATA8_0184AD:
    db $1C                               ;0184BE|      ;
 DATA8_0184BF:
    db $07                               ;0184BF|      ;
-   dl Character_Join_13b                ;0184C0|009CBC;
+   dl Load_Graphics_13b                 ;0184C0|009CBC;
    db $0E                               ;0184C3|      ;
    dw $0007                             ;0184C4|      ;
    dw $0000                             ;0184C6|      ;
@@ -647,7 +650,7 @@ DATA8_0184BF:
    db $1C                               ;0184D0|      ;
 DATA8_0184D1:
    db $07                               ;0184D1|      ;
-   dl Character_Join_13b                ;0184D2|009CBC;
+   dl Load_Graphics_13b                 ;0184D2|009CBC;
    db $0E                               ;0184D5|      ;
    dw $0008                             ;0184D6|      ;
    dw $0000                             ;0184D8|      ;
@@ -658,7 +661,7 @@ DATA8_0184D1:
    db $1C                               ;0184E2|      ;
 DATA8_0184E3:
    db $07                               ;0184E3|      ;
-   dl Character_Join_13b                ;0184E4|009CBC;
+   dl Load_Graphics_13b                 ;0184E4|009CBC;
    db $0E                               ;0184E7|      ;
    dw $000D                             ;0184E8|      ;
    dw $0000                             ;0184EA|      ;
@@ -669,7 +672,7 @@ DATA8_0184E3:
    db $1C                               ;0184F4|      ;
 DATA8_0184F5:
    db $07                               ;0184F5|      ;
-   dl Character_Join_13b                ;0184F6|009CBC;
+   dl Load_Graphics_13b                 ;0184F6|009CBC;
    db $10                               ;0184F9|      ;
    dw $0009                             ;0184FA|      ;
    dw $0000                             ;0184FC|      ;
@@ -680,7 +683,7 @@ DATA8_0184F5:
    db $1C                               ;018506|      ;
 DATA8_018507:
    db $07                               ;018507|      ;
-   dl Character_Join_13b                ;018508|009CBC;
+   dl Load_Graphics_13b                 ;018508|009CBC;
    db $10                               ;01850B|      ;
    dw $000A                             ;01850C|      ;
    dw $0000                             ;01850E|      ;
@@ -691,7 +694,7 @@ DATA8_018507:
    db $1C                               ;018518|      ;
 DATA8_018519:
    db $07                               ;018519|      ;
-   dl Character_Join_13b                ;01851A|009CBC;
+   dl Load_Graphics_13b                 ;01851A|009CBC;
    db $10                               ;01851D|      ;
    dw $000E                             ;01851E|      ;
    dw $0000                             ;018520|      ;
@@ -702,7 +705,7 @@ DATA8_018519:
    db $1C                               ;01852A|      ;
 DATA8_01852B:
    db $07                               ;01852B|      ;
-   dl Character_Join_13b                ;01852C|009CBC;
+   dl Load_Graphics_13b                 ;01852C|009CBC;
    db $12                               ;01852F|      ;
    dw $000B                             ;018530|      ;
    dw $0000                             ;018532|      ;
@@ -713,7 +716,7 @@ DATA8_01852B:
    db $1C                               ;01853C|      ;
 DATA8_01853D:
    db $07                               ;01853D|      ;
-   dl Character_Join_13b                ;01853E|009CBC;
+   dl Load_Graphics_13b                 ;01853E|009CBC;
    db $12                               ;018541|      ;
    dw $000C                             ;018542|      ;
    dw $0000                             ;018544|      ;
@@ -724,7 +727,7 @@ DATA8_01853D:
    db $1C                               ;01854E|      ;
 DATA8_01854F:
    db $07                               ;01854F|      ;
-   dl Character_Join_13b                ;018550|009CBC;
+   dl Load_Graphics_13b                 ;018550|009CBC;
    db $12                               ;018553|      ;
    dw $000F                             ;018554|      ;
    dw $0000                             ;018556|      ;
@@ -760,7 +763,7 @@ Clear_Map_Progress:
    db $04                               ;018589|      ; Do stuff
    dl Sub_Do_stuff                      ;01858A|0189B8;
    db $07                               ;01858D|      ;
-   dl Character_Join_13b                ;01858E|009CBC;
+   dl Load_Graphics_13b                 ;01858E|009CBC;
    db $0C                               ;018591|      ;
    dw $0004                             ;018592|      ;
    dw $0000                             ;018594|      ;
@@ -769,7 +772,7 @@ Clear_Map_Progress:
    dw $0000                             ;01859A|      ;
    dw $0000                             ;01859C|      ;
    db $07                               ;01859E|      ;
-   dl Character_Join_13b                ;01859F|009CBC;
+   dl Load_Graphics_13b                 ;01859F|009CBC;
    db $0E                               ;0185A2|      ;
    dw $0005                             ;0185A3|      ;
    dw $0000                             ;0185A5|      ;
@@ -778,7 +781,7 @@ Clear_Map_Progress:
    dw $0000                             ;0185AB|      ;
    dw $0000                             ;0185AD|      ;
    db $07                               ;0185AF|      ;
-   dl Character_Join_13b                ;0185B0|009CBC;
+   dl Load_Graphics_13b                 ;0185B0|009CBC;
    db $10                               ;0185B3|      ;
    dw $000E                             ;0185B4|      ;
    dw $0000                             ;0185B6|      ;
@@ -787,7 +790,7 @@ Clear_Map_Progress:
    dw $0000                             ;0185BC|      ;
    dw $0000                             ;0185BE|      ;
    db $07                               ;0185C0|      ;
-   dl Character_Join_13b                ;0185C1|009CBC;
+   dl Load_Graphics_13b                 ;0185C1|009CBC;
    db $12                               ;0185C4|      ;
    dw $000F                             ;0185C5|      ;
    dw $0000                             ;0185C7|      ;
@@ -796,7 +799,7 @@ Clear_Map_Progress:
    dw $0000                             ;0185CD|      ;
    dw $0000                             ;0185CF|      ;
    db $07                               ;0185D1|      ;
-   dl Character_Join_13b                ;0185D2|009CBC;
+   dl Load_Graphics_13b                 ;0185D2|009CBC;
    db $04                               ;0185D5|      ;
    dw $0013                             ;0185D6|      ;
    dw $0000                             ;0185D8|      ;
@@ -829,7 +832,7 @@ Clear_Map_Progress:
    db $09                               ;018609|      ;
    dl Get_Event                         ;01860A|1895EE;
    db $07                               ;01860D|      ;
-   dl Character_Join_13b                ;01860E|009CBC;
+   dl Load_Graphics_13b                 ;01860E|009CBC;
    db $02                               ;018611|      ;
    db $01                               ;018612|      ;
    db $00                               ;018613|      ;
@@ -852,11 +855,11 @@ Loop_Chapter_2:
    db $0B                               ;018625|      ;
    dw Loop_Chapter_2                    ;018626|01861E;
    db $1F                               ;018628|      ; Get $1901
-   dw $1901                             ;018629|001901;
+   dw $1901                             ;018629|      ;
    db $0C                               ;01862B|      ; If nonzero, loop again
    dw Loop_Chapter_2                    ;01862C|01861E;
    db $10                               ;01862E|018634;
-Chapter_1_end:
+Event_Start_Chapter2:
    db $04                               ;01862F|      ; Very long section
    dl Sub_Setup_Field_Sprites1          ;018630|01895A;
    db $04                               ;018633|      ;
@@ -875,11 +878,11 @@ Chapter_1_end:
    db $02                               ;018646|      ; 02: Advance loop
    db $07                               ;018647|      ;
    dl Max_HP_MP                         ;018648|07AAE0;
-   db $16                               ;01864B|      ; 16: 0 to $11C1
-   dw $11C1                             ;01864C|0011C1;
+   db $16                               ;01864B|      ; 16:Set game state to playing
+   dw $11C1                             ;01864C|      ;
    dw $0000                             ;01864E|      ;
-   db $16                               ;018650|      ; 16: 2 to $18CD
-   dw $18CD                             ;018651|0018CD;
+   db $16                               ;018650|      ; 16: Set chapter to 2
+   dw $18CD                             ;018651|      ;
    dw $0002                             ;018653|      ;
    db $04                               ;018655|      ;
    dl Sub_Setup_Field_Sprites1          ;018656|01895A;
@@ -904,11 +907,11 @@ Chapter_1_end:
    dl Sub_More_setup                    ;01867D|058EAE;
    db $04                               ;018680|      ;
    dl Sub_Another_setup_again           ;018681|05926F;
-   db $16                               ;018684|      ; 16: 1 to $157B
-   dw $157B                             ;018685|00157B;
+   db $16                               ;018684|      ; 16: Show compass
+   dw $157B                             ;018685|      ;
    dw $0001                             ;018687|      ;
    db $07                               ;018689|      ;
-   dl Character_Join_13b                ;01868A|009CBC;
+   dl Load_Graphics_13b                 ;01868A|009CBC;
    db $04                               ;01868D|      ;
    db $13                               ;01868E|      ;
    db $00                               ;01868F|      ;
@@ -926,8 +929,8 @@ Chapter_1_end:
    dl Zero_18DF_Decr_18E1               ;01869B|188001;
    db $07                               ;01869E|      ;
    dl Treasure_Tracker_Clear            ;01869F|188416;
-   db $16                               ;0186A2|      ; 16: 1 to $1573
-   dw $1573                             ;0186A3|001573;
+   db $16                               ;0186A2|      ; 16: Set current area to Doraf
+   dw $1573                             ;0186A3|      ;
    dw $0001                             ;0186A5|      ;
    db $06                               ;0186A7|      ; 06 0A
    db $0A                               ;0186A8|      ;
@@ -940,7 +943,7 @@ Chapter_1_end:
    db $09                               ;0186B3|      ;
    dl Get_Event                         ;0186B4|1895EE;
    db $07                               ;0186B7|      ;
-   dl Character_Join_13b                ;0186B8|009CBC;
+   dl Load_Graphics_13b                 ;0186B8|009CBC;
    db $02                               ;0186BB|      ;
    db $01                               ;0186BC|      ;
    db $00                               ;0186BD|      ;
@@ -967,6 +970,7 @@ Loop_Chapter_3:
    db $0C                               ;0186D5|      ; 0C: Jump if nonzero/true
    dw Loop_Chapter_3                    ;0186D6|0186C8;
    db $10                               ;0186D8|0186DE;
+Event_Start_Chapter3:
    db $04                               ;0186D9|      ;
    dl Sub_Setup_Field_Sprites1          ;0186DA|01895A;
    db $04                               ;0186DD|      ;
@@ -1003,48 +1007,28 @@ Loop_Chapter_3:
    dl DATA8_178F70                      ;018708|178F70;
    db $07                               ;01870B|      ;
    dl Decomp80_setup_3b                 ;01870C|009CF9;
-   db $01                               ;01870F|000080;
-   db $80                               ;018710|01871F;
-   db $0D                               ;018711|000604;
-   db $04                               ;018712|000006;
-   db $06                               ;018713|00008A;
-   db $8A                               ;018714|      ;
-   db $01                               ;018715|000007;
-   db $07                               ;018716|000089;
-   db $89                               ;018717|      ;
-   db $A4                               ;018718|000003;
-   db $03                               ;018719|000004;
-   db $04                               ;01871A|0000B8;
-   db $B8                               ;01871B|      ;
-   db $89                               ;01871C|      ;
-   db $01                               ;01871D|000004;
-   db $04                               ;01871E|000064;
-   db $64                               ;01871F|000081;
-   db $81                               ;018720|000005;
-   db $05                               ;018721|000004;
-   db $04                               ;018722|000088;
-   db $88                               ;018723|      ;
-   db $87                               ;018724|000005;
-   db $05                               ;018725|000004;
-   db $04                               ;018726|0000AE;
-   db $AE                               ;018727|00058E;
-   db $8E                               ;018728|000405;
-   db $05                               ;018729|000004;
-   db $04                               ;01872A|00006F;
-   db $6F                               ;01872B|160592;
-   db $92                               ;01872C|000005;
-   db $05                               ;01872D|000016;
-   db $16                               ;01872E|00007B;
-   db $7B                               ;01872F|      ;
-   db $15                               ;018730|000001;
-   db $01                               ;018731|000000;
-   db $00                               ;018732|      ;
-   db $07                               ;018733|0000BC;
-   db $BC                               ;018734|00009C;
-   db $9C                               ;018735|000400;
-   db $00                               ;018736|      ;
-   db $04                               ;018737|000013;
-   db $13                               ;018738|000000;
+   dl RLE_Loc_0D833F                    ;01870F|0D8001;
+   db $04                               ;018712|      ;
+   dl Xfer_1577_stuff                   ;018713|018A06;
+   db $07                               ;018716|      ;
+   dl Clear_map_progress                ;018717|03A489;
+   db $04                               ;01871A|      ;
+   dl Sub_Do_stuff                      ;01871B|0189B8;
+   db $04                               ;01871E|      ;
+   dl Sub_Battle_setup                  ;01871F|058164;
+   db $04                               ;018722|      ;
+   dl Sub_Another_setup                 ;018723|058788;
+   db $04                               ;018726|      ;
+   dl Sub_More_setup                    ;018727|058EAE;
+   db $04                               ;01872A|      ;
+   dl Sub_Another_setup_again           ;01872B|05926F;
+   db $16                               ;01872E|      ;
+   dw $157B                             ;01872F|      ;
+   dw $0001                             ;018731|      ;
+   db $07                               ;018733|      ;
+   dl Load_Graphics_13b                 ;018734|009CBC;
+   db $04                               ;018737|      ;
+   db $13                               ;018738|      ;
    db $00                               ;018739|      ;
    db $00                               ;01873A|      ;
    db $00                               ;01873B|      ;
@@ -1056,37 +1040,25 @@ Loop_Chapter_3:
    db $00                               ;018741|      ;
    db $00                               ;018742|      ;
    db $00                               ;018743|      ;
-   db $07                               ;018744|000001;
-   db $01                               ;018745|000080;
-   db $80                               ;018746|018760;
-   db $18                               ;018747|      ;
-   db $07                               ;018748|000016;
-   db $16                               ;018749|000084;
-   db $84                               ;01874A|000018;
-   db $18                               ;01874B|      ;
-   db $16                               ;01874C|000073;
-   db $73                               ;01874D|000015;
-   db $15                               ;01874E|000002;
-   db $02                               ;01874F|      ;
-   db $00                               ;018750|      ;
-   db $06                               ;018751|00000A;
+   db $07                               ;018744|      ;
+   dl Zero_18DF_Decr_18E1               ;018745|188001;
+   db $07                               ;018748|      ;
+   dl Treasure_Tracker_Clear            ;018749|188416;
+   db $16                               ;01874C|      ;
+   dw $1573                             ;01874D|      ;
+   dw $0002                             ;01874F|      ;
+   db $06                               ;018751|      ;
    db $0A                               ;018752|      ;
-   db $04                               ;018753|0000CD;
-   db $CD                               ;018754|000189;
-   db $89                               ;018755|      ;
-   db $01                               ;018756|000004;
-   db $04                               ;018757|00006D;
-   db $6D                               ;018758|000189;
-   db $89                               ;018759|      ;
-   db $01                               ;01875A|000006;
-   db $06                               ;01875B|000001;
-   db $01                               ;01875C|000009;
+   db $04                               ;018753|      ;
+   dl Sub_Transfer_stuff                ;018754|0189CD;
+   db $04                               ;018757|      ;
+   dl Something                         ;018758|01896D;
+   db $06                               ;01875B|      ;
+   db $01                               ;01875C|      ;
    db $09                               ;01875D|      ;
-   db $EE                               ;01875E|001895;
-   db $95                               ;01875F|000018;
-   db $18                               ;018760|      ;
+   dl Get_Event                         ;01875E|1895EE;
    db $07                               ;018761|      ;
-   dl Character_Join_13b                ;018762|009CBC;
+   dl Load_Graphics_13b                 ;018762|009CBC;
    db $02                               ;018765|      ;
    db $01                               ;018766|      ;
    db $00                               ;018767|      ;
@@ -1107,111 +1079,66 @@ DATA8_018772:
    dl Is_Curr_Event_1b                  ;018775|018A25;
    db $0D                               ;018778|      ;
    db $0B                               ;018779|      ;
-   db $72                               ;01877A|000087;
-   db $87                               ;01877B|00001F;
-   db $1F                               ;01877C|0C1901;
-   db $01                               ;01877D|000019;
-   db $19                               ;01877E|00720C;
-   db $0C                               ;01877F|008772;
-   db $72                               ;018780|000087;
-   db $87                               ;018781|000010;
+   dw DATA8_018772                      ;01877A|018772;
+   db $1F                               ;01877C|      ;
+   dw $1901                             ;01877D|      ;
+   db $0C                               ;01877F|      ;
+   dw DATA8_018772                      ;018780|018772;
    db $10                               ;018782|018788;
-   db $04                               ;018783|00005A;
-   db $5A                               ;018784|      ;
-   db $89                               ;018785|      ;
-   db $01                               ;018786|000004;
-   db $04                               ;018787|000084;
-   db $84                               ;018788|000089;
-   db $89                               ;018789|      ;
-   db $01                               ;01878A|000004;
-   db $04                               ;01878B|0000F1;
-   db $F1                               ;01878C|000089;
-   db $89                               ;01878D|      ;
-   db $01                               ;01878E|000007;
-   db $07                               ;01878F|0000DD;
-   db $DD                               ;018790|00009C;
-   db $9C                               ;018791|000200;
-   db $00                               ;018792|      ;
+   db $04                               ;018783|      ;
+   dl Sub_Setup_Field_Sprites1          ;018784|01895A;
+   db $04                               ;018787|      ;
+   dl Sub_Setup_Field_Sprites2          ;018788|018984;
+   db $04                               ;01878B|      ;
+   dl Sub_Disable_HDMA                  ;01878C|0189F1;
+   db $07                               ;01878F|      ;
+   dl Battle_related1b                  ;018790|009CDD;
    db $02                               ;018793|      ;
-   db $06                               ;018794|000001;
-   db $01                               ;018795|000001;
-   db $01                               ;018796|000004;
-   db $04                               ;018797|000006;
-   db $06                               ;018798|00000A;
+   db $06                               ;018794|      ; 06: Pause 1f
+   db $01                               ;018795|      ;
+   db $01                               ;018796|      ; 01: Loop 4x
+   db $04                               ;018797|      ;
+   db $06                               ;018798|      ; 06: Pause ten frames
    db $0A                               ;018799|      ;
-   db $02                               ;01879A|      ;
-   db $07                               ;01879B|0000E0;
-   db $E0                               ;01879C|      ;
-   db $AA                               ;01879D|      ;
-   db $07                               ;01879E|000016;
-   db $16                               ;01879F|0000C1;
-   db $C1                               ;0187A0|000011;
-   db $11                               ;0187A1|000000;
-   db $00                               ;0187A2|      ;
-   db $00                               ;0187A3|      ;
-   db $16                               ;0187A4|0000CD;
-   db $CD                               ;0187A5|000418;
-   db $18                               ;0187A6|      ;
-   db $04                               ;0187A7|000000;
-   db $00                               ;0187A8|      ;
-   db $04                               ;0187A9|00005A;
-   db $5A                               ;0187AA|      ;
-   db $89                               ;0187AB|      ;
-   db $01                               ;0187AC|000004;
-   db $04                               ;0187AD|000084;
-   db $84                               ;0187AE|000089;
-   db $89                               ;0187AF|      ;
-   db $01                               ;0187B0|000004;
-   db $04                               ;0187B1|000070;
-   db $70                               ;0187B2|018743;
-   db $8F                               ;0187B3|F90717;
-   db $17                               ;0187B4|000007;
-   db $07                               ;0187B5|0000F9;
-   db $F9                               ;0187B6|00009C;
-   db $9C                               ;0187B7|000100;
-   db $00                               ;0187B8|      ;
-   db $01                               ;0187B9|000080;
-   db $80                               ;0187BA|0187C9;
-   db $0D                               ;0187BB|000604;
-   db $04                               ;0187BC|000006;
-   db $06                               ;0187BD|00008A;
-   db $8A                               ;0187BE|      ;
-   db $01                               ;0187BF|000007;
-   db $07                               ;0187C0|000089;
-   db $89                               ;0187C1|      ;
-   db $A4                               ;0187C2|000003;
-   db $03                               ;0187C3|000004;
-   db $04                               ;0187C4|0000B8;
-   db $B8                               ;0187C5|      ;
-   db $89                               ;0187C6|      ;
-   db $01                               ;0187C7|000004;
-   db $04                               ;0187C8|000064;
-   db $64                               ;0187C9|000081;
-   db $81                               ;0187CA|000005;
-   db $05                               ;0187CB|000004;
-   db $04                               ;0187CC|000088;
-   db $88                               ;0187CD|      ;
-   db $87                               ;0187CE|000005;
-   db $05                               ;0187CF|000004;
-   db $04                               ;0187D0|0000AE;
-   db $AE                               ;0187D1|00058E;
-   db $8E                               ;0187D2|000405;
-   db $05                               ;0187D3|000004;
-   db $04                               ;0187D4|00006F;
-   db $6F                               ;0187D5|160592;
-   db $92                               ;0187D6|000005;
-   db $05                               ;0187D7|000016;
-   db $16                               ;0187D8|00007B;
-   db $7B                               ;0187D9|      ;
-   db $15                               ;0187DA|000001;
-   db $01                               ;0187DB|000000;
-   db $00                               ;0187DC|      ;
-   db $07                               ;0187DD|0000BC;
-   db $BC                               ;0187DE|00009C;
-   db $9C                               ;0187DF|000400;
-   db $00                               ;0187E0|      ;
-   db $04                               ;0187E1|000013;
-   db $13                               ;0187E2|000000;
+   db $02                               ;01879A|      ; 02: End loop
+   db $07                               ;01879B|      ;
+   dl Max_HP_MP                         ;01879C|07AAE0;
+   db $16                               ;01879F|      ; 16: Set battle state to not fighting
+   dw $11C1                             ;0187A0|      ;
+   dw $0000                             ;0187A2|      ;
+   db $16                               ;0187A4|      ; 16: Set Chapter to 4
+   dw $18CD                             ;0187A5|      ;
+   dw $0004                             ;0187A7|      ;
+   db $04                               ;0187A9|      ;
+   dl Sub_Setup_Field_Sprites1          ;0187AA|01895A;
+   db $04                               ;0187AD|      ;
+   dl Sub_Setup_Field_Sprites2          ;0187AE|018984;
+   db $04                               ;0187B1|      ;
+   dl DATA8_178F70                      ;0187B2|178F70;
+   db $07                               ;0187B5|      ;
+   dl Decomp80_setup_3b                 ;0187B6|009CF9;
+   dl RLE_Loc_0D833F                    ;0187B9|0D8001;
+   db $04                               ;0187BC|      ;
+   dl Xfer_1577_stuff                   ;0187BD|018A06;
+   db $07                               ;0187C0|      ;
+   dl Clear_map_progress                ;0187C1|03A489;
+   db $04                               ;0187C4|      ;
+   dl Sub_Do_stuff                      ;0187C5|0189B8;
+   db $04                               ;0187C8|      ;
+   dl Sub_Battle_setup                  ;0187C9|058164;
+   db $04                               ;0187CC|      ;
+   dl Sub_Another_setup                 ;0187CD|058788;
+   db $04                               ;0187D0|      ;
+   dl Sub_More_setup                    ;0187D1|058EAE;
+   db $04                               ;0187D4|      ;
+   dl Sub_Another_setup_again           ;0187D5|05926F;
+   db $16                               ;0187D8|      ; 16: Show compass
+   dw $157B                             ;0187D9|      ;
+   dw $0001                             ;0187DB|      ;
+   db $07                               ;0187DD|      ;
+   dl Load_Graphics_13b                 ;0187DE|009CBC;
+   db $04                               ;0187E1|      ;
+   db $13                               ;0187E2|      ;
    db $00                               ;0187E3|      ;
    db $00                               ;0187E4|      ;
    db $00                               ;0187E5|      ;
@@ -1223,41 +1150,27 @@ DATA8_018772:
    db $00                               ;0187EB|      ;
    db $00                               ;0187EC|      ;
    db $00                               ;0187ED|      ;
-   db $07                               ;0187EE|000001;
-   db $01                               ;0187EF|000080;
-   db $80                               ;0187F0|01880A;
-   db $18                               ;0187F1|      ;
-   db $07                               ;0187F2|000016;
-   db $16                               ;0187F3|000084;
-   db $84                               ;0187F4|000018;
-   db $18                               ;0187F5|      ;
-   db $16                               ;0187F6|000073;
-   db $73                               ;0187F7|000015;
-   db $15                               ;0187F8|000003;
-   db $03                               ;0187F9|000000;
-   db $00                               ;0187FA|      ;
-   db $06                               ;0187FB|00000A;
+   db $07                               ;0187EE|      ;
+   dl Zero_18DF_Decr_18E1               ;0187EF|188001;
+   db $07                               ;0187F2|      ;
+   dl Treasure_Tracker_Clear            ;0187F3|188416;
+   db $16                               ;0187F6|      ; 16: Set current area to Elf Village
+   dw $1573                             ;0187F7|      ;
+   dw $0003                             ;0187F9|      ;
+   db $06                               ;0187FB|      ; 06: Pause A frames
    db $0A                               ;0187FC|      ;
-   db $04                               ;0187FD|0000CD;
-   db $CD                               ;0187FE|000189;
-   db $89                               ;0187FF|      ;
-   db $01                               ;018800|000004;
-   db $04                               ;018801|00006D;
-   db $6D                               ;018802|000189;
-   db $89                               ;018803|      ;
-   db $01                               ;018804|000006;
-   db $06                               ;018805|000001;
-   db $01                               ;018806|000009;
+   db $04                               ;0187FD|      ;
+   dl Sub_Transfer_stuff                ;0187FE|0189CD;
+   db $04                               ;018801|      ;
+   dl Something                         ;018802|01896D;
+   db $06                               ;018805|      ;
+   db $01                               ;018806|      ;
    db $09                               ;018807|      ;
-   db $EE                               ;018808|001895;
-   db $95                               ;018809|000018;
-   db $18                               ;01880A|      ;
-   db $07                               ;01880B|0000BC;
-   db $BC                               ;01880C|00009C;
-   db $9C                               ;01880D|000200;
-   db $00                               ;01880E|      ;
+   dl Get_Event                         ;018808|1895EE;
+   db $07                               ;01880B|      ;
+   dl Load_Graphics_13b                 ;01880C|009CBC;
    db $02                               ;01880F|      ;
-   db $01                               ;018810|000000;
+   db $01                               ;018810|      ;
    db $00                               ;018811|      ;
    db $00                               ;018812|      ;
    db $00                               ;018813|      ;
@@ -1269,120 +1182,73 @@ DATA8_018772:
    db $00                               ;018819|      ;
    db $00                               ;01881A|      ;
    db $00                               ;01881B|      ;
-UNREACH_01881C:
-   db $06                               ;01881C|000001;
-   db $01                               ;01881D|000007;
-   db $07                               ;01881E|000025;
-   db $25                               ;01881F|00008A;
-   db $8A                               ;018820|      ;
-   db $01                               ;018821|000017;
-   db $17                               ;018822|00000B;
+DATA8_01881C:
+   db $06                               ;01881C|      ;
+   db $01                               ;01881D|      ;
+   db $07                               ;01881E|      ; 07: Check current event flag vs 17
+   dl Is_Curr_Event_1b                  ;01881F|018A25;
+   db $17                               ;018822|      ;
    db $0B                               ;018823|      ;
-   db $1C                               ;018824|001F88;
-   db $88                               ;018825|      ;
-   db $1F                               ;018826|0C1901;
-   db $01                               ;018827|000019;
-   db $19                               ;018828|001C0C;
-   db $0C                               ;018829|00881C;
-   db $1C                               ;01882A|001088;
-   db $88                               ;01882B|      ;
+   dw DATA8_01881C                      ;018824|01881C;
+   db $1F                               ;018826|      ;
+   dw $1901                             ;018827|      ;
+   db $0C                               ;018829|      ;
+   dw DATA8_01881C                      ;01882A|01881C;
    db $10                               ;01882C|018832;
-   db $04                               ;01882D|00005A;
-   db $5A                               ;01882E|      ;
-   db $89                               ;01882F|      ;
-   db $01                               ;018830|000004;
-   db $04                               ;018831|000084;
-   db $84                               ;018832|000089;
-   db $89                               ;018833|      ;
-   db $01                               ;018834|000004;
-   db $04                               ;018835|0000F1;
-   db $F1                               ;018836|000089;
-   db $89                               ;018837|      ;
-   db $01                               ;018838|000007;
-   db $07                               ;018839|0000DD;
-   db $DD                               ;01883A|00009C;
-   db $9C                               ;01883B|000200;
-   db $00                               ;01883C|      ;
+   db $04                               ;01882D|      ;
+   dl Sub_Setup_Field_Sprites1          ;01882E|01895A;
+   db $04                               ;018831|      ;
+   dl Sub_Setup_Field_Sprites2          ;018832|018984;
+   db $04                               ;018835|      ;
+   dl Sub_Disable_HDMA                  ;018836|0189F1;
+   db $07                               ;018839|      ;
+   dl Battle_related1b                  ;01883A|009CDD;
    db $02                               ;01883D|      ;
-   db $06                               ;01883E|000001;
-   db $01                               ;01883F|000001;
-   db $01                               ;018840|000004;
-   db $04                               ;018841|000006;
-   db $06                               ;018842|00000A;
+   db $06                               ;01883E|      ;
+   db $01                               ;01883F|      ;
+   db $01                               ;018840|      ;
+   db $04                               ;018841|      ;
+   db $06                               ;018842|      ;
    db $0A                               ;018843|      ;
    db $02                               ;018844|      ;
-   db $07                               ;018845|0000E0;
-   db $E0                               ;018846|      ;
-   db $AA                               ;018847|      ;
-   db $07                               ;018848|000016;
-   db $16                               ;018849|0000C1;
-   db $C1                               ;01884A|000011;
-   db $11                               ;01884B|000000;
-   db $00                               ;01884C|      ;
-   db $00                               ;01884D|      ;
-   db $16                               ;01884E|0000CD;
-   db $CD                               ;01884F|000518;
-   db $18                               ;018850|      ;
-   db $05                               ;018851|000000;
-   db $00                               ;018852|      ;
-   db $04                               ;018853|00005A;
-   db $5A                               ;018854|      ;
-   db $89                               ;018855|      ;
-   db $01                               ;018856|000004;
-   db $04                               ;018857|000084;
-   db $84                               ;018858|000089;
-   db $89                               ;018859|      ;
-   db $01                               ;01885A|000004;
-   db $04                               ;01885B|000070;
-   db $70                               ;01885C|0187ED;
-   db $8F                               ;01885D|F90717;
-   db $17                               ;01885E|000007;
-   db $07                               ;01885F|0000F9;
-   db $F9                               ;018860|00009C;
-   db $9C                               ;018861|000100;
-   db $00                               ;018862|      ;
-   db $01                               ;018863|000080;
-   db $80                               ;018864|018873;
-   db $0D                               ;018865|000604;
-   db $04                               ;018866|000006;
-   db $06                               ;018867|00008A;
-   db $8A                               ;018868|      ;
-   db $01                               ;018869|000007;
-   db $07                               ;01886A|000089;
-   db $89                               ;01886B|      ;
-   db $A4                               ;01886C|000003;
-   db $03                               ;01886D|000004;
-   db $04                               ;01886E|0000B8;
-   db $B8                               ;01886F|      ;
-   db $89                               ;018870|      ;
-   db $01                               ;018871|000004;
-   db $04                               ;018872|000064;
-   db $64                               ;018873|000081;
-   db $81                               ;018874|000005;
-   db $05                               ;018875|000004;
-   db $04                               ;018876|000088;
-   db $88                               ;018877|      ;
-   db $87                               ;018878|000005;
-   db $05                               ;018879|000004;
-   db $04                               ;01887A|0000AE;
-   db $AE                               ;01887B|00058E;
-   db $8E                               ;01887C|000405;
-   db $05                               ;01887D|000004;
-   db $04                               ;01887E|00006F;
-   db $6F                               ;01887F|160592;
-   db $92                               ;018880|000005;
-   db $05                               ;018881|000016;
-   db $16                               ;018882|00007B;
-   db $7B                               ;018883|      ;
-   db $15                               ;018884|000001;
-   db $01                               ;018885|000000;
-   db $00                               ;018886|      ;
-   db $07                               ;018887|0000BC;
-   db $BC                               ;018888|00009C;
-   db $9C                               ;018889|000400;
-   db $00                               ;01888A|      ;
-   db $04                               ;01888B|000013;
-   db $13                               ;01888C|000000;
+   db $07                               ;018845|      ;
+   dl Max_HP_MP                         ;018846|07AAE0;
+   db $16                               ;018849|      ; 16: Set battle state to out of battle
+   dw $11C1                             ;01884A|      ;
+   dw $0000                             ;01884C|      ;
+   db $16                               ;01884E|      ; 16: Set Chapter to 5
+   dw $18CD                             ;01884F|      ;
+   dw $0005                             ;018851|      ;
+   db $04                               ;018853|      ;
+   dl Sub_Setup_Field_Sprites1          ;018854|01895A;
+   db $04                               ;018857|      ;
+   dl Sub_Setup_Field_Sprites2          ;018858|018984;
+   db $04                               ;01885B|      ;
+   dl DATA8_178F70                      ;01885C|178F70;
+   db $07                               ;01885F|      ;
+   dl Decomp80_setup_3b                 ;018860|009CF9;
+   dl RLE_Loc_0D833F                    ;018863|0D8001;
+   db $04                               ;018866|      ;
+   dl Xfer_1577_stuff                   ;018867|018A06;
+   db $07                               ;01886A|      ;
+   dl Clear_map_progress                ;01886B|03A489;
+   db $04                               ;01886E|      ;
+   dl Sub_Do_stuff                      ;01886F|0189B8;
+   db $04                               ;018872|      ;
+   dl Sub_Battle_setup                  ;018873|058164;
+   db $04                               ;018876|      ;
+   dl Sub_Another_setup                 ;018877|058788;
+   db $04                               ;01887A|      ;
+   dl Sub_More_setup                    ;01887B|058EAE;
+   db $04                               ;01887E|      ;
+   dl Sub_Another_setup_again           ;01887F|05926F;
+   db $16                               ;018882|      ; 16: Show compass
+   dw $157B                             ;018883|      ;
+   dw $0001                             ;018885|      ;
+   db $07                               ;018887|      ;
+   dl Load_Graphics_13b                 ;018888|009CBC;
+   db $04                               ;01888B|      ;
+   db $13                               ;01888C|      ;
    db $00                               ;01888D|      ;
    db $00                               ;01888E|      ;
    db $00                               ;01888F|      ;
@@ -1394,43 +1260,29 @@ UNREACH_01881C:
    db $00                               ;018895|      ;
    db $00                               ;018896|      ;
    db $00                               ;018897|      ;
-   db $07                               ;018898|000001;
-   db $01                               ;018899|000080;
-   db $80                               ;01889A|0188B4;
-   db $18                               ;01889B|      ;
-   db $07                               ;01889C|000016;
-   db $16                               ;01889D|000084;
-   db $84                               ;01889E|000018;
-   db $18                               ;01889F|      ;
-   db $16                               ;0188A0|000073;
-   db $73                               ;0188A1|000015;
-   db $15                               ;0188A2|000004;
-   db $04                               ;0188A3|000000;
-   db $00                               ;0188A4|      ;
-   db $06                               ;0188A5|00000A;
+   db $07                               ;018898|      ;
+   dl Zero_18DF_Decr_18E1               ;018899|188001;
+   db $07                               ;01889C|      ;
+   dl Treasure_Tracker_Clear            ;01889D|188416;
+   db $16                               ;0188A0|      ; 16: Set area to Bintel Castle town
+   dw $1573                             ;0188A1|      ;
+   dw $0004                             ;0188A3|      ;
+   db $06                               ;0188A5|      ;
    db $0A                               ;0188A6|      ;
-   db $04                               ;0188A7|0000CD;
-   db $CD                               ;0188A8|000189;
-   db $89                               ;0188A9|      ;
-   db $01                               ;0188AA|000004;
-   db $04                               ;0188AB|00006D;
-   db $6D                               ;0188AC|000189;
-   db $89                               ;0188AD|      ;
-   db $01                               ;0188AE|000006;
-   db $06                               ;0188AF|000003;
-   db $03                               ;0188B0|000006;
-   db $06                               ;0188B1|00003C;
-   db $3C                               ;0188B2|00EE09;
+   db $04                               ;0188A7|      ;
+   dl Sub_Transfer_stuff                ;0188A8|0189CD;
+   db $04                               ;0188AB|      ;
+   dl Something                         ;0188AC|01896D;
+   db $06                               ;0188AF|      ;
+   db $03                               ;0188B0|      ;
+   db $06                               ;0188B1|      ;
+   db $3C                               ;0188B2|      ;
    db $09                               ;0188B3|      ;
-   db $EE                               ;0188B4|001895;
-   db $95                               ;0188B5|000018;
-   db $18                               ;0188B6|      ;
-   db $07                               ;0188B7|0000BC;
-   db $BC                               ;0188B8|00009C;
-   db $9C                               ;0188B9|000200;
-   db $00                               ;0188BA|      ;
+   dl Get_Event                         ;0188B4|1895EE;
+   db $07                               ;0188B7|      ;
+   dl Load_Graphics_13b                 ;0188B8|009CBC;
    db $02                               ;0188BB|      ;
-   db $01                               ;0188BC|000000;
+   db $01                               ;0188BC|      ;
    db $00                               ;0188BD|      ;
    db $00                               ;0188BE|      ;
    db $00                               ;0188BF|      ;
@@ -1443,7 +1295,7 @@ UNREACH_01881C:
    db $00                               ;0188C6|      ;
    db $00                               ;0188C7|      ;
 DATA8_0188C8:
-   db $06                               ;0188C8|      ; 06 01: Bye Felicia!
+   db $06                               ;0188C8|      ;
    db $01                               ;0188C9|      ;
    db $07                               ;0188CA|      ; 07: Call 01/8A25 Check Event Byte
    dl Is_Curr_Event_1b                  ;0188CB|018A25;
@@ -1455,18 +1307,12 @@ DATA8_0188C8:
    db $0C                               ;0188D5|      ; 0C: Jump if true to 88C8
    dw DATA8_0188C8                      ;0188D6|0188C8;
    db $10                               ;0188D8|0188DE;
-   db $04                               ;0188D9|00005A;
-   db $5A                               ;0188DA|      ;
-   db $89                               ;0188DB|      ;
-   db $01                               ;0188DC|000004;
-   db $04                               ;0188DD|000084;
-   db $84                               ;0188DE|000089;
-   db $89                               ;0188DF|      ;
-   db $01                               ;0188E0|000004;
-   db $04                               ;0188E1|0000F1;
-   db $F1                               ;0188E2|000089;
-   db $89                               ;0188E3|      ;
-   db $01                               ;0188E4|000007;
+   db $04                               ;0188D9|      ;
+   dl Sub_Setup_Field_Sprites1          ;0188DA|01895A;
+   db $04                               ;0188DD|      ;
+   dl Sub_Setup_Field_Sprites2          ;0188DE|018984;
+   db $04                               ;0188E1|      ;
+   dl Sub_Disable_HDMA                  ;0188E2|0189F1;
    db $07                               ;0188E5|      ;
    dl Battle_related1b                  ;0188E6|009CDD;
    db $02                               ;0188E9|      ;
@@ -1481,7 +1327,7 @@ DATA8_0188C8:
    dl Max_HP_MP                         ;0188F2|07AAE0;
    db $0A                               ;0188F5|      ;
 DATA8_0188F6:
-   db $06                               ;0188F6|      ; 06 01: Bye Felicia!
+   db $06                               ;0188F6|      ;
    db $01                               ;0188F7|      ;
 Game_over_check:
    db $07                               ;0188F8|      ; 07: Call 01/8A38 is $11C1 negative
@@ -1692,7 +1538,7 @@ CODE_018A34:
    LDA.W #$0001                         ;018A34|      ;
    RTL                                  ;018A37|      ;
 Is_BattleState_Negative:
-   LDA.W Battle_State                   ;018A38|0011C1;
+   LDA.W Game_State                     ;018A38|0011C1;
    BMI CODE_018A41                      ;018A3B|018A41;
    LDA.W #$0000                         ;018A3D|      ;
    RTL                                  ;018A40|      ;
@@ -2872,7 +2718,7 @@ DATA8_019016:
    dw $157B                             ;019058|      ;
    dw $0001                             ;01905A|      ;
    db $07                               ;01905C|      ;
-   dl Character_Join_13b                ;01905D|009CBC;
+   dl Load_Graphics_13b                 ;01905D|009CBC;
    db $04                               ;019060|      ;
    db $13                               ;019061|      ;
    db $00                               ;019062|      ;
@@ -5675,7 +5521,7 @@ DATA8_01A052:
    db $1B                               ;01A052|      ;
    dw DATA8_01A0B8                      ;01A053|01A0B8;
    db $07                               ;01A055|      ;
-   dl Character_Join_13b                ;01A056|009CBC;
+   dl Load_Graphics_13b                 ;01A056|009CBC;
    db $0E                               ;01A059|      ;
    db $05                               ;01A05A|      ;
    db $00                               ;01A05B|      ;
@@ -5694,7 +5540,7 @@ DATA8_01A067:
    db $1B                               ;01A067|      ;
    dw DATA8_01A0B8                      ;01A068|01A0B8;
    db $07                               ;01A06A|      ;
-   dl Character_Join_13b                ;01A06B|009CBC;
+   dl Load_Graphics_13b                 ;01A06B|009CBC;
    db $0E                               ;01A06E|      ;
    db $06                               ;01A06F|      ;
    db $00                               ;01A070|      ;
@@ -5713,7 +5559,7 @@ DATA8_01A07C:
    db $1B                               ;01A07C|      ;
    dw DATA8_01A0B8                      ;01A07D|01A0B8;
    db $07                               ;01A07F|      ;
-   dl Character_Join_13b                ;01A080|009CBC;
+   dl Load_Graphics_13b                 ;01A080|009CBC;
    db $0E                               ;01A083|      ;
    db $07                               ;01A084|      ;
    db $00                               ;01A085|      ;
@@ -5732,7 +5578,7 @@ DATA8_01A091:
    db $1B                               ;01A091|      ;
    dw DATA8_01A0B8                      ;01A092|01A0B8;
    db $07                               ;01A094|      ;
-   dl Character_Join_13b                ;01A095|009CBC;
+   dl Load_Graphics_13b                 ;01A095|009CBC;
    db $0E                               ;01A098|      ;
    db $08                               ;01A099|      ;
    db $00                               ;01A09A|      ;
@@ -5749,7 +5595,7 @@ DATA8_01A091:
    db $1C                               ;01A0A5|      ; 1C: RTS
 DATA8_01A0A6:
    db $07                               ;01A0A6|      ;
-   dl Character_Join_13b                ;01A0A7|009CBC;
+   dl Load_Graphics_13b                 ;01A0A7|009CBC;
    db $0E                               ;01A0AA|      ;
    db $0D                               ;01A0AB|      ;
    db $00                               ;01A0AC|      ;

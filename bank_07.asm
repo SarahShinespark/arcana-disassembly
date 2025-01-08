@@ -428,11 +428,11 @@ CODE_0782E6:
    AND.W #$00FF                         ;0782FC|      ;
    CMP.W #$0004                         ;0782FF|      ;
    BNE CODE_07831C                      ;078302|07831C;
-   LDA.W $11C7                          ;078304|0011C7;
+   LDA.W Condition_Guest1               ;078304|0011C7;
    AND.W #$00FF                         ;078307|      ;
    CMP.W #$0004                         ;07830A|      ;
    BNE CODE_07831C                      ;07830D|07831C;
-   LDA.W $11C9                          ;07830F|0011C9;
+   LDA.W Condition_Guest2               ;07830F|0011C9;
    AND.W #$00FF                         ;078312|      ;
    CMP.W #$0004                         ;078315|      ;
    BNE CODE_07831C                      ;078318|07831C;
@@ -1059,17 +1059,17 @@ CODE_0787D9:
    LDA.W Temp_09C7,Y                    ;0787DC|0009C7;
    ASL A                                ;0787DF|      ;
    TAX                                  ;0787E0|      ;
-   LDA.L DATA16_0787F0,X                ;0787E1|0787F0;
+   LDA.L Tbl_BtlSpell1_Xpos,X           ;0787E1|0787F0;
    STA.W Cursor_Array_Xpos_Copy,Y       ;0787E5|000787;
-   LDA.L DATA16_0787F8,X                ;0787E8|0787F8;
+   LDA.L Tbl_BtlSpell1_Ypos,X           ;0787E8|0787F8;
    STA.W Cursor_Array_Ypos_Copy,Y       ;0787EC|0007AB;
    RTL                                  ;0787EF|      ;
-DATA16_0787F0:
+Tbl_BtlSpell1_Xpos:
    dw $003A                             ;0787F0|      ;
    dw $003A                             ;0787F2|      ;
    dw $003A                             ;0787F4|      ;
    dw $003A                             ;0787F6|      ;
-DATA16_0787F8:
+Tbl_BtlSpell1_Ypos:
    dw $00A3                             ;0787F8|      ;
    dw $00B1                             ;0787FA|      ;
    dw $00BF                             ;0787FC|      ;
@@ -1080,22 +1080,22 @@ CODE_078800:
    AND.W #$0003                         ;078806|      ;
    ASL A                                ;078809|      ;
    TAX                                  ;07880A|      ;
-   LDA.L DATA16_07881A,X                ;07880B|07881A;
+   LDA.L Tbl_BtlSpell2_Xpos,X           ;07880B|07881A;
    STA.W Cursor_Array_Xpos_Copy,Y       ;07880F|000787;
-   LDA.L DATA16_078822,X                ;078812|078822;
+   LDA.L Tbl_BtlSpell2_Ypos,X           ;078812|078822;
    STA.W Cursor_Array_Ypos_Copy,Y       ;078816|0007AB;
    RTL                                  ;078819|      ;
-DATA16_07881A:
+Tbl_BtlSpell2_Xpos:
    dw $003E                             ;07881A|      ;
    dw $003E                             ;07881C|      ;
    dw $003E                             ;07881E|      ;
    dw $003E                             ;078820|      ;
-DATA16_078822:
+Tbl_BtlSpell2_Ypos:
    dw $00A3                             ;078822|      ;
    dw $00B1                             ;078824|      ;
    dw $00BF                             ;078826|      ;
    dw $00CD                             ;078828|      ;
-CODE_07882A:
+_07882E_far:
    JSR.W CODE_07882E                    ;07882A|07882E;
    RTL                                  ;07882D|      ;
 CODE_07882E:
@@ -1320,8 +1320,8 @@ CODE_0789A2:
    CPY.W #$0058                         ;0789BC|      ;
    BCC CODE_07898E                      ;0789BF|07898E;
    RTL                                  ;0789C1|      ;
-CODE_0789C2:
-   LDX.W Selection                      ;0789C2|00103F;
+Is_Spell_Battle_Usable:
+   LDX.W Selection                      ;0789C2|00103F; Returns 1 if selected spell is usable in battle or usable anywhere ($05EA4C value 2 or 3)
    LDA.W Temp_09C7,X                    ;0789C5|0009C7;
    ASL A                                ;0789C8|      ;
    STA.B $00                            ;0789C9|000000;
@@ -1331,7 +1331,7 @@ CODE_0789C2:
    TAX                                  ;0789D2|      ;
    LDA.W Party_order,X                  ;0789D3|0011F3;
    STA.B $02                            ;0789D6|000002;
-   JSR.W GetSpellID                     ;0789D8|07A55E;
+   JSR.W GetSpellID_Offset              ;0789D8|07A55E;
    TAX                                  ;0789DB|      ;
    LDA.W Spell_list,X                   ;0789DC|001459;
    AND.W #$00FF                         ;0789DF|      ;
@@ -3502,7 +3502,7 @@ CODE_07982B:
    LDX.W Selection                      ;079843|00103F;
    LDA.W Temp_09C7,X                    ;079846|0009C7;
    STA.B $02                            ;079849|000002;
-   JSR.W GetSpellID                     ;07984B|07A55E;
+   JSR.W GetSpellID_Offset              ;07984B|07A55E;
    TAX                                  ;07984E|      ;
    LDA.W Spell_list,X                   ;07984F|001459;
    AND.W #$00FF                         ;079852|      ;
@@ -3522,7 +3522,7 @@ CODE_079856:
    LDX.W Selection                      ;07986E|00103F;
    LDA.W Temp_09C7,X                    ;079871|0009C7;
    STA.B $02                            ;079874|000002;
-   JSR.W GetSpellID                     ;079876|07A55E;
+   JSR.W GetSpellID_Offset              ;079876|07A55E;
    TAX                                  ;079879|      ;
    LDA.W Spell_list,X                   ;07987A|001459; Load learned spell ID
    AND.W #$00FF                         ;07987D|      ;
@@ -4249,7 +4249,7 @@ Draw_Magic_Menu1:
    LDX.W Selection                      ;079E0D|00103F;
    LDA.W Temp_09C7,X                    ;079E10|0009C7;
    STA.B $02                            ;079E13|000002;
-   JSR.W GetSpellID                     ;079E15|07A55E;
+   JSR.W GetSpellID_Offset              ;079E15|07A55E;
    TAX                                  ;079E18|      ;
    LDA.W Spell_list,X                   ;079E19|001459;
    TAX                                  ;079E1C|      ;
@@ -4315,7 +4315,7 @@ CODE_079E7A:
    LDX.W Selection                      ;079E92|00103F;
    LDA.W Temp_09C7,X                    ;079E95|0009C7;
    STA.B $02                            ;079E98|000002;
-   JSR.W GetSpellID                     ;079E9A|07A55E;
+   JSR.W GetSpellID_Offset              ;079E9A|07A55E;
    STA.B $22                            ;079E9D|000022;
    TAX                                  ;079E9F|      ;
    LDA.W Spell_list,X                   ;079EA0|001459;
@@ -4333,7 +4333,7 @@ CODE_079E7A:
    LDX.W Selection                      ;079EB9|00103F;
    LDA.W Temp_09C7,X                    ;079EBC|0009C7;
    STA.B $02                            ;079EBF|000002;
-   JSR.W GetSpellID                     ;079EC1|07A55E;
+   JSR.W GetSpellID_Offset              ;079EC1|07A55E;
    STA.B $24                            ;079EC4|000024;
    TAX                                  ;079EC6|      ;
    LDA.W Spell_list,X                   ;079EC7|001459;
@@ -4819,7 +4819,7 @@ CODE_07A21D:
    LDX.W Selection                      ;07A229|00103F;
    LDA.W Temp_09C7,X                    ;07A22C|0009C7;
    STA.B $02                            ;07A22F|000002;
-   JSR.W GetSpellID                     ;07A231|07A55E;
+   JSR.W GetSpellID_Offset              ;07A231|07A55E;
    TAX                                  ;07A234|      ;
    RTS                                  ;07A235|      ;
 Tbl_Page_Offset:
@@ -5156,7 +5156,7 @@ CODE_07A488:
    LDX.W Selection                      ;07A49E|00103F;
    LDA.W Temp_09C7,X                    ;07A4A1|0009C7;
    STA.B $02                            ;07A4A4|000002;
-   JSR.W GetSpellID                     ;07A4A6|07A55E;
+   JSR.W GetSpellID_Offset              ;07A4A6|07A55E;
    TAX                                  ;07A4A9|      ;
    LDA.W Spell_list,X                   ;07A4AA|001459;
    AND.W #$00FF                         ;07A4AD|      ;
@@ -5253,11 +5253,11 @@ Table_0A7B:
    dw $0001                             ;07A554|      ;
    dw $0001                             ;07A556|      ;
    dw $0001                             ;07A558|      ;
-GetSpellID_far:
-   JSR.W GetSpellID                     ;07A55A|07A55E;
+GetSpellID_Offset_far:
+   JSR.W GetSpellID_Offset              ;07A55A|07A55E;
    RTL                                  ;07A55D|      ;
-GetSpellID:
-   LDA.B $00                            ;07A55E|000000;
+GetSpellID_Offset:
+   LDA.B $00                            ;07A55E|000000; Returns the offset for $1459 Spell list to get that character's spell ID
    PHA                                  ;07A560|      ;
    LDA.B $02                            ;07A561|000002;
    JSR.W Get_character_offset           ;07A563|07B0F5;
@@ -5992,7 +5992,7 @@ CODE_07AAFF:
    DEX                                  ;07AB05|      ;
    DEX                                  ;07AB06|      ;
    BPL CODE_07AAFF                      ;07AB07|07AAFF;
-   LDA.W Spirit_Condition               ;07AB09|0011C5;
+   LDA.W Condition_Spirit               ;07AB09|0011C5;
    AND.W #$00FF                         ;07AB0C|      ;
    CMP.W #$0001                         ;07AB0F|      ;
    BNE CODE_07AB26                      ;07AB12|07AB26; If spirit isn't dead, clear HP/MP
@@ -6066,7 +6066,7 @@ Check_Condition2:
    AND.W #$00FF                         ;07AB8D|      ;
    CMP.W #$0004                         ;07AB90|      ;
    BEQ PetrifyCheck                     ;07AB93|07ABAA;
-   LDA.W Battle_State                   ;07AB95|0011C1;
+   LDA.W Game_State                     ;07AB95|0011C1;
    CMP.W #$0002                         ;07AB98|      ;
    BEQ CODE_07ABA6                      ;07AB9B|07ABA6;
    CMP.W #$FFFF                         ;07AB9D|      ;
@@ -6077,7 +6077,7 @@ CODE_07ABA6:
    LDA.W #$0001                         ;07ABA6|      ;
    RTL                                  ;07ABA9|      ;
 PetrifyCheck:
-   LDA.W Battle_State                   ;07ABAA|0011C1;
+   LDA.W Game_State                     ;07ABAA|0011C1;
    CMP.W #$0002                         ;07ABAD|      ;
    BEQ CODE_07ABB6                      ;07ABB0|07ABB6;
    LDA.W #$0002                         ;07ABB2|      ;
@@ -6748,7 +6748,7 @@ CODE_07B09B:
    RTL                                  ;07B09E|      ;
 CODE_07B09F:
    JSL.L GetEventCode_2b_far            ;07B09F|009B07;
-   CMP.W Battle_State                   ;07B0A3|0011C1;
+   CMP.W Game_State                     ;07B0A3|0011C1;
    BEQ CODE_07B0AC                      ;07B0A6|07B0AC;
    LDA.W #$0000                         ;07B0A8|      ;
    RTL                                  ;07B0AB|      ;
@@ -7383,7 +7383,7 @@ CODE_07B564:
 CODE_07B567:
    PLY                                  ;07B567|      ;
    RTL                                  ;07B568|      ;
-CODE_07B569:
+Get_enemy_name:
    LDX.W #$0011                         ;07B569|      ;
    JSL.L MultiplyTo1E00_far             ;07B56C|008A39;
    LDA.W #$9FE9                         ;07B570|      ;
@@ -8118,7 +8118,7 @@ LoadSaveItem:
    RTL                                  ;07BB03|      ;
 Get_Item_Selection:
    LDX.W Selection                      ;07BB04|00103F;
-   LDA.W Battle_State                   ;07BB07|0011C1; In battle?
+   LDA.W Game_State                     ;07BB07|0011C1; In battle?
    CMP.W #$0002                         ;07BB0A|      ;
    BNE CODE_07BB14                      ;07BB0D|07BB14;
    LDA.W Temp_09C7,X                    ;07BB0F|0009C7;
@@ -8138,7 +8138,7 @@ CODE_07BB14:
 CODE_07BB28:
    ASL A                                ;07BB28|      ;
    RTL                                  ;07BB29|      ;
-SaveItemInfo:
+Get_Item_Info:
    LDY.W Selection                      ;07BB2A|00103F; Called when double clicking an item to load its data
    LDA.W $09A3,Y                        ;07BB2D|0009A3;
    STA.W $11A1                          ;07BB30|0011A1;
@@ -8185,7 +8185,7 @@ CODE_07BB6A:
    STA.W $11BF                          ;07BBA6|0011BF;
    RTL                                  ;07BBA9|      ;
 Is_In_Battle:
-   LDA.W Battle_State                   ;07BBAA|0011C1; Returns 0 if not in battle ($11C1=not 2)
+   LDA.W Game_State                     ;07BBAA|0011C1; Returns 0 if not in battle ($11C1=not 2)
    CMP.W #$0002                         ;07BBAD|      ;
    BEQ CODE_07BBB5                      ;07BBB0|07BBB5;
    LDA.W #$0000                         ;07BBB2|      ;
@@ -8567,9 +8567,9 @@ Load_Status_Healed:
    LDA.W #$1598                         ;07BE95|      ;
    STA.B $04                            ;07BE98|000004;
    JML.L Text_to_RAM                    ;07BE9A|07BE1A;
-CODE_07BE9E:
+Get_Spell_ID:
    LDX.W Selection                      ;07BE9E|00103F;
-   LDA.W Battle_State                   ;07BEA1|0011C1;
+   LDA.W Game_State                     ;07BEA1|0011C1;
    CMP.W #$0002                         ;07BEA4|      ;
    BNE CODE_07BEB5                      ;07BEA7|07BEB5;
    LDA.W Temp_09C7,X                    ;07BEA9|0009C7;
@@ -8604,7 +8604,7 @@ CODE_07BEDB:
 CODE_07BEDC:
    STA.W Attacker                       ;07BEDC|001121;
    TAX                                  ;07BEDF|      ;
-   LDA.L PTR16_07BEF2,X                 ;07BEE0|07BEF2;
+   LDA.L Tbl_RAM_Spell_Lists,X          ;07BEE0|07BEF2;
    CLC                                  ;07BEE4|      ;
    ADC.B $00                            ;07BEE5|000000;
    STA.B $00                            ;07BEE7|000000;
@@ -8612,19 +8612,19 @@ CODE_07BEDC:
    AND.W #$00FF                         ;07BEEB|      ;
    STA.W Spell_ID                       ;07BEEE|001127;
    RTL                                  ;07BEF1|      ;
-PTR16_07BEF2:
-   dw $1459                             ;07BEF2|001459;
-   dw $1499                             ;07BEF4|001499;
-   dw $14D9                             ;07BEF6|0014D9;
-   dw $1519                             ;07BEF8|001519;
-Get_spell_effect:
+Tbl_RAM_Spell_Lists:
+   dw $1459                             ;07BEF2|      ;
+   dw $1499                             ;07BEF4|      ;
+   dw $14D9                             ;07BEF6|      ;
+   dw $1519                             ;07BEF8|      ;
+Get_Spell_Type:
    LDX.W Spell_ID                       ;07BEFA|001127;
    LDA.L Tbl_Spell_Category,X           ;07BEFD|05EDB5;
    AND.W #$00FF                         ;07BF01|      ;
    STA.W Spell_type                     ;07BF04|0018C5;
    RTL                                  ;07BF07|      ;
 Get_spell_targeting:
-   LDX.W Spell_ID                       ;07BF08|001127;
+   LDX.W Spell_ID                       ;07BF08|001127; Returns 1 multi-target, 0 single target
    LDA.L Spell_flag_targeting,X         ;07BF0B|05EA9E;
    AND.W #$00FF                         ;07BF0F|      ;
    RTL                                  ;07BF12|      ;
@@ -8663,8 +8663,8 @@ Loop_BossFlag_Search:
 CODE_07BF50:
    LDA.W #$0000                         ;07BF50|      ; Return failure if boss found
    RTL                                  ;07BF53|      ;
-CODE_07BF54:
-   LDY.W Attacker                       ;07BF54|001121;
+Spell_Spend_MP:
+   LDY.W Attacker                       ;07BF54|001121; Deducts MP if player character. Returns 1 if failed (not enough MP)
    CPY.W #$0008                         ;07BF57|      ;
    BCS CODE_07BF88                      ;07BF5A|07BF88;
    LDX.W Spell_ID                       ;07BF5C|001127;
@@ -8696,28 +8696,28 @@ Update_curMP:
    STA.W Current_MP,X                   ;07BF97|001323; Save it to that character's current MP
 CODE_07BF9A:
    RTL                                  ;07BF9A|      ;
-Clear_112B_list:
+Clear_Spell_Results:
    LDX.W #$0000                         ;07BF9B|      ;
    LDA.W #$FFFF                         ;07BF9E|      ;
 CODE_07BFA1:
-   STA.W Status_Weird,X                 ;07BFA1|00112B;
+   STA.W Spell_Result_array,X           ;07BFA1|00112B;
    INX                                  ;07BFA4|      ;
    INX                                  ;07BFA5|      ;
    CPX.W #$0018                         ;07BFA6|      ;
    BCC CODE_07BFA1                      ;07BFA9|07BFA1;
    RTL                                  ;07BFAB|      ;
 CODE_07BFAC:
-   JSL.L Get_spell_effect               ;07BFAC|07BEFA;
+   JSL.L Get_Spell_Type                 ;07BFAC|07BEFA;
    JSL.L Get_spell_targeting            ;07BFB0|07BF08;
    BEQ CODE_07BFBB                      ;07BFB4|07BFBB;
    JSL.L CODE_07BFC0                    ;07BFB6|07BFC0;
    RTL                                  ;07BFBA|      ;
 CODE_07BFBB:
-   JSL.L CODE_07BFDC                    ;07BFBB|07BFDC;
+   JSL.L Spell_Set_up_Effect            ;07BFBB|07BFDC;
    RTL                                  ;07BFBF|      ;
 CODE_07BFC0:
-   JSL.L Clear_112B_list                ;07BFC0|07BF9B;
-   JSL.L CMP_spell_ID                   ;07BFC4|07C024;
+   JSL.L Clear_Spell_Results            ;07BFC0|07BF9B;
+   JSL.L Spell_Set_Atk_Range            ;07BFC4|07C024;
 Loop_All_enemies:
    PHY                                  ;07BFC8|      ;
    PHX                                  ;07BFC9|      ;
@@ -8731,8 +8731,8 @@ Loop_All_enemies:
    CPX.B $20                            ;07BFD7|000020;
    BCC Loop_All_enemies                 ;07BFD9|07BFC8;
    RTL                                  ;07BFDB|      ;
-CODE_07BFDC:
-   JSL.L Clear_112B_list                ;07BFDC|07BF9B;
+Spell_Set_up_Effect:
+   JSL.L Clear_Spell_Results            ;07BFDC|07BF9B; Calls code on spell type and ally/enemy target
    LDA.W Spell_type                     ;07BFE0|0018C5;
    ASL A                                ;07BFE3|      ;
    TAX                                  ;07BFE4|      ;
@@ -8741,17 +8741,17 @@ CODE_07BFDC:
    LDY.W Attacker                       ;07BFEA|001121;
    CPY.W #$0008                         ;07BFED|      ;
    BCS CODE_07BFFB                      ;07BFF0|07BFFB;
-   LDA.L Casting_on_party_FX,X          ;07BFF2|07C008;
+   LDA.L Ptr_Casting_on_party_FX,X      ;07BFF2|07C008;
    STA.B $00                            ;07BFF6|000000;
    JML.W [$1E00]                        ;07BFF8|001E00;
 CODE_07BFFB:
-   LDA.L Casting_on_enemies_FX,X        ;07BFFB|07C0A4;
+   LDA.L Ptr_Casting_on_enemies_FX,X    ;07BFFB|07C0A4;
    STA.B $00                            ;07BFFF|000000;
    LDX.W Target                         ;07C001|001123;
    JML.W [$1E00]                        ;07C004|001E00;
 CODE_07C007:
    RTL                                  ;07C007|      ;
-Casting_on_party_FX:
+Ptr_Casting_on_party_FX:
    dw CODE_07C0C0                       ;07C008|07C0C0; Damaging
    dw CODE_07C007                       ;07C00A|07C007; Draining
    dw CODE_07C0E9                       ;07C00C|07C0E9; Healing
@@ -8766,20 +8766,20 @@ Casting_on_party_FX:
    dw CODE_07C230                       ;07C01E|07C230; Status heals
    dw CODE_07C26F                       ;07C020|07C26F; Restoration of Spirit
    dw CODE_07C007                       ;07C022|07C007; Out of battle
-CMP_spell_ID:
+Spell_Set_Atk_Range:
    LDA.W Spell_ID                       ;07C024|001127;
    CMP.W #$005A                         ;07C027|      ; Call Amulet Fail 2
    BNE CODE_07C033                      ;07C02A|07C033;
    LDX.W #$0002                         ;07C02C|      ;
-   JML.L Load_X_and_18                  ;07C02F|07C07B;
+   JML.L Load_X_and_18                  ;07C02F|07C07B; If red bird, set attack range to everyone
 CODE_07C033:
    CMP.W #$0059                         ;07C033|      ; Call Amulet Fail 1
    BNE CODE_07C03F                      ;07C036|07C03F;
    LDX.W #$0002                         ;07C038|      ;
-   JML.L Load_8                         ;07C03B|07C06E;
+   JML.L Load_8                         ;07C03B|07C06E; If blue bird, set attack range to allies
 CODE_07C03F:
    LDX.W Spell_type                     ;07C03F|0018C5;
-   LDA.L DATA16_07C080,X                ;07C042|07C080;
+   LDA.L Tbl_Spell_Targeting_X,X        ;07C042|07C080;
    AND.W #$00FF                         ;07C046|      ;
    BNE CODE_07C05B                      ;07C049|07C05B;
    LDA.W Attacker                       ;07C04B|001121;
@@ -8810,20 +8810,20 @@ Load_X_and_18:
    LDY.W #$0018                         ;07C07B|      ;
    TXA                                  ;07C07E|      ;
    RTL                                  ;07C07F|      ;
-DATA16_07C080:
-   dw $0201                             ;07C080|      ;
-   dw $0200                             ;07C082|      ;
+Tbl_Spell_Targeting_X:
+   dw $0201                             ;07C080|      ; Seems to route differently based on spell type. (Damaging=1)
+   dw $0200                             ;07C082|      ; Healing=0
    dw $0101                             ;07C084|      ;
    dw $0102                             ;07C086|      ;
-   dw $0000                             ;07C088|      ;
+   dw $0000                             ;07C088|      ; Buffs=0
    dw $0002                             ;07C08A|      ;
-   dw $0200                             ;07C08C|      ;
+   dw $0200                             ;07C08C|      ; Restoration of spirit=0
 Branch_on_spell_type:
    PHX                                  ;07C08E|      ;
    LDA.W Spell_type                     ;07C08F|0018C5;
    ASL A                                ;07C092|      ;
    TAX                                  ;07C093|      ;
-   LDA.L Casting_on_enemies_FX,X        ;07C094|07C0A4; Load the subroutine per spell type
+   LDA.L Ptr_Casting_on_enemies_FX,X    ;07C094|07C0A4; Load the subroutine per spell type
    STA.B $00                            ;07C098|000000;
    LDA.W #$0007                         ;07C09A|      ;
    STA.B $02                            ;07C09D|000002;
@@ -8831,7 +8831,7 @@ Branch_on_spell_type:
    JML.W [$1E00]                        ;07C0A0|001E00; Jump to the subroutine
 CODE_07C0A3:
    RTL                                  ;07C0A3|      ; For dummied spells
-Casting_on_enemies_FX:
+Ptr_Casting_on_enemies_FX:
    dw Attack_spells                     ;07C0A4|07C0CE; Damaging
    dw CODE_07C0A3                       ;07C0A6|07C0A3; Draining
    dw Healing_spells                    ;07C0A8|07C0F3; Healing
@@ -8862,7 +8862,7 @@ Attack_spells:
    BEQ CODE_07C0E8                      ;07C0DC|07C0E8;
    JSL.L Spell_routing                  ;07C0DE|00C180;
    LDX.W Target                         ;07C0E2|001123;
-   STA.W Status_Weird,X                 ;07C0E5|00112B;
+   STA.W Spell_Result_array,X           ;07C0E5|00112B;
 CODE_07C0E8:
    RTL                                  ;07C0E8|      ;
 CODE_07C0E9:
@@ -8880,7 +8880,7 @@ Healing_spells:
    BEQ CODE_07C10D                      ;07C101|07C10D;
    JSL.L Spell_routing                  ;07C103|00C180;
    LDX.W Target                         ;07C107|001123;
-   STA.W Status_Weird,X                 ;07C10A|00112B;
+   STA.W Spell_Result_array,X           ;07C10A|00112B;
 CODE_07C10D:
    RTL                                  ;07C10D|      ;
 Death_spells:
@@ -8895,7 +8895,7 @@ Death_spells:
    LDA.W #$0001                         ;07C124|      ;
 CODE_07C127:
    LDX.W Target                         ;07C127|001123;
-   STA.W Status_Weird,X                 ;07C12A|00112B;
+   STA.W Spell_Result_array,X           ;07C12A|00112B;
 CODE_07C12D:
    RTL                                  ;07C12D|      ;
 CODE_07C12E:
@@ -8952,7 +8952,7 @@ CODE_07C184:
    LDA.L Spell_Power,X                  ;07C197|05EB4B;
 CODE_07C19B:
    LDX.W Target                         ;07C19B|001123;
-   STA.W Status_Weird,X                 ;07C19E|00112B;
+   STA.W Spell_Result_array,X           ;07C19E|00112B;
 CODE_07C1A1:
    RTL                                  ;07C1A1|      ;
 DATA8_07C1A2:
@@ -8980,7 +8980,7 @@ Debuff_spells1:
    LDA.W #$0002                         ;07C1CB|      ;
 CODE_07C1CE:
    LDX.W Target                         ;07C1CE|001123;
-   STA.W Status_Weird,X                 ;07C1D1|00112B;
+   STA.W Spell_Result_array,X           ;07C1D1|00112B;
 CODE_07C1D4:
    RTL                                  ;07C1D4|      ;
 Ruinous_Mission_Flee1:
@@ -8993,7 +8993,7 @@ Ruinous_Mission_Flee1:
    STX.W Target                         ;07C1E5|001123;
    JSL.L Spell_routing                  ;07C1E8|00C180;
    LDX.W Target                         ;07C1EC|001123;
-   STA.W Status_Weird,X                 ;07C1EF|00112B;
+   STA.W Spell_Result_array,X           ;07C1EF|00112B;
 CODE_07C1F2:
    RTL                                  ;07C1F2|      ;
 Buff_spells1:
@@ -9004,7 +9004,7 @@ Buff_spells1:
    CMP.W #$0002                         ;07C1FE|      ;
    BEQ CODE_07C209                      ;07C201|07C209;
    LDA.W #$0001                         ;07C203|      ;
-   STA.W Status_Weird,X                 ;07C206|00112B;
+   STA.W Spell_Result_array,X           ;07C206|00112B;
 CODE_07C209:
    RTL                                  ;07C209|      ;
 Change_Attr_spells:
@@ -9021,7 +9021,7 @@ Change_Attr_spells:
    ASL A                                ;07C223|      ;
    TAX                                  ;07C224|      ;
    LDA.L Spell_Power,X                  ;07C225|05EB4B;
-   STA.W Status_Weird,Y                 ;07C229|00112B;
+   STA.W Spell_Result_array,Y           ;07C229|00112B;
 CODE_07C22C:
    LDA.W Target                         ;07C22C|001123;
 CODE_07C22F:
@@ -9054,7 +9054,7 @@ Status_heal_spells:
    BEQ CODE_07C26B                      ;07C266|07C26B;
    LDA.W #$0000                         ;07C268|      ;
 CODE_07C26B:
-   STA.W Status_Weird,X                 ;07C26B|00112B;
+   STA.W Spell_Result_array,X           ;07C26B|00112B;
 CODE_07C26E:
    RTL                                  ;07C26E|      ;
 CODE_07C26F:
@@ -9113,12 +9113,12 @@ Is_Draw_Spell_Name:
    BCS CODE_07C2F2                      ;07C2E7|07C2F2;
    LDA.W Curr_party,X                   ;07C2E9|00155B; Load party member ID
    JSL.L Get_PC_Name1_far               ;07C2EC|07B4DC;
-   BRA CastTheSpellOf                   ;07C2F0|07C2FB;
+   BRA Spell_CastTheSpellOf             ;07C2F0|07C2FB;
 CODE_07C2F2:
    TXA                                  ;07C2F2|      ;
    JSL.L Get_enemy_ID                   ;07C2F3|07C851;
    JSL.L Get_EnemyX_Name                ;07C2F7|07B51C;
-CastTheSpellOf:
+Spell_CastTheSpellOf:
    LDA.W Spell_ID                       ;07C2FB|001127;
    LDX.W #$0016                         ;07C2FE|      ;
    JSL.L MultiplyTo1E00_far             ;07C301|008A39;
@@ -9142,21 +9142,21 @@ Spell_Setup:
    LDA.W Spell_type                     ;07C32D|0018C5;
    ASL A                                ;07C330|      ;
    TAX                                  ;07C331|      ;
-   LDA.L Tbl_18C5_Spell_fx,X            ;07C332|07C355;
-   STA.B $00                            ;07C336|000000; Stores ptr to spell handler code
+   LDA.L Tbl_Spell_type_fx,X            ;07C332|07C355;
+   STA.B $00                            ;07C336|000000; Stores ptr to spell handler code (bank 07)
    LDA.W #$0007                         ;07C338|      ;
    STA.B $02                            ;07C33B|000002;
    LDX.W Target                         ;07C33D|001123;
-   LDA.W Status_Weird,X                 ;07C340|00112B;
+   LDA.W Spell_Result_array,X           ;07C340|00112B;
    BNE CODE_07C349                      ;07C343|07C349;
-   JML.L Not_healing                    ;07C345|07C7F6;
+   JML.L Spell_zero_damage              ;07C345|07C7F6;
 CODE_07C349:
    CMP.W #$FFFF                         ;07C349|      ;
    BNE CODE_07C352                      ;07C34C|07C352;
-   JML.L Skip_this_one                  ;07C34E|07C822;
+   JML.L Spell_Skip_Turn                ;07C34E|07C822;
 CODE_07C352:
-   JML.W [$1E00]                        ;07C352|001E00; ??
-Tbl_18C5_Spell_fx:
+   JML.W [$1E00]                        ;07C352|001E00; Load the spell effect
+Tbl_Spell_type_fx:
    dw Damaging_spell                    ;07C355|07C375; 0: Damaging spell
    dw Dummied_spell                     ;07C357|07C371; 1: Draining (dummied)
    dw Healing_spell                     ;07C359|07C3AE; 2: Healing
@@ -9172,11 +9172,11 @@ Tbl_18C5_Spell_fx:
    dw Resurrection                      ;07C36D|07C727; C: Resurrection of Spirit
    dw Dummied_spell                     ;07C36F|07C371; D: Out of battle (dummied)
 Dummied_spell:
-   JML.L Skip_this_one                  ;07C371|07C822;
+   JML.L Spell_Skip_Turn                ;07C371|07C822;
 Damaging_spell:
    LDA.W Current_HP,X                   ;07C375|0012F3;
    SEC                                  ;07C378|      ;
-   SBC.W Status_Weird,X                 ;07C379|00112B;
+   SBC.W Spell_Result_array,X           ;07C379|00112B;
    CMP.W #$0001                         ;07C37C|      ;
    BPL CODE_07C3A1                      ;07C37F|07C3A1;
    LDA.W #$0001                         ;07C381|      ;
@@ -9196,14 +9196,14 @@ CODE_07C39E:
    LDA.W #$0000                         ;07C39E|      ;
 CODE_07C3A1:
    STA.W Current_HP,X                   ;07C3A1|0012F3;
-   LDA.W Status_Weird,X                 ;07C3A4|00112B;
+   LDA.W Spell_Result_array,X           ;07C3A4|00112B;
    STA.W $16DB                          ;07C3A7|0016DB;
-   JML.L CODE_07C78E                    ;07C3AA|07C78E;
+   JML.L Spell_effect_or_death          ;07C3AA|07C78E;
 Healing_spell:
    PHX                                  ;07C3AE|      ;
    CPX.W #$0008                         ;07C3AF|      ; If an enemy is healed, jump to enemy healing
    BCS Enemy_healing                    ;07C3B2|07C3C8;
-   LDA.W Status_Weird,X                 ;07C3B4|00112B; Get healing value
+   LDA.W Spell_Result_array,X           ;07C3B4|00112B; Get healing value
    CLC                                  ;07C3B7|      ;
    ADC.W Current_HP,X                   ;07C3B8|0012F3; Add to current HP
    CMP.W MaxHP,X                        ;07C3BB|001393; If healed above max, set to max HP
@@ -9219,7 +9219,7 @@ Enemy_healing:
    ASL A                                ;07C3CE|      ;
    TAX                                  ;07C3CF|      ;
    PLY                                  ;07C3D0|      ; Retrieve the slot #
-   LDA.W Status_Weird,Y                 ;07C3D1|00112B; Get healing value
+   LDA.W Spell_Result_array,Y           ;07C3D1|00112B; Get healing value
    CLC                                  ;07C3D4|      ;
    ADC.W Current_HP,Y                   ;07C3D5|0012F3; Add to current HP
    CMP.L Data_Enemy_mHP,X               ;07C3D8|05CE55; If healed above max, set to max HP
@@ -9229,9 +9229,9 @@ CODE_07C3E2:
    STA.W Current_HP,Y                   ;07C3E2|0012F3;
 CODE_07C3E5:
    PLX                                  ;07C3E5|      ;
-   LDA.W Status_Weird,X                 ;07C3E6|00112B;
+   LDA.W Spell_Result_array,X           ;07C3E6|00112B;
    STA.W $16DB                          ;07C3E9|0016DB; Temp var to display the heal value
-   JML.L Spell_effect                   ;07C3EC|07C7B5;
+   JML.L Spell_write_effect             ;07C3EC|07C7B5;
 Instant_kill_spell:
    PHX                                  ;07C3F0|      ;
    STZ.W Current_HP,X                   ;07C3F1|0012F3; Set target HP to 0
@@ -9252,7 +9252,7 @@ Instant_kill_spell:
    STA.B $04                            ;07C418|000004;
    JSL.L Text_to_RAM                    ;07C41A|07BE1A;
    PLX                                  ;07C41E|      ;
-   JML.L Spell_effect                   ;07C41F|07C7B5;
+   JML.L Spell_write_effect             ;07C41F|07C7B5;
 Text_Chaos_Wind_eff:
    db "been swept away by Wi"           ;07C423|      ;
    db "nd"                              ;07C438|      ;
@@ -9267,7 +9267,7 @@ Text_Destroy_eff:
    db $00                               ;07C46A|      ;
 Status_spells2:
    PHX                                  ;07C46B|      ;
-   LDA.W Status_Weird,X                 ;07C46C|00112B;
+   LDA.W Spell_Result_array,X           ;07C46C|00112B;
    ASL A                                ;07C46F|      ;
    TAX                                  ;07C470|      ;
    LDA.L Status_conditions,X            ;07C471|07C4E5;
@@ -9306,7 +9306,7 @@ CODE_07C486:
    PLX                                  ;07C4BD|      ;
 CODE_07C4BE:
    PHX                                  ;07C4BE|      ;
-   LDA.W Status_Weird,X                 ;07C4BF|00112B;
+   LDA.W Spell_Result_array,X           ;07C4BF|00112B;
    DEC A                                ;07C4C2|      ;
    LDX.W #$0012                         ;07C4C3|      ;
    JSL.L MultiplyTo1E00_far             ;07C4C6|008A39;
@@ -9320,7 +9320,7 @@ CODE_07C4BE:
    STA.B $04                            ;07C4DA|000004;
    JSL.L Text_to_RAM                    ;07C4DC|07BE1A;
    PLX                                  ;07C4E0|      ;
-   JML.L Spell_effect                   ;07C4E1|07C7B5;
+   JML.L Spell_write_effect             ;07C4E1|07C7B5;
 Status_conditions:
    dw $0000                             ;07C4E5|      ;
    dw $0005                             ;07C4E7|      ;
@@ -9373,7 +9373,7 @@ CODE_07C560:
    INC.B $00                            ;07C57A|000000;
    INC.B $00                            ;07C57C|000000;
 CODE_07C57E:
-   LDA.W Status_Weird,X                 ;07C57E|00112B;
+   LDA.W Spell_Result_array,X           ;07C57E|00112B;
    CMP.W #$0001                         ;07C581|      ;
    BNE CODE_07C58B                      ;07C584|07C58B;
    JSR.W CODE_07C5B9                    ;07C586|07C5B9;
@@ -9398,7 +9398,7 @@ CODE_07C593:
    STA.B $04                            ;07C5AE|000004;
    JSL.L Text_to_RAM                    ;07C5B0|07BE1A;
    PLX                                  ;07C5B4|      ;
-   JML.L Spell_effect                   ;07C5B5|07C7B5;
+   JML.L Spell_write_effect             ;07C5B5|07C7B5;
 CODE_07C5B9:
    PHX                                  ;07C5B9|      ;
    TXA                                  ;07C5BA|      ;
@@ -9484,11 +9484,11 @@ Ruinous_Mission_Flee2:
    STZ.W Current_HP,X                   ;07C671|0012F3; Kills the current spirit
    LDA.W #$0001                         ;07C674|      ;
    STA.W Condition,X                    ;07C677|0011C3;
-   JML.L Spell_effect                   ;07C67A|07C7B5;
+   JML.L Spell_write_effect             ;07C67A|07C7B5;
 Change_Attr:
    LDA.W Affinity,X                     ;07C67E|00120B;
    AND.W #$0FFF                         ;07C681|      ;
-   ORA.W Status_Weird,X                 ;07C684|00112B;
+   ORA.W Spell_Result_array,X           ;07C684|00112B;
    STA.W Affinity,X                     ;07C687|00120B;
    PHX                                  ;07C68A|      ;
    LDA.W Spell_ID                       ;07C68B|001127;
@@ -9506,7 +9506,7 @@ Change_Attr:
    STA.B $04                            ;07C6A9|000004;
    JSL.L Text_to_RAM                    ;07C6AB|07BE1A;
    PLX                                  ;07C6AF|      ;
-   JML.L Spell_effect                   ;07C6B0|07C7B5;
+   JML.L Spell_write_effect             ;07C6B0|07C7B5;
 Text_Wind:
    db "Wind "                           ;07C6B4|      ; Used with "Change Attribute" spells
    db $00                               ;07C6B9|      ;
@@ -9524,7 +9524,7 @@ Status_heals:
    AND.W #$FF00                         ;07C6CF|      ;
    STA.W Condition,X                    ;07C6D2|0011C3;
    PHX                                  ;07C6D5|      ;
-   LDA.W Status_Weird,X                 ;07C6D6|00112B;
+   LDA.W Spell_Result_array,X           ;07C6D6|00112B;
    SEC                                  ;07C6D9|      ;
    SBC.W #$0003                         ;07C6DA|      ;
    LDX.W #$000A                         ;07C6DD|      ;
@@ -9539,7 +9539,7 @@ Status_heals:
    STA.B $04                            ;07C6F4|000004;
    JSL.L Text_to_RAM                    ;07C6F6|07BE1A;
    PLX                                  ;07C6FA|      ;
-   JML.L Spell_effect                   ;07C6FB|07C7B5;
+   JML.L Spell_write_effect             ;07C6FB|07C7B5;
 Text_Paralyzed:
    db "Paralyzed"                       ;07C6FF|      ;
    db $00                               ;07C708|      ;
@@ -9561,7 +9561,7 @@ Resurrection:
    LDA.W Spirits_NotOwned               ;07C72E|0013A7;
    AND.W Tbl_Bitwise2,X                 ;07C731|008BF4;
    STA.W Spirits_NotOwned               ;07C734|0013A7;
-   LDA.W Spirit_Condition               ;07C737|0011C5;
+   LDA.W Condition_Spirit               ;07C737|0011C5;
    CMP.W #$0002                         ;07C73A|      ;
    BEQ CODE_07C768                      ;07C73D|07C768;
    CMP.W #$0001                         ;07C73F|      ;
@@ -9570,7 +9570,7 @@ Resurrection:
    STA.W Spirit_currHP                  ;07C747|0012F5;
    LDA.W SpiritMaxMP                    ;07C74A|00139D;
    STA.W Spirit_currMP                  ;07C74D|001325;
-   STZ.W Spirit_Condition               ;07C750|0011C5;
+   STZ.W Condition_Spirit               ;07C750|0011C5;
    LDY.W #$0000                         ;07C753|      ;
 CODE_07C756:
    LDA.W ACC_mods,Y                     ;07C756|0012E3;
@@ -9597,15 +9597,15 @@ CODE_07C768:
    STA.B $04                            ;07C783|000004;
    JSL.L Text_to_RAM                    ;07C785|07BE1A;
    PLX                                  ;07C789|      ;
-   JML.L Spell_effect                   ;07C78A|07C7B5;
-CODE_07C78E:
+   JML.L Spell_write_effect             ;07C78A|07C7B5;
+Spell_effect_or_death:
    LDA.W Condition,X                    ;07C78E|0011C3;
    AND.W #$00FF                         ;07C791|      ;
    CMP.W #$0001                         ;07C794|      ;
    BEQ CODE_07C79D                      ;07C797|07C79D;
-   JML.L Spell_effect                   ;07C799|07C7B5;
+   JML.L Spell_write_effect             ;07C799|07C7B5;
 CODE_07C79D:
-   JSL.L CODE_07C82C                    ;07C79D|07C82C;
+   JSL.L Get_target_name                ;07C79D|07C82C; Death by attack spell
    INC.W Target                         ;07C7A1|001123;
    INC.W Target                         ;07C7A4|001123;
    LDA.W Spell_type                     ;07C7A7|0018C5;
@@ -9613,15 +9613,15 @@ CODE_07C79D:
    TAX                                  ;07C7AB|      ;
    LDA.W #$8650                         ;07C7AC|      ; Suffered damage, was defeated
    STA.B $00                            ;07C7AF|000000;
-   JML.L CODE_07C7E6                    ;07C7B1|07C7E6;
-Spell_effect:
-   JSL.L CODE_07C82C                    ;07C7B5|07C82C;
+   JML.L CODE_07C7E6                    ;07C7B1|07C7E6; Jump into "spell_write_effect" and draw the text to the screen
+Spell_write_effect:
+   JSL.L Get_target_name                ;07C7B5|07C82C;
    INC.W Target                         ;07C7B9|001123;
    INC.W Target                         ;07C7BC|001123;
    LDA.W Spell_type                     ;07C7BF|0018C5;
    ASL A                                ;07C7C2|      ;
    TAX                                  ;07C7C3|      ;
-   LDA.W Battle_State                   ;07C7C4|0011C1; If $11C1 is 2, show result
+   LDA.W Game_State                     ;07C7C4|0011C1; If $11C1 is 2, show result
    CMP.W #$0002                         ;07C7C7|      ;
    BEQ CODE_07C7E0                      ;07C7CA|07C7E0;
    TXA                                  ;07C7CC|      ;
@@ -9645,17 +9645,17 @@ CODE_07C7E6:
    JSL.L Set_Text_Parser_long           ;07C7EE|00A688;
    LDA.W #$0001                         ;07C7F2|      ;
    RTL                                  ;07C7F5|      ;
-Not_healing:
+Spell_zero_damage:
    INC.W Target                         ;07C7F6|001123;
    INC.W Target                         ;07C7F9|001123;
    LDA.W Spell_ID                       ;07C7FC|001127;
-   CMP.W #$004C                         ;07C7FF|      ;
+   CMP.W #$004C                         ;07C7FF|      ; Is the spell Restoration of Spirit?
    BNE CODE_07C809                      ;07C802|07C809;
-   LDA.W #$884E                         ;07C804|      ; No effect (Restoration of spirit)
+   LDA.W #$884E                         ;07C804|      ; Load text "But there was no effect."
    BRA CODE_07C810                      ;07C807|07C810;
 CODE_07C809:
-   JSL.L CODE_07C82C                    ;07C809|07C82C;
-   LDA.W #$87BF                         ;07C80D|      ;
+   JSL.L Get_target_name                ;07C809|07C82C;
+   LDA.W #$87BF                         ;07C80D|      ; Load text "There was no effect on x"
 CODE_07C810:
    STA.B $00                            ;07C810|000000;
    LDA.W #$0008                         ;07C812|      ;
@@ -9664,12 +9664,12 @@ CODE_07C810:
    JSL.L Set_Text_Parser_long           ;07C81A|00A688;
    LDA.W #$0002                         ;07C81E|      ;
    RTL                                  ;07C821|      ;
-Skip_this_one:
+Spell_Skip_Turn:
    INC.W Target                         ;07C822|001123; Next fighter's turn (?)
    INC.W Target                         ;07C825|001123;
    LDA.W #$0000                         ;07C828|      ;
    RTL                                  ;07C82B|      ;
-CODE_07C82C:
+Get_target_name:
    PHX                                  ;07C82C|      ;
    CPX.W #$0008                         ;07C82D|      ;
    BCS CODE_07C83B                      ;07C830|07C83B;
@@ -9684,7 +9684,7 @@ CODE_07C83B:
    LDX.W Selection                      ;07C844|00103F;
    STA.W Temp_09C7,X                    ;07C847|0009C7;
    PLA                                  ;07C84A|      ;
-   JSL.L CODE_07B569                    ;07C84B|07B569;
+   JSL.L Get_enemy_name                 ;07C84B|07B569;
 CODE_07C84F:
    PLX                                  ;07C84F|      ;
    RTL                                  ;07C850|      ;
@@ -9731,7 +9731,7 @@ Extras:
    dw Restoration_of_Spirit             ;07C897|088794; Restoration of Spirit
 CODE_07C899:
    LDX.W Target                         ;07C899|001123;
-   LDA.W Status_Weird,X                 ;07C89C|00112B;
+   LDA.W Spell_Result_array,X           ;07C89C|00112B;
    BEQ CODE_07C8B0                      ;07C89F|07C8B0;
    CMP.W #$FFFF                         ;07C8A1|      ;
    BNE CODE_07C8B4                      ;07C8A4|07C8B4;
@@ -9802,7 +9802,7 @@ Store_Byte_At_Offset_6b:
    STA.B ($00),Y                        ;07C90B|000000;
    RTL                                  ;07C90D|      ;
 RuinousMission_handling:
-   LDA.W Spirit_Condition               ;07C90E|0011C5;
+   LDA.W Condition_Spirit               ;07C90E|0011C5;
    AND.W #$00FF                         ;07C911|      ;
    CMP.W #$0001                         ;07C914|      ; Condition 1 = dead (card broken)
    BNE Is_Spirit_Here                   ;07C917|07C91D;
@@ -9814,7 +9814,7 @@ Is_Spirit_Here:
 RuinousMission1:
    STZ.W Spirit_currHP                  ;07C926|0012F5;
    LDA.W #$0001                         ;07C929|      ;
-   STA.W Spirit_Condition               ;07C92C|0011C5;
+   STA.W Condition_Spirit               ;07C92C|0011C5;
    LDA.W Party_slot2                    ;07C92F|00155D;
    DEC A                                ;07C932|      ;
    ASL A                                ;07C933|      ;
@@ -9867,7 +9867,7 @@ SpiritCardBreak:
 CODE_07C9A9:
    LDA.W #$0000                         ;07C9A9|      ;
    JSL.L Set_Text_Parser_long           ;07C9AC|00A688;
-   JSL.L Clear_112B_list                ;07C9B0|07BF9B;
+   JSL.L Clear_Spell_Results            ;07C9B0|07BF9B;
    RTL                                  ;07C9B4|      ;
 Compressed_data4:
    db $24                               ;07C9B5|      ;

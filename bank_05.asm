@@ -1,20 +1,20 @@
    ORG $058000
    db $FF                               ;058000|      ;
 Bank_05_Stat_Handling:
-   db $0F                               ;058001|      ; Set $09EB,x to 2
+   db $0F                               ;058001|      ; Set var2 to 0
    db $02                               ;058002|      ;
    dw $0000                             ;058003|      ;
-   db $24                               ;058005|      ; Load $09A3,x
+   db $24                               ;058005|      ; Load var0
    db $00                               ;058006|      ;
    db $0C                               ;058007|      ; If true jump to subroutine $8040
    dw Character_Init_2                  ;058008|058040;
-   db $0F                               ;05800A|      ; Set $09A3,x to 0
+   db $0F                               ;05800A|      ; Set var0 to 0
    db $00                               ;05800B|      ;
    dw $0000                             ;05800C|      ;
-   db $0F                               ;05800E|      ; Set $09C7,x to 0
+   db $0F                               ;05800E|      ; Set var1 to 0
    db $01                               ;05800F|      ;
    dw $0000                             ;058010|      ;
-   db $0F                               ;058012|      ; Set $0A0F,x to 0
+   db $0F                               ;058012|      ; Set var3 to 0
    db $03                               ;058013|      ;
    dw $0000                             ;058014|      ;
 Initialize_Rooks:
@@ -24,17 +24,17 @@ Initialize_Rooks:
    db $00                               ;05801B|      ;
    db $07                               ;05801C|      ; Get EXP to next level
    dl Sub_Get_EXP_to_next               ;05801D|07B27A;
-   db $07                               ;058020|      ; 07/B335: Set starting stats
+   db $07                               ;058020|      ; Call 07/B335: Set starting stats
    dl LevelUp2                          ;058021|07B335;
-   db $24                               ;058024|      ; Load current character ID
+   db $24                               ;058024|      ; Load var2 (current character ID)
    db $02                               ;058025|      ;
-   db $07                               ;058026|      ; Clear spell list
+   db $07                               ;058026|      ; Call 07/ABED: Clear spell list
    dl Sub_Wipe_Spells                   ;058027|07ABED;
-   db $24                               ;05802A|      ; Load current character ID
+   db $24                               ;05802A|      ; Load var2 (current character ID)
    db $02                               ;05802B|      ;
-   db $07                               ;05802C|      ;
+   db $07                               ;05802C|      ; Call 07/AC08: Get join spells
    dl GetJoinSpells                     ;05802D|07AC08;
-   db $07                               ;058030|      ; Increase LV
+   db $07                               ;058030|      ; Call 07/B256: Increase LV
    dl Sub_Increase_LV                   ;058031|07B256;
    db $07                               ;058034|      ; Max heal
    dl Max_heal                          ;058035|07B92F;
@@ -327,11 +327,11 @@ Tbl_0581F8:
    RTL                                  ;058215|      ;
 CODE_058216:
    LDX.W Selection                      ;058216|00103F;
-   LDA.W Battle_State                   ;058219|0011C1;
+   LDA.W Game_State                     ;058219|0011C1;
    CMP.W $0A0F,X                        ;05821C|000A0F;
    BEQ CODE_058231                      ;05821F|058231;
    LDA.W #$0002                         ;058221|      ;
-   CMP.W Battle_State                   ;058224|0011C1;
+   CMP.W Game_State                     ;058224|0011C1;
    BEQ CODE_058235                      ;058227|058235;
    LDA.W #$0002                         ;058229|      ;
    CMP.W $0A0F,X                        ;05822C|000A0F;
@@ -340,7 +340,7 @@ CODE_058231:
    LDA.W #$0000                         ;058231|      ;
    RTS                                  ;058234|      ;
 CODE_058235:
-   LDA.W Battle_State                   ;058235|0011C1;
+   LDA.W Game_State                     ;058235|0011C1;
    STA.W $0A0F,X                        ;058238|000A0F;
    LDA.W #$0001                         ;05823B|      ;
    RTS                                  ;05823E|      ;
@@ -3689,15 +3689,15 @@ BattleMenu_A_Loop:
    db $11                               ;0597BC|      ; 11: Jump based on previous result 0CB3,x
    db $09                               ;0597BD|      ; (9 entries)
 Tbl_Battle_Commands:
-   dw Selecting_Attack                  ;0597BE|0597FE; Attack
-   dw Battle_Weapons_Menu               ;0597C0|059C59; Weapons
-   dw Battle_Cards_Menu                 ;0597C2|059CC0; Cards
-   dw DATA8_059B2E                      ;0597C4|059B2E; Magic
-   dw DATA8_05994F                      ;0597C6|05994F; Item
-   dw DATA8_0598B8                      ;0597C8|0598B8; (Dummied)
-   dw Combat_Defend                     ;0597CA|059CD2; Defend
-   dw Event_Runnable_Check              ;0597CC|059CF1; Run
-   dw DATA8_059A0C                      ;0597CE|059A0C; Call
+   dw Battle_Attack                     ;0597BE|0597FE; Attack
+   dw Battle_Weapons                    ;0597C0|059C59; Weapons
+   dw Battle_Cards                      ;0597C2|059CC0; Cards
+   dw Battle_Magic                      ;0597C4|059B2E; Magic
+   dw Battle_Items                      ;0597C6|05994F; Item
+   dw Battle_Dummied                    ;0597C8|0598B8; (Dummied)
+   dw Battle_Defend                     ;0597CA|059CD2; Defend
+   dw Battle_Run                        ;0597CC|059CF1; Run
+   dw Battle_Call                       ;0597CE|059A0C; Call
 SaveResult:
    db $1F                               ;0597D0|      ; Store ($11BF) in result $0CB3,x
    dw $11BF                             ;0597D1|      ;
@@ -3730,7 +3730,7 @@ Some_Battle_Flow:
    dw DATA8_059027                      ;0597F8|059027;
    dw DATA8_0591DA                      ;0597FA|0591DA;
    dw DATA8_0593E8                      ;0597FC|0593E8;
-Selecting_Attack:
+Battle_Attack:
    db $0F                               ;0597FE|      ; 0F: Store 0014 in $09C7+12 (idk)
    db $01                               ;0597FF|      ;
    dw $0014                             ;059800|      ;
@@ -3811,7 +3811,7 @@ DATA8_059867:
    db $07                               ;059867|      ;
    dl Get_enemy_ID_from_09C7_far        ;059868|079118;
    db $07                               ;05986B|      ;
-   dl CODE_07B569                       ;05986C|07B569;
+   dl Get_enemy_name                    ;05986C|07B569;
 DATA8_05986F:
    db $07                               ;05986F|      ;
    dl Set_attacker_target_using_09C7    ;059870|079156;
@@ -3857,7 +3857,7 @@ DATA8_05986F:
 DATA8_0598B5:
    db $1B                               ;0598B5|      ;
    dw DATA8_058425                      ;0598B6|058425;
-DATA8_0598B8:
+Battle_Dummied:
    db $1A                               ;0598B8|      ;
    dw SaveResult                        ;0598B9|0597D0;
 DATA8_0598BB:
@@ -3970,7 +3970,7 @@ DATA8_059942:
    db $06                               ;05994C|      ;
    db $1E                               ;05994D|      ;
    db $1C                               ;05994E|      ;
-DATA8_05994F:
+Battle_Items:
    db $07                               ;05994F|      ;
    dl Transfer_Data_3b_1b_2b            ;059950|00A140;
    dl Weapons_Menu                      ;059953|0D9590;
@@ -4095,7 +4095,7 @@ DATA8_059A07:
    db $04                               ;059A07|      ;
    dl DATA8_059C26                      ;059A08|059C26;
    db $1C                               ;059A0B|      ;
-DATA8_059A0C:
+Battle_Call:
    db $07                               ;059A0C|      ;
    dl Set_11B5_7                        ;059A0D|059B0E;
    db $30                               ;059A10|      ;
@@ -4176,7 +4176,7 @@ DATA8_059A7E:
    db $1B                               ;059A7E|      ;
    dw DATA8_059AE4                      ;059A7F|059AE4;
    db $07                               ;059A81|      ;
-   dl Character_Join_13b                ;059A82|009CBC;
+   dl Load_Graphics_13b                 ;059A82|009CBC;
    db $0E                               ;059A85|      ;
    db $05                               ;059A86|      ;
    db $00                               ;059A87|      ;
@@ -4195,7 +4195,7 @@ DATA8_059A93:
    db $1B                               ;059A93|      ;
    dw DATA8_059AE4                      ;059A94|059AE4;
    db $07                               ;059A96|      ;
-   dl Character_Join_13b                ;059A97|009CBC;
+   dl Load_Graphics_13b                 ;059A97|009CBC;
    db $0E                               ;059A9A|      ;
    db $06                               ;059A9B|      ;
    db $00                               ;059A9C|      ;
@@ -4214,7 +4214,7 @@ DATA8_059AA8:
    db $1B                               ;059AA8|      ;
    dw DATA8_059AE4                      ;059AA9|059AE4;
    db $07                               ;059AAB|      ;
-   dl Character_Join_13b                ;059AAC|009CBC;
+   dl Load_Graphics_13b                 ;059AAC|009CBC;
    db $0E                               ;059AAF|      ;
    db $07                               ;059AB0|      ;
    db $00                               ;059AB1|      ;
@@ -4233,7 +4233,7 @@ DATA8_059ABD:
    db $1B                               ;059ABD|      ;
    dw DATA8_059AE4                      ;059ABE|059AE4;
    db $07                               ;059AC0|      ;
-   dl Character_Join_13b                ;059AC1|009CBC;
+   dl Load_Graphics_13b                 ;059AC1|009CBC;
    db $0E                               ;059AC4|      ;
    db $08                               ;059AC5|      ;
    db $00                               ;059AC6|      ;
@@ -4250,7 +4250,7 @@ DATA8_059ABD:
    db $1C                               ;059AD1|      ; RTS
 DATA8_059AD2:
    db $07                               ;059AD2|      ;
-   dl Character_Join_13b                ;059AD3|009CBC;
+   dl Load_Graphics_13b                 ;059AD3|009CBC;
    db $0E                               ;059AD6|      ;
    db $0D                               ;059AD7|      ;
    db $00                               ;059AD8|      ;
@@ -4310,12 +4310,12 @@ CODE_059B1E:
    LDA.W $11B7                          ;059B27|0011B7;
    STA.W Temp_09C7,X                    ;059B2A|0009C7;
    RTL                                  ;059B2D|      ;
-DATA8_059B2E:
+Battle_Magic:
    db $1E                               ;059B2E|      ;
    db $00                               ;059B2F|      ;
    db $00                               ;059B30|      ;
    db $07                               ;059B31|      ;
-   dl CODE_07882A                       ;059B32|07882A;
+   dl _07882E_far                       ;059B32|07882A;
    db $0C                               ;059B35|      ;
    dw DATA8_059BDE                      ;059B36|059BDE;
    db $07                               ;059B38|      ;
@@ -4336,11 +4336,11 @@ DATA8_059B2E:
    dw DATA8_059BF4                      ;059B52|059BF4;
    db $07                               ;059B54|      ;
    dl CODE_07886F                       ;059B55|07886F;
-   db $07                               ;059B58|      ;
+   db $07                               ;059B58|      ; "Battle Magic Menu"
    dl Setup_Text_Parser_3b              ;059B59|00A0AC;
    dl BattleMagicMenu                   ;059B5C|088446;
    db $00                               ;059B5F|      ;
-DATA8_059B60:
+Battle_Loop_Magic_Pick:
    db $06                               ;059B60|      ;
    db $01                               ;059B61|      ;
    db $30                               ;059B62|      ;
@@ -4359,7 +4359,7 @@ DATA8_059B60:
    dw DATA8_059BF4                      ;059B77|059BF4;
    db $07                               ;059B79|      ;
    dl CODE_07886F                       ;059B7A|07886F;
-   db $07                               ;059B7D|      ;
+   db $07                               ;059B7D|      ; "Battle Magic Menu"
    dl Setup_Text_Parser_3b              ;059B7E|00A0AC;
    dl BattleMagicMenu                   ;059B81|088446;
    db $00                               ;059B84|      ;
@@ -4375,43 +4375,42 @@ DATA8_059B87:
    dl WasBtnPressed_2b                  ;059B8F|00A00F;
    dw $0080                             ;059B92|      ;
    db $0C                               ;059B94|      ;
-   dw DATA8_059BA6                      ;059B95|059BA6;
+   dw Battle_Magic_Selected             ;059B95|059BA6;
    db $1E                               ;059B97|      ;
    dw $0000                             ;059B98|      ;
-   db $07                               ;059B9A|      ;
+   db $07                               ;059B9A|      ; B button pressed?
    dl WasBtnPressed_2b                  ;059B9B|00A00F;
    dw $8000                             ;059B9E|      ;
    db $0C                               ;059BA0|      ;
    dw DATA8_059BD3                      ;059BA1|059BD3;
    db $1A                               ;059BA3|      ;
-   dw DATA8_059B60                      ;059BA4|059B60;
-DATA8_059BA6:
+   dw Battle_Loop_Magic_Pick            ;059BA4|059B60;
+Battle_Magic_Selected:
    db $07                               ;059BA6|      ; Play SFX 11
    dl GetSet_SFX                        ;059BA7|009C44;
    db $11                               ;059BAA|      ;
    db $07                               ;059BAB|      ;
-   dl CODE_0789C2                       ;059BAC|0789C2;
-   db $0B                               ;059BAF|      ;
-   dw DATA8_059B60                      ;059BB0|059B60;
+   dl Is_Spell_Battle_Usable            ;059BAC|0789C2;
+   db $0B                               ;059BAF|      ; Branch if spell is unusable in battle
+   dw Battle_Loop_Magic_Pick            ;059BB0|059B60;
    db $04                               ;059BB2|      ;
    dl DATA8_05F34B                      ;059BB3|05F34B;
    db $06                               ;059BB6|      ;
    db $0A                               ;059BB7|      ;
    db $11                               ;059BB8|      ;
    db $03                               ;059BB9|      ;
-   dw DATA8_059B60                      ;059BBA|059B60;
-   dw DATA8_059BC0                      ;059BBC|059BC0;
-   dw DATA8_059B2E                      ;059BBE|059B2E;
-DATA8_059BC0:
+   dw Battle_Loop_Magic_Pick            ;059BBA|059B60;
+   dw Battle_Magic_Finished             ;059BBC|059BC0;
+   dw Battle_Magic                      ;059BBE|059B2E;
+Battle_Magic_Finished:
    db $06                               ;059BC0|      ;
    db $01                               ;059BC1|      ;
    db $1E                               ;059BC2|      ;
-   db $11                               ;059BC3|      ;
-   db $00                               ;059BC4|      ;
+   dw $0011                             ;059BC3|      ;
    db $07                               ;059BC5|      ;
    dl Search_0643_x_for_val             ;059BC6|07AF83;
    db $0B                               ;059BC9|      ;
-   dw DATA8_059BC0                      ;059BCA|059BC0;
+   dw Battle_Magic_Finished             ;059BCA|059BC0;
    db $06                               ;059BCC|      ;
    db $14                               ;059BCD|      ;
    db $30                               ;059BCE|      ;
@@ -4522,7 +4521,7 @@ MenuStuff4:
    db $1C                               ;059C56|      ;
    db $00                               ;059C57|      ;
    db $1C                               ;059C58|      ;
-Battle_Weapons_Menu:
+Battle_Weapons:
    db $07                               ;059C59|      ;
    dl Transfer_Data_3b_1b_2b            ;059C5A|00A140;
    dl Weapons_Menu                      ;059C5D|0D9590;
@@ -4591,7 +4590,7 @@ DATA8_059CB8:
    db $06                               ;059CBC|      ;
    db $1A                               ;059CBD|      ;
    dw Display_Satisfactory              ;059CBE|059748;
-Battle_Cards_Menu:
+Battle_Cards:
    db $04                               ;059CC0|      ;
    dl Battle_Cards_Open                 ;059CC1|05F95F;
    db $0B                               ;059CC4|      ;
@@ -4604,8 +4603,8 @@ DATA8_059CCA:
    db $06                               ;059CCE|      ;
    db $1A                               ;059CCF|      ; Return to battle menu
    dw Display_Satisfactory              ;059CD0|059748;
-Combat_Defend:
-   db $07                               ;059CD2|      ;
+Battle_Defend:
+   db $07                               ;059CD2|      ; I don't think this does anything.
    dl CODE_07B11C                       ;059CD3|07B11C;
    dw $0002                             ;059CD6|      ;
    dw $0100                             ;059CD8|      ;
@@ -4625,7 +4624,7 @@ DATA8_059CE4:
    dw DATA8_059CE4                      ;059CEC|059CE4;
    db $1A                               ;059CEE|      ; Jump always to 97D0
    dw SaveResult                        ;059CEF|0597D0;
-Event_Runnable_Check:
+Battle_Run:
    db $07                               ;059CF1|      ;
    dl Run_Check                         ;059CF2|0783FE;
    db $0B                               ;059CF5|      ;
@@ -13770,7 +13769,7 @@ Spell_Power:
 Spell_Affinity:
    dw $0000                             ;05EC01|      ;
    dw $1010                             ;05EC03|      ; Even bytes are spell element: 10 = Wind, 20 = Earth, 40 = Water, 80 = Fire
-   dw $1010                             ;05EC05|      ; (Speculation, maybe this reduces spell effectiveness against bosses.)
+   dw $1010                             ;05EC05|      ;
    dw $1010                             ;05EC07|      ;
    dw $2010                             ;05EC09|      ;
    dw $2010                             ;05EC0B|      ;
@@ -14429,7 +14428,7 @@ Tbl_Spirit_stat_1:
    db $78                               ;05F136|      ;
 Item_Handler:
    db $07                               ;05F137|      ; Called by $81:9584 Field Medicine
-   dl SaveItemInfo                      ;05F138|07BB2A; Call $07:BB2A Save Item Info
+   dl Get_Item_Info                     ;05F138|07BB2A; Call $07:BB2A Save Item Info
    db $07                               ;05F13B|      ; Call $07:BAF8 LoadSaveItem
    dl LoadSaveItem                      ;05F13C|07BAF8;
    db $12                               ;05F13F|      ; If item returned < 11, jump using the value in a pointer table
@@ -14787,96 +14786,102 @@ DATA8_05F33A:
    dl Store_results_in_2b               ;05F33B|07BDD9;
    dw $18C1                             ;05F33E|      ;
    db $07                               ;05F340|      ;
-   dl SaveItemInfo                      ;05F341|07BB2A;
+   dl Get_Item_Info                     ;05F341|07BB2A;
    db $07                               ;05F344|      ;
-   dl Get_spell_effect                  ;05F345|07BEFA;
+   dl Get_Spell_Type                    ;05F345|07BEFA;
    db $1A                               ;05F348|      ;
    dw DATA8_05F365                      ;05F349|05F365;
 DATA8_05F34B:
    db $07                               ;05F34B|      ;
-   dl SaveItemInfo                      ;05F34C|07BB2A;
+   dl Get_Item_Info                     ;05F34C|07BB2A;
    db $07                               ;05F34F|      ;
-   dl CODE_07BE9E                       ;05F350|07BE9E;
+   dl Get_Spell_ID                      ;05F350|07BE9E;
    db $07                               ;05F353|      ;
-   dl Get_spell_effect                  ;05F354|07BEFA;
+   dl Get_Spell_Type                    ;05F354|07BEFA;
    db $06                               ;05F357|      ;
    db $01                               ;05F358|      ;
-   db $07                               ;05F359|      ;
-   dl CODE_07BF54                       ;05F35A|07BF54;
-   db $0C                               ;05F35D|      ;
-   dw EMPTY_00F3AE                      ;05F35E|00F3AE;
-   db $16                               ;05F360|      ;
-   dw $18C1                             ;05F361|0018C1;
+   db $07                               ;05F359|      ; Deduct MP
+   dl Spell_Spend_MP                    ;05F35A|07BF54;
+   db $0C                               ;05F35D|      ; Branch if not enough MP
+   dw DATA8_05F3AE                      ;05F35E|05F3AE;
+   db $16                               ;05F360|      ; Set $18C1 = 0
+   dw $18C1                             ;05F361|      ;
    dw $0000                             ;05F363|      ;
 DATA8_05F365:
-   db $07                               ;05F365|      ;
+   db $07                               ;05F365|      ; Get spell targeting
    dl Get_spell_targeting               ;05F366|07BF08;
-   db $0C                               ;05F369|      ;
+   db $0C                               ;05F369|      ; Branch if multi-target
    dw DATA8_05F38E                      ;05F36A|05F38E;
-   db $07                               ;05F36C|      ;
+   db $07                               ;05F36C|      ; Get Spell ID - 4C
    dl Get_spell_ID_minus_1b             ;05F36D|07BF2D;
    db $4C                               ;05F370|      ;
-   db $0B                               ;05F371|      ;
-   dw DATA8_05F387                      ;05F372|05F387;
-   db $07                               ;05F374|      ;
-   dl CMP_spell_ID                      ;05F375|07C024;
-   db $0B                               ;05F378|      ;
+   db $0B                               ;05F371|      ; Branch if spell = Restoration of Spirit
+   dw Battle_Cast_Spell                 ;05F372|05F387;
+   db $07                               ;05F374|      ; Set values for attack range based on spell type
+   dl Spell_Set_Atk_Range               ;05F375|07C024;
+   db $0B                               ;05F378|      ; Branch if 0 (healing, buffs etc)
    dw DATA8_05F381                      ;05F379|05F381;
-   db $1B                               ;05F37B|      ;
+   db $1B                               ;05F37B|      ; Select target subroutine
    dw DATA8_05F41F                      ;05F37C|05F41F;
    db $1A                               ;05F37E|      ;
-   dw EMPTY_00F384                      ;05F37F|00F384;
+   dw DATA8_05F384                      ;05F37F|05F384;
 DATA8_05F381:
    db $1B                               ;05F381|      ;
-   dw EMPTY_00F3CD                      ;05F382|00F3CD;
-   db $0B                               ;05F384|      ;
-   dw EMPTY_00F39B                      ;05F385|00F39B;
-DATA8_05F387:
+   dw DATA8_05F3CD                      ;05F382|05F3CD;
+DATA8_05F384:
+   db $0B                               ;05F384|      ; Branch if false (target not selected?)
+   dw DATA8_05F39B                      ;05F385|05F39B;
+Battle_Cast_Spell:
    db $07                               ;05F387|      ;
-   dl CODE_07BFDC                       ;05F388|07BFDC;
+   dl Spell_Set_up_Effect               ;05F388|07BFDC;
    db $1A                               ;05F38B|      ;
-   dw EMPTY_00F392                      ;05F38C|00F392;
+   dw DATA8_05F392                      ;05F38C|05F392;
 DATA8_05F38E:
    db $07                               ;05F38E|      ;
    dl CODE_07BFC0                       ;05F38F|07BFC0;
+DATA8_05F392:
    db $06                               ;05F392|      ;
    db $01                               ;05F393|      ;
    db $04                               ;05F394|      ; JSL to 05/F459 (Save return address in $14)
    dl DATA8_05F459                      ;05F395|05F459;
    db $1E                               ;05F398|      ;
    dw $0001                             ;05F399|      ;
+DATA8_05F39B:
    db $07                               ;05F39B|      ; Store results in $18C1
    dl Store_results_in_2b               ;05F39C|07BDD9;
    dw $18C1                             ;05F39F|0018C1;
    db $07                               ;05F3A1|      ;
    dl CODE_07BB6A                       ;05F3A2|07BB6A;
    db $16                               ;05F3A5|      ;
-   dw $1127                             ;05F3A6|001127;
+   dw $1127                             ;05F3A6|      ;
    dw $FFFF                             ;05F3A8|      ;
    db $1F                               ;05F3AA|      ;
-   dw $18C1                             ;05F3AB|0018C1;
+   dw $18C1                             ;05F3AB|      ;
    db $05                               ;05F3AD|      ;
+DATA8_05F3AE:
    db $04                               ;05F3AE|      ;
    dl DATA8_059C26                      ;05F3AF|059C26;
    db $07                               ;05F3B2|      ;
    dl Is_In_Battle                      ;05F3B3|07BBAA;
    db $0B                               ;05F3B6|      ;
-   dw EMPTY_00F3BB                      ;05F3B7|00F3BB;
+   dw DATA8_05F3BB                      ;05F3B7|05F3BB;
    db $30                               ;05F3B9|      ;
    db $FF                               ;05F3BA|      ;
+DATA8_05F3BB:
    db $06                               ;05F3BB|      ;
    db $01                               ;05F3BC|      ;
    db $07                               ;05F3BD|      ;
    dl Some_1095_check_1b                ;05F3BE|07BA4F;
    db $00                               ;05F3C1|      ;
    db $0B                               ;05F3C2|      ;
-   dw EMPTY_00F3BB                      ;05F3C3|00F3BB;
+   dw DATA8_05F3BB                      ;05F3C3|05F3BB;
    db $06                               ;05F3C5|      ;
    db $1E                               ;05F3C6|      ;
    db $1E                               ;05F3C7|      ;
    dw $0002                             ;05F3C8|      ;
    db $1A                               ;05F3CA|      ;
-   dw EMPTY_00F39B                      ;05F3CB|00F39B;
+   dw DATA8_05F39B                      ;05F3CB|05F39B;
+DATA8_05F3CD:
    db $0F                               ;05F3CD|      ;
    db $01                               ;05F3CE|      ;
    dw $0000                             ;05F3CF|      ;
@@ -14885,11 +14890,12 @@ DATA8_05F38E:
    db $07                               ;05F3D3|      ;
    dl Is_In_Battle                      ;05F3D4|07BBAA;
    db $0B                               ;05F3D7|      ;
-   dw EMPTY_00F3DF                      ;05F3D8|00F3DF;
+   dw DATA8_05F3DF                      ;05F3D8|05F3DF;
    db $30                               ;05F3DA|      ;
    db $06                               ;05F3DB|      ;
    db $1A                               ;05F3DC|      ;
    dw EMPTY_00F3E1                      ;05F3DD|00F3E1;
+DATA8_05F3DF:
    db $30                               ;05F3DF|      ;
    db $07                               ;05F3E0|      ;
 DATA8_05F3E1:
@@ -14988,7 +14994,7 @@ DATA8_05F459:
    db $30                               ;05F46E|      ; ??
    db $FF                               ;05F46F|      ;
    db $1A                               ;05F470|      ; 1A: Jump to F494
-   dw EMPTY_00F494                      ;05F471|00F494;
+   dw Removing_MP_casting_spells        ;05F471|05F494;
    db $07                               ;05F473|      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
    dl Transfer_Data_3b_1b_2b            ;05F474|00A140;
    dl Weapons_Menu                      ;05F477|0D9590; $18 -> 0D/9590
@@ -15542,20 +15548,20 @@ CODE_05F815:
    LDY.W Selection                      ;05F818|00103F;
    ASL A                                ;05F81B|      ;
    TAX                                  ;05F81C|      ;
-   LDA.L DATA16_05F835,X                ;05F81D|05F835;
+   LDA.L Tbl_BtlCard_Xpos,X             ;05F81D|05F835;
    STA.W Cursor_Array_Xpos_Copy,Y       ;05F821|000787;
    STA.W Cursor_Array_Xpos,Y            ;05F824|0006F7;
-   LDA.L DATA16_05F83D,X                ;05F827|05F83D;
+   LDA.L Tbl_BtlCard_Ypos,X             ;05F827|05F83D;
    STA.W Cursor_Array_Ypos_Copy,Y       ;05F82B|0007AB;
    STA.W Cursor_Array_Ypos,Y            ;05F82E|00071B;
    LDA.W #$0001                         ;05F831|      ;
    RTL                                  ;05F834|      ;
-DATA16_05F835:
+Tbl_BtlCard_Xpos:
    dw $004A                             ;05F835|      ;
    dw $004A                             ;05F837|      ;
    dw $004A                             ;05F839|      ;
    dw $004A                             ;05F83B|      ;
-DATA16_05F83D:
+Tbl_BtlCard_Ypos:
    dw $00A3                             ;05F83D|      ;
    dw $00B1                             ;05F83F|      ;
    dw $00BF                             ;05F841|      ;
@@ -15714,14 +15720,14 @@ CODE_05F95A:
    RTL                                  ;05F95E|      ;
 Battle_Cards_Open:
    db $07                               ;05F95F|      ;
-   dl SaveItemInfo                      ;05F960|07BB2A;
+   dl Get_Item_Info                     ;05F960|07BB2A;
    db $06                               ;05F963|      ;
    db $01                               ;05F964|      ;
    db $16                               ;05F965|      ;
-   dw $11B7                             ;05F966|0011B7;
+   dw $11B7                             ;05F966|      ;
    dw $0000                             ;05F968|      ;
    db $16                               ;05F96A|      ;
-   dw $11B9                             ;05F96B|0011B9;
+   dw $11B9                             ;05F96B|      ;
    dw $0000                             ;05F96D|      ;
 DATA8_05F96F:
    db $37                               ;05F96F|      ;
@@ -15834,13 +15840,13 @@ DATA8_05FA05:
    db $FF                               ;05FA06|      ;
    db $07                               ;05FA07|      ; Store results in $18C1
    dl Store_results_in_2b               ;05FA08|07BDD9;
-   dw $18C1                             ;05FA0B|0018C1;
+   dw $18C1                             ;05FA0B|      ;
    db $1B                               ;05FA0D|      ;
    dw DATA8_05FA22                      ;05FA0E|05FA22;
    db $07                               ;05FA10|      ;
    dl CODE_07BB6A                       ;05FA11|07BB6A;
    db $1F                               ;05FA14|      ;
-   dw $18C1                             ;05FA15|0018C1;
+   dw $18C1                             ;05FA15|      ;
    db $05                               ;05FA17|      ;
 DATA8_05FA18:
    db $04                               ;05FA18|      ;

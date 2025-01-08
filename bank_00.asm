@@ -435,7 +435,7 @@ CODE_008335:
    LDA.W NMI_flag                       ;008344|004210;
    INC.B $20                            ;008347|000020;
    REP #$20                             ;008349|      ;
-   LDA.W $1055                          ;00834B|001055;
+   LDA.W OAM_Xfer_temp                  ;00834B|001055;
    BNE CODE_008353                      ;00834E|008353;
    JSR.W DMA_OAM_xfer                   ;008350|008379;
 CODE_008353:
@@ -1901,9 +1901,9 @@ MapProgress_OR_filters:
    dw $0102                             ;008C82|      ;
 Init_Loops:
    LDA.W #$A4D5                         ;008C84|      ;
-   STA.W $104D                          ;008C87|00104D;
+   STA.W Ptr_Animation_Loop1            ;008C87|00104D;
    LDA.W #$A45E                         ;008C8A|      ;
-   STA.W $104F                          ;008C8D|00104F;
+   STA.W Ptr_Animation_Loop2            ;008C8D|00104F;
    LDX.W #$FFFF                         ;008C90|      ;
    STX.W $063B                          ;008C93|00063B;
    STX.W $0689                          ;008C96|000689;
@@ -2247,16 +2247,16 @@ CODE_008F9A:
    JMP.W CODE_008EA7                    ;008F9F|008EA7;
 CODE_008FA2:
    LDX.W #$0000                         ;008FA2|      ;
-   JSR.W ($104F,X)                      ;008FA5|00104F;
+   JSR.W (Ptr_Animation_Loop2,X)        ;008FA5|00104F;
    JSR.W CODE_0088B6                    ;008FA8|0088B6;
    LDA.W #$0001                         ;008FAB|      ;
-   STA.W $1055                          ;008FAE|001055;
+   STA.W OAM_Xfer_temp                  ;008FAE|001055;
    LDY.W $0641                          ;008FB1|000641;
    BMI CODE_008FD9                      ;008FB4|008FD9;
 CODE_008FB6:
    PHY                                  ;008FB6|      ;
    LDX.W #$0000                         ;008FB7|      ;
-   JSR.W ($104D,X)                      ;008FBA|00104D;
+   JSR.W (Ptr_Animation_Loop1,X)        ;008FBA|00104D;
    LDA.W $0A9F,Y                        ;008FBD|000A9F;
    STA.B $18                            ;008FC0|000018;
    LDX.W $0AC3,Y                        ;008FC2|000AC3;
@@ -2273,7 +2273,7 @@ CODE_008FD3:
    BPL CODE_008FB6                      ;008FD7|008FB6;
 CODE_008FD9:
    JSR.W CODE_008892                    ;008FD9|008892;
-   STZ.W $1055                          ;008FDC|001055;
+   STZ.W OAM_Xfer_temp                  ;008FDC|001055;
 CODE_008FDF:
    RTL                                  ;008FDF|      ;
 Update_Restart_MainLp:
@@ -3444,7 +3444,7 @@ Credits_Reading_0FD0:
    PLD                                  ;00988A|      ;
    PHA                                  ;00988B|      ;
    REP #$20                             ;00988C|      ;
-   DEC.W $1053                          ;00988E|001053;
+   DEC.W Cursor_Arr_Ypos_temp           ;00988E|001053;
    PLB                                  ;009891|      ;
    SEP #$20                             ;009892|      ;
    LDX.B $10                            ;009894|000010;
@@ -3460,7 +3460,7 @@ CODE_00989B:
    DEC.B $1D                            ;0098A9|00001D;
 CODE_0098AB:
    CLC                                  ;0098AB|      ;
-   ADC.W $1053                          ;0098AC|001053;
+   ADC.W Cursor_Arr_Ypos_temp           ;0098AC|001053;
    STA.B $01,X                          ;0098AF|000001;
    LDA.B $1D                            ;0098B1|00001D;
    ADC.W $1054                          ;0098B3|001054;
@@ -3476,7 +3476,7 @@ CODE_0098AB:
    DEC.B $1C                            ;0098C7|00001C;
 CODE_0098C9:
    CLC                                  ;0098C9|      ;
-   ADC.W $1051                          ;0098CA|001051;
+   ADC.W Cursor_Arr_Xpos_temp           ;0098CA|001051;
    STA.B $00,X                          ;0098CD|000000;
    LDA.B $1C                            ;0098CF|00001C;
    ADC.W $1052                          ;0098D1|001052;
@@ -4020,8 +4020,8 @@ Load_Sprite_14b:
    JSR.W GetEventCode_1b                ;009CB4|009AF0;
    STA.W $0639                          ;009CB7|000639;
    BRA CODE_009C66                      ;009CBA|009C66;
-Character_Join_13b:
-   JSR.W GetEventCode_1b                ;009CBC|009AF0; It's more than join, probably for loading gfx etc
+Load_Graphics_13b:
+   JSR.W GetEventCode_1b                ;009CBC|009AF0; Used during characters joining and other setup
    STA.W $0637                          ;009CBF|000637;
    INC A                                ;009CC2|      ;
    INC A                                ;009CC3|      ;
@@ -4985,9 +4985,9 @@ CODE_00A4CE:
 CODE_00A4D4:
    RTS                                  ;00A4D4|      ;
    LDA.W Cursor_Array_Xpos,Y            ;00A4D5|0006F7;
-   STA.W $1051                          ;00A4D8|001051;
+   STA.W Cursor_Arr_Xpos_temp           ;00A4D8|001051;
    LDA.W Cursor_Array_Ypos,Y            ;00A4DB|00071B;
-   STA.W $1053                          ;00A4DE|001053;
+   STA.W Cursor_Arr_Ypos_temp           ;00A4DE|001053;
    RTS                                  ;00A4E1|      ;
 Event_Text_0C_sub1:
    TAX                                  ;00A4E2|      ;
@@ -5077,7 +5077,7 @@ CODE_00A57B:
    STA.W $10A3,X                        ;00A57F|0010A3;
    LDA.W $109F,X                        ;00A582|00109F;
    CLC                                  ;00A585|      ;
-   ADC.W Temp_Text_Offset,X             ;00A586|00109B;
+   ADC.W Text_Offset_temp,X             ;00A586|00109B;
    STA.B $06                            ;00A589|000006;
    LDA.W $10A1,X                        ;00A58B|0010A1;
    CLC                                  ;00A58E|      ;
@@ -5087,7 +5087,7 @@ CODE_00A57B:
    STA.B $04                            ;00A597|000004;
    BRA CODE_00A5C1                      ;00A599|00A5C1;
 CODE_00A59B:
-   LDA.W Temp_Text_Offset,X             ;00A59B|00109B;
+   LDA.W Text_Offset_temp,X             ;00A59B|00109B;
    STA.B $02                            ;00A59E|000002;
    BRA CODE_00A5B9                      ;00A5A0|00A5B9;
 CODE_00A5A2:
@@ -5161,7 +5161,7 @@ Text_stuff:
    TAX                                  ;00A609|      ;
    LDA.B [$02]                          ;00A60A|000002;
    AND.W #$00FF                         ;00A60C|      ;
-   STA.W Temp_Text_Offset,X             ;00A60F|00109B;
+   STA.W Text_Offset_temp,X             ;00A60F|00109B;
    INC.B $02                            ;00A612|000002;
    LDA.B [$02]                          ;00A614|000002;
    AND.W #$00FF                         ;00A616|      ;
@@ -5628,11 +5628,11 @@ Set_Text_Speed:
    JMP.W Event_Text_helper              ;00A9BA|00AAFC;
 Event_Text_1D:
    LDA.W #$00FF                         ;00A9BD|      ; (0b) Makes text scroll 1 line at a time.
-   LDY.W $1097                          ;00A9C0|001097;
+   LDY.W Text_Line_Speed                ;00A9C0|001097;
    BRA Set_Text_Speed                   ;00A9C3|00A9AE;
 Event_Text_1E:
    LDA.W #$0001                         ;00A9C5|      ; (0b) Text scrolls quickly by character
-   LDY.W $1099                          ;00A9C8|001099;
+   LDY.W Text_Speed                     ;00A9C8|001099;
    BRA Set_Text_Speed                   ;00A9CB|00A9AE;
 Event_Text_7F:
    LDX.B $10                            ;00A9CD|000010; (0b) Pause until A button is pressed.
@@ -9818,7 +9818,7 @@ Ruinous_Mission_Flee:
    LDX.W Attacker                       ;00C18D|001121;
    LDY.W Target                         ;00C190|001123;
    LDA.W Spell_ID                       ;00C193|001127;
-   JSR.W CODE_00C3F9                    ;00C196|00C3F9;
+   JSR.W Spell_Effective_Race           ;00C196|00C3F9;
    BNE Return_spell_ID                  ;00C199|00C19F;
    LDA.W #$0000                         ;00C19B|      ;
    RTL                                  ;00C19E|      ;
@@ -9833,56 +9833,56 @@ Spell_FX_00_to_06:
 Healing:
    LDY.W #$0001                         ;00C1AD|      ; Healing spells don't check accuracy
    LDX.W Spell_ID                       ;00C1B0|001127;
-   JSR.W Get_spell_acc                  ;00C1B3|00C849;
+   JSR.W Get_Spell_Stat                 ;00C1B3|00C849; Load healing spell power
    STA.B $00                            ;00C1B6|000000;
    LDX.W #$000D                         ;00C1B8|      ;
-   JMP.W Variance_RNG                   ;00C1BB|00C2AE;
+   JMP.W Variance_RNG                   ;00C1BB|00C2AE; Add 0-13 bonus HP to heal
 Spell_acc_check:
    LDX.W Attacker                       ;00C1BE|001121; Damaging, Death, Status, Debuff spells accuracy check
    LDY.W Target                         ;00C1C1|001123;
    LDA.W Spell_ID                       ;00C1C4|001127;
-   JSR.W CODE_00C3F9                    ;00C1C7|00C3F9;
+   JSR.W Spell_Effective_Race           ;00C1C7|00C3F9; Check if the spell fails on bosses or non-undead
    BNE CODE_00C1D0                      ;00C1CA|00C1D0;
-   LDA.W #$0000                         ;00C1CC|      ;
+   LDA.W #$0000                         ;00C1CC|      ; If 0, return fail
    RTL                                  ;00C1CF|      ;
 CODE_00C1D0:
-   STZ.B $00                            ;00C1D0|000000;
+   STZ.B $00                            ;00C1D0|000000; Zero the accuracy/evasion bonuses
    STZ.B $02                            ;00C1D2|000002;
    LDA.W Spell_type                     ;00C1D4|0018C5;
    CMP.W #$0003                         ;00C1D7|      ;
-   BCC CODE_00C203                      ;00C1DA|00C203;
+   BCC Spell_int_bonus                  ;00C1DA|00C203; Branch if Attack spell (00)
    CMP.W #$0004                         ;00C1DC|      ;
-   BCS CODE_00C203                      ;00C1DF|00C203;
-   LDX.W Attacker                       ;00C1E1|001121;
+   BCS Spell_int_bonus                  ;00C1DF|00C203; Branch if Status (04) or Debuff (05) spell
+   LDX.W Attacker                       ;00C1E1|001121; Death (03) accuracy check
    LDY.W Target                         ;00C1E4|001123;
    LDA.W Spell_ID                       ;00C1E7|001127;
    JSR.W CODE_00C2EE                    ;00C1EA|00C2EE;
    CMP.W #$019A                         ;00C1ED|      ;
    BNE CODE_00C1F9                      ;00C1F0|00C1F9;
    LDA.W #$0034                         ;00C1F2|      ;
-   STA.B $00                            ;00C1F5|000000;
-   BRA CODE_00C203                      ;00C1F7|00C203;
+   STA.B $00                            ;00C1F5|000000; If death spell hits weakness, increase acc bonus
+   BRA Spell_int_bonus                  ;00C1F7|00C203;
 CODE_00C1F9:
    CMP.W #$0066                         ;00C1F9|      ;
-   BNE CODE_00C203                      ;00C1FC|00C203;
+   BNE Spell_int_bonus                  ;00C1FC|00C203;
    LDA.W #$0034                         ;00C1FE|      ;
-   STA.B $02                            ;00C201|000002;
-CODE_00C203:
-   LDX.W Target                         ;00C203|001123;
-   JSR.W Spell_INT_acc_bonus            ;00C206|00C68A;
+   STA.B $02                            ;00C201|000002; If death spell hits resistance, increase evasion bonus
+Spell_int_bonus:
+   LDX.W Target                         ;00C203|001123; Attack, Status, Debuff
+   JSR.W Spell_INT_acc_bonus            ;00C206|00C68A; Get defender's int bonus (evade)
    CLC                                  ;00C209|      ;
    ADC.B $02                            ;00C20A|000002;
    STA.B $02                            ;00C20C|000002;
    LDX.W Attacker                       ;00C20E|001121;
-   JSR.W Spell_INT_acc_bonus            ;00C211|00C68A;
+   JSR.W Spell_INT_acc_bonus            ;00C211|00C68A; Get attacker's int bonus (accuracy)
    CLC                                  ;00C214|      ;
    ADC.B $00                            ;00C215|000000;
    STA.B $00                            ;00C217|000000;
    LDX.W Spell_ID                       ;00C219|001127;
    LDY.W #$0000                         ;00C21C|      ;
-   JSR.W Get_spell_acc                  ;00C21F|00C849;
+   JSR.W Get_Spell_Stat                 ;00C21F|00C849; Get spell accuracy
    CLC                                  ;00C222|      ;
-   ADC.B $00                            ;00C223|000000;
+   ADC.B $00                            ;00C223|000000; Accuracy + attacker's bonus - defender's bonus
    SEC                                  ;00C225|      ;
    SBC.B $02                            ;00C226|000002;
    BMI CODE_00C246                      ;00C228|00C246;
@@ -9895,7 +9895,7 @@ CODE_00C232:
    LDA.W $000A                          ;00C238|00000A;
    LDX.W #$00FF                         ;00C23B|      ;
    JSL.L Divide_A_by_X                  ;00C23E|00C8C2;
-   CMP.B $00                            ;00C242|000000;
+   CMP.B $00                            ;00C242|000000; [0...254] < ToHit?
    BCC CODE_00C24A                      ;00C244|00C24A;
 CODE_00C246:
    LDA.W #$0000                         ;00C246|      ;
@@ -9903,13 +9903,13 @@ CODE_00C246:
 CODE_00C24A:
    LDA.W Spell_type                     ;00C24A|0018C5;
    CMP.W #$0003                         ;00C24D|      ;
-   BCC CODE_00C256                      ;00C250|00C256;
+   BCC Spell_damage                     ;00C250|00C256;
    LDA.W Spell_ID                       ;00C252|001127;
    RTL                                  ;00C255|      ;
-CODE_00C256:
+Spell_damage:
    LDX.W Spell_ID                       ;00C256|001127;
    LDY.W #$0001                         ;00C259|      ;
-   JSR.W Get_spell_acc                  ;00C25C|00C849;
+   JSR.W Get_Spell_Stat                 ;00C25C|00C849; Get spell power
    STA.B $00                            ;00C25F|000000;
    LDX.W Attacker                       ;00C261|001121;
    JSR.W Spell_INT_damage_bonus         ;00C264|00C6A7;
@@ -9979,10 +9979,10 @@ CODE_00C2E9:
    RTL                                  ;00C2ED|      ;
 CODE_00C2EE:
    STX.B $04                            ;00C2EE|000004;
-   STY.B $06                            ;00C2F0|000006;
+   STY.B $06                            ;00C2F0|000006; Attacker in $04, Target in $06, Spell ID in X
    TAX                                  ;00C2F2|      ;
    LDY.W #$0002                         ;00C2F3|      ;
-   JSR.W Get_spell_acc                  ;00C2F6|00C849;
+   JSR.W Get_Spell_Stat                 ;00C2F6|00C849; Get spell element
    AND.W #$F000                         ;00C2F9|      ;
    BNE CODE_00C302                      ;00C2FC|00C302;
    LDA.W #$0100                         ;00C2FE|      ;
@@ -10105,13 +10105,13 @@ Get_Affinity_Bonus:
    PHX                                  ;00C3CA|      ;
    LDA.W Affinity,X                     ;00C3CB|00120B;
    AND.W #$F000                         ;00C3CE|      ;
-   BNE CODE_00C3EE                      ;00C3D1|00C3EE;
+   BNE CODE_00C3EE                      ;00C3D1|00C3EE; Branch if target has elemental equipment
    PLY                                  ;00C3D3|      ;
    PHY                                  ;00C3D4|      ;
    LDX.W #$0001                         ;00C3D5|      ;
-   JSR.W Get_Armor_Def_Bonus            ;00C3D8|00C781;
+   JSR.W Get_Armor_Def_Bonus            ;00C3D8|00C781; Get armor race/element
    AND.W #$F000                         ;00C3DB|      ;
-   BNE CODE_00C3EE                      ;00C3DE|00C3EE;
+   BNE CODE_00C3EE                      ;00C3DE|00C3EE; Branch if target has elemental armor
    PLY                                  ;00C3E0|      ;
    LDA.W Affinity,Y                     ;00C3E1|00120B;
    XBA                                  ;00C3E4|      ;
@@ -10130,31 +10130,32 @@ CODE_00C3F4:
    STA.B $20                            ;00C3F4|000020;
    LDA.B $20                            ;00C3F6|000020;
    RTL                                  ;00C3F8|      ;
-CODE_00C3F9:
-   STX.B $04                            ;00C3F9|000004;
-   STY.B $06                            ;00C3FB|000006;
-   TAX                                  ;00C3FD|      ;
+Spell_Effective_Race:
+   STX.B $04                            ;00C3F9|000004; Attacker in $04. I think this allows the spell vs boss/undead if the spell flag is set to that.
+   STY.B $06                            ;00C3FB|000006; Target in $06
+   TAX                                  ;00C3FD|      ; Spell ID in X
    LDY.W #$0002                         ;00C3FE|      ;
-   JSR.W Get_spell_acc                  ;00C401|00C849;
+   JSR.W Get_Spell_Stat                 ;00C401|00C849; Get spell affinity (race)
    AND.W #$0011                         ;00C404|      ;
-   STA.B $08                            ;00C407|000008;
+   STA.B $08                            ;00C407|000008; Race effects in $08
    LDX.B $06                            ;00C409|000006;
-   LDA.W Affinity,X                     ;00C40B|00120B;
+   LDA.W Affinity,X                     ;00C40B|00120B; Get target's Race
    AND.W #$0011                         ;00C40E|      ;
-   STA.B $0A                            ;00C411|00000A;
-   BEQ CODE_00C422                      ;00C413|00C422;
+   STA.B $0A                            ;00C411|00000A; Target race in $0A
+   BEQ Spell_Vs_Undead                  ;00C413|00C422;
+Spell_Vs_Boss:
    AND.W #$0010                         ;00C415|      ;
-   BEQ CODE_00C422                      ;00C418|00C422;
+   BEQ Spell_Vs_Undead                  ;00C418|00C422;
    AND.B $08                            ;00C41A|000008;
-   BNE CODE_00C422                      ;00C41C|00C422;
+   BNE Spell_Vs_Undead                  ;00C41C|00C422;
 CODE_00C41E:
    LDA.W #$0000                         ;00C41E|      ;
    RTS                                  ;00C421|      ;
-CODE_00C422:
-   LDA.B $08                            ;00C422|000008;
+Spell_Vs_Undead:
+   LDA.B $08                            ;00C422|000008; Get attacking race
    AND.W #$0001                         ;00C424|      ;
-   BEQ CODE_00C42D                      ;00C427|00C42D;
-   AND.B $0A                            ;00C429|00000A;
+   BEQ CODE_00C42D                      ;00C427|00C42D; If it's not 1, return 1
+   AND.B $0A                            ;00C429|00000A; If it doesn't match the target race, return 0
    BEQ CODE_00C41E                      ;00C42B|00C41E;
 CODE_00C42D:
    LDA.W #$0001                         ;00C42D|      ;
@@ -10710,29 +10711,30 @@ CODE_00C841:
 CODE_00C845:
    LDA.W #$0000                         ;00C845|      ;
    RTS                                  ;00C848|      ;
-Get_spell_acc:
-   CPY.W #$0000                         ;00C849|      ;
-   BNE Get_spell_power                  ;00C84C|00C856; If 0 accuracy, skip the accuracy check
-   LDA.L Spell_Accuracy,X               ;00C84E|05EAF0;
+Get_Spell_Stat:
+   CPY.W #$0000                         ;00C849|      ; X=Spell ID. Y=0 spell acc, Y=1 spell power, Y=2 spell affinity
+   BNE CODE_00C856                      ;00C84C|00C856;
+   LDA.L Spell_Accuracy,X               ;00C84E|05EAF0; If parameter Y=0, return spell's accuracy stat
    AND.W #$00FF                         ;00C852|      ;
    RTS                                  ;00C855|      ;
-Get_spell_power:
+CODE_00C856:
    TXA                                  ;00C856|      ;
    ASL A                                ;00C857|      ;
    TAX                                  ;00C858|      ;
    CPY.W #$0001                         ;00C859|      ;
    BNE CODE_00C863                      ;00C85C|00C863;
-   LDA.L Spell_Power,X                  ;00C85E|05EB4B;
+Get_Spell_Power:
+   LDA.L Spell_Power,X                  ;00C85E|05EB4B; If parameter Y=1, return spell's power stat
    RTS                                  ;00C862|      ;
 CODE_00C863:
    CPY.W #$0002                         ;00C863|      ;
-   BNE CODE_00C887                      ;00C866|00C887;
+   BNE CODE_00C887                      ;00C866|00C887; If parameter Y "else", return 0
    CPX.W #$00B2                         ;00C868|      ; Skip element if Call Amulet Fail 1
    BEQ CODE_00C877                      ;00C86B|00C877;
    CPX.W #$00B4                         ;00C86D|      ; Skip element if Call Amulet Fail 2
    BEQ CODE_00C877                      ;00C870|00C877;
 Get_Affinity:
-   LDA.L Spell_Affinity,X               ;00C872|05EC01;
+   LDA.L Spell_Affinity,X               ;00C872|05EC01; If parameter Y=2, return spell's affinity (element) stat
    RTS                                  ;00C876|      ;
 CODE_00C877:
    PHX                                  ;00C877|      ; Why would you do this?
@@ -10805,7 +10807,7 @@ CODE_00C8D8:
    LDX.W Quotient                       ;00C8EB|004214;
    RTL                                  ;00C8EE|      ;
 CODE_00C8EF:
-   JSL.L Clear_112B_list                ;00C8EF|07BF9B;
+   JSL.L Clear_Spell_Results            ;00C8EF|07BF9B;
 Clear_turn_order:
    LDX.W #$0000                         ;00C8F3|      ; Loops to FF the turn order at the end of a round
    LDA.W #$FFFF                         ;00C8F6|      ;
@@ -10876,7 +10878,7 @@ CODE_00C969:
 CODE_00C970:
    LDA.W #$0000                         ;00C970|      ; Use 0 for empty entries.
 Running_Alert_Sum:
-   STA.W Status_Weird,X                 ;00C973|00112B; Also store the running sum of ALT/4 in a list $112B,x (i.e. 1B, 3F, 62, 89, A7)
+   STA.W Spell_Result_array,X           ;00C973|00112B; Also store the running sum of ALT/4 in a list $112B,x (i.e. 1B, 3F, 62, 89, A7)
    INX                                  ;00C976|      ;
    INX                                  ;00C977|      ;
    CPX.W #$0018                         ;00C978|      ;
@@ -10889,7 +10891,7 @@ AlertMod_Loops:
    JSL.L Divide_A_by_X                  ;00C989|00C8C2; Get the remainder of RNG divided by the ALT/4 sum from $06
    LDX.W #$0000                         ;00C98D|      ;
 Find_Fast_Char:
-   CMP.W Status_Weird,X                 ;00C990|00112B; Okay so, take whatever the first entry larger than R is
+   CMP.W Spell_Result_array,X           ;00C990|00112B; Okay so, take whatever the first entry larger than R is
    BCC Save_AlertSum                    ;00C993|00C99F;
    INX                                  ;00C995|      ;
    INX                                  ;00C996|      ;
@@ -10909,21 +10911,21 @@ Save_AlertSum:
    INC A                                ;00C9AD|      ; If the AgiMod is 0, make it 1
 CODE_00C9AE:
    STA.B $04                            ;00C9AE|000004;
-   LDA.W Status_Weird,X                 ;00C9B0|00112B; Load the Agi-sum that's > R, subtract that character's AgiMod and store result in temp $06.
+   LDA.W Spell_Result_array,X           ;00C9B0|00112B; Load the Agi-sum that's > R, subtract that character's AgiMod and store result in temp $06.
    SEC                                  ;00C9B3|      ;
    SBC.B $04                            ;00C9B4|000004;
    STA.B $06                            ;00C9B6|000006; $06 is now the sum of every AgiMod before this fast character
-   STZ.W Status_Weird,X                 ;00C9B8|00112B; Zero that sum: 1B.. 1B+24.. 0.. 1B+24+23+27
+   STZ.W Spell_Result_array,X           ;00C9B8|00112B; Zero that sum: 1B.. 1B+24.. 0.. 1B+24+23+27
 LpRemove_AlertMod:
    INX                                  ;00C9BB|      ;
    INX                                  ;00C9BC|      ;
    CPX.W #$0018                         ;00C9BD|      ;
    BCS CODE_00C9D1                      ;00C9C0|00C9D1; Branch when X hits 18
-   LDA.W Status_Weird,X                 ;00C9C2|00112B; Load every AgiSum and subtract the winning AgiMod
+   LDA.W Spell_Result_array,X           ;00C9C2|00112B; Load every AgiSum and subtract the winning AgiMod
    BEQ LpRemove_AlertMod                ;00C9C5|00C9BB; Continue loop early if this entry is 0
    SEC                                  ;00C9C7|      ;
    SBC.B $04                            ;00C9C8|000004;
-   STA.W Status_Weird,X                 ;00C9CA|00112B;
+   STA.W Spell_Result_array,X           ;00C9CA|00112B;
    STA.B $06                            ;00C9CD|000006;
    BRA LpRemove_AlertMod                ;00C9CF|00C9BB;
 CODE_00C9D1:
@@ -10944,7 +10946,7 @@ LpGetAgilityMods:
 CODE_00C9EA:
    LDA.W #$0000                         ;00C9EA|      ;
 CODE_00C9ED:
-   STA.W Status_Weird,X                 ;00C9ED|00112B; Store AgilityMod to list
+   STA.W Spell_Result_array,X           ;00C9ED|00112B; Store AgilityMod to list
    INX                                  ;00C9F0|      ;
    INX                                  ;00C9F1|      ;
    CPX.W #$0018                         ;00C9F2|      ;
@@ -10953,13 +10955,13 @@ CODE_00C9ED:
    LDA.B $02                            ;00C9FA|000002;
    STA.B $04                            ;00C9FC|000004; $04 Final array position (0A = 5 entries)
 LpBonusTurnCheck:
-   LDA.W Status_Weird,Y                 ;00C9FE|00112B; This seems to roll for an extra turn for every combatant, rolling RNG % 255 with each AgiMod.
+   LDA.W Spell_Result_array,Y           ;00C9FE|00112B; This seems to roll for an extra turn for every combatant, rolling RNG % 255 with each AgiMod.
    BEQ CODE_00CA4C                      ;00CA01|00CA4C; Skip blank entries
    JSL.L RNG                            ;00CA03|0089F1;
    LDA.W $000A                          ;00CA07|00000A;
    LDX.W #$00FF                         ;00CA0A|      ;
    JSL.L Divide_A_by_X                  ;00CA0D|00C8C2; Get RNG % 255
-   CMP.W Status_Weird,Y                 ;00CA11|00112B;
+   CMP.W Spell_Result_array,Y           ;00CA11|00112B;
    BCS CODE_00CA4C                      ;00CA14|00CA4C;
    JSL.L RNG                            ;00CA16|0089F1;
    LDA.W $000A                          ;00CA1A|00000A;
@@ -20368,7 +20370,6 @@ EMPTY_00E050:
    db $FF                               ;00F381|      ;
    db $FF                               ;00F382|      ;
    db $FF                               ;00F383|      ;
-EMPTY_00F384:
    db $FF                               ;00F384|      ;
    db $FF                               ;00F385|      ;
    db $FF                               ;00F386|      ;
@@ -20383,7 +20384,6 @@ EMPTY_00F384:
    db $FF                               ;00F38F|      ;
    db $FF                               ;00F390|      ;
    db $FF                               ;00F391|      ;
-EMPTY_00F392:
    db $FF                               ;00F392|      ;
    db $FF                               ;00F393|      ;
    db $FF                               ;00F394|      ;
@@ -20393,7 +20393,6 @@ EMPTY_00F392:
    db $FF                               ;00F398|      ;
    db $FF                               ;00F399|      ;
    db $FF                               ;00F39A|      ;
-EMPTY_00F39B:
    db $FF                               ;00F39B|      ;
    db $FF                               ;00F39C|      ;
    db $FF                               ;00F39D|      ;
@@ -20413,7 +20412,6 @@ EMPTY_00F39B:
    db $FF                               ;00F3AB|      ;
    db $FF                               ;00F3AC|      ;
    db $FF                               ;00F3AD|      ;
-EMPTY_00F3AE:
    db $FF                               ;00F3AE|      ;
    db $FF                               ;00F3AF|      ;
    db $FF                               ;00F3B0|      ;
@@ -20427,7 +20425,6 @@ EMPTY_00F3AE:
    db $FF                               ;00F3B8|      ;
    db $FF                               ;00F3B9|      ;
    db $FF                               ;00F3BA|      ;
-EMPTY_00F3BB:
    db $FF                               ;00F3BB|      ;
    db $FF                               ;00F3BC|      ;
    db $FF                               ;00F3BD|      ;
@@ -20446,7 +20443,6 @@ EMPTY_00F3BB:
    db $FF                               ;00F3CA|      ;
    db $FF                               ;00F3CB|      ;
    db $FF                               ;00F3CC|      ;
-EMPTY_00F3CD:
    db $FF                               ;00F3CD|      ;
    db $FF                               ;00F3CE|      ;
    db $FF                               ;00F3CF|      ;
@@ -20465,7 +20461,6 @@ EMPTY_00F3CD:
    db $FF                               ;00F3DC|      ;
    db $FF                               ;00F3DD|      ;
    db $FF                               ;00F3DE|      ;
-EMPTY_00F3DF:
    db $FF                               ;00F3DF|      ;
    db $FF                               ;00F3E0|      ;
 EMPTY_00F3E1:

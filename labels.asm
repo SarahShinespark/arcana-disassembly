@@ -11,7 +11,7 @@
    Current_SFX = $001066; !^ Value 01-32 ^!
    Event_CodePtr = $001049; !^ Stores subroutine pointers ^!
    Current_Music = $001064; !^ Value 33-5A ^!
-   ASCII_vals = $0010EB; !^ Used for displaying numbers ^!
+   Text_Offset_temp = $00109B; !^ Stores a $04 (x offset for $28b text vars) ^!
    Spell_ID = $001127; !^ The spell an enemy is casting ^!
    Affinity = $00120B; !^ (2b) Race / Attribute ^!
    Strength = $001223; !^ (2b) Rooks, Spirit, Guest 1-2, Enemy 1-8 ^!
@@ -40,7 +40,7 @@
    Curr_area = $001573; !^ 01xx = dungeon, 00xx = town ^!
    Event_CodeBank = $00104B; !^ The bank for 1049 ^!
    Win_Color = $001577; !^ Bit layout (-BBB B0GG GG0R RRR0) ^!
-   Encounter_Type = $001579; !^ 2=back attack, 3=normal. (What is 1?) ^!
+   Encounter_Type = $001579; !^ 2=back attack, 3=normal. (What are 1 and 0?) ^!
    Curr_Display = $001580; !^ Text after 060D is white; after 060E is gray ^!
    DisplayText = $0015AF
    FloorTileValue = $0016F5; !^ 1X,2X=Encounters;80=Chest;70=Boss...etc ^!
@@ -93,7 +93,7 @@
    Ptr_Encounter_layout = $0018D7
    SpiritMaxHP = $001395
    Spirit_currHP = $0012F5
-   Spirit_Condition = $0011C5
+   Condition_Spirit = $0011C5
    Sylph_currHP = $001353
    Dao_currHP = $001355
    Marid_currHP = $001357
@@ -203,7 +203,7 @@
    Color_Math_temp = $001062
    Main_screen_temp = $001057
    P2_Data2_hi = $00421F
-   Enemy_Condition = $0011CB
+   Condition_Enemy1 = $0011CB
    Enemy_order = $0011FB; !^ Order that spells hit the party ^!
    Enemy_STR = $00122B
    Enemy_INT = $001243
@@ -247,10 +247,10 @@
    Decomp_Entry_Bank = $0018F5
    Decomp_Addr = $0018F8
    Decomp_Bank = $0018FA
-   Battle_State = $0011C1; !^ 00=Not fighting, can move. 02=Battle poses ^!
+   Game_State = $0011C1; !^ 00=Not fighting, can move. 02=Battle poses ^!
    Portrait_offset = $00108F; !^ Used with opcode 1B ^!
    Pause_status = $001095; !^ Used with opcode 7F (1=paused) ^!
-   Temp_Text_Offset = $00109B; !^ Stores a $04 (x offset for $28b text vars) ^!
+   ASCII_vals = $0010EB; !^ Used for displaying numbers ^!
    Something1 = $0E8048
    Something2 = $0E8052
    Something3 = $0E805C
@@ -261,7 +261,7 @@
    Something8 = $0E808E
    Spirits_NotOwned = $0013A7; !^ xxxxEMDS (0=owned for Efrite, Marid, Dao, Sylph) ^!
    SpiritLV = $00137D
-   Status_Weird = $00112B; !^ 01=Confused, Slept, Para, Petri, Silence ^!
+   Spell_Result_array = $00112B; !^ 01=Confused, Slept, Para, Petri, Silence ^!
    Input_New = $000029
    Shop_Max_Entries = $001883; !^ Number of entries in current menu ^!
    _4F_50_52_51_Battle = $0018EF
@@ -311,6 +311,16 @@
    Error_Data_01 = $038E19
    Error_Read_2 = $039194
    Error_Read_3 = $039687
+   Condition_Guest1 = $0011C7
+   Condition_Guest2 = $0011C9
+   Condition_Enemy8 = $0011D9
+   Cursor_Arr_Xpos_temp = $001051
+   Cursor_Arr_Ypos_temp = $001053
+   OAM_Xfer_temp = $001055; !^ I think? ^!
+   Ptr_Animation_Loop1 = $00104D
+   Ptr_Animation_Loop2 = $00104F
+   Text_Speed = $001099; !^ Default 1 ^!
+   Text_Line_Speed = $001097; !^ Default A (10 frames for line-by-line) ^!
    PTR24_00A1D8 = $00A1D8
    PTR24_00A31C = $00A31C
    PTR24_00AC30 = $00AC30
