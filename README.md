@@ -3,6 +3,7 @@ Disassembly for SNES Arcana; this is the code for the vanilla game available for
 The code language is 65c816 ASM, based on 6502 (NES).\
 \
 Contents:\
+Diz Arcana (U).dizraw - This is the project file, open this in DiztinGUIsh and point it to your Arcana ROM to load the project.\
 main.asm - Calls all the other files.\
 bank_00.asm - Common multipurpose functions.\
 bank_01.asm - Game setup, Gameplay and the Ending.\
