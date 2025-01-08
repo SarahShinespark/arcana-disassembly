@@ -1804,20 +1804,20 @@ Dungeon_Load_FieldOfView:
    STZ.W $16EF                          ;038984|0016EF;
    LDX.W Map_Compass                    ;038987|0016FB;
    LDA.L Tbl_Dungeon_View_XOffset,X     ;03898A|039891; 3 byte ptr -> $18
-   STA.B $18                            ;03898E|000018;
+   STA.B Fn_ptr                         ;03898E|000018;
    LDA.W #$0003                         ;038990|      ;
    STA.B $1A                            ;038993|00001A;
    LDA.L Tbl_Dungeon_View_YOffset,X     ;038995|039899;
-   STA.B $1C                            ;038999|00001C; 3 byte ptr -> $1C
+   STA.B Addr_ptr                       ;038999|00001C; 3 byte ptr -> $1C
    LDA.W #$0003                         ;03899B|      ;
    STA.B $1E                            ;03899E|00001E;
    LDY.W #$0026                         ;0389A0|      ;
 Loop_Get_FoV:
-   LDA.B [$18],Y                        ;0389A3|000018; You can see your two sides, 3 tiles in front, and 5 tiles for the 3 rows behind that.
+   LDA.B [Fn_ptr],Y                     ;0389A3|000018; You can see your two sides, 3 tiles in front, and 5 tiles for the 3 rows behind that.
    CLC                                  ;0389A5|      ;
    ADC.W Map_X                          ;0389A6|0016F7;
    TAX                                  ;0389A9|      ;
-   LDA.B [$1C],Y                        ;0389AA|00001C;
+   LDA.B [Addr_ptr],Y                   ;0389AA|00001C;
    CLC                                  ;0389AC|      ;
    ADC.W Map_Y                          ;0389AD|0016F9;
    JSR.W Get_map_tile_value             ;0389B0|03A457;
@@ -2523,20 +2523,20 @@ CODE_038EDB:
    STZ.W $16EF                          ;038EDB|0016EF;
    LDX.W Map_Compass                    ;038EDE|0016FB;
    LDA.L Tbl_Dungeon_View_XOffset,X     ;038EE1|039891;
-   STA.B $18                            ;038EE5|000018;
+   STA.B Fn_ptr                         ;038EE5|000018;
    LDA.W #$0003                         ;038EE7|      ;
    STA.B $1A                            ;038EEA|00001A;
    LDA.L Tbl_Dungeon_View_YOffset,X     ;038EEC|039899;
-   STA.B $1C                            ;038EF0|00001C;
+   STA.B Addr_ptr                       ;038EF0|00001C;
    LDA.W #$0003                         ;038EF2|      ;
    STA.B $1E                            ;038EF5|00001E;
    LDY.W #$0026                         ;038EF7|      ;
 CODE_038EFA:
-   LDA.B [$18],Y                        ;038EFA|000018;
+   LDA.B [Fn_ptr],Y                     ;038EFA|000018;
    CLC                                  ;038EFC|      ;
    ADC.W Map_X                          ;038EFD|0016F7;
    TAX                                  ;038F00|      ;
-   LDA.B [$1C],Y                        ;038F01|00001C;
+   LDA.B [Addr_ptr],Y                   ;038F01|00001C;
    CLC                                  ;038F03|      ;
    ADC.W Map_Y                          ;038F04|0016F9;
    JSR.W Get_map_tile_value             ;038F07|03A457;
@@ -3043,20 +3043,20 @@ CODE_039256:
    STZ.W $16EF                          ;039256|0016EF;
    LDX.W Map_Compass                    ;039259|0016FB;
    LDA.L Tbl_Map_AdjacentX,X            ;03925C|039941;
-   STA.B $18                            ;039260|000018;
+   STA.B Fn_ptr                         ;039260|000018;
    LDA.W #$0003                         ;039262|      ;
    STA.B $1A                            ;039265|00001A;
    LDA.L Tbl_Map_AdjacentY,X            ;039267|039949;
-   STA.B $1C                            ;03926B|00001C;
+   STA.B Addr_ptr                       ;03926B|00001C;
    LDA.W #$0003                         ;03926D|      ;
    STA.B $1E                            ;039270|00001E;
    LDY.W #$0016                         ;039272|      ;
 CODE_039275:
-   LDA.B [$18],Y                        ;039275|000018;
+   LDA.B [Fn_ptr],Y                     ;039275|000018;
    CLC                                  ;039277|      ;
    ADC.W Map_X                          ;039278|0016F7;
    TAX                                  ;03927B|      ;
-   LDA.B [$1C],Y                        ;03927C|00001C;
+   LDA.B [Addr_ptr],Y                   ;03927C|00001C;
    CLC                                  ;03927E|      ;
    ADC.W Map_Y                          ;03927F|0016F9;
    JSR.W Get_map_tile_value             ;039282|03A457;
@@ -14139,13 +14139,13 @@ Purchase_item:
    ASL A                                ;03D534|      ;
    TAX                                  ;03D535|      ;
    LDA.L Tbl_Weapon_Shops,X             ;03D536|03D2DB;
-   STA.B $18                            ;03D53A|000018;
+   STA.B Fn_ptr                         ;03D53A|000018;
    LDA.W #$0003                         ;03D53C|      ;
    STA.B $1A                            ;03D53F|00001A;
    LDA.W $189F                          ;03D541|00189F;
    ASL A                                ;03D544|      ;
    TAY                                  ;03D545|      ;
-   LDA.B [$18],Y                        ;03D546|000018;
+   LDA.B [Fn_ptr],Y                     ;03D546|000018;
    STA.B $00                            ;03D548|000000;
    ASL A                                ;03D54A|      ;
    TAX                                  ;03D54B|      ;
@@ -14224,12 +14224,12 @@ CODE_03D5D6:
    SEP #$20                             ;03D5D6|      ;
    LDY.W #$0000                         ;03D5D8|      ;
 CODE_03D5DB:
-   LDA.B [$18],Y                        ;03D5DB|000018;
+   LDA.B [Fn_ptr],Y                     ;03D5DB|000018;
    BEQ CODE_03D5F6                      ;03D5DD|03D5F6;
    CMP.B #$20                           ;03D5DF|      ;
    BNE CODE_03D5ED                      ;03D5E1|03D5ED;
    INY                                  ;03D5E3|      ;
-   LDA.B [$18],Y                        ;03D5E4|000018;
+   LDA.B [Fn_ptr],Y                     ;03D5E4|000018;
    DEY                                  ;03D5E6|      ;
    CMP.B #$20                           ;03D5E7|      ;
    BEQ CODE_03D5F6                      ;03D5E9|03D5F6;
@@ -14249,13 +14249,13 @@ CODE_03D5FE:
    ASL A                                ;03D601|      ;
    TAX                                  ;03D602|      ;
    LDA.L Tbl_Weapon_Shops,X             ;03D603|03D2DB;
-   STA.B $18                            ;03D607|000018;
+   STA.B Fn_ptr                         ;03D607|000018;
    LDA.W #$0003                         ;03D609|      ;
    STA.B $1A                            ;03D60C|00001A;
    LDA.W $189F                          ;03D60E|00189F;
    ASL A                                ;03D611|      ;
    TAY                                  ;03D612|      ;
-   LDA.B [$18],Y                        ;03D613|000018;
+   LDA.B [Fn_ptr],Y                     ;03D613|000018;
    STA.B $00                            ;03D615|000000;
    ASL A                                ;03D617|      ;
    STA.B $02                            ;03D618|000002;
@@ -14311,7 +14311,7 @@ CODE_03D66B:
    LDA.W Mult_Divide_Result             ;03D67B|004216;
    CLC                                  ;03D67E|      ;
    ADC.W #$D67D                         ;03D67F|      ;
-   STA.B $18                            ;03D682|000018;
+   STA.B Fn_ptr                         ;03D682|000018;
    JSR.W CODE_03D5D6                    ;03D684|03D5D6;
    LDA.B $06                            ;03D687|000006;
    CMP.W #$00FF                         ;03D689|      ;
@@ -14414,7 +14414,7 @@ CODE_03D72E:
    LDA.W #$EE9A                         ;03D73F|      ;
    CLC                                  ;03D742|      ;
    ADC.W Mult_Divide_Result             ;03D743|004216;
-   STA.B $18                            ;03D746|000018;
+   STA.B Fn_ptr                         ;03D746|000018;
    JSR.W CODE_03D5D6                    ;03D748|03D5D6;
    LDX.B $04                            ;03D74B|000004;
    LDA.B $00                            ;03D74D|000000;
@@ -14772,13 +14772,13 @@ CODE_03DA3A:
 Shop_related_2b:
    LDX.W Selection                      ;03DA71|00103F;
    JSL.L GetEventCode_2b_far            ;03DA74|009B07;
-   STA.B $18                            ;03DA78|000018;
-   LDA.B ($18)                          ;03DA7A|000018;
+   STA.B Fn_ptr                         ;03DA78|000018;
+   LDA.B (Fn_ptr)                       ;03DA7A|000018;
    STA.W Shop_selection                 ;03DA7C|001885;
    AND.W #$FFFC                         ;03DA7F|      ;
    ASL A                                ;03DA82|      ;
    STA.W $09A3,X                        ;03DA83|0009A3;
-   LDA.B ($18)                          ;03DA86|000018;
+   LDA.B (Fn_ptr)                       ;03DA86|000018;
    AND.W #$0003                         ;03DA88|      ;
    STA.W Shop_Curr_Selection            ;03DA8B|00188D;
    RTL                                  ;03DA8E|      ;
@@ -15049,7 +15049,7 @@ CODE_03DCAB:
    LDA.W Mult_Divide_Result             ;03DCCD|004216;
    CLC                                  ;03DCD0|      ;
    ADC.W #$D67D                         ;03DCD1|      ;
-   STA.B $18                            ;03DCD4|000018;
+   STA.B Fn_ptr                         ;03DCD4|000018;
    JSR.W CODE_03D5D6                    ;03DCD6|03D5D6;
    PLA                                  ;03DCD9|      ;
    CMP.W #$000D                         ;03DCDA|      ;
@@ -15088,7 +15088,7 @@ CODE_03DCF9:
    LDA.W Mult_Divide_Result             ;03DD1C|004216;
    CLC                                  ;03DD1F|      ;
    ADC.W #$EE9A                         ;03DD20|      ;
-   STA.B $18                            ;03DD23|000018;
+   STA.B Fn_ptr                         ;03DD23|000018;
    JSR.W CODE_03D5D6                    ;03DD25|03D5D6;
    PLA                                  ;03DD28|      ;
    CMP.W #$0011                         ;03DD29|      ;
@@ -15403,7 +15403,7 @@ CODE_03DF7A:
    LDA.W #$9F7B                         ;03DF89|      ;
    CLC                                  ;03DF8C|      ;
    ADC.W Mult_Divide_Result             ;03DF8D|004216;
-   STA.B $18                            ;03DF90|000018;
+   STA.B Fn_ptr                         ;03DF90|000018;
    LDA.W #$0005                         ;03DF92|      ;
    STA.B $1A                            ;03DF95|00001A;
    JSR.W CODE_03D5D6                    ;03DF97|03D5D6;
@@ -15783,41 +15783,41 @@ Tbl_Dungeon_CStart:
    dw $0000                             ;03E2A6|      ;
 Shop_cursor_setup_3b:
    JSL.L GetEventCode_2b_far            ;03E2A8|009B07; Stores values to end of RAM
-   STA.B $18                            ;03E2AC|000018;
+   STA.B Fn_ptr                         ;03E2AC|000018;
    JSL.L GetEventCode_1b_far            ;03E2AE|009AF8;
    STA.B $1A                            ;03E2B2|00001A;
-   LDA.B [$18]                          ;03E2B4|000018;
+   LDA.B [Fn_ptr]                       ;03E2B4|000018;
    STA.W Multiply_lo                    ;03E2B6|004202;
    AND.W #$00FF                         ;03E2B9|      ;
    STA.W $1887                          ;03E2BC|001887;
-   INC.B $18                            ;03E2BF|000018;
-   LDA.B [$18]                          ;03E2C1|000018;
+   INC.B Fn_ptr                         ;03E2BF|000018;
+   LDA.B [Fn_ptr]                       ;03E2C1|000018;
    AND.W #$00FF                         ;03E2C3|      ;
    STA.W $1889                          ;03E2C6|001889;
-   INC.B $18                            ;03E2C9|000018;
-   LDA.B [$18]                          ;03E2CB|000018;
+   INC.B Fn_ptr                         ;03E2C9|000018;
+   LDA.B [Fn_ptr]                       ;03E2CB|000018;
    AND.W #$0007                         ;03E2CD|      ;
    STA.W $1891                          ;03E2D0|001891;
-   INC.B $18                            ;03E2D3|000018;
-   LDA.B [$18]                          ;03E2D5|000018;
+   INC.B Fn_ptr                         ;03E2D3|000018;
+   LDA.B [Fn_ptr]                       ;03E2D5|000018;
    STA.W Shop_Max_Entries               ;03E2D7|001883;
-   INC.B $18                            ;03E2DA|000018;
-   INC.B $18                            ;03E2DC|000018;
+   INC.B Fn_ptr                         ;03E2DA|000018;
+   INC.B Fn_ptr                         ;03E2DC|000018;
    LDY.W Mult_Divide_Result             ;03E2DE|004216;
    LDX.W #$0000                         ;03E2E1|      ;
 CODE_03E2E4:
-   LDA.B [$18]                          ;03E2E4|000018;
+   LDA.B [Fn_ptr]                       ;03E2E4|000018;
    AND.W #$00FF                         ;03E2E6|      ;
    STA.L $7FFFA0,X                      ;03E2E9|7FFFA0;
-   INC.B $18                            ;03E2ED|000018;
-   LDA.B [$18]                          ;03E2EF|000018;
+   INC.B Fn_ptr                         ;03E2ED|000018;
+   LDA.B [Fn_ptr]                       ;03E2EF|000018;
    AND.W #$00FF                         ;03E2F1|      ;
    STA.L $7FFFC0,X                      ;03E2F4|7FFFC0;
-   INC.B $18                            ;03E2F8|000018;
-   LDA.B [$18]                          ;03E2FA|000018;
+   INC.B Fn_ptr                         ;03E2F8|000018;
+   LDA.B [Fn_ptr]                       ;03E2FA|000018;
    AND.W #$00FF                         ;03E2FC|      ;
    STA.L $7FFFE0,X                      ;03E2FF|7FFFE0;
-   INC.B $18                            ;03E303|000018;
+   INC.B Fn_ptr                         ;03E303|000018;
    INX                                  ;03E305|      ;
    INX                                  ;03E306|      ;
    DEY                                  ;03E307|      ;
@@ -16050,19 +16050,19 @@ CODE_03E4C7:
    RTL                                  ;03E4F7|      ; Return 3
 Store_RAM_2b_into_2b:
    JSL.L GetEventCode_2b_far            ;03E4F8|009B07;
-   STA.B $18                            ;03E4FC|000018;
+   STA.B Fn_ptr                         ;03E4FC|000018;
    JSL.L GetEventCode_2b_far            ;03E4FE|009B07;
-   STA.B $1C                            ;03E502|00001C;
-   LDA.B ($18)                          ;03E504|000018;
-   STA.B ($1C)                          ;03E506|00001C;
+   STA.B Addr_ptr                       ;03E502|00001C;
+   LDA.B (Fn_ptr)                       ;03E504|000018;
+   STA.B (Addr_ptr)                     ;03E506|00001C;
    RTL                                  ;03E508|      ;
 Set_Cursors_1b:
    JSL.L GetEventCode_1b_far            ;03E509|009AF8;
    TAX                                  ;03E50D|      ;
    LDA.L Tbl_Actor_Arrays,X             ;03E50E|009739;
-   STA.B $18                            ;03E512|000018;
+   STA.B Fn_ptr                         ;03E512|000018;
    LDY.W Selection                      ;03E514|00103F;
-   LDA.B ($18),Y                        ;03E517|000018;
+   LDA.B (Fn_ptr),Y                     ;03E517|000018;
    STA.W Shop_selection                 ;03E519|001885;
    STA.W $188B                          ;03E51C|00188B;
    STA.W $188F                          ;03E51F|00188F;
@@ -16186,12 +16186,12 @@ CODE_03E63B:
    ASL A                                ;03E63E|      ;
    TAX                                  ;03E63F|      ;
    LDA.L Tbl_Town_data,X                ;03E640|03B819;
-   STA.B $18                            ;03E644|000018;
+   STA.B Fn_ptr                         ;03E644|000018;
    LDA.W #$0003                         ;03E646|      ;
    STA.B $1A                            ;03E649|00001A;
    LDY.W #$0006                         ;03E64B|      ;
 CODE_03E64E:
-   LDA.B [$18],Y                        ;03E64E|000018;
+   LDA.B [Fn_ptr],Y                     ;03E64E|000018;
    CMP.W #$0001                         ;03E650|      ;
    BEQ CODE_03E659                      ;03E653|03E659;
    INY                                  ;03E655|      ;
@@ -16200,7 +16200,7 @@ CODE_03E64E:
 CODE_03E659:
    DEY                                  ;03E659|      ;
    DEY                                  ;03E65A|      ;
-   LDA.B [$18],Y                        ;03E65B|000018;
+   LDA.B [Fn_ptr],Y                     ;03E65B|000018;
    STA.W Town_Direction                 ;03E65D|00187F;
    LDA.W #$0001                         ;03E660|      ;
    STA.W Town_Selection                 ;03E663|001881;

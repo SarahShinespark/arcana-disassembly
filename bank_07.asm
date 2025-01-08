@@ -96,11 +96,11 @@ Spell_list_ptrs:
    ASL A                                ;07809C|      ;
    TAX                                  ;07809D|      ;
    LDA.L Levelup_spells,X               ;07809E|0780F2;
-   STA.B $18                            ;0780A2|000018;
+   STA.B Fn_ptr                         ;0780A2|000018;
    LDA.L Levelup_spell_banks,X          ;0780A4|078104;
    STA.B $1A                            ;0780A8|00001A;
    LDY.B $22                            ;0780AA|000022;
-   LDA.B [$18],Y                        ;0780AC|000018;
+   LDA.B [Fn_ptr],Y                     ;0780AC|000018;
    AND.W #$00FF                         ;0780AE|      ;
    BEQ CODE_0780F1                      ;0780B1|0780F1;
    STA.B $0E                            ;0780B3|00000E;
@@ -108,7 +108,7 @@ Spell_list_ptrs:
    DEY                                  ;0780B7|      ;
    STZ.B $0C                            ;0780B8|00000C;
 CODE_0780BA:
-   LDA.B [$18],Y                        ;0780BA|000018;
+   LDA.B [Fn_ptr],Y                     ;0780BA|000018;
    AND.W #$00FF                         ;0780BC|      ;
    CLC                                  ;0780BF|      ;
    ADC.B $0C                            ;0780C0|00000C;
@@ -119,7 +119,7 @@ CODE_0780BA:
    ASL A                                ;0780C9|      ;
    TAX                                  ;0780CA|      ;
    LDA.L Tbl_Spell_lists,X              ;0780CB|078116;
-   STA.B $18                            ;0780CF|000018;
+   STA.B Fn_ptr                         ;0780CF|000018;
    LDA.L Spell_list_banks,X             ;0780D1|078128;
    STA.B $1A                            ;0780D5|00001A;
    LDY.B $0C                            ;0780D7|00000C;
@@ -129,7 +129,7 @@ CODE_0780BA:
    ASL A                                ;0780DD|      ;
    TAX                                  ;0780DE|      ;
 CODE_0780DF:
-   LDA.B [$18],Y                        ;0780DF|000018;
+   LDA.B [Fn_ptr],Y                     ;0780DF|000018;
    AND.W #$00FF                         ;0780E1|      ;
    STA.W Tbl_Offset,X                   ;0780E4|0011B5;
    INY                                  ;0780E7|      ;
@@ -6141,7 +6141,7 @@ GetJoinSpells:
    ASL A                                ;07AC0F|      ;
    TAX                                  ;07AC10|      ;
    LDA.L Levelup_spells,X               ;07AC11|0780F2;
-   STA.B $18                            ;07AC15|000018;
+   STA.B Fn_ptr                         ;07AC15|000018;
    LDA.L Levelup_spell_banks,X          ;07AC17|078104;
    STA.B $1A                            ;07AC1B|00001A;
    LDA.B $20                            ;07AC1D|000020;
@@ -6149,7 +6149,7 @@ GetJoinSpells:
    LDY.W CurrentLV,X                    ;07AC20|00137B;
    STZ.B $00                            ;07AC23|000000;
 CODE_07AC25:
-   LDA.B [$18],Y                        ;07AC25|000018;
+   LDA.B [Fn_ptr],Y                     ;07AC25|000018;
    AND.W #$00FF                         ;07AC27|      ;
    CLC                                  ;07AC2A|      ;
    ADC.B $00                            ;07AC2B|000000;
@@ -6164,7 +6164,7 @@ CODE_07AC25:
    ASL A                                ;07AC3C|      ;
    TAX                                  ;07AC3D|      ;
    LDA.L Tbl_Spell_lists,X              ;07AC3E|078116;
-   STA.B $18                            ;07AC42|000018;
+   STA.B Fn_ptr                         ;07AC42|000018;
    LDA.L Spell_list_banks,X             ;07AC44|078128;
    STA.B $1A                            ;07AC48|00001A;
    LDX.B $20                            ;07AC4A|000020;
@@ -6172,7 +6172,7 @@ CODE_07AC25:
    TAX                                  ;07AC50|      ;
    LDY.W #$0001                         ;07AC51|      ;
 CODE_07AC54:
-   LDA.B [$18],Y                        ;07AC54|000018;
+   LDA.B [Fn_ptr],Y                     ;07AC54|000018;
    AND.W #$00FF                         ;07AC56|      ;
    STA.W Spell_list,X                   ;07AC59|001459;
    INX                                  ;07AC5C|      ;
@@ -8282,8 +8282,8 @@ CODE_07BC5B:
    DEC A                                ;07BC5B|      ;
    ASL A                                ;07BC5C|      ;
    TAX                                  ;07BC5D|      ;
-   LDY.W Function_results               ;07BC5E|001041;
-   LDA.W Function_results1,Y            ;07BC61|000CB3;
+   LDY.W Fn_results                     ;07BC5E|001041;
+   LDA.W Fn_results1,Y                  ;07BC61|000CB3;
    STA.B $00                            ;07BC64|000000;
    LDA.W Current_HP,X                   ;07BC66|0012F3;
    CLC                                  ;07BC69|      ;
@@ -8303,8 +8303,8 @@ MP_Recovery:
    DEC A                                ;07BC82|      ;
    ASL A                                ;07BC83|      ;
    TAX                                  ;07BC84|      ;
-   LDY.W Function_results               ;07BC85|001041;
-   LDA.W Function_results1,Y            ;07BC88|000CB3;
+   LDY.W Fn_results                     ;07BC85|001041;
+   LDA.W Fn_results1,Y                  ;07BC88|000CB3;
    STA.B $00                            ;07BC8B|000000;
    LDA.W Current_MP,X                   ;07BC8D|001323;
    CLC                                  ;07BC90|      ;
@@ -8473,8 +8473,8 @@ CODE_07BDCA:
 Store_results_in_2b:
    JSL.L GetEventCode_2b_far            ;07BDD9|009B07;
    STA.B $00                            ;07BDDD|000000;
-   LDY.W Function_results               ;07BDDF|001041;
-   LDA.W Function_results1,Y            ;07BDE2|000CB3;
+   LDY.W Fn_results                     ;07BDDF|001041;
+   LDA.W Fn_results1,Y                  ;07BDE2|000CB3;
    STA.B ($00)                          ;07BDE5|000000;
    RTL                                  ;07BDE7|      ;
 CODE_07BDE8:
@@ -8553,8 +8553,8 @@ Load_Item_Name:
    STA.B $04                            ;07BE74|000004;
    JML.L Text_to_RAM                    ;07BE76|07BE1A;
 Load_Status_Healed:
-   LDY.W Function_results               ;07BE7A|001041;
-   LDA.W Function_results1,Y            ;07BE7D|000CB3;
+   LDY.W Fn_results                     ;07BE7A|001041;
+   LDA.W Fn_results1,Y                  ;07BE7D|000CB3;
    DEC A                                ;07BE80|      ;
    LDX.W #$000A                         ;07BE81|      ;
    JSL.L MultiplyTo1E00_far             ;07BE84|008A39;

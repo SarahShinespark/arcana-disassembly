@@ -1236,7 +1236,7 @@ CODE_008892:
    PHD                                  ;008896|      ;
    PEA.W $0000                          ;008897|000000;
    PLD                                  ;00889A|      ;
-   LDX.B $10                            ;00889B|000010;
+   LDX.B PC                             ;00889B|000010;
    LDA.B #$E0                           ;00889D|      ;
 CODE_00889F:
    STA.B $01,X                          ;00889F|000001;
@@ -1258,7 +1258,7 @@ CODE_0088B6:
    SEP #$20                             ;0088B6|      ; Sets some RAM and clears 0400-041F
    REP #$10                             ;0088B8|      ;
    LDX.W #$0200                         ;0088BA|      ;
-   STX.W $0010                          ;0088BD|000010;
+   STX.W PC                             ;0088BD|000010;
    LDX.W #$0400                         ;0088C0|      ;
    STX.W $0012                          ;0088C3|000012;
    STZ.W $0014                          ;0088C6|000014;
@@ -2258,14 +2258,14 @@ CODE_008FB6:
    LDX.W #$0000                         ;008FB7|      ;
    JSR.W (Ptr_Animation_Loop1,X)        ;008FBA|00104D;
    LDA.W $0A9F,Y                        ;008FBD|000A9F;
-   STA.B $18                            ;008FC0|000018;
+   STA.B Fn_ptr                         ;008FC0|000018;
    LDX.W $0AC3,Y                        ;008FC2|000AC3;
    STX.B $1A                            ;008FC5|00001A;
    LDA.W Anim_ID,Y                      ;008FC7|000A7B;
    BMI CODE_008FD3                      ;008FCA|008FD3;
    ASL A                                ;008FCC|      ;
    TAY                                  ;008FCD|      ;
-   LDA.B [$18],Y                        ;008FCE|000018;
+   LDA.B [Fn_ptr],Y                     ;008FCE|000018;
    JSR.W Credits_Reading_0FD0           ;008FD0|009881;
 CODE_008FD3:
    PLX                                  ;008FD3|      ;
@@ -2279,25 +2279,25 @@ CODE_008FDF:
 Update_Restart_MainLp:
    LDX.W $06D3,Y                        ;008FE0|0006D3; Updates $1041 and restarts the main loop
 CODE_008FE3:
-   STX.W Function_results               ;008FE3|001041;
+   STX.W Fn_results                     ;008FE3|001041;
    LDA.W $0AE7,X                        ;008FE6|000AE7;
    STA.W LoopVar_1047                   ;008FE9|001047; Store some loop check
    JSR.W Main_Lp_PtrSetup               ;008FEC|009008; This breaks out on a 06 01 script
    LDX.W LoopVar_1047                   ;008FEF|001047;
    BPL CODE_008FE3                      ;008FF2|008FE3; If $1047>0, store in $1041, get that char's $1047 and restart main loop
    LDX.W Selection                      ;008FF4|00103F; If $1047<0, pull a stack pointer and jump to [$1049]
-   LDA.W $0A33,X                        ;008FF7|000A33;
+   LDA.W Stack_addr_ptr,X               ;008FF7|000A33;
    STA.W Event_CodePtr                  ;008FFA|001049;
-   LDA.W $0A57,X                        ;008FFD|000A57;
+   LDA.W Stack_addr_bank,X              ;008FFD|000A57;
    STA.W Event_CodeBank                 ;009000|00104B;
    JSL.L JumpTo1049                     ;009003|009B0E;
    RTS                                  ;009007|      ;
 Main_Lp_PtrSetup:
-   LDX.W Function_results               ;009008|001041; Sets the pointers $10 and $12
+   LDX.W Fn_results                     ;009008|001041; Sets the pointers $10 and $12
    LDA.W Anim_Loopvar,X                 ;00900B|000B9F;
    BNE CODE_009063                      ;00900E|009063;
    LDA.W Ptr_EventStack,X               ;009010|000BFB;
-   STA.B $10                            ;009013|000010;
+   STA.B PC                             ;009013|000010;
    LDA.W Bank_EventStack,X              ;009015|000C57;
    STA.B $12                            ;009018|000012;
    TXA                                  ;00901A|      ;
@@ -2310,7 +2310,7 @@ Main_Lp_PtrSetup:
    ADC.W #$0000                         ;009026|      ;
    STA.B $16                            ;009029|000016;
 Read_EventCode:
-   LDA.B [$10]                          ;00902B|000010; This one's a doozy, it reads the internal scripting language. Most common scripts are 07 (run asm code at 24-bit addr), 0C (jump if false to 16-bit addr), 1B (jsr to 16-bit addr).
+   LDA.B [PC]                           ;00902B|000010; This one's a doozy, it reads the internal scripting language. Most common scripts are 07 (run asm code at 24-bit addr), 0C (jump if false to 16-bit addr), 1B (jsr to 16-bit addr).
    AND.W #$00FF                         ;00902D|      ;
    CMP.W #$0030                         ;009030|      ;
    BCS Read_EventAnim                   ;009033|00903C;
@@ -2332,10 +2332,10 @@ CODE_00903D:
    TAX                                  ;00904D|      ;
    JSR.W (Tbl_EventAnim,X)              ;00904E|0090B3;
 CODE_009051:
-   LDX.W Function_results               ;009051|001041;
+   LDX.W Fn_results                     ;009051|001041;
    LDA.W Anim_Loopvar,X                 ;009054|000B9F;
    BEQ Read_EventCode                   ;009057|00902B; Exit when 0
-   LDA.B $10                            ;009059|000010;
+   LDA.B PC                             ;009059|000010;
    STA.W Ptr_EventStack,X               ;00905B|000BFB;
    LDA.B $12                            ;00905E|000012;
    STA.W Bank_EventStack,X              ;009060|000C57;
@@ -2411,18 +2411,18 @@ Tbl_EventAnim:
 Event_Code_00:
    LDX.W Selection                      ;0090E7|00103F; Section note: These are called by 00/902B to process custom script segments. It's important to learn these to read how most of the game logic works, as there are huge chunks of code that use nothing but these and their parameters.
    JSR.W A_buncha_stuff                 ;0090EA|009960; Not sure what this does, think it breaks out of main loop and moves on to a different X value
-   LDX.W Function_results               ;0090ED|001041;
+   LDX.W Fn_results                     ;0090ED|001041;
    LDA.W #$FFFF                         ;0090F0|      ;
    STA.W Anim_Loopvar,X                 ;0090F3|000B9F; Clear X's function results
    STA.W LoopVar_1047                   ;0090F6|001047; Clear the loop variable
    RTS                                  ;0090F9|      ;
 Event_Code_01:
-   INC.B $10                            ;0090FA|000010; Affects $14
-   LDA.B [$10]                          ;0090FC|000010;
+   INC.B PC                             ;0090FA|000010; Affects $14
+   LDA.B [PC]                           ;0090FC|000010;
    PHA                                  ;0090FE|      ;
-   LDX.W Function_results               ;0090FF|001041;
+   LDX.W Fn_results                     ;0090FF|001041;
    LDY.W $0B43,X                        ;009102|000B43;
-   LDA.B $10                            ;009105|000010;
+   LDA.B PC                             ;009105|000010;
    CLC                                  ;009107|      ;
    ADC.W #$0001                         ;009108|      ;
    STA.B [$14],Y                        ;00910B|000014;
@@ -2435,10 +2435,10 @@ Event_Code_01:
    INY                                  ;009116|      ;
    TYA                                  ;009117|      ;
    STA.W $0B43,X                        ;009118|000B43;
-   INC.B $10                            ;00911B|000010;
+   INC.B PC                             ;00911B|000010;
    RTS                                  ;00911D|      ;
 Event_Code_02:
-   LDX.W Function_results               ;00911E|001041; idk
+   LDX.W Fn_results                     ;00911E|001041; idk
    LDY.W $0B43,X                        ;009121|000B43;
    DEY                                  ;009124|      ;
    SEP #$20                             ;009125|      ;
@@ -2451,50 +2451,50 @@ Event_Code_02:
    DEY                                  ;009131|      ;
    TYA                                  ;009132|      ;
    STA.W $0B43,X                        ;009133|000B43;
-   INC.B $10                            ;009136|000010;
+   INC.B PC                             ;009136|000010;
    RTS                                  ;009138|      ;
 CODE_009139:
    DEY                                  ;009139|      ;
    DEY                                  ;00913A|      ;
    LDA.B [$14],Y                        ;00913B|000014;
-   STA.B $10                            ;00913D|000010;
+   STA.B PC                             ;00913D|000010;
    RTS                                  ;00913F|      ;
 Event_Code_1A:
    LDY.W #$0001                         ;009140|      ; JMP (2 bytes)
-   LDA.B [$10],Y                        ;009143|000010;
-   STA.B $10                            ;009145|000010;
+   LDA.B [PC],Y                         ;009143|000010;
+   STA.B PC                             ;009145|000010;
    RTS                                  ;009147|      ;
 Event_Code_03:
    LDY.W #$0001                         ;009148|      ; JML (3 bytes)
-   LDA.B [$10],Y                        ;00914B|000010;
+   LDA.B [PC],Y                         ;00914B|000010;
 CODE_00914D:
    TAX                                  ;00914D|      ;
    INY                                  ;00914E|      ;
    INY                                  ;00914F|      ;
-   LDA.B [$10],Y                        ;009150|000010;
+   LDA.B [PC],Y                         ;009150|000010;
    AND.W #$00FF                         ;009152|      ;
    STA.B $12                            ;009155|000012;
-   STX.B $10                            ;009157|000010;
+   STX.B PC                             ;009157|000010;
    RTS                                  ;009159|      ;
 Event_Code_1B:
-   INC.B $10                            ;00915A|000010; JSR (2 bytes), saves ptr
-   LDA.B [$10]                          ;00915C|000010;
+   INC.B PC                             ;00915A|000010; JSR (2 bytes), saves ptr
+   LDA.B [PC]                           ;00915C|000010;
    PHA                                  ;00915E|      ;
-   INC.B $10                            ;00915F|000010;
-   INC.B $10                            ;009161|000010;
-   LDX.W Function_results               ;009163|001041;
+   INC.B PC                             ;00915F|000010;
+   INC.B PC                             ;009161|000010;
+   LDX.W Fn_results                     ;009163|001041;
    LDY.W $0B43,X                        ;009166|000B43;
-   LDA.B $10                            ;009169|000010;
+   LDA.B PC                             ;009169|000010;
    STA.B [$14],Y                        ;00916B|000014;
    INY                                  ;00916D|      ;
    INY                                  ;00916E|      ;
    TYA                                  ;00916F|      ;
    STA.W $0B43,X                        ;009170|000B43;
    PLA                                  ;009173|      ;
-   STA.B $10                            ;009174|000010;
+   STA.B PC                             ;009174|000010;
    RTS                                  ;009176|      ;
 Event_Code_1C:
-   LDX.W Function_results               ;009177|001041; Return from jump, do lots of stuff
+   LDX.W Fn_results                     ;009177|001041; Return from jump, do lots of stuff
    LDY.W $0B43,X                        ;00917A|000B43;
    BNE CODE_009182                      ;00917D|009182;
    JMP.W Event_Code_0D                  ;00917F|0095C7;
@@ -2502,22 +2502,22 @@ CODE_009182:
    DEY                                  ;009182|      ;
    DEY                                  ;009183|      ;
    LDA.B [$14],Y                        ;009184|000014;
-   STA.B $10                            ;009186|000010;
+   STA.B PC                             ;009186|000010;
    TYA                                  ;009188|      ;
    STA.W $0B43,X                        ;009189|000B43;
    RTS                                  ;00918C|      ;
 Event_Code_04:
-   INC.B $10                            ;00918D|000010; JSL (3 bytes), saves return ptr
-   LDA.B [$10]                          ;00918F|000010;
+   INC.B PC                             ;00918D|000010; JSL (3 bytes), saves return ptr
+   LDA.B [PC]                           ;00918F|000010;
    PHA                                  ;009191|      ;
-   INC.B $10                            ;009192|000010;
-   INC.B $10                            ;009194|000010;
-   LDA.B [$10]                          ;009196|000010;
+   INC.B PC                             ;009192|000010;
+   INC.B PC                             ;009194|000010;
+   LDA.B [PC]                           ;009196|000010;
    PHA                                  ;009198|      ;
-   INC.B $10                            ;009199|000010;
-   LDX.W Function_results               ;00919B|001041;
+   INC.B PC                             ;009199|000010;
+   LDX.W Fn_results                     ;00919B|001041;
    LDY.W $0B43,X                        ;00919E|000B43;
-   LDA.B $10                            ;0091A1|000010;
+   LDA.B PC                             ;0091A1|000010;
    STA.B [$14],Y                        ;0091A3|000014;
    INY                                  ;0091A5|      ;
    INY                                  ;0091A6|      ;
@@ -2531,10 +2531,10 @@ Event_Code_04:
    PLA                                  ;0091B4|      ;
    STA.B $12                            ;0091B5|000012;
    PLA                                  ;0091B7|      ;
-   STA.B $10                            ;0091B8|000010;
+   STA.B PC                             ;0091B8|000010;
    RTS                                  ;0091BA|      ;
 Event_Code_05:
-   LDX.W Function_results               ;0091BB|001041; RTL plus whatever 0D does
+   LDX.W Fn_results                     ;0091BB|001041; RTL plus whatever 0D does
    LDY.W $0B43,X                        ;0091BE|000B43;
    BNE CODE_0091C6                      ;0091C1|0091C6;
    JMP.W Event_Code_0D                  ;0091C3|0095C7;
@@ -2547,36 +2547,36 @@ CODE_0091C6:
    DEY                                  ;0091CF|      ;
    DEY                                  ;0091D0|      ;
    LDA.B [$14],Y                        ;0091D1|000014;
-   STA.B $10                            ;0091D3|000010;
+   STA.B PC                             ;0091D3|000010;
    TYA                                  ;0091D5|      ;
    STA.W $0B43,X                        ;0091D6|000B43;
    RTS                                  ;0091D9|      ;
 Event_Code_06:
-   INC.B $10                            ;0091DA|000010; Delays the program counter for x frames. Animations can still play in the background.
-   LDX.W Function_results               ;0091DC|001041; Reads the next value and breaks out of a loop if nonzero
-   LDA.B [$10]                          ;0091DF|000010;
+   INC.B PC                             ;0091DA|000010; Delays the program counter for x frames. Animations can still play in the background.
+   LDX.W Fn_results                     ;0091DC|001041; Reads the next value and breaks out of a loop if nonzero
+   LDA.B [PC]                           ;0091DF|000010;
    AND.W #$00FF                         ;0091E1|      ;
    STA.W Anim_Loopvar,X                 ;0091E4|000B9F;
-   INC.B $10                            ;0091E7|000010;
+   INC.B PC                             ;0091E7|000010;
    RTS                                  ;0091E9|      ;
 Event_Anim_30_37_1b:
-   INC.B $10                            ;0091EA|000010; These need more examples. These are called by 903C "Script Reader 2" for values of 30+.
+   INC.B PC                             ;0091EA|000010; These need more examples. These are called by 903C "Script Reader 2" for values of 30+.
    LDX.W Selection                      ;0091EC|00103F; Load target's offset
-   LDA.B [$10]                          ;0091EF|000010; Read the next byte
+   LDA.B [PC]                           ;0091EF|000010; Read the next byte
    AND.W #$00FF                         ;0091F1|      ;
    CMP.W #$00FF                         ;0091F4|      ;
    BNE CODE_0091FC                      ;0091F7|0091FC;
    LDA.W #$FFFF                         ;0091F9|      ; If 30 FF, load FFFF in $0A7B,x
 CODE_0091FC:
    STA.W Anim_ID,X                      ;0091FC|000A7B; Else for 30 xx, load xx in $0A7B,x
-   INC.B $10                            ;0091FF|000010; Advance script PC
+   INC.B PC                             ;0091FF|000010; Advance script PC
    RTS                                  ;009201|      ;
 Event_Anim_38_3F_2b:
-   INC.B $10                            ;009202|000010; Sets cursor X position
+   INC.B PC                             ;009202|000010; Sets cursor X position
    LDX.W Selection                      ;009204|00103F; Load target's offset
-   LDA.B [$10]                          ;009207|000010; Read the next 2 bytes and advance the script PC
-   INC.B $10                            ;009209|000010;
-   INC.B $10                            ;00920B|000010;
+   LDA.B [PC]                           ;009207|000010; Read the next 2 bytes and advance the script PC
+   INC.B PC                             ;009209|000010;
+   INC.B PC                             ;00920B|000010;
    STA.W Cursor_Array_Xpos_Copy,X       ;00920D|000787; Store xxxx in $0787,x and $06F7,x
    STA.W Cursor_Array_Xpos,X            ;009210|0006F7;
    LDA.W #$8000                         ;009213|      ;
@@ -2607,11 +2607,11 @@ CODE_00923C:
    STA.W Cursor_Array_Xpos,X            ;00924C|0006F7;
    RTS                                  ;00924F|      ;
 Event_Anim_40_47_2b:
-   INC.B $10                            ;009250|000010; Sets cursor Y position
+   INC.B PC                             ;009250|000010; Sets cursor Y position
    LDX.W Selection                      ;009252|00103F;
-   LDA.B [$10]                          ;009255|000010;
-   INC.B $10                            ;009257|000010;
-   INC.B $10                            ;009259|000010;
+   LDA.B [PC]                           ;009255|000010;
+   INC.B PC                             ;009257|000010;
+   INC.B PC                             ;009259|000010;
    STA.W Cursor_Array_Ypos_Copy,X       ;00925B|0007AB;
    STA.W Cursor_Array_Ypos,X            ;00925E|00071B;
    LDA.W #$8000                         ;009261|      ;
@@ -2642,11 +2642,11 @@ CODE_00928A:
    STA.W Cursor_Array_Ypos,X            ;00929A|00071B;
    RTS                                  ;00929D|      ;
 Event_Anim_E0_E7_2b:
-   INC.B $10                            ;00929E|000010;
+   INC.B PC                             ;00929E|000010;
    LDX.W Selection                      ;0092A0|00103F;
-   LDA.B [$10]                          ;0092A3|000010;
-   INC.B $10                            ;0092A5|000010;
-   INC.B $10                            ;0092A7|000010;
+   LDA.B [PC]                           ;0092A3|000010;
+   INC.B PC                             ;0092A5|000010;
+   INC.B PC                             ;0092A7|000010;
    STA.W $07CF,X                        ;0092A9|0007CF;
    STA.W $073F,X                        ;0092AC|00073F;
    LDA.W #$8000                         ;0092AF|      ;
@@ -2667,9 +2667,9 @@ Event_Anim_E0_E7_2b:
 CODE_0092D6:
    RTS                                  ;0092D6|      ;
 Event_Anim_58_5F_2b:
-   INC.B $10                            ;0092D7|000010;
+   INC.B PC                             ;0092D7|000010;
    LDX.W Selection                      ;0092D9|00103F;
-   LDA.B [$10]                          ;0092DC|000010;
+   LDA.B [PC]                           ;0092DC|000010;
    PHA                                  ;0092DE|      ;
    AND.W #$00FF                         ;0092DF|      ;
    XBA                                  ;0092E2|      ;
@@ -2681,13 +2681,13 @@ Event_Anim_58_5F_2b:
 CODE_0092EF:
    XBA                                  ;0092EF|      ;
    STA.W $085F,X                        ;0092F0|00085F;
-   INC.B $10                            ;0092F3|000010;
-   INC.B $10                            ;0092F5|000010;
+   INC.B PC                             ;0092F3|000010;
+   INC.B PC                             ;0092F5|000010;
    RTS                                  ;0092F7|      ;
 Event_Anim_60_67_2b:
-   INC.B $10                            ;0092F8|000010;
+   INC.B PC                             ;0092F8|000010;
    LDX.W Selection                      ;0092FA|00103F;
-   LDA.B [$10]                          ;0092FD|000010;
+   LDA.B [PC]                           ;0092FD|000010;
    PHA                                  ;0092FF|      ;
    AND.W #$00FF                         ;009300|      ;
    XBA                                  ;009303|      ;
@@ -2699,13 +2699,13 @@ Event_Anim_60_67_2b:
 CODE_009310:
    XBA                                  ;009310|      ;
    STA.W $0883,X                        ;009311|000883;
-   INC.B $10                            ;009314|000010;
-   INC.B $10                            ;009316|000010;
+   INC.B PC                             ;009314|000010;
+   INC.B PC                             ;009316|000010;
    RTS                                  ;009318|      ;
 Event_Anim_F0_F7_2b:
-   INC.B $10                            ;009319|000010;
+   INC.B PC                             ;009319|000010;
    LDX.W Selection                      ;00931B|00103F;
-   LDA.B [$10]                          ;00931E|000010;
+   LDA.B [PC]                           ;00931E|000010;
    PHA                                  ;009320|      ;
    AND.W #$00FF                         ;009321|      ;
    XBA                                  ;009324|      ;
@@ -2717,13 +2717,13 @@ Event_Anim_F0_F7_2b:
 CODE_009331:
    XBA                                  ;009331|      ;
    STA.W $08A7,X                        ;009332|0008A7;
-   INC.B $10                            ;009335|000010;
-   INC.B $10                            ;009337|000010;
+   INC.B PC                             ;009335|000010;
+   INC.B PC                             ;009337|000010;
    RTS                                  ;009339|      ;
 Event_Anim_68_6F_2b:
-   INC.B $10                            ;00933A|000010;
+   INC.B PC                             ;00933A|000010;
    LDX.W Selection                      ;00933C|00103F;
-   LDA.B [$10]                          ;00933F|000010;
+   LDA.B [PC]                           ;00933F|000010;
    PHA                                  ;009341|      ;
    AND.W #$00FF                         ;009342|      ;
    XBA                                  ;009345|      ;
@@ -2738,13 +2738,13 @@ CODE_009356:
    XBA                                  ;009356|      ;
    ADC.W $085F,X                        ;009357|00085F;
    STA.W $085F,X                        ;00935A|00085F;
-   INC.B $10                            ;00935D|000010;
-   INC.B $10                            ;00935F|000010;
+   INC.B PC                             ;00935D|000010;
+   INC.B PC                             ;00935F|000010;
    RTS                                  ;009361|      ;
 Event_Anim_70_77_2b:
-   INC.B $10                            ;009362|000010;
+   INC.B PC                             ;009362|000010;
    LDX.W Selection                      ;009364|00103F;
-   LDA.B [$10]                          ;009367|000010;
+   LDA.B [PC]                           ;009367|000010;
    PHA                                  ;009369|      ;
    AND.W #$00FF                         ;00936A|      ;
    XBA                                  ;00936D|      ;
@@ -2759,13 +2759,13 @@ CODE_00937E:
    XBA                                  ;00937E|      ;
    ADC.W $0883,X                        ;00937F|000883;
    STA.W $0883,X                        ;009382|000883;
-   INC.B $10                            ;009385|000010;
-   INC.B $10                            ;009387|000010;
+   INC.B PC                             ;009385|000010;
+   INC.B PC                             ;009387|000010;
    RTS                                  ;009389|      ;
 Event_Anim_F8_FF_2b:
-   INC.B $10                            ;00938A|000010;
+   INC.B PC                             ;00938A|000010;
    LDX.W Selection                      ;00938C|00103F;
-   LDA.B [$10]                          ;00938F|000010;
+   LDA.B [PC]                           ;00938F|000010;
    PHA                                  ;009391|      ;
    AND.W #$00FF                         ;009392|      ;
    XBA                                  ;009395|      ;
@@ -2780,43 +2780,43 @@ CODE_0093A6:
    XBA                                  ;0093A6|      ;
    ADC.W $08A7,X                        ;0093A7|0008A7;
    STA.W $08A7,X                        ;0093AA|0008A7;
-   INC.B $10                            ;0093AD|000010;
-   INC.B $10                            ;0093AF|000010;
+   INC.B PC                             ;0093AD|000010;
+   INC.B PC                             ;0093AF|000010;
    RTS                                  ;0093B1|      ;
 Event_Anim_78_7F_1b_2b:
-   INC.B $10                            ;0093B2|000010; Read (1b) x offset, store (2b) in $0FEF,x and zero $0FFF,x
-   LDA.B [$10]                          ;0093B4|000010;
+   INC.B PC                             ;0093B2|000010; Read (1b) x offset, store (2b) in $0FEF,x and zero $0FFF,x
+   LDA.B [PC]                           ;0093B4|000010;
    AND.W #$00FF                         ;0093B6|      ;
    ASL A                                ;0093B9|      ;
    TAX                                  ;0093BA|      ;
-   INC.B $10                            ;0093BB|000010;
-   LDA.B [$10]                          ;0093BD|000010;
+   INC.B PC                             ;0093BB|000010;
+   LDA.B [PC]                           ;0093BD|000010;
    STA.W $0FEF,X                        ;0093BF|000FEF;
    STZ.W $0FFF,X                        ;0093C2|000FFF;
-   INC.B $10                            ;0093C5|000010;
-   INC.B $10                            ;0093C7|000010;
+   INC.B PC                             ;0093C5|000010;
+   INC.B PC                             ;0093C7|000010;
    RTS                                  ;0093C9|      ;
 Event_Anim_80_87_1b_2b:
-   INC.B $10                            ;0093CA|000010; Read (1b) x offset, store (2b) in $0FF7,x and zero $1007,x
-   LDA.B [$10]                          ;0093CC|000010;
+   INC.B PC                             ;0093CA|000010; Read (1b) x offset, store (2b) in $0FF7,x and zero $1007,x
+   LDA.B [PC]                           ;0093CC|000010;
    AND.W #$00FF                         ;0093CE|      ;
    ASL A                                ;0093D1|      ;
    TAX                                  ;0093D2|      ;
-   INC.B $10                            ;0093D3|000010;
-   LDA.B [$10]                          ;0093D5|000010;
+   INC.B PC                             ;0093D3|000010;
+   LDA.B [PC]                           ;0093D5|000010;
    STA.W $0FF7,X                        ;0093D7|000FF7;
    STZ.W $1007,X                        ;0093DA|001007;
-   INC.B $10                            ;0093DD|000010;
-   INC.B $10                            ;0093DF|000010;
+   INC.B PC                             ;0093DD|000010;
+   INC.B PC                             ;0093DF|000010;
    RTS                                  ;0093E1|      ;
 Event_Anim_88_8F_1b_2b:
-   INC.B $10                            ;0093E2|000010;
-   LDA.B [$10]                          ;0093E4|000010;
+   INC.B PC                             ;0093E2|000010;
+   LDA.B [PC]                           ;0093E4|000010;
    AND.W #$00FF                         ;0093E6|      ;
    ASL A                                ;0093E9|      ;
    TAX                                  ;0093EA|      ;
-   INC.B $10                            ;0093EB|000010;
-   LDA.B [$10]                          ;0093ED|000010;
+   INC.B PC                             ;0093EB|000010;
+   LDA.B [PC]                           ;0093ED|000010;
    PHA                                  ;0093EF|      ;
    AND.W #$00FF                         ;0093F0|      ;
    XBA                                  ;0093F3|      ;
@@ -2828,17 +2828,17 @@ Event_Anim_88_8F_1b_2b:
 CODE_009400:
    XBA                                  ;009400|      ;
    STA.W $100F,X                        ;009401|00100F;
-   INC.B $10                            ;009404|000010;
-   INC.B $10                            ;009406|000010;
+   INC.B PC                             ;009404|000010;
+   INC.B PC                             ;009406|000010;
    RTS                                  ;009408|      ;
 Event_Anim_90_97_1b_2b:
-   INC.B $10                            ;009409|000010;
-   LDA.B [$10]                          ;00940B|000010;
+   INC.B PC                             ;009409|000010;
+   LDA.B [PC]                           ;00940B|000010;
    AND.W #$00FF                         ;00940D|      ;
    ASL A                                ;009410|      ;
    TAX                                  ;009411|      ;
-   INC.B $10                            ;009412|000010;
-   LDA.B [$10]                          ;009414|000010;
+   INC.B PC                             ;009412|000010;
+   LDA.B [PC]                           ;009414|000010;
    PHA                                  ;009416|      ;
    AND.W #$00FF                         ;009417|      ;
    XBA                                  ;00941A|      ;
@@ -2850,17 +2850,17 @@ Event_Anim_90_97_1b_2b:
 CODE_009427:
    XBA                                  ;009427|      ;
    STA.W $1017,X                        ;009428|001017;
-   INC.B $10                            ;00942B|000010;
-   INC.B $10                            ;00942D|000010;
+   INC.B PC                             ;00942B|000010;
+   INC.B PC                             ;00942D|000010;
    RTS                                  ;00942F|      ;
 Event_Anim_98_9F_1b_2b:
-   INC.B $10                            ;009430|000010;
-   LDA.B [$10]                          ;009432|000010;
+   INC.B PC                             ;009430|000010;
+   LDA.B [PC]                           ;009432|000010;
    AND.W #$00FF                         ;009434|      ;
    ASL A                                ;009437|      ;
    TAX                                  ;009438|      ;
-   INC.B $10                            ;009439|000010;
-   LDA.B [$10]                          ;00943B|000010;
+   INC.B PC                             ;009439|000010;
+   LDA.B [PC]                           ;00943B|000010;
    PHA                                  ;00943D|      ;
    AND.W #$00FF                         ;00943E|      ;
    XBA                                  ;009441|      ;
@@ -2875,17 +2875,17 @@ CODE_009452:
    XBA                                  ;009452|      ;
    ADC.W $100F,X                        ;009453|00100F;
    STA.W $100F,X                        ;009456|00100F;
-   INC.B $10                            ;009459|000010;
-   INC.B $10                            ;00945B|000010;
+   INC.B PC                             ;009459|000010;
+   INC.B PC                             ;00945B|000010;
    RTS                                  ;00945D|      ;
 Event_Anim_A0_A7_1b_2b:
-   INC.B $10                            ;00945E|000010;
-   LDA.B [$10]                          ;009460|000010;
+   INC.B PC                             ;00945E|000010;
+   LDA.B [PC]                           ;009460|000010;
    AND.W #$00FF                         ;009462|      ;
    ASL A                                ;009465|      ;
    TAX                                  ;009466|      ;
-   INC.B $10                            ;009467|000010;
-   LDA.B [$10]                          ;009469|000010;
+   INC.B PC                             ;009467|000010;
+   LDA.B [PC]                           ;009469|000010;
    PHA                                  ;00946B|      ;
    AND.W #$00FF                         ;00946C|      ;
    XBA                                  ;00946F|      ;
@@ -2900,66 +2900,66 @@ CODE_009480:
    XBA                                  ;009480|      ;
    ADC.W $1017,X                        ;009481|001017;
    STA.W $1017,X                        ;009484|001017;
-   INC.B $10                            ;009487|000010;
-   INC.B $10                            ;009489|000010;
+   INC.B PC                             ;009487|000010;
+   INC.B PC                             ;009489|000010;
    RTS                                  ;00948B|      ;
 Event_Anim_48_4F_2b:
-   INC.B $10                            ;00948C|000010; Reads (2b), adds to a sum at $0937,x
+   INC.B PC                             ;00948C|000010; Reads (2b), adds to a sum at $0937,x
    LDX.W Selection                      ;00948E|00103F;
-   LDA.B [$10]                          ;009491|000010;
+   LDA.B [PC]                           ;009491|000010;
    CLC                                  ;009493|      ;
    ADC.W Anim48_Total,X                 ;009494|000937;
    STA.W Anim48_Total,X                 ;009497|000937;
-   INC.B $10                            ;00949A|000010;
-   INC.B $10                            ;00949C|000010;
+   INC.B PC                             ;00949A|000010;
+   INC.B PC                             ;00949C|000010;
    RTS                                  ;00949E|      ;
 Event_Anim_50_57_2b:
-   INC.B $10                            ;00949F|000010; Reads (2b), adds to a sum at $095B,x
+   INC.B PC                             ;00949F|000010; Reads (2b), adds to a sum at $095B,x
    LDX.W Selection                      ;0094A1|00103F;
-   LDA.B [$10]                          ;0094A4|000010;
+   LDA.B [PC]                           ;0094A4|000010;
    CLC                                  ;0094A6|      ;
    ADC.W $095B,X                        ;0094A7|00095B;
    STA.W $095B,X                        ;0094AA|00095B;
-   INC.B $10                            ;0094AD|000010;
-   INC.B $10                            ;0094AF|000010;
+   INC.B PC                             ;0094AD|000010;
+   INC.B PC                             ;0094AF|000010;
    RTS                                  ;0094B1|      ;
 Event_Anim_E8_EF_2b:
-   INC.B $10                            ;0094B2|000010; Reads (2b), adds to a sum at $097F,x
+   INC.B PC                             ;0094B2|000010; Reads (2b), adds to a sum at $097F,x
    LDX.W Selection                      ;0094B4|00103F; X = current selection
-   LDA.B [$10]                          ;0094B7|000010;
+   LDA.B [PC]                           ;0094B7|000010;
    CLC                                  ;0094B9|      ;
    ADC.W AnimE8_Total,X                 ;0094BA|00097F;
    STA.W AnimE8_Total,X                 ;0094BD|00097F;
-   INC.B $10                            ;0094C0|000010;
-   INC.B $10                            ;0094C2|000010;
+   INC.B PC                             ;0094C0|000010;
+   INC.B PC                             ;0094C2|000010;
    RTS                                  ;0094C4|      ;
 Event_Anim_C0_C7_1b_2b:
-   INC.B $10                            ;0094C5|000010; Reads (1b) offset, reads(2b), adds to a sum at $102F,x
-   LDA.B [$10]                          ;0094C7|000010;
+   INC.B PC                             ;0094C5|000010; Reads (1b) offset, reads(2b), adds to a sum at $102F,x
+   LDA.B [PC]                           ;0094C7|000010;
    AND.W #$00FF                         ;0094C9|      ;
    ASL A                                ;0094CC|      ;
    TAX                                  ;0094CD|      ;
-   INC.B $10                            ;0094CE|000010;
-   LDA.B [$10]                          ;0094D0|000010;
+   INC.B PC                             ;0094CE|000010;
+   LDA.B [PC]                           ;0094D0|000010;
    CLC                                  ;0094D2|      ;
    ADC.W AnimC0_Total,X                 ;0094D3|00102F;
    STA.W AnimC0_Total,X                 ;0094D6|00102F;
-   INC.B $10                            ;0094D9|000010;
-   INC.B $10                            ;0094DB|000010;
+   INC.B PC                             ;0094D9|000010;
+   INC.B PC                             ;0094DB|000010;
    RTS                                  ;0094DD|      ;
 Event_Anim_C8_CF_1b_2b:
-   INC.B $10                            ;0094DE|000010; Reads (1b) offset, reads(2b), adds to a sum at $1037,x
-   LDA.B [$10]                          ;0094E0|000010;
+   INC.B PC                             ;0094DE|000010; Reads (1b) offset, reads(2b), adds to a sum at $1037,x
+   LDA.B [PC]                           ;0094E0|000010;
    AND.W #$00FF                         ;0094E2|      ;
    ASL A                                ;0094E5|      ;
    TAX                                  ;0094E6|      ;
-   INC.B $10                            ;0094E7|000010;
-   LDA.B [$10]                          ;0094E9|000010;
+   INC.B PC                             ;0094E7|000010;
+   LDA.B [PC]                           ;0094E9|000010;
    CLC                                  ;0094EB|      ;
    ADC.W AnimC8_Total,X                 ;0094EC|001037;
    STA.W AnimC8_Total,X                 ;0094EF|001037;
-   INC.B $10                            ;0094F2|000010;
-   INC.B $10                            ;0094F4|000010;
+   INC.B PC                             ;0094F2|000010;
+   INC.B PC                             ;0094F4|000010;
    RTS                                  ;0094F6|      ;
 Event_Anim_D0_D7:
    LDX.W Selection                      ;0094F7|00103F; Zeroes some stuff used by 58-77, F0-FF
@@ -2969,11 +2969,11 @@ Event_Anim_D0_D7:
    STZ.W $0883,X                        ;009503|000883;
    STZ.W $0913,X                        ;009506|000913;
    STZ.W $08A7,X                        ;009509|0008A7;
-   INC.B $10                            ;00950C|000010;
+   INC.B PC                             ;00950C|000010;
    RTS                                  ;00950E|      ;
 Event_Anim_D8_DF_1b:
-   INC.B $10                            ;00950F|000010; Read (1b) offset, zeroes 4 values for it
-   LDA.B [$10]                          ;009511|000010;
+   INC.B PC                             ;00950F|000010; Read (1b) offset, zeroes 4 values for it
+   LDA.B [PC]                           ;009511|000010;
    AND.W #$00FF                         ;009513|      ;
    ASL A                                ;009516|      ;
    TAX                                  ;009517|      ;
@@ -2981,88 +2981,88 @@ Event_Anim_D8_DF_1b:
    STZ.W $100F,X                        ;00951B|00100F;
    STZ.W $1027,X                        ;00951E|001027;
    STZ.W $1017,X                        ;009521|001017;
-   INC.B $10                            ;009524|000010;
+   INC.B PC                             ;009524|000010;
    RTS                                  ;009526|      ;
 Event_Code_07:
-   INC.B $10                            ;009527|000010; Calls a 24-bit pointer, very common.
-   LDA.B [$10]                          ;009529|000010;
+   INC.B PC                             ;009527|000010; Calls a 24-bit pointer, very common.
+   LDA.B [PC]                           ;009529|000010;
    STA.W Event_CodePtr                  ;00952B|001049;
-   INC.B $10                            ;00952E|000010;
-   INC.B $10                            ;009530|000010;
-   LDA.B [$10]                          ;009532|000010;
+   INC.B PC                             ;00952E|000010;
+   INC.B PC                             ;009530|000010;
+   LDA.B [PC]                           ;009532|000010;
    AND.W #$00FF                         ;009534|      ;
    STA.W Event_CodeBank                 ;009537|00104B;
-   LDX.W Function_results               ;00953A|001041;
-   LDA.W Function_results1,X            ;00953D|000CB3;
+   LDX.W Fn_results                     ;00953A|001041;
+   LDA.W Fn_results1,X                  ;00953D|000CB3;
    JSL.L JumpTo1049                     ;009540|009B0E;
-   LDX.W Function_results               ;009544|001041;
-   STA.W Function_results1,X            ;009547|000CB3;
-   INC.B $10                            ;00954A|000010;
+   LDX.W Fn_results                     ;009544|001041;
+   STA.W Fn_results1,X                  ;009547|000CB3;
+   INC.B PC                             ;00954A|000010;
    RTS                                  ;00954C|      ;
 Event_Code_0B:
-   INC.B $10                            ;00954D|000010; Jump if false/zero (2 byte ptr)
-   LDA.B [$10]                          ;00954F|000010;
+   INC.B PC                             ;00954D|000010; Jump if false/zero (2 byte ptr)
+   LDA.B [PC]                           ;00954F|000010;
    TAY                                  ;009551|      ;
-   LDX.W Function_results               ;009552|001041;
-   LDA.W Function_results1,X            ;009555|000CB3;
+   LDX.W Fn_results                     ;009552|001041;
+   LDA.W Fn_results1,X                  ;009555|000CB3;
    BNE CODE_00955D                      ;009558|00955D;
-   STY.B $10                            ;00955A|000010;
+   STY.B PC                             ;00955A|000010;
    RTS                                  ;00955C|      ;
 CODE_00955D:
-   INC.B $10                            ;00955D|000010;
-   INC.B $10                            ;00955F|000010;
+   INC.B PC                             ;00955D|000010;
+   INC.B PC                             ;00955F|000010;
    RTS                                  ;009561|      ;
 Event_Code_0C:
-   INC.B $10                            ;009562|000010; Jump if true/nonzero (2 byte ptr)
-   LDA.B [$10]                          ;009564|000010;
+   INC.B PC                             ;009562|000010; Jump if true/nonzero (2 byte ptr)
+   LDA.B [PC]                           ;009564|000010;
    TAY                                  ;009566|      ;
-   LDX.W Function_results               ;009567|001041;
-   LDA.W Function_results1,X            ;00956A|000CB3;
+   LDX.W Fn_results                     ;009567|001041;
+   LDA.W Fn_results1,X                  ;00956A|000CB3;
    BEQ CODE_009572                      ;00956D|009572;
-   STY.B $10                            ;00956F|000010;
+   STY.B PC                             ;00956F|000010;
    RTS                                  ;009571|      ;
 CODE_009572:
-   INC.B $10                            ;009572|000010;
-   INC.B $10                            ;009574|000010;
+   INC.B PC                             ;009572|000010;
+   INC.B PC                             ;009574|000010;
    RTS                                  ;009576|      ;
 Event_Code_11:
-   LDX.W Function_results               ;009577|001041; If less than next byte, jump using ptr table
-   LDA.W Function_results1,X            ;00957A|000CB3;
+   LDX.W Fn_results                     ;009577|001041; If less than next byte, jump using ptr table
+   LDA.W Fn_results1,X                  ;00957A|000CB3;
    STA.B $20                            ;00957D|000020;
-   INC.B $10                            ;00957F|000010;
-   LDA.B [$10]                          ;009581|000010;
+   INC.B PC                             ;00957F|000010;
+   LDA.B [PC]                           ;009581|000010;
    AND.W #$00FF                         ;009583|      ;
-   INC.B $10                            ;009586|000010;
+   INC.B PC                             ;009586|000010;
    CMP.B $20                            ;009588|000020;
    BCC CODE_00958E                      ;00958A|00958E;
    BNE CODE_009594                      ;00958C|009594;
 CODE_00958E:
    ASL A                                ;00958E|      ;
-   ADC.B $10                            ;00958F|000010;
-   STA.B $10                            ;009591|000010;
+   ADC.B PC                             ;00958F|000010;
+   STA.B PC                             ;009591|000010;
    RTS                                  ;009593|      ;
 CODE_009594:
    LDA.B $20                            ;009594|000020;
    ASL A                                ;009596|      ;
    TAY                                  ;009597|      ;
-   LDA.B [$10],Y                        ;009598|000010;
-   STA.B $10                            ;00959A|000010;
+   LDA.B [PC],Y                         ;009598|000010;
+   STA.B PC                             ;00959A|000010;
    RTS                                  ;00959C|      ;
 Event_Code_12:
-   LDX.W Function_results               ;00959D|001041; Very complicated (1b), JSR (2b)
-   LDA.W Function_results1,X            ;0095A0|000CB3;
+   LDX.W Fn_results                     ;00959D|001041; Very complicated (1b), JSR (2b)
+   LDA.W Fn_results1,X                  ;0095A0|000CB3;
    STA.B $20                            ;0095A3|000020;
-   INC.B $10                            ;0095A5|000010;
-   LDA.B [$10]                          ;0095A7|000010;
+   INC.B PC                             ;0095A5|000010;
+   LDA.B [PC]                           ;0095A7|000010;
    AND.W #$00FF                         ;0095A9|      ;
-   INC.B $10                            ;0095AC|000010;
+   INC.B PC                             ;0095AC|000010;
    CMP.B $20                            ;0095AE|000020;
    BCC CODE_00958E                      ;0095B0|00958E;
    BEQ CODE_00958E                      ;0095B2|00958E;
-   LDX.W Function_results               ;0095B4|001041;
+   LDX.W Fn_results                     ;0095B4|001041;
    LDY.W $0B43,X                        ;0095B7|000B43;
    ASL A                                ;0095BA|      ;
-   ADC.B $10                            ;0095BB|000010;
+   ADC.B PC                             ;0095BB|000010;
    STA.B [$14],Y                        ;0095BD|000014;
    INY                                  ;0095BF|      ;
    INY                                  ;0095C0|      ;
@@ -3070,7 +3070,7 @@ Event_Code_12:
    STA.W $0B43,X                        ;0095C2|000B43;
    BRA CODE_009594                      ;0095C5|009594;
 Event_Code_0D:
-   LDY.W Function_results               ;0095C7|001041;
+   LDY.W Fn_results                     ;0095C7|001041;
 CODE_0095CA:
    LDX.W Selection                      ;0095CA|00103F;
    JSR.W Stuff                          ;0095CD|009A7B;
@@ -3082,11 +3082,11 @@ CODE_0095CA:
 CODE_0095DE:
    RTS                                  ;0095DE|      ;
 Event_Code_08:
-   INC.B $10                            ;0095DF|000010; op08: Does something with the main loop
+   INC.B PC                             ;0095DF|000010; op08: Does something with the main loop
    JSR.W Return_Carry                   ;0095E1|009A6C; Loads a Y value and returns carry flag
    BCS CODE_009607                      ;0095E4|009607;
    STY.W LoopVar_1047                   ;0095E6|001047;
-   LDX.W Function_results               ;0095E9|001041;
+   LDX.W Fn_results                     ;0095E9|001041;
    LDA.W $0AE7,X                        ;0095EC|000AE7;
    STA.W $0AE7,Y                        ;0095EF|000AE7;
    TYA                                  ;0095F2|      ;
@@ -3094,23 +3094,23 @@ Event_Code_08:
    TYX                                  ;0095F6|      ;
    STZ.W $0B43,X                        ;0095F7|000B43;
    STZ.W Anim_Loopvar,X                 ;0095FA|000B9F;
-   LDA.B [$10]                          ;0095FD|000010;
+   LDA.B [PC]                           ;0095FD|000010;
    STA.W Ptr_EventStack,X               ;0095FF|000BFB;
    LDA.B $12                            ;009602|000012;
    STA.W Bank_EventStack,X              ;009604|000C57;
 CODE_009607:
-   INC.B $10                            ;009607|000010;
-   INC.B $10                            ;009609|000010;
+   INC.B PC                             ;009607|000010;
+   INC.B PC                             ;009609|000010;
    RTS                                  ;00960B|      ;
 Event_Code_14:
-   INC.B $10                            ;00960C|000010; Does stuff. Compares next byte to $20
-   LDA.B [$10]                          ;00960E|000010;
-   INC.B $10                            ;009610|000010;
+   INC.B PC                             ;00960C|000010; Does stuff. Compares next byte to $20
+   LDA.B [PC]                           ;00960E|000010;
+   INC.B PC                             ;009610|000010;
    AND.W #$00FF                         ;009612|      ;
    CMP.W #$0080                         ;009615|      ;
    BCS CODE_009629                      ;009618|009629;
    STA.B $20                            ;00961A|000020;
-   LDY.W Function_results               ;00961C|001041;
+   LDY.W Fn_results                     ;00961C|001041;
 CODE_00961F:
    LDA.W $0AE7,Y                        ;00961F|000AE7;
    TAY                                  ;009622|      ;
@@ -3120,7 +3120,7 @@ CODE_00961F:
 CODE_009629:
    PHA                                  ;009629|      ;
    LDX.W Selection                      ;00962A|00103F;
-   LDY.W Function_results               ;00962D|001041;
+   LDY.W Fn_results                     ;00962D|001041;
    JSR.W CODE_009ACA                    ;009630|009ACA;
    STA.B $20                            ;009633|000020;
    PLA                                  ;009635|      ;
@@ -3130,35 +3130,35 @@ CODE_009629:
 CODE_00963C:
    JMP.W CODE_0095CA                    ;00963C|0095CA;
 Event_Code_09:
-   INC.B $10                            ;00963F|000010; Call 24bit ptr after returning?
+   INC.B PC                             ;00963F|000010; Call 24bit ptr after returning?
    LDX.W Selection                      ;009641|00103F;
-   LDA.B [$10]                          ;009644|000010;
-   STA.W $0A33,X                        ;009646|000A33;
-   INC.B $10                            ;009649|000010;
-   INC.B $10                            ;00964B|000010;
-   LDA.B [$10]                          ;00964D|000010;
-   STA.W $0A57,X                        ;00964F|000A57;
-   INC.B $10                            ;009652|000010;
+   LDA.B [PC]                           ;009644|000010;
+   STA.W Stack_addr_ptr,X               ;009646|000A33;
+   INC.B PC                             ;009649|000010;
+   INC.B PC                             ;00964B|000010;
+   LDA.B [PC]                           ;00964D|000010;
+   STA.W Stack_addr_bank,X              ;00964F|000A57;
+   INC.B PC                             ;009652|000010;
    RTS                                  ;009654|      ;
 Event_Code_0A:
-   LDX.W Function_results               ;009655|001041; Clears animation loop
+   LDX.W Fn_results                     ;009655|001041; Clears animation loop
    LDA.W #$FFFF                         ;009658|      ;
    STA.W Anim_Loopvar,X                 ;00965B|000B9F;
    RTS                                  ;00965E|      ;
 Event_Anim_A8_AF:
    LDX.W Selection                      ;00965F|00103F; Increment animation ID
    INC.W Anim_ID,X                      ;009662|000A7B;
-   INC.B $10                            ;009665|000010;
+   INC.B PC                             ;009665|000010;
    RTS                                  ;009667|      ;
 Event_Anim_B0_B7:
    LDX.W Selection                      ;009668|00103F; Decrements the animation ID
    DEC.W Anim_ID,X                      ;00966B|000A7B;
-   INC.B $10                            ;00966E|000010;
+   INC.B PC                             ;00966E|000010;
    RTS                                  ;009670|      ;
 Event_Anim_B8_BF_1b:
-   INC.B $10                            ;009671|000010; Adds (1b) to the animation ID. Can do subtraction too.
+   INC.B PC                             ;009671|000010; Adds (1b) to the animation ID. Can do subtraction too.
    LDX.W Selection                      ;009673|00103F;
-   LDA.B [$10]                          ;009676|000010;
+   LDA.B [PC]                           ;009676|000010;
    AND.W #$00FF                         ;009678|      ;
    CMP.W #$0080                         ;00967B|      ;
    BCC CODE_009684                      ;00967E|009684;
@@ -3167,22 +3167,22 @@ Event_Anim_B8_BF_1b:
 CODE_009684:
    ADC.W Anim_ID,X                      ;009684|000A7B;
    STA.W Anim_ID,X                      ;009687|000A7B;
-   INC.B $10                            ;00968A|000010;
+   INC.B PC                             ;00968A|000010;
    RTS                                  ;00968C|      ;
 Event_Code_19:
-   INC.B $10                            ;00968D|000010; Similar to 0E (3 bytes)
-   LDA.B [$10]                          ;00968F|000010;
-   STA.B $1C                            ;009691|00001C;
-   INC.B $10                            ;009693|000010;
-   INC.B $10                            ;009695|000010;
-   LDA.B [$10]                          ;009697|000010;
+   INC.B PC                             ;00968D|000010; Similar to 0E (3 bytes)
+   LDA.B [PC]                           ;00968F|000010;
+   STA.B Addr_ptr                       ;009691|00001C;
+   INC.B PC                             ;009693|000010;
+   INC.B PC                             ;009695|000010;
+   LDA.B [PC]                           ;009697|000010;
    AND.W #$00FF                         ;009699|      ;
    ASL A                                ;00969C|      ;
    TAX                                  ;00969D|      ;
-   INC.B $10                            ;00969E|000010;
-   LDA.B [$10]                          ;0096A0|000010;
+   INC.B PC                             ;00969E|000010;
+   LDA.B [PC]                           ;0096A0|000010;
    STA.B $20                            ;0096A2|000020;
-   INC.B $10                            ;0096A4|000010;
+   INC.B PC                             ;0096A4|000010;
    LDA.L Tbl_RAM_Operations,X           ;0096A6|0096F2;
    STA.W Event_CodePtr                  ;0096AA|001049;
    LDX.W #$0000                         ;0096AD|      ;
@@ -3191,32 +3191,32 @@ Event_Code_19:
    REP #$20                             ;0096B5|      ;
    RTS                                  ;0096B7|      ;
 Event_Code_15:
-   INC.B $10                            ;0096B8|000010; (4b) Compares an actor ID with a value
-   LDA.B [$10]                          ;0096BA|000010; (1b) Takes an offset to an actor array
+   INC.B PC                             ;0096B8|000010; (4b) Compares an actor ID with a value
+   LDA.B [PC]                           ;0096BA|000010; (1b) Takes an offset to an actor array
    AND.W #$00FF                         ;0096BC|      ;
    ASL A                                ;0096BF|      ;
    TAX                                  ;0096C0|      ;
    LDA.L Tbl_Actor_Arrays,X             ;0096C1|009739; Load the actor array RAM address
    CLC                                  ;0096C5|      ;
    ADC.W Selection                      ;0096C6|00103F;
-   STA.B $1C                            ;0096C9|00001C; Save the RAM address we're checking
+   STA.B Addr_ptr                       ;0096C9|00001C; Save the RAM address we're checking
    BRA CODE_0096D5                      ;0096CB|0096D5;
 Event_Code_0E:
-   INC.B $10                            ;0096CD|000010; (5b) Compares RAM to a value
-   LDA.B [$10]                          ;0096CF|000010;
-   STA.B $1C                            ;0096D1|00001C; (2b) RAM address to compare
-   INC.B $10                            ;0096D3|000010;
+   INC.B PC                             ;0096CD|000010; (5b) Compares RAM to a value
+   LDA.B [PC]                           ;0096CF|000010;
+   STA.B Addr_ptr                       ;0096D1|00001C; (2b) RAM address to compare
+   INC.B PC                             ;0096D3|000010;
 CODE_0096D5:
-   INC.B $10                            ;0096D5|000010;
-   LDA.B [$10]                          ;0096D7|000010; (1b) Get comparison operation to perform (0-3)
+   INC.B PC                             ;0096D5|000010;
+   LDA.B [PC]                           ;0096D7|000010; (1b) Get comparison operation to perform (0-3)
    AND.W #$00FF                         ;0096D9|      ;
    ASL A                                ;0096DC|      ;
    TAX                                  ;0096DD|      ;
-   INC.B $10                            ;0096DE|000010;
-   LDA.B [$10]                          ;0096E0|000010;
+   INC.B PC                             ;0096DE|000010;
+   LDA.B [PC]                           ;0096E0|000010;
    STA.B $20                            ;0096E2|000020; (2b) Get comparison value
-   INC.B $10                            ;0096E4|000010;
-   INC.B $10                            ;0096E6|000010;
+   INC.B PC                             ;0096E4|000010;
+   INC.B PC                             ;0096E6|000010;
    LDA.L Tbl_RAM_Operations,X           ;0096E8|0096F2; Load the comparison operation
    STA.W Event_CodePtr                  ;0096EC|001049;
    JMP.W (Event_CodePtr)                ;0096EF|001049; Call the comparison operation
@@ -3226,42 +3226,42 @@ Tbl_RAM_Operations:
    dw Operation_AddCarry                ;0096F6|009708; ADC
    dw Operation_EOR                     ;0096F8|009710; XOR
 Operation_AND:
-   LDA.B ($1C)                          ;0096FA|00001C;
+   LDA.B (Addr_ptr)                     ;0096FA|00001C;
    AND.B $20                            ;0096FC|000020;
-   STA.B ($1C)                          ;0096FE|00001C;
+   STA.B (Addr_ptr)                     ;0096FE|00001C;
    RTS                                  ;009700|      ;
 Operation_OR:
-   LDA.B ($1C)                          ;009701|00001C;
+   LDA.B (Addr_ptr)                     ;009701|00001C;
    ORA.B $20                            ;009703|000020;
-   STA.B ($1C)                          ;009705|00001C;
+   STA.B (Addr_ptr)                     ;009705|00001C;
    RTS                                  ;009707|      ;
 Operation_AddCarry:
-   LDA.B ($1C)                          ;009708|00001C;
+   LDA.B (Addr_ptr)                     ;009708|00001C;
    CLC                                  ;00970A|      ;
    ADC.B $20                            ;00970B|000020;
-   STA.B ($1C)                          ;00970D|00001C;
+   STA.B (Addr_ptr)                     ;00970D|00001C;
    RTS                                  ;00970F|      ;
 Operation_EOR:
-   LDA.B ($1C)                          ;009710|00001C;
+   LDA.B (Addr_ptr)                     ;009710|00001C;
    EOR.B $20                            ;009712|000020;
-   STA.B ($1C)                          ;009714|00001C;
+   STA.B (Addr_ptr)                     ;009714|00001C;
    RTS                                  ;009716|      ;
 Event_Code_0F:
-   INC.B $10                            ;009717|000010; (1b) table offset for RAM set, (2b) value
-   LDA.B [$10]                          ;009719|000010;
+   INC.B PC                             ;009717|000010; (1b) table offset for RAM set, (2b) value
+   LDA.B [PC]                           ;009719|000010;
    AND.W #$00FF                         ;00971B|      ;
    ASL A                                ;00971E|      ;
    TAX                                  ;00971F|      ;
    LDA.L Tbl_Actor_Arrays,X             ;009720|009739;
-   STA.B $18                            ;009724|000018;
+   STA.B Fn_ptr                         ;009724|000018;
    LDA.W #$0000                         ;009726|      ;
    STA.B $1A                            ;009729|00001A;
-   INC.B $10                            ;00972B|000010;
-   LDA.B [$10]                          ;00972D|000010;
+   INC.B PC                             ;00972B|000010;
+   LDA.B [PC]                           ;00972D|000010;
    LDY.W Selection                      ;00972F|00103F;
-   STA.B [$18],Y                        ;009732|000018;
-   INC.B $10                            ;009734|000010;
-   INC.B $10                            ;009736|000010;
+   STA.B [Fn_ptr],Y                     ;009732|000018;
+   INC.B PC                             ;009734|000010;
+   INC.B PC                             ;009736|000010;
    RTS                                  ;009738|      ;
 Tbl_Actor_Arrays:
    dw $09A3                             ;009739|0009A3; These hold values like lists of whose turn is next, who's the target of an attack etc.
@@ -3271,86 +3271,86 @@ Tbl_Actor_Arrays:
 Event_Code_10:
    LDX.W Selection                      ;009741|00103F; (0b): Sets 2 RAM vals
    JSR.W CODE_009BFD                    ;009744|009BFD;
-   INC.B $10                            ;009747|000010;
+   INC.B PC                             ;009747|000010;
    RTS                                  ;009749|      ;
 Event_Code_13:
-   INC.B $10                            ;00974A|000010; (3b): Set RAM address (2b) to value (1b)
-   LDA.B [$10]                          ;00974C|000010;
-   STA.B $18                            ;00974E|000018;
-   INC.B $10                            ;009750|000010;
-   INC.B $10                            ;009752|000010;
+   INC.B PC                             ;00974A|000010; (3b): Set RAM address (2b) to value (1b)
+   LDA.B [PC]                           ;00974C|000010;
+   STA.B Fn_ptr                         ;00974E|000018;
+   INC.B PC                             ;009750|000010;
+   INC.B PC                             ;009752|000010;
    SEP #$20                             ;009754|      ;
-   LDA.B [$10]                          ;009756|000010;
-   STA.B ($18)                          ;009758|000018;
+   LDA.B [PC]                           ;009756|000010;
+   STA.B (Fn_ptr)                       ;009758|000018;
    REP #$20                             ;00975A|      ;
-   INC.B $10                            ;00975C|000010;
+   INC.B PC                             ;00975C|000010;
    RTS                                  ;00975E|      ;
 Event_Code_16:
-   INC.B $10                            ;00975F|000010; (4b): Set RAM address (2b) to value (2b)
-   LDA.B [$10]                          ;009761|000010;
-   STA.B $18                            ;009763|000018;
-   INC.B $10                            ;009765|000010;
-   INC.B $10                            ;009767|000010;
-   LDA.B [$10]                          ;009769|000010;
-   STA.B ($18)                          ;00976B|000018;
-   INC.B $10                            ;00976D|000010;
-   INC.B $10                            ;00976F|000010;
+   INC.B PC                             ;00975F|000010; (4b): Set RAM address (2b) to value (2b)
+   LDA.B [PC]                           ;009761|000010;
+   STA.B Fn_ptr                         ;009763|000018;
+   INC.B PC                             ;009765|000010;
+   INC.B PC                             ;009767|000010;
+   LDA.B [PC]                           ;009769|000010;
+   STA.B (Fn_ptr)                       ;00976B|000018;
+   INC.B PC                             ;00976D|000010;
+   INC.B PC                             ;00976F|000010;
    RTS                                  ;009771|      ;
 Event_Code_17:
-   INC.B $10                            ;009772|000010;
-   LDA.B [$10]                          ;009774|000010;
+   INC.B PC                             ;009772|000010;
+   LDA.B [PC]                           ;009774|000010;
    TAY                                  ;009776|      ;
-   LDX.W Function_results               ;009777|001041;
-   LDA.W Function_results1,X            ;00977A|000CB3;
+   LDX.W Fn_results                     ;009777|001041;
+   LDA.W Fn_results1,X                  ;00977A|000CB3;
    BNE CODE_00978C                      ;00977D|00978C;
 CODE_00977F:
-   STY.B $10                            ;00977F|000010;
+   STY.B PC                             ;00977F|000010;
    LDA.W $0B43,X                        ;009781|000B43;
    SEC                                  ;009784|      ;
    SBC.W #$0003                         ;009785|      ;
    STA.W $0B43,X                        ;009788|000B43;
    RTS                                  ;00978B|      ;
 CODE_00978C:
-   INC.B $10                            ;00978C|000010;
-   INC.B $10                            ;00978E|000010;
+   INC.B PC                             ;00978C|000010;
+   INC.B PC                             ;00978E|000010;
    RTS                                  ;009790|      ;
 Event_Code_18:
-   INC.B $10                            ;009791|000010;
-   LDA.B [$10]                          ;009793|000010;
+   INC.B PC                             ;009791|000010;
+   LDA.B [PC]                           ;009793|000010;
    TAY                                  ;009795|      ;
-   LDX.W Function_results               ;009796|001041;
-   LDA.W Function_results1,X            ;009799|000CB3;
+   LDX.W Fn_results                     ;009796|001041;
+   LDA.W Fn_results1,X                  ;009799|000CB3;
    BEQ CODE_00978C                      ;00979C|00978C;
    BRA CODE_00977F                      ;00979E|00977F;
 Event_Code_1D:
    LDX.W Selection                      ;0097A0|00103F;
-   INC.B $10                            ;0097A3|000010;
-   LDA.B [$10]                          ;0097A5|000010;
+   INC.B PC                             ;0097A3|000010;
+   LDA.B [PC]                           ;0097A5|000010;
    STA.W $0A9F,X                        ;0097A7|000A9F;
-   INC.B $10                            ;0097AA|000010;
-   INC.B $10                            ;0097AC|000010;
-   LDA.B [$10]                          ;0097AE|000010;
+   INC.B PC                             ;0097AA|000010;
+   INC.B PC                             ;0097AC|000010;
+   LDA.B [PC]                           ;0097AE|000010;
    STA.W $0AC3,X                        ;0097B0|000AC3;
-   INC.B $10                            ;0097B3|000010;
+   INC.B PC                             ;0097B3|000010;
    RTS                                  ;0097B5|      ;
 Event_Code_1E:
-   INC.B $10                            ;0097B6|000010; Store value (2b) in $0CB3,x
-   LDA.B [$10]                          ;0097B8|000010;
-   LDX.W Function_results               ;0097BA|001041;
-   STA.W Function_results1,X            ;0097BD|000CB3;
-   INC.B $10                            ;0097C0|000010;
-   INC.B $10                            ;0097C2|000010;
+   INC.B PC                             ;0097B6|000010; Store value (2b) in $0CB3,x
+   LDA.B [PC]                           ;0097B8|000010;
+   LDX.W Fn_results                     ;0097BA|001041;
+   STA.W Fn_results1,X                  ;0097BD|000CB3;
+   INC.B PC                             ;0097C0|000010;
+   INC.B PC                             ;0097C2|000010;
    RTS                                  ;0097C4|      ;
 Event_Code_1F:
-   INC.B $10                            ;0097C5|000010; Store value from RAM addr (2b) in $0CB3,x
-   LDA.B [$10]                          ;0097C7|000010;
-   STA.B $18                            ;0097C9|000018;
-   LDA.B ($18)                          ;0097CB|000018;
-   LDX.W Function_results               ;0097CD|001041;
+   INC.B PC                             ;0097C5|000010; Store value from RAM addr (2b) in $0CB3,x
+   LDA.B [PC]                           ;0097C7|000010;
+   STA.B Fn_ptr                         ;0097C9|000018;
+   LDA.B (Fn_ptr)                       ;0097CB|000018;
+   LDX.W Fn_results                     ;0097CD|001041;
 CODE_0097D0:
-   STA.W Function_results1,X            ;0097D0|000CB3;
-   INC.B $10                            ;0097D3|000010;
-   INC.B $10                            ;0097D5|000010;
+   STA.W Fn_results1,X                  ;0097D0|000CB3;
+   INC.B PC                             ;0097D3|000010;
+   INC.B PC                             ;0097D5|000010;
    RTS                                  ;0097D7|      ;
 Event_Code_20:
    LDX.W Selection                      ;0097D8|00103F;
@@ -3358,9 +3358,9 @@ Event_Code_20:
    BPL CODE_0097E3                      ;0097DE|0097E3;
    JSR.W CODE_00981F                    ;0097E0|00981F;
 CODE_0097E3:
-   INC.B $10                            ;0097E3|000010;
-   LDY.W Function_results               ;0097E5|001041;
-   LDA.W Function_results1,Y            ;0097E8|000CB3;
+   INC.B PC                             ;0097E3|000010;
+   LDY.W Fn_results                     ;0097E5|001041;
+   LDA.W Fn_results1,Y                  ;0097E8|000CB3;
    TAY                                  ;0097EB|      ;
    ORA.W #$C000                         ;0097EC|      ;
    STA.W $06AF,X                        ;0097EF|0006AF;
@@ -3371,17 +3371,17 @@ Event_Code_21:
    BPL CODE_009800                      ;0097FB|009800;
    JSR.W CODE_00981F                    ;0097FD|00981F;
 CODE_009800:
-   INC.B $10                            ;009800|000010;
-   LDA.B [$10]                          ;009802|000010;
+   INC.B PC                             ;009800|000010;
+   LDA.B [PC]                           ;009802|000010;
    AND.W #$00FF                         ;009804|      ;
-   INC.B $10                            ;009807|000010;
+   INC.B PC                             ;009807|000010;
    ASL A                                ;009809|      ;
    TAY                                  ;00980A|      ;
    ORA.W #$8000                         ;00980B|      ;
    STA.W $06AF,X                        ;00980E|0006AF;
    JMP.W CODE_009B60                    ;009811|009B60;
 Event_Code_22:
-   INC.B $10                            ;009814|000010;
+   INC.B PC                             ;009814|000010;
    LDX.W Selection                      ;009816|00103F;
    LDA.W $06AF,X                        ;009819|0006AF;
    BMI CODE_00981F                      ;00981C|00981F;
@@ -3393,46 +3393,46 @@ CODE_00981F:
 CODE_009827:
    JMP.W CODE_009B87                    ;009827|009B87;
 Event_Code_23:
-   INC.B $10                            ;00982A|000010; Shares code with 21/22/23
-   LDA.B [$10]                          ;00982C|000010;
+   INC.B PC                             ;00982A|000010; Shares code with 21/22/23
+   LDA.B [PC]                           ;00982C|000010;
    AND.W #$00FF                         ;00982E|      ;
    ASL A                                ;009831|      ;
    TAX                                  ;009832|      ;
    LDA.L Tbl_Actor_Arrays,X             ;009833|009739;
-   STA.B $18                            ;009837|000018;
-   LDY.W Function_results               ;009839|001041;
-   LDA.W Function_results1,Y            ;00983C|000CB3;
+   STA.B Fn_ptr                         ;009837|000018;
+   LDY.W Fn_results                     ;009839|001041;
+   LDA.W Fn_results1,Y                  ;00983C|000CB3;
    LDY.W Selection                      ;00983F|00103F;
-   STA.B ($18),Y                        ;009842|000018;
-   INC.B $10                            ;009844|000010;
+   STA.B (Fn_ptr),Y                     ;009842|000018;
+   INC.B PC                             ;009844|000010;
    RTS                                  ;009846|      ;
 Event_Code_24:
-   INC.B $10                            ;009847|000010; (1b) Loads value from a table (00=$09A3)
-   LDA.B [$10]                          ;009849|000010;
+   INC.B PC                             ;009847|000010; (1b) Loads value from a table (00=$09A3)
+   LDA.B [PC]                           ;009849|000010;
    AND.W #$00FF                         ;00984B|      ;
    ASL A                                ;00984E|      ;
    TAX                                  ;00984F|      ;
    LDA.L Tbl_Actor_Arrays,X             ;009850|009739;
-   STA.B $18                            ;009854|000018;
+   STA.B Fn_ptr                         ;009854|000018;
    LDY.W Selection                      ;009856|00103F;
-   LDA.B ($18),Y                        ;009859|000018;
-   LDY.W Function_results               ;00985B|001041;
-   STA.W Function_results1,Y            ;00985E|000CB3;
-   INC.B $10                            ;009861|000010;
+   LDA.B (Fn_ptr),Y                     ;009859|000018;
+   LDY.W Fn_results                     ;00985B|001041;
+   STA.W Fn_results1,Y                  ;00985E|000CB3;
+   INC.B PC                             ;009861|000010;
    RTS                                  ;009863|      ;
 Event_Code_25:
-   INC.B $10                            ;009864|000010; Sets $0B9F Loop var from var0,var1,var2,var3
-   LDA.B [$10]                          ;009866|000010;
+   INC.B PC                             ;009864|000010; Sets $0B9F Loop var from var0,var1,var2,var3
+   LDA.B [PC]                           ;009866|000010;
    AND.W #$00FF                         ;009868|      ;
    ASL A                                ;00986B|      ;
    TAX                                  ;00986C|      ;
    LDA.L Tbl_Actor_Arrays,X             ;00986D|009739;
-   STA.B $18                            ;009871|000018;
+   STA.B Fn_ptr                         ;009871|000018;
    LDY.W Selection                      ;009873|00103F;
-   LDA.B ($18),Y                        ;009876|000018;
-   LDY.W Function_results               ;009878|001041;
+   LDA.B (Fn_ptr),Y                     ;009876|000018;
+   LDY.W Fn_results                     ;009878|001041;
    STA.W Anim_Loopvar,Y                 ;00987B|000B9F;
-   INC.B $10                            ;00987E|000010;
+   INC.B PC                             ;00987E|000010;
    RTS                                  ;009880|      ;
 Credits_Reading_0FD0:
    PHB                                  ;009881|      ; Also when loading enemies???
@@ -3447,7 +3447,7 @@ Credits_Reading_0FD0:
    DEC.W Cursor_Arr_Ypos_temp           ;00988E|001053;
    PLB                                  ;009891|      ;
    SEP #$20                             ;009892|      ;
-   LDX.B $10                            ;009894|000010;
+   LDX.B PC                             ;009894|000010;
    CPX.W #$0400                         ;009896|      ;
    BCS CODE_009916                      ;009899|009916;
 CODE_00989B:
@@ -3470,15 +3470,15 @@ CODE_0098AB:
    PLA                                  ;0098BB|      ;
    ADC.B #$00                           ;0098BC|      ; What's the point of this??
    BNE Credits_EOL                      ;0098BE|009909;
-   STZ.B $1C                            ;0098C0|00001C;
+   STZ.B Addr_ptr                       ;0098C0|00001C;
    LDA.W $0001,Y                        ;0098C2|000001;
    BPL CODE_0098C9                      ;0098C5|0098C9;
-   DEC.B $1C                            ;0098C7|00001C;
+   DEC.B Addr_ptr                       ;0098C7|00001C;
 CODE_0098C9:
    CLC                                  ;0098C9|      ;
    ADC.W Cursor_Arr_Xpos_temp           ;0098CA|001051;
    STA.B $00,X                          ;0098CD|000000;
-   LDA.B $1C                            ;0098CF|00001C;
+   LDA.B Addr_ptr                       ;0098CF|00001C;
    ADC.W $1052                          ;0098D1|001052;
    BEQ CODE_0098DD                      ;0098D4|0098DD;
    INC A                                ;0098D6|      ;
@@ -3522,7 +3522,7 @@ Credits_EOL:
    INY                                  ;009913|      ;
    BRA CODE_00989B                      ;009914|00989B;
 CODE_009916:
-   STX.B $10                            ;009916|000010;
+   STX.B PC                             ;009916|000010;
    PLD                                  ;009918|      ;
    PLB                                  ;009919|      ;
    REP #$30                             ;00991A|      ;
@@ -3808,24 +3808,24 @@ CODE_009AE8:
 CODE_009AEF:
    RTS                                  ;009AEF|      ;
 GetEventCode_1b:
-   INC.B $10                            ;009AF0|000010;
-   LDA.B [$10]                          ;009AF2|000010;
+   INC.B PC                             ;009AF0|000010;
+   LDA.B [PC]                           ;009AF2|000010;
    AND.W #$00FF                         ;009AF4|      ;
    RTS                                  ;009AF7|      ;
 GetEventCode_1b_far:
-   INC.B $10                            ;009AF8|000010;
-   LDA.B [$10]                          ;009AFA|000010;
+   INC.B PC                             ;009AF8|000010;
+   LDA.B [PC]                           ;009AFA|000010;
    AND.W #$00FF                         ;009AFC|      ;
    RTL                                  ;009AFF|      ;
 GetEventCode_2b:
-   INC.B $10                            ;009B00|000010;
-   LDA.B [$10]                          ;009B02|000010;
-   INC.B $10                            ;009B04|000010;
+   INC.B PC                             ;009B00|000010;
+   LDA.B [PC]                           ;009B02|000010;
+   INC.B PC                             ;009B04|000010;
    RTS                                  ;009B06|      ;
 GetEventCode_2b_far:
-   INC.B $10                            ;009B07|000010;
-   LDA.B [$10]                          ;009B09|000010;
-   INC.B $10                            ;009B0B|000010;
+   INC.B PC                             ;009B07|000010;
+   LDA.B [PC]                           ;009B09|000010;
+   INC.B PC                             ;009B0B|000010;
    RTL                                  ;009B0D|      ;
 JumpTo1049:
    JML.W [Event_CodePtr]                ;009B0E|001049;
@@ -3930,9 +3930,9 @@ CODE_009BCB:
    RTS                                  ;009BFC|      ;
 CODE_009BFD:
    LDA.W #$8E28                         ;009BFD|      ; Loads a pointer onto the stack? But it seems to point to an RTL
-   STA.W $0A33,X                        ;009C00|000A33;
+   STA.W Stack_addr_ptr,X               ;009C00|000A33;
    LDA.W #$0000                         ;009C03|      ;
-   STA.W $0A57,X                        ;009C06|000A57;
+   STA.W Stack_addr_bank,X              ;009C06|000A57;
    RTS                                  ;009C09|      ;
 Sound_byte_1b:
    JSR.W GetEventCode_1b                ;009C0A|009AF0;
@@ -4032,9 +4032,9 @@ Menu_Stuffs_1b:
    ASL A                                ;009CCC|      ;
    TAX                                  ;009CCD|      ;
    LDA.W Tbl_Actor_Arrays,X             ;009CCE|009739;
-   STA.B $18                            ;009CD1|000018;
+   STA.B Fn_ptr                         ;009CD1|000018;
    LDY.W Selection                      ;009CD3|00103F;
-   LDA.B ($18),Y                        ;009CD6|000018;
+   LDA.B (Fn_ptr),Y                     ;009CD6|000018;
    TAX                                  ;009CD8|      ;
    JML.L A_buncha_stuff_far             ;009CD9|00995C;
 Battle_related1b:
@@ -4382,19 +4382,19 @@ Set_CGADSUB_1b:
 Set_RGB_3b:
    SEP #$20                             ;009F83|      ;
    LDY.W #$0001                         ;009F85|      ;
-   LDA.B [$10],Y                        ;009F88|000010;
+   LDA.B [PC],Y                         ;009F88|000010;
    STA.W RGB_Red                        ;009F8A|00108C;
    INY                                  ;009F8D|      ;
-   LDA.B [$10],Y                        ;009F8E|000010;
+   LDA.B [PC],Y                         ;009F8E|000010;
    STA.W RGB_Green                      ;009F90|00108D;
    INY                                  ;009F93|      ;
-   LDA.B [$10],Y                        ;009F94|000010;
+   LDA.B [PC],Y                         ;009F94|000010;
    STA.W RGB_Blue                       ;009F96|00108E;
    REP #$20                             ;009F99|      ;
    TYA                                  ;009F9B|      ;
    CLC                                  ;009F9C|      ;
-   ADC.B $10                            ;009F9D|000010;
-   STA.B $10                            ;009F9F|000010;
+   ADC.B PC                             ;009F9D|000010;
+   STA.B PC                             ;009F9F|000010;
 Set_color_planes:
    SEP #$20                             ;009FA1|      ; Bitmask is bgrCCCCC (C=intensity, bgr=which color)
    LDA.W RGB_Red                        ;009FA3|00108C;
@@ -4436,28 +4436,28 @@ Add_RGB_3b:
    SEP #$20                             ;009FE2|      ;
    LDY.W #$0001                         ;009FE4|      ;
    CLC                                  ;009FE7|      ;
-   LDA.B [$10],Y                        ;009FE8|000010;
+   LDA.B [PC],Y                         ;009FE8|000010;
    ADC.W RGB_Red                        ;009FEA|00108C;
    STA.W RGB_Red                        ;009FED|00108C;
    INY                                  ;009FF0|      ;
    CLC                                  ;009FF1|      ;
-   LDA.B [$10],Y                        ;009FF2|000010;
+   LDA.B [PC],Y                         ;009FF2|000010;
    ADC.W RGB_Green                      ;009FF4|00108D;
    STA.W RGB_Green                      ;009FF7|00108D;
    INY                                  ;009FFA|      ;
    CLC                                  ;009FFB|      ;
-   LDA.B [$10],Y                        ;009FFC|000010;
+   LDA.B [PC],Y                         ;009FFC|000010;
    ADC.W RGB_Blue                       ;009FFE|00108E;
    STA.W RGB_Blue                       ;00A001|00108E;
    REP #$20                             ;00A004|      ;
    TYA                                  ;00A006|      ;
    CLC                                  ;00A007|      ;
-   ADC.B $10                            ;00A008|000010;
-   STA.B $10                            ;00A00A|000010;
+   ADC.B PC                             ;00A008|000010;
+   STA.B PC                             ;00A00A|000010;
    JMP.W Set_color_planes               ;00A00C|009FA1;
 WasBtnPressed_2b:
-   LDX.W Function_results               ;00A00F|001041; Reads the next word in $10, compares it with current button presses
-   LDA.W Function_results1,X            ;00A012|000CB3;
+   LDX.W Fn_results                     ;00A00F|001041; Reads the next word in $10, compares it with current button presses
+   LDA.W Fn_results1,X                  ;00A012|000CB3;
    ASL A                                ;00A015|      ;
    TAX                                  ;00A016|      ;
    JSR.W GetEventCode_2b                ;00A017|009B00;
@@ -4466,8 +4466,8 @@ WasBtnPressed_2b:
    AND.B $20                            ;00A01F|000020;
    RTL                                  ;00A021|      ;
 WasBtnPressedX_2b:
-   LDX.W Function_results               ;00A022|001041; Takes 2 bytes (0080=A, 8000=B)
-   LDA.W Function_results1,X            ;00A025|000CB3;
+   LDX.W Fn_results                     ;00A022|001041; Takes 2 bytes (0080=A, 8000=B)
+   LDA.W Fn_results1,X                  ;00A025|000CB3;
    ASL A                                ;00A028|      ;
    TAX                                  ;00A029|      ;
    JSR.W GetEventCode_2b                ;00A02A|009B00;
@@ -4498,11 +4498,11 @@ Loop_til_RAM_is_val_2b_2b:
    JSR.W GetEventCode_2b                ;00A056|009B00;
    CMP.B ($20)                          ;00A059|000020; (2b) Comparison value
    BEQ CODE_00A06E                      ;00A05B|00A06E; Continue/exit if equal
-   LDA.B $10                            ;00A05D|000010;
+   LDA.B PC                             ;00A05D|000010;
    SEC                                  ;00A05F|      ;
    SBC.W #$0008                         ;00A060|      ; Else decrease PC by 8
-   STA.B $10                            ;00A063|000010;
-   LDX.W Function_results               ;00A065|001041;
+   STA.B PC                             ;00A063|000010;
+   LDX.W Fn_results                     ;00A065|001041;
    LDA.W #$0001                         ;00A068|      ;
    STA.W Anim_Loopvar,X                 ;00A06B|000B9F; Set some function result
 CODE_00A06E:
@@ -4588,7 +4588,7 @@ CODE_00A0E7:
    RTL                                  ;00A104|      ;
 Transfer_Setup2_6b:
    JSR.W GetEventCode_2b                ;00A105|009B00; Reads (3b ptr), dest (1b offset), #bytes (2b)
-   STA.B $18                            ;00A108|000018; Reads src (3b) into $18
+   STA.B Fn_ptr                         ;00A108|000018; Reads src (3b) into $18
    JSR.W GetEventCode_1b                ;00A10A|009AF0;
    STA.B $1A                            ;00A10D|00001A;
    JSR.W GetEventCode_1b                ;00A10F|009AF0; Reads dest offset
@@ -4604,12 +4604,12 @@ Transfer_Setup2_6b:
    ADC.B $09                            ;00A125|000009;
    ASL A                                ;00A127|      ;
    ADC.W #$0420                         ;00A128|      ;
-   STA.B $1C                            ;00A12B|00001C; Dest RAM = $420 + 2 x (table value + parameter 2)
+   STA.B Addr_ptr                       ;00A12B|00001C; Dest RAM = $420 + 2 x (table value + parameter 2)
    DEY                                  ;00A12D|      ;
    DEY                                  ;00A12E|      ;
 CODE_00A12F:
-   LDA.B [$18],Y                        ;00A12F|000018;
-   STA.B ($1C),Y                        ;00A131|00001C;
+   LDA.B [Fn_ptr],Y                     ;00A12F|000018;
+   STA.B (Addr_ptr),Y                   ;00A131|00001C;
    DEY                                  ;00A133|      ;
    DEY                                  ;00A134|      ;
    BPL CODE_00A12F                      ;00A135|00A12F;
@@ -4621,83 +4621,83 @@ Tbl_A105:
    dw $0060                             ;00A13E|      ;
 Transfer_Data_3b_1b_2b:
    JSR.W GetEventCode_2b                ;00A140|009B00; Seems to transfer a bunch of RAM forward 420,x bytes
-   STA.B $18                            ;00A143|000018; $18 = (3b) Source address
+   STA.B Fn_ptr                         ;00A143|000018; $18 = (3b) Source address
    JSR.W GetEventCode_1b                ;00A145|009AF0; Source bank
    STA.B $1A                            ;00A148|00001A;
    JSR.W GetEventCode_1b                ;00A14A|009AF0; $1C = (1b) Destination ($420 + 2x)
    ASL A                                ;00A14D|      ;
    ADC.W #$0420                         ;00A14E|      ;
-   STA.B $1C                            ;00A151|00001C;
+   STA.B Addr_ptr                       ;00A151|00001C;
    JSR.W GetEventCode_2b                ;00A153|009B00; Y = (2b) Number of bytes to transfer
    TAY                                  ;00A156|      ;
    DEY                                  ;00A157|      ;
    DEY                                  ;00A158|      ;
 CODE_00A159:
-   LDA.B [$18],Y                        ;00A159|000018;
-   STA.B ($1C),Y                        ;00A15B|00001C;
+   LDA.B [Fn_ptr],Y                     ;00A159|000018;
+   STA.B (Addr_ptr),Y                   ;00A15B|00001C;
    DEY                                  ;00A15D|      ;
    DEY                                  ;00A15E|      ;
    BPL CODE_00A159                      ;00A15F|00A159;
    RTL                                  ;00A161|      ;
 Confusing_RAM_Xfer_3b_4b:
    LDY.W #$0006                         ;00A162|      ; p1-3 Source, p4 dest (420+2x), p5 size, p6 comparison, p7 array
-   LDA.B [$10],Y                        ;00A165|000010; Get parameter 6
+   LDA.B [PC],Y                         ;00A165|000010; Get parameter 6
    STA.B $20                            ;00A167|000020; Save to comparison value
    LDY.W #$0007                         ;00A169|      ;
-   LDA.B [$10],Y                        ;00A16C|000010; Get parameter 7 (0-3)
+   LDA.B [PC],Y                         ;00A16C|000010; Get parameter 7 (0-3)
    AND.W #$00FF                         ;00A16E|      ;
    ASL A                                ;00A171|      ;
    TAX                                  ;00A172|      ;
    LDA.L Tbl_Actor_Arrays,X             ;00A173|009739; Load 1 of 4 actor arrays from parameter 7
-   STA.B $1C                            ;00A177|00001C;
+   STA.B Addr_ptr                       ;00A177|00001C;
    LDY.W Selection                      ;00A179|00103F;
-   LDA.B ($1C),Y                        ;00A17C|00001C; Check if p7 value < p6 (i.e. $09A3,x < $#04)
+   LDA.B (Addr_ptr),Y                   ;00A17C|00001C; Check if p7 value < p6 (i.e. $09A3,x < $#04)
    CMP.B $20                            ;00A17E|000020;
    BCC CODE_00A187                      ;00A180|00A187;
    LDA.W #$0000                         ;00A182|      ; If not less than comparison, load 0
-   STA.B ($1C),Y                        ;00A185|00001C;
+   STA.B (Addr_ptr),Y                   ;00A185|00001C;
 CODE_00A187:
    PHA                                  ;00A187|      ;
    INC A                                ;00A188|      ;
-   STA.B ($1C),Y                        ;00A189|00001C; Increment array value
+   STA.B (Addr_ptr),Y                   ;00A189|00001C; Increment array value
    PLA                                  ;00A18B|      ;
    SEP #$20                             ;00A18C|      ;
    STA.W Multiply_lo                    ;00A18E|004202; Save original value to multiply operation
    LDY.W #$0005                         ;00A191|      ;
-   LDA.B [$10],Y                        ;00A194|000010; Get parameter 5
+   LDA.B [PC],Y                         ;00A194|000010; Get parameter 5
    ASL A                                ;00A196|      ;
    STA.W Multiply_hi                    ;00A197|004203; Multiply by that offset (p5=6 -> value*6*2)
    REP #$20                             ;00A19A|      ;
    LDY.W #$0001                         ;00A19C|      ;
    CLC                                  ;00A19F|      ;
    LDA.W Mult_Divide_Result             ;00A1A0|004216;
-   ADC.B [$10],Y                        ;00A1A3|000010; Add parameter 1 (pointer) to product
-   STA.B $18                            ;00A1A5|000018; Set source to $18
+   ADC.B [PC],Y                         ;00A1A3|000010; Add parameter 1 (pointer) to product
+   STA.B Fn_ptr                         ;00A1A5|000018; Set source to $18
    LDY.W #$0003                         ;00A1A7|      ;
-   LDA.B [$10],Y                        ;00A1AA|000010; Get parameter 3 (bank)
+   LDA.B [PC],Y                         ;00A1AA|000010; Get parameter 3 (bank)
    STA.B $1A                            ;00A1AC|00001A; Save source bank to $1A
    INY                                  ;00A1AE|      ;
-   LDA.B [$10],Y                        ;00A1AF|000010; Get parameter 4
+   LDA.B [PC],Y                         ;00A1AF|000010; Get parameter 4
    AND.W #$00FF                         ;00A1B1|      ;
    ASL A                                ;00A1B4|      ;
    ADC.W #$0420                         ;00A1B5|      ; Count that many double bytes past $#420
-   STA.B $1C                            ;00A1B8|00001C; Set destination to $1C
+   STA.B Addr_ptr                       ;00A1B8|00001C; Set destination to $1C
    LDY.W #$0005                         ;00A1BA|      ; Get parameter 5
-   LDA.B [$10],Y                        ;00A1BD|000010;
+   LDA.B [PC],Y                         ;00A1BD|000010;
    AND.W #$00FF                         ;00A1BF|      ;
    DEC A                                ;00A1C2|      ;
    ASL A                                ;00A1C3|      ;
    TAY                                  ;00A1C4|      ;
 Loop_Xfer_Bytes:
-   LDA.B [$18],Y                        ;00A1C5|000018;
-   STA.B ($1C),Y                        ;00A1C7|00001C;
+   LDA.B [Fn_ptr],Y                     ;00A1C5|000018;
+   STA.B (Addr_ptr),Y                   ;00A1C7|00001C;
    DEY                                  ;00A1C9|      ;
    DEY                                  ;00A1CA|      ;
    BPL Loop_Xfer_Bytes                  ;00A1CB|00A1C5;
-   LDA.B $10                            ;00A1CD|000010; Advance the program counter
+   LDA.B PC                             ;00A1CD|000010; Advance the program counter
    CLC                                  ;00A1CF|      ;
    ADC.W #$0007                         ;00A1D0|      ;
-   STA.B $10                            ;00A1D3|000010;
+   STA.B PC                             ;00A1D3|000010;
    RTL                                  ;00A1D5|      ;
 PtrTable_8DAD:
    dl Script_18321                      ;00A1D6|018321; 216 entries (???)
@@ -5352,11 +5352,11 @@ CODE_00A764:
    PEA.W $7E7E                          ;00A76E|007E7E;
    PLB                                  ;00A771|      ;
    PLB                                  ;00A772|      ;
-   STZ.B $10                            ;00A773|000010;
+   STZ.B PC                             ;00A773|000010;
    LDA.W #$109B                         ;00A775|      ;
    JMP.W CODE_00AB19                    ;00A778|00AB19;
 Pause_Helper:
-   LDX.B $10                            ;00A77B|000010;
+   LDX.B PC                             ;00A77B|000010;
    LDA.W Pause_status                   ;00A77D|001095;
    AND.L Pause_Table,X                  ;00A780|00AB29; $1095 odd or even?
    BEQ CODE_00A789                      ;00A784|00A789;
@@ -5371,7 +5371,7 @@ CODE_00A793:
    BEQ Unpause_from_7F                  ;00A796|00A79B;
    JMP.W Text_Paused                    ;00A798|00AB0F;
 Unpause_from_7F:
-   LDA.W $0018,X                        ;00A79B|000018;
+   LDA.W Fn_ptr,X                       ;00A79B|000018;
    STA.B $06                            ;00A79E|000006; Pop the PC and bank
    LDA.W $001A,X                        ;00A7A0|00001A;
    STA.B $08                            ;00A7A3|000008;
@@ -5464,7 +5464,7 @@ CODE_00A84D:
 CODE_00A855:
    JMP.W Event_Text_Text                ;00A855|00AA11; This one's a doozy
 Event_Text_00:
-   LDA.W $001C,X                        ;00A858|00001C; Null terminator. Returns from section (pops the pointer)
+   LDA.W Addr_ptr,X                     ;00A858|00001C; Null terminator. Returns from section (pops the pointer)
    BNE Text_Pop_Stack                   ;00A85B|00A86B;
    LDA.W #$0000                         ;00A85D|      ; If no stack, zero it to be sure
    STA.W $0016,X                        ;00A860|000016;
@@ -5472,12 +5472,12 @@ Event_Text_00:
    STA.B $0A                            ;00A866|00000A;
    JMP.W Event_Text_helper              ;00A868|00AAFC;
 Text_Pop_Stack:
-   LDA.W $001C,X                        ;00A86B|00001C;
+   LDA.W Addr_ptr,X                     ;00A86B|00001C;
    STA.B $06                            ;00A86E|000006;
    LDA.W $001E,X                        ;00A870|00001E;
    STA.B $08                            ;00A873|000008;
    LDA.W #$0000                         ;00A875|      ;
-   STA.W $001C,X                        ;00A878|00001C;
+   STA.W Addr_ptr,X                     ;00A878|00001C;
    STA.W $001E,X                        ;00A87B|00001E;
    JMP.W Event_Text_helper              ;00A87E|00AAFC;
 Event_Text_01:
@@ -5558,7 +5558,7 @@ Event_Text_14:
    STA.B $02                            ;00A926|000002;
    INC.B $06                            ;00A928|000006;
    LDA.B $06                            ;00A92A|000006;
-   STA.W $001C,X                        ;00A92C|00001C;
+   STA.W Addr_ptr,X                     ;00A92C|00001C;
    LDA.B $08                            ;00A92F|000008;
    STA.W $001E,X                        ;00A931|00001E;
    LDA.B [$00]                          ;00A934|000000;
@@ -5578,7 +5578,7 @@ Event_Text_10:
    STA.B $02                            ;00A950|000002;
    INC.B $06                            ;00A952|000006;
    LDA.B $06                            ;00A954|000006;
-   STA.W $001C,X                        ;00A956|00001C;
+   STA.W Addr_ptr,X                     ;00A956|00001C;
    LDA.B $08                            ;00A959|000008;
    STA.W $001E,X                        ;00A95B|00001E;
    LDA.B $00                            ;00A95E|000000;
@@ -5603,7 +5603,7 @@ Event_Text_11:
    JSR.W Text_Opcode_Helper_Fn3         ;00A985|00AB2D;
    LDX.B $04                            ;00A988|000004;
    LDA.B $06                            ;00A98A|000006;
-   STA.W $001C,X                        ;00A98C|00001C;
+   STA.W Addr_ptr,X                     ;00A98C|00001C;
    LDA.B $08                            ;00A98F|000008;
    STA.W $001E,X                        ;00A991|00001E;
    LDA.W #$10EB                         ;00A994|      ;
@@ -5635,7 +5635,7 @@ Event_Text_1E:
    LDY.W Text_Speed                     ;00A9C8|001099;
    BRA Set_Text_Speed                   ;00A9CB|00A9AE;
 Event_Text_7F:
-   LDX.B $10                            ;00A9CD|000010; (0b) Pause until A button is pressed.
+   LDX.B PC                             ;00A9CD|000010; (0b) Pause until A button is pressed.
    LDA.W Pause_status                   ;00A9CF|001095;
    ORA.L Pause_Table,X                  ;00A9D2|00AB29;
    STA.W Pause_status                   ;00A9D6|001095;
@@ -5783,7 +5783,7 @@ CODE_00AAF3:
 Event_Text_helper:
    LDX.B $04                            ;00AAFC|000004; Pushes the text PC pointer
    LDA.B $06                            ;00AAFE|000006;
-   STA.W $0018,X                        ;00AB00|000018; Offset 18 (Temp PC addr)
+   STA.W Fn_ptr,X                       ;00AB00|000018; Offset 18 (Temp PC addr)
    LDA.B $08                            ;00AB03|000008;
    STA.W $001A,X                        ;00AB05|00001A; Offset 1A (Temp PC bank)
 Get_Pause_Status:
@@ -5791,8 +5791,8 @@ Get_Pause_Status:
    BNE Text_Paused                      ;00AB0A|00AB0F;
    JMP.W Read_TextOpcode                ;00AB0C|00A7B5; If not paused, continue
 Text_Paused:
-   INC.B $10                            ;00AB0F|000010;
-   INC.B $10                            ;00AB11|000010;
+   INC.B PC                             ;00AB0F|000010;
+   INC.B PC                             ;00AB11|000010;
    LDA.B $04                            ;00AB13|000004;
    CLC                                  ;00AB15|      ;
    ADC.W #$0028                         ;00AB16|      ;
@@ -5819,9 +5819,9 @@ Text_Opcode_Helper_Fn3:
    PLA                                  ;00AB35|      ;
    STA.B $12                            ;00AB36|000012;
    LDA.W #$10EB                         ;00AB38|      ;
-   STA.B $10                            ;00AB3B|000010;
+   STA.B PC                             ;00AB3B|000010;
    LDA.W #$0000                         ;00AB3D|      ;
-   STA.B ($10)                          ;00AB40|000010;
+   STA.B (PC)                           ;00AB40|000010;
    STZ.B $0A                            ;00AB42|00000A;
    LDA.B [$14]                          ;00AB44|000014;
    STA.B $08                            ;00AB46|000008;
@@ -5888,14 +5888,14 @@ CODE_00AB9A:
    AND.W #$0020                         ;00ABB9|      ;
    BEQ CODE_00ABC9                      ;00ABBC|00ABC9;
    LDA.W #$4081                         ;00ABBE|      ;
-   STA.B ($10)                          ;00ABC1|000010;
-   INC.B $10                            ;00ABC3|000010;
-   INC.B $10                            ;00ABC5|000010;
+   STA.B (PC)                           ;00ABC1|000010;
+   INC.B PC                             ;00ABC3|000010;
+   INC.B PC                             ;00ABC5|000010;
    BRA CODE_00ABF3                      ;00ABC7|00ABF3;
 CODE_00ABC9:
    LDA.W #$0060                         ;00ABC9|      ;
-   STA.B ($10)                          ;00ABCC|000010;
-   INC.B $10                            ;00ABCE|000010;
+   STA.B (PC)                           ;00ABCC|000010;
+   INC.B PC                             ;00ABCE|000010;
    BRA CODE_00ABF3                      ;00ABD0|00ABF3;
 CODE_00ABD2:
    STZ.B $06                            ;00ABD2|000006;
@@ -5906,15 +5906,15 @@ CODE_00ABD2:
    CLC                                  ;00ABDD|      ;
    ADC.W #$824F                         ;00ABDE|      ;
    XBA                                  ;00ABE1|      ;
-   STA.B ($10)                          ;00ABE2|000010;
-   INC.B $10                            ;00ABE4|000010;
-   INC.B $10                            ;00ABE6|000010;
+   STA.B (PC)                           ;00ABE2|000010;
+   INC.B PC                             ;00ABE4|000010;
+   INC.B PC                             ;00ABE6|000010;
    BRA CODE_00ABF3                      ;00ABE8|00ABF3;
 CODE_00ABEA:
    LDA.B $02                            ;00ABEA|000002;
    ORA.W #$0030                         ;00ABEC|      ;
-   STA.B ($10)                          ;00ABEF|000010;
-   INC.B $10                            ;00ABF1|000010;
+   STA.B (PC)                           ;00ABEF|000010;
+   INC.B PC                             ;00ABF1|000010;
 CODE_00ABF3:
    DEC.B $00                            ;00ABF3|000000;
 CODE_00ABF5:
@@ -5923,7 +5923,7 @@ CODE_00ABF5:
    JMP.W CODE_00AB76                    ;00ABF9|00AB76;
 CODE_00ABFC:
    LDA.W #$0000                         ;00ABFC|      ;
-   STA.B ($10)                          ;00ABFF|000010;
+   STA.B (PC)                           ;00ABFF|000010;
 CODE_00AC01:
    PLD                                  ;00AC01|      ;
    RTS                                  ;00AC02|      ;
@@ -8431,7 +8431,7 @@ CODE_00B6BA:
    LDA.L DATA16_00B7DA,X                ;00B70E|00B7DA;
    STA.B $0E                            ;00B712|00000E;
    LDA.L DATA16_00B7EA,X                ;00B714|00B7EA;
-   STA.B $10                            ;00B718|000010;
+   STA.B PC                             ;00B718|000010;
    LDA.L DATA16_00B7FA,X                ;00B71A|00B7FA;
    STA.B $12                            ;00B71E|000012;
    LDA.B $00                            ;00B720|000000;
@@ -8466,7 +8466,7 @@ CODE_00B733:
    EOR.L EOR_table,X                    ;00B769|00B82A;
    LDX.B $0A                            ;00B76D|00000A;
    EOR.W $4010,X                        ;00B76F|004010;
-   AND.B $10                            ;00B772|000010;
+   AND.B PC                             ;00B772|000010;
    EOR.W $4010,X                        ;00B774|004010;
    STA.W $4010,X                        ;00B777|004010;
    INY                                  ;00B77A|      ;
@@ -8635,7 +8635,7 @@ CODE_00B852:
    LDA.L DATA16_00B940,X                ;00B8A6|00B940;
    STA.B $0E                            ;00B8AA|00000E;
    LDA.L DATA16_00B950,X                ;00B8AC|00B950;
-   STA.B $10                            ;00B8B0|000010;
+   STA.B PC                             ;00B8B0|000010;
    LDA.B $00                            ;00B8B2|000000;
    JSR.W CODE_00B44D                    ;00B8B4|00B44D;
    LDX.W #$6800                         ;00B8B7|      ;
@@ -8657,7 +8657,7 @@ CODE_00B8C2:
    EOR.W $4000,X                        ;00B8DF|004000;
    STA.W $4000,X                        ;00B8E2|004000;
    INY                                  ;00B8E5|      ;
-   LDA.B $10                            ;00B8E6|000010;
+   LDA.B PC                             ;00B8E6|000010;
    BEQ CODE_00B90D                      ;00B8E8|00B90D;
    SEP #$20                             ;00B8EA|      ;
    LDA.W $6800,Y                        ;00B8EC|006800;
@@ -8669,7 +8669,7 @@ CODE_00B8C2:
    EOR.L EOR_table,X                    ;00B8FC|00B82A;
    LDX.B $0A                            ;00B900|00000A;
    EOR.W $4010,X                        ;00B902|004010;
-   AND.B $10                            ;00B905|000010;
+   AND.B PC                             ;00B905|000010;
    EOR.W $4010,X                        ;00B907|004010;
    STA.W $4010,X                        ;00B90A|004010;
 CODE_00B90D:
@@ -8694,7 +8694,7 @@ CODE_00B90D:
 CODE_00B92A:
    CPY.W #$0024                         ;00B92A|      ;
    BCC CODE_00B8C2                      ;00B92D|00B8C2;
-   LDX.B $10                            ;00B92F|000010;
+   LDX.B PC                             ;00B92F|000010;
    BEQ CODE_00B93B                      ;00B931|00B93B;
    LDA.B $0A                            ;00B933|00000A;
    CLC                                  ;00B935|      ;
@@ -8785,7 +8785,7 @@ CODE_00B960:
    LDA.L DATA16_00BA88,X                ;00B9C9|00BA88;
    STA.B $0E                            ;00B9CD|00000E;
    LDA.L DATA16_00BBE8,X                ;00B9CF|00BBE8;
-   STA.B $10                            ;00B9D3|000010;
+   STA.B PC                             ;00B9D3|000010;
    LDA.L DATA16_00BB68,X                ;00B9D5|00BB68;
    STA.B $12                            ;00B9D9|000012;
    LDY.W #$0000                         ;00B9DB|      ;
@@ -8804,7 +8804,7 @@ CODE_00B9DE:
    EOR.W $4000,X                        ;00B9FB|004000;
    STA.W $4000,X                        ;00B9FE|004000;
    INY                                  ;00BA01|      ;
-   LDA.B $10                            ;00BA02|000010;
+   LDA.B PC                             ;00BA02|000010;
    BEQ CODE_00BA29                      ;00BA04|00BA29;
    SEP #$20                             ;00BA06|      ;
    LDA.W $6800,Y                        ;00BA08|006800;
@@ -8816,7 +8816,7 @@ CODE_00B9DE:
    EOR.L EOR_table,X                    ;00BA18|00B82A;
    LDX.B $0A                            ;00BA1C|00000A;
    EOR.W $4010,X                        ;00BA1E|004010;
-   AND.B $10                            ;00BA21|000010;
+   AND.B PC                             ;00BA21|000010;
    EOR.W $4010,X                        ;00BA23|004010;
    STA.W $4010,X                        ;00BA26|004010;
 CODE_00BA29:

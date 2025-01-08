@@ -85,11 +85,11 @@
    Party_slot3 = $00155F
    Party_slot4 = $001561
    Selection = $00103F
-   Function_results = $001041
+   Fn_results = $001041
    LoopVar_1047 = $001047
    Current_HP_copy = $00130B
    Current_MP_copy = $00133B
-   Function_results1 = $000CB3
+   Fn_results1 = $000CB3
    Ptr_Encounter_layout = $0018D7
    SpiritMaxHP = $001395
    Spirit_currHP = $0012F5
@@ -321,6 +321,11 @@
    Ptr_Animation_Loop2 = $00104F
    Text_Speed = $001099; !^ Default 1 ^!
    Text_Line_Speed = $001097; !^ Default A (10 frames for line-by-line) ^!
+   PC = $000010; !^ Code pointer to the current line of execution ^!
+   Fn_ptr = $000018
+   Addr_ptr = $00001C
+   Stack_addr_ptr = $000A33; !^ Offset X ^!
+   Stack_addr_bank = $000A57
    PTR24_00A1D8 = $00A1D8
    PTR24_00A31C = $00A31C
    PTR24_00AC30 = $00AC30

@@ -11732,7 +11732,7 @@ DATA8_01B99E:
    db $0D                               ;01B9B3|003FAE;
 CODE_01B9B4:
    LDX.W Selection                      ;01B9B4|00103F;
-   LDY.W Function_results               ;01B9B7|001041;
+   LDY.W Fn_results                     ;01B9B7|001041;
    LDA.W Temp_09C7,X                    ;01B9BA|0009C7;
    INC.W Temp_09C7,X                    ;01B9BD|0009C7;
    TAX                                  ;01B9C0|      ;
@@ -11746,7 +11746,7 @@ CODE_01B9B4:
    JML.L CODE_01BA44                    ;01B9D2|01BA44;
 CODE_01B9D6:
    LDX.W Selection                      ;01B9D6|00103F;
-   LDY.W Function_results               ;01B9D9|001041;
+   LDY.W Fn_results                     ;01B9D9|001041;
    LDA.W Temp_09C7,X                    ;01B9DC|0009C7;
    DEC.W Temp_09C7,X                    ;01B9DF|0009C7;
    TAX                                  ;01B9E2|      ;
@@ -11760,7 +11760,7 @@ CODE_01B9D6:
    JML.L CODE_01BA44                    ;01B9F4|01BA44;
 CODE_01B9F8:
    LDX.W Selection                      ;01B9F8|00103F;
-   LDY.W Function_results               ;01B9FB|001041;
+   LDY.W Fn_results                     ;01B9FB|001041;
    LDA.W Temp_09C7,X                    ;01B9FE|0009C7;
    DEC.W Temp_09C7,X                    ;01BA01|0009C7;
    TAX                                  ;01BA04|      ;
@@ -11776,7 +11776,7 @@ CODE_01B9F8:
    JML.L CODE_01BA44                    ;01BA1A|01BA44;
 CODE_01BA1E:
    LDX.W Selection                      ;01BA1E|00103F;
-   LDY.W Function_results               ;01BA21|001041;
+   LDY.W Fn_results                     ;01BA21|001041;
    LDA.W Temp_09C7,X                    ;01BA24|0009C7;
    INC.W Temp_09C7,X                    ;01BA27|0009C7;
    TAX                                  ;01BA2A|      ;
@@ -11939,14 +11939,14 @@ DATA8_01BAE9:
    dw DATA8_01BAE9                      ;01BB18|01BAE9;
 CODE_01BB1A:
    LDX.W Selection                      ;01BB1A|00103F;
-   LDY.W Function_results               ;01BB1D|001041;
+   LDY.W Fn_results                     ;01BB1D|001041;
    LDA.W Selection_value,X              ;01BB20|0009EB;
    INC.W Selection_value,X              ;01BB23|0009EB;
    TAX                                  ;01BB26|      ;
    JML.L CODE_01BB38                    ;01BB27|01BB38;
 CODE_01BB2B:
    LDX.W Selection                      ;01BB2B|00103F;
-   LDY.W Function_results               ;01BB2E|001041;
+   LDY.W Fn_results                     ;01BB2E|001041;
    LDA.W Selection_value,X              ;01BB31|0009EB;
    DEC.W Selection_value,X              ;01BB34|0009EB;
    TAX                                  ;01BB37|      ;
@@ -12111,7 +12111,7 @@ Update_Credits_Distance:
    LDX.W Credits_Progress               ;01BC0A|001927;
    LDA.L Credits_Distance,X             ;01BC0D|01BC1B;
    AND.W #$00FF                         ;01BC11|      ;
-   LDY.W Function_results               ;01BC14|001041;
+   LDY.W Fn_results                     ;01BC14|001041;
    STA.W Anim_Loopvar,Y                 ;01BC17|000B9F;
    RTL                                  ;01BC1A|      ;
 Credits_Distance:

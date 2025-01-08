@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectXmlSerializer-Root xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:ns1="clr-namespace:Diz.Core.model;assembly=Diz.Core" xmlns:ns2="clr-namespace:Diz.Core.model.snes;assembly=Diz.Core" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns:ns3="clr-namespace:IX.Observable;assembly=IX.Observable" xmlns:ns4="clr-namespace:Diz.Core.export;assembly=Diz.Core" SaveVersion="102" Watermark="DiztinGUIsh" Extra1="" Extra2="" xmlns="clr-namespace:Diz.Core.serialization.xml_serializer;assembly=Diz.Core">
-  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="240559">
+  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="5415">
     <LogWriterSettings Format="%label:-2% %code:37%;%pc%|%ia%; %comment%" DataPerLine="1" Unlabeled="ShowInPoints" Structure="OneBankPerFile" NewLine="true" OutputExtraWhitespace="false" GenerateFullLine="false" IncludeUnusedLabels="true" PrintLabelSpecificComments="true" RomSizeOverride="-1" FileOrFolderOutPath="..\Diz" OutputToString="false" ErrorFilename="errors.txt" />
     <ProjectSettings exs:member="" BsnesUsageMapImportOnlyChangedUnmarked="true">
       <RomBytesOutputFormatSettings CompressGroupBlock="true" CompressUsingTable1="true" InsertCommentIntoOutputLinesEveryNBytes="2048" />
@@ -7515,7 +7515,7 @@
           <Value exs:type="ns1:Label" Name="Selection" Comment="" />
         </sys:Item>
         <sys:Item Key="4161">
-          <Value exs:type="ns1:Label" Name="Function_results" Comment="" />
+          <Value exs:type="ns1:Label" Name="Fn_results" Comment="" />
         </sys:Item>
         <sys:Item Key="4167">
           <Value exs:type="ns1:Label" Name="LoopVar_1047" Comment="" />
@@ -7545,7 +7545,7 @@
           <Value exs:type="ns1:Label" Name="Transfer_Setup2_6b" Comment="" />
         </sys:Item>
         <sys:Item Key="3251">
-          <Value exs:type="ns1:Label" Name="Function_results1" Comment="" />
+          <Value exs:type="ns1:Label" Name="Fn_results1" Comment="" />
         </sys:Item>
         <sys:Item Key="42636">
           <Value exs:type="ns1:Label" Name="Set_Text_Parser" Comment="" />
@@ -18619,6 +18619,21 @@
         </sys:Item>
         <sys:Item Key="99384">
           <Value exs:type="ns1:Label" Name="Load_Guest2_Gfx" Comment="" />
+        </sys:Item>
+        <sys:Item Key="16">
+          <Value exs:type="ns1:Label" Name="PC" Comment="Code pointer to the current line of execution" />
+        </sys:Item>
+        <sys:Item Key="24">
+          <Value exs:type="ns1:Label" Name="Fn_ptr" Comment="" />
+        </sys:Item>
+        <sys:Item Key="28">
+          <Value exs:type="ns1:Label" Name="Addr_ptr" Comment="" />
+        </sys:Item>
+        <sys:Item Key="2611">
+          <Value exs:type="ns1:Label" Name="Stack_addr_ptr" Comment="Offset X" />
+        </sys:Item>
+        <sys:Item Key="2647">
+          <Value exs:type="ns1:Label" Name="Stack_addr_bank" Comment="" />
         </sys:Item>
       </Labels>
       <RomBytes>

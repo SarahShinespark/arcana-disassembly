@@ -544,7 +544,7 @@ $00155D,5469,Party_slot2,,UNUSED
 $00155F,5471,Party_slot3,,UNUSED
 $001561,5473,Party_slot4,,UNUSED
 $00103F,4159,Selection,,UNUSED
-$001041,4161,Function_results,,UNUSED
+$001041,4161,Fn_results,,UNUSED
 $001047,4167,LoopVar_1047,,UNUSED
 $00130B,4875,Current_HP_copy,,UNUSED
 $00133B,4923,Current_MP_copy,,UNUSED
@@ -554,7 +554,7 @@ $078FC1,495553,Tbl_Character_Name_Tiles,,USED
 $078FD5,495573,Bank_Character_Name_Tiles,,USED
 $07B17F,504191,Get_Condition2,,USED
 $00A105,41221,Transfer_Setup2_6b,,USED
-$000CB3,3251,Function_results1,,UNUSED
+$000CB3,3251,Fn_results1,,UNUSED
 $00A68C,42636,Set_Text_Parser,,USED
 $00A0AC,41132,Setup_Text_Parser_3b,,USED
 $0897DF,563167,Flame2,,USED
@@ -4246,6 +4246,11 @@ $0183BD,99261,Init_more_things,,USED
 $01841C,99356,Load_Spirit_Gfx,,USED
 $01842C,99372,Load_Guest1_Gfx,,USED
 $018438,99384,Load_Guest2_Gfx,,USED
+$000010,16,PC,Code pointer to the current line of execution,UNUSED
+$000018,24,Fn_ptr,,UNUSED
+$00001C,28,Addr_ptr,,UNUSED
+$000A33,2611,Stack_addr_ptr,Offset X,UNUSED
+$000A57,2647,Stack_addr_bank,,UNUSED
 $008122,33058,CODE_008122,,USED
 $0081A8,33192,CODE_0081A8,,USED
 $00822F,33327,CODE_00822F,,USED

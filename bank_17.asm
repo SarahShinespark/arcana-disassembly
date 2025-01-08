@@ -1280,7 +1280,7 @@ UNREACH_178BAF:
    db $00                               ;178BCD|      ;
    db $1C                               ;178BCE|0041AC;
 Sub_Intro_weather:
-   LDY.W Function_results               ;178BCF|001041;
+   LDY.W Fn_results                     ;178BCF|001041;
    LDX.W Weather_fx                     ;178BD2|0018CF;
    LDA.L DATA8_178BE0,X                 ;178BD5|178BE0;
    AND.W #$00FF                         ;178BD9|      ;
