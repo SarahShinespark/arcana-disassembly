@@ -5417,15 +5417,15 @@ Status_Screen_prep:
    LDA.W Alertness,X                    ;07A68C|00126B;
    STA.W Alert_Bonus                    ;07A68F|0016E3;
    LDA.W Current_HP,X                   ;07A692|0012F3;
-   STA.W $16E5                          ;07A695|0016E5;
+   STA.W Ability_currHP                 ;07A695|0016E5;
    LDA.W MaxHP,X                        ;07A698|001393;
    STA.W HP_Bonus                       ;07A69B|0016E7;
    LDA.W Current_MP,X                   ;07A69E|001323;
-   STA.W $16E9                          ;07A6A1|0016E9;
+   STA.W Ability_currMP                 ;07A6A1|0016E9;
    LDA.W MaxMP,X                        ;07A6A4|00139B;
    STA.W MP_Bonus                       ;07A6A7|0016EB;
    LDA.W CurrentEXP,X                   ;07A6AA|001363;
-   STA.W $16ED                          ;07A6AD|0016ED;
+   STA.W Ability_currEXP                ;07A6AD|0016ED;
 Get_name_from_party_ID:
    LDA.W Curr_party,X                   ;07A6B0|00155B; Get ID (0-9)
    LDX.W #$000B                         ;07A6B3|      ; Length of name entries

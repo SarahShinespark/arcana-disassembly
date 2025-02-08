@@ -175,7 +175,7 @@
 ;!^!-USED-!    Event_Text_05 = $00A8C2
 ;!^!-USED-!    Event_Text_06 = $00A8DE
 ;!^!-USED-!    Event_Text_0C = $00A8EC
-;!^!-USED-!    Event_Text_0C_sub2 = $00A52A
+;!^!-USED-!    Event_Text_0C_sub1_2 = $00A52A
 ;!^!-USED-!    Event_Text_0C_sub1 = $00A4E2
 ;!^!-USED-!    Event_Text_0C_Sub2 = $00BE07
 ;!^!-USED-!    Event_Text_helper = $00AAFC
@@ -4250,6 +4250,12 @@
 ;!^!-UNUSED-!    Addr_ptr = $00001C
 ;!^!-UNUSED-!    Stack_addr_ptr = $000A33; !^ Offset X ^!
 ;!^!-UNUSED-!    Stack_addr_bank = $000A57
+;!^!-UNUSED-!    Ability_currHP = $0016E5
+;!^!-UNUSED-!    Ability_currMP = $0016E9
+;!^!-UNUSED-!    Ability_currEXP = $0016ED
+;!^!-UNUSED-!    Map_temp01 = $0016EF; !^ idk man ^!
+;!^!-UNUSED-!    Stairs_next_floor = $0016F1
+;!^!-UNUSED-!    Dungeon_in_motion = $0016F3
 ;!^!-USED-!    CODE_008122 = $008122
 ;!^!-USED-!    CODE_0081A8 = $0081A8
 ;!^!-USED-!    CODE_00822F = $00822F

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectXmlSerializer-Root xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:ns1="clr-namespace:Diz.Core.model;assembly=Diz.Core" xmlns:ns2="clr-namespace:Diz.Core.model.snes;assembly=Diz.Core" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns:ns3="clr-namespace:IX.Observable;assembly=IX.Observable" xmlns:ns4="clr-namespace:Diz.Core.export;assembly=Diz.Core" SaveVersion="102" Watermark="DiztinGUIsh" Extra1="" Extra2="" xmlns="clr-namespace:Diz.Core.serialization.xml_serializer;assembly=Diz.Core">
-  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="5415">
+  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="107945">
     <LogWriterSettings Format="%label:-2% %code:37%;%pc%|%ia%; %comment%" DataPerLine="1" Unlabeled="ShowInPoints" Structure="OneBankPerFile" NewLine="true" OutputExtraWhitespace="false" GenerateFullLine="false" IncludeUnusedLabels="true" PrintLabelSpecificComments="true" RomSizeOverride="-1" FileOrFolderOutPath="..\Diz" OutputToString="false" ErrorFilename="errors.txt" />
     <ProjectSettings exs:member="" BsnesUsageMapImportOnlyChangedUnmarked="true">
       <RomBytesOutputFormatSettings CompressGroupBlock="true" CompressUsingTable1="true" InsertCommentIntoOutputLinesEveryNBytes="2048" />
@@ -5877,6 +5877,21 @@
         <sys:Item Key="99291" Value="16: Hide compass" />
         <sys:Item Key="99296" Value="16: $157D = 0 (?)" />
         <sys:Item Key="99301" Value="16: Temp spell ID = FFFF" />
+        <sys:Item Key="103071" Value="Show the compass" />
+        <sys:Item Key="239020" Value="Get the ptr to the stairs entry we're taking" />
+        <sys:Item Key="239022" Value="Save the stairs ptr" />
+        <sys:Item Key="239024" Value="Read the stairs 1st line (dungeon floor #)" />
+        <sys:Item Key="239026" Value="Save destination floor in 16F1" />
+        <sys:Item Key="239029" Value="Check if you're leaving the dungeon" />
+        <sys:Item Key="239032" Value="Branch if we're leaving" />
+        <sys:Item Key="239035" Value="Still in a dungeon, return 0" />
+        <sys:Item Key="239042" Value="Read destination floor 2nd word (target X position)" />
+        <sys:Item Key="239044" Value="Set to current X position" />
+        <sys:Item Key="239050" Value="Read destination floor 3rd word (target Y position)" />
+        <sys:Item Key="239052" Value="Set to current Y position" />
+        <sys:Item Key="239058" Value="Read destination floor 4th word (target facing direction)" />
+        <sys:Item Key="239060" Value="Set to current facing direction" />
+        <sys:Item Key="239064" Value="Get target dungeon floor and update music" />
       </Comments>
       <Labels>
         <sys:Item Key="65508">
@@ -6411,7 +6426,7 @@
           <Value exs:type="ns1:Label" Name="Event_Text_0C" Comment="" />
         </sys:Item>
         <sys:Item Key="42282">
-          <Value exs:type="ns1:Label" Name="Event_Text_0C_sub2" Comment="" />
+          <Value exs:type="ns1:Label" Name="Event_Text_0C_sub1_2" Comment="" />
         </sys:Item>
         <sys:Item Key="42210">
           <Value exs:type="ns1:Label" Name="Event_Text_0C_sub1" Comment="" />
@@ -18634,6 +18649,24 @@
         </sys:Item>
         <sys:Item Key="2647">
           <Value exs:type="ns1:Label" Name="Stack_addr_bank" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5861">
+          <Value exs:type="ns1:Label" Name="Ability_currHP" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5865">
+          <Value exs:type="ns1:Label" Name="Ability_currMP" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5869">
+          <Value exs:type="ns1:Label" Name="Ability_currEXP" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5871">
+          <Value exs:type="ns1:Label" Name="Map_temp01" Comment="idk man" />
+        </sys:Item>
+        <sys:Item Key="5873">
+          <Value exs:type="ns1:Label" Name="Stairs_next_floor" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5875">
+          <Value exs:type="ns1:Label" Name="Dungeon_in_motion" Comment="" />
         </sys:Item>
       </Labels>
       <RomBytes>

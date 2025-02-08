@@ -5025,7 +5025,7 @@ CODE_00A520:
    PLA                                  ;00A525|      ;
    JSR.W CODE_00BE4B                    ;00A526|00BE4B;
    RTS                                  ;00A529|      ;
-Event_Text_0C_sub2:
+Event_Text_0C_sub1_2:
    JSR.W Event_Text_0C_sub1             ;00A52A|00A4E2;
    JSR.W Event_Text_0C_Sub2             ;00A52D|00BE07;
    RTS                                  ;00A530|      ;
@@ -5530,7 +5530,7 @@ Event_Text_06:
    JMP.W Event_Text_helper              ;00A8E9|00AAFC;
 Event_Text_0C:
    LDA.B $04                            ;00A8EC|000004; (0b) Sets X pos to something, sets Y pos to 0, does stuff
-   JSR.W Event_Text_0C_sub2             ;00A8EE|00A52A; Do stuffs
+   JSR.W Event_Text_0C_sub1_2           ;00A8EE|00A52A; Do stuffs
    LDX.B $04                            ;00A8F1|000004; Get offset
    LDA.W $0024,X                        ;00A8F3|000024;
    STA.W $000A,X                        ;00A8F6|00000A; Set X pos to offset+24

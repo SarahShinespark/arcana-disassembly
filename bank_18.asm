@@ -697,7 +697,7 @@ CODE_188516:
 CODE_188519:
    RTL                                  ;188519|      ;
 CODE_18851A:
-   LDA.W $16F3                          ;18851A|0016F3;
+   LDA.W Dungeon_in_motion              ;18851A|0016F3;
    BNE CODE_18853E                      ;18851D|18853E;
    LDX.W Selection                      ;18851F|00103F;
    LDA.W $09A3,X                        ;188522|0009A3;

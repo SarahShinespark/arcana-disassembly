@@ -1,7 +1,7 @@
    ORG $038000
    db $FF                               ;038000|      ;
 Bank_03_Maps_and_Gfx:
-   LDA.W $16F1                          ;038001|0016F1;
+   LDA.W Stairs_next_floor              ;038001|0016F1;
    STA.W Curr_area                      ;038004|001573;
 CODE_038007:
    LDA.W Curr_area                      ;038007|001573;
@@ -1521,7 +1521,7 @@ CODE_0387C0:
    JSR.W CODE_039256                    ;0387CB|039256;
 CODE_0387CE:
    LDA.W #$0001                         ;0387CE|      ;
-   STA.W $16F3                          ;0387D1|0016F3;
+   STA.W Dungeon_in_motion              ;0387D1|0016F3;
    JML.L Wait_Vblank_far                ;0387D4|0088DE;
 CODE_0387D8:
    LDX.B $22                            ;0387D8|000022;
@@ -1595,7 +1595,7 @@ Fog_tile_check:
    LDA.W Map_Y                          ;038846|0016F9; Returns 1 if current tile is 60-6F and not Reinoll's tile.
    LDX.W Map_X                          ;038849|0016F7;
    JSR.W Update_map_progress            ;03884C|03A494;
-   STZ.W $16F3                          ;03884F|0016F3;
+   STZ.W Dungeon_in_motion              ;03884F|0016F3;
    LDA.W Map_Y                          ;038852|0016F9;
    LDX.W Map_X                          ;038855|0016F7;
    JSR.W Get_map_tile_value             ;038858|03A457;
@@ -1663,7 +1663,7 @@ CODE_0388DE:
    DEY                                  ;0388E3|      ;
    DEY                                  ;0388E4|      ;
    BPL CODE_0388DE                      ;0388E5|0388DE;
-   LDA.W $16EF                          ;0388E7|0016EF;
+   LDA.W Map_temp01                     ;0388E7|0016EF;
    BEQ CODE_0388EF                      ;0388EA|0388EF;
    JSR.W CODE_03AD73                    ;0388EC|03AD73;
 CODE_0388EF:
@@ -1801,7 +1801,7 @@ DATA8_03891C:
    db $0F                               ;038982|      ;
    db $00                               ;038983|      ;
 Dungeon_Load_FieldOfView:
-   STZ.W $16EF                          ;038984|0016EF;
+   STZ.W Map_temp01                     ;038984|0016EF;
    LDX.W Map_Compass                    ;038987|0016FB;
    LDA.L Tbl_Dungeon_View_XOffset,X     ;03898A|039891; 3 byte ptr -> $18
    STA.B Fn_ptr                         ;03898E|000018;
@@ -1864,7 +1864,7 @@ CODE_0389FB:
    DEX                                  ;038A16|      ;
    DEX                                  ;038A17|      ;
    BPL CODE_0389FB                      ;038A18|0389FB;
-   INC.W $16EF                          ;038A1A|0016EF;
+   INC.W Map_temp01                     ;038A1A|0016EF;
    JMP.W CODE_038BD9                    ;038A1D|038BD9;
 CODE_038A20:
    LDA.W $A698                          ;038A20|7EA698;
@@ -1974,7 +1974,7 @@ CODE_038AFE:
    DEX                                  ;038B19|      ;
    DEX                                  ;038B1A|      ;
    BPL CODE_038AFE                      ;038B1B|038AFE;
-   INC.W $16EF                          ;038B1D|0016EF;
+   INC.W Map_temp01                     ;038B1D|0016EF;
    JMP.W CODE_038BD9                    ;038B20|038BD9;
 CODE_038B23:
    LDA.W #$0000                         ;038B23|      ;
@@ -2093,7 +2093,7 @@ CODE_038C0B:
    DEX                                  ;038C26|      ;
    DEX                                  ;038C27|      ;
    BPL CODE_038C0B                      ;038C28|038C0B;
-   INC.W $16EF                          ;038C2A|0016EF;
+   INC.W Map_temp01                     ;038C2A|0016EF;
    JMP.W CODE_038DE9                    ;038C2D|038DE9;
 CODE_038C30:
    LDA.W $A698                          ;038C30|7EA698;
@@ -2204,7 +2204,7 @@ CODE_038D0E:
    DEX                                  ;038D29|      ;
    DEX                                  ;038D2A|      ;
    BPL CODE_038D0E                      ;038D2B|038D0E;
-   INC.W $16EF                          ;038D2D|0016EF;
+   INC.W Map_temp01                     ;038D2D|0016EF;
    JMP.W CODE_038DE9                    ;038D30|038DE9;
 CODE_038D33:
    LDA.W #$0000                         ;038D33|      ;
@@ -2297,7 +2297,7 @@ CODE_038DE9:
    LDY.W #$0099                         ;038DEF|      ;
    JSR.W Some_RAM_xfer                  ;038DF2|0399FE;
    PLB                                  ;038DF5|      ;
-   LDA.W $16EF                          ;038DF6|0016EF;
+   LDA.W Map_temp01                     ;038DF6|0016EF;
    BEQ CODE_038E00                      ;038DF9|038E00;
    JSR.W CODE_03AD73                    ;038DFB|03AD73;
    BRA CODE_038E04                      ;038DFE|038E04;
@@ -2520,7 +2520,7 @@ UNREACH_038ECB:
    db $20                               ;038ED9|039C13;
    db $13                               ;038EDA|00009C;
 CODE_038EDB:
-   STZ.W $16EF                          ;038EDB|0016EF;
+   STZ.W Map_temp01                     ;038EDB|0016EF;
    LDX.W Map_Compass                    ;038EDE|0016FB;
    LDA.L Tbl_Dungeon_View_XOffset,X     ;038EE1|039891;
    STA.B Fn_ptr                         ;038EE5|000018;
@@ -2583,7 +2583,7 @@ CODE_038F52:
    DEX                                  ;038F6D|      ;
    DEX                                  ;038F6E|      ;
    BPL CODE_038F52                      ;038F6F|038F52;
-   INC.W $16EF                          ;038F71|0016EF;
+   INC.W Map_temp01                     ;038F71|0016EF;
    JMP.W CODE_039042                    ;038F74|039042;
 CODE_038F77:
    LDA.W #$0000                         ;038F77|      ;
@@ -2713,7 +2713,7 @@ CODE_039074:
    DEX                                  ;03908F|      ;
    DEX                                  ;039090|      ;
    BPL CODE_039074                      ;039091|039074;
-   INC.W $16EF                          ;039093|0016EF;
+   INC.W Map_temp01                     ;039093|0016EF;
    JMP.W CODE_039164                    ;039096|039164;
 CODE_039099:
    LDA.W #$0000                         ;039099|      ;
@@ -2817,7 +2817,7 @@ CODE_039164:
    LDY.W #$0099                         ;03916A|      ;
    JSR.W Some_RAM_xfer                  ;03916D|0399FE;
    PLB                                  ;039170|      ;
-   LDA.W $16EF                          ;039171|0016EF;
+   LDA.W Map_temp01                     ;039171|0016EF;
    BEQ CODE_03917B                      ;039174|03917B;
    JSR.W CODE_03AD73                    ;039176|03AD73;
    BRA CODE_03917F                      ;039179|03917F;
@@ -3040,7 +3040,7 @@ DATA8_039246:
    db $20                               ;039254|039C13;
    db $13                               ;039255|00009C;
 CODE_039256:
-   STZ.W $16EF                          ;039256|0016EF;
+   STZ.W Map_temp01                     ;039256|0016EF;
    LDX.W Map_Compass                    ;039259|0016FB;
    LDA.L Tbl_Map_AdjacentX,X            ;03925C|039941;
    STA.B Fn_ptr                         ;039260|000018;
@@ -3126,7 +3126,7 @@ CODE_039304:
    DEX                                  ;03931F|      ;
    DEX                                  ;039320|      ;
    BPL CODE_039304                      ;039321|039304;
-   INC.W $16EF                          ;039323|0016EF;
+   INC.W Map_temp01                     ;039323|0016EF;
    JMP.W CODE_039479                    ;039326|039479;
 CODE_039329:
    LDA.W #$0000                         ;039329|      ;
@@ -3167,7 +3167,7 @@ CODE_039361:
    DEX                                  ;03937C|      ;
    DEX                                  ;03937D|      ;
    BPL CODE_039361                      ;03937E|039361;
-   INC.W $16EF                          ;039380|0016EF;
+   INC.W Map_temp01                     ;039380|0016EF;
    JMP.W CODE_039479                    ;039383|039479;
 CODE_039386:
    TXA                                  ;039386|      ;
@@ -3196,7 +3196,7 @@ CODE_0393A6:
    DEX                                  ;0393C1|      ;
    DEX                                  ;0393C2|      ;
    BPL CODE_0393A6                      ;0393C3|0393A6;
-   INC.W $16EF                          ;0393C5|0016EF;
+   INC.W Map_temp01                     ;0393C5|0016EF;
    JMP.W CODE_039479                    ;0393C8|039479;
 CODE_0393CB:
    LDA.W #$0000                         ;0393CB|      ;
@@ -3337,7 +3337,7 @@ CODE_0394E2:
    DEX                                  ;0394FD|      ;
    DEX                                  ;0394FE|      ;
    BPL CODE_0394E2                      ;0394FF|0394E2;
-   INC.W $16EF                          ;039501|0016EF;
+   INC.W Map_temp01                     ;039501|0016EF;
    JMP.W CODE_039657                    ;039504|039657;
 CODE_039507:
    LDA.W #$0000                         ;039507|      ;
@@ -3379,7 +3379,7 @@ CODE_03953F:
    DEX                                  ;03955A|      ;
    DEX                                  ;03955B|      ;
    BPL CODE_03953F                      ;03955C|03953F;
-   INC.W $16EF                          ;03955E|0016EF;
+   INC.W Map_temp01                     ;03955E|0016EF;
    JMP.W CODE_039657                    ;039561|039657;
 CODE_039564:
    TXA                                  ;039564|      ;
@@ -3408,7 +3408,7 @@ CODE_039584:
    DEX                                  ;03959F|      ;
    DEX                                  ;0395A0|      ;
    BPL CODE_039584                      ;0395A1|039584;
-   INC.W $16EF                          ;0395A3|0016EF;
+   INC.W Map_temp01                     ;0395A3|0016EF;
    JMP.W CODE_039657                    ;0395A6|039657;
 CODE_0395A9:
    LDA.W #$0000                         ;0395A9|      ;
@@ -3500,7 +3500,7 @@ CODE_039657:
    LDY.W #$0099                         ;03965D|      ;
    JSR.W Some_RAM_xfer                  ;039660|0399FE;
    PLB                                  ;039663|      ;
-   LDA.W $16EF                          ;039664|0016EF;
+   LDA.W Map_temp01                     ;039664|0016EF;
    BEQ CODE_03966E                      ;039667|03966E;
    JSR.W CODE_03AD73                    ;039669|03AD73;
    BRA CODE_039672                      ;03966C|039672;
@@ -5694,27 +5694,27 @@ X_no_match:
    INY                                  ;03A5A9|      ;
    BRA CODE_03A595                      ;03A5AA|03A595;
 XY_match:
-   LDA.B ($00),Y                        ;03A5AC|000000;
-   STA.B $00                            ;03A5AE|000000;
-   LDA.B ($00)                          ;03A5B0|000000;
-   STA.W $16F1                          ;03A5B2|0016F1;
-   BIT.W #$0100                         ;03A5B5|      ;
-   BNE CODE_03A5BF                      ;03A5B8|03A5BF;
+   LDA.B ($00),Y                        ;03A5AC|000000; Get the ptr to the stairs entry we're taking
+   STA.B $00                            ;03A5AE|000000; Save the stairs ptr
+   LDA.B ($00)                          ;03A5B0|000000; Read the stairs 1st line (dungeon floor #)
+   STA.W Stairs_next_floor              ;03A5B2|0016F1; Save destination floor in 16F1
+   BIT.W #$0100                         ;03A5B5|      ; Check if you're leaving the dungeon
+   BNE CODE_03A5BF                      ;03A5B8|03A5BF; Branch if we're leaving
    PLB                                  ;03A5BA|      ;
-   LDA.W #$0000                         ;03A5BB|      ;
+   LDA.W #$0000                         ;03A5BB|      ; Still in a dungeon, return 0
    RTL                                  ;03A5BE|      ;
 CODE_03A5BF:
    LDY.W #$0002                         ;03A5BF|      ;
-   LDA.B ($00),Y                        ;03A5C2|000000;
-   STA.W Map_X                          ;03A5C4|0016F7;
+   LDA.B ($00),Y                        ;03A5C2|000000; Read destination floor 2nd word (target X position)
+   STA.W Map_X                          ;03A5C4|0016F7; Set to current X position
    LDY.W #$0004                         ;03A5C7|      ;
-   LDA.B ($00),Y                        ;03A5CA|000000;
-   STA.W Map_Y                          ;03A5CC|0016F9;
+   LDA.B ($00),Y                        ;03A5CA|000000; Read destination floor 3rd word (target Y position)
+   STA.W Map_Y                          ;03A5CC|0016F9; Set to current Y position
    LDY.W #$0006                         ;03A5CF|      ;
-   LDA.B ($00),Y                        ;03A5D2|000000;
-   STA.W Map_Compass                    ;03A5D4|0016FB;
+   LDA.B ($00),Y                        ;03A5D2|000000; Read destination floor 4th word (target facing direction)
+   STA.W Map_Compass                    ;03A5D4|0016FB; Set to current facing direction
    PLB                                  ;03A5D7|      ;
-   LDA.W $16F1                          ;03A5D8|0016F1;
+   LDA.W Stairs_next_floor              ;03A5D8|0016F1; Get target dungeon floor and update music
    JSR.W Sub_Darwin_Theme               ;03A5DB|03A54C;
    CMP.W Current_Music                  ;03A5DE|001064;
    BNE Music_not_playing                ;03A5E1|03A5E7;
@@ -8408,7 +8408,7 @@ TileData:
    db $7F                               ;03B34F|      ;
    db $FF                               ;03B350|      ;
 CODE_03B351:
-   LDA.W $16F1                          ;03B351|0016F1;
+   LDA.W Stairs_next_floor              ;03B351|0016F1;
    STA.W Curr_area                      ;03B354|001573;
 Entering_Town:
    PEA.W $0003                          ;03B357|000003;

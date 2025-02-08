@@ -326,6 +326,12 @@
    Addr_ptr = $00001C
    Stack_addr_ptr = $000A33; !^ Offset X ^!
    Stack_addr_bank = $000A57
+   Ability_currHP = $0016E5
+   Ability_currMP = $0016E9
+   Ability_currEXP = $0016ED
+   Map_temp01 = $0016EF; !^ idk man ^!
+   Stairs_next_floor = $0016F1
+   Dungeon_in_motion = $0016F3
    PTR24_00A1D8 = $00A1D8
    PTR24_00A31C = $00A31C
    PTR24_00AC30 = $00AC30
