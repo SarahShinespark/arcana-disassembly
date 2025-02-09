@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectXmlSerializer-Root xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:ns1="clr-namespace:Diz.Core.model;assembly=Diz.Core" xmlns:ns2="clr-namespace:Diz.Core.model.snes;assembly=Diz.Core" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns:ns3="clr-namespace:IX.Observable;assembly=IX.Observable" xmlns:ns4="clr-namespace:Diz.Core.export;assembly=Diz.Core" SaveVersion="102" Watermark="DiztinGUIsh" Extra1="" Extra2="" xmlns="clr-namespace:Diz.Core.serialization.xml_serializer;assembly=Diz.Core">
-  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="107945">
+  <Project AttachedRomFilename="C:\Users\sarah\OneDrive\Games\Arcana\Arcana (u).smc" InternalRomGameName="ARCANA               " InternalCheckSum="3483709530" CurrentViewOffset="11019">
     <LogWriterSettings Format="%label:-2% %code:37%;%pc%|%ia%; %comment%" DataPerLine="1" Unlabeled="ShowInPoints" Structure="OneBankPerFile" NewLine="true" OutputExtraWhitespace="false" GenerateFullLine="false" IncludeUnusedLabels="true" PrintLabelSpecificComments="true" RomSizeOverride="-1" FileOrFolderOutPath="..\Diz" OutputToString="false" ErrorFilename="errors.txt" />
     <ProjectSettings exs:member="" BsnesUsageMapImportOnlyChangedUnmarked="true">
       <RomBytesOutputFormatSettings CompressGroupBlock="true" CompressUsingTable1="true" InsertCommentIntoOutputLinesEveryNBytes="2048" />
@@ -397,7 +397,7 @@
         <sys:Item Key="42949" Value="Opcode 01: Saves next 2 bytes to cursor position ($10A5, $10A7)" />
         <sys:Item Key="43137" Value="(2b) Moves cursor to xx,xx (0,0 is top left)" />
         <sys:Item Key="43096" Value="Null terminator. Returns from section (pops the pointer)" />
-        <sys:Item Key="43772" Value="Pushes the text PC pointer" />
+        <sys:Item Key="43776" Value="Save to array byte 18 ($10B3)" />
         <sys:Item Key="43176" Value="(1b) Used for font spacing/positioning" />
         <sys:Item Key="43202" Value="(2b) Delays for x?" />
         <sys:Item Key="43230" Value="(1b) Used for font formatting, text display, text highlighting etc." />
@@ -3667,8 +3667,8 @@
         <sys:Item Key="43107" Value="$0A=1 (check for pause?)" />
         <sys:Item Key="43207" Value="(1b) in offset 22 and $0C" />
         <sys:Item Key="43219" Value="(1b) in offset 20 and 16" />
-        <sys:Item Key="43776" Value="Offset 18 (Temp PC addr)" />
-        <sys:Item Key="43781" Value="Offset 1A (Temp PC bank)" />
+        <sys:Item Key="43774" Value="Load the next read point ([$06]$1DF2 has the next letter location)" />
+        <sys:Item Key="43772" Value="Load array start address ([$04]$1DF0 had $109B in my example)" />
         <sys:Item Key="43374" Value="(1b) # digits to write" />
         <sys:Item Key="43380" Value="(2b) RAM addr to read from" />
         <sys:Item Key="43391" Value="(1b) RAM bank to read from" />
@@ -5159,12 +5159,12 @@
         <sys:Item Key="106693" Value="1C: RTS" />
         <sys:Item Key="106698" Value="1C: RTS" />
         <sys:Item Key="106796" Value="1C: RTS" />
-        <sys:Item Key="106790" Value="0E: $157D + #E000" />
-        <sys:Item Key="106797" Value="0E: $157D + #2000" />
+        <sys:Item Key="106790" Value="0E: $157D - #2000 (Dungeon left turn increment)" />
+        <sys:Item Key="106797" Value="0E: $157D + #2000 (Dungeon right turn increment)" />
         <sys:Item Key="106803" Value="1C: RTS" />
-        <sys:Item Key="106804" Value="0E: $157D + #FC00" />
+        <sys:Item Key="106804" Value="0E: $157D - 0400 (Town left turn increment)" />
         <sys:Item Key="106810" Value="1C: RTS" />
-        <sys:Item Key="106811" Value="0E: $157D + 0400" />
+        <sys:Item Key="106811" Value="0E: $157D + 0400 (Town right turn increment)" />
         <sys:Item Key="106817" Value="1C: RTS" />
         <sys:Item Key="106825" Value="0A: Clear animation loop" />
         <sys:Item Key="106826" Value="Transfer data (near Weapon stuff?)" />
@@ -5892,6 +5892,8 @@
         <sys:Item Key="239058" Value="Read destination floor 4th word (target facing direction)" />
         <sys:Item Key="239060" Value="Set to current facing direction" />
         <sys:Item Key="239064" Value="Get target dungeon floor and update music" />
+        <sys:Item Key="43779" Value="Load the bank byte" />
+        <sys:Item Key="43781" Value="Save to array byte 1A ($10B5)" />
       </Comments>
       <Labels>
         <sys:Item Key="65508">
@@ -7272,7 +7274,7 @@
           <Value exs:type="ns1:Label" Name="Current_Music" Comment="Value 33-5A" />
         </sys:Item>
         <sys:Item Key="4251">
-          <Value exs:type="ns1:Label" Name="Text_Offset_temp" Comment="Stores a $04 (x offset for $28b text vars)" />
+          <Value exs:type="ns1:Label" Name="Array_Text1_Index0" Comment="Stores a $04 (x offset for $28b text vars)" />
         </sys:Item>
         <sys:Item Key="4391">
           <Value exs:type="ns1:Label" Name="Spell_ID" Comment="The spell an enemy is casting" />
@@ -7308,22 +7310,22 @@
           <Value exs:type="ns1:Label" Name="ACC_mods" Comment="(2b) Buffs/Debuffs for Acc, Evade, Atk, Def" />
         </sys:Item>
         <sys:Item Key="4851">
-          <Value exs:type="ns1:Label" Name="Current_HP" Comment="(2b) Rooks, Spirit, Guest 1-2, Enemies 1-8" />
+          <Value exs:type="ns1:Label" Name="Curr_HP_Rooks" Comment="(2b) Rooks, Spirit, Guest 1-2, Enemies 1-8" />
         </sys:Item>
         <sys:Item Key="4899">
-          <Value exs:type="ns1:Label" Name="Current_MP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_MP_Rooks" Comment="" />
         </sys:Item>
         <sys:Item Key="4963">
-          <Value exs:type="ns1:Label" Name="CurrentEXP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Rooks" Comment="" />
         </sys:Item>
         <sys:Item Key="4987">
-          <Value exs:type="ns1:Label" Name="CurrentLV" Comment="(2b) Rooks, Spirit, Guest1, Guest2" />
+          <Value exs:type="ns1:Label" Name="Curr_LV_Rooks" Comment="(2b) Rooks, Spirit, Guest1, Guest2" />
         </sys:Item>
         <sys:Item Key="5011">
-          <Value exs:type="ns1:Label" Name="MaxHP" Comment="(2b) Rooks, Spirit, Guest1, Guest2" />
+          <Value exs:type="ns1:Label" Name="Max_HP_Rooks" Comment="(2b) Rooks, Spirit, Guest1, Guest2" />
         </sys:Item>
         <sys:Item Key="5019">
-          <Value exs:type="ns1:Label" Name="MaxMP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Max_MP_Rooks" Comment="" />
         </sys:Item>
         <sys:Item Key="5027">
           <Value exs:type="ns1:Label" Name="Temp_EXP" Comment="Stores the sum earned in the current battle" />
@@ -7347,7 +7349,7 @@
           <Value exs:type="ns1:Label" Name="Curr_GP" Comment="(2b)" />
         </sys:Item>
         <sys:Item Key="5467">
-          <Value exs:type="ns1:Label" Name="Curr_party" Comment="0000=Rooks, 1-4=Spirits, 5-8 Guests, 9 None" />
+          <Value exs:type="ns1:Label" Name="Party_slot1" Comment="0000=Rooks, 1-4=Spirits, 5-8 Guests, 9 None" />
         </sys:Item>
         <sys:Item Key="5491">
           <Value exs:type="ns1:Label" Name="Curr_area" Comment="01xx = dungeon, 00xx = town" />
@@ -7515,7 +7517,7 @@
           <Value exs:type="ns1:Label" Name="LevelUp2" Comment="" />
         </sys:Item>
         <sys:Item Key="2539">
-          <Value exs:type="ns1:Label" Name="Selection_value" Comment="Current character ID, treasure chest value" />
+          <Value exs:type="ns1:Label" Name="Array_Selection" Comment="Current character ID, treasure chest value" />
         </sys:Item>
         <sys:Item Key="5469">
           <Value exs:type="ns1:Label" Name="Party_slot2" Comment="" />
@@ -7536,10 +7538,10 @@
           <Value exs:type="ns1:Label" Name="LoopVar_1047" Comment="" />
         </sys:Item>
         <sys:Item Key="4875">
-          <Value exs:type="ns1:Label" Name="Current_HP_copy" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_HP_copy" Comment="" />
         </sys:Item>
         <sys:Item Key="4923">
-          <Value exs:type="ns1:Label" Name="Current_MP_copy" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_MP_Rooks_copy" Comment="" />
         </sys:Item>
         <sys:Item Key="506159">
           <Value exs:type="ns1:Label" Name="Max_heal" Comment="" />
@@ -7560,7 +7562,7 @@
           <Value exs:type="ns1:Label" Name="Transfer_Setup2_6b" Comment="" />
         </sys:Item>
         <sys:Item Key="3251">
-          <Value exs:type="ns1:Label" Name="Fn_results1" Comment="" />
+          <Value exs:type="ns1:Label" Name="Array_Fn_results1" Comment="" />
         </sys:Item>
         <sys:Item Key="42636">
           <Value exs:type="ns1:Label" Name="Set_Text_Parser" Comment="" />
@@ -7860,43 +7862,43 @@
           <Value exs:type="ns1:Label" Name="EVENT_1C_Final_door" Comment="" />
         </sys:Item>
         <sys:Item Key="5013">
-          <Value exs:type="ns1:Label" Name="SpiritMaxHP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Max_HP_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="4853">
-          <Value exs:type="ns1:Label" Name="Spirit_currHP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_HP_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="4549">
           <Value exs:type="ns1:Label" Name="Condition_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="4947">
-          <Value exs:type="ns1:Label" Name="Sylph_currHP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_HP_Sylph" Comment="" />
         </sys:Item>
         <sys:Item Key="4949">
-          <Value exs:type="ns1:Label" Name="Dao_currHP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_HP_Dao" Comment="" />
         </sys:Item>
         <sys:Item Key="4951">
-          <Value exs:type="ns1:Label" Name="Marid_currHP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_HP_Marid" Comment="" />
         </sys:Item>
         <sys:Item Key="4953">
-          <Value exs:type="ns1:Label" Name="Efrite_currHP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_HP_Efrite" Comment="" />
         </sys:Item>
         <sys:Item Key="5021">
-          <Value exs:type="ns1:Label" Name="SpiritMaxMP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Max_MP_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="4901">
-          <Value exs:type="ns1:Label" Name="Spirit_currMP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_MP_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="4955">
-          <Value exs:type="ns1:Label" Name="Sylph_currMP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_MP_Sylph" Comment="" />
         </sys:Item>
         <sys:Item Key="4957">
-          <Value exs:type="ns1:Label" Name="Dao_currMP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_MP_Dao" Comment="" />
         </sys:Item>
         <sys:Item Key="4959">
-          <Value exs:type="ns1:Label" Name="Marid_currMP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_MP_Marid" Comment="" />
         </sys:Item>
         <sys:Item Key="4961">
-          <Value exs:type="ns1:Label" Name="Efrite_currMP" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_MP_Efrite" Comment="" />
         </sys:Item>
         <sys:Item Key="1625613">
           <Value exs:type="ns1:Label" Name="Full_Heal_Rooks_Spirits" Comment="&quot;Full&quot; heal" />
@@ -9171,7 +9173,7 @@
           <Value exs:type="ns1:Label" Name="Treasure_Monster_in_a_box" Comment="" />
         </sys:Item>
         <sys:Item Key="2503">
-          <Value exs:type="ns1:Label" Name="Temp_09C7" Comment="(0-4) Treasure chest item category" />
+          <Value exs:type="ns1:Label" Name="Array_Category" Comment="(0-4) Treasure chest item category" />
         </sys:Item>
         <sys:Item Key="8496">
           <Value exs:type="ns1:Label" Name="Color_add_select" Comment="00 is an allow all" />
@@ -9774,7 +9776,7 @@
           <Value exs:type="ns1:Label" Name="Alchemist_main_menu" Comment="" />
         </sys:Item>
         <sys:Item Key="49">
-          <Value exs:type="ns1:Label" Name="Input_0031" Comment="" />
+          <Value exs:type="ns1:Label" Name="Input_0031" Comment="Stored in 0035 ($83DB Advance_polling)" />
         </sys:Item>
         <sys:Item Key="254743">
           <Value exs:type="ns1:Label" Name="Shop_input_checker" Comment="" />
@@ -14679,7 +14681,7 @@
           <Value exs:type="ns1:Label" Name="Show_Equip_Menu" Comment="" />
         </sys:Item>
         <sys:Item Key="4989">
-          <Value exs:type="ns1:Label" Name="SpiritLV" Comment="" />
+          <Value exs:type="ns1:Label" Name="Curr_LV_Spirit" Comment="" />
         </sys:Item>
         <sys:Item Key="381141">
           <Value exs:type="ns1:Label" Name="Data_Enemy_WeaponLookup" Comment="" />
@@ -14745,7 +14747,7 @@
           <Value exs:type="ns1:Label" Name="MoveMenuCursor_2b" Comment="" />
         </sys:Item>
         <sys:Item Key="41">
-          <Value exs:type="ns1:Label" Name="Input_New" Comment="" />
+          <Value exs:type="ns1:Label" Name="Input_0029_New" Comment="Stored in 002D" />
         </sys:Item>
         <sys:Item Key="503457">
           <Value exs:type="ns1:Label" Name="SetBattleCursorPos" Comment="" />
@@ -15438,16 +15440,16 @@
           <Value exs:type="ns1:Label" Name="Spelldata_MVN10" Comment="" />
         </sys:Item>
         <sys:Item Key="2975">
-          <Value exs:type="ns1:Label" Name="Anim_Loopvar" Comment="Value 0-7" />
+          <Value exs:type="ns1:Label" Name="Array_Anim_Loopvar" Comment="Value 0-7" />
         </sys:Item>
         <sys:Item Key="3067">
-          <Value exs:type="ns1:Label" Name="Ptr_EventStack" Comment="" />
+          <Value exs:type="ns1:Label" Name="Stack_Event_Ptr" Comment="" />
         </sys:Item>
         <sys:Item Key="3159">
-          <Value exs:type="ns1:Label" Name="Bank_EventStack" Comment="" />
+          <Value exs:type="ns1:Label" Name="Stack_Event_Bank" Comment="" />
         </sys:Item>
         <sys:Item Key="2683">
-          <Value exs:type="ns1:Label" Name="Anim_ID" Comment="" />
+          <Value exs:type="ns1:Label" Name="Array_Anim_ID" Comment="" />
         </sys:Item>
         <sys:Item Key="2359">
           <Value exs:type="ns1:Label" Name="Anim48_Total" Comment="" />
@@ -18635,20 +18637,20 @@
         <sys:Item Key="99384">
           <Value exs:type="ns1:Label" Name="Load_Guest2_Gfx" Comment="" />
         </sys:Item>
-        <sys:Item Key="16">
-          <Value exs:type="ns1:Label" Name="PC" Comment="Code pointer to the current line of execution" />
+        <sys:Item Key="2467">
+          <Value exs:type="ns1:Label" Name="Array_Menu_Cursor" Comment="" />
         </sys:Item>
-        <sys:Item Key="24">
-          <Value exs:type="ns1:Label" Name="Fn_ptr" Comment="" />
+        <sys:Item Key="1574">
+          <Value exs:type="ns1:Label" Name="Spirit_HP_BCD_hi" Comment="" />
         </sys:Item>
-        <sys:Item Key="28">
-          <Value exs:type="ns1:Label" Name="Addr_ptr" Comment="" />
+        <sys:Item Key="1572">
+          <Value exs:type="ns1:Label" Name="Spirit_HP_BCD_lo" Comment="" />
         </sys:Item>
         <sys:Item Key="2611">
           <Value exs:type="ns1:Label" Name="Stack_addr_ptr" Comment="Offset X" />
         </sys:Item>
         <sys:Item Key="2647">
-          <Value exs:type="ns1:Label" Name="Stack_addr_bank" Comment="" />
+          <Value exs:type="ns1:Label" Name="Stack_addr_bank" Comment="(Paired with A33,x)" />
         </sys:Item>
         <sys:Item Key="5861">
           <Value exs:type="ns1:Label" Name="Ability_currHP" Comment="" />
@@ -18667,6 +18669,318 @@
         </sys:Item>
         <sys:Item Key="5875">
           <Value exs:type="ns1:Label" Name="Dungeon_in_motion" Comment="" />
+        </sys:Item>
+        <sys:Item Key="33">
+          <Value exs:type="ns1:Label" Name="Input_0021" Comment="Stored in 0025" />
+        </sys:Item>
+        <sys:Item Key="37">
+          <Value exs:type="ns1:Label" Name="Input_0025" Comment="" />
+        </sys:Item>
+        <sys:Item Key="35">
+          <Value exs:type="ns1:Label" Name="Input_0023" Comment="Stored in 0027" />
+        </sys:Item>
+        <sys:Item Key="39">
+          <Value exs:type="ns1:Label" Name="Input_0027" Comment="" />
+        </sys:Item>
+        <sys:Item Key="53">
+          <Value exs:type="ns1:Label" Name="Input_0035" Comment="" />
+        </sys:Item>
+        <sys:Item Key="51">
+          <Value exs:type="ns1:Label" Name="Input_0033" Comment="Stored in 0037" />
+        </sys:Item>
+        <sys:Item Key="55">
+          <Value exs:type="ns1:Label" Name="Input_0037" Comment="" />
+        </sys:Item>
+        <sys:Item Key="45">
+          <Value exs:type="ns1:Label" Name="Input_002D" Comment="" />
+        </sys:Item>
+        <sys:Item Key="43">
+          <Value exs:type="ns1:Label" Name="Input_002B" Comment="Stored in 002F" />
+        </sys:Item>
+        <sys:Item Key="47">
+          <Value exs:type="ns1:Label" Name="Input_002F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="506522">
+          <Value exs:type="ns1:Label" Name="Sub_Turning_Around" Comment="" />
+        </sys:Item>
+        <sys:Item Key="106790">
+          <Value exs:type="ns1:Label" Name="Event_Turning_Step" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5501">
+          <Value exs:type="ns1:Label" Name="Compass_Subdirection" Comment="Tracks half turns for dungeons, quarter turns for towns." />
+        </sys:Item>
+        <sys:Item Key="5503">
+          <Value exs:type="ns1:Label" Name="Unused_157F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5475">
+          <Value exs:type="ns1:Label" Name="Unused" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5477">
+          <Value exs:type="ns1:Label" Name="Unused_Enemy_slot2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5479">
+          <Value exs:type="ns1:Label" Name="Unused_Enemy_slot3" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5481">
+          <Value exs:type="ns1:Label" Name="Unused_Enemy_slot4" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5483">
+          <Value exs:type="ns1:Label" Name="Unused_Enemy_slot5" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5485">
+          <Value exs:type="ns1:Label" Name="Unused_Enemy_slot6" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5487">
+          <Value exs:type="ns1:Label" Name="Unused_Enemy_slot7" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5489">
+          <Value exs:type="ns1:Label" Name="Unused_Enemy_slot8" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4903">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Guest1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4905">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Guest2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4907">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4909">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4911">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy3" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4913">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy4" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4915">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy5" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4917">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy6" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4919">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy7" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4921">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy8" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4925">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Spirit_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4927">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Guest1_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4929">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Guest2_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4931">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy1_copy" Comment="Unused" />
+        </sys:Item>
+        <sys:Item Key="4933">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy2_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4935">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy3_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4937">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy4_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4939">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy5_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4941">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy6_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4943">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy7_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4945">
+          <Value exs:type="ns1:Label" Name="Curr_MP_Enemy8_copy" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4967">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Guest1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4969">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Guest2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4971">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy1" Comment="EXP for beating this enemy" />
+        </sys:Item>
+        <sys:Item Key="4973">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4975">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy3" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4977">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy4" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4979">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy5" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4981">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy6" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4983">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy7" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4985">
+          <Value exs:type="ns1:Label" Name="Curr_EXP_Enemy8" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4991">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Guest1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4993">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Guest2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4995">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy1" Comment="Affects run chance" />
+        </sys:Item>
+        <sys:Item Key="4997">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4999">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy3" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5001">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy4" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5003">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy5" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5005">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy6" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5007">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy7" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5009">
+          <Value exs:type="ns1:Label" Name="Curr_LV_Enemy8" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5015">
+          <Value exs:type="ns1:Label" Name="Max_HP_Guest1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5017">
+          <Value exs:type="ns1:Label" Name="Max_HP_Guest2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5023">
+          <Value exs:type="ns1:Label" Name="Max_MP_Guest1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5025">
+          <Value exs:type="ns1:Label" Name="Max_MP_Guest2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4187">
+          <Value exs:type="ns1:Label" Name="Unused_105B" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4189">
+          <Value exs:type="ns1:Label" Name="Unused_105D" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4191">
+          <Value exs:type="ns1:Label" Name="Unused_105F" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4200">
+          <Value exs:type="ns1:Label" Name="Graphics_1068" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4202">
+          <Value exs:type="ns1:Label" Name="Graphics_106A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4204">
+          <Value exs:type="ns1:Label" Name="Graphics_106C" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4206">
+          <Value exs:type="ns1:Label" Name="Unused_106E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4208">
+          <Value exs:type="ns1:Label" Name="Unused_1070" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4210">
+          <Value exs:type="ns1:Label" Name="Unused_1072" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4212">
+          <Value exs:type="ns1:Label" Name="Unused_1074" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4214">
+          <Value exs:type="ns1:Label" Name="Unused_1076" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4216">
+          <Value exs:type="ns1:Label" Name="Unused_1078" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4218">
+          <Value exs:type="ns1:Label" Name="Unused_107A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4220">
+          <Value exs:type="ns1:Label" Name="Unused_107C" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4222">
+          <Value exs:type="ns1:Label" Name="Unused_107E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4224">
+          <Value exs:type="ns1:Label" Name="Unused_1080" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4226">
+          <Value exs:type="ns1:Label" Name="Unused_1084" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4230">
+          <Value exs:type="ns1:Label" Name="Unused_1086" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4232">
+          <Value exs:type="ns1:Label" Name="Unused_1088" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4234">
+          <Value exs:type="ns1:Label" Name="Unused_108A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4241">
+          <Value exs:type="ns1:Label" Name="Animation_Finish_Timer" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4243">
+          <Value exs:type="ns1:Label" Name="Unused_1093" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4253">
+          <Value exs:type="ns1:Label" Name="Array_Text1_Index1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4255">
+          <Value exs:type="ns1:Label" Name="Array_Text1_Index2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4257">
+          <Value exs:type="ns1:Label" Name="Array_Text1_Index3" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4259">
+          <Value exs:type="ns1:Label" Name="Array_Text1_Index4" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1581">
+          <Value exs:type="ns1:Label" Name="Temp_party_order" Comment="" />
+        </sys:Item>
+        <sys:Item Key="2575">
+          <Value exs:type="ns1:Label" Name="Array_Target" Comment="" />
+        </sys:Item>
+        <sys:Item Key="2695">
+          <Value exs:type="ns1:Label" Name="Command_Rooks" Comment="1=main, 3=item/magic, 4=card, 5=weap, 8=atk" />
+        </sys:Item>
+        <sys:Item Key="2697">
+          <Value exs:type="ns1:Label" Name="Command_Spirit" Comment="" />
+        </sys:Item>
+        <sys:Item Key="2699">
+          <Value exs:type="ns1:Label" Name="Command_Guest1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="2701">
+          <Value exs:type="ns1:Label" Name="Command_Guest2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4291">
+          <Value exs:type="ns1:Label" Name="Array_Text2_Index0" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4293">
+          <Value exs:type="ns1:Label" Name="Array_Text2_Index1" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4295">
+          <Value exs:type="ns1:Label" Name="Array_Text2_Index2" Comment="" />
+        </sys:Item>
+        <sys:Item Key="4297">
+          <Value exs:type="ns1:Label" Name="Array_Text2_Index3" Comment="" />
+        </sys:Item>
+        <sys:Item Key="5493">
+          <Value exs:type="ns1:Label" Name="Comparison" Comment="" />
         </sys:Item>
       </Labels>
       <RomBytes>

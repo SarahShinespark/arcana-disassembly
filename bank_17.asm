@@ -208,8 +208,8 @@ CODE_178276:
    JML.L Sub_LoadStuff                  ;17827F|008DB4;
 CODE_178283:
    LDX.W Selection                      ;178283|00103F;
-   LDA.W $09A3,X                        ;178286|0009A3;
-   STA.W Anim_ID,X                      ;178289|000A7B;
+   LDA.W Array_Menu_Cursor,X            ;178286|0009A3;
+   STA.W Array_Anim_ID,X                ;178289|000A7B;
    RTL                                  ;17828C|      ;
 DATA8_17828D:
    db $16                               ;17828D|      ; Set $18D5 = 0000
@@ -424,7 +424,7 @@ CODE_178405:
    BNE Sound_test1                      ;17840B|17840E;
    RTL                                  ;17840D|      ;
 Sound_test1:
-   LDA.W $0021                          ;17840E|000021;
+   LDA.W Input_0021                     ;17840E|000021;
    CMP.W #$8030                         ;178411|      ; B/L/R check
    BEQ Load_Sound_test                  ;178414|178417;
    RTL                                  ;178416|      ;
@@ -1284,7 +1284,7 @@ Sub_Intro_weather:
    LDX.W Weather_fx                     ;178BD2|0018CF;
    LDA.L DATA8_178BE0,X                 ;178BD5|178BE0;
    AND.W #$00FF                         ;178BD9|      ;
-   STA.W Anim_Loopvar,Y                 ;178BDC|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;178BDC|000B9F;
    RTL                                  ;178BDF|      ;
 DATA8_178BE0:
    db $10                               ;178BE0|      ;
@@ -2536,7 +2536,7 @@ DATA8_179258:
    db $FF                               ;179260|      ;
 Smol_block_move:
    LDX.W Selection                      ;179261|00103F; Moves 4b to RAM
-   LDA.W $09A3,X                        ;179264|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;179264|0009A3;
    ASL A                                ;179267|      ;
    ADC.W #$9278                         ;179268|      ; Source $17/9278,2x
    TAX                                  ;17926B|      ;

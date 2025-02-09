@@ -20002,7 +20002,7 @@ Spell_Out_Of_Range:
    db $1C                               ;0FCF30|      ; End of script
 CODE_0FCF31:
    LDX.W Selection                      ;0FCF31|00103F;
-   LDA.W Temp_09C7,X                    ;0FCF34|0009C7;
+   LDA.W Array_Category,X               ;0FCF34|0009C7;
    CLC                                  ;0FCF37|      ;
    ADC.W #$CF5D                         ;0FCF38|      ;
    TAX                                  ;0FCF3B|      ;
@@ -20012,14 +20012,14 @@ CODE_0FCF31:
    MVN $00,$0F                          ;0FCF43|      ;
    PLB                                  ;0FCF46|      ;
    LDX.W Selection                      ;0FCF47|00103F;
-   LDA.W Temp_09C7,X                    ;0FCF4A|0009C7;
+   LDA.W Array_Category,X               ;0FCF4A|0009C7;
    CLC                                  ;0FCF4D|      ;
    ADC.W #$000C                         ;0FCF4E|      ;
    CMP.W #$0032                         ;0FCF51|      ;
    BCC CODE_0FCF59                      ;0FCF54|0FCF59;
    LDA.W #$0000                         ;0FCF56|      ;
 CODE_0FCF59:
-   STA.W Temp_09C7,X                    ;0FCF59|0009C7;
+   STA.W Array_Category,X               ;0FCF59|0009C7;
    RTL                                  ;0FCF5C|      ;
 MVN_0604:
    db $18                               ;0FCF5D|      ;
@@ -20096,10 +20096,10 @@ MVN_0604:
    db $00                               ;0FCFA4|      ;
 Load_Some_Anim_Data:
    LDX.W Selection                      ;0FCFA5|00103F;
-   LDA.W Selection_value,X              ;0FCFA8|0009EB;
+   LDA.W Array_Selection,X              ;0FCFA8|0009EB;
    AND.W #$0003                         ;0FCFAB|      ;
    BNE CODE_0FCFD8                      ;0FCFAE|0FCFD8;
-   LDA.W Temp_09C7,X                    ;0FCFB0|0009C7;
+   LDA.W Array_Category,X               ;0FCFB0|0009C7;
    CLC                                  ;0FCFB3|      ;
    ADC.W #$CFDC                         ;0FCFB4|      ;
    TAX                                  ;0FCFB7|      ;
@@ -20109,16 +20109,16 @@ Load_Some_Anim_Data:
    MVN $00,$0F                          ;0FCFBF|      ;
    PLB                                  ;0FCFC2|      ;
    LDX.W Selection                      ;0FCFC3|00103F;
-   LDA.W Temp_09C7,X                    ;0FCFC6|0009C7;
+   LDA.W Array_Category,X               ;0FCFC6|0009C7;
    CLC                                  ;0FCFC9|      ;
    ADC.W #$000C                         ;0FCFCA|      ;
    CMP.W #$0032                         ;0FCFCD|      ;
    BCC CODE_0FCFD5                      ;0FCFD0|0FCFD5;
    LDA.W #$0000                         ;0FCFD2|      ;
 CODE_0FCFD5:
-   STA.W Temp_09C7,X                    ;0FCFD5|0009C7;
+   STA.W Array_Category,X               ;0FCFD5|0009C7;
 CODE_0FCFD8:
-   INC.W Selection_value,X              ;0FCFD8|0009EB;
+   INC.W Array_Selection,X              ;0FCFD8|0009EB;
    RTL                                  ;0FCFDB|      ;
 MVN_0604_two:
    db $18                               ;0FCFDC|      ;

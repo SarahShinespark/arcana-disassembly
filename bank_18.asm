@@ -50,7 +50,7 @@ Random_encounter:
    ASL A                                ;18805A|      ;
    TAX                                  ;18805B|      ;
    LDA.L Tbl_Ch_Encounter_Sets,X        ;18805C|18913D; Build the pointer to that chapter's encounters
-   STA.B Fn_ptr                         ;188060|000018;
+   STA.B $18                            ;188060|000018;
    LDA.W #$0018                         ;188062|      ;
    STA.B $1A                            ;188065|00001A;
    TYA                                  ;188067|      ;
@@ -58,45 +58,45 @@ Random_encounter:
    BEQ CODE_18807D                      ;18806B|18807D; Skip looping to the entry if it's the first one
    TAY                                  ;18806D|      ;
 CODE_18806E:
-   LDA.B [Fn_ptr]                       ;18806E|000018; Load # of encounter entries (usually 5); loop until Y=0
+   LDA.B [$18]                          ;18806E|000018; Load # of encounter entries (usually 5); loop until Y=0
    AND.W #$000F                         ;188070|      ;
    INC A                                ;188073|      ;
    INC A                                ;188074|      ;
    CLC                                  ;188075|      ;
-   ADC.B Fn_ptr                         ;188076|000018;
-   STA.B Fn_ptr                         ;188078|000018;
+   ADC.B $18                            ;188076|000018;
+   STA.B $18                            ;188078|000018;
    DEY                                  ;18807A|      ;
    BNE CODE_18806E                      ;18807B|18806E;
 CODE_18807D:
-   LDA.B Fn_ptr                         ;18807D|000018;
+   LDA.B $18                            ;18807D|000018;
    STA.W Ptr_Enemy_list                 ;18807F|0018DA; Save ptr to the enemy list for that tile
    LDA.B $19                            ;188082|000019;
    STA.W $18DB                          ;188084|0018DB;
-   LDA.B [Fn_ptr]                       ;188087|000018; Load Formation List (determines the layout of the sixteen possible encounters)
+   LDA.B [$18]                          ;188087|000018; Load Formation List (determines the layout of the sixteen possible encounters)
    AND.W #$FF00                         ;188089|      ;
    XBA                                  ;18808C|      ;
    ASL A                                ;18808D|      ;
    TAX                                  ;18808E|      ;
    LDA.L Tbl_Zone_Formations,X          ;18808F|189270;
-   STA.B Addr_ptr                       ;188093|00001C;
+   STA.B $1C                            ;188093|00001C;
    LDA.W #$0018                         ;188095|      ;
    STA.B $1E                            ;188098|00001E;
-   LDA.B [Addr_ptr]                     ;18809A|00001C;
-   INC.B Addr_ptr                       ;18809C|00001C;
+   LDA.B [$1C]                          ;18809A|00001C;
+   INC.B $1C                            ;18809C|00001C;
    JSL.L RNG                            ;18809E|0089F1; Roll 1 of sixteen encounters for that tile
    TAX                                  ;1880A2|      ;
    BEQ CODE_1880B3                      ;1880A3|1880B3;
 CODE_1880A5:
-   LDA.B [Addr_ptr]                     ;1880A5|00001C; If not the first entry, loop to advance the pointer until it's reached
+   LDA.B [$1C]                          ;1880A5|00001C; If not the first entry, loop to advance the pointer until it's reached
    AND.W #$00FF                         ;1880A7|      ;
    ASL A                                ;1880AA|      ;
    INC A                                ;1880AB|      ;
-   ADC.B Addr_ptr                       ;1880AC|00001C;
-   STA.B Addr_ptr                       ;1880AE|00001C;
+   ADC.B $1C                            ;1880AC|00001C;
+   STA.B $1C                            ;1880AE|00001C;
    DEX                                  ;1880B0|      ;
    BNE CODE_1880A5                      ;1880B1|1880A5;
 CODE_1880B3:
-   LDA.B Addr_ptr                       ;1880B3|00001C;
+   LDA.B $1C                            ;1880B3|00001C;
    STA.W Ptr_Encounter_layout           ;1880B5|0018D7; Save a long ptr to the encounter in $18D7
    LDA.B $1D                            ;1880B8|00001D;
    STA.W $18D8                          ;1880BA|0018D8;
@@ -136,23 +136,23 @@ BossEncounter:
    ASL A                                ;1880FC|      ;
    TAX                                  ;1880FD|      ;
    LDA.L Ch_Boss_Position,X             ;1880FE|189101;
-   STA.B Fn_ptr                         ;188102|000018;
+   STA.B $18                            ;188102|000018;
    LDA.W #$0018                         ;188104|      ;
    STA.B $1A                            ;188107|00001A;
    LDY.W #$0000                         ;188109|      ;
 CODE_18810C:
-   LDA.B [Fn_ptr],Y                     ;18810C|000018;
+   LDA.B [$18],Y                        ;18810C|000018;
    BMI Boss_Ch4_or_5                    ;18810E|188133;
    CMP.W Curr_area                      ;188110|001573;
    BNE CODE_188129                      ;188113|188129; If the map is wrong, check the next entry
    INY                                  ;188115|      ;
    INY                                  ;188116|      ;
-   LDA.B [Fn_ptr],Y                     ;188117|000018;
+   LDA.B [$18],Y                        ;188117|000018;
    CMP.W Map_X                          ;188119|0016F7;
    BNE CODE_18812B                      ;18811C|18812B;
    INY                                  ;18811E|      ;
    INY                                  ;18811F|      ;
-   LDA.B [Fn_ptr],Y                     ;188120|000018;
+   LDA.B [$18],Y                        ;188120|000018;
    CMP.W Map_Y                          ;188122|0016F9;
    BEQ Boss_Ch1_to_3                    ;188125|188135;
    BRA CODE_18812D                      ;188127|18812D;
@@ -182,7 +182,7 @@ Boss_Ch1_to_3:
    BNE Boss_Ch4_or_5                    ;188143|188133;
    INY                                  ;188145|      ;
    INY                                  ;188146|      ;
-   LDA.B [Fn_ptr],Y                     ;188147|000018;
+   LDA.B [$18],Y                        ;188147|000018;
    SEC                                  ;188149|      ;
    RTS                                  ;18814A|      ;
 Decomp_Battle1:
@@ -204,17 +204,17 @@ Decomp_Battle1:
    PLB                                  ;18816D|      ;
 Enemy_Xfer_RAM_and_Decomp:
    LDA.W Ptr_Enemy_list                 ;18816E|0018DA;
-   STA.B Fn_ptr                         ;188171|000018;
+   STA.B $18                            ;188171|000018;
    LDA.W $18DB                          ;188173|0018DB;
    STA.B $19                            ;188176|000019;
-   LDA.B [Fn_ptr]                       ;188178|000018;
+   LDA.B [$18]                          ;188178|000018;
    AND.W #$000F                         ;18817A|      ;
    TAY                                  ;18817D|      ;
-   INC.B Fn_ptr                         ;18817E|000018;
-   INC.B Fn_ptr                         ;188180|000018;
+   INC.B $18                            ;18817E|000018;
+   INC.B $18                            ;188180|000018;
 CODE_188182:
    PHY                                  ;188182|      ;
-   LDA.B [Fn_ptr]                       ;188183|000018;
+   LDA.B [$18]                          ;188183|000018;
    AND.W #$00FF                         ;188185|      ;
    TAX                                  ;188188|      ;
    LDA.L Tbl_Enemy_Palettes_Banks,X     ;188189|1980A1;
@@ -223,48 +223,48 @@ CODE_188182:
    ASL A                                ;188190|      ;
    TAX                                  ;188191|      ;
    LDA.L Tbl_Enemy_Palettes,X           ;188192|198001;
-   STA.B Addr_ptr                       ;188196|00001C;
-   LDA.B [Addr_ptr]                     ;188198|00001C;
+   STA.B $1C                            ;188196|00001C;
+   LDA.B [$1C]                          ;188198|00001C;
    ASL A                                ;18819A|      ;
    TAX                                  ;18819B|      ;
-   INC.B Addr_ptr                       ;18819C|00001C;
-   INC.B Addr_ptr                       ;18819E|00001C;
-   LDA.B [Addr_ptr]                     ;1881A0|00001C; First byte = # bytes to copy
+   INC.B $1C                            ;18819C|00001C;
+   INC.B $1C                            ;18819E|00001C;
+   LDA.B [$1C]                          ;1881A0|00001C; First byte = # bytes to copy
    TAY                                  ;1881A2|      ;
-   INC.B Addr_ptr                       ;1881A3|00001C;
-   INC.B Addr_ptr                       ;1881A5|00001C;
+   INC.B $1C                            ;1881A3|00001C;
+   INC.B $1C                            ;1881A5|00001C;
 Loop_Xfer_Data_to_RAM:
-   LDA.B [Addr_ptr]                     ;1881A7|00001C;
+   LDA.B [$1C]                          ;1881A7|00001C;
    STA.W $0420,X                        ;1881A9|000420;
-   INC.B Addr_ptr                       ;1881AC|00001C;
-   INC.B Addr_ptr                       ;1881AE|00001C;
+   INC.B $1C                            ;1881AC|00001C;
+   INC.B $1C                            ;1881AE|00001C;
    INX                                  ;1881B0|      ;
    INX                                  ;1881B1|      ;
    DEY                                  ;1881B2|      ;
    DEY                                  ;1881B3|      ;
    BNE Loop_Xfer_Data_to_RAM            ;1881B4|1881A7;
-   LDA.B [Addr_ptr]                     ;1881B6|00001C;
+   LDA.B [$1C]                          ;1881B6|00001C;
    PHA                                  ;1881B8|      ;
-   INC.B Addr_ptr                       ;1881B9|00001C;
-   LDA.B [Addr_ptr]                     ;1881BB|00001C;
+   INC.B $1C                            ;1881B9|00001C;
+   LDA.B [$1C]                          ;1881BB|00001C;
    STA.B $1D                            ;1881BD|00001D;
    PLA                                  ;1881BF|      ;
-   STA.B Addr_ptr                       ;1881C0|00001C;
-   LDA.B [Addr_ptr]                     ;1881C2|00001C;
+   STA.B $1C                            ;1881C0|00001C;
+   LDA.B [$1C]                          ;1881C2|00001C;
    ASL A                                ;1881C4|      ;
    TAY                                  ;1881C5|      ;
-   INC.B Addr_ptr                       ;1881C6|00001C;
-   INC.B Addr_ptr                       ;1881C8|00001C;
+   INC.B $1C                            ;1881C6|00001C;
+   INC.B $1C                            ;1881C8|00001C;
    LDA.B $1E                            ;1881CA|00001E;
    AND.W #$00FF                         ;1881CC|      ;
-   LDX.B Addr_ptr                       ;1881CF|00001C;
+   LDX.B $1C                            ;1881CF|00001C;
    PHB                                  ;1881D1|      ;
    PEA.W $7F7F                          ;1881D2|007F7F;
    PLB                                  ;1881D5|      ;
    PLB                                  ;1881D6|      ;
    JSL.L Decompression_far              ;1881D7|008762;
    PLB                                  ;1881DB|      ;
-   INC.B Fn_ptr                         ;1881DC|000018;
+   INC.B $18                            ;1881DC|000018;
    PLY                                  ;1881DE|      ;
    DEY                                  ;1881DF|      ;
    BNE CODE_188182                      ;1881E0|188182;
@@ -316,16 +316,16 @@ CODE_18822F:
    STA.W $0639                          ;188240|000639;
    STZ.W $0635                          ;188243|000635;
    LDA.W #$0004                         ;188246|      ;
-   STA.W $062D                          ;188249|00062D;
+   STA.W Temp_party_order               ;188249|00062D;
    LDA.W Ptr_Encounter_layout           ;18824C|0018D7;
-   STA.B Fn_ptr                         ;18824F|000018;
+   STA.B $18                            ;18824F|000018;
    LDA.W $18D8                          ;188251|0018D8;
    STA.B $19                            ;188254|000019;
    LDA.W Ptr_Enemy_list                 ;188256|0018DA;
-   STA.B Addr_ptr                       ;188259|00001C;
+   STA.B $1C                            ;188259|00001C;
    LDA.W $18DB                          ;18825B|0018DB;
    STA.B $1D                            ;18825E|00001D;
-   LDA.B [Addr_ptr]                     ;188260|00001C;
+   LDA.B [$1C]                          ;188260|00001C;
    AND.W #$00F0                         ;188262|      ;
    LSR A                                ;188265|      ;
    LSR A                                ;188266|      ;
@@ -335,17 +335,17 @@ CODE_18822F:
    LDA.L _18EF_table,X                  ;18826A|1882E2;
    AND.W #$00FF                         ;18826E|      ;
    STA.W _4F_50_52_51_Battle            ;188271|0018EF;
-   LDA.B [Fn_ptr]                       ;188274|000018;
+   LDA.B [$18]                          ;188274|000018;
    AND.W #$00FF                         ;188276|      ;
    TAY                                  ;188279|      ;
-   INC.B Fn_ptr                         ;18827A|000018;
+   INC.B $18                            ;18827A|000018;
 CODE_18827C:
    PHY                                  ;18827C|      ;
    STZ.W $062B                          ;18827D|00062B;
-   LDA.W $062D                          ;188280|00062D;
+   LDA.W Temp_party_order               ;188280|00062D;
    ASL A                                ;188283|      ;
    TAX                                  ;188284|      ;
-   LDA.B [Fn_ptr]                       ;188285|000018;
+   LDA.B [$18]                          ;188285|000018;
    AND.W #$00FF                         ;188287|      ;
    STA.W Party_order,X                  ;18828A|0011F3;
    CMP.B $0E                            ;18828D|00000E;
@@ -362,20 +362,20 @@ CODE_188294:
    LDA.L New_stuff,X                    ;1882A4|18954E;
    AND.W #$00FF                         ;1882A8|      ;
    TAX                                  ;1882AB|      ;
-   INC.B Fn_ptr                         ;1882AC|000018;
-   LDA.B [Fn_ptr]                       ;1882AE|000018;
+   INC.B $18                            ;1882AC|000018;
+   LDA.B [$18]                          ;1882AE|000018;
    AND.W #$00FF                         ;1882B0|      ;
    TAY                                  ;1882B3|      ;
    INY                                  ;1882B4|      ;
    INY                                  ;1882B5|      ;
-   LDA.B [Addr_ptr],Y                   ;1882B6|00001C;
+   LDA.B [$1C],Y                        ;1882B6|00001C;
    AND.W #$00FF                         ;1882B8|      ;
    CLC                                  ;1882BB|      ;
    ADC.W #$0018                         ;1882BC|      ;
    PLY                                  ;1882BF|      ;
    JSL.L Way_more_anim_stuff            ;1882C0|008D24;
-   INC.W $062D                          ;1882C4|00062D;
-   INC.B Fn_ptr                         ;1882C7|000018;
+   INC.W Temp_party_order               ;1882C4|00062D;
+   INC.B $18                            ;1882C7|000018;
    INC.W $0637                          ;1882C9|000637;
    INC.W $0637                          ;1882CC|000637;
    INC.W $0639                          ;1882CF|000639;
@@ -453,33 +453,33 @@ Decomps_Animations:
    RTL                                  ;188344|      ;
 CODE_188345:
    LDX.W Decomp_Entry_Addr              ;188345|0018F3;
-   STX.B Fn_ptr                         ;188348|000018;
+   STX.B $18                            ;188348|000018;
    LDX.W Decomp_Entry_Bank              ;18834A|0018F5;
    STX.B $1A                            ;18834D|00001A;
    CMP.W #$0001                         ;18834F|      ;
    BNE CODE_1883AA                      ;188352|1883AA;
    INC.W $18FD                          ;188354|0018FD;
    LDY.W #$0001                         ;188357|      ;
-   LDA.B [Fn_ptr],Y                     ;18835A|000018;
+   LDA.B [$18],Y                        ;18835A|000018;
    STA.W $18F6                          ;18835C|0018F6;
    LDY.W #$0003                         ;18835F|      ;
-   LDA.B [Fn_ptr],Y                     ;188362|000018;
+   LDA.B [$18],Y                        ;188362|000018;
    STA.W Decomp_Addr                    ;188364|0018F8;
    LDY.W #$0005                         ;188367|      ;
-   LDA.B [Fn_ptr],Y                     ;18836A|000018;
+   LDA.B [$18],Y                        ;18836A|000018;
    STA.W Decomp_Bank                    ;18836C|0018FA;
    INY                                  ;18836F|      ;
-   LDA.B [Fn_ptr],Y                     ;188370|000018;
+   LDA.B [$18],Y                        ;188370|000018;
    STA.W $18FB                          ;188372|0018FB;
-   LDA.B [Fn_ptr]                       ;188375|000018;
+   LDA.B [$18]                          ;188375|000018;
    AND.W #$00FF                         ;188377|      ;
    CMP.W #$0080                         ;18837A|      ;
    BCC CODE_1883AA                      ;18837D|1883AA;
    LDY.W #$0003                         ;18837F|      ;
-   LDA.B [Fn_ptr],Y                     ;188382|000018;
+   LDA.B [$18],Y                        ;188382|000018;
    TAX                                  ;188384|      ;
    LDY.W #$0005                         ;188385|      ;
-   LDA.B [Fn_ptr],Y                     ;188388|000018;
+   LDA.B [$18],Y                        ;188388|000018;
    AND.W #$00FF                         ;18838A|      ;
    LDY.W #$8000                         ;18838D|      ;
    PHB                                  ;188390|      ;
@@ -496,7 +496,7 @@ CODE_188345:
    CLC                                  ;1883A8|      ;
    RTL                                  ;1883A9|      ;
 CODE_1883AA:
-   LDA.B [Fn_ptr]                       ;1883AA|000018;
+   LDA.B [$18]                          ;1883AA|000018;
    AND.W #$007F                         ;1883AC|      ;
    STA.B $03                            ;1883AF|000003;
    LDA.W $18F6                          ;1883B1|0018F6;
@@ -529,12 +529,12 @@ CODE_1883BC:
    SBC.B $00                            ;1883ED|000000;
    STA.W $18F6                          ;1883EF|0018F6;
    BNE CODE_18840F                      ;1883F2|18840F;
-   LDA.B Fn_ptr                         ;1883F4|000018;
+   LDA.B $18                            ;1883F4|000018;
    CLC                                  ;1883F6|      ;
    ADC.W #$0008                         ;1883F7|      ;
-   STA.B Fn_ptr                         ;1883FA|000018;
+   STA.B $18                            ;1883FA|000018;
    STA.W Decomp_Entry_Addr              ;1883FC|0018F3;
-   LDA.B [Fn_ptr]                       ;1883FF|000018;
+   LDA.B [$18]                          ;1883FF|000018;
    AND.W #$00FF                         ;188401|      ;
    CMP.W #$00FF                         ;188404|      ;
    BEQ CODE_188411                      ;188407|188411;
@@ -562,44 +562,44 @@ CODE_188423:
    ASL A                                ;18842F|      ;
    TAX                                  ;188430|      ;
    LDA.L Tbl_Treasure_Lists,X           ;188431|188A99;
-   STA.B Fn_ptr                         ;188435|000018;
+   STA.B $18                            ;188435|000018;
    LDA.W #$0018                         ;188437|      ;
    STA.B $1A                            ;18843A|00001A;
    STZ.B $00                            ;18843C|000000;
 CODE_18843E:
    LDY.W #$0000                         ;18843E|      ;
-   LDA.B [Fn_ptr],Y                     ;188441|000018;
+   LDA.B [$18],Y                        ;188441|000018;
    BMI CODE_188468                      ;188443|188468;
    CMP.W Curr_area                      ;188445|001573;
    BNE CODE_18845C                      ;188448|18845C;
    INY                                  ;18844A|      ;
    INY                                  ;18844B|      ;
-   LDA.B [Fn_ptr],Y                     ;18844C|000018;
+   LDA.B [$18],Y                        ;18844C|000018;
    CMP.W Map_X                          ;18844E|0016F7;
    BNE CODE_18845C                      ;188451|18845C;
    INY                                  ;188453|      ;
    INY                                  ;188454|      ;
-   LDA.B [Fn_ptr],Y                     ;188455|000018;
+   LDA.B [$18],Y                        ;188455|000018;
    CMP.W Map_Y                          ;188457|0016F9;
    BEQ CODE_188469                      ;18845A|188469;
 CODE_18845C:
-   LDA.B Fn_ptr                         ;18845C|000018;
+   LDA.B $18                            ;18845C|000018;
    CLC                                  ;18845E|      ;
    ADC.W #$000C                         ;18845F|      ;
-   STA.B Fn_ptr                         ;188462|000018;
+   STA.B $18                            ;188462|000018;
    INC.B $00                            ;188464|000000;
    BRA CODE_18843E                      ;188466|18843E;
 CODE_188468:
    RTL                                  ;188468|      ;
 CODE_188469:
    LDY.W #$0002                         ;188469|      ;
-   LDA.B [Fn_ptr],Y                     ;18846C|000018;
+   LDA.B [$18],Y                        ;18846C|000018;
    STA.W $062B                          ;18846E|00062B;
    LDY.W #$0004                         ;188471|      ;
-   LDA.B [Fn_ptr],Y                     ;188474|000018;
-   STA.W $062D                          ;188476|00062D;
+   LDA.B [$18],Y                        ;188474|000018;
+   STA.W Temp_party_order               ;188476|00062D;
    LDY.W #$0006                         ;188479|      ;
-   LDA.B [Fn_ptr],Y                     ;18847C|000018;
+   LDA.B [$18],Y                        ;18847C|000018;
    STA.W $062F                          ;18847E|00062F;
    LDA.B $00                            ;188481|000000;
    STA.W $0631                          ;188483|000631;
@@ -700,13 +700,13 @@ CODE_18851A:
    LDA.W Dungeon_in_motion              ;18851A|0016F3;
    BNE CODE_18853E                      ;18851D|18853E;
    LDX.W Selection                      ;18851F|00103F;
-   LDA.W $09A3,X                        ;188522|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;188522|0009A3;
    CMP.W Map_X                          ;188525|0016F7;
    BNE CODE_188542                      ;188528|188542;
-   LDA.W Temp_09C7,X                    ;18852A|0009C7;
+   LDA.W Array_Category,X               ;18852A|0009C7;
    CMP.W Map_Y                          ;18852D|0016F9;
    BNE CODE_188542                      ;188530|188542;
-   LDA.W Selection_value,X              ;188532|0009EB;
+   LDA.W Array_Selection,X              ;188532|0009EB;
    CMP.W Map_Compass                    ;188535|0016FB;
    BNE CODE_18853E                      ;188538|18853E;
    LDA.W #$0000                         ;18853A|      ;
@@ -719,13 +719,13 @@ CODE_188542:
    RTL                                  ;188545|      ;
 Treasure_Opened_Bool:
    LDX.W Selection                      ;188546|00103F; Returns 1 if opened, 0 if not
-   LDA.W $0A0F,X                        ;188549|000A0F;
+   LDA.W Array_Target,X                 ;188549|000A0F;
    AND.W #$0030                         ;18854C|      ;
    LSR A                                ;18854F|      ;
    LSR A                                ;188550|      ;
    LSR A                                ;188551|      ;
    TAY                                  ;188552|      ;
-   LDA.W $0A0F,X                        ;188553|000A0F;
+   LDA.W Array_Target,X                 ;188553|000A0F;
    AND.W #$000F                         ;188556|      ;
    ASL A                                ;188559|      ;
    TAX                                  ;18855A|      ;
@@ -778,14 +778,14 @@ Treasure_Retrieve_Data:
    ASL A                                ;1885B8|      ;
    ADC.B $20                            ;1885B9|000020;
    ADC.L Tbl_Treasure_Lists,X           ;1885BB|188A99; Get the treasure entry in question
-   STA.B Fn_ptr                         ;1885BF|000018;
+   STA.B $18                            ;1885BF|000018;
    LDA.W #$0018                         ;1885C1|      ;
    STA.B $1A                            ;1885C4|00001A;
    LDY.W #$000A                         ;1885C6|      ;
-   LDA.B [Fn_ptr],Y                     ;1885C9|000018; Get treasure value -> X
+   LDA.B [$18],Y                        ;1885C9|000018; Get treasure value -> X
    TAX                                  ;1885CB|      ;
    LDY.W #$0008                         ;1885CC|      ;
-   LDA.B [Fn_ptr],Y                     ;1885CF|000018; Get treasure type (item, gp etc) -> A
+   LDA.B [$18],Y                        ;1885CF|000018; Get treasure type (item, gp etc) -> A
    RTL                                  ;1885D1|      ;
 Update_treasure_tracker:
    LDA.W $0A15                          ;1885D2|000A15; Set a bit corresponding to that treasure chest
@@ -3952,7 +3952,7 @@ Call_Event_Code:
    LDA.W Story_Progress                 ;189626|0018FF;
    STA.W $062B                          ;189629|00062B;
    LDA.W #$FFFF                         ;18962C|      ;
-   STA.W $062D                          ;18962F|00062D;
+   STA.W Temp_party_order               ;18962F|00062D;
    STZ.W $062F                          ;189632|00062F;
    STZ.W $0631                          ;189635|000631;
    LDX.W #$0000                         ;189638|      ;
@@ -3961,7 +3961,7 @@ Call_Event_Code:
    JSL.L Way_more_anim_stuff            ;189641|008D24;
    INC.W $1901                          ;189645|001901;
    INC.W Story_Progress                 ;189648|0018FF;
-   STZ.W $1091                          ;18964B|001091;
+   STZ.W Animation_Finish_Timer         ;18964B|001091;
 CODE_18964E:
    RTL                                  ;18964E|      ;
 TBL_EVENTS:
@@ -4108,7 +4108,7 @@ Ch1_Town:
    LDA.W Pause_status                   ;189732|001095;
    LSR A                                ;189735|      ;
    BCC CODE_189750                      ;189736|189750; Branch if not paused?
-   LDA.W $0021                          ;189738|000021;
+   LDA.W Input_0021                     ;189738|000021;
    AND.W #$0080                         ;18973B|      ;
    BEQ CODE_189750                      ;18973E|189750; Branch if not pressing A?
    LDA.W Pause_status                   ;189740|001095;
@@ -4126,7 +4126,7 @@ CODE_189750:
    LSR A                                ;189760|      ;
    BCS CODE_18976B                      ;189761|18976B;
    ASL A                                ;189763|      ;
-   STA.W Anim_ID,X                      ;189764|000A7B;
+   STA.W Array_Anim_ID,X                ;189764|000A7B;
    LDA.W #$0000                         ;189767|      ;
    RTL                                  ;18976A|      ;
 CODE_18976B:
@@ -4136,7 +4136,7 @@ CODE_18976B:
 CODE_18976F:
    LDA.W #$FFFF                         ;18976F|      ;
 CODE_189772:
-   STA.W Anim_ID,X                      ;189772|000A7B;
+   STA.W Array_Anim_ID,X                ;189772|000A7B;
 CODE_189775:
    LDA.W #$0001                         ;189775|      ;
    RTL                                  ;189778|      ;
@@ -4146,7 +4146,7 @@ EVENT_01_Ariel:
    LDA.W TownCompass                    ;18977E|000FF1; Check compass direction
    CMP.W #$0200                         ;189781|      ; Facing south?
    BNE CODE_189793                      ;189784|189793;
-   LDA.W $0021                          ;189786|000021; Check last input
+   LDA.W Input_0021                     ;189786|000021; Check last input
    AND.W #$0B00                         ;189789|      ; Among Up, Left, Right
    CMP.W #$0800                         ;18978C|      ; Pressed Up?
    BNE CODE_189793                      ;18978F|189793;
@@ -5311,7 +5311,7 @@ Setup_07AX_vals:
    XBA                                  ;189D8B|      ;
    STA.W Cursor_Array_Ypos_Copy,Y       ;189D8C|0007AB; Store upper byte
    LDA.W #$0041                         ;189D8F|      ;
-   STA.W Anim_ID,Y                      ;189D92|000A7B; Overwrite it with 41 (??)
+   STA.W Array_Anim_ID,Y                ;189D92|000A7B; Overwrite it with 41 (??)
    RTL                                  ;189D95|      ;
 Ch1_End_pt5:
    db $30                               ;189D96|      ;
@@ -5340,7 +5340,7 @@ DATA8_189DA7:
    dw Ch1_End_pt5                       ;189DB3|189D96;
 CODE_189DB5:
    LDX.W #$0000                         ;189DB5|      ;
-   LDA.W $1091                          ;189DB8|001091;
+   LDA.W Animation_Finish_Timer         ;189DB8|001091;
    CMP.W #$001E                         ;189DBB|      ;
    BEQ CODE_189DC7                      ;189DBE|189DC7;
    INX                                  ;189DC0|      ;
@@ -5389,7 +5389,7 @@ DATA8_189DF2:
    db $00                               ;189DF7|      ; End section
 CODE_189DF8:
    LDX.W #$0000                         ;189DF8|      ;
-   LDA.W $1091                          ;189DFB|001091;
+   LDA.W Animation_Finish_Timer         ;189DFB|001091;
    CMP.W #$001F                         ;189DFE|      ;
    BEQ CODE_189E0A                      ;189E01|189E0A;
    INX                                  ;189E03|      ;
@@ -5438,26 +5438,26 @@ BeatUp_end_check:
    LDA.W #$0002                         ;189E49|      ;
    BRA CODE_189E59                      ;189E4C|189E59;
 CODE_189E4E:
-   LDA.W Current_HP                     ;189E4E|0012F3; Checks if Rooks has <4 HP
+   LDA.W Curr_HP_Rooks                  ;189E4E|0012F3; Checks if Rooks has <4 HP
 Stop_Hitting_Yourself:
    CMP.W #$0004                         ;189E51|      ;
    BCC CODE_189E68                      ;189E54|189E68;
    LDA.W #$0000                         ;189E56|      ;
 CODE_189E59:
-   STA.W Selection_value,X              ;189E59|0009EB;
-   LDA.W $0A0F,X                        ;189E5C|000A0F; Switch between Teefa and Ariel
+   STA.W Array_Selection,X              ;189E59|0009EB;
+   LDA.W Array_Target,X                 ;189E5C|000A0F; Switch between Teefa and Ariel
    EOR.W #$0002                         ;189E5F|      ;
-   STA.W $0A0F,X                        ;189E62|000A0F;
+   STA.W Array_Target,X                 ;189E62|000A0F;
    LDA.W #$0000                         ;189E65|      ;
 CODE_189E68:
    RTL                                  ;189E68|      ;
 ArielTeefa_Attack_Text:
    LDY.W Selection                      ;189E69|00103F;
-   LDA.W $0A0F,Y                        ;189E6C|000A0F;
+   LDA.W Array_Target,Y                 ;189E6C|000A0F;
    LSR A                                ;189E6F|      ;
    ADC.W #$001E                         ;189E70|      ;
-   STA.W $1091                          ;189E73|001091;
-   LDX.W $0A0F,Y                        ;189E76|000A0F;
+   STA.W Animation_Finish_Timer         ;189E73|001091;
+   LDX.W Array_Target,Y                 ;189E76|000A0F;
    LDA.L Tbl_Who_Hits_Rooks,X           ;189E79|189E8B;
    STA.B $00                            ;189E7D|000000;
    LDA.W #$0018                         ;189E7F|      ;
@@ -5514,28 +5514,28 @@ Wind_Spirit_break:
    db $00                               ;189F2F|      ;
 Beaten_Up_Attack:
    LDY.W Selection                      ;189F30|00103F; Either halves Rooks' HP or kills Sylph
-   LDX.W Selection_value,Y              ;189F33|0009EB;
+   LDX.W Array_Selection,Y              ;189F33|0009EB;
    BEQ CODE_189F41                      ;189F36|189F41;
    JSL.L Spirit_stuff_far               ;189F38|078CEE;
-   LDA.W Current_HP,X                   ;189F3C|0012F3;
+   LDA.W Curr_HP_Rooks,X                ;189F3C|0012F3;
    BRA CODE_189F45                      ;189F3F|189F45;
 CODE_189F41:
-   LDA.W Current_HP,X                   ;189F41|0012F3; Do half damage
+   LDA.W Curr_HP_Rooks,X                ;189F41|0012F3; Do half damage
    LSR A                                ;189F44|      ;
 CODE_189F45:
    STA.W $1903                          ;189F45|001903;
    LDY.W Selection                      ;189F48|00103F;
-   LDX.W Selection_value,Y              ;189F4B|0009EB;
-   LDA.W Current_HP,X                   ;189F4E|0012F3;
+   LDX.W Array_Selection,Y              ;189F4B|0009EB;
+   LDA.W Curr_HP_Rooks,X                ;189F4E|0012F3;
    SEC                                  ;189F51|      ;
    SBC.W $1903                          ;189F52|001903;
-   STA.W Current_HP,X                   ;189F55|0012F3;
+   STA.W Curr_HP_Rooks,X                ;189F55|0012F3;
    BNE CODE_189F60                      ;189F58|189F60;
    LDA.W #$0001                         ;189F5A|      ;
    STA.W Condition,X                    ;189F5D|0011C3;
 CODE_189F60:
    LDY.W Selection                      ;189F60|00103F;
-   LDX.W Selection_value,Y              ;189F63|0009EB;
+   LDX.W Array_Selection,Y              ;189F63|0009EB;
    LDA.L Tbl_Paralyze_Targets,X         ;189F66|189F78;
    STA.B $00                            ;189F6A|000000;
    LDA.W #$0018                         ;189F6C|      ;
@@ -5574,9 +5574,9 @@ CODE_189FAB:
    BEQ CODE_189FB9                      ;189FB1|189FB9;
    LDA.W #$0001                         ;189FB3|      ;
 CODE_189FB6:
-   STA.W $09A3,Y                        ;189FB6|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;189FB6|0009A3;
 CODE_189FB9:
-   LDA.W $09A3,Y                        ;189FB9|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;189FB9|0009A3;
    ASL A                                ;189FBC|      ;
    TAX                                  ;189FBD|      ;
    LDA.L Question_YN,X                  ;189FBE|189FF2;
@@ -5584,7 +5584,7 @@ CODE_189FB9:
    LDA.W #$00B2                         ;189FC5|      ;
    STA.W Cursor_Array_Ypos_Copy,Y       ;189FC8|0007AB;
    LDA.W #$005B                         ;189FCB|      ;
-   STA.W Anim_ID,Y                      ;189FCE|000A7B;
+   STA.W Array_Anim_ID,Y                ;189FCE|000A7B;
    LDA.W Input_0031                     ;189FD1|000031;
    AND.W #$0080                         ;189FD4|      ;
    BNE CODE_189FDD                      ;189FD7|189FDD;
@@ -5595,8 +5595,8 @@ CODE_189FDD:
    JSL.L Play_SFX                       ;189FE0|009C47;
    LDY.W Selection                      ;189FE4|00103F;
    LDA.W #$FFFF                         ;189FE7|      ;
-   STA.W Anim_ID,Y                      ;189FEA|000A7B;
-   LDA.W $09A3,Y                        ;189FED|0009A3;
+   STA.W Array_Anim_ID,Y                ;189FEA|000A7B;
+   LDA.W Array_Menu_Cursor,Y            ;189FED|0009A3;
    INC A                                ;189FF0|      ;
    RTL                                  ;189FF1|      ;
 Question_YN:
@@ -8908,13 +8908,13 @@ _18ADA7_data:
    db $FF                               ;18B04C|103FAE;
 Move_Lots_of_Data:
    LDX.W Selection                      ;18B04D|00103F;
-   LDA.W Selection_value,X              ;18B050|0009EB;
+   LDA.W Array_Selection,X              ;18B050|0009EB;
    INC A                                ;18B053|      ;
    CMP.W #$0038                         ;18B054|      ;
    BCC CODE_18B05C                      ;18B057|18B05C;
    LDA.W #$0000                         ;18B059|      ;
 CODE_18B05C:
-   STA.W Selection_value,X              ;18B05C|0009EB;
+   STA.W Array_Selection,X              ;18B05C|0009EB;
    LSR A                                ;18B05F|      ;
    LSR A                                ;18B060|      ;
    LSR A                                ;18B061|      ;
@@ -9839,7 +9839,7 @@ EVENT_10_Salah_wakes:
    LDA.W TownCompass                    ;18B520|000FF1;
    CMP.W #$0110                         ;18B523|      ; Confirms if they're facing Icorina's house
    BNE CODE_18B535                      ;18B526|18B535;
-   LDA.W $0021                          ;18B528|000021; Get keyboard input
+   LDA.W Input_0021                     ;18B528|000021; Get keyboard input
    AND.W #$0B00                         ;18B52B|      ;
    CMP.W #$0800                         ;18B52E|      ; Confirms "up" was pressed
    BNE CODE_18B535                      ;18B531|18B535;
@@ -11318,7 +11318,7 @@ EVENT_16_GalneonCh4:
    BNE CODE_18BD24                      ;18BD10|18BD24;
    LDA.W Map_Compass                    ;18BD12|0016FB; Facing north?
    BNE CODE_18BD24                      ;18BD15|18BD24;
-   LDA.W $0021                          ;18BD17|000021;
+   LDA.W Input_0021                     ;18BD17|000021;
    AND.W #$0B00                         ;18BD1A|      ;
    CMP.W #$0800                         ;18BD1D|      ; Player pressed "up"?
    BNE CODE_18BD24                      ;18BD20|18BD24;
@@ -12120,7 +12120,7 @@ Random_loopvar:
    LDX.W Fn_results                     ;18C0C6|001041;
    CLC                                  ;18C0C9|      ;
    ADC.W #$000F                         ;18C0CA|      ;
-   STA.W Anim_Loopvar,X                 ;18C0CD|000B9F;
+   STA.W Array_Anim_Loopvar,X           ;18C0CD|000B9F;
    RTL                                  ;18C0D0|      ;
 DATA8_18C0D1:
    db $30                               ;18C0D1|      ;
@@ -13518,7 +13518,7 @@ EVENT_1C_Final_door:
    BNE CODE_18C83E                      ;18C82A|18C83E;
    LDA.W Map_Compass                    ;18C82C|0016FB; Facing north?
    BNE CODE_18C83E                      ;18C82F|18C83E;
-   LDA.W $0021                          ;18C831|000021; Get controller input
+   LDA.W Input_0021                     ;18C831|000021; Get controller input
    AND.W #$0B00                         ;18C834|      ;
    CMP.W #$0800                         ;18C837|      ; Player pressed "up"?
    BNE CODE_18C83E                      ;18C83A|18C83E;
@@ -14690,31 +14690,31 @@ _18CD69_data:
    db $40                               ;18CE0B|      ;
    db $00                               ;18CE0C|      ;
 Full_Heal_Rooks_Spirits:
-   LDA.W MaxHP                          ;18CE0D|001393; This heals every spirit up to the current spirit's max HP/MP. Hmm...
-   STA.W Current_HP                     ;18CE10|0012F3;
-   LDA.W MaxMP                          ;18CE13|00139B;
-   STA.W Current_MP                     ;18CE16|001323;
+   LDA.W Max_HP_Rooks                   ;18CE0D|001393; This heals every spirit up to the current spirit's max HP/MP. Hmm...
+   STA.W Curr_HP_Rooks                  ;18CE10|0012F3;
+   LDA.W Max_MP_Rooks                   ;18CE13|00139B;
+   STA.W Curr_MP_Rooks                  ;18CE16|001323;
    STZ.W Condition_Spirit               ;18CE19|0011C5;
    STZ.W Spirits_NotOwned               ;18CE1C|0013A7;
-   LDA.W SpiritMaxHP                    ;18CE1F|001395;
-   STA.W Spirit_currHP                  ;18CE22|0012F5;
-   STA.W Sylph_currHP                   ;18CE25|001353;
-   STA.W Dao_currHP                     ;18CE28|001355;
-   STA.W Marid_currHP                   ;18CE2B|001357;
-   STA.W Efrite_currHP                  ;18CE2E|001359;
-   LDA.W SpiritMaxMP                    ;18CE31|00139D;
-   STA.W Spirit_currMP                  ;18CE34|001325;
-   STA.W Sylph_currMP                   ;18CE37|00135B;
-   STA.W Dao_currMP                     ;18CE3A|00135D;
-   STA.W Marid_currMP                   ;18CE3D|00135F;
-   STA.W Efrite_currMP                  ;18CE40|001361;
+   LDA.W Max_HP_Spirit                  ;18CE1F|001395;
+   STA.W Curr_HP_Spirit                 ;18CE22|0012F5;
+   STA.W Curr_HP_Sylph                  ;18CE25|001353;
+   STA.W Curr_HP_Dao                    ;18CE28|001355;
+   STA.W Curr_HP_Marid                  ;18CE2B|001357;
+   STA.W Curr_HP_Efrite                 ;18CE2E|001359;
+   LDA.W Max_MP_Spirit                  ;18CE31|00139D;
+   STA.W Curr_MP_Spirit                 ;18CE34|001325;
+   STA.W Curr_MP_Sylph                  ;18CE37|00135B;
+   STA.W Curr_MP_Dao                    ;18CE3A|00135D;
+   STA.W Curr_MP_Marid                  ;18CE3D|00135F;
+   STA.W Curr_MP_Efrite                 ;18CE40|001361;
    RTL                                  ;18CE43|      ;
 Rooks_gets_KTFOd:
-   LDA.W Current_HP                     ;18CE44|0012F3;
+   LDA.W Curr_HP_Rooks                  ;18CE44|0012F3;
    DEC A                                ;18CE47|      ;
    STA.W $1903                          ;18CE48|001903; Damage = current HP-1
    LDA.W #$0001                         ;18CE4B|      ;
-   STA.W Current_HP                     ;18CE4E|0012F3;
+   STA.W Curr_HP_Rooks                  ;18CE4E|0012F3;
    LDA.W #$9EB9                         ;18CE51|      ; Pointer to "Rooks has taken X points damage."
    STA.B $00                            ;18CE54|000000;
    LDA.W #$0018                         ;18CE56|      ;
@@ -15065,7 +15065,7 @@ A140_data:
    db $00                               ;18D018|      ;
 Epilogue_text_setup:
    LDY.W Selection                      ;18D019|00103F;
-   LDA.W $09A3,Y                        ;18D01C|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;18D01C|0009A3;
    ASL A                                ;18D01F|      ;
    TAX                                  ;18D020|      ;
    PHX                                  ;18D021|      ;
@@ -15078,7 +15078,7 @@ Epilogue_text_setup:
    LDY.W Selection                      ;18D034|00103F;
    PLX                                  ;18D037|      ;
    LDA.L Epilogue_text_delays,X         ;18D038|18D040;
-   STA.W Temp_09C7,Y                    ;18D03C|0009C7;
+   STA.W Array_Category,Y               ;18D03C|0009C7;
    RTL                                  ;18D03F|      ;
 Epilogue_text_delays:
    dw $00F0                             ;18D040|      ;
@@ -15671,7 +15671,7 @@ Load_Event_Text:
    LDA.W #$FFFF                         ;18D4CC|      ;
    STA.W Portrait_offset                ;18D4CF|00108F;
 Load_Event_Text_NoClear:
-   STZ.W $1091                          ;18D4D2|001091;
+   STZ.W Animation_Finish_Timer         ;18D4D2|001091;
    JML.L Setup_Text_Parser_3b           ;18D4D5|00A0AC;
 Check_Party:
    LDX.W #$0000                         ;18D4D9|      ; ?? Called before a fight and many other places
@@ -15714,22 +15714,22 @@ CODE_18D51C:
 Set_WindowMask_4b:
    SEP #$20                             ;18D51D|      ;
    LDY.W #$0001                         ;18D51F|      ;
-   LDA.B [PC],Y                         ;18D522|000010;
+   LDA.B [$10],Y                        ;18D522|000010;
    STA.W Main_scr_Winmask               ;18D524|00212E;
    INY                                  ;18D527|      ;
-   LDA.B [PC],Y                         ;18D528|000010;
+   LDA.B [$10],Y                        ;18D528|000010;
    STA.W BG12_Winmask                   ;18D52A|002123;
    INY                                  ;18D52D|      ;
-   LDA.B [PC],Y                         ;18D52E|000010;
+   LDA.B [$10],Y                        ;18D52E|000010;
    STA.W BG34_Winmask                   ;18D530|002124;
    INY                                  ;18D533|      ;
-   LDA.B [PC],Y                         ;18D534|000010;
+   LDA.B [$10],Y                        ;18D534|000010;
    STA.W OBJcolor_Winmask               ;18D536|002125;
    REP #$20                             ;18D539|      ;
-   LDA.B PC                             ;18D53B|000010;
+   LDA.B $10                            ;18D53B|000010;
    CLC                                  ;18D53D|      ;
    ADC.W #$0004                         ;18D53E|      ;
-   STA.B PC                             ;18D541|000010;
+   STA.B $10                            ;18D541|000010;
    RTL                                  ;18D543|      ;
 Clear_Winmask_Lo:
    SEP #$20                             ;18D544|      ;
@@ -15737,15 +15737,15 @@ Clear_Winmask_Lo:
    REP #$20                             ;18D549|      ;
    RTL                                  ;18D54B|      ;
 Set_Win1_3b:
-   INC.B PC                             ;18D54C|000010;
-   LDA.B [PC]                           ;18D54E|000010; (1b) Load x offset
+   INC.B $10                            ;18D54C|000010;
+   LDA.B [$10]                          ;18D54E|000010; (1b) Load x offset
    AND.W #$00FF                         ;18D550|      ;
    ASL A                                ;18D553|      ;
    TAX                                  ;18D554|      ;
-   INC.B PC                             ;18D555|000010;
-   LDA.B [PC]                           ;18D557|000010; (2b) Load $2126 position
+   INC.B $10                            ;18D555|000010;
+   LDA.B [$10]                          ;18D557|000010; (2b) Load $2126 position
    STA.W Win1_left,X                    ;18D559|002126; Store position + offset
-   INC.B PC                             ;18D55C|000010;
+   INC.B $10                            ;18D55C|000010;
    RTL                                  ;18D55E|      ;
 Travel_subasm:
    db $01                               ;18D55F|      ; 01: Loop $10 times
@@ -16409,7 +16409,7 @@ CODE_18D89D:
    db $FF                               ;18D8AD|      ;
 Chibi_load:
    TAX                                  ;18D8AE|      ; Runs on the Travel screen
-   LDA.W Curr_party,X                   ;18D8AF|00155B;
+   LDA.W Party_slot1,X                  ;18D8AF|00155B;
    CMP.W #$0000                         ;18D8B2|      ;
    BEQ CODE_18D8C1                      ;18D8B5|18D8C1;
    CMP.W #$0005                         ;18D8B7|      ;
@@ -16678,10 +16678,10 @@ CODE_18D9FC:
    ASL A                                ;18DA03|      ;
    TAX                                  ;18DA04|      ;
    LDY.W Selection                      ;18DA05|00103F;
-   LDA.W $09A3,Y                        ;18DA08|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;18DA08|0009A3;
    CLC                                  ;18DA0B|      ;
    ADC.L DATA16_18DA48,X                ;18DA0C|18DA48;
-   STA.W Anim_ID,Y                      ;18DA10|000A7B;
+   STA.W Array_Anim_ID,Y                ;18DA10|000A7B;
    LDA.L DATA16_18DA5C,X                ;18DA13|18DA5C;
    STA.W Cursor_Array_Xpos_Copy,Y       ;18DA17|000787;
    LDA.L DATA16_18DA70,X                ;18DA1A|18DA70;
@@ -16696,7 +16696,7 @@ CODE_18D9FC:
    STA.W $0883,Y                        ;18DA3A|000883;
    LDY.W Fn_results                     ;18DA3D|001041;
    LDA.L UNREACH_18DAD4,X               ;18DA40|18DAD4;
-   STA.W Anim_Loopvar,Y                 ;18DA44|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;18DA44|000B9F;
    RTL                                  ;18DA47|      ;
 DATA16_18DA48:
    dw $0000                             ;18DA48|      ;

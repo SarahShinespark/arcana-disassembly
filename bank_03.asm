@@ -1804,20 +1804,20 @@ Dungeon_Load_FieldOfView:
    STZ.W Map_temp01                     ;038984|0016EF;
    LDX.W Map_Compass                    ;038987|0016FB;
    LDA.L Tbl_Dungeon_View_XOffset,X     ;03898A|039891; 3 byte ptr -> $18
-   STA.B Fn_ptr                         ;03898E|000018;
+   STA.B $18                            ;03898E|000018;
    LDA.W #$0003                         ;038990|      ;
    STA.B $1A                            ;038993|00001A;
    LDA.L Tbl_Dungeon_View_YOffset,X     ;038995|039899;
-   STA.B Addr_ptr                       ;038999|00001C; 3 byte ptr -> $1C
+   STA.B $1C                            ;038999|00001C; 3 byte ptr -> $1C
    LDA.W #$0003                         ;03899B|      ;
    STA.B $1E                            ;03899E|00001E;
    LDY.W #$0026                         ;0389A0|      ;
 Loop_Get_FoV:
-   LDA.B [Fn_ptr],Y                     ;0389A3|000018; You can see your two sides, 3 tiles in front, and 5 tiles for the 3 rows behind that.
+   LDA.B [$18],Y                        ;0389A3|000018; You can see your two sides, 3 tiles in front, and 5 tiles for the 3 rows behind that.
    CLC                                  ;0389A5|      ;
    ADC.W Map_X                          ;0389A6|0016F7;
    TAX                                  ;0389A9|      ;
-   LDA.B [Addr_ptr],Y                   ;0389AA|00001C;
+   LDA.B [$1C],Y                        ;0389AA|00001C;
    CLC                                  ;0389AC|      ;
    ADC.W Map_Y                          ;0389AD|0016F9;
    JSR.W Get_map_tile_value             ;0389B0|03A457;
@@ -2523,20 +2523,20 @@ CODE_038EDB:
    STZ.W Map_temp01                     ;038EDB|0016EF;
    LDX.W Map_Compass                    ;038EDE|0016FB;
    LDA.L Tbl_Dungeon_View_XOffset,X     ;038EE1|039891;
-   STA.B Fn_ptr                         ;038EE5|000018;
+   STA.B $18                            ;038EE5|000018;
    LDA.W #$0003                         ;038EE7|      ;
    STA.B $1A                            ;038EEA|00001A;
    LDA.L Tbl_Dungeon_View_YOffset,X     ;038EEC|039899;
-   STA.B Addr_ptr                       ;038EF0|00001C;
+   STA.B $1C                            ;038EF0|00001C;
    LDA.W #$0003                         ;038EF2|      ;
    STA.B $1E                            ;038EF5|00001E;
    LDY.W #$0026                         ;038EF7|      ;
 CODE_038EFA:
-   LDA.B [Fn_ptr],Y                     ;038EFA|000018;
+   LDA.B [$18],Y                        ;038EFA|000018;
    CLC                                  ;038EFC|      ;
    ADC.W Map_X                          ;038EFD|0016F7;
    TAX                                  ;038F00|      ;
-   LDA.B [Addr_ptr],Y                   ;038F01|00001C;
+   LDA.B [$1C],Y                        ;038F01|00001C;
    CLC                                  ;038F03|      ;
    ADC.W Map_Y                          ;038F04|0016F9;
    JSR.W Get_map_tile_value             ;038F07|03A457;
@@ -3043,20 +3043,20 @@ CODE_039256:
    STZ.W Map_temp01                     ;039256|0016EF;
    LDX.W Map_Compass                    ;039259|0016FB;
    LDA.L Tbl_Map_AdjacentX,X            ;03925C|039941;
-   STA.B Fn_ptr                         ;039260|000018;
+   STA.B $18                            ;039260|000018;
    LDA.W #$0003                         ;039262|      ;
    STA.B $1A                            ;039265|00001A;
    LDA.L Tbl_Map_AdjacentY,X            ;039267|039949;
-   STA.B Addr_ptr                       ;03926B|00001C;
+   STA.B $1C                            ;03926B|00001C;
    LDA.W #$0003                         ;03926D|      ;
    STA.B $1E                            ;039270|00001E;
    LDY.W #$0016                         ;039272|      ;
 CODE_039275:
-   LDA.B [Fn_ptr],Y                     ;039275|000018;
+   LDA.B [$18],Y                        ;039275|000018;
    CLC                                  ;039277|      ;
    ADC.W Map_X                          ;039278|0016F7;
    TAX                                  ;03927B|      ;
-   LDA.B [Addr_ptr],Y                   ;03927C|00001C;
+   LDA.B [$1C],Y                        ;03927C|00001C;
    CLC                                  ;03927E|      ;
    ADC.W Map_Y                          ;03927F|0016F9;
    JSR.W Get_map_tile_value             ;039282|03A457;
@@ -5646,7 +5646,7 @@ Tbl_Dungeon_BGM:
 Sub_Darwin_Theme:
    CMP.W #$0114                         ;03A54C|      ; If in a dungeon before Bintel Castle:
    BCS CODE_03A571                      ;03A54F|03A571;
-   LDX.W Curr_party                     ;03A551|00155B; Check each character slot for Darwin
+   LDX.W Party_slot1                    ;03A551|00155B; Check each character slot for Darwin
    CPX.W #$0007                         ;03A554|      ;
    BEQ CODE_03A57D                      ;03A557|03A57D;
    LDX.W Party_slot2                    ;03A559|00155D;
@@ -13735,24 +13735,24 @@ Load_shop_music__:
    JML.L Sub_Set_Music                  ;03D211|00D118;
 Shop_Handling:
    LDX.W Selection                      ;03D215|00103F;
-   LDA.W $09A3,X                        ;03D218|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D218|0009A3;
    SEC                                  ;03D21B|      ;
    SBC.W #$0008                         ;03D21C|      ;
-   STA.W $09A3,X                        ;03D21F|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D21F|0009A3;
    LDA.W #$0003                         ;03D222|      ;
    STA.W Shop_Curr_Selection            ;03D225|00188D;
    DEC.W Shop_selection                 ;03D228|001885;
    BRA CODE_03D240                      ;03D22B|03D240;
 CODE_03D22D:
    LDX.W Selection                      ;03D22D|00103F;
-   LDA.W $09A3,X                        ;03D230|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D230|0009A3;
    CLC                                  ;03D233|      ;
    ADC.W #$0008                         ;03D234|      ;
-   STA.W $09A3,X                        ;03D237|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D237|0009A3;
    STZ.W Shop_Curr_Selection            ;03D23A|00188D;
    INC.W Shop_selection                 ;03D23D|001885;
 CODE_03D240:
-   STZ.W Input_New                      ;03D240|000029;
+   STZ.W Input_0029_New                 ;03D240|000029;
    LDA.W #$000F                         ;03D243|      ;
    STA.W $0039                          ;03D246|000039;
 Get_Shop_Weapons:
@@ -13764,7 +13764,7 @@ Get_Shop_Weapons:
    LDY.W Selection                      ;03D252|00103F;
    LDA.W Tbl_Wpn_Shop_Size,X            ;03D255|03D2D1;
    STA.W Shop_Max_Entries               ;03D258|001883;
-   LDA.W $09A3,Y                        ;03D25B|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;03D25B|0009A3;
    CLC                                  ;03D25E|      ;
    ADC.W Tbl_Weapon_Shops,X             ;03D25F|03D2DB;
    STA.B $00                            ;03D262|000000;
@@ -13919,24 +13919,24 @@ Wpn_Shop_Ch5:
    dw $005F                             ;03D383|      ;
 Prev_Shop_Item:
    LDX.W Selection                      ;03D385|00103F;
-   LDA.W $09A3,X                        ;03D388|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D388|0009A3;
    SEC                                  ;03D38B|      ;
    SBC.W #$0008                         ;03D38C|      ;
-   STA.W $09A3,X                        ;03D38F|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D38F|0009A3;
    LDA.W #$0003                         ;03D392|      ;
    STA.W Shop_Curr_Selection            ;03D395|00188D;
    DEC.W Shop_selection                 ;03D398|001885;
    BRA Shop_input_related               ;03D39B|03D3B0;
 Next_Shop_Item:
    LDX.W Selection                      ;03D39D|00103F;
-   LDA.W $09A3,X                        ;03D3A0|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D3A0|0009A3;
    CLC                                  ;03D3A3|      ;
    ADC.W #$0008                         ;03D3A4|      ;
-   STA.W $09A3,X                        ;03D3A7|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D3A7|0009A3;
    STZ.W Shop_Curr_Selection            ;03D3AA|00188D;
    INC.W Shop_selection                 ;03D3AD|001885;
 Shop_input_related:
-   STZ.W Input_New                      ;03D3B0|000029;
+   STZ.W Input_0029_New                 ;03D3B0|000029;
    LDA.W #$000F                         ;03D3B3|      ;
    STA.W $0039                          ;03D3B6|000039;
    PEA.W $0003                          ;03D3B9|000003;
@@ -13947,7 +13947,7 @@ Shop_input_related:
    LDA.W Tbl_Item_Shop_Size,Y           ;03D3C2|03D461;
    STA.W Shop_Max_Entries               ;03D3C5|001883;
    LDX.W Selection                      ;03D3C8|00103F;
-   LDA.W $09A3,X                        ;03D3CB|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D3CB|0009A3;
    CLC                                  ;03D3CE|      ;
    ADC.W Tbl_Item_Shops,Y               ;03D3CF|03D46B;
    STA.B $00                            ;03D3D2|000000;
@@ -13983,7 +13983,7 @@ CODE_03D3DC:
    DEC A                                ;03D40D|      ;
    ASL A                                ;03D40E|      ;
    SEC                                  ;03D40F|      ;
-   SBC.W $09A3,X                        ;03D410|0009A3;
+   SBC.W Array_Menu_Cursor,X            ;03D410|0009A3;
    CMP.W #$0008                         ;03D413|      ;
    BCC CODE_03D41B                      ;03D416|03D41B;
    LDA.W #$0006                         ;03D418|      ;
@@ -14139,13 +14139,13 @@ Purchase_item:
    ASL A                                ;03D534|      ;
    TAX                                  ;03D535|      ;
    LDA.L Tbl_Weapon_Shops,X             ;03D536|03D2DB;
-   STA.B Fn_ptr                         ;03D53A|000018;
+   STA.B $18                            ;03D53A|000018;
    LDA.W #$0003                         ;03D53C|      ;
    STA.B $1A                            ;03D53F|00001A;
    LDA.W $189F                          ;03D541|00189F;
    ASL A                                ;03D544|      ;
    TAY                                  ;03D545|      ;
-   LDA.B [Fn_ptr],Y                     ;03D546|000018;
+   LDA.B [$18],Y                        ;03D546|000018;
    STA.B $00                            ;03D548|000000;
    ASL A                                ;03D54A|      ;
    TAX                                  ;03D54B|      ;
@@ -14224,12 +14224,12 @@ CODE_03D5D6:
    SEP #$20                             ;03D5D6|      ;
    LDY.W #$0000                         ;03D5D8|      ;
 CODE_03D5DB:
-   LDA.B [Fn_ptr],Y                     ;03D5DB|000018;
+   LDA.B [$18],Y                        ;03D5DB|000018;
    BEQ CODE_03D5F6                      ;03D5DD|03D5F6;
    CMP.B #$20                           ;03D5DF|      ;
    BNE CODE_03D5ED                      ;03D5E1|03D5ED;
    INY                                  ;03D5E3|      ;
-   LDA.B [Fn_ptr],Y                     ;03D5E4|000018;
+   LDA.B [$18],Y                        ;03D5E4|000018;
    DEY                                  ;03D5E6|      ;
    CMP.B #$20                           ;03D5E7|      ;
    BEQ CODE_03D5F6                      ;03D5E9|03D5F6;
@@ -14249,13 +14249,13 @@ CODE_03D5FE:
    ASL A                                ;03D601|      ;
    TAX                                  ;03D602|      ;
    LDA.L Tbl_Weapon_Shops,X             ;03D603|03D2DB;
-   STA.B Fn_ptr                         ;03D607|000018;
+   STA.B $18                            ;03D607|000018;
    LDA.W #$0003                         ;03D609|      ;
    STA.B $1A                            ;03D60C|00001A;
    LDA.W $189F                          ;03D60E|00189F;
    ASL A                                ;03D611|      ;
    TAY                                  ;03D612|      ;
-   LDA.B [Fn_ptr],Y                     ;03D613|000018;
+   LDA.B [$18],Y                        ;03D613|000018;
    STA.B $00                            ;03D615|000000;
    ASL A                                ;03D617|      ;
    STA.B $02                            ;03D618|000002;
@@ -14311,14 +14311,14 @@ CODE_03D66B:
    LDA.W Mult_Divide_Result             ;03D67B|004216;
    CLC                                  ;03D67E|      ;
    ADC.W #$D67D                         ;03D67F|      ;
-   STA.B Fn_ptr                         ;03D682|000018;
+   STA.B $18                            ;03D682|000018;
    JSR.W CODE_03D5D6                    ;03D684|03D5D6;
    LDA.B $06                            ;03D687|000006;
    CMP.W #$00FF                         ;03D689|      ;
    BEQ CODE_03D6C2                      ;03D68C|03D6C2;
    LDY.W #$0006                         ;03D68E|      ;
 CODE_03D691:
-   CMP.W Curr_party,Y                   ;03D691|00155B;
+   CMP.W Party_slot1,Y                  ;03D691|00155B;
    BEQ CODE_03D69C                      ;03D694|03D69C;
    DEY                                  ;03D696|      ;
    DEY                                  ;03D697|      ;
@@ -14414,7 +14414,7 @@ CODE_03D72E:
    LDA.W #$EE9A                         ;03D73F|      ;
    CLC                                  ;03D742|      ;
    ADC.W Mult_Divide_Result             ;03D743|004216;
-   STA.B Fn_ptr                         ;03D746|000018;
+   STA.B $18                            ;03D746|000018;
    JSR.W CODE_03D5D6                    ;03D748|03D5D6;
    LDX.B $04                            ;03D74B|000004;
    LDA.B $00                            ;03D74D|000000;
@@ -14423,24 +14423,24 @@ CODE_03D72E:
    RTL                                  ;03D755|      ;
 CODE_03D756:
    LDX.W Selection                      ;03D756|00103F;
-   LDA.W $09A3,X                        ;03D759|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D759|0009A3;
    SEC                                  ;03D75C|      ;
    SBC.W #$000C                         ;03D75D|      ;
-   STA.W $09A3,X                        ;03D760|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D760|0009A3;
    LDA.W #$0005                         ;03D763|      ;
    STA.W Shop_Curr_Selection            ;03D766|00188D;
    DEC.W Shop_selection                 ;03D769|001885;
    BRA CODE_03D781                      ;03D76C|03D781;
 CODE_03D76E:
    LDX.W Selection                      ;03D76E|00103F;
-   LDA.W $09A3,X                        ;03D771|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D771|0009A3;
    CLC                                  ;03D774|      ;
    ADC.W #$000C                         ;03D775|      ;
-   STA.W $09A3,X                        ;03D778|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D778|0009A3;
    STZ.W Shop_Curr_Selection            ;03D77B|00188D;
    INC.W Shop_selection                 ;03D77E|001885;
 CODE_03D781:
-   STZ.W Input_New                      ;03D781|000029;
+   STZ.W Input_0029_New                 ;03D781|000029;
    LDA.W #$0012                         ;03D784|      ;
    STA.W $0039                          ;03D787|000039;
    LDX.W #$003E                         ;03D78A|      ;
@@ -14457,7 +14457,7 @@ CODE_03D79A:
    INC A                                ;03D79C|      ;
    STA.W Shop_Max_Entries               ;03D79D|001883;
    LDY.W Selection                      ;03D7A0|00103F;
-   LDX.W $09A3,Y                        ;03D7A3|0009A3;
+   LDX.W Array_Menu_Cursor,Y            ;03D7A3|0009A3;
    LDY.W #$0000                         ;03D7A6|      ;
 CODE_03D7A9:
    CPX.W #$0040                         ;03D7A9|      ;
@@ -14513,24 +14513,24 @@ CODE_03D7E8:
    JML.L Set_Text_Parser_long           ;03D816|00A688;
 CODE_03D81A:
    LDX.W Selection                      ;03D81A|00103F;
-   LDA.W $09A3,X                        ;03D81D|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D81D|0009A3;
    SEC                                  ;03D820|      ;
    SBC.W #$000C                         ;03D821|      ;
-   STA.W $09A3,X                        ;03D824|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D824|0009A3;
    LDA.W #$0005                         ;03D827|      ;
    STA.W Shop_Curr_Selection            ;03D82A|00188D;
    DEC.W Shop_selection                 ;03D82D|001885;
    BRA Trade_Draw_Items                 ;03D830|03D845;
 CODE_03D832:
    LDX.W Selection                      ;03D832|00103F;
-   LDA.W $09A3,X                        ;03D835|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03D835|0009A3;
    CLC                                  ;03D838|      ;
    ADC.W #$000C                         ;03D839|      ;
-   STA.W $09A3,X                        ;03D83C|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03D83C|0009A3;
    STZ.W Shop_Curr_Selection            ;03D83F|00188D;
    INC.W Shop_selection                 ;03D842|001885;
 Trade_Draw_Items:
-   STZ.W Input_New                      ;03D845|000029; Find the final inventory slot in use
+   STZ.W Input_0029_New                 ;03D845|000029; Find the final inventory slot in use
    LDA.W #$000F                         ;03D848|      ;
    STA.W $0039                          ;03D84B|000039;
    LDX.W #$005E                         ;03D84E|      ;
@@ -14546,7 +14546,7 @@ CODE_03D85B:
    INC A                                ;03D85D|      ;
    STA.W Shop_Max_Entries               ;03D85E|001883;
    LDY.W Selection                      ;03D861|00103F;
-   LDX.W $09A3,Y                        ;03D864|0009A3;
+   LDX.W Array_Menu_Cursor,Y            ;03D864|0009A3;
    LDY.W #$0000                         ;03D867|      ;
 CODE_03D86A:
    CPX.W #$0060                         ;03D86A|      ;
@@ -14607,7 +14607,7 @@ CODE_03D8AA:
    LDA.W #$0001                         ;03D8E7|      ;
    JSL.L Set_Text_Parser_long           ;03D8EA|00A688;
    LDY.W Selection                      ;03D8EE|00103F;
-   LDA.W $0A0F,Y                        ;03D8F1|000A0F;
+   LDA.W Array_Target,Y                 ;03D8F1|000A0F;
    TAY                                  ;03D8F4|      ;
    PLX                                  ;03D8F5|      ;
    LDA.L Inventory_Eqp,X                ;03D8F6|001419;
@@ -14622,7 +14622,7 @@ CODE_03D90C:
    XBA                                  ;03D90C|      ;
    LDX.W #$0006                         ;03D90D|      ;
 CODE_03D910:
-   CMP.L Curr_party,X                   ;03D910|00155B;
+   CMP.L Party_slot1,X                  ;03D910|00155B;
    BEQ CODE_03D91A                      ;03D914|03D91A;
    DEX                                  ;03D916|      ;
    DEX                                  ;03D917|      ;
@@ -14706,7 +14706,7 @@ CODE_03D9A3:
    STA.W Multiply_lo                    ;03D9C1|004202;
    STX.W Shop_Curr_Selection            ;03D9C4|00188D;
    LDA.W Mult_Divide_Result             ;03D9C7|004216;
-   STA.W $09A3,Y                        ;03D9CA|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03D9CA|0009A3;
    RTL                                  ;03D9CD|      ;
 Trade_Cursor_Sus1:
    LDA.W $18A1                          ;03D9CE|0018A1;
@@ -14727,7 +14727,7 @@ Trade_Cursor_Sus1:
    STA.W Multiply_lo                    ;03D9F6|004202;
    LDY.W Selection                      ;03D9F9|00103F;
    LDA.W Mult_Divide_Result             ;03D9FC|004216;
-   STA.W $09A3,Y                        ;03D9FF|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03D9FF|0009A3;
    RTL                                  ;03DA02|      ;
 CODE_03DA03:
    LDA.W $189F                          ;03DA03|00189F;
@@ -14747,7 +14747,7 @@ CODE_03DA03:
    LDA.W $189F                          ;03DA2F|00189F;
    AND.W #$FFFC                         ;03DA32|      ;
    ASL A                                ;03DA35|      ;
-   STA.W $09A3,Y                        ;03DA36|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03DA36|0009A3;
    RTL                                  ;03DA39|      ;
 CODE_03DA3A:
    LDA.W $189F                          ;03DA3A|00189F;
@@ -14767,25 +14767,25 @@ CODE_03DA3A:
    LDA.W $189F                          ;03DA66|00189F;
    AND.W #$FFFC                         ;03DA69|      ;
    ASL A                                ;03DA6C|      ;
-   STA.W $09A3,Y                        ;03DA6D|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03DA6D|0009A3;
    RTL                                  ;03DA70|      ;
 Shop_related_2b:
    LDX.W Selection                      ;03DA71|00103F;
    JSL.L GetEventCode_2b_far            ;03DA74|009B07;
-   STA.B Fn_ptr                         ;03DA78|000018;
-   LDA.B (Fn_ptr)                       ;03DA7A|000018;
+   STA.B $18                            ;03DA78|000018;
+   LDA.B ($18)                          ;03DA7A|000018;
    STA.W Shop_selection                 ;03DA7C|001885;
    AND.W #$FFFC                         ;03DA7F|      ;
    ASL A                                ;03DA82|      ;
-   STA.W $09A3,X                        ;03DA83|0009A3;
-   LDA.B (Fn_ptr)                       ;03DA86|000018;
+   STA.W Array_Menu_Cursor,X            ;03DA83|0009A3;
+   LDA.B ($18)                          ;03DA86|000018;
    AND.W #$0003                         ;03DA88|      ;
    STA.W Shop_Curr_Selection            ;03DA8B|00188D;
    RTL                                  ;03DA8E|      ;
 Shop_Equipment_Helper:
    STZ.B $00                            ;03DA8F|000000; Not really sure what this does yet
    LDY.W Selection                      ;03DA91|00103F;
-   LDX.W $09A3,Y                        ;03DA94|0009A3;
+   LDX.W Array_Menu_Cursor,Y            ;03DA94|0009A3;
    LDY.W #$0000                         ;03DA97|      ;
 CODE_03DA9A:
    CPX.W #$0040                         ;03DA9A|      ;
@@ -14850,7 +14850,7 @@ CODE_03DB15:
 CODE_03DB19:
    STZ.B $00                            ;03DB19|000000;
    LDY.W Selection                      ;03DB1B|00103F;
-   LDX.W $09A3,Y                        ;03DB1E|0009A3;
+   LDX.W Array_Menu_Cursor,Y            ;03DB1E|0009A3;
    LDY.W #$0000                         ;03DB21|      ;
 CODE_03DB24:
    CPX.W #$0060                         ;03DB24|      ;
@@ -14897,7 +14897,7 @@ Sell_Weapon_Desc:
    DEC A                                ;03DB79|      ;
    ASL A                                ;03DB7A|      ;
    CLC                                  ;03DB7B|      ;
-   ADC.W $09A3,Y                        ;03DB7C|0009A3;
+   ADC.W Array_Menu_Cursor,Y            ;03DB7C|0009A3;
    TAX                                  ;03DB7F|      ;
    PHX                                  ;03DB80|      ;
    LDA.L Inventory_Eqp,X                ;03DB81|001419;
@@ -14911,7 +14911,7 @@ Sell_Weapon_Desc:
    LDA.W #$0000                         ;03DB96|      ;
    JSL.L Set_Text_Parser_long           ;03DB99|00A688;
    LDY.W Selection                      ;03DB9D|00103F;
-   LDA.W $0A0F,Y                        ;03DBA0|000A0F;
+   LDA.W Array_Target,Y                 ;03DBA0|000A0F;
    TAY                                  ;03DBA3|      ;
    PLX                                  ;03DBA4|      ;
    LDA.L Inventory_Eqp,X                ;03DBA5|001419;
@@ -14926,7 +14926,7 @@ CODE_03DBBB:
    XBA                                  ;03DBBB|      ;
    LDX.W #$0006                         ;03DBBC|      ;
 CODE_03DBBF:
-   CMP.L Curr_party,X                   ;03DBBF|00155B;
+   CMP.L Party_slot1,X                  ;03DBBF|00155B;
    BEQ CODE_03DBC9                      ;03DBC3|03DBC9;
    DEX                                  ;03DBC5|      ;
    DEX                                  ;03DBC6|      ;
@@ -14949,7 +14949,7 @@ CODE_03DBE4:
    DEC A                                ;03DBEB|      ;
    ASL A                                ;03DBEC|      ;
    CLC                                  ;03DBED|      ;
-   ADC.W $09A3,Y                        ;03DBEE|0009A3;
+   ADC.W Array_Menu_Cursor,Y            ;03DBEE|0009A3;
    TAX                                  ;03DBF1|      ;
    LDA.L Inventory_Items,X              ;03DBF2|0013B9;
    INC A                                ;03DBF6|      ;
@@ -14964,27 +14964,27 @@ CODE_03DBE4:
    JML.L Set_Text_Parser_long           ;03DC09|00A688;
 CODE_03DC0D:
    LDY.W Selection                      ;03DC0D|00103F;
-   LDA.W $09A3,Y                        ;03DC10|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;03DC10|0009A3;
    SEC                                  ;03DC13|      ;
    SBC.W #$0010                         ;03DC14|      ;
    BCS CODE_03DC1C                      ;03DC17|03DC1C;
    ADC.W #$0040                         ;03DC19|      ;
 CODE_03DC1C:
-   STA.W $09A3,Y                        ;03DC1C|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03DC1C|0009A3;
    JSL.L Shop_Equipment_Helper          ;03DC1F|03DA8F;
    CMP.W #$0000                         ;03DC23|      ;
    BEQ CODE_03DC0D                      ;03DC26|03DC0D;
    BRA CODE_03DC48                      ;03DC28|03DC48;
 CODE_03DC2A:
    LDY.W Selection                      ;03DC2A|00103F;
-   LDA.W $09A3,Y                        ;03DC2D|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;03DC2D|0009A3;
    CLC                                  ;03DC30|      ;
    ADC.W #$0010                         ;03DC31|      ;
    CMP.W #$0040                         ;03DC34|      ;
    BCC CODE_03DC3C                      ;03DC37|03DC3C;
    SBC.W #$0040                         ;03DC39|      ;
 CODE_03DC3C:
-   STA.W $09A3,Y                        ;03DC3C|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03DC3C|0009A3;
    JSL.L Shop_Equipment_Helper          ;03DC3F|03DA8F;
    CMP.W #$0000                         ;03DC43|      ;
    BEQ CODE_03DC2A                      ;03DC46|03DC2A;
@@ -14999,27 +14999,27 @@ CODE_03DC48:
    JML.L Set_Text_Parser_long           ;03DC5B|00A688;
 CODE_03DC5F:
    LDY.W Selection                      ;03DC5F|00103F;
-   LDA.W $09A3,Y                        ;03DC62|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;03DC62|0009A3;
    SEC                                  ;03DC65|      ;
    SBC.W #$0010                         ;03DC66|      ;
    BCS CODE_03DC6E                      ;03DC69|03DC6E;
    ADC.W #$0060                         ;03DC6B|      ;
 CODE_03DC6E:
-   STA.W $09A3,Y                        ;03DC6E|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03DC6E|0009A3;
    JSL.L CODE_03DB19                    ;03DC71|03DB19;
    CMP.W #$0000                         ;03DC75|      ;
    BEQ CODE_03DC5F                      ;03DC78|03DC5F;
    BRA CODE_03DC9A                      ;03DC7A|03DC9A;
 Shop_cursor_related:
    LDY.W Selection                      ;03DC7C|00103F; Probably the cursor??
-   LDA.W $09A3,Y                        ;03DC7F|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;03DC7F|0009A3;
    CLC                                  ;03DC82|      ;
    ADC.W #$0010                         ;03DC83|      ;
    CMP.W #$0060                         ;03DC86|      ;
    BCC CODE_03DC8E                      ;03DC89|03DC8E;
    SBC.W #$0060                         ;03DC8B|      ;
 CODE_03DC8E:
-   STA.W $09A3,Y                        ;03DC8E|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03DC8E|0009A3;
    JSL.L CODE_03DB19                    ;03DC91|03DB19;
    CMP.W #$0000                         ;03DC95|      ;
    BEQ Shop_cursor_related              ;03DC98|03DC7C;
@@ -15036,7 +15036,7 @@ CODE_03DCAB:
    DEC A                                ;03DCB1|      ;
    ASL A                                ;03DCB2|      ;
    CLC                                  ;03DCB3|      ;
-   ADC.W $09A3,Y                        ;03DCB4|0009A3;
+   ADC.W Array_Menu_Cursor,Y            ;03DCB4|0009A3;
    STA.W $189F                          ;03DCB7|00189F;
    TAX                                  ;03DCBA|      ;
    LDA.W Inventory_Eqp,X                ;03DCBB|001419;
@@ -15049,7 +15049,7 @@ CODE_03DCAB:
    LDA.W Mult_Divide_Result             ;03DCCD|004216;
    CLC                                  ;03DCD0|      ;
    ADC.W #$D67D                         ;03DCD1|      ;
-   STA.B Fn_ptr                         ;03DCD4|000018;
+   STA.B $18                            ;03DCD4|000018;
    JSR.W CODE_03D5D6                    ;03DCD6|03D5D6;
    PLA                                  ;03DCD9|      ;
    CMP.W #$000D                         ;03DCDA|      ;
@@ -15075,7 +15075,7 @@ CODE_03DCF9:
    DEC A                                ;03DD00|      ;
    ASL A                                ;03DD01|      ;
    CLC                                  ;03DD02|      ;
-   ADC.W $09A3,Y                        ;03DD03|0009A3;
+   ADC.W Array_Menu_Cursor,Y            ;03DD03|0009A3;
    STA.W $189F                          ;03DD06|00189F;
    TAX                                  ;03DD09|      ;
    LDA.W Inventory_Items,X              ;03DD0A|0013B9;
@@ -15088,7 +15088,7 @@ CODE_03DCF9:
    LDA.W Mult_Divide_Result             ;03DD1C|004216;
    CLC                                  ;03DD1F|      ;
    ADC.W #$EE9A                         ;03DD20|      ;
-   STA.B Fn_ptr                         ;03DD23|000018;
+   STA.B $18                            ;03DD23|000018;
    JSR.W CODE_03D5D6                    ;03DD25|03D5D6;
    PLA                                  ;03DD28|      ;
    CMP.W #$0011                         ;03DD29|      ;
@@ -15128,7 +15128,7 @@ CODE_03DD5C:
    XBA                                  ;03DD6D|      ;
    LDY.W #$0006                         ;03DD6E|      ;
 CODE_03DD71:
-   CMP.W Curr_party,Y                   ;03DD71|00155B;
+   CMP.W Party_slot1,Y                  ;03DD71|00155B;
    BEQ CODE_03DD7A                      ;03DD74|03DD7A;
    DEY                                  ;03DD76|      ;
    DEY                                  ;03DD77|      ;
@@ -15216,10 +15216,10 @@ CODE_03DE12:
 Inn_Full_heal:
    LDX.W #$0006                         ;03DE16|      ;
 CODE_03DE19:
-   LDA.W MaxHP,X                        ;03DE19|001393;
-   STA.W Current_HP,X                   ;03DE1C|0012F3;
-   LDA.W MaxMP,X                        ;03DE1F|00139B;
-   STA.W Current_MP,X                   ;03DE22|001323;
+   LDA.W Max_HP_Rooks,X                 ;03DE19|001393;
+   STA.W Curr_HP_Rooks,X                ;03DE1C|0012F3;
+   LDA.W Max_MP_Rooks,X                 ;03DE1F|00139B;
+   STA.W Curr_MP_Rooks,X                ;03DE22|001323;
    LDA.W Condition,X                    ;03DE25|0011C3;
    CMP.W #$0003                         ;03DE28|      ;
    BCC CODE_03DE33                      ;03DE2B|03DE33;
@@ -15233,8 +15233,8 @@ CODE_03DE33:
    AND.L DATA16_008C44,X                ;03DE3F|008C44;
    BNE CODE_03DE4E                      ;03DE43|03DE4E;
    LDA.W #$FFFF                         ;03DE45|      ;
-   STA.W Sylph_currHP,X                 ;03DE48|001353;
-   STA.W Sylph_currMP,X                 ;03DE4B|00135B;
+   STA.W Curr_HP_Sylph,X                ;03DE48|001353;
+   STA.W Curr_MP_Sylph,X                ;03DE4B|00135B;
 CODE_03DE4E:
    DEX                                  ;03DE4E|      ;
    DEX                                  ;03DE4F|      ;
@@ -15366,13 +15366,13 @@ Alchemist_healing:
    ASL A                                ;03DF33|      ;
    TAX                                  ;03DF34|      ;
    LDY.W Selection                      ;03DF35|00103F;
-   LDA.W $09A3,Y                        ;03DF38|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;03DF38|0009A3;
    INC A                                ;03DF3B|      ;
-   STA.W $09A3,Y                        ;03DF3C|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;03DF3C|0009A3;
    DEC A                                ;03DF3F|      ;
    ASL A                                ;03DF40|      ;
    TAY                                  ;03DF41|      ;
-   LDA.W Curr_party,Y                   ;03DF42|00155B;
+   LDA.W Party_slot1,Y                  ;03DF42|00155B;
    CMP.W #$0009                         ;03DF45|      ;
    BEQ CODE_03DF9E                      ;03DF48|03DF9E;
    LDA.W Condition,Y                    ;03DF4A|0011C3;
@@ -15382,28 +15382,28 @@ Alchemist_healing:
    BEQ CODE_03DF9E                      ;03DF55|03DF9E;
    LDA.L Alchemist_HP_heal,X            ;03DF57|03DFA2;
    CLC                                  ;03DF5B|      ;
-   ADC.W Current_HP,Y                   ;03DF5C|0012F3;
-   CMP.W MaxHP,Y                        ;03DF5F|001393;
+   ADC.W Curr_HP_Rooks,Y                ;03DF5C|0012F3;
+   CMP.W Max_HP_Rooks,Y                 ;03DF5F|001393;
    BCC CODE_03DF67                      ;03DF62|03DF67;
-   LDA.W MaxHP,Y                        ;03DF64|001393;
+   LDA.W Max_HP_Rooks,Y                 ;03DF64|001393;
 CODE_03DF67:
-   STA.W Current_HP,Y                   ;03DF67|0012F3;
+   STA.W Curr_HP_Rooks,Y                ;03DF67|0012F3;
    LDA.L Alchemist_MP_heal,X            ;03DF6A|03DFA8;
    CLC                                  ;03DF6E|      ;
-   ADC.W Current_MP,Y                   ;03DF6F|001323;
-   CMP.W MaxMP,Y                        ;03DF72|00139B;
+   ADC.W Curr_MP_Rooks,Y                ;03DF6F|001323;
+   CMP.W Max_MP_Rooks,Y                 ;03DF72|00139B;
    BCC CODE_03DF7A                      ;03DF75|03DF7A;
-   LDA.W MaxMP,Y                        ;03DF77|00139B;
+   LDA.W Max_MP_Rooks,Y                 ;03DF77|00139B;
 CODE_03DF7A:
-   STA.W Current_MP,Y                   ;03DF7A|001323;
-   LDA.W Curr_party,Y                   ;03DF7D|00155B;
+   STA.W Curr_MP_Rooks,Y                ;03DF7A|001323;
+   LDA.W Party_slot1,Y                  ;03DF7D|00155B;
    AND.W #$00FF                         ;03DF80|      ;
    ORA.W #$0B00                         ;03DF83|      ;
    STA.W Multiply_lo                    ;03DF86|004202;
    LDA.W #$9F7B                         ;03DF89|      ;
    CLC                                  ;03DF8C|      ;
    ADC.W Mult_Divide_Result             ;03DF8D|004216;
-   STA.B Fn_ptr                         ;03DF90|000018;
+   STA.B $18                            ;03DF90|000018;
    LDA.W #$0005                         ;03DF92|      ;
    STA.B $1A                            ;03DF95|00001A;
    JSR.W CODE_03D5D6                    ;03DF97|03D5D6;
@@ -15422,24 +15422,24 @@ Alchemist_MP_heal:
    dw $0005                             ;03DFAC|      ;
 CODE_03DFAE:
    LDX.W Selection                      ;03DFAE|00103F;
-   LDA.W $09A3,X                        ;03DFB1|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03DFB1|0009A3;
    SEC                                  ;03DFB4|      ;
    SBC.W #$0008                         ;03DFB5|      ;
-   STA.W $09A3,X                        ;03DFB8|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03DFB8|0009A3;
    LDA.W #$0003                         ;03DFBB|      ;
    STA.W Shop_Curr_Selection            ;03DFBE|00188D;
    DEC.W Shop_selection                 ;03DFC1|001885;
    BRA CODE_03DFD9                      ;03DFC4|03DFD9;
 CODE_03DFC6:
    LDX.W Selection                      ;03DFC6|00103F;
-   LDA.W $09A3,X                        ;03DFC9|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;03DFC9|0009A3;
    CLC                                  ;03DFCC|      ;
    ADC.W #$0008                         ;03DFCD|      ;
-   STA.W $09A3,X                        ;03DFD0|0009A3;
+   STA.W Array_Menu_Cursor,X            ;03DFD0|0009A3;
    STZ.W Shop_Curr_Selection            ;03DFD3|00188D;
    INC.W Shop_selection                 ;03DFD6|001885;
 CODE_03DFD9:
-   STZ.W Input_New                      ;03DFD9|000029;
+   STZ.W Input_0029_New                 ;03DFD9|000029;
    LDA.W #$000F                         ;03DFDC|      ;
    STA.W $0039                          ;03DFDF|000039;
    LDA.W #$0007                         ;03DFE2|      ;
@@ -15447,7 +15447,7 @@ CODE_03DFD9:
    PEA.W $0003                          ;03DFE8|000003;
    PLB                                  ;03DFEB|      ;
    LDY.W Selection                      ;03DFEC|00103F;
-   LDA.W $09A3,Y                        ;03DFEF|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;03DFEF|0009A3;
    CLC                                  ;03DFF2|      ;
    ADC.W #$E044                         ;03DFF3|      ;
    STA.B $00                            ;03DFF6|000000;
@@ -15639,7 +15639,7 @@ CODE_03E15E:
    LDX.W #$000E                         ;03E15E|      ;
    JSL.L A_buncha_stuff_far             ;03E161|00995C;
    LDA.W #$0001                         ;03E165|      ;
-   STA.W $062D                          ;03E168|00062D;
+   STA.W Temp_party_order               ;03E168|00062D;
    LDA.W Shop_selection                 ;03E16B|001885;
    ASL A                                ;03E16E|      ;
    TAY                                  ;03E16F|      ;
@@ -15672,7 +15672,7 @@ CODE_03E18B:
 CODE_03E1AB:
    LDA.W #$0001                         ;03E1AB|      ;
 CODE_03E1AE:
-   STA.W $062D                          ;03E1AE|00062D;
+   STA.W Temp_party_order               ;03E1AE|00062D;
    INX                                  ;03E1B1|      ;
    INX                                  ;03E1B2|      ;
    LDA.L _0643_list,X                   ;03E1B3|03E181;
@@ -15704,10 +15704,10 @@ Some_purchase_helper:
    AND.L Tbl_Bitwise2,X                 ;03E1E6|008BF4;
    STA.W Spirits_NotOwned               ;03E1EA|0013A7;
    LDA.W #$FFFF                         ;03E1ED|      ;
-   STA.W Sylph_currHP,X                 ;03E1F0|001353;
-   STA.W Sylph_currMP,X                 ;03E1F3|00135B;
+   STA.W Curr_HP_Sylph,X                ;03E1F0|001353;
+   STA.W Curr_MP_Sylph,X                ;03E1F3|00135B;
    LDA.W #$0000                         ;03E1F6|      ;
-   STA.W $062D                          ;03E1F9|00062D;
+   STA.W Temp_party_order               ;03E1F9|00062D;
    LDX.W $189F                          ;03E1FC|00189F;
    LDA.L _0643_list,X                   ;03E1FF|03E181;
    LDX.W #$000E                         ;03E203|      ;
@@ -15783,41 +15783,41 @@ Tbl_Dungeon_CStart:
    dw $0000                             ;03E2A6|      ;
 Shop_cursor_setup_3b:
    JSL.L GetEventCode_2b_far            ;03E2A8|009B07; Stores values to end of RAM
-   STA.B Fn_ptr                         ;03E2AC|000018;
+   STA.B $18                            ;03E2AC|000018;
    JSL.L GetEventCode_1b_far            ;03E2AE|009AF8;
    STA.B $1A                            ;03E2B2|00001A;
-   LDA.B [Fn_ptr]                       ;03E2B4|000018;
+   LDA.B [$18]                          ;03E2B4|000018;
    STA.W Multiply_lo                    ;03E2B6|004202;
    AND.W #$00FF                         ;03E2B9|      ;
    STA.W $1887                          ;03E2BC|001887;
-   INC.B Fn_ptr                         ;03E2BF|000018;
-   LDA.B [Fn_ptr]                       ;03E2C1|000018;
+   INC.B $18                            ;03E2BF|000018;
+   LDA.B [$18]                          ;03E2C1|000018;
    AND.W #$00FF                         ;03E2C3|      ;
    STA.W $1889                          ;03E2C6|001889;
-   INC.B Fn_ptr                         ;03E2C9|000018;
-   LDA.B [Fn_ptr]                       ;03E2CB|000018;
+   INC.B $18                            ;03E2C9|000018;
+   LDA.B [$18]                          ;03E2CB|000018;
    AND.W #$0007                         ;03E2CD|      ;
    STA.W $1891                          ;03E2D0|001891;
-   INC.B Fn_ptr                         ;03E2D3|000018;
-   LDA.B [Fn_ptr]                       ;03E2D5|000018;
+   INC.B $18                            ;03E2D3|000018;
+   LDA.B [$18]                          ;03E2D5|000018;
    STA.W Shop_Max_Entries               ;03E2D7|001883;
-   INC.B Fn_ptr                         ;03E2DA|000018;
-   INC.B Fn_ptr                         ;03E2DC|000018;
+   INC.B $18                            ;03E2DA|000018;
+   INC.B $18                            ;03E2DC|000018;
    LDY.W Mult_Divide_Result             ;03E2DE|004216;
    LDX.W #$0000                         ;03E2E1|      ;
 CODE_03E2E4:
-   LDA.B [Fn_ptr]                       ;03E2E4|000018;
+   LDA.B [$18]                          ;03E2E4|000018;
    AND.W #$00FF                         ;03E2E6|      ;
    STA.L $7FFFA0,X                      ;03E2E9|7FFFA0;
-   INC.B Fn_ptr                         ;03E2ED|000018;
-   LDA.B [Fn_ptr]                       ;03E2EF|000018;
+   INC.B $18                            ;03E2ED|000018;
+   LDA.B [$18]                          ;03E2EF|000018;
    AND.W #$00FF                         ;03E2F1|      ;
    STA.L $7FFFC0,X                      ;03E2F4|7FFFC0;
-   INC.B Fn_ptr                         ;03E2F8|000018;
-   LDA.B [Fn_ptr]                       ;03E2FA|000018;
+   INC.B $18                            ;03E2F8|000018;
+   LDA.B [$18]                          ;03E2FA|000018;
    AND.W #$00FF                         ;03E2FC|      ;
    STA.L $7FFFE0,X                      ;03E2FF|7FFFE0;
-   INC.B Fn_ptr                         ;03E303|000018;
+   INC.B $18                            ;03E303|000018;
    INX                                  ;03E305|      ;
    INX                                  ;03E306|      ;
    DEY                                  ;03E307|      ;
@@ -15834,7 +15834,7 @@ Shop_input_checker:
    BEQ Shop_A_not_pressed               ;03E320|03E333;
 Shop_A_press:
    LDA.W #$FFFF                         ;03E322|      ; A pressed
-   STA.W Anim_ID,Y                      ;03E325|000A7B;
+   STA.W Array_Anim_ID,Y                ;03E325|000A7B;
    LDA.W #$0011                         ;03E328|      ; Confirm SFX
    JSL.L Play_SFX                       ;03E32B|009C47;
    LDA.W #$0001                         ;03E32F|      ; Return 1 (Confirm)
@@ -15844,7 +15844,7 @@ Shop_A_not_pressed:
    BEQ Shop_B_not_pressed               ;03E336|03E349;
 Shop_B_press:
    LDA.W #$FFFF                         ;03E338|      ;
-   STA.W Anim_ID,Y                      ;03E33B|000A7B;
+   STA.W Array_Anim_ID,Y                ;03E33B|000A7B;
    LDA.W #$0006                         ;03E33E|      ; Cancel SFX
    JSL.L Play_SFX                       ;03E341|009C47;
    LDA.W #$0002                         ;03E345|      ; Return 2 (Cancel)
@@ -15865,7 +15865,7 @@ CODE_03E366:
    LDA.W Quotient                       ;03E366|004214;
 CODE_03E369:
    STA.B $00                            ;03E369|000000;
-   LDA.W Input_New                      ;03E36B|000029;
+   LDA.W Input_0029_New                 ;03E36B|000029;
    BIT.W #$0800                         ;03E36E|      ;
    BEQ Shop_Up_not_pressed              ;03E371|03E3C2;
 Shop_Up_press:
@@ -16045,24 +16045,24 @@ CODE_03E4C7:
    STA.W Cursor_Array_Ypos_Copy,Y       ;03E4E9|0007AB;
    STA.W Cursor_Array_Xpos,Y            ;03E4EC|0006F7;
    LDA.L $7FFFE0,X                      ;03E4EF|7FFFE0;
-   STA.W Anim_ID,Y                      ;03E4F3|000A7B;
+   STA.W Array_Anim_ID,Y                ;03E4F3|000A7B;
    PLA                                  ;03E4F6|      ;
    RTL                                  ;03E4F7|      ; Return 3
 Store_RAM_2b_into_2b:
    JSL.L GetEventCode_2b_far            ;03E4F8|009B07;
-   STA.B Fn_ptr                         ;03E4FC|000018;
+   STA.B $18                            ;03E4FC|000018;
    JSL.L GetEventCode_2b_far            ;03E4FE|009B07;
-   STA.B Addr_ptr                       ;03E502|00001C;
-   LDA.B (Fn_ptr)                       ;03E504|000018;
-   STA.B (Addr_ptr)                     ;03E506|00001C;
+   STA.B $1C                            ;03E502|00001C;
+   LDA.B ($18)                          ;03E504|000018;
+   STA.B ($1C)                          ;03E506|00001C;
    RTL                                  ;03E508|      ;
 Set_Cursors_1b:
    JSL.L GetEventCode_1b_far            ;03E509|009AF8;
    TAX                                  ;03E50D|      ;
    LDA.L Tbl_Actor_Arrays,X             ;03E50E|009739;
-   STA.B Fn_ptr                         ;03E512|000018;
+   STA.B $18                            ;03E512|000018;
    LDY.W Selection                      ;03E514|00103F;
-   LDA.B (Fn_ptr),Y                     ;03E517|000018;
+   LDA.B ($18),Y                        ;03E517|000018;
    STA.W Shop_selection                 ;03E519|001885;
    STA.W $188B                          ;03E51C|00188B;
    STA.W $188F                          ;03E51F|00188F;
@@ -16080,7 +16080,7 @@ _063x_stuff_4b:
    STA.W $0635                          ;03E53D|000635;
    JSL.L GetEventCode_2b_far            ;03E540|009B07;
    STA.W $062B                          ;03E544|00062B;
-   STZ.W $062D                          ;03E547|00062D;
+   STZ.W Temp_party_order               ;03E547|00062D;
    STZ.W $062F                          ;03E54A|00062F;
    STZ.W $0631                          ;03E54D|000631;
    STZ.W $0633                          ;03E550|000633;
@@ -16186,12 +16186,12 @@ CODE_03E63B:
    ASL A                                ;03E63E|      ;
    TAX                                  ;03E63F|      ;
    LDA.L Tbl_Town_data,X                ;03E640|03B819;
-   STA.B Fn_ptr                         ;03E644|000018;
+   STA.B $18                            ;03E644|000018;
    LDA.W #$0003                         ;03E646|      ;
    STA.B $1A                            ;03E649|00001A;
    LDY.W #$0006                         ;03E64B|      ;
 CODE_03E64E:
-   LDA.B [Fn_ptr],Y                     ;03E64E|000018;
+   LDA.B [$18],Y                        ;03E64E|000018;
    CMP.W #$0001                         ;03E650|      ;
    BEQ CODE_03E659                      ;03E653|03E659;
    INY                                  ;03E655|      ;
@@ -16200,7 +16200,7 @@ CODE_03E64E:
 CODE_03E659:
    DEY                                  ;03E659|      ;
    DEY                                  ;03E65A|      ;
-   LDA.B [Fn_ptr],Y                     ;03E65B|000018;
+   LDA.B [$18],Y                        ;03E65B|000018;
    STA.W Town_Direction                 ;03E65D|00187F;
    LDA.W #$0001                         ;03E660|      ;
    STA.W Town_Selection                 ;03E663|001881;

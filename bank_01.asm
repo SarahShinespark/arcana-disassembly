@@ -42,11 +42,11 @@ Init_all_the_things:
    SEP #$20                             ;018053|      ;
    STZ.W APU_temp                       ;018055|00062A;
    REP #$20                             ;018058|      ;
-   STZ.W $157F                          ;01805A|00157F;
+   STZ.W Unused_157F                    ;01805A|00157F;
    STZ.W Story_Progress                 ;01805D|0018FF;
    STZ.W $1901                          ;018060|001901;
    STZ.W Game_State                     ;018063|0011C1;
-   STZ.W $1575                          ;018066|001575;
+   STZ.W Comparison                     ;018066|001575;
    STZ.W Temp_EXP                       ;018069|0013A3;
    STZ.W Temp_GP                        ;01806C|0013A5;
    STZ.W Pause_status                   ;01806F|001095;
@@ -197,17 +197,17 @@ Zero_LVLs_far:
    JSR.W Zero_LVLs                      ;0181C6|0181CA;
    RTL                                  ;0181C9|      ;
 Zero_LVLs:
-   STZ.W CurrentLV                      ;0181CA|00137B;
-   STZ.W SpiritLV                       ;0181CD|00137D;
-   STZ.W $137F                          ;0181D0|00137F;
-   STZ.W $1381                          ;0181D3|001381;
+   STZ.W Curr_LV_Rooks                  ;0181CA|00137B;
+   STZ.W Curr_LV_Spirit                 ;0181CD|00137D;
+   STZ.W Curr_LV_Guest1                 ;0181D0|00137F;
+   STZ.W Curr_LV_Guest2                 ;0181D3|001381;
    RTS                                  ;0181D6|      ;
 Zero_party_currHP_far:
    JSR.W Zero_party_currHP              ;0181D7|0181DB;
    RTL                                  ;0181DA|      ;
 Zero_party_currHP:
-   STZ.W Current_HP                     ;0181DB|0012F3;
-   STZ.W Spirit_currHP                  ;0181DE|0012F5;
+   STZ.W Curr_HP_Rooks                  ;0181DB|0012F3;
+   STZ.W Curr_HP_Spirit                 ;0181DE|0012F5;
    STZ.W $12F7                          ;0181E1|0012F7;
    STZ.W $12F9                          ;0181E4|0012F9;
    RTS                                  ;0181E7|      ;
@@ -215,16 +215,16 @@ Zero_party_currMP_far:
    JSR.W Zero_party_currMP              ;0181E8|0181EC;
    RTL                                  ;0181EB|      ;
 Zero_party_currMP:
-   STZ.W Current_MP                     ;0181EC|001323;
-   STZ.W Spirit_currMP                  ;0181EF|001325;
-   STZ.W $1327                          ;0181F2|001327;
-   STZ.W $1329                          ;0181F5|001329;
+   STZ.W Curr_MP_Rooks                  ;0181EC|001323;
+   STZ.W Curr_MP_Spirit                 ;0181EF|001325;
+   STZ.W Curr_MP_Guest1                 ;0181F2|001327;
+   STZ.W Curr_MP_Guest2                 ;0181F5|001329;
    RTS                                  ;0181F8|      ;
 Zero_copy_currHP_far:
    JSR.W Zero_copy_currHP               ;0181F9|0181FD;
    RTL                                  ;0181FC|      ;
 Zero_copy_currHP:
-   STZ.W Current_HP_copy                ;0181FD|00130B;
+   STZ.W Curr_HP_copy                   ;0181FD|00130B;
    STZ.W $130D                          ;018200|00130D;
    STZ.W $130F                          ;018203|00130F;
    STZ.W $1311                          ;018206|001311;
@@ -233,48 +233,48 @@ Zero_copy_currMP_far:
    JSR.W Zero_copy_currMP               ;01820A|01820E;
    RTL                                  ;01820D|      ;
 Zero_copy_currMP:
-   STZ.W Current_MP_copy                ;01820E|00133B;
-   STZ.W $133D                          ;018211|00133D;
-   STZ.W $133F                          ;018214|00133F;
-   STZ.W $1341                          ;018217|001341;
+   STZ.W Curr_MP_Rooks_copy             ;01820E|00133B;
+   STZ.W Curr_MP_Spirit_copy            ;018211|00133D;
+   STZ.W Curr_MP_Guest1_copy            ;018214|00133F;
+   STZ.W Curr_MP_Guest2_copy            ;018217|001341;
    RTS                                  ;01821A|      ;
 Zero_party_maxHP_far:
    JSR.W Zero_party_maxHP               ;01821B|01821F;
    RTL                                  ;01821E|      ;
 Zero_party_maxHP:
-   STZ.W MaxHP                          ;01821F|001393;
-   STZ.W SpiritMaxHP                    ;018222|001395;
-   STZ.W $1397                          ;018225|001397;
-   STZ.W $1399                          ;018228|001399;
+   STZ.W Max_HP_Rooks                   ;01821F|001393;
+   STZ.W Max_HP_Spirit                  ;018222|001395;
+   STZ.W Max_HP_Guest1                  ;018225|001397;
+   STZ.W Max_HP_Guest2                  ;018228|001399;
    RTS                                  ;01822B|      ;
 Zero_party_maxMP_far:
    JSR.W Zero_party_maxMP               ;01822C|018230;
    RTL                                  ;01822F|      ;
 Zero_party_maxMP:
-   STZ.W MaxMP                          ;018230|00139B;
-   STZ.W SpiritMaxMP                    ;018233|00139D;
-   STZ.W $139F                          ;018236|00139F;
-   STZ.W $13A1                          ;018239|0013A1;
+   STZ.W Max_MP_Rooks                   ;018230|00139B;
+   STZ.W Max_MP_Spirit                  ;018233|00139D;
+   STZ.W Max_MP_Guest1                  ;018236|00139F;
+   STZ.W Max_MP_Guest2                  ;018239|0013A1;
    RTS                                  ;01823C|      ;
 Decr_Spirits_currHP_far:
    JSR.W Decr_Spirits_currHP            ;01823D|018241;
    RTL                                  ;018240|      ;
 Decr_Spirits_currHP:
    LDA.W #$FFFF                         ;018241|      ;
-   STA.W Sylph_currHP                   ;018244|001353;
-   STA.W Dao_currHP                     ;018247|001355;
-   STA.W Marid_currHP                   ;01824A|001357;
-   STA.W Efrite_currHP                  ;01824D|001359;
+   STA.W Curr_HP_Sylph                  ;018244|001353;
+   STA.W Curr_HP_Dao                    ;018247|001355;
+   STA.W Curr_HP_Marid                  ;01824A|001357;
+   STA.W Curr_HP_Efrite                 ;01824D|001359;
    RTS                                  ;018250|      ;
 Decr_Spirits_currMP_far:
    JSR.W Decr_Spirits_currMP            ;018251|018255;
    RTL                                  ;018254|      ;
 Decr_Spirits_currMP:
    LDA.W #$FFFF                         ;018255|      ;
-   STA.W Sylph_currMP                   ;018258|00135B;
-   STA.W Dao_currMP                     ;01825B|00135D;
-   STA.W Marid_currMP                   ;01825E|00135F;
-   STA.W Efrite_currMP                  ;018261|001361;
+   STA.W Curr_MP_Sylph                  ;018258|00135B;
+   STA.W Curr_MP_Dao                    ;01825B|00135D;
+   STA.W Curr_MP_Marid                  ;01825E|00135F;
+   STA.W Curr_MP_Efrite                 ;018261|001361;
    RTS                                  ;018264|      ;
 Zero_card_inventory_far:
    JSR.W Zero_card_inventory            ;018265|018269;
@@ -5678,35 +5678,35 @@ DATA8_01A113:
    db $06                               ;01A113|      ;
    db $01                               ;01A114|      ;
    db $07                               ;01A115|      ;
-   dl CODE_07BA9A                       ;01A116|07BA9A;
+   dl Sub_Turning_Around                ;01A116|07BA9A;
    db $12                               ;01A119|      ;
    db $02                               ;01A11A|      ;
-   dw DATA8_01A126                      ;01A11B|01A126;
+   dw Event_Turning_Step                ;01A11B|01A126;
    dw DATA8_01A12D                      ;01A11D|01A12D;
    db $07                               ;01A11F|      ;
    dl CODE_07BAC3                       ;01A120|07BAC3;
    db $1A                               ;01A123|      ;
    dw DATA8_01A113                      ;01A124|01A113;
-DATA8_01A126:
-   db $0E                               ;01A126|      ; 0E: $157D + #E000
+Event_Turning_Step:
+   db $0E                               ;01A126|      ; 0E: $157D - #2000 (Dungeon left turn increment)
    dw $157D                             ;01A127|      ;
    db $02                               ;01A129|      ;
    dw $E000                             ;01A12A|      ;
    db $1C                               ;01A12C|      ; 1C: RTS
 DATA8_01A12D:
-   db $0E                               ;01A12D|      ; 0E: $157D + #2000
+   db $0E                               ;01A12D|      ; 0E: $157D + #2000 (Dungeon right turn increment)
    dw $157D                             ;01A12E|      ;
    db $02                               ;01A130|      ;
    dw $2000                             ;01A131|      ;
    db $1C                               ;01A133|      ; 1C: RTS
 DATA8_01A134:
-   db $0E                               ;01A134|      ; 0E: $157D + #FC00
+   db $0E                               ;01A134|      ; 0E: $157D - 0400 (Town left turn increment)
    dw $157D                             ;01A135|      ;
    db $02                               ;01A137|      ;
    dw $FC00                             ;01A138|      ;
    db $1C                               ;01A13A|      ; 1C: RTS
 DATA8_01A13B:
-   db $0E                               ;01A13B|      ; 0E: $157D + 0400
+   db $0E                               ;01A13B|      ; 0E: $157D + 0400 (Town right turn increment)
    dw $157D                             ;01A13C|      ;
    db $02                               ;01A13E|      ;
    dw $0400                             ;01A13F|      ;
@@ -6501,33 +6501,33 @@ CODE_01A4A2:
    LDA.W Tbl_Offset                     ;01A4A5|0011B5;
    LSR A                                ;01A4A8|      ;
    DEC A                                ;01A4A9|      ;
-   STA.W Anim_ID,X                      ;01A4AA|000A7B;
+   STA.W Array_Anim_ID,X                ;01A4AA|000A7B;
    RTL                                  ;01A4AD|      ;
 CODE_01A4AE:
    LDX.W Selection                      ;01A4AE|00103F;
    LDA.W $11B7                          ;01A4B1|0011B7;
    BNE CODE_01A4BB                      ;01A4B4|01A4BB;
    DEC A                                ;01A4B6|      ;
-   STA.W Anim_ID,X                      ;01A4B7|000A7B;
+   STA.W Array_Anim_ID,X                ;01A4B7|000A7B;
    RTL                                  ;01A4BA|      ;
 CODE_01A4BB:
    LSR A                                ;01A4BB|      ;
    CLC                                  ;01A4BC|      ;
    ADC.W #$000F                         ;01A4BD|      ;
-   STA.W Anim_ID,X                      ;01A4C0|000A7B;
+   STA.W Array_Anim_ID,X                ;01A4C0|000A7B;
    RTL                                  ;01A4C3|      ;
 CODE_01A4C4:
    LDX.W Selection                      ;01A4C4|00103F;
    LDA.W Page_Num                       ;01A4C7|0011B9;
    BNE CODE_01A4D1                      ;01A4CA|01A4D1;
    DEC A                                ;01A4CC|      ;
-   STA.W Anim_ID,X                      ;01A4CD|000A7B;
+   STA.W Array_Anim_ID,X                ;01A4CD|000A7B;
    RTL                                  ;01A4D0|      ;
 CODE_01A4D1:
    LSR A                                ;01A4D1|      ;
    CLC                                  ;01A4D2|      ;
    ADC.W #$001F                         ;01A4D3|      ;
-   STA.W Anim_ID,X                      ;01A4D6|000A7B;
+   STA.W Array_Anim_ID,X                ;01A4D6|000A7B;
    RTL                                  ;01A4D9|      ;
 UNREACH_01A4DA:
    db $00                               ;01A4DA|      ;
@@ -11733,12 +11733,12 @@ DATA8_01B99E:
 CODE_01B9B4:
    LDX.W Selection                      ;01B9B4|00103F;
    LDY.W Fn_results                     ;01B9B7|001041;
-   LDA.W Temp_09C7,X                    ;01B9BA|0009C7;
-   INC.W Temp_09C7,X                    ;01B9BD|0009C7;
+   LDA.W Array_Category,X               ;01B9BA|0009C7;
+   INC.W Array_Category,X               ;01B9BD|0009C7;
    TAX                                  ;01B9C0|      ;
    LDA.L Tbl_Anim_LoopVar,X             ;01B9C1|01BAB0;
    AND.W #$00FF                         ;01B9C5|      ;
-   STA.W Anim_Loopvar,Y                 ;01B9C8|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;01B9C8|000B9F;
    TXA                                  ;01B9CB|      ;
    ASL A                                ;01B9CC|      ;
    TAX                                  ;01B9CD|      ;
@@ -11747,12 +11747,12 @@ CODE_01B9B4:
 CODE_01B9D6:
    LDX.W Selection                      ;01B9D6|00103F;
    LDY.W Fn_results                     ;01B9D9|001041;
-   LDA.W Temp_09C7,X                    ;01B9DC|0009C7;
-   DEC.W Temp_09C7,X                    ;01B9DF|0009C7;
+   LDA.W Array_Category,X               ;01B9DC|0009C7;
+   DEC.W Array_Category,X               ;01B9DF|0009C7;
    TAX                                  ;01B9E2|      ;
    LDA.L Tbl_Anim_LoopVar,X             ;01B9E3|01BAB0;
    AND.W #$00FF                         ;01B9E7|      ;
-   STA.W Anim_Loopvar,Y                 ;01B9EA|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;01B9EA|000B9F;
    TXA                                  ;01B9ED|      ;
    ASL A                                ;01B9EE|      ;
    TAX                                  ;01B9EF|      ;
@@ -11761,12 +11761,12 @@ CODE_01B9D6:
 CODE_01B9F8:
    LDX.W Selection                      ;01B9F8|00103F;
    LDY.W Fn_results                     ;01B9FB|001041;
-   LDA.W Temp_09C7,X                    ;01B9FE|0009C7;
-   DEC.W Temp_09C7,X                    ;01BA01|0009C7;
+   LDA.W Array_Category,X               ;01B9FE|0009C7;
+   DEC.W Array_Category,X               ;01BA01|0009C7;
    TAX                                  ;01BA04|      ;
    LDA.L Tbl_Anim_LoopVar,X             ;01BA05|01BAB0;
    AND.W #$00FF                         ;01BA09|      ;
-   STA.W Anim_Loopvar,Y                 ;01BA0C|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;01BA0C|000B9F;
    TXA                                  ;01BA0F|      ;
    ASL A                                ;01BA10|      ;
    TAX                                  ;01BA11|      ;
@@ -11777,12 +11777,12 @@ CODE_01B9F8:
 CODE_01BA1E:
    LDX.W Selection                      ;01BA1E|00103F;
    LDY.W Fn_results                     ;01BA21|001041;
-   LDA.W Temp_09C7,X                    ;01BA24|0009C7;
-   INC.W Temp_09C7,X                    ;01BA27|0009C7;
+   LDA.W Array_Category,X               ;01BA24|0009C7;
+   INC.W Array_Category,X               ;01BA27|0009C7;
    TAX                                  ;01BA2A|      ;
    LDA.L Tbl_Anim_LoopVar,X             ;01BA2B|01BAB0;
    AND.W #$00FF                         ;01BA2F|      ;
-   STA.W Anim_Loopvar,Y                 ;01BA32|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;01BA32|000B9F;
    TXA                                  ;01BA35|      ;
    ASL A                                ;01BA36|      ;
    TAX                                  ;01BA37|      ;
@@ -11792,11 +11792,11 @@ CODE_01BA1E:
    JML.L CODE_01BA44                    ;01BA40|01BA44; Why is this here??
 CODE_01BA44:
    CLC                                  ;01BA44|      ;
-   ADC.W $106A                          ;01BA45|00106A;
-   STA.W $106A                          ;01BA48|00106A;
-   LDA.W $1068                          ;01BA4B|001068;
-   LDX.W $106A                          ;01BA4E|00106A;
-   LDY.W $106C                          ;01BA51|00106C;
+   ADC.W Graphics_106A                  ;01BA45|00106A;
+   STA.W Graphics_106A                  ;01BA48|00106A;
+   LDA.W Graphics_1068                  ;01BA4B|001068;
+   LDX.W Graphics_106A                  ;01BA4E|00106A;
+   LDY.W Graphics_106C                  ;01BA51|00106C;
    JML.L CODE_008A84                    ;01BA54|008A84;
 Tbl_Decrement_Amt:
    dw $0001                             ;01BA58|      ;
@@ -11940,20 +11940,20 @@ DATA8_01BAE9:
 CODE_01BB1A:
    LDX.W Selection                      ;01BB1A|00103F;
    LDY.W Fn_results                     ;01BB1D|001041;
-   LDA.W Selection_value,X              ;01BB20|0009EB;
-   INC.W Selection_value,X              ;01BB23|0009EB;
+   LDA.W Array_Selection,X              ;01BB20|0009EB;
+   INC.W Array_Selection,X              ;01BB23|0009EB;
    TAX                                  ;01BB26|      ;
    JML.L CODE_01BB38                    ;01BB27|01BB38;
 CODE_01BB2B:
    LDX.W Selection                      ;01BB2B|00103F;
    LDY.W Fn_results                     ;01BB2E|001041;
-   LDA.W Selection_value,X              ;01BB31|0009EB;
-   DEC.W Selection_value,X              ;01BB34|0009EB;
+   LDA.W Array_Selection,X              ;01BB31|0009EB;
+   DEC.W Array_Selection,X              ;01BB34|0009EB;
    TAX                                  ;01BB37|      ;
 CODE_01BB38:
    LDA.L Some_table,X                   ;01BB38|01BB43;
    AND.W #$00FF                         ;01BB3C|      ;
-   STA.W Anim_Loopvar,Y                 ;01BB3F|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;01BB3F|000B9F;
    RTL                                  ;01BB42|      ;
 Some_table:
    db $0A                               ;01BB43|      ; Eighteen entries
@@ -11989,7 +11989,7 @@ Loop_until_true:
    db $0D                               ;01BB64|      ;
 CODE_01BB65:
    LDY.W Selection                      ;01BB65|00103F;
-   LDA.W $09A3,Y                        ;01BB68|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;01BB68|0009A3;
    ASL A                                ;01BB6B|      ;
    TAX                                  ;01BB6C|      ;
    LDA.L Tbl_Decomp_Tables,X            ;01BB6D|01BD4D;
@@ -12002,18 +12002,18 @@ CODE_01BB65:
 CODE_01BB81:
    PHA                                  ;01BB81|      ;
    LDY.W Selection                      ;01BB82|00103F;
-   LDA.W $09A3,Y                        ;01BB85|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;01BB85|0009A3;
    INC A                                ;01BB88|      ;
    CMP.W #$002B                         ;01BB89|      ;
    BCC CODE_01BB91                      ;01BB8C|01BB91;
    LDA.W #$0000                         ;01BB8E|      ;
 CODE_01BB91:
-   STA.W $09A3,Y                        ;01BB91|0009A3;
+   STA.W Array_Menu_Cursor,Y            ;01BB91|0009A3;
    PLA                                  ;01BB94|      ;
    RTL                                  ;01BB95|      ;
 CODE_01BB96:
    LDY.W Selection                      ;01BB96|00103F;
-   LDA.W $09A3,Y                        ;01BB99|0009A3;
+   LDA.W Array_Menu_Cursor,Y            ;01BB99|0009A3;
    DEC A                                ;01BB9C|      ;
    ASL A                                ;01BB9D|      ;
    TAX                                  ;01BB9E|      ;
@@ -12112,7 +12112,7 @@ Update_Credits_Distance:
    LDA.L Credits_Distance,X             ;01BC0D|01BC1B;
    AND.W #$00FF                         ;01BC11|      ;
    LDY.W Fn_results                     ;01BC14|001041;
-   STA.W Anim_Loopvar,Y                 ;01BC17|000B9F;
+   STA.W Array_Anim_Loopvar,Y           ;01BC17|000B9F;
    RTL                                  ;01BC1A|      ;
 Credits_Distance:
    db $96                               ;01BC1B|      ;
@@ -12184,7 +12184,7 @@ Advance_Credits:
    LDX.W Credits_Progress               ;01BC62|001927;
    LDA.L Credits_Anim_IDs,X             ;01BC65|01BC85;
    AND.W #$00FF                         ;01BC69|      ;
-   STA.W Anim_ID,Y                      ;01BC6C|000A7B;
+   STA.W Array_Anim_ID,Y                ;01BC6C|000A7B;
    LDA.W #$0080                         ;01BC6F|      ;
    STA.W Cursor_Array_Xpos_Copy,Y       ;01BC72|000787;
    STA.W Cursor_Array_Xpos,Y            ;01BC75|0006F7;

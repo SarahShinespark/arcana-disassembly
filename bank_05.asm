@@ -328,49 +328,49 @@ Tbl_0581F8:
 CODE_058216:
    LDX.W Selection                      ;058216|00103F;
    LDA.W Game_State                     ;058219|0011C1;
-   CMP.W $0A0F,X                        ;05821C|000A0F;
+   CMP.W Array_Target,X                 ;05821C|000A0F;
    BEQ CODE_058231                      ;05821F|058231;
    LDA.W #$0002                         ;058221|      ;
    CMP.W Game_State                     ;058224|0011C1;
    BEQ CODE_058235                      ;058227|058235;
    LDA.W #$0002                         ;058229|      ;
-   CMP.W $0A0F,X                        ;05822C|000A0F;
+   CMP.W Array_Target,X                 ;05822C|000A0F;
    BEQ CODE_058235                      ;05822F|058235;
 CODE_058231:
    LDA.W #$0000                         ;058231|      ;
    RTS                                  ;058234|      ;
 CODE_058235:
    LDA.W Game_State                     ;058235|0011C1;
-   STA.W $0A0F,X                        ;058238|000A0F;
+   STA.W Array_Target,X                 ;058238|000A0F;
    LDA.W #$0001                         ;05823B|      ;
    RTS                                  ;05823E|      ;
    JSR.W CODE_058243                    ;05823F|058243;
    RTL                                  ;058242|      ;
 CODE_058243:
    LDX.W Selection                      ;058243|00103F;
-   LDA.W Selection_value,X              ;058246|0009EB;
+   LDA.W Array_Selection,X              ;058246|0009EB;
    ASL A                                ;058249|      ;
    TAX                                  ;05824A|      ;
-   LDA.W Current_HP_copy,X              ;05824B|00130B;
+   LDA.W Curr_HP_copy,X                 ;05824B|00130B;
    STA.B $20                            ;05824E|000020;
-   LDA.W Current_HP,X                   ;058250|0012F3;
+   LDA.W Curr_HP_Rooks,X                ;058250|0012F3;
    CMP.B $20                            ;058253|000020;
    BMI CODE_05826F                      ;058255|05826F;
    BCC CODE_05826F                      ;058257|05826F;
    BEQ CODE_05826B                      ;058259|05826B;
-   LDA.W Current_HP,X                   ;05825B|0012F3;
-   STA.W Current_HP_copy,X              ;05825E|00130B;
+   LDA.W Curr_HP_Rooks,X                ;05825B|0012F3;
+   STA.W Curr_HP_copy,X                 ;05825E|00130B;
    LDX.W Selection                      ;058261|00103F;
-   LDA.W Selection_value,X              ;058264|0009EB;
+   LDA.W Array_Selection,X              ;058264|0009EB;
    JSL.L Death_Check_A_1                ;058267|078D46;
 CODE_05826B:
    LDA.W #$0000                         ;05826B|      ;
    RTS                                  ;05826E|      ;
 CODE_05826F:
-   LDA.W Current_HP,X                   ;05826F|0012F3;
-   STA.W Current_HP_copy,X              ;058272|00130B;
+   LDA.W Curr_HP_Rooks,X                ;05826F|0012F3;
+   STA.W Curr_HP_copy,X                 ;058272|00130B;
    LDX.W Selection                      ;058275|00103F;
-   LDA.W Selection_value,X              ;058278|0009EB;
+   LDA.W Array_Selection,X              ;058278|0009EB;
    JSL.L Death_Check_A_1                ;05827B|078D46;
    JSL.L CODE_0783E5                    ;05827F|0783E5;
    BEQ CODE_058289                      ;058283|058289;
@@ -383,18 +383,18 @@ CODE_058289:
    RTL                                  ;058290|      ;
 Error_Check_MP:
    LDX.W Selection                      ;058291|00103F;
-   LDA.W Selection_value,X              ;058294|0009EB;
+   LDA.W Array_Selection,X              ;058294|0009EB;
    ASL A                                ;058297|      ;
    TAX                                  ;058298|      ;
-   LDA.W Current_MP_copy,X              ;058299|00133B;
+   LDA.W Curr_MP_Rooks_copy,X           ;058299|00133B;
    STA.B $20                            ;05829C|000020;
-   LDA.W Current_MP,X                   ;05829E|001323;
+   LDA.W Curr_MP_Rooks,X                ;05829E|001323;
    CMP.B $20                            ;0582A1|000020;
    BEQ CODE_0582B5                      ;0582A3|0582B5;
-   LDA.W Current_MP,X                   ;0582A5|001323;
-   STA.W Current_MP_copy,X              ;0582A8|00133B;
+   LDA.W Curr_MP_Rooks,X                ;0582A5|001323;
+   STA.W Curr_MP_Rooks_copy,X           ;0582A8|00133B;
    LDX.W Selection                      ;0582AB|00103F;
-   LDA.W Selection_value,X              ;0582AE|0009EB;
+   LDA.W Array_Selection,X              ;0582AE|0009EB;
    JSL.L Death_Check_A_2                ;0582B1|078DB0;
 CODE_0582B5:
    RTS                                  ;0582B5|      ;
@@ -402,11 +402,11 @@ CODE_0582B5:
    RTL                                  ;0582B9|      ;
 CODE_0582BA:
    LDX.W Selection                      ;0582BA|00103F;
-   LDA.W Selection_value,X              ;0582BD|0009EB;
+   LDA.W Array_Selection,X              ;0582BD|0009EB;
    JSL.L CODE_0781F9                    ;0582C0|0781F9;
    BEQ CODE_0582F7                      ;0582C4|0582F7;
    LDX.W Selection                      ;0582C6|00103F;
-   LDA.W Selection_value,X              ;0582C9|0009EB;
+   LDA.W Array_Selection,X              ;0582C9|0009EB;
    ASL A                                ;0582CC|      ;
    TAX                                  ;0582CD|      ;
    LDA.W Condition,X                    ;0582CE|0011C3;
@@ -416,11 +416,11 @@ CODE_0582BA:
    AND.W #$00FF                         ;0582DA|      ;
    BNE CODE_0582E9                      ;0582DD|0582E9;
    LDX.W Selection                      ;0582DF|00103F;
-   LDA.W Selection_value,X              ;0582E2|0009EB;
+   LDA.W Array_Selection,X              ;0582E2|0009EB;
    JSL.L _07906F_far                    ;0582E5|07906B;
 CODE_0582E9:
    LDX.W Selection                      ;0582E9|00103F;
-   LDA.W Selection_value,X              ;0582EC|0009EB;
+   LDA.W Array_Selection,X              ;0582EC|0009EB;
    JSL.L CODE_078DF0                    ;0582EF|078DF0;
    LDA.W #$0001                         ;0582F3|      ;
    RTS                                  ;0582F6|      ;
@@ -435,10 +435,10 @@ Update_SpiritHP:
    DEC A                                ;058302|      ;
    ASL A                                ;058303|      ;
    TAX                                  ;058304|      ;
-   LDA.W Spirit_currHP                  ;058305|0012F5;
-   STA.W Sylph_currHP,X                 ;058308|001353;
-   LDA.W Spirit_currMP                  ;05830B|001325;
-   STA.W Sylph_currMP,X                 ;05830E|00135B;
+   LDA.W Curr_HP_Spirit                 ;058305|0012F5;
+   STA.W Curr_HP_Sylph,X                ;058308|001353;
+   LDA.W Curr_MP_Spirit                 ;05830B|001325;
+   STA.W Curr_MP_Sylph,X                ;05830E|00135B;
    RTS                                  ;058311|      ;
 DATA8_058312:
    db $06                               ;058312|      ; Delay 01
@@ -3566,12 +3566,12 @@ Display_Confused:
    dw DATA8_05986F                      ;059704|05986F;
 CODE_059706:
    LDX.W Selection                      ;059706|00103F;
-   LDA.W Temp_09C7,X                    ;059709|0009C7;
+   LDA.W Array_Category,X               ;059709|0009C7;
    TAX                                  ;05970C|      ;
-   LDA.W Selection_value,X              ;05970D|0009EB;
+   LDA.W Array_Selection,X              ;05970D|0009EB;
    ASL A                                ;059710|      ;
    TAX                                  ;059711|      ;
-   LDA.W Curr_party,X                   ;059712|00155B;
+   LDA.W Party_slot1,X                  ;059712|00155B;
    RTL                                  ;059715|      ;
 Display_Asleep:
    db $07                               ;059716|      ;
@@ -4298,17 +4298,17 @@ DATA8_059AF8:
    dw BattleMenuLoop                    ;059B0C|05977D;
 Set_11B5_7:
    LDX.W Selection                      ;059B0E|00103F;
-   LDA.W $09A3,X                        ;059B11|0009A3;
+   LDA.W Array_Menu_Cursor,X            ;059B11|0009A3;
    STA.W Tbl_Offset                     ;059B14|0011B5;
-   LDA.W Temp_09C7,X                    ;059B17|0009C7;
+   LDA.W Array_Category,X               ;059B17|0009C7;
    STA.W $11B7                          ;059B1A|0011B7;
    RTL                                  ;059B1D|      ;
 CODE_059B1E:
    LDX.W Selection                      ;059B1E|00103F;
    LDA.W Tbl_Offset                     ;059B21|0011B5;
-   STA.W $09A3,X                        ;059B24|0009A3;
+   STA.W Array_Menu_Cursor,X            ;059B24|0009A3;
    LDA.W $11B7                          ;059B27|0011B7;
-   STA.W Temp_09C7,X                    ;059B2A|0009C7;
+   STA.W Array_Category,X               ;059B2A|0009C7;
    RTL                                  ;059B2D|      ;
 Battle_Magic:
    db $1E                               ;059B2E|      ;
@@ -15457,7 +15457,7 @@ CODE_05F765:
    LDA.W #$0000                         ;05F76A|      ;
    RTL                                  ;05F76D|      ;
 CODE_05F76E:
-   LDA.W Input_New                      ;05F76E|000029;
+   LDA.W Input_0029_New                 ;05F76E|000029;
    BIT.W #$0800                         ;05F771|      ;
    BEQ CODE_05F79E                      ;05F774|05F79E;
    LDA.W $11B7                          ;05F776|0011B7;
@@ -15604,7 +15604,7 @@ CODE_05F87C:
    LDA.W #$0000                         ;05F881|      ;
    RTL                                  ;05F884|      ;
 CODE_05F885:
-   LDA.W Input_New                      ;05F885|000029;
+   LDA.W Input_0029_New                 ;05F885|000029;
    BIT.W #$0200                         ;05F888|      ;
    BEQ CODE_05F89D                      ;05F88B|05F89D;
    LDA.W $18A7                          ;05F88D|0018A7;

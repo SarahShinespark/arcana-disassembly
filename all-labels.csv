@@ -458,7 +458,7 @@ $000643,1603,Battle_Enemy_ID,"(2b) Enemy ID + #18, FFFF when killed",UNUSED
 $001066,4198,Current_SFX,Value 01-32,UNUSED
 $001049,4169,Event_CodePtr,Stores subroutine pointers,UNUSED
 $001064,4196,Current_Music,Value 33-5A,UNUSED
-$00109B,4251,Text_Offset_temp,Stores a $04 (x offset for $28b text vars),UNUSED
+$00109B,4251,Array_Text1_Index0,Stores a $04 (x offset for $28b text vars),UNUSED
 $001127,4391,Spell_ID,The spell an enemy is casting,UNUSED
 $00120B,4619,Affinity,(2b) Race / Attribute,UNUSED
 $001223,4643,Strength,"(2b) Rooks, Spirit, Guest 1-2, Enemy 1-8",UNUSED
@@ -470,12 +470,12 @@ $00129B,4763,EqArmor,,UNUSED
 $0012BB,4795,Enemy_Amulet,,UNUSED
 $0012CB,4811,EqRing,,UNUSED
 $0012E3,4835,ACC_mods,"(2b) Buffs/Debuffs for Acc, Evade, Atk, Def",UNUSED
-$0012F3,4851,Current_HP,"(2b) Rooks, Spirit, Guest 1-2, Enemies 1-8",UNUSED
-$001323,4899,Current_MP,,UNUSED
-$001363,4963,CurrentEXP,,UNUSED
-$00137B,4987,CurrentLV,"(2b) Rooks, Spirit, Guest1, Guest2",UNUSED
-$001393,5011,MaxHP,"(2b) Rooks, Spirit, Guest1, Guest2",UNUSED
-$00139B,5019,MaxMP,,UNUSED
+$0012F3,4851,Curr_HP_Rooks,"(2b) Rooks, Spirit, Guest 1-2, Enemies 1-8",UNUSED
+$001323,4899,Curr_MP_Rooks,,UNUSED
+$001363,4963,Curr_EXP_Rooks,,UNUSED
+$00137B,4987,Curr_LV_Rooks,"(2b) Rooks, Spirit, Guest1, Guest2",UNUSED
+$001393,5011,Max_HP_Rooks,"(2b) Rooks, Spirit, Guest1, Guest2",UNUSED
+$00139B,5019,Max_MP_Rooks,,UNUSED
 $0013A3,5027,Temp_EXP,Stores the sum earned in the current battle,UNUSED
 $0013A5,5029,Temp_GP,,UNUSED
 $0013A9,5033,Inventory_Cards,"(2b each, item ID / quantity, 8 entries)",UNUSED
@@ -483,7 +483,7 @@ $0013B9,5049,Inventory_Items,"(2b each, 48 entries)",UNUSED
 $001419,5145,Inventory_Eqp,"(2b each, item ID / user ID)",UNUSED
 $001459,5209,Spell_list,"(2b, 32 total)(Rooks, Spirit, Guest1, Guest2)",UNUSED
 $001559,5465,Curr_GP,(2b),UNUSED
-$00155B,5467,Curr_party,"0000=Rooks, 1-4=Spirits, 5-8 Guests, 9 None",UNUSED
+$00155B,5467,Party_slot1,"0000=Rooks, 1-4=Spirits, 5-8 Guests, 9 None",UNUSED
 $001573,5491,Curr_area,"01xx = dungeon, 00xx = town",UNUSED
 $00104B,4171,Event_CodeBank,The bank for 1049,UNUSED
 $001577,5495,Win_Color,Bit layout (-BBB B0GG GG0R RRR0),UNUSED
@@ -539,22 +539,22 @@ $03E4C4,255172,Whats_this_owo,,USED
 $048001,294913,RLE_Town_Graphics,,USED
 $07B470,504944,Set_character_ID_2b,,USED
 $07B335,504629,LevelUp2,,USED
-$0009EB,2539,Selection_value,"Current character ID, treasure chest value",UNUSED
+$0009EB,2539,Array_Selection,"Current character ID, treasure chest value",UNUSED
 $00155D,5469,Party_slot2,,UNUSED
 $00155F,5471,Party_slot3,,UNUSED
 $001561,5473,Party_slot4,,UNUSED
 $00103F,4159,Selection,,UNUSED
 $001041,4161,Fn_results,,UNUSED
 $001047,4167,LoopVar_1047,,UNUSED
-$00130B,4875,Current_HP_copy,,UNUSED
-$00133B,4923,Current_MP_copy,,UNUSED
+$00130B,4875,Curr_HP_copy,,UNUSED
+$00133B,4923,Curr_MP_Rooks_copy,,UNUSED
 $07B92F,506159,Max_heal,,USED
 $07B169,504169,OR_element_with_2b,,USED
 $078FC1,495553,Tbl_Character_Name_Tiles,,USED
 $078FD5,495573,Bank_Character_Name_Tiles,,USED
 $07B17F,504191,Get_Condition2,,USED
 $00A105,41221,Transfer_Setup2_6b,,USED
-$000CB3,3251,Fn_results1,,UNUSED
+$000CB3,3251,Array_Fn_results1,,UNUSED
 $00A68C,42636,Set_Text_Parser,,USED
 $00A0AC,41132,Setup_Text_Parser_3b,,USED
 $0897DF,563167,Flame2,,USED
@@ -654,19 +654,19 @@ $18C42A,1623082,EVENT_19_vsGalneon,,USED
 $18C551,1623377,EVENT_1A_R_and_B,,USED
 $18C6D1,1623761,EVENT_1B_Tiamat,,USED
 $18C814,1624084,EVENT_1C_Final_door,,USED
-$001395,5013,SpiritMaxHP,,UNUSED
-$0012F5,4853,Spirit_currHP,,UNUSED
+$001395,5013,Max_HP_Spirit,,UNUSED
+$0012F5,4853,Curr_HP_Spirit,,UNUSED
 $0011C5,4549,Condition_Spirit,,UNUSED
-$001353,4947,Sylph_currHP,,UNUSED
-$001355,4949,Dao_currHP,,UNUSED
-$001357,4951,Marid_currHP,,UNUSED
-$001359,4953,Efrite_currHP,,UNUSED
-$00139D,5021,SpiritMaxMP,,UNUSED
-$001325,4901,Spirit_currMP,,UNUSED
-$00135B,4955,Sylph_currMP,,UNUSED
-$00135D,4957,Dao_currMP,,UNUSED
-$00135F,4959,Marid_currMP,,UNUSED
-$001361,4961,Efrite_currMP,,UNUSED
+$001353,4947,Curr_HP_Sylph,,UNUSED
+$001355,4949,Curr_HP_Dao,,UNUSED
+$001357,4951,Curr_HP_Marid,,UNUSED
+$001359,4953,Curr_HP_Efrite,,UNUSED
+$00139D,5021,Max_MP_Spirit,,UNUSED
+$001325,4901,Curr_MP_Spirit,,UNUSED
+$00135B,4955,Curr_MP_Sylph,,UNUSED
+$00135D,4957,Curr_MP_Dao,,UNUSED
+$00135F,4959,Curr_MP_Marid,,UNUSED
+$001361,4961,Curr_MP_Efrite,,UNUSED
 $18CE0D,1625613,Full_Heal_Rooks_Spirits,"""Full"" heal",USED
 $18CE44,1625668,Rooks_gets_KTFOd,,USED
 $089BCF,564175,Heal2,,USED
@@ -1091,7 +1091,7 @@ $07AA61,502369,Add_GP_to_total_far,,USED
 $07AA65,502373,Add_GP_to_total,,USED
 $07A88A,501898,Treasure_GP,,USED
 $07A896,501910,Treasure_Monster_in_a_box,,USED
-$0009C7,2503,Temp_09C7,(0-4) Treasure chest item category,UNUSED
+$0009C7,2503,Array_Category,(0-4) Treasure chest item category,UNUSED
 $002130,8496,Color_add_select,00 is an allow all,UNUSED
 $03E57D,255357,Adjust_color_math,,USED
 $03E5BB,255419,Add_color_math_designation_1b,,USED
@@ -1292,7 +1292,7 @@ $02AB03,174851,Load_Stuff_AA69,,USED
 $08D1C4,577988,Alchemist_welcome,,USED
 $03E2A8,254632,Shop_cursor_setup_3b,,USED
 $03E6C2,255682,Alchemist_main_menu,,USED
-$000031,49,Input_0031,,UNUSED
+$000031,49,Input_0031,Stored in 0035 ($83DB Advance_polling),UNUSED
 $03E317,254743,Shop_input_checker,,USED
 $03E333,254771,Shop_A_not_pressed,,USED
 $03E322,254754,Shop_A_press,,USED
@@ -2927,7 +2927,7 @@ $05D4A5,382117,Odd_Data14,,USED
 $05D565,382309,Odd_Data15,,USED
 $019E0E,105998,Show_Wpn_SubMenu,,USED
 $019E00,105984,Show_Equip_Menu,,USED
-$00137D,4989,SpiritLV,,UNUSED
+$00137D,4989,Curr_LV_Spirit,,UNUSED
 $05D0D5,381141,Data_Enemy_WeaponLookup,,USED
 $07B607,505351,GetEnemyWpnLookup,,USED
 $198F31,1675057,SourceData2,,USED
@@ -2949,7 +2949,7 @@ $19A7A1,1681313,SrcData1_DamageStar,,USED
 $00112B,4395,Spell_Result_array,"01=Confused, Slept, Para, Petri, Silence",UNUSED
 $07ACD9,503001,UpdateCursor,,USED
 $07ACAE,502958,MoveMenuCursor_2b,,USED
-$000029,41,Input_New,,UNUSED
+$000029,41,Input_0029_New,Stored in 002D,UNUSED
 $07AEA1,503457,SetBattleCursorPos,,USED
 $0597A3,366499,Update_Arrow_Cursor,,USED
 $05977D,366461,BattleMenuLoop,,USED
@@ -3180,10 +3180,10 @@ $0D96B2,890546,Spelldata_MVN7,,USED
 $0D96D2,890578,Spelldata_MVN8,,USED
 $0D96F2,890610,Spelldata_MVN9,,USED
 $0D9712,890642,Spelldata_MVN10,,USED
-$000B9F,2975,Anim_Loopvar,Value 0-7,UNUSED
-$000BFB,3067,Ptr_EventStack,,UNUSED
-$000C57,3159,Bank_EventStack,,UNUSED
-$000A7B,2683,Anim_ID,,UNUSED
+$000B9F,2975,Array_Anim_Loopvar,Value 0-7,UNUSED
+$000BFB,3067,Stack_Event_Ptr,,UNUSED
+$000C57,3159,Stack_Event_Bank,,UNUSED
+$000A7B,2683,Array_Anim_ID,,UNUSED
 $000937,2359,Anim48_Total,,UNUSED
 $000958,2392,Anim50_Total,,UNUSED
 $00097F,2431,AnimE8_Total,,UNUSED
@@ -4246,17 +4246,121 @@ $0183BD,99261,Init_more_things,,USED
 $01841C,99356,Load_Spirit_Gfx,,USED
 $01842C,99372,Load_Guest1_Gfx,,USED
 $018438,99384,Load_Guest2_Gfx,,USED
-$000010,16,PC,Code pointer to the current line of execution,UNUSED
-$000018,24,Fn_ptr,,UNUSED
-$00001C,28,Addr_ptr,,UNUSED
+$0009A3,2467,Array_Menu_Cursor,,UNUSED
+$000626,1574,Spirit_HP_BCD_hi,,UNUSED
+$000624,1572,Spirit_HP_BCD_lo,,UNUSED
 $000A33,2611,Stack_addr_ptr,Offset X,UNUSED
-$000A57,2647,Stack_addr_bank,,UNUSED
+$000A57,2647,Stack_addr_bank,"(Paired with A33,x)",UNUSED
 $0016E5,5861,Ability_currHP,,UNUSED
 $0016E9,5865,Ability_currMP,,UNUSED
 $0016ED,5869,Ability_currEXP,,UNUSED
 $0016EF,5871,Map_temp01,idk man,UNUSED
 $0016F1,5873,Stairs_next_floor,,UNUSED
 $0016F3,5875,Dungeon_in_motion,,UNUSED
+$000021,33,Input_0021,Stored in 0025,UNUSED
+$000025,37,Input_0025,,UNUSED
+$000023,35,Input_0023,Stored in 0027,UNUSED
+$000027,39,Input_0027,,UNUSED
+$000035,53,Input_0035,,UNUSED
+$000033,51,Input_0033,Stored in 0037,UNUSED
+$000037,55,Input_0037,,UNUSED
+$00002D,45,Input_002D,,UNUSED
+$00002B,43,Input_002B,Stored in 002F,UNUSED
+$00002F,47,Input_002F,,UNUSED
+$07BA9A,506522,Sub_Turning_Around,,USED
+$01A126,106790,Event_Turning_Step,,USED
+$00157D,5501,Compass_Subdirection,"Tracks half turns for dungeons, quarter turns for towns.",UNUSED
+$00157F,5503,Unused_157F,,UNUSED
+$001563,5475,Unused,,UNUSED
+$001565,5477,Unused_Enemy_slot2,,UNUSED
+$001567,5479,Unused_Enemy_slot3,,UNUSED
+$001569,5481,Unused_Enemy_slot4,,UNUSED
+$00156B,5483,Unused_Enemy_slot5,,UNUSED
+$00156D,5485,Unused_Enemy_slot6,,UNUSED
+$00156F,5487,Unused_Enemy_slot7,,UNUSED
+$001571,5489,Unused_Enemy_slot8,,UNUSED
+$001327,4903,Curr_MP_Guest1,,UNUSED
+$001329,4905,Curr_MP_Guest2,,UNUSED
+$00132B,4907,Curr_MP_Enemy1,,UNUSED
+$00132D,4909,Curr_MP_Enemy2,,UNUSED
+$00132F,4911,Curr_MP_Enemy3,,UNUSED
+$001331,4913,Curr_MP_Enemy4,,UNUSED
+$001333,4915,Curr_MP_Enemy5,,UNUSED
+$001335,4917,Curr_MP_Enemy6,,UNUSED
+$001337,4919,Curr_MP_Enemy7,,UNUSED
+$001339,4921,Curr_MP_Enemy8,,UNUSED
+$00133D,4925,Curr_MP_Spirit_copy,,UNUSED
+$00133F,4927,Curr_MP_Guest1_copy,,UNUSED
+$001341,4929,Curr_MP_Guest2_copy,,UNUSED
+$001343,4931,Curr_MP_Enemy1_copy,Unused,UNUSED
+$001345,4933,Curr_MP_Enemy2_copy,,UNUSED
+$001347,4935,Curr_MP_Enemy3_copy,,UNUSED
+$001349,4937,Curr_MP_Enemy4_copy,,UNUSED
+$00134B,4939,Curr_MP_Enemy5_copy,,UNUSED
+$00134D,4941,Curr_MP_Enemy6_copy,,UNUSED
+$00134F,4943,Curr_MP_Enemy7_copy,,UNUSED
+$001351,4945,Curr_MP_Enemy8_copy,,UNUSED
+$001367,4967,Curr_EXP_Guest1,,UNUSED
+$001369,4969,Curr_EXP_Guest2,,UNUSED
+$00136B,4971,Curr_EXP_Enemy1,EXP for beating this enemy,UNUSED
+$00136D,4973,Curr_EXP_Enemy2,,UNUSED
+$00136F,4975,Curr_EXP_Enemy3,,UNUSED
+$001371,4977,Curr_EXP_Enemy4,,UNUSED
+$001373,4979,Curr_EXP_Enemy5,,UNUSED
+$001375,4981,Curr_EXP_Enemy6,,UNUSED
+$001377,4983,Curr_EXP_Enemy7,,UNUSED
+$001379,4985,Curr_EXP_Enemy8,,UNUSED
+$00137F,4991,Curr_LV_Guest1,,UNUSED
+$001381,4993,Curr_LV_Guest2,,UNUSED
+$001383,4995,Curr_LV_Enemy1,Affects run chance,UNUSED
+$001385,4997,Curr_LV_Enemy2,,UNUSED
+$001387,4999,Curr_LV_Enemy3,,UNUSED
+$001389,5001,Curr_LV_Enemy4,,UNUSED
+$00138B,5003,Curr_LV_Enemy5,,UNUSED
+$00138D,5005,Curr_LV_Enemy6,,UNUSED
+$00138F,5007,Curr_LV_Enemy7,,UNUSED
+$001391,5009,Curr_LV_Enemy8,,UNUSED
+$001397,5015,Max_HP_Guest1,,UNUSED
+$001399,5017,Max_HP_Guest2,,UNUSED
+$00139F,5023,Max_MP_Guest1,,UNUSED
+$0013A1,5025,Max_MP_Guest2,,UNUSED
+$00105B,4187,Unused_105B,,UNUSED
+$00105D,4189,Unused_105D,,UNUSED
+$00105F,4191,Unused_105F,,UNUSED
+$001068,4200,Graphics_1068,,UNUSED
+$00106A,4202,Graphics_106A,,UNUSED
+$00106C,4204,Graphics_106C,,UNUSED
+$00106E,4206,Unused_106E,,UNUSED
+$001070,4208,Unused_1070,,UNUSED
+$001072,4210,Unused_1072,,UNUSED
+$001074,4212,Unused_1074,,UNUSED
+$001076,4214,Unused_1076,,UNUSED
+$001078,4216,Unused_1078,,UNUSED
+$00107A,4218,Unused_107A,,UNUSED
+$00107C,4220,Unused_107C,,UNUSED
+$00107E,4222,Unused_107E,,UNUSED
+$001080,4224,Unused_1080,,UNUSED
+$001082,4226,Unused_1084,,UNUSED
+$001086,4230,Unused_1086,,UNUSED
+$001088,4232,Unused_1088,,UNUSED
+$00108A,4234,Unused_108A,,UNUSED
+$001091,4241,Animation_Finish_Timer,,UNUSED
+$001093,4243,Unused_1093,,UNUSED
+$00109D,4253,Array_Text1_Index1,,UNUSED
+$00109F,4255,Array_Text1_Index2,,UNUSED
+$0010A1,4257,Array_Text1_Index3,,UNUSED
+$0010A3,4259,Array_Text1_Index4,,UNUSED
+$00062D,1581,Temp_party_order,,UNUSED
+$000A0F,2575,Array_Target,,UNUSED
+$000A87,2695,Command_Rooks,"1=main, 3=item/magic, 4=card, 5=weap, 8=atk",UNUSED
+$000A89,2697,Command_Spirit,,UNUSED
+$000A8B,2699,Command_Guest1,,UNUSED
+$000A8D,2701,Command_Guest2,,UNUSED
+$0010C3,4291,Array_Text2_Index0,,UNUSED
+$0010C5,4293,Array_Text2_Index1,,UNUSED
+$0010C7,4295,Array_Text2_Index2,,UNUSED
+$0010C9,4297,Array_Text2_Index3,,UNUSED
+$001575,5493,Comparison,,UNUSED
 $008122,33058,CODE_008122,,USED
 $0081A8,33192,CODE_0081A8,,USED
 $00822F,33327,CODE_00822F,,USED
@@ -5236,8 +5340,6 @@ $07BAA3,506531,CODE_07BAA3,,USED
 $01A134,106804,DATA8_01A134,,USED
 $01A13B,106811,DATA8_01A13B,,USED
 $01A0F8,106744,DATA8_01A0F8,,USED
-$07BA9A,506522,CODE_07BA9A,,USED
-$01A126,106790,DATA8_01A126,,USED
 $01A12D,106797,DATA8_01A12D,,USED
 $01A113,106771,DATA8_01A113,,USED
 $01A1BC,106940,CODE_01A1BC,,USED
