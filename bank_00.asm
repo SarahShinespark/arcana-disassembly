@@ -11,13 +11,13 @@ CODE_008001:
    PHA                                  ;00800D|      ;
    PLB                                  ;00800E|      ;
    LDA.B #$8F                           ;00800F|      ; Screen off
-   STA.W Scn_Display                    ;008011|002100;
+   STA.W Scn_Brightness                 ;008011|002100;
    LDA.B #$00                           ;008014|      ; Disable NMI and IRQ
    STA.W NMI_time_n                     ;008016|004200;
    REP #$10                             ;008019|      ;
    SEP #$20                             ;00801B|      ;
    LDA.B #$8F                           ;00801D|      ; Screen off again
-   STA.W Scn_Display                    ;00801F|002100;
+   STA.W Scn_Brightness                 ;00801F|002100;
    LDA.B #$63                           ;008022|      ;
    STA.W OAM_sprite_size                ;008024|002101;
    LDA.B #$00                           ;008027|      ;
@@ -79,9 +79,9 @@ CODE_008001:
    STA.W Main_scr_Winmask               ;0080C5|00212E;
    STA.W Sub_scr_Winmask                ;0080C8|00212F;
    LDA.B #$30                           ;0080CB|      ;
-   STA.W Color_add_select               ;0080CD|002130;
+   STA.W Color_window                   ;0080CD|002130;
    LDA.B #$00                           ;0080D0|      ;
-   STA.W Color_math_desig               ;0080D2|002131;
+   STA.W Color_math                     ;0080D2|002131;
    LDA.B #$E0                           ;0080D5|      ;
    STA.W Fixed_color_data               ;0080D7|002132;
    LDA.B #$00                           ;0080DA|      ;
@@ -161,7 +161,7 @@ Display_Force_Blanking:
    LDA.W Screen_lighting_temp           ;00817D|000042;
    ORA.B #$80                           ;008180|      ;
    STA.W Screen_display_temp            ;008182|000041;
-   STA.W Scn_Display                    ;008185|002100;
+   STA.W Scn_Brightness                 ;008185|002100;
    REP #$20                             ;008188|      ;
    RTS                                  ;00818A|      ;
 Set_Display_far:
@@ -171,7 +171,7 @@ Set_Display:
    SEP #$20                             ;00818F|      ;
    LDA.W Screen_lighting_temp           ;008191|000042;
    STA.W Screen_display_temp            ;008194|000041;
-   STA.W Scn_Display                    ;008197|002100;
+   STA.W Scn_Brightness                 ;008197|002100;
    REP #$20                             ;00819A|      ;
    RTS                                  ;00819C|      ;
    SEP #$20                             ;00819D|      ;
@@ -417,7 +417,7 @@ Update_scn:
    SEP #$20                             ;008327|      ;
    STA.W Screen_lighting_temp           ;008329|000042;
    STA.W Screen_display_temp            ;00832C|000041;
-   STA.W Scn_Display                    ;00832F|002100;
+   STA.W Scn_Brightness                 ;00832F|002100;
    REP #$20                             ;008332|      ;
    RTS                                  ;008334|      ;
 CODE_008335:
@@ -444,7 +444,7 @@ CODE_008353:
    LDA.W HDMA_ch_temp                   ;008359|00105A;
    STA.W HDMA_enable                    ;00835C|00420C;
    LDA.W Main_screen_temp               ;00835F|001057;
-   STA.W Main_scr_desig                 ;008362|00212C;
+   STA.W Main_scr_enable                ;008362|00212C;
    LDA.W $0048                          ;008365|000048;
    BEQ CODE_008370                      ;008368|008370;
    LDX.W #$0000                         ;00836A|      ;
@@ -461,7 +461,7 @@ DMA_OAM_xfer:
    SEP #$10                             ;008379|      ; Transfers $220 bytes using the $43xx registers (see Anomie's register doc for details)
    STZ.W OAM_lo                         ;00837B|002102;
    LDX.B #$00                           ;00837E|      ;
-   STX.W DMA0_Ctrl                      ;008380|004300;
+   STX.W DMA0_Control                   ;008380|004300;
    STX.W DMA0_Source_bank               ;008383|004304;
    LDX.B #$04                           ;008386|      ;
    STX.W DMA0_Dest                      ;008388|004301;
@@ -522,11 +522,11 @@ Advance_polling:
    RTS                                  ;0083FF|      ;
 Update_bgscroll:
    SEP #$20                             ;008400|      ;
-   LDA.W $0FEF                          ;008402|000FEF;
+   LDA.W Object_XPOS_unk1               ;008402|000FEF;
    STA.W BG1_H                          ;008405|00210D;
    LDA.W $0FF0                          ;008408|000FF0;
    STA.W BG1_H                          ;00840B|00210D;
-   LDA.W $0FF7                          ;00840E|000FF7;
+   LDA.W Object_YPOS_unk1               ;00840E|000FF7;
    STA.W BG1_V                          ;008411|00210E;
    LDA.W $0FF8                          ;008414|000FF8;
    STA.W BG1_V                          ;008417|00210E;
@@ -565,7 +565,7 @@ CODE_008469:
    SEP #$20                             ;00846D|      ;
    LDY.W $0100,X                        ;00846F|000100;
    LDA.W Tbl_DMA_Ctrl,Y                 ;008472|0084B9;
-   STA.W DMA0_Ctrl                      ;008475|004300;
+   STA.W DMA0_Control                   ;008475|004300;
    LDA.W Tbl_DMA_Dest,Y                 ;008478|0084D0;
    STA.W DMA0_Dest                      ;00847B|004301;
    LDA.W Tbl_Videoport_Ctrl,Y           ;00847E|0084E7;
@@ -622,7 +622,7 @@ Tbl_DMA_Ctrl:
    db $00                               ;0084CE|      ;
    db $80                               ;0084CF|      ;
 Tbl_DMA_Dest:
-   db $18                               ;0084D0|      ;
+   db $18                               ;0084D0|      ; Destination PPU $21xx, ie $18 = VRAM data write
    db $18                               ;0084D1|      ;
    db $18                               ;0084D2|      ;
    db $18                               ;0084D3|      ;
@@ -803,19 +803,19 @@ CODE_0085DE:
    SEP #$20                             ;0085DE|      ;
    LDX.B $03                            ;0085E0|000003;
    LDA.W Tbl_DMA_Ctrl,X                 ;0085E2|0084B9;
-   STA.W $4310                          ;0085E5|004310;
+   STA.W DMA1_Control                   ;0085E5|004310;
    LDA.W Tbl_DMA_Dest,X                 ;0085E8|0084D0;
-   STA.W $4311                          ;0085EB|004311;
+   STA.W DMA1_Dest                      ;0085EB|004311;
    LDA.W Tbl_Videoport_Ctrl,X           ;0085EE|0084E7;
    STA.W Video_port_ctrl                ;0085F1|002115;
    REP #$20                             ;0085F4|      ;
    LDA.B $04                            ;0085F6|000004;
-   STA.W $4315                          ;0085F8|004315;
+   STA.W DMA1_Size_lo                   ;0085F8|004315;
    LDA.B $06                            ;0085FB|000006;
-   STA.W $4312                          ;0085FD|004312;
+   STA.W DMA1_Source_lo                 ;0085FD|004312;
 CODE_008600:
    LDX.B $08                            ;008600|000008;
-   STX.W $4314                          ;008602|004314;
+   STX.W DMA1_Source_bank               ;008602|004314;
    LDA.B $09                            ;008605|000009;
    STA.W VRAM_addr_lo                   ;008607|002116;
    TAX                                  ;00860A|      ;
@@ -1873,8 +1873,8 @@ DATA16_008C44:
    dw $2000                             ;008C4E|      ;
    dw $4000                             ;008C50|      ;
    dw $8000                             ;008C52|      ;
-DATA16_008C54:
-   dw $0201                             ;008C54|      ;
+Tbl_HDMA_Bitflag:
+   dw $0201                             ;008C54|      ; Used with ORA $8C54,x where x is the HDMA channel
    dw $0804                             ;008C56|      ;
    dw $2010                             ;008C58|      ;
    dw $8040                             ;008C5A|      ;
@@ -1924,29 +1924,29 @@ CODE_008CA7:
 CODE_008CB5:
    TXA                                  ;008CB5|      ;
    ADC.W #$0002                         ;008CB6|      ;
-   STA.W $0AE7,X                        ;008CB9|000AE7;
+   STA.W Object_SCR_Next,X              ;008CB9|000AE7;
    DEX                                  ;008CBC|      ;
    DEX                                  ;008CBD|      ;
    BPL CODE_008CB5                      ;008CBE|008CB5;
-   LDX.W #$0022                         ;008CC0|      ; Set all battle enemy ID's to -1
+   LDX.W #$0022                         ;008CC0|      ; Set all event IDs to -1
    LDA.W #$FFFF                         ;008CC3|      ;
 CODE_008CC6:
-   STA.W Battle_Enemy_ID,X              ;008CC6|000643;
+   STA.W Event_ID_Slot_00,X             ;008CC6|000643;
    DEX                                  ;008CC9|      ;
    DEX                                  ;008CCA|      ;
    BPL CODE_008CC6                      ;008CCB|008CC6;
    LDX.W #$0006                         ;008CCD|      ;
 CODE_008CD0:
-   STZ.W $0FFF,X                        ;008CD0|000FFF;
-   STZ.W $1007,X                        ;008CD3|001007;
+   STZ.W Object_XPOS_unk2,X             ;008CD0|000FFF;
+   STZ.W Object_YPOS_unk2,X             ;008CD3|001007;
    STZ.W AnimC0_Total,X                 ;008CD6|00102F;
    STZ.W AnimC8_Total,X                 ;008CD9|001037;
    STZ.W $100F,X                        ;008CDC|00100F;
    STZ.W $1017,X                        ;008CDF|001017;
    STZ.W $101F,X                        ;008CE2|00101F;
    STZ.W $1027,X                        ;008CE5|001027;
-   STZ.W $0FEF,X                        ;008CE8|000FEF;
-   STZ.W $0FF7,X                        ;008CEB|000FF7;
+   STZ.W Object_XPOS_unk1,X             ;008CE8|000FEF;
+   STZ.W Object_YPOS_unk1,X             ;008CEB|000FF7;
    DEX                                  ;008CEE|      ;
    DEX                                  ;008CEF|      ;
    BPL CODE_008CD0                      ;008CF0|008CD0;
@@ -1971,7 +1971,7 @@ CODE_008D0A:
    LDA.W #$0024                         ;008D1D|      ;
    STA.W $0639                          ;008D20|000639;
    PLA                                  ;008D23|      ;
-Way_more_anim_stuff:
+Setup_Code_Ptr:
    PHA                                  ;008D24|      ;
    PHY                                  ;008D25|      ;
    PHX                                  ;008D26|      ;
@@ -1983,32 +1983,32 @@ Way_more_anim_stuff:
    LDA.W #$FFFF                         ;008D2F|      ;
    RTL                                  ;008D32|      ;
 CODE_008D33:
-   JSR.W Return_Carry                   ;008D33|009A6C;
+   JSR.W Allocate_Script_Slot           ;008D33|009A6C;
    TYA                                  ;008D36|      ;
-   STA.W $06D3,X                        ;008D37|0006D3;
+   STA.W Object_Script_Index,X          ;008D37|0006D3;
    LDA.W #$FFFF                         ;008D3A|      ;
-   STA.W $0AE7,Y                        ;008D3D|000AE7;
+   STA.W Object_SCR_Next,Y              ;008D3D|000AE7;
    LDA.W $062B                          ;008D40|00062B;
-   STA.W Array_Menu_Cursor,X            ;008D43|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;008D43|0009A3;
    LDA.W Temp_party_order               ;008D46|00062D;
-   STA.W Array_Category,X               ;008D49|0009C7;
+   STA.W Object_var1_Category,X         ;008D49|0009C7;
    LDA.W $062F                          ;008D4C|00062F;
-   STA.W Array_Selection,X              ;008D4F|0009EB;
+   STA.W Object_var2_Selection,X        ;008D4F|0009EB;
    LDA.W $0631                          ;008D52|000631;
-   STA.W Array_Target,X                 ;008D55|000A0F;
+   STA.W Object_var3_Target,X           ;008D55|000A0F;
    LDA.W #$8000                         ;008D58|      ;
-   STA.W $07F3,X                        ;008D5B|0007F3;
-   STA.W $0817,X                        ;008D5E|000817;
-   STA.W $083B,X                        ;008D61|00083B;
+   STA.W Object_XPOS_fractional,X       ;008D5B|0007F3;
+   STA.W Object_YPOS_fractional,X       ;008D5E|000817;
+   STA.W Object_ZPOS_fractional,X       ;008D61|00083B;
    PLA                                  ;008D64|      ;
-   STA.W Cursor_Array_Xpos_Copy,X       ;008D65|000787;
-   STA.W Cursor_Array_Xpos,X            ;008D68|0006F7;
+   STA.W Object_XPOS_mirror,X           ;008D65|000787;
+   STA.W Object_XPOS,X                  ;008D68|0006F7;
    PLA                                  ;008D6B|      ;
-   STA.W Cursor_Array_Ypos_Copy,X       ;008D6C|0007AB;
-   STA.W Cursor_Array_Ypos,X            ;008D6F|00071B;
+   STA.W Object_YPOS_mirror,X           ;008D6C|0007AB;
+   STA.W Object_YPOS,X                  ;008D6F|00071B;
    LDA.W $0633                          ;008D72|000633;
-   STA.W $07CF,X                        ;008D75|0007CF;
-   STA.W $073F,X                        ;008D78|00073F;
+   STA.W Object_ZPOS_mirror,X           ;008D75|0007CF;
+   STA.W Object_ZPOS,X                  ;008D78|00073F;
    LDA.W $0635                          ;008D7B|000635;
    STA.W $06AF,X                        ;008D7E|0006AF;
    JSR.W CODE_009B11                    ;008D81|009B11;
@@ -2017,34 +2017,34 @@ CODE_008D33:
    BRA CODE_008D9C                      ;008D88|008D9C;
    PHA                                  ;008D8A|      ;
    JSR.W CODE_009A32                    ;008D8B|009A32;
-   JSR.W Return_Carry                   ;008D8E|009A6C;
+   JSR.W Allocate_Script_Slot           ;008D8E|009A6C;
    TYA                                  ;008D91|      ;
-   STA.W $06D3,X                        ;008D92|0006D3;
+   STA.W Object_Script_Index,X          ;008D92|0006D3;
    LDA.W #$FFFF                         ;008D95|      ;
-   STA.W $0AE7,Y                        ;008D98|000AE7;
+   STA.W Object_SCR_Next,Y              ;008D98|000AE7;
    PLA                                  ;008D9B|      ;
 CODE_008D9C:
-   STA.W Battle_Enemy_ID,X              ;008D9C|000643;
+   STA.W Event_ID_Slot_00,X             ;008D9C|000643; Get Code Pointer Entry
    PHX                                  ;008D9F|      ;
    ASL A                                ;008DA0|      ;
-   ADC.W Battle_Enemy_ID,X              ;008DA1|000643;
+   ADC.W Event_ID_Slot_00,X             ;008DA1|000643;
    TAX                                  ;008DA4|      ;
 Load_Code_Handling:
-   LDA.L PTR24_00A1D8,X                 ;008DA5|00A1D8;
+   LDA.L PTR24_00A1D8,X                 ;008DA5|00A1D8; Get current event pointer (bank byte)
    AND.W #$00FF                         ;008DA9|      ;
    TAY                                  ;008DAC|      ;
-   LDA.L PtrTable_8DAD,X                ;008DAD|00A1D6;
+   LDA.L Tbl_Events_Code,X              ;008DAD|00A1D6; Get current event pointer
    PLX                                  ;008DB1|      ;
    BRA CODE_008DC8                      ;008DB2|008DC8;
 Sub_LoadStuff:
    PHY                                  ;008DB4|      ;
    PHA                                  ;008DB5|      ;
    JSR.W CODE_009A32                    ;008DB6|009A32;
-   JSR.W Return_Carry                   ;008DB9|009A6C;
+   JSR.W Allocate_Script_Slot           ;008DB9|009A6C;
    TYA                                  ;008DBC|      ;
-   STA.W $06D3,X                        ;008DBD|0006D3;
+   STA.W Object_Script_Index,X          ;008DBD|0006D3;
    LDA.W #$FFFF                         ;008DC0|      ;
-   STA.W $0AE7,Y                        ;008DC3|000AE7;
+   STA.W Object_SCR_Next,Y              ;008DC3|000AE7;
    PLA                                  ;008DC6|      ;
    PLY                                  ;008DC7|      ;
 CODE_008DC8:
@@ -2052,39 +2052,39 @@ CODE_008DC8:
    PHA                                  ;008DC9|      ;
    LDA.W #$FFFF                         ;008DCA|      ;
    STA.W $1043                          ;008DCD|001043;
-   STA.W Array_Anim_ID,X                ;008DD0|000A7B;
-   STZ.W $08CB,X                        ;008DD3|0008CB;
-   STZ.W $085F,X                        ;008DD6|00085F;
-   STZ.W $08EF,X                        ;008DD9|0008EF;
-   STZ.W $0883,X                        ;008DDC|000883;
-   STZ.W $0913,X                        ;008DDF|000913;
-   STZ.W $08A7,X                        ;008DE2|0008A7;
-   STZ.W Anim48_Total,X                 ;008DE5|000937;
-   STZ.W $095B,X                        ;008DE8|00095B;
-   STZ.W AnimE8_Total,X                 ;008DEB|00097F;
+   STA.W Object_Anim_Frame,X            ;008DD0|000A7B;
+   STZ.W Object_XVEL_fractional,X       ;008DD3|0008CB;
+   STZ.W Object_XVEL,X                  ;008DD6|00085F;
+   STZ.W Object_YVEL_fractional,X       ;008DD9|0008EF;
+   STZ.W Object_YVEL,X                  ;008DDC|000883;
+   STZ.W Object_ZVEL_fractional,X       ;008DDF|000913;
+   STZ.W Object_ZVEL,X                  ;008DE2|0008A7;
+   STZ.W Object_XPOS_Sum,X              ;008DE5|000937;
+   STZ.W Object_YPOS_Sum,X              ;008DE8|00095B;
+   STZ.W Object_ZPOS_Sum,X              ;008DEB|00097F;
    JSR.W CODE_009BFD                    ;008DEE|009BFD;
    TXY                                  ;008DF1|      ;
-   LDA.W Battle_Enemy_ID,X              ;008DF2|000643;
+   LDA.W Event_ID_Slot_00,X             ;008DF2|000643;
    ASL A                                ;008DF5|      ;
 CODE_008DF6:
-   ADC.W Battle_Enemy_ID,X              ;008DF6|000643;
+   ADC.W Event_ID_Slot_00,X             ;008DF6|000643;
    TAX                                  ;008DF9|      ;
-   LDA.L Tbl_Anims_8DFA,X               ;008DFA|00A31A;
-   STA.W $0A9F,Y                        ;008DFE|000A9F;
+   LDA.L Tbl_Events_TileData,X          ;008DFA|00A31A;
+   STA.W Object_Spritemap_Ptr,Y         ;008DFE|000A9F;
    LDA.L PTR24_00A31C,X                 ;008E01|00A31C;
    AND.W #$00FF                         ;008E05|      ;
-   STA.W $0AC3,Y                        ;008E08|000AC3;
-   LDA.W $06D3,Y                        ;008E0B|0006D3;
+   STA.W Object_Spritemap_Bank,Y        ;008E08|000AC3;
+   LDA.W Object_Script_Index,Y          ;008E0B|0006D3;
    ORA.W #$8000                         ;008E0E|      ;
-   STA.W $06D3,Y                        ;008E11|0006D3;
+   STA.W Object_Script_Index,Y          ;008E11|0006D3;
    AND.W #$7FFF                         ;008E14|      ;
    TAX                                  ;008E17|      ;
    PLA                                  ;008E18|      ;
-   STA.W Stack_Event_Ptr,X              ;008E19|000BFB;
+   STA.W Object_SCR_Program_Cntr,X      ;008E19|000BFB; Put the event pointer on the event stack
    PLA                                  ;008E1C|      ;
-   STA.W Stack_Event_Bank,X             ;008E1D|000C57;
-   STZ.W Array_Anim_Loopvar,X           ;008E20|000B9F;
-   STZ.W $0B43,X                        ;008E23|000B43;
+   STA.W Object_SCR_Program_Bank,X      ;008E1D|000C57;
+   STZ.W Object_SCR_Wait_Timer,X        ;008E20|000B9F;
+   STZ.W Object_SCR_Stack_Ptr,X         ;008E23|000B43;
    TYA                                  ;008E26|      ;
    CLC                                  ;008E27|      ;
    RTL                                  ;008E28|      ;
@@ -2093,22 +2093,22 @@ CODE_008E29:
    BMI CODE_008E64                      ;008E2C|008E64;
 CODE_008E2E:
    TAX                                  ;008E2E|      ;
-   LDA.W $06D3,X                        ;008E2F|0006D3;
+   LDA.W Object_Script_Index,X          ;008E2F|0006D3;
    ORA.W #$8000                         ;008E32|      ;
-   STA.W $06D3,X                        ;008E35|0006D3;
+   STA.W Object_Script_Index,X          ;008E35|0006D3;
    LDA.W $0667,X                        ;008E38|000667;
    BPL CODE_008E2E                      ;008E3B|008E2E;
 CODE_008E3D:
    STZ.W $1043                          ;008E3D|001043;
    LDY.W $063B                          ;008E40|00063B;
 CODE_008E43:
-   STY.W Selection                      ;008E43|00103F;
+   STY.W Selection_offset               ;008E43|00103F;
    LDA.W $0667,Y                        ;008E46|000667;
    STA.W $1045                          ;008E49|001045;
-   LDA.W $06D3,Y                        ;008E4C|0006D3;
+   LDA.W Object_Script_Index,Y          ;008E4C|0006D3;
    BPL CODE_008E5A                      ;008E4F|008E5A;
    AND.W #$7FFF                         ;008E51|      ;
-   STA.W $06D3,Y                        ;008E54|0006D3;
+   STA.W Object_Script_Index,Y          ;008E54|0006D3;
    JSR.W Update_Restart_MainLp          ;008E57|008FE0;
 CODE_008E5A:
    LDY.W $1045                          ;008E5A|001045;
@@ -2118,25 +2118,25 @@ CODE_008E5A:
 CODE_008E64:
    LDX.W #$0006                         ;008E64|      ;
 CODE_008E67:
-   LDA.W $0FFF,X                        ;008E67|000FFF;
+   LDA.W Object_XPOS_unk2,X             ;008E67|000FFF;
    CLC                                  ;008E6A|      ;
    ADC.W $101F,X                        ;008E6B|00101F;
-   STA.W $0FFF,X                        ;008E6E|000FFF;
-   LDA.W $0FEF,X                        ;008E71|000FEF;
+   STA.W Object_XPOS_unk2,X             ;008E6E|000FFF;
+   LDA.W Object_XPOS_unk1,X             ;008E71|000FEF;
    ADC.W $100F,X                        ;008E74|00100F;
    CLC                                  ;008E77|      ;
    ADC.W AnimC0_Total,X                 ;008E78|00102F;
-   STA.W $0FEF,X                        ;008E7B|000FEF;
+   STA.W Object_XPOS_unk1,X             ;008E7B|000FEF;
    STZ.W AnimC0_Total,X                 ;008E7E|00102F;
-   LDA.W $1007,X                        ;008E81|001007;
+   LDA.W Object_YPOS_unk2,X             ;008E81|001007;
    CLC                                  ;008E84|      ;
    ADC.W $1027,X                        ;008E85|001027;
-   STA.W $1007,X                        ;008E88|001007;
-   LDA.W $0FF7,X                        ;008E8B|000FF7;
+   STA.W Object_YPOS_unk2,X             ;008E88|001007;
+   LDA.W Object_YPOS_unk1,X             ;008E8B|000FF7;
    ADC.W $1017,X                        ;008E8E|001017;
    CLC                                  ;008E91|      ;
    ADC.W AnimC8_Total,X                 ;008E92|001037;
-   STA.W $0FF7,X                        ;008E95|000FF7;
+   STA.W Object_YPOS_unk1,X             ;008E95|000FF7;
    STZ.W AnimC8_Total,X                 ;008E98|001037;
    DEX                                  ;008E9B|      ;
    DEX                                  ;008E9C|      ;
@@ -2146,101 +2146,101 @@ CODE_008E67:
    JMP.W CODE_008FDF                    ;008EA4|008FDF;
 CODE_008EA7:
    TAX                                  ;008EA7|      ;
-   LDA.W $07F3,X                        ;008EA8|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;008EA8|0007F3;
    CLC                                  ;008EAB|      ;
-   ADC.W $08CB,X                        ;008EAC|0008CB;
-   STA.W $07F3,X                        ;008EAF|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;008EB2|000787;
-   ADC.W $085F,X                        ;008EB5|00085F;
+   ADC.W Object_XVEL_fractional,X       ;008EAC|0008CB;
+   STA.W Object_XPOS_fractional,X       ;008EAF|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;008EB2|000787;
+   ADC.W Object_XVEL,X                  ;008EB5|00085F;
    CLC                                  ;008EB8|      ;
-   ADC.W Anim48_Total,X                 ;008EB9|000937;
-   STA.W Cursor_Array_Xpos_Copy,X       ;008EBC|000787;
-   STZ.W Anim48_Total,X                 ;008EBF|000937;
-   LDA.W $0817,X                        ;008EC2|000817;
+   ADC.W Object_XPOS_Sum,X              ;008EB9|000937;
+   STA.W Object_XPOS_mirror,X           ;008EBC|000787;
+   STZ.W Object_XPOS_Sum,X              ;008EBF|000937;
+   LDA.W Object_YPOS_fractional,X       ;008EC2|000817;
    CLC                                  ;008EC5|      ;
-   ADC.W $08EF,X                        ;008EC6|0008EF;
-   STA.W $0817,X                        ;008EC9|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;008ECC|0007AB;
-   ADC.W $0883,X                        ;008ECF|000883;
+   ADC.W Object_YVEL_fractional,X       ;008EC6|0008EF;
+   STA.W Object_YPOS_fractional,X       ;008EC9|000817;
+   LDA.W Object_YPOS_mirror,X           ;008ECC|0007AB;
+   ADC.W Object_YVEL,X                  ;008ECF|000883;
    CLC                                  ;008ED2|      ;
-   ADC.W $095B,X                        ;008ED3|00095B;
-   STA.W Cursor_Array_Ypos_Copy,X       ;008ED6|0007AB;
-   STZ.W $095B,X                        ;008ED9|00095B;
-   LDA.W $083B,X                        ;008EDC|00083B;
+   ADC.W Object_YPOS_Sum,X              ;008ED3|00095B;
+   STA.W Object_YPOS_mirror,X           ;008ED6|0007AB;
+   STZ.W Object_YPOS_Sum,X              ;008ED9|00095B;
+   LDA.W Object_ZPOS_fractional,X       ;008EDC|00083B;
    CLC                                  ;008EDF|      ;
-   ADC.W $0913,X                        ;008EE0|000913;
-   STA.W $083B,X                        ;008EE3|00083B;
-   LDA.W $07CF,X                        ;008EE6|0007CF;
-   ADC.W $08A7,X                        ;008EE9|0008A7;
+   ADC.W Object_ZVEL_fractional,X       ;008EE0|000913;
+   STA.W Object_ZPOS_fractional,X       ;008EE3|00083B;
+   LDA.W Object_ZPOS_mirror,X           ;008EE6|0007CF;
+   ADC.W Object_ZVEL,X                  ;008EE9|0008A7;
    CLC                                  ;008EEC|      ;
-   ADC.W AnimE8_Total,X                 ;008EED|00097F;
-   STA.W $07CF,X                        ;008EF0|0007CF;
-   STZ.W AnimE8_Total,X                 ;008EF3|00097F;
+   ADC.W Object_ZPOS_Sum,X              ;008EED|00097F;
+   STA.W Object_ZPOS_mirror,X           ;008EF0|0007CF;
+   STZ.W Object_ZPOS_Sum,X              ;008EF3|00097F;
    LDA.W $06AF,X                        ;008EF6|0006AF;
    BMI CODE_008F10                      ;008EF9|008F10;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;008EFB|000787;
-   STA.W Cursor_Array_Xpos,X            ;008EFE|0006F7;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;008F01|0007AB;
-   STA.W Cursor_Array_Ypos,X            ;008F04|00071B;
-   LDA.W $07CF,X                        ;008F07|0007CF;
-   STA.W $073F,X                        ;008F0A|00073F;
+   LDA.W Object_XPOS_mirror,X           ;008EFB|000787;
+   STA.W Object_XPOS,X                  ;008EFE|0006F7;
+   LDA.W Object_YPOS_mirror,X           ;008F01|0007AB;
+   STA.W Object_YPOS,X                  ;008F04|00071B;
+   LDA.W Object_ZPOS_mirror,X           ;008F07|0007CF;
+   STA.W Object_ZPOS,X                  ;008F0A|00073F;
    JMP.W CODE_008F9A                    ;008F0D|008F9A;
 CODE_008F10:
    CMP.W #$C000                         ;008F10|      ;
    AND.W #$3FFF                         ;008F13|      ;
    BCS CODE_008F69                      ;008F16|008F69;
    TAY                                  ;008F18|      ;
-   LDA.W $0FFF,Y                        ;008F19|000FFF;
+   LDA.W Object_XPOS_unk2,Y             ;008F19|000FFF;
    EOR.W #$FFFF                         ;008F1C|      ;
    ADC.W #$0001                         ;008F1F|      ;
    STA.B $00                            ;008F22|000000;
-   LDA.W $0FEF,Y                        ;008F24|000FEF;
+   LDA.W Object_XPOS_unk1,Y             ;008F24|000FEF;
    EOR.W #$FFFF                         ;008F27|      ;
    ADC.W #$0000                         ;008F2A|      ;
    STA.B $02                            ;008F2D|000002;
-   LDA.W $07F3,X                        ;008F2F|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;008F2F|0007F3;
    CLC                                  ;008F32|      ;
    ADC.B $00                            ;008F33|000000;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;008F35|000787;
+   LDA.W Object_XPOS_mirror,X           ;008F35|000787;
    ADC.B $02                            ;008F38|000002;
-   STA.W Cursor_Array_Xpos,X            ;008F3A|0006F7;
-   LDA.W $1007,Y                        ;008F3D|001007;
+   STA.W Object_XPOS,X                  ;008F3A|0006F7;
+   LDA.W Object_YPOS_unk2,Y             ;008F3D|001007;
    EOR.W #$FFFF                         ;008F40|      ;
    ADC.W #$0001                         ;008F43|      ;
    STA.B $00                            ;008F46|000000;
-   LDA.W $0FF7,Y                        ;008F48|000FF7;
+   LDA.W Object_YPOS_unk1,Y             ;008F48|000FF7;
    EOR.W #$FFFF                         ;008F4B|      ;
    ADC.W #$0000                         ;008F4E|      ;
    STA.B $02                            ;008F51|000002;
-   LDA.W $0817,X                        ;008F53|000817;
+   LDA.W Object_YPOS_fractional,X       ;008F53|000817;
    CLC                                  ;008F56|      ;
    ADC.B $00                            ;008F57|000000;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;008F59|0007AB;
+   LDA.W Object_YPOS_mirror,X           ;008F59|0007AB;
    ADC.B $02                            ;008F5C|000002;
-   STA.W Cursor_Array_Ypos,X            ;008F5E|00071B;
-   LDA.W $07CF,X                        ;008F61|0007CF;
-   STA.W $073F,X                        ;008F64|00073F;
+   STA.W Object_YPOS,X                  ;008F5E|00071B;
+   LDA.W Object_ZPOS_mirror,X           ;008F61|0007CF;
+   STA.W Object_ZPOS,X                  ;008F64|00073F;
    BRA CODE_008F9A                      ;008F67|008F9A;
 CODE_008F69:
    TAY                                  ;008F69|      ;
-   LDA.W $07F3,X                        ;008F6A|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;008F6A|0007F3;
    CLC                                  ;008F6D|      ;
-   ADC.W $07F3,Y                        ;008F6E|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;008F71|000787;
-   ADC.W Cursor_Array_Xpos,Y            ;008F74|0006F7;
-   STA.W Cursor_Array_Xpos,X            ;008F77|0006F7;
-   LDA.W $0817,X                        ;008F7A|000817;
+   ADC.W Object_XPOS_fractional,Y       ;008F6E|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;008F71|000787;
+   ADC.W Object_XPOS,Y                  ;008F74|0006F7;
+   STA.W Object_XPOS,X                  ;008F77|0006F7;
+   LDA.W Object_YPOS_fractional,X       ;008F7A|000817;
    CLC                                  ;008F7D|      ;
-   ADC.W $0817,Y                        ;008F7E|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;008F81|0007AB;
-   ADC.W Cursor_Array_Ypos,Y            ;008F84|00071B;
-   STA.W Cursor_Array_Ypos,X            ;008F87|00071B;
-   LDA.W $083B,X                        ;008F8A|00083B;
+   ADC.W Object_YPOS_fractional,Y       ;008F7E|000817;
+   LDA.W Object_YPOS_mirror,X           ;008F81|0007AB;
+   ADC.W Object_YPOS,Y                  ;008F84|00071B;
+   STA.W Object_YPOS,X                  ;008F87|00071B;
+   LDA.W Object_ZPOS_fractional,X       ;008F8A|00083B;
    CLC                                  ;008F8D|      ;
-   ADC.W $083B,Y                        ;008F8E|00083B;
-   LDA.W $07CF,X                        ;008F91|0007CF;
-   ADC.W $073F,Y                        ;008F94|00073F;
-   STA.W $073F,X                        ;008F97|00073F;
+   ADC.W Object_ZPOS_fractional,Y       ;008F8E|00083B;
+   LDA.W Object_ZPOS_mirror,X           ;008F91|0007CF;
+   ADC.W Object_ZPOS,Y                  ;008F94|00073F;
+   STA.W Object_ZPOS,X                  ;008F97|00073F;
 CODE_008F9A:
    LDA.W $0667,X                        ;008F9A|000667;
    BMI CODE_008FA2                      ;008F9D|008FA2;
@@ -2251,22 +2251,22 @@ CODE_008FA2:
    JSR.W CODE_0088B6                    ;008FA8|0088B6;
    LDA.W #$0001                         ;008FAB|      ;
    STA.W OAM_Xfer_temp                  ;008FAE|001055;
-   LDY.W $0641                          ;008FB1|000641;
+   LDY.W Event_ID_1st_Offset_In_Use     ;008FB1|000641;
    BMI CODE_008FD9                      ;008FB4|008FD9;
 CODE_008FB6:
    PHY                                  ;008FB6|      ;
    LDX.W #$0000                         ;008FB7|      ;
    JSR.W (Ptr_Animation_Loop1,X)        ;008FBA|00104D;
-   LDA.W $0A9F,Y                        ;008FBD|000A9F;
+   LDA.W Object_Spritemap_Ptr,Y         ;008FBD|000A9F;
    STA.B $18                            ;008FC0|000018;
-   LDX.W $0AC3,Y                        ;008FC2|000AC3;
+   LDX.W Object_Spritemap_Bank,Y        ;008FC2|000AC3;
    STX.B $1A                            ;008FC5|00001A;
-   LDA.W Array_Anim_ID,Y                ;008FC7|000A7B;
+   LDA.W Object_Anim_Frame,Y            ;008FC7|000A7B;
    BMI CODE_008FD3                      ;008FCA|008FD3;
    ASL A                                ;008FCC|      ;
    TAY                                  ;008FCD|      ;
    LDA.B [$18],Y                        ;008FCE|000018;
-   JSR.W Credits_Reading_0FD0           ;008FD0|009881;
+   JSR.W Sub_Load_Tileset               ;008FD0|009881;
 CODE_008FD3:
    PLX                                  ;008FD3|      ;
    LDY.W $068B,X                        ;008FD4|00068B;
@@ -2277,28 +2277,28 @@ CODE_008FD9:
 CODE_008FDF:
    RTL                                  ;008FDF|      ;
 Update_Restart_MainLp:
-   LDX.W $06D3,Y                        ;008FE0|0006D3; Updates $1041 and restarts the main loop
+   LDX.W Object_Script_Index,Y          ;008FE0|0006D3; Updates $1041 and restarts the main loop
 CODE_008FE3:
    STX.W Fn_results                     ;008FE3|001041;
-   LDA.W $0AE7,X                        ;008FE6|000AE7;
-   STA.W LoopVar_1047                   ;008FE9|001047; Store some loop check
+   LDA.W Object_SCR_Next,X              ;008FE6|000AE7;
+   STA.W Prev_Script_Slot               ;008FE9|001047; Store some loop check
    JSR.W Main_Lp_PtrSetup               ;008FEC|009008; This breaks out on a 06 01 script
-   LDX.W LoopVar_1047                   ;008FEF|001047;
+   LDX.W Prev_Script_Slot               ;008FEF|001047;
    BPL CODE_008FE3                      ;008FF2|008FE3; If $1047>0, store in $1041, get that char's $1047 and restart main loop
-   LDX.W Selection                      ;008FF4|00103F; If $1047<0, pull a stack pointer and jump to [$1049]
-   LDA.W Stack_addr_ptr,X               ;008FF7|000A33;
+   LDX.W Selection_offset               ;008FF4|00103F; If $1047<0, pull a stack pointer and jump to [$1049]
+   LDA.W Object_OnTick_ptr,X            ;008FF7|000A33;
    STA.W Event_CodePtr                  ;008FFA|001049;
-   LDA.W Stack_addr_bank,X              ;008FFD|000A57;
+   LDA.W Object_OnTick_bank,X           ;008FFD|000A57;
    STA.W Event_CodeBank                 ;009000|00104B;
    JSL.L JumpTo1049                     ;009003|009B0E;
    RTS                                  ;009007|      ;
 Main_Lp_PtrSetup:
    LDX.W Fn_results                     ;009008|001041; Sets the pointers $10 and $12
-   LDA.W Array_Anim_Loopvar,X           ;00900B|000B9F;
+   LDA.W Object_SCR_Wait_Timer,X        ;00900B|000B9F;
    BNE CODE_009063                      ;00900E|009063;
-   LDA.W Stack_Event_Ptr,X              ;009010|000BFB;
+   LDA.W Object_SCR_Program_Cntr,X      ;009010|000BFB;
    STA.B $10                            ;009013|000010;
-   LDA.W Stack_Event_Bank,X             ;009015|000C57;
+   LDA.W Object_SCR_Program_Bank,X      ;009015|000C57;
    STA.B $12                            ;009018|000012;
    TXA                                  ;00901A|      ;
    ASL A                                ;00901B|      ;
@@ -2322,7 +2322,7 @@ Read_EventAnim:
    PHA                                  ;00903C|      ;
 CODE_00903D:
    AND.W #$0007                         ;00903D|      ; Save the low 3 bytes for stuff like setting animation speed
-   STA.W Array_Anim_Loopvar,X           ;009040|000B9F;
+   STA.W Object_SCR_Wait_Timer,X        ;009040|000B9F;
    PLA                                  ;009043|      ;
    SEC                                  ;009044|      ;
    SBC.W #$0030                         ;009045|      ;
@@ -2333,95 +2333,95 @@ CODE_00903D:
    JSR.W (Tbl_EventAnim,X)              ;00904E|0090B3;
 CODE_009051:
    LDX.W Fn_results                     ;009051|001041;
-   LDA.W Array_Anim_Loopvar,X           ;009054|000B9F;
+   LDA.W Object_SCR_Wait_Timer,X        ;009054|000B9F;
    BEQ Read_EventCode                   ;009057|00902B; Exit when 0
    LDA.B $10                            ;009059|000010;
-   STA.W Stack_Event_Ptr,X              ;00905B|000BFB;
+   STA.W Object_SCR_Program_Cntr,X      ;00905B|000BFB;
    LDA.B $12                            ;00905E|000012;
-   STA.W Stack_Event_Bank,X             ;009060|000C57;
+   STA.W Object_SCR_Program_Bank,X      ;009060|000C57;
 CODE_009063:
-   DEC.W Array_Anim_Loopvar,X           ;009063|000B9F;
+   DEC.W Object_SCR_Wait_Timer,X        ;009063|000B9F;
    RTS                                  ;009066|      ;
 Tbl_EventCodes:
-   dw Event_Code_00                     ;009067|0090E7;
-   dw Event_Code_01                     ;009069|0090FA;
-   dw Event_Code_02                     ;00906B|00911E;
-   dw Event_Code_03                     ;00906D|009148;
-   dw Event_Code_04                     ;00906F|00918D;
-   dw Event_Code_05                     ;009071|0091BB;
-   dw Event_Code_06                     ;009073|0091DA;
-   dw Event_Code_07                     ;009075|009527;
-   dw Event_Code_08                     ;009077|0095DF;
-   dw Event_Code_09                     ;009079|00963F;
-   dw Event_Code_0A                     ;00907B|009655;
-   dw Event_Code_0B                     ;00907D|00954D;
-   dw Event_Code_0C                     ;00907F|009562;
-   dw Event_Code_0D                     ;009081|0095C7;
-   dw Event_Code_0E                     ;009083|0096CD;
-   dw Event_Code_0F                     ;009085|009717;
-   dw Event_Code_10                     ;009087|009741;
-   dw Event_Code_11                     ;009089|009577;
-   dw Event_Code_12                     ;00908B|00959D;
-   dw Event_Code_13                     ;00908D|00974A;
-   dw Event_Code_14                     ;00908F|00960C;
-   dw Event_Code_15                     ;009091|0096B8;
-   dw Event_Code_16                     ;009093|00975F;
-   dw Event_Code_17                     ;009095|009772;
-   dw Event_Code_18                     ;009097|009791;
-   dw Event_Code_19                     ;009099|00968D;
-   dw Event_Code_1A                     ;00909B|009140;
-   dw Event_Code_1B                     ;00909D|00915A;
-   dw Event_Code_1C                     ;00909F|009177;
-   dw Event_Code_1D                     ;0090A1|0097A0;
-   dw Event_Code_1E                     ;0090A3|0097B6;
-   dw Event_Code_1F                     ;0090A5|0097C5;
-   dw Event_Code_20                     ;0090A7|0097D8;
-   dw Event_Code_21                     ;0090A9|0097F5;
-   dw Event_Code_22                     ;0090AB|009814;
-   dw Event_Code_23                     ;0090AD|00982A;
-   dw Event_Code_24                     ;0090AF|009847;
-   dw Event_Code_25                     ;0090B1|009864;
+   dw Event_Opcode_00_END               ;009067|0090E7;
+   dw Event_Opcode_01_STARTLOOP         ;009069|0090FA;
+   dw Event_Opcode_02_ENDLOOP           ;00906B|00911E;
+   dw Event_Opcode_03_JML               ;00906D|009148;
+   dw Event_Opcode_04_JSL               ;00906F|00918D;
+   dw Event_Opcode_05_RTL               ;009071|0091BB;
+   dw Event_Opcode_06_WAIT              ;009073|0091DA;
+   dw Event_Opcode_07_ASMCALL           ;009075|009527;
+   dw Event_Opcode_08_TASK              ;009077|0095DF;
+   dw Event_Opcode_09_ONTICK            ;009079|00963F;
+   dw Event_Opcode_0A_HALT              ;00907B|009655;
+   dw Event_Opcode_0B_JEQ               ;00907D|00954D;
+   dw Event_Opcode_0C_JNE               ;00907F|009562;
+   dw Event_Opcode_0D_ENDTASK           ;009081|0095C7;
+   dw Event_Opcode_0E_BINOP             ;009083|0096CD;
+   dw Event_Opcode_0F_MOV               ;009085|009717;
+   dw Event_Opcode_10_ONTICK            ;009087|009741;
+   dw Event_Opcode_11_MULTIJMP          ;009089|009577;
+   dw Event_Opcode_12_MULTIJSR          ;00908B|00959D;
+   dw Event_Opcode_13_MOV               ;00908D|00974A;
+   dw Event_Opcode_14_UNK_ENDTASK       ;00908F|00960C;
+   dw Event_Opcode_15_BINOP             ;009091|0096B8;
+   dw Event_Opcode_16_MOV               ;009093|00975F;
+   dw Event_Opcode_17_BREAKEQ           ;009095|009772;
+   dw Event_Opcode_18_BREAKNE           ;009097|009791;
+   dw Event_Opcode_19_BINOP             ;009099|00968D;
+   dw Event_Opcode_1A_JMP               ;00909B|009140;
+   dw Event_Opcode_1B_JSR               ;00909D|00915A;
+   dw Event_Opcode_1C_RTS               ;00909F|009177;
+   dw Event_Opcode_1D_SETANIMPTR        ;0090A1|0097A0;
+   dw Event_Opcode_1E_MOV               ;0090A3|0097B6;
+   dw Event_Opcode_1F_MOV               ;0090A5|0097C5;
+   dw Event_Opcode_20                   ;0090A7|0097D8;
+   dw Event_Opcode_21                   ;0090A9|0097F5;
+   dw Event_Opcode_22                   ;0090AB|009814;
+   dw Event_Opcode_23_STA               ;0090AD|00982A;
+   dw Event_Opcode_24_LDA               ;0090AF|009847;
+   dw Event_Opcode_25_WAIT              ;0090B1|009864;
 Tbl_EventAnim:
-   dw Event_Anim_30_37_1b               ;0090B3|0091EA;
-   dw Event_Anim_38_3F_2b               ;0090B5|009202;
-   dw Event_Anim_40_47_2b               ;0090B7|009250;
-   dw Event_Anim_48_4F_2b               ;0090B9|00948C;
-   dw Event_Anim_50_57_2b               ;0090BB|00949F;
-   dw Event_Anim_58_5F_2b               ;0090BD|0092D7;
-   dw Event_Anim_60_67_2b               ;0090BF|0092F8;
-   dw Event_Anim_68_6F_2b               ;0090C1|00933A;
-   dw Event_Anim_70_77_2b               ;0090C3|009362;
-   dw Event_Anim_78_7F_1b_2b            ;0090C5|0093B2;
-   dw Event_Anim_80_87_1b_2b            ;0090C7|0093CA;
-   dw Event_Anim_88_8F_1b_2b            ;0090C9|0093E2;
-   dw Event_Anim_90_97_1b_2b            ;0090CB|009409;
-   dw Event_Anim_98_9F_1b_2b            ;0090CD|009430;
-   dw Event_Anim_A0_A7_1b_2b            ;0090CF|00945E;
-   dw Event_Anim_A8_AF                  ;0090D1|00965F;
-   dw Event_Anim_B0_B7                  ;0090D3|009668;
-   dw Event_Anim_B8_BF_1b               ;0090D5|009671;
-   dw Event_Anim_C0_C7_1b_2b            ;0090D7|0094C5;
-   dw Event_Anim_C8_CF_1b_2b            ;0090D9|0094DE;
-   dw Event_Anim_D0_D7                  ;0090DB|0094F7;
-   dw Event_Anim_D8_DF_1b               ;0090DD|00950F;
-   dw Event_Anim_E0_E7_2b               ;0090DF|00929E;
-   dw Event_Anim_E8_EF_2b               ;0090E1|0094B2;
-   dw Event_Anim_F0_F7_2b               ;0090E3|009319;
-   dw Event_Anim_F8_FF_2b               ;0090E5|00938A;
-Event_Code_00:
-   LDX.W Selection                      ;0090E7|00103F; Section note: These are called by 00/902B to process custom script segments. It's important to learn these to read how most of the game logic works, as there are huge chunks of code that use nothing but these and their parameters.
+   dw Event_AnimOpcode_30_SETANIM       ;0090B3|0091EA;
+   dw Event_AnimOpcode_38_SETXPOS       ;0090B5|009202;
+   dw Event_AnimOpcode_40_SETYPOS       ;0090B7|009250;
+   dw Event_AnimOpcode_48_ADDXPOS       ;0090B9|00948C;
+   dw Event_AnimOpcode_50_ADDYPOS       ;0090BB|00949F;
+   dw Event_AnimOpcode_58_SETXVEL       ;0090BD|0092D7;
+   dw Event_AnimOpcode_60_SETYVEL       ;0090BF|0092F8;
+   dw Event_AnimOpcode_68_ADDXVEL       ;0090C1|00933A;
+   dw Event_AnimOpcode_70_ADDYVEL       ;0090C3|009362;
+   dw Event_AnimOpcode_78_UNK_1         ;0090C5|0093B2;
+   dw Event_AnimOpcode_80_UNK_2         ;0090C7|0093CA;
+   dw Event_AnimOpcode_88_UNK_3         ;0090C9|0093E2;
+   dw Event_AnimOpcode_90_UNK_4         ;0090CB|009409;
+   dw Event_AnimOpcode_98_UNK_5         ;0090CD|009430;
+   dw Event_AnimOpcode_A0_UNK_6         ;0090CF|00945E;
+   dw Event_AnimOpcode_A8_INCANIM       ;0090D1|00965F;
+   dw Event_AnimOpcode_B0_DECANIM       ;0090D3|009668;
+   dw Event_AnimOpcode_B8_ADDANIM       ;0090D5|009671;
+   dw Event_AnimOpcode_C0_UNK_7         ;0090D7|0094C5;
+   dw Event_AnimOpcode_C8_UNK_8         ;0090D9|0094DE;
+   dw Event_AnimOpcode_D0_ZEROVEL       ;0090DB|0094F7;
+   dw Event_AnimOpcode_D8_UNK_9         ;0090DD|00950F;
+   dw Event_AnimOpcode_E0_SETZPOS       ;0090DF|00929E;
+   dw Event_AnimOpcode_E8_ADDZPOS       ;0090E1|0094B2;
+   dw Event_AnimOpcode_F0_SETZVEL       ;0090E3|009319;
+   dw Event_AnimOpcode_F8_ADDZVEL       ;0090E5|00938A;
+Event_Opcode_00_END:
+   LDX.W Selection_offset               ;0090E7|00103F; Section note: These are called by 00/902B to process custom script segments. It's important to learn these to read how most of the game logic works, as there are huge chunks of code that use nothing but these and their parameters.
    JSR.W A_buncha_stuff                 ;0090EA|009960; Not sure what this does, think it breaks out of main loop and moves on to a different X value
    LDX.W Fn_results                     ;0090ED|001041;
    LDA.W #$FFFF                         ;0090F0|      ;
-   STA.W Array_Anim_Loopvar,X           ;0090F3|000B9F; Clear X's function results
-   STA.W LoopVar_1047                   ;0090F6|001047; Clear the loop variable
+   STA.W Object_SCR_Wait_Timer,X        ;0090F3|000B9F; Clear X's function results
+   STA.W Prev_Script_Slot               ;0090F6|001047; Clear the loop variable
    RTS                                  ;0090F9|      ;
-Event_Code_01:
+Event_Opcode_01_STARTLOOP:
    INC.B $10                            ;0090FA|000010; Affects $14
    LDA.B [$10]                          ;0090FC|000010;
    PHA                                  ;0090FE|      ;
    LDX.W Fn_results                     ;0090FF|001041;
-   LDY.W $0B43,X                        ;009102|000B43;
+   LDY.W Object_SCR_Stack_Ptr,X         ;009102|000B43;
    LDA.B $10                            ;009105|000010;
    CLC                                  ;009107|      ;
    ADC.W #$0001                         ;009108|      ;
@@ -2434,12 +2434,12 @@ Event_Code_01:
    REP #$20                             ;009114|      ;
    INY                                  ;009116|      ;
    TYA                                  ;009117|      ;
-   STA.W $0B43,X                        ;009118|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;009118|000B43;
    INC.B $10                            ;00911B|000010;
    RTS                                  ;00911D|      ;
-Event_Code_02:
+Event_Opcode_02_ENDLOOP:
    LDX.W Fn_results                     ;00911E|001041; idk
-   LDY.W $0B43,X                        ;009121|000B43;
+   LDY.W Object_SCR_Stack_Ptr,X         ;009121|000B43;
    DEY                                  ;009124|      ;
    SEP #$20                             ;009125|      ;
    LDA.B [$14],Y                        ;009127|000014;
@@ -2450,7 +2450,7 @@ Event_Code_02:
    DEY                                  ;009130|      ;
    DEY                                  ;009131|      ;
    TYA                                  ;009132|      ;
-   STA.W $0B43,X                        ;009133|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;009133|000B43;
    INC.B $10                            ;009136|000010;
    RTS                                  ;009138|      ;
 CODE_009139:
@@ -2459,12 +2459,12 @@ CODE_009139:
    LDA.B [$14],Y                        ;00913B|000014;
    STA.B $10                            ;00913D|000010;
    RTS                                  ;00913F|      ;
-Event_Code_1A:
+Event_Opcode_1A_JMP:
    LDY.W #$0001                         ;009140|      ; JMP (2 bytes)
    LDA.B [$10],Y                        ;009143|000010;
    STA.B $10                            ;009145|000010;
    RTS                                  ;009147|      ;
-Event_Code_03:
+Event_Opcode_03_JML:
    LDY.W #$0001                         ;009148|      ; JML (3 bytes)
    LDA.B [$10],Y                        ;00914B|000010;
 CODE_00914D:
@@ -2476,37 +2476,37 @@ CODE_00914D:
    STA.B $12                            ;009155|000012;
    STX.B $10                            ;009157|000010;
    RTS                                  ;009159|      ;
-Event_Code_1B:
+Event_Opcode_1B_JSR:
    INC.B $10                            ;00915A|000010; JSR (2 bytes), saves ptr
    LDA.B [$10]                          ;00915C|000010;
    PHA                                  ;00915E|      ;
    INC.B $10                            ;00915F|000010;
    INC.B $10                            ;009161|000010;
    LDX.W Fn_results                     ;009163|001041;
-   LDY.W $0B43,X                        ;009166|000B43;
+   LDY.W Object_SCR_Stack_Ptr,X         ;009166|000B43;
    LDA.B $10                            ;009169|000010;
    STA.B [$14],Y                        ;00916B|000014;
    INY                                  ;00916D|      ;
    INY                                  ;00916E|      ;
    TYA                                  ;00916F|      ;
-   STA.W $0B43,X                        ;009170|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;009170|000B43;
    PLA                                  ;009173|      ;
    STA.B $10                            ;009174|000010;
    RTS                                  ;009176|      ;
-Event_Code_1C:
+Event_Opcode_1C_RTS:
    LDX.W Fn_results                     ;009177|001041; Return from jump, do lots of stuff
-   LDY.W $0B43,X                        ;00917A|000B43;
+   LDY.W Object_SCR_Stack_Ptr,X         ;00917A|000B43;
    BNE CODE_009182                      ;00917D|009182;
-   JMP.W Event_Code_0D                  ;00917F|0095C7;
+   JMP.W Event_Opcode_0D_ENDTASK        ;00917F|0095C7;
 CODE_009182:
    DEY                                  ;009182|      ;
    DEY                                  ;009183|      ;
    LDA.B [$14],Y                        ;009184|000014;
    STA.B $10                            ;009186|000010;
    TYA                                  ;009188|      ;
-   STA.W $0B43,X                        ;009189|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;009189|000B43;
    RTS                                  ;00918C|      ;
-Event_Code_04:
+Event_Opcode_04_JSL:
    INC.B $10                            ;00918D|000010; JSL (3 bytes), saves return ptr
    LDA.B [$10]                          ;00918F|000010;
    PHA                                  ;009191|      ;
@@ -2516,7 +2516,7 @@ Event_Code_04:
    PHA                                  ;009198|      ;
    INC.B $10                            ;009199|000010;
    LDX.W Fn_results                     ;00919B|001041;
-   LDY.W $0B43,X                        ;00919E|000B43;
+   LDY.W Object_SCR_Stack_Ptr,X         ;00919E|000B43;
    LDA.B $10                            ;0091A1|000010;
    STA.B [$14],Y                        ;0091A3|000014;
    INY                                  ;0091A5|      ;
@@ -2527,17 +2527,17 @@ Event_Code_04:
    REP #$20                             ;0091AD|      ;
    INY                                  ;0091AF|      ;
    TYA                                  ;0091B0|      ;
-   STA.W $0B43,X                        ;0091B1|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;0091B1|000B43;
    PLA                                  ;0091B4|      ;
    STA.B $12                            ;0091B5|000012;
    PLA                                  ;0091B7|      ;
    STA.B $10                            ;0091B8|000010;
    RTS                                  ;0091BA|      ;
-Event_Code_05:
+Event_Opcode_05_RTL:
    LDX.W Fn_results                     ;0091BB|001041; RTL plus whatever 0D does
-   LDY.W $0B43,X                        ;0091BE|000B43;
+   LDY.W Object_SCR_Stack_Ptr,X         ;0091BE|000B43;
    BNE CODE_0091C6                      ;0091C1|0091C6;
-   JMP.W Event_Code_0D                  ;0091C3|0095C7;
+   JMP.W Event_Opcode_0D_ENDTASK        ;0091C3|0095C7;
 CODE_0091C6:
    DEY                                  ;0091C6|      ;
    SEP #$20                             ;0091C7|      ;
@@ -2549,38 +2549,38 @@ CODE_0091C6:
    LDA.B [$14],Y                        ;0091D1|000014;
    STA.B $10                            ;0091D3|000010;
    TYA                                  ;0091D5|      ;
-   STA.W $0B43,X                        ;0091D6|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;0091D6|000B43;
    RTS                                  ;0091D9|      ;
-Event_Code_06:
+Event_Opcode_06_WAIT:
    INC.B $10                            ;0091DA|000010; Delays the program counter for x frames. Animations can still play in the background.
    LDX.W Fn_results                     ;0091DC|001041; Reads the next value and breaks out of a loop if nonzero
    LDA.B [$10]                          ;0091DF|000010;
    AND.W #$00FF                         ;0091E1|      ;
-   STA.W Array_Anim_Loopvar,X           ;0091E4|000B9F;
+   STA.W Object_SCR_Wait_Timer,X        ;0091E4|000B9F;
    INC.B $10                            ;0091E7|000010;
    RTS                                  ;0091E9|      ;
-Event_Anim_30_37_1b:
-   INC.B $10                            ;0091EA|000010; These need more examples. These are called by 903C "Script Reader 2" for values of 30+.
-   LDX.W Selection                      ;0091EC|00103F; Load target's offset
+Event_AnimOpcode_30_SETANIM:
+   INC.B $10                            ;0091EA|000010; Opcodes 30+ use the lower 4 bits for a timer, so 30-37 is opcode 30 with argument 0-7. This sets the object's animation ID.
+   LDX.W Selection_offset               ;0091EC|00103F; Load target's offset
    LDA.B [$10]                          ;0091EF|000010; Read the next byte
    AND.W #$00FF                         ;0091F1|      ;
    CMP.W #$00FF                         ;0091F4|      ;
    BNE CODE_0091FC                      ;0091F7|0091FC;
    LDA.W #$FFFF                         ;0091F9|      ; If 30 FF, load FFFF in $0A7B,x
 CODE_0091FC:
-   STA.W Array_Anim_ID,X                ;0091FC|000A7B; Else for 30 xx, load xx in $0A7B,x
+   STA.W Object_Anim_Frame,X            ;0091FC|000A7B; Else for 30 xx, load xx in $0A7B,x
    INC.B $10                            ;0091FF|000010; Advance script PC
    RTS                                  ;009201|      ;
-Event_Anim_38_3F_2b:
+Event_AnimOpcode_38_SETXPOS:
    INC.B $10                            ;009202|000010; Sets cursor X position
-   LDX.W Selection                      ;009204|00103F; Load target's offset
+   LDX.W Selection_offset               ;009204|00103F; Load target's offset
    LDA.B [$10]                          ;009207|000010; Read the next 2 bytes and advance the script PC
    INC.B $10                            ;009209|000010;
    INC.B $10                            ;00920B|000010;
-   STA.W Cursor_Array_Xpos_Copy,X       ;00920D|000787; Store xxxx in $0787,x and $06F7,x
-   STA.W Cursor_Array_Xpos,X            ;009210|0006F7;
+   STA.W Object_XPOS_mirror,X           ;00920D|000787; Store xxxx in $0787,x and $06F7,x
+   STA.W Object_XPOS,X                  ;009210|0006F7;
    LDA.W #$8000                         ;009213|      ;
-   STA.W $07F3,X                        ;009216|0007F3; Store 8000 in $07F3,x and $06AF,x
+   STA.W Object_XPOS_fractional,X       ;009216|0007F3; Store 8000 in $07F3,x and $06AF,x
    LDA.W $06AF,X                        ;009219|0006AF;
    BMI CODE_00921F                      ;00921C|00921F; If $06AF,x is negative (high bit is 1), continue
    RTS                                  ;00921E|      ;
@@ -2589,33 +2589,33 @@ CODE_00921F:
    AND.W #$3FFF                         ;009222|      ; remove high 2 bits
    TAY                                  ;009225|      ;
    BCS CODE_00923C                      ;009226|00923C;
-   LDA.W $07F3,X                        ;009228|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;009228|0007F3;
    CLC                                  ;00922B|      ;
-   ADC.W $0FFF,Y                        ;00922C|000FFF;
-   STA.W $07F3,X                        ;00922F|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;009232|000787;
-   ADC.W $0FEF,Y                        ;009235|000FEF;
-   STA.W Cursor_Array_Xpos,X            ;009238|0006F7;
+   ADC.W Object_XPOS_unk2,Y             ;00922C|000FFF;
+   STA.W Object_XPOS_fractional,X       ;00922F|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;009232|000787;
+   ADC.W Object_XPOS_unk1,Y             ;009235|000FEF;
+   STA.W Object_XPOS,X                  ;009238|0006F7;
    RTS                                  ;00923B|      ;
 CODE_00923C:
-   LDA.W $07F3,X                        ;00923C|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;00923C|0007F3;
    CLC                                  ;00923F|      ;
-   ADC.W $07F3,Y                        ;009240|0007F3;
-   STA.W $07F3,X                        ;009243|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;009246|000787;
-   ADC.W Cursor_Array_Xpos,Y            ;009249|0006F7;
-   STA.W Cursor_Array_Xpos,X            ;00924C|0006F7;
+   ADC.W Object_XPOS_fractional,Y       ;009240|0007F3;
+   STA.W Object_XPOS_fractional,X       ;009243|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;009246|000787;
+   ADC.W Object_XPOS,Y                  ;009249|0006F7;
+   STA.W Object_XPOS,X                  ;00924C|0006F7;
    RTS                                  ;00924F|      ;
-Event_Anim_40_47_2b:
+Event_AnimOpcode_40_SETYPOS:
    INC.B $10                            ;009250|000010; Sets cursor Y position
-   LDX.W Selection                      ;009252|00103F;
+   LDX.W Selection_offset               ;009252|00103F;
    LDA.B [$10]                          ;009255|000010;
    INC.B $10                            ;009257|000010;
    INC.B $10                            ;009259|000010;
-   STA.W Cursor_Array_Ypos_Copy,X       ;00925B|0007AB;
-   STA.W Cursor_Array_Ypos,X            ;00925E|00071B;
+   STA.W Object_YPOS_mirror,X           ;00925B|0007AB;
+   STA.W Object_YPOS,X                  ;00925E|00071B;
    LDA.W #$8000                         ;009261|      ;
-   STA.W $0817,X                        ;009264|000817;
+   STA.W Object_YPOS_fractional,X       ;009264|000817;
    LDA.W $06AF,X                        ;009267|0006AF;
    BMI CODE_00926D                      ;00926A|00926D;
    RTS                                  ;00926C|      ;
@@ -2624,166 +2624,166 @@ CODE_00926D:
    AND.W #$3FFF                         ;009270|      ;
    TAY                                  ;009273|      ;
    BCS CODE_00928A                      ;009274|00928A;
-   LDA.W $0817,X                        ;009276|000817;
+   LDA.W Object_YPOS_fractional,X       ;009276|000817;
    CLC                                  ;009279|      ;
-   ADC.W $1007,Y                        ;00927A|001007;
-   STA.W $0817,X                        ;00927D|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;009280|0007AB;
-   ADC.W $0FF7,Y                        ;009283|000FF7;
-   STA.W Cursor_Array_Ypos,X            ;009286|00071B;
+   ADC.W Object_YPOS_unk2,Y             ;00927A|001007;
+   STA.W Object_YPOS_fractional,X       ;00927D|000817;
+   LDA.W Object_YPOS_mirror,X           ;009280|0007AB;
+   ADC.W Object_YPOS_unk1,Y             ;009283|000FF7;
+   STA.W Object_YPOS,X                  ;009286|00071B;
    RTS                                  ;009289|      ;
 CODE_00928A:
-   LDA.W $0817,X                        ;00928A|000817;
+   LDA.W Object_YPOS_fractional,X       ;00928A|000817;
    CLC                                  ;00928D|      ;
-   ADC.W $0817,Y                        ;00928E|000817;
-   STA.W $0817,X                        ;009291|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;009294|0007AB;
-   ADC.W Cursor_Array_Ypos,Y            ;009297|00071B;
-   STA.W Cursor_Array_Ypos,X            ;00929A|00071B;
+   ADC.W Object_YPOS_fractional,Y       ;00928E|000817;
+   STA.W Object_YPOS_fractional,X       ;009291|000817;
+   LDA.W Object_YPOS_mirror,X           ;009294|0007AB;
+   ADC.W Object_YPOS,Y                  ;009297|00071B;
+   STA.W Object_YPOS,X                  ;00929A|00071B;
    RTS                                  ;00929D|      ;
-Event_Anim_E0_E7_2b:
+Event_AnimOpcode_E0_SETZPOS:
    INC.B $10                            ;00929E|000010;
-   LDX.W Selection                      ;0092A0|00103F;
+   LDX.W Selection_offset               ;0092A0|00103F;
    LDA.B [$10]                          ;0092A3|000010;
    INC.B $10                            ;0092A5|000010;
    INC.B $10                            ;0092A7|000010;
-   STA.W $07CF,X                        ;0092A9|0007CF;
-   STA.W $073F,X                        ;0092AC|00073F;
+   STA.W Object_ZPOS_mirror,X           ;0092A9|0007CF;
+   STA.W Object_ZPOS,X                  ;0092AC|00073F;
    LDA.W #$8000                         ;0092AF|      ;
-   STA.W $083B,X                        ;0092B2|00083B;
+   STA.W Object_ZPOS_fractional,X       ;0092B2|00083B;
    LDA.W $06AF,X                        ;0092B5|0006AF;
    BPL CODE_0092D6                      ;0092B8|0092D6;
    CMP.W #$C000                         ;0092BA|      ;
    AND.W #$3FFF                         ;0092BD|      ;
    TAY                                  ;0092C0|      ;
    BCC CODE_0092D6                      ;0092C1|0092D6;
-   LDA.W $07F3,X                        ;0092C3|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;0092C3|0007F3;
    CLC                                  ;0092C6|      ;
-   ADC.W $07F3,Y                        ;0092C7|0007F3;
-   STA.W $07F3,X                        ;0092CA|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;0092CD|000787;
-   ADC.W Cursor_Array_Xpos,Y            ;0092D0|0006F7;
-   STA.W Cursor_Array_Xpos,X            ;0092D3|0006F7;
+   ADC.W Object_XPOS_fractional,Y       ;0092C7|0007F3;
+   STA.W Object_XPOS_fractional,X       ;0092CA|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;0092CD|000787;
+   ADC.W Object_XPOS,Y                  ;0092D0|0006F7;
+   STA.W Object_XPOS,X                  ;0092D3|0006F7;
 CODE_0092D6:
    RTS                                  ;0092D6|      ;
-Event_Anim_58_5F_2b:
-   INC.B $10                            ;0092D7|000010;
-   LDX.W Selection                      ;0092D9|00103F;
+Event_AnimOpcode_58_SETXVEL:
+   INC.B $10                            ;0092D7|000010; (2b) Set X Velocity
+   LDX.W Selection_offset               ;0092D9|00103F;
    LDA.B [$10]                          ;0092DC|000010;
    PHA                                  ;0092DE|      ;
    AND.W #$00FF                         ;0092DF|      ;
    XBA                                  ;0092E2|      ;
-   STA.W $08CB,X                        ;0092E3|0008CB;
+   STA.W Object_XVEL_fractional,X       ;0092E3|0008CB;
    PLA                                  ;0092E6|      ;
    AND.W #$FF00                         ;0092E7|      ;
    BPL CODE_0092EF                      ;0092EA|0092EF;
    ORA.W #$00FF                         ;0092EC|      ;
 CODE_0092EF:
    XBA                                  ;0092EF|      ;
-   STA.W $085F,X                        ;0092F0|00085F;
+   STA.W Object_XVEL,X                  ;0092F0|00085F;
    INC.B $10                            ;0092F3|000010;
    INC.B $10                            ;0092F5|000010;
    RTS                                  ;0092F7|      ;
-Event_Anim_60_67_2b:
-   INC.B $10                            ;0092F8|000010;
-   LDX.W Selection                      ;0092FA|00103F;
+Event_AnimOpcode_60_SETYVEL:
+   INC.B $10                            ;0092F8|000010; (2b) Set Y Velocity
+   LDX.W Selection_offset               ;0092FA|00103F;
    LDA.B [$10]                          ;0092FD|000010;
    PHA                                  ;0092FF|      ;
    AND.W #$00FF                         ;009300|      ;
    XBA                                  ;009303|      ;
-   STA.W $08EF,X                        ;009304|0008EF;
+   STA.W Object_YVEL_fractional,X       ;009304|0008EF;
    PLA                                  ;009307|      ;
    AND.W #$FF00                         ;009308|      ;
    BPL CODE_009310                      ;00930B|009310;
    ORA.W #$00FF                         ;00930D|      ;
 CODE_009310:
    XBA                                  ;009310|      ;
-   STA.W $0883,X                        ;009311|000883;
+   STA.W Object_YVEL,X                  ;009311|000883;
    INC.B $10                            ;009314|000010;
    INC.B $10                            ;009316|000010;
    RTS                                  ;009318|      ;
-Event_Anim_F0_F7_2b:
+Event_AnimOpcode_F0_SETZVEL:
    INC.B $10                            ;009319|000010;
-   LDX.W Selection                      ;00931B|00103F;
+   LDX.W Selection_offset               ;00931B|00103F;
    LDA.B [$10]                          ;00931E|000010;
    PHA                                  ;009320|      ;
    AND.W #$00FF                         ;009321|      ;
    XBA                                  ;009324|      ;
-   STA.W $0913,X                        ;009325|000913;
+   STA.W Object_ZVEL_fractional,X       ;009325|000913;
    PLA                                  ;009328|      ;
    AND.W #$FF00                         ;009329|      ;
    BPL CODE_009331                      ;00932C|009331;
    ORA.W #$00FF                         ;00932E|      ;
 CODE_009331:
    XBA                                  ;009331|      ;
-   STA.W $08A7,X                        ;009332|0008A7;
+   STA.W Object_ZVEL,X                  ;009332|0008A7;
    INC.B $10                            ;009335|000010;
    INC.B $10                            ;009337|000010;
    RTS                                  ;009339|      ;
-Event_Anim_68_6F_2b:
-   INC.B $10                            ;00933A|000010;
-   LDX.W Selection                      ;00933C|00103F;
+Event_AnimOpcode_68_ADDXVEL:
+   INC.B $10                            ;00933A|000010; (2b) Add X Velocity
+   LDX.W Selection_offset               ;00933C|00103F;
    LDA.B [$10]                          ;00933F|000010;
    PHA                                  ;009341|      ;
    AND.W #$00FF                         ;009342|      ;
    XBA                                  ;009345|      ;
    CLC                                  ;009346|      ;
-   ADC.W $08CB,X                        ;009347|0008CB;
-   STA.W $08CB,X                        ;00934A|0008CB;
+   ADC.W Object_XVEL_fractional,X       ;009347|0008CB;
+   STA.W Object_XVEL_fractional,X       ;00934A|0008CB;
    PLA                                  ;00934D|      ;
    AND.W #$FF00                         ;00934E|      ;
    BPL CODE_009356                      ;009351|009356;
    ORA.W #$00FF                         ;009353|      ;
 CODE_009356:
    XBA                                  ;009356|      ;
-   ADC.W $085F,X                        ;009357|00085F;
-   STA.W $085F,X                        ;00935A|00085F;
+   ADC.W Object_XVEL,X                  ;009357|00085F;
+   STA.W Object_XVEL,X                  ;00935A|00085F;
    INC.B $10                            ;00935D|000010;
    INC.B $10                            ;00935F|000010;
    RTS                                  ;009361|      ;
-Event_Anim_70_77_2b:
-   INC.B $10                            ;009362|000010;
-   LDX.W Selection                      ;009364|00103F;
+Event_AnimOpcode_70_ADDYVEL:
+   INC.B $10                            ;009362|000010; (2b) Add Y Velocity
+   LDX.W Selection_offset               ;009364|00103F;
    LDA.B [$10]                          ;009367|000010;
    PHA                                  ;009369|      ;
    AND.W #$00FF                         ;00936A|      ;
    XBA                                  ;00936D|      ;
    CLC                                  ;00936E|      ;
-   ADC.W $08EF,X                        ;00936F|0008EF;
-   STA.W $08EF,X                        ;009372|0008EF;
+   ADC.W Object_YVEL_fractional,X       ;00936F|0008EF;
+   STA.W Object_YVEL_fractional,X       ;009372|0008EF;
    PLA                                  ;009375|      ;
    AND.W #$FF00                         ;009376|      ;
    BPL CODE_00937E                      ;009379|00937E;
    ORA.W #$00FF                         ;00937B|      ;
 CODE_00937E:
    XBA                                  ;00937E|      ;
-   ADC.W $0883,X                        ;00937F|000883;
-   STA.W $0883,X                        ;009382|000883;
+   ADC.W Object_YVEL,X                  ;00937F|000883;
+   STA.W Object_YVEL,X                  ;009382|000883;
    INC.B $10                            ;009385|000010;
    INC.B $10                            ;009387|000010;
    RTS                                  ;009389|      ;
-Event_Anim_F8_FF_2b:
+Event_AnimOpcode_F8_ADDZVEL:
    INC.B $10                            ;00938A|000010;
-   LDX.W Selection                      ;00938C|00103F;
+   LDX.W Selection_offset               ;00938C|00103F;
    LDA.B [$10]                          ;00938F|000010;
    PHA                                  ;009391|      ;
    AND.W #$00FF                         ;009392|      ;
    XBA                                  ;009395|      ;
    CLC                                  ;009396|      ;
-   ADC.W $0913,X                        ;009397|000913;
-   STA.W $0913,X                        ;00939A|000913;
+   ADC.W Object_ZVEL_fractional,X       ;009397|000913;
+   STA.W Object_ZVEL_fractional,X       ;00939A|000913;
    PLA                                  ;00939D|      ;
    AND.W #$FF00                         ;00939E|      ;
    BPL CODE_0093A6                      ;0093A1|0093A6;
    ORA.W #$00FF                         ;0093A3|      ;
 CODE_0093A6:
    XBA                                  ;0093A6|      ;
-   ADC.W $08A7,X                        ;0093A7|0008A7;
-   STA.W $08A7,X                        ;0093AA|0008A7;
+   ADC.W Object_ZVEL,X                  ;0093A7|0008A7;
+   STA.W Object_ZVEL,X                  ;0093AA|0008A7;
    INC.B $10                            ;0093AD|000010;
    INC.B $10                            ;0093AF|000010;
    RTS                                  ;0093B1|      ;
-Event_Anim_78_7F_1b_2b:
+Event_AnimOpcode_78_UNK_1:
    INC.B $10                            ;0093B2|000010; Read (1b) x offset, store (2b) in $0FEF,x and zero $0FFF,x
    LDA.B [$10]                          ;0093B4|000010;
    AND.W #$00FF                         ;0093B6|      ;
@@ -2791,12 +2791,12 @@ Event_Anim_78_7F_1b_2b:
    TAX                                  ;0093BA|      ;
    INC.B $10                            ;0093BB|000010;
    LDA.B [$10]                          ;0093BD|000010;
-   STA.W $0FEF,X                        ;0093BF|000FEF;
-   STZ.W $0FFF,X                        ;0093C2|000FFF;
+   STA.W Object_XPOS_unk1,X             ;0093BF|000FEF;
+   STZ.W Object_XPOS_unk2,X             ;0093C2|000FFF;
    INC.B $10                            ;0093C5|000010;
    INC.B $10                            ;0093C7|000010;
    RTS                                  ;0093C9|      ;
-Event_Anim_80_87_1b_2b:
+Event_AnimOpcode_80_UNK_2:
    INC.B $10                            ;0093CA|000010; Read (1b) x offset, store (2b) in $0FF7,x and zero $1007,x
    LDA.B [$10]                          ;0093CC|000010;
    AND.W #$00FF                         ;0093CE|      ;
@@ -2804,13 +2804,13 @@ Event_Anim_80_87_1b_2b:
    TAX                                  ;0093D2|      ;
    INC.B $10                            ;0093D3|000010;
    LDA.B [$10]                          ;0093D5|000010;
-   STA.W $0FF7,X                        ;0093D7|000FF7;
-   STZ.W $1007,X                        ;0093DA|001007;
+   STA.W Object_YPOS_unk1,X             ;0093D7|000FF7;
+   STZ.W Object_YPOS_unk2,X             ;0093DA|001007;
    INC.B $10                            ;0093DD|000010;
    INC.B $10                            ;0093DF|000010;
    RTS                                  ;0093E1|      ;
-Event_Anim_88_8F_1b_2b:
-   INC.B $10                            ;0093E2|000010;
+Event_AnimOpcode_88_UNK_3:
+   INC.B $10                            ;0093E2|000010; (3b)
    LDA.B [$10]                          ;0093E4|000010;
    AND.W #$00FF                         ;0093E6|      ;
    ASL A                                ;0093E9|      ;
@@ -2831,8 +2831,8 @@ CODE_009400:
    INC.B $10                            ;009404|000010;
    INC.B $10                            ;009406|000010;
    RTS                                  ;009408|      ;
-Event_Anim_90_97_1b_2b:
-   INC.B $10                            ;009409|000010;
+Event_AnimOpcode_90_UNK_4:
+   INC.B $10                            ;009409|000010; (3b)
    LDA.B [$10]                          ;00940B|000010;
    AND.W #$00FF                         ;00940D|      ;
    ASL A                                ;009410|      ;
@@ -2853,8 +2853,8 @@ CODE_009427:
    INC.B $10                            ;00942B|000010;
    INC.B $10                            ;00942D|000010;
    RTS                                  ;00942F|      ;
-Event_Anim_98_9F_1b_2b:
-   INC.B $10                            ;009430|000010;
+Event_AnimOpcode_98_UNK_5:
+   INC.B $10                            ;009430|000010; (3b)
    LDA.B [$10]                          ;009432|000010;
    AND.W #$00FF                         ;009434|      ;
    ASL A                                ;009437|      ;
@@ -2878,8 +2878,8 @@ CODE_009452:
    INC.B $10                            ;009459|000010;
    INC.B $10                            ;00945B|000010;
    RTS                                  ;00945D|      ;
-Event_Anim_A0_A7_1b_2b:
-   INC.B $10                            ;00945E|000010;
+Event_AnimOpcode_A0_UNK_6:
+   INC.B $10                            ;00945E|000010; (3b)
    LDA.B [$10]                          ;009460|000010;
    AND.W #$00FF                         ;009462|      ;
    ASL A                                ;009465|      ;
@@ -2903,37 +2903,37 @@ CODE_009480:
    INC.B $10                            ;009487|000010;
    INC.B $10                            ;009489|000010;
    RTS                                  ;00948B|      ;
-Event_Anim_48_4F_2b:
+Event_AnimOpcode_48_ADDXPOS:
    INC.B $10                            ;00948C|000010; Reads (2b), adds to a sum at $0937,x
-   LDX.W Selection                      ;00948E|00103F;
+   LDX.W Selection_offset               ;00948E|00103F;
    LDA.B [$10]                          ;009491|000010;
    CLC                                  ;009493|      ;
-   ADC.W Anim48_Total,X                 ;009494|000937;
-   STA.W Anim48_Total,X                 ;009497|000937;
+   ADC.W Object_XPOS_Sum,X              ;009494|000937;
+   STA.W Object_XPOS_Sum,X              ;009497|000937;
    INC.B $10                            ;00949A|000010;
    INC.B $10                            ;00949C|000010;
    RTS                                  ;00949E|      ;
-Event_Anim_50_57_2b:
+Event_AnimOpcode_50_ADDYPOS:
    INC.B $10                            ;00949F|000010; Reads (2b), adds to a sum at $095B,x
-   LDX.W Selection                      ;0094A1|00103F;
+   LDX.W Selection_offset               ;0094A1|00103F;
    LDA.B [$10]                          ;0094A4|000010;
    CLC                                  ;0094A6|      ;
-   ADC.W $095B,X                        ;0094A7|00095B;
-   STA.W $095B,X                        ;0094AA|00095B;
+   ADC.W Object_YPOS_Sum,X              ;0094A7|00095B;
+   STA.W Object_YPOS_Sum,X              ;0094AA|00095B;
    INC.B $10                            ;0094AD|000010;
    INC.B $10                            ;0094AF|000010;
    RTS                                  ;0094B1|      ;
-Event_Anim_E8_EF_2b:
+Event_AnimOpcode_E8_ADDZPOS:
    INC.B $10                            ;0094B2|000010; Reads (2b), adds to a sum at $097F,x
-   LDX.W Selection                      ;0094B4|00103F; X = current selection
+   LDX.W Selection_offset               ;0094B4|00103F; X = current selection
    LDA.B [$10]                          ;0094B7|000010;
    CLC                                  ;0094B9|      ;
-   ADC.W AnimE8_Total,X                 ;0094BA|00097F;
-   STA.W AnimE8_Total,X                 ;0094BD|00097F;
+   ADC.W Object_ZPOS_Sum,X              ;0094BA|00097F;
+   STA.W Object_ZPOS_Sum,X              ;0094BD|00097F;
    INC.B $10                            ;0094C0|000010;
    INC.B $10                            ;0094C2|000010;
    RTS                                  ;0094C4|      ;
-Event_Anim_C0_C7_1b_2b:
+Event_AnimOpcode_C0_UNK_7:
    INC.B $10                            ;0094C5|000010; Reads (1b) offset, reads(2b), adds to a sum at $102F,x
    LDA.B [$10]                          ;0094C7|000010;
    AND.W #$00FF                         ;0094C9|      ;
@@ -2947,7 +2947,7 @@ Event_Anim_C0_C7_1b_2b:
    INC.B $10                            ;0094D9|000010;
    INC.B $10                            ;0094DB|000010;
    RTS                                  ;0094DD|      ;
-Event_Anim_C8_CF_1b_2b:
+Event_AnimOpcode_C8_UNK_8:
    INC.B $10                            ;0094DE|000010; Reads (1b) offset, reads(2b), adds to a sum at $1037,x
    LDA.B [$10]                          ;0094E0|000010;
    AND.W #$00FF                         ;0094E2|      ;
@@ -2961,18 +2961,18 @@ Event_Anim_C8_CF_1b_2b:
    INC.B $10                            ;0094F2|000010;
    INC.B $10                            ;0094F4|000010;
    RTS                                  ;0094F6|      ;
-Event_Anim_D0_D7:
-   LDX.W Selection                      ;0094F7|00103F; Zeroes some stuff used by 58-77, F0-FF
-   STZ.W $08CB,X                        ;0094FA|0008CB;
-   STZ.W $085F,X                        ;0094FD|00085F;
-   STZ.W $08EF,X                        ;009500|0008EF;
-   STZ.W $0883,X                        ;009503|000883;
-   STZ.W $0913,X                        ;009506|000913;
-   STZ.W $08A7,X                        ;009509|0008A7;
+Event_AnimOpcode_D0_ZEROVEL:
+   LDX.W Selection_offset               ;0094F7|00103F; Zeroes velocity
+   STZ.W Object_XVEL_fractional,X       ;0094FA|0008CB;
+   STZ.W Object_XVEL,X                  ;0094FD|00085F;
+   STZ.W Object_YVEL_fractional,X       ;009500|0008EF;
+   STZ.W Object_YVEL,X                  ;009503|000883;
+   STZ.W Object_ZVEL_fractional,X       ;009506|000913;
+   STZ.W Object_ZVEL,X                  ;009509|0008A7;
    INC.B $10                            ;00950C|000010;
    RTS                                  ;00950E|      ;
-Event_Anim_D8_DF_1b:
-   INC.B $10                            ;00950F|000010; Read (1b) offset, zeroes 4 values for it
+Event_AnimOpcode_D8_UNK_9:
+   INC.B $10                            ;00950F|000010; (1b) Zeros a given object's velocity
    LDA.B [$10]                          ;009511|000010;
    AND.W #$00FF                         ;009513|      ;
    ASL A                                ;009516|      ;
@@ -2983,8 +2983,8 @@ Event_Anim_D8_DF_1b:
    STZ.W $1017,X                        ;009521|001017;
    INC.B $10                            ;009524|000010;
    RTS                                  ;009526|      ;
-Event_Code_07:
-   INC.B $10                            ;009527|000010; Calls a 24-bit pointer, very common.
+Event_Opcode_07_ASMCALL:
+   INC.B $10                            ;009527|000010; (3b) Runs ASM code
    LDA.B [$10]                          ;009529|000010;
    STA.W Event_CodePtr                  ;00952B|001049;
    INC.B $10                            ;00952E|000010;
@@ -2993,18 +2993,18 @@ Event_Code_07:
    AND.W #$00FF                         ;009534|      ;
    STA.W Event_CodeBank                 ;009537|00104B;
    LDX.W Fn_results                     ;00953A|001041;
-   LDA.W Array_Fn_results1,X            ;00953D|000CB3;
+   LDA.W Object_Accumulator,X           ;00953D|000CB3;
    JSL.L JumpTo1049                     ;009540|009B0E;
    LDX.W Fn_results                     ;009544|001041;
-   STA.W Array_Fn_results1,X            ;009547|000CB3;
+   STA.W Object_Accumulator,X           ;009547|000CB3;
    INC.B $10                            ;00954A|000010;
    RTS                                  ;00954C|      ;
-Event_Code_0B:
-   INC.B $10                            ;00954D|000010; Jump if false/zero (2 byte ptr)
+Event_Opcode_0B_JEQ:
+   INC.B $10                            ;00954D|000010; (2b) Jump if result false/zero/equals
    LDA.B [$10]                          ;00954F|000010;
    TAY                                  ;009551|      ;
    LDX.W Fn_results                     ;009552|001041;
-   LDA.W Array_Fn_results1,X            ;009555|000CB3;
+   LDA.W Object_Accumulator,X           ;009555|000CB3;
    BNE CODE_00955D                      ;009558|00955D;
    STY.B $10                            ;00955A|000010;
    RTS                                  ;00955C|      ;
@@ -3012,12 +3012,12 @@ CODE_00955D:
    INC.B $10                            ;00955D|000010;
    INC.B $10                            ;00955F|000010;
    RTS                                  ;009561|      ;
-Event_Code_0C:
-   INC.B $10                            ;009562|000010; Jump if true/nonzero (2 byte ptr)
+Event_Opcode_0C_JNE:
+   INC.B $10                            ;009562|000010; (2b) Jump if result true/nonzero/not equals
    LDA.B [$10]                          ;009564|000010;
    TAY                                  ;009566|      ;
    LDX.W Fn_results                     ;009567|001041;
-   LDA.W Array_Fn_results1,X            ;00956A|000CB3;
+   LDA.W Object_Accumulator,X           ;00956A|000CB3;
    BEQ CODE_009572                      ;00956D|009572;
    STY.B $10                            ;00956F|000010;
    RTS                                  ;009571|      ;
@@ -3025,9 +3025,9 @@ CODE_009572:
    INC.B $10                            ;009572|000010;
    INC.B $10                            ;009574|000010;
    RTS                                  ;009576|      ;
-Event_Code_11:
-   LDX.W Fn_results                     ;009577|001041; If less than next byte, jump using ptr table
-   LDA.W Array_Fn_results1,X            ;00957A|000CB3;
+Event_Opcode_11_MULTIJMP:
+   LDX.W Fn_results                     ;009577|001041; Read next byte and JMP using ptr table
+   LDA.W Object_Accumulator,X           ;00957A|000CB3;
    STA.B $20                            ;00957D|000020;
    INC.B $10                            ;00957F|000010;
    LDA.B [$10]                          ;009581|000010;
@@ -3048,9 +3048,9 @@ CODE_009594:
    LDA.B [$10],Y                        ;009598|000010;
    STA.B $10                            ;00959A|000010;
    RTS                                  ;00959C|      ;
-Event_Code_12:
-   LDX.W Fn_results                     ;00959D|001041; Very complicated (1b), JSR (2b)
-   LDA.W Array_Fn_results1,X            ;0095A0|000CB3;
+Event_Opcode_12_MULTIJSR:
+   LDX.W Fn_results                     ;00959D|001041; Read next byte and JSR with ptr table
+   LDA.W Object_Accumulator,X           ;0095A0|000CB3;
    STA.B $20                            ;0095A3|000020;
    INC.B $10                            ;0095A5|000010;
    LDA.B [$10]                          ;0095A7|000010;
@@ -3060,50 +3060,50 @@ Event_Code_12:
    BCC CODE_00958E                      ;0095B0|00958E;
    BEQ CODE_00958E                      ;0095B2|00958E;
    LDX.W Fn_results                     ;0095B4|001041;
-   LDY.W $0B43,X                        ;0095B7|000B43;
+   LDY.W Object_SCR_Stack_Ptr,X         ;0095B7|000B43;
    ASL A                                ;0095BA|      ;
    ADC.B $10                            ;0095BB|000010;
    STA.B [$14],Y                        ;0095BD|000014;
    INY                                  ;0095BF|      ;
    INY                                  ;0095C0|      ;
    TYA                                  ;0095C1|      ;
-   STA.W $0B43,X                        ;0095C2|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;0095C2|000B43;
    BRA CODE_009594                      ;0095C5|009594;
-Event_Code_0D:
-   LDY.W Fn_results                     ;0095C7|001041;
+Event_Opcode_0D_ENDTASK:
+   LDY.W Fn_results                     ;0095C7|001041; Ends the current task. If out of scripts, ends it all.
 CODE_0095CA:
-   LDX.W Selection                      ;0095CA|00103F;
+   LDX.W Selection_offset               ;0095CA|00103F;
    JSR.W Stuff                          ;0095CD|009A7B;
    LDA.W #$FFFF                         ;0095D0|      ;
-   STA.W Array_Anim_Loopvar,Y           ;0095D3|000B9F;
-   LDA.W $06D3,X                        ;0095D6|0006D3;
+   STA.W Object_SCR_Wait_Timer,Y        ;0095D3|000B9F;
+   LDA.W Object_Script_Index,X          ;0095D6|0006D3;
    BPL CODE_0095DE                      ;0095D9|0095DE;
-   JMP.W Event_Code_00                  ;0095DB|0090E7;
+   JMP.W Event_Opcode_00_END            ;0095DB|0090E7;
 CODE_0095DE:
    RTS                                  ;0095DE|      ;
-Event_Code_08:
-   INC.B $10                            ;0095DF|000010; op08: Does something with the main loop
-   JSR.W Return_Carry                   ;0095E1|009A6C; Loads a Y value and returns carry flag
+Event_Opcode_08_TASK:
+   INC.B $10                            ;0095DF|000010; (2b) TASK: Runs a script concurrently (2b ptr)
+   JSR.W Allocate_Script_Slot           ;0095E1|009A6C; Loads a Y value and returns carry flag
    BCS CODE_009607                      ;0095E4|009607;
-   STY.W LoopVar_1047                   ;0095E6|001047;
+   STY.W Prev_Script_Slot               ;0095E6|001047; Last allocated script slot?
    LDX.W Fn_results                     ;0095E9|001041;
-   LDA.W $0AE7,X                        ;0095EC|000AE7;
-   STA.W $0AE7,Y                        ;0095EF|000AE7;
+   LDA.W Object_SCR_Next,X              ;0095EC|000AE7; "Reorder the list so the task runs right after the script, THEN the next script runs after the task"
+   STA.W Object_SCR_Next,Y              ;0095EF|000AE7;
    TYA                                  ;0095F2|      ;
-   STA.W $0AE7,X                        ;0095F3|000AE7;
+   STA.W Object_SCR_Next,X              ;0095F3|000AE7;
    TYX                                  ;0095F6|      ;
-   STZ.W $0B43,X                        ;0095F7|000B43;
-   STZ.W Array_Anim_Loopvar,X           ;0095FA|000B9F;
+   STZ.W Object_SCR_Stack_Ptr,X         ;0095F7|000B43;
+   STZ.W Object_SCR_Wait_Timer,X        ;0095FA|000B9F;
    LDA.B [$10]                          ;0095FD|000010;
-   STA.W Stack_Event_Ptr,X              ;0095FF|000BFB;
+   STA.W Object_SCR_Program_Cntr,X      ;0095FF|000BFB;
    LDA.B $12                            ;009602|000012;
-   STA.W Stack_Event_Bank,X             ;009604|000C57;
+   STA.W Object_SCR_Program_Bank,X      ;009604|000C57;
 CODE_009607:
    INC.B $10                            ;009607|000010;
    INC.B $10                            ;009609|000010;
    RTS                                  ;00960B|      ;
-Event_Code_14:
-   INC.B $10                            ;00960C|000010; Does stuff. Compares next byte to $20
+Event_Opcode_14_UNK_ENDTASK:
+   INC.B $10                            ;00960C|000010; (1b) Involves ending a task
    LDA.B [$10]                          ;00960E|000010;
    INC.B $10                            ;009610|000010;
    AND.W #$00FF                         ;009612|      ;
@@ -3112,14 +3112,14 @@ Event_Code_14:
    STA.B $20                            ;00961A|000020;
    LDY.W Fn_results                     ;00961C|001041;
 CODE_00961F:
-   LDA.W $0AE7,Y                        ;00961F|000AE7;
+   LDA.W Object_SCR_Next,Y              ;00961F|000AE7;
    TAY                                  ;009622|      ;
    DEC.B $20                            ;009623|000020;
    BNE CODE_00961F                      ;009625|00961F;
    BRA CODE_00963C                      ;009627|00963C;
 CODE_009629:
    PHA                                  ;009629|      ;
-   LDX.W Selection                      ;00962A|00103F;
+   LDX.W Selection_offset               ;00962A|00103F;
    LDY.W Fn_results                     ;00962D|001041;
    JSR.W CODE_009ACA                    ;009630|009ACA;
    STA.B $20                            ;009633|000020;
@@ -3128,36 +3128,36 @@ CODE_009629:
    ADC.B $20                            ;009637|000020;
    JSR.W Highlander_1047                ;009639|009AE2;
 CODE_00963C:
-   JMP.W CODE_0095CA                    ;00963C|0095CA;
-Event_Code_09:
-   INC.B $10                            ;00963F|000010; Call 24bit ptr after returning?
-   LDX.W Selection                      ;009641|00103F;
+   JMP.W CODE_0095CA                    ;00963C|0095CA; End task
+Event_Opcode_09_ONTICK:
+   INC.B $10                            ;00963F|000010; (3b) Sets a function to run on animation tick
+   LDX.W Selection_offset               ;009641|00103F;
    LDA.B [$10]                          ;009644|000010;
-   STA.W Stack_addr_ptr,X               ;009646|000A33;
+   STA.W Object_OnTick_ptr,X            ;009646|000A33;
    INC.B $10                            ;009649|000010;
    INC.B $10                            ;00964B|000010;
    LDA.B [$10]                          ;00964D|000010;
-   STA.W Stack_addr_bank,X              ;00964F|000A57;
+   STA.W Object_OnTick_bank,X           ;00964F|000A57;
    INC.B $10                            ;009652|000010;
    RTS                                  ;009654|      ;
-Event_Code_0A:
+Event_Opcode_0A_HALT:
    LDX.W Fn_results                     ;009655|001041; Clears animation loop
    LDA.W #$FFFF                         ;009658|      ;
-   STA.W Array_Anim_Loopvar,X           ;00965B|000B9F;
+   STA.W Object_SCR_Wait_Timer,X        ;00965B|000B9F;
    RTS                                  ;00965E|      ;
-Event_Anim_A8_AF:
-   LDX.W Selection                      ;00965F|00103F; Increment animation ID
-   INC.W Array_Anim_ID,X                ;009662|000A7B;
+Event_AnimOpcode_A8_INCANIM:
+   LDX.W Selection_offset               ;00965F|00103F; Increment animation ID
+   INC.W Object_Anim_Frame,X            ;009662|000A7B;
    INC.B $10                            ;009665|000010;
    RTS                                  ;009667|      ;
-Event_Anim_B0_B7:
-   LDX.W Selection                      ;009668|00103F; Decrements the animation ID
-   DEC.W Array_Anim_ID,X                ;00966B|000A7B;
+Event_AnimOpcode_B0_DECANIM:
+   LDX.W Selection_offset               ;009668|00103F; Decrements the animation ID
+   DEC.W Object_Anim_Frame,X            ;00966B|000A7B;
    INC.B $10                            ;00966E|000010;
    RTS                                  ;009670|      ;
-Event_Anim_B8_BF_1b:
+Event_AnimOpcode_B8_ADDANIM:
    INC.B $10                            ;009671|000010; Adds (1b) to the animation ID. Can do subtraction too.
-   LDX.W Selection                      ;009673|00103F;
+   LDX.W Selection_offset               ;009673|00103F;
    LDA.B [$10]                          ;009676|000010;
    AND.W #$00FF                         ;009678|      ;
    CMP.W #$0080                         ;00967B|      ;
@@ -3165,11 +3165,11 @@ Event_Anim_B8_BF_1b:
    ORA.W #$FF00                         ;009680|      ;
    CLC                                  ;009683|      ;
 CODE_009684:
-   ADC.W Array_Anim_ID,X                ;009684|000A7B;
-   STA.W Array_Anim_ID,X                ;009687|000A7B;
+   ADC.W Object_Anim_Frame,X            ;009684|000A7B;
+   STA.W Object_Anim_Frame,X            ;009687|000A7B;
    INC.B $10                            ;00968A|000010;
    RTS                                  ;00968C|      ;
-Event_Code_19:
+Event_Opcode_19_BINOP:
    INC.B $10                            ;00968D|000010; Similar to 0E (3 bytes)
    LDA.B [$10]                          ;00968F|000010;
    STA.B $1C                            ;009691|00001C;
@@ -3190,7 +3190,7 @@ Event_Code_19:
    JSR.W (Event_CodePtr,X)              ;0096B2|001049;
    REP #$20                             ;0096B5|      ;
    RTS                                  ;0096B7|      ;
-Event_Code_15:
+Event_Opcode_15_BINOP:
    INC.B $10                            ;0096B8|000010; (4b) Compares an actor ID with a value
    LDA.B [$10]                          ;0096BA|000010; (1b) Takes an offset to an actor array
    AND.W #$00FF                         ;0096BC|      ;
@@ -3198,10 +3198,10 @@ Event_Code_15:
    TAX                                  ;0096C0|      ;
    LDA.L Tbl_Actor_Arrays,X             ;0096C1|009739; Load the actor array RAM address
    CLC                                  ;0096C5|      ;
-   ADC.W Selection                      ;0096C6|00103F;
+   ADC.W Selection_offset               ;0096C6|00103F;
    STA.B $1C                            ;0096C9|00001C; Save the RAM address we're checking
    BRA CODE_0096D5                      ;0096CB|0096D5;
-Event_Code_0E:
+Event_Opcode_0E_BINOP:
    INC.B $10                            ;0096CD|000010; (5b) Compares RAM to a value
    LDA.B [$10]                          ;0096CF|000010;
    STA.B $1C                            ;0096D1|00001C; (2b) RAM address to compare
@@ -3246,7 +3246,7 @@ Operation_EOR:
    EOR.B $20                            ;009712|000020;
    STA.B ($1C)                          ;009714|00001C;
    RTS                                  ;009716|      ;
-Event_Code_0F:
+Event_Opcode_0F_MOV:
    INC.B $10                            ;009717|000010; (1b) table offset for RAM set, (2b) value
    LDA.B [$10]                          ;009719|000010;
    AND.W #$00FF                         ;00971B|      ;
@@ -3258,7 +3258,7 @@ Event_Code_0F:
    STA.B $1A                            ;009729|00001A;
    INC.B $10                            ;00972B|000010;
    LDA.B [$10]                          ;00972D|000010;
-   LDY.W Selection                      ;00972F|00103F;
+   LDY.W Selection_offset               ;00972F|00103F;
    STA.B [$18],Y                        ;009732|000018;
    INC.B $10                            ;009734|000010;
    INC.B $10                            ;009736|000010;
@@ -3268,12 +3268,12 @@ Tbl_Actor_Arrays:
    dw $09C7                             ;00973B|0009C7;
    dw $09EB                             ;00973D|0009EB;
    dw $0A0F                             ;00973F|000A0F;
-Event_Code_10:
-   LDX.W Selection                      ;009741|00103F; (0b): Sets 2 RAM vals
+Event_Opcode_10_ONTICK:
+   LDX.W Selection_offset               ;009741|00103F; Puts an RTL on the stack (I guess that makes it a NOP)
    JSR.W CODE_009BFD                    ;009744|009BFD;
    INC.B $10                            ;009747|000010;
    RTS                                  ;009749|      ;
-Event_Code_13:
+Event_Opcode_13_MOV:
    INC.B $10                            ;00974A|000010; (3b): Set RAM address (2b) to value (1b)
    LDA.B [$10]                          ;00974C|000010;
    STA.B $18                            ;00974E|000018;
@@ -3285,7 +3285,7 @@ Event_Code_13:
    REP #$20                             ;00975A|      ;
    INC.B $10                            ;00975C|000010;
    RTS                                  ;00975E|      ;
-Event_Code_16:
+Event_Opcode_16_MOV:
    INC.B $10                            ;00975F|000010; (4b): Set RAM address (2b) to value (2b)
    LDA.B [$10]                          ;009761|000010;
    STA.B $18                            ;009763|000018;
@@ -3296,77 +3296,77 @@ Event_Code_16:
    INC.B $10                            ;00976D|000010;
    INC.B $10                            ;00976F|000010;
    RTS                                  ;009771|      ;
-Event_Code_17:
+Event_Opcode_17_BREAKEQ:
    INC.B $10                            ;009772|000010;
    LDA.B [$10]                          ;009774|000010;
    TAY                                  ;009776|      ;
    LDX.W Fn_results                     ;009777|001041;
-   LDA.W Array_Fn_results1,X            ;00977A|000CB3;
+   LDA.W Object_Accumulator,X           ;00977A|000CB3;
    BNE CODE_00978C                      ;00977D|00978C;
 CODE_00977F:
    STY.B $10                            ;00977F|000010;
-   LDA.W $0B43,X                        ;009781|000B43;
+   LDA.W Object_SCR_Stack_Ptr,X         ;009781|000B43;
    SEC                                  ;009784|      ;
    SBC.W #$0003                         ;009785|      ;
-   STA.W $0B43,X                        ;009788|000B43;
+   STA.W Object_SCR_Stack_Ptr,X         ;009788|000B43;
    RTS                                  ;00978B|      ;
 CODE_00978C:
    INC.B $10                            ;00978C|000010;
    INC.B $10                            ;00978E|000010;
    RTS                                  ;009790|      ;
-Event_Code_18:
+Event_Opcode_18_BREAKNE:
    INC.B $10                            ;009791|000010;
    LDA.B [$10]                          ;009793|000010;
    TAY                                  ;009795|      ;
    LDX.W Fn_results                     ;009796|001041;
-   LDA.W Array_Fn_results1,X            ;009799|000CB3;
+   LDA.W Object_Accumulator,X           ;009799|000CB3;
    BEQ CODE_00978C                      ;00979C|00978C;
    BRA CODE_00977F                      ;00979E|00977F;
-Event_Code_1D:
-   LDX.W Selection                      ;0097A0|00103F;
+Event_Opcode_1D_SETANIMPTR:
+   LDX.W Selection_offset               ;0097A0|00103F; (3b)
    INC.B $10                            ;0097A3|000010;
    LDA.B [$10]                          ;0097A5|000010;
-   STA.W $0A9F,X                        ;0097A7|000A9F;
+   STA.W Object_Spritemap_Ptr,X         ;0097A7|000A9F;
    INC.B $10                            ;0097AA|000010;
    INC.B $10                            ;0097AC|000010;
    LDA.B [$10]                          ;0097AE|000010;
-   STA.W $0AC3,X                        ;0097B0|000AC3;
+   STA.W Object_Spritemap_Bank,X        ;0097B0|000AC3;
    INC.B $10                            ;0097B3|000010;
    RTS                                  ;0097B5|      ;
-Event_Code_1E:
+Event_Opcode_1E_MOV:
    INC.B $10                            ;0097B6|000010; Store value (2b) in $0CB3,x
    LDA.B [$10]                          ;0097B8|000010;
    LDX.W Fn_results                     ;0097BA|001041;
-   STA.W Array_Fn_results1,X            ;0097BD|000CB3;
+   STA.W Object_Accumulator,X           ;0097BD|000CB3;
    INC.B $10                            ;0097C0|000010;
    INC.B $10                            ;0097C2|000010;
    RTS                                  ;0097C4|      ;
-Event_Code_1F:
+Event_Opcode_1F_MOV:
    INC.B $10                            ;0097C5|000010; Store value from RAM addr (2b) in $0CB3,x
    LDA.B [$10]                          ;0097C7|000010;
    STA.B $18                            ;0097C9|000018;
    LDA.B ($18)                          ;0097CB|000018;
    LDX.W Fn_results                     ;0097CD|001041;
 CODE_0097D0:
-   STA.W Array_Fn_results1,X            ;0097D0|000CB3;
+   STA.W Object_Accumulator,X           ;0097D0|000CB3;
    INC.B $10                            ;0097D3|000010;
    INC.B $10                            ;0097D5|000010;
    RTS                                  ;0097D7|      ;
-Event_Code_20:
-   LDX.W Selection                      ;0097D8|00103F;
+Event_Opcode_20:
+   LDX.W Selection_offset               ;0097D8|00103F;
    LDA.W $06AF,X                        ;0097DB|0006AF;
    BPL CODE_0097E3                      ;0097DE|0097E3;
    JSR.W CODE_00981F                    ;0097E0|00981F;
 CODE_0097E3:
    INC.B $10                            ;0097E3|000010;
    LDY.W Fn_results                     ;0097E5|001041;
-   LDA.W Array_Fn_results1,Y            ;0097E8|000CB3;
+   LDA.W Object_Accumulator,Y           ;0097E8|000CB3;
    TAY                                  ;0097EB|      ;
    ORA.W #$C000                         ;0097EC|      ;
    STA.W $06AF,X                        ;0097EF|0006AF;
    JMP.W CODE_009B26                    ;0097F2|009B26;
-Event_Code_21:
-   LDX.W Selection                      ;0097F5|00103F;
+Event_Opcode_21:
+   LDX.W Selection_offset               ;0097F5|00103F;
    LDA.W $06AF,X                        ;0097F8|0006AF;
    BPL CODE_009800                      ;0097FB|009800;
    JSR.W CODE_00981F                    ;0097FD|00981F;
@@ -3380,9 +3380,9 @@ CODE_009800:
    ORA.W #$8000                         ;00980B|      ;
    STA.W $06AF,X                        ;00980E|0006AF;
    JMP.W CODE_009B60                    ;009811|009B60;
-Event_Code_22:
+Event_Opcode_22:
    INC.B $10                            ;009814|000010;
-   LDX.W Selection                      ;009816|00103F;
+   LDX.W Selection_offset               ;009816|00103F;
    LDA.W $06AF,X                        ;009819|0006AF;
    BMI CODE_00981F                      ;00981C|00981F;
    RTS                                  ;00981E|      ;
@@ -3392,7 +3392,7 @@ CODE_00981F:
    JMP.W CODE_009BCB                    ;009824|009BCB;
 CODE_009827:
    JMP.W CODE_009B87                    ;009827|009B87;
-Event_Code_23:
+Event_Opcode_23_STA:
    INC.B $10                            ;00982A|000010; Shares code with 21/22/23
    LDA.B [$10]                          ;00982C|000010;
    AND.W #$00FF                         ;00982E|      ;
@@ -3401,12 +3401,12 @@ Event_Code_23:
    LDA.L Tbl_Actor_Arrays,X             ;009833|009739;
    STA.B $18                            ;009837|000018;
    LDY.W Fn_results                     ;009839|001041;
-   LDA.W Array_Fn_results1,Y            ;00983C|000CB3;
-   LDY.W Selection                      ;00983F|00103F;
+   LDA.W Object_Accumulator,Y           ;00983C|000CB3;
+   LDY.W Selection_offset               ;00983F|00103F;
    STA.B ($18),Y                        ;009842|000018;
    INC.B $10                            ;009844|000010;
    RTS                                  ;009846|      ;
-Event_Code_24:
+Event_Opcode_24_LDA:
    INC.B $10                            ;009847|000010; (1b) Loads value from a table (00=$09A3)
    LDA.B [$10]                          ;009849|000010;
    AND.W #$00FF                         ;00984B|      ;
@@ -3414,13 +3414,13 @@ Event_Code_24:
    TAX                                  ;00984F|      ;
    LDA.L Tbl_Actor_Arrays,X             ;009850|009739;
    STA.B $18                            ;009854|000018;
-   LDY.W Selection                      ;009856|00103F;
+   LDY.W Selection_offset               ;009856|00103F;
    LDA.B ($18),Y                        ;009859|000018;
    LDY.W Fn_results                     ;00985B|001041;
-   STA.W Array_Fn_results1,Y            ;00985E|000CB3;
+   STA.W Object_Accumulator,Y           ;00985E|000CB3;
    INC.B $10                            ;009861|000010;
    RTS                                  ;009863|      ;
-Event_Code_25:
+Event_Opcode_25_WAIT:
    INC.B $10                            ;009864|000010; Sets $0B9F Loop var from var0,var1,var2,var3
    LDA.B [$10]                          ;009866|000010;
    AND.W #$00FF                         ;009868|      ;
@@ -3428,14 +3428,14 @@ Event_Code_25:
    TAX                                  ;00986C|      ;
    LDA.L Tbl_Actor_Arrays,X             ;00986D|009739;
    STA.B $18                            ;009871|000018;
-   LDY.W Selection                      ;009873|00103F;
+   LDY.W Selection_offset               ;009873|00103F;
    LDA.B ($18),Y                        ;009876|000018;
    LDY.W Fn_results                     ;009878|001041;
-   STA.W Array_Anim_Loopvar,Y           ;00987B|000B9F;
+   STA.W Object_SCR_Wait_Timer,Y        ;00987B|000B9F;
    INC.B $10                            ;00987E|000010;
    RTS                                  ;009880|      ;
-Credits_Reading_0FD0:
-   PHB                                  ;009881|      ; Also when loading enemies???
+Sub_Load_Tileset:
+   PHB                                  ;009881|      ; Called for reading 5-byte tile data (see Tbl_Events_TileData in bank $00)
    TAY                                  ;009882|      ;
    SEP #$20                             ;009883|      ;
    TXA                                  ;009885|      ;
@@ -3577,10 +3577,10 @@ A_buncha_stuff:
    SBC.W #$0002                         ;009964|      ;
    TCD                                  ;009967|      ;
    PLA                                  ;009968|      ;
-   LDA.W Battle_Enemy_ID,X              ;009969|000643;
+   LDA.W Event_ID_Slot_00,X             ;009969|000643;
    BMI CODE_0099A4                      ;00996C|0099A4;
    LDA.W #$FFFF                         ;00996E|      ;
-   STA.W Battle_Enemy_ID,X              ;009971|000643;
+   STA.W Event_ID_Slot_00,X             ;009971|000643;
    JSR.W CODE_009BFD                    ;009974|009BFD;
    JSR.W CODE_009A32                    ;009977|009A32;
    LDA.W $0667,X                        ;00997A|000667;
@@ -3689,15 +3689,15 @@ CODE_009A32:
    PHX                                  ;009A32|      ;
    LDA.W $063F                          ;009A33|00063F;
    PHA                                  ;009A36|      ;
-   LDA.W $06D3,X                        ;009A37|0006D3;
+   LDA.W Object_Script_Index,X          ;009A37|0006D3;
    AND.W #$7FFF                         ;009A3A|      ;
    STA.W $063F                          ;009A3D|00063F;
 CODE_009A40:
    TAX                                  ;009A40|      ;
-   LDA.W $0AE7,X                        ;009A41|000AE7;
+   LDA.W Object_SCR_Next,X              ;009A41|000AE7;
    BPL CODE_009A40                      ;009A44|009A40;
    PLA                                  ;009A46|      ;
-   STA.W $0AE7,X                        ;009A47|000AE7;
+   STA.W Object_SCR_Next,X              ;009A47|000AE7;
    PLX                                  ;009A4A|      ;
 CODE_009A4B:
    RTS                                  ;009A4B|      ;
@@ -3723,13 +3723,13 @@ CODE_009A68:
    LDX.B $00                            ;009A68|000000;
    PLD                                  ;009A6A|      ;
    RTS                                  ;009A6B|      ;
-Return_Carry:
-   LDY.W $063F                          ;009A6C|00063F; Never seen set carry, return before
+Allocate_Script_Slot:
+   LDY.W $063F                          ;009A6C|00063F; Takes in an offset $063F and gets the ...offset it's pointing to. Or fails silently if the offset is -1.
    BPL CODE_009A73                      ;009A6F|009A73;
    SEC                                  ;009A71|      ;
    RTS                                  ;009A72|      ;
 CODE_009A73:
-   LDA.W $0AE7,Y                        ;009A73|000AE7;
+   LDA.W Object_SCR_Next,Y              ;009A73|000AE7;
    STA.W $063F                          ;009A76|00063F;
    CLC                                  ;009A79|      ;
    RTS                                  ;009A7A|      ;
@@ -3738,25 +3738,25 @@ Stuff:
    JMP.W CODE_009A81                    ;009A7E|009A81;
 CODE_009A81:
    LDA.W $063F                          ;009A81|00063F;
-   STA.W $0AE7,Y                        ;009A84|000AE7;
+   STA.W Object_SCR_Next,Y              ;009A84|000AE7;
    STY.W $063F                          ;009A87|00063F;
    RTS                                  ;009A8A|      ;
 CODE_009A8B:
    PHX                                  ;009A8B|      ;
    JSR.W CODE_009AAA                    ;009A8C|009AAA;
-   LDA.W $0AE7,Y                        ;009A8F|000AE7;
+   LDA.W Object_SCR_Next,Y              ;009A8F|000AE7;
    CPX.W #$FFFF                         ;009A92|      ;
    BEQ CODE_009A9D                      ;009A95|009A9D;
-   STA.W $0AE7,X                        ;009A97|000AE7;
+   STA.W Object_SCR_Next,X              ;009A97|000AE7;
    PLX                                  ;009A9A|      ;
    BRA CODE_009AA1                      ;009A9B|009AA1;
 CODE_009A9D:
    PLX                                  ;009A9D|      ;
-   STA.W $06D3,X                        ;009A9E|0006D3;
+   STA.W Object_Script_Index,X          ;009A9E|0006D3;
 CODE_009AA1:
-   CPY.W LoopVar_1047                   ;009AA1|001047;
+   CPY.W Prev_Script_Slot               ;009AA1|001047;
    BNE CODE_009AA9                      ;009AA4|009AA9;
-   STA.W LoopVar_1047                   ;009AA6|001047;
+   STA.W Prev_Script_Slot               ;009AA6|001047;
 CODE_009AA9:
    RTS                                  ;009AA9|      ;
 CODE_009AAA:
@@ -3768,13 +3768,13 @@ CODE_009AAA:
    TCD                                  ;009AB1|      ;
    PLA                                  ;009AB2|      ;
    STY.B $00                            ;009AB3|000000;
-   LDY.W $06D3,X                        ;009AB5|0006D3;
+   LDY.W Object_Script_Index,X          ;009AB5|0006D3;
    LDX.W #$FFFF                         ;009AB8|      ;
 CODE_009ABB:
    CPY.B $00                            ;009ABB|000000;
    BEQ CODE_009AC6                      ;009ABD|009AC6;
    TYX                                  ;009ABF|      ;
-   LDA.W $0AE7,Y                        ;009AC0|000AE7;
+   LDA.W Object_SCR_Next,Y              ;009AC0|000AE7;
    TAY                                  ;009AC3|      ;
    BRA CODE_009ABB                      ;009AC4|009ABB;
 CODE_009AC6:
@@ -3784,24 +3784,24 @@ CODE_009AC6:
 CODE_009ACA:
    STY.B $24                            ;009ACA|000024;
    STZ.B $00                            ;009ACC|000000;
-   LDA.W $06D3,X                        ;009ACE|0006D3;
+   LDA.W Object_Script_Index,X          ;009ACE|0006D3;
    CMP.B $24                            ;009AD1|000024;
    BEQ CODE_009ADF                      ;009AD3|009ADF;
 CODE_009AD5:
    INC.B $00                            ;009AD5|000000;
    TAY                                  ;009AD7|      ;
-   LDA.W $0AE7,Y                        ;009AD8|000AE7;
+   LDA.W Object_SCR_Next,Y              ;009AD8|000AE7;
    CMP.B $24                            ;009ADB|000024;
    BNE CODE_009AD5                      ;009ADD|009AD5;
 CODE_009ADF:
    LDA.B $00                            ;009ADF|000000;
    RTS                                  ;009AE1|      ;
 Highlander_1047:
-   LDY.W $06D3,X                        ;009AE2|0006D3; $06D3,x is the list of $1049 offsets, $0AE7,x is the list of $1047 offsets. This seems to clear all but the last one?
+   LDY.W Object_Script_Index,X          ;009AE2|0006D3; $06D3,x is the list of $1049 offsets, $0AE7,x is the list of $1047 offsets. This seems to clear all but the last one?
    DEC A                                ;009AE5|      ;
    BMI CODE_009AEF                      ;009AE6|009AEF;
 CODE_009AE8:
-   LDA.W $0AE7,Y                        ;009AE8|000AE7;
+   LDA.W Object_SCR_Next,Y              ;009AE8|000AE7;
    TAY                                  ;009AEB|      ;
    DEC A                                ;009AEC|      ;
    BPL CODE_009AE8                      ;009AED|009AE8;
@@ -3842,69 +3842,69 @@ CODE_009B17:
 CODE_009B23:
    JMP.W CODE_009B26                    ;009B23|009B26;
 CODE_009B26:
-   LDA.W $07F3,X                        ;009B26|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;009B26|0007F3;
    SEC                                  ;009B29|      ;
-   SBC.W $07F3,Y                        ;009B2A|0007F3;
-   STA.W $07F3,X                        ;009B2D|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;009B30|000787;
-   SBC.W Cursor_Array_Xpos,Y            ;009B33|0006F7;
-   STA.W Cursor_Array_Xpos_Copy,X       ;009B36|000787;
-   LDA.W $0817,X                        ;009B39|000817;
+   SBC.W Object_XPOS_fractional,Y       ;009B2A|0007F3;
+   STA.W Object_XPOS_fractional,X       ;009B2D|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;009B30|000787;
+   SBC.W Object_XPOS,Y                  ;009B33|0006F7;
+   STA.W Object_XPOS_mirror,X           ;009B36|000787;
+   LDA.W Object_YPOS_fractional,X       ;009B39|000817;
    SEC                                  ;009B3C|      ;
-   SBC.W $0817,Y                        ;009B3D|000817;
-   STA.W $0817,X                        ;009B40|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;009B43|0007AB;
-   SBC.W Cursor_Array_Ypos,Y            ;009B46|00071B;
-   STA.W Cursor_Array_Ypos_Copy,X       ;009B49|0007AB;
-   LDA.W $083B,X                        ;009B4C|00083B;
+   SBC.W Object_YPOS_fractional,Y       ;009B3D|000817;
+   STA.W Object_YPOS_fractional,X       ;009B40|000817;
+   LDA.W Object_YPOS_mirror,X           ;009B43|0007AB;
+   SBC.W Object_YPOS,Y                  ;009B46|00071B;
+   STA.W Object_YPOS_mirror,X           ;009B49|0007AB;
+   LDA.W Object_ZPOS_fractional,X       ;009B4C|00083B;
    SEC                                  ;009B4F|      ;
-   SBC.W $083B,Y                        ;009B50|00083B;
-   STA.W $083B,X                        ;009B53|00083B;
-   LDA.W $07CF,X                        ;009B56|0007CF;
-   SBC.W $073F,Y                        ;009B59|00073F;
-   STA.W $07CF,X                        ;009B5C|0007CF;
+   SBC.W Object_ZPOS_fractional,Y       ;009B50|00083B;
+   STA.W Object_ZPOS_fractional,X       ;009B53|00083B;
+   LDA.W Object_ZPOS_mirror,X           ;009B56|0007CF;
+   SBC.W Object_ZPOS,Y                  ;009B59|00073F;
+   STA.W Object_ZPOS_mirror,X           ;009B5C|0007CF;
    RTS                                  ;009B5F|      ;
 CODE_009B60:
-   LDA.W $07F3,X                        ;009B60|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;009B60|0007F3;
    CLC                                  ;009B63|      ;
-   ADC.W $0FFF,Y                        ;009B64|000FFF;
-   STA.W $07F3,X                        ;009B67|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;009B6A|000787;
-   ADC.W $0FEF,Y                        ;009B6D|000FEF;
-   STA.W Cursor_Array_Xpos_Copy,X       ;009B70|000787;
-   LDA.W $0817,X                        ;009B73|000817;
+   ADC.W Object_XPOS_unk2,Y             ;009B64|000FFF;
+   STA.W Object_XPOS_fractional,X       ;009B67|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;009B6A|000787;
+   ADC.W Object_XPOS_unk1,Y             ;009B6D|000FEF;
+   STA.W Object_XPOS_mirror,X           ;009B70|000787;
+   LDA.W Object_YPOS_fractional,X       ;009B73|000817;
    CLC                                  ;009B76|      ;
-   ADC.W $1007,Y                        ;009B77|001007;
-   STA.W $0817,X                        ;009B7A|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;009B7D|0007AB;
-   ADC.W $0FF7,Y                        ;009B80|000FF7;
-   STA.W Cursor_Array_Ypos_Copy,X       ;009B83|0007AB;
+   ADC.W Object_YPOS_unk2,Y             ;009B77|001007;
+   STA.W Object_YPOS_fractional,X       ;009B7A|000817;
+   LDA.W Object_YPOS_mirror,X           ;009B7D|0007AB;
+   ADC.W Object_YPOS_unk1,Y             ;009B80|000FF7;
+   STA.W Object_YPOS_mirror,X           ;009B83|0007AB;
    RTS                                  ;009B86|      ;
 CODE_009B87:
    LDA.W $06AF,X                        ;009B87|0006AF;
    AND.W #$3FFF                         ;009B8A|      ;
    TAY                                  ;009B8D|      ;
-   LDA.W $07F3,X                        ;009B8E|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;009B8E|0007F3;
    CLC                                  ;009B91|      ;
-   ADC.W $07F3,Y                        ;009B92|0007F3;
-   STA.W $07F3,X                        ;009B95|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;009B98|000787;
-   ADC.W Cursor_Array_Xpos,Y            ;009B9B|0006F7;
-   STA.W Cursor_Array_Xpos_Copy,X       ;009B9E|000787;
-   LDA.W $0817,X                        ;009BA1|000817;
+   ADC.W Object_XPOS_fractional,Y       ;009B92|0007F3;
+   STA.W Object_XPOS_fractional,X       ;009B95|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;009B98|000787;
+   ADC.W Object_XPOS,Y                  ;009B9B|0006F7;
+   STA.W Object_XPOS_mirror,X           ;009B9E|000787;
+   LDA.W Object_YPOS_fractional,X       ;009BA1|000817;
    CLC                                  ;009BA4|      ;
-   ADC.W $0817,Y                        ;009BA5|000817;
-   STA.W $0817,X                        ;009BA8|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;009BAB|0007AB;
-   ADC.W Cursor_Array_Ypos,Y            ;009BAE|00071B;
-   STA.W Cursor_Array_Ypos_Copy,X       ;009BB1|0007AB;
-   LDA.W $083B,X                        ;009BB4|00083B;
+   ADC.W Object_YPOS_fractional,Y       ;009BA5|000817;
+   STA.W Object_YPOS_fractional,X       ;009BA8|000817;
+   LDA.W Object_YPOS_mirror,X           ;009BAB|0007AB;
+   ADC.W Object_YPOS,Y                  ;009BAE|00071B;
+   STA.W Object_YPOS_mirror,X           ;009BB1|0007AB;
+   LDA.W Object_ZPOS_fractional,X       ;009BB4|00083B;
    CLC                                  ;009BB7|      ;
-   ADC.W $083B,Y                        ;009BB8|00083B;
-   STA.W $083B,X                        ;009BBB|00083B;
-   LDA.W $07CF,X                        ;009BBE|0007CF;
-   ADC.W $073F,Y                        ;009BC1|00073F;
-   STA.W $07CF,X                        ;009BC4|0007CF;
+   ADC.W Object_ZPOS_fractional,Y       ;009BB8|00083B;
+   STA.W Object_ZPOS_fractional,X       ;009BBB|00083B;
+   LDA.W Object_ZPOS_mirror,X           ;009BBE|0007CF;
+   ADC.W Object_ZPOS,Y                  ;009BC1|00073F;
+   STA.W Object_ZPOS_mirror,X           ;009BC4|0007CF;
    STZ.W $06AF,X                        ;009BC7|0006AF;
    RTS                                  ;009BCA|      ;
 CODE_009BCB:
@@ -3912,27 +3912,27 @@ CODE_009BCB:
    AND.W #$3FFF                         ;009BCE|      ;
    ASL A                                ;009BD1|      ;
    TAY                                  ;009BD2|      ;
-   LDA.W $07F3,X                        ;009BD3|0007F3;
+   LDA.W Object_XPOS_fractional,X       ;009BD3|0007F3;
    SEC                                  ;009BD6|      ;
-   SBC.W $0FFF,Y                        ;009BD7|000FFF;
-   STA.W $07F3,X                        ;009BDA|0007F3;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;009BDD|000787;
-   SBC.W $0FEF,Y                        ;009BE0|000FEF;
-   STA.W Cursor_Array_Xpos_Copy,X       ;009BE3|000787;
-   LDA.W $0817,X                        ;009BE6|000817;
+   SBC.W Object_XPOS_unk2,Y             ;009BD7|000FFF;
+   STA.W Object_XPOS_fractional,X       ;009BDA|0007F3;
+   LDA.W Object_XPOS_mirror,X           ;009BDD|000787;
+   SBC.W Object_XPOS_unk1,Y             ;009BE0|000FEF;
+   STA.W Object_XPOS_mirror,X           ;009BE3|000787;
+   LDA.W Object_YPOS_fractional,X       ;009BE6|000817;
    SEC                                  ;009BE9|      ;
-   SBC.W $1007,Y                        ;009BEA|001007;
-   STA.W $0817,X                        ;009BED|000817;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;009BF0|0007AB;
-   SBC.W $0FF7,Y                        ;009BF3|000FF7;
-   STA.W Cursor_Array_Ypos_Copy,X       ;009BF6|0007AB;
+   SBC.W Object_YPOS_unk2,Y             ;009BEA|001007;
+   STA.W Object_YPOS_fractional,X       ;009BED|000817;
+   LDA.W Object_YPOS_mirror,X           ;009BF0|0007AB;
+   SBC.W Object_YPOS_unk1,Y             ;009BF3|000FF7;
+   STA.W Object_YPOS_mirror,X           ;009BF6|0007AB;
    STZ.W $06AF,X                        ;009BF9|0006AF;
    RTS                                  ;009BFC|      ;
 CODE_009BFD:
    LDA.W #$8E28                         ;009BFD|      ; Loads a pointer onto the stack? But it seems to point to an RTL
-   STA.W Stack_addr_ptr,X               ;009C00|000A33;
+   STA.W Object_OnTick_ptr,X            ;009C00|000A33;
    LDA.W #$0000                         ;009C03|      ;
-   STA.W Stack_addr_bank,X              ;009C06|000A57;
+   STA.W Object_OnTick_bank,X           ;009C06|000A57;
    RTS                                  ;009C09|      ;
 Sound_byte_1b:
    JSR.W GetEventCode_1b                ;009C0A|009AF0;
@@ -3984,36 +3984,36 @@ Some_Setup_12b:
    LDA.W #$0024                         ;009C60|      ;
    STA.W $0639                          ;009C63|000639;
 CODE_009C66:
-   LDX.W Selection                      ;009C66|00103F;
+   LDX.W Selection_offset               ;009C66|00103F;
    JSR.W GetEventCode_2b                ;009C69|009B00;
    PHA                                  ;009C6C|      ;
    AND.W #$8000                         ;009C6D|      ;
-   ORA.W Selection                      ;009C70|00103F;
+   ORA.W Selection_offset               ;009C70|00103F;
    ORA.W #$4000                         ;009C73|      ;
    STA.W $0635                          ;009C76|000635;
    JSR.W GetEventCode_2b                ;009C79|009B00;
    CLC                                  ;009C7C|      ;
-   ADC.W Cursor_Array_Xpos,X            ;009C7D|0006F7;
+   ADC.W Object_XPOS,X                  ;009C7D|0006F7;
    PHA                                  ;009C80|      ;
    JSR.W GetEventCode_2b                ;009C81|009B00;
    CLC                                  ;009C84|      ;
-   ADC.W Cursor_Array_Ypos,X            ;009C85|00071B;
+   ADC.W Object_YPOS,X                  ;009C85|00071B;
    TAY                                  ;009C88|      ;
    JSR.W GetEventCode_2b                ;009C89|009B00;
    CLC                                  ;009C8C|      ;
-   ADC.W $073F,X                        ;009C8D|00073F;
+   ADC.W Object_ZPOS,X                  ;009C8D|00073F;
    STA.W $0633                          ;009C90|000633;
    JSR.W GetEventCode_2b                ;009C93|009B00;
    STA.W $062B                          ;009C96|00062B;
    JSR.W GetEventCode_2b                ;009C99|009B00;
    CLC                                  ;009C9C|      ;
-   ADC.W Array_Category,X               ;009C9D|0009C7;
+   ADC.W Object_var1_Category,X         ;009C9D|0009C7;
    STA.W Temp_party_order               ;009CA0|00062D;
    STX.W $062F                          ;009CA3|00062F;
    PLX                                  ;009CA6|      ;
    PLA                                  ;009CA7|      ;
    AND.W #$7FFF                         ;009CA8|      ;
-   JMP.W Way_more_anim_stuff            ;009CAB|008D24;
+   JMP.W Setup_Code_Ptr                 ;009CAB|008D24;
 Load_Sprite_14b:
    JSR.W GetEventCode_1b                ;009CAE|009AF0; Byte eleven (ten) determines travel order (0, 8, 10). Byte0: $0637, Byte1: $0639, Byte2-3 Bit15 affects $0635, the rest loaded to A, Byte4-5 plus $06F7,x is loaded to X, Byte6-7 plus $071B,x is loaded to Y, Byte8-9 plus $073F,x is loaded to $0633, Byte10-11 plus $09C7,x is loaded to $062D, $103F is loaded to $062F
    STA.W $0637                          ;009CB1|000637;
@@ -4033,7 +4033,7 @@ Menu_Stuffs_1b:
    TAX                                  ;009CCD|      ;
    LDA.W Tbl_Actor_Arrays,X             ;009CCE|009739;
    STA.B $18                            ;009CD1|000018;
-   LDY.W Selection                      ;009CD3|00103F;
+   LDY.W Selection_offset               ;009CD3|00103F;
    LDA.B ($18),Y                        ;009CD6|000018;
    TAX                                  ;009CD8|      ;
    JML.L A_buncha_stuff_far             ;009CD9|00995C;
@@ -4046,7 +4046,7 @@ CODE_009CE5:
 CODE_009CE8:
    LDA.W $0667,X                        ;009CE8|000667;
    PHA                                  ;009CEB|      ;
-   CPX.W Selection                      ;009CEC|00103F;
+   CPX.W Selection_offset               ;009CEC|00103F;
    BEQ CODE_009CF5                      ;009CEF|009CF5;
    JSL.L A_buncha_stuff_far             ;009CF1|00995C;
 CODE_009CF5:
@@ -4159,7 +4159,7 @@ SubScr_Add_1b:
    SEP #$20                             ;009DC9|      ;
    ORA.W Subscreen_temp                 ;009DCB|001058;
    STA.W Subscreen_temp                 ;009DCE|001058;
-   STA.W Sub_scr_desig                  ;009DD1|00212D;
+   STA.W Sub_scr_enable                 ;009DD1|00212D;
    REP #$20                             ;009DD4|      ;
    RTL                                  ;009DD6|      ;
 SubScr_Remove_1b:
@@ -4168,7 +4168,7 @@ SubScr_Remove_1b:
    EOR.B #$FF                           ;009DDC|      ;
    AND.W Subscreen_temp                 ;009DDE|001058;
    STA.W Subscreen_temp                 ;009DE1|001058;
-   STA.W Sub_scr_desig                  ;009DE4|00212D;
+   STA.W Sub_scr_enable                 ;009DE4|00212D;
    REP #$20                             ;009DE7|      ;
    RTL                                  ;009DE9|      ;
 CODE_009DEA:
@@ -4178,9 +4178,9 @@ CODE_009DED:
    ASL A                                ;009DF0|      ;
    TAX                                  ;009DF1|      ;
    LDA.W Unknown_Table,X                ;009DF2|009E06;
-   STA.W $0FEF,Y                        ;009DF5|000FEF;
+   STA.W Object_XPOS_unk1,Y             ;009DF5|000FEF;
    LDA.W DATA16_009E0E,X                ;009DF8|009E0E;
-   STA.W $0FF7,Y                        ;009DFB|000FF7;
+   STA.W Object_YPOS_unk1,Y             ;009DFB|000FF7;
    INY                                  ;009DFE|      ;
    INY                                  ;009DFF|      ;
    CPY.W #$0008                         ;009E00|      ;
@@ -4294,8 +4294,8 @@ Decr_Mosaic_Size:
 CODE_009EDD:
    REP #$20                             ;009EDD|      ;
    RTL                                  ;009EDF|      ;
-DMA_xfer_6b:
-   JSR.W GetEventCode_1b                ;009EE0|009AF0;
+HDMA_xfer_6b:
+   JSR.W GetEventCode_1b                ;009EE0|009AF0; (1b) HDMA channel, (1b) transfer pattern [(#0: 1b) (#1-2: 2b) (#3-4: 4b)], (1b) PPU register $21xx, (3b) Read/write address
    PHA                                  ;009EE3|      ;
    ASL A                                ;009EE4|      ;
    ASL A                                ;009EE5|      ;
@@ -4320,11 +4320,11 @@ DMA_xfer_6b:
    STA.W DMA0_Dest,X                    ;009F09|004301;
    PLA                                  ;009F0C|      ;
    PLA                                  ;009F0D|      ;
-   STA.W DMA0_Ctrl,X                    ;009F0E|004300;
+   STA.W DMA0_Control,X                 ;009F0E|004300;
    PLA                                  ;009F11|      ;
    PLX                                  ;009F12|      ;
    LDA.W HDMA_ch_temp                   ;009F13|00105A;
-   ORA.W DATA16_008C54,X                ;009F16|008C54;
+   ORA.W Tbl_HDMA_Bitflag,X             ;009F16|008C54;
    STA.W HDMA_ch_temp                   ;009F19|00105A;
    REP #$20                             ;009F1C|      ;
    RTL                                  ;009F1E|      ;
@@ -4350,7 +4350,7 @@ Color_Add_Select_2b:
    LDA.W Color_Add_temp                 ;009F41|001061;
    AND.B #$FD                           ;009F44|      ;
    STA.W Color_Add_temp                 ;009F46|001061;
-   STA.W Color_add_select               ;009F49|002130;
+   STA.W Color_window                   ;009F49|002130;
    REP #$20                             ;009F4C|      ;
    RTL                                  ;009F4E|      ;
 Color_Math_Desig_2b:
@@ -4367,7 +4367,7 @@ Color_Math_Desig_2b:
    AND.B #$3F                           ;009F63|      ;
    ORA.B $20                            ;009F65|000020;
    STA.W Color_Math_temp                ;009F67|001062;
-   STA.W Color_math_desig               ;009F6A|002131;
+   STA.W Color_math                     ;009F6A|002131;
    REP #$20                             ;009F6D|      ;
    RTS                                  ;009F6F|      ;
 Set_CGADSUB_1b:
@@ -4376,7 +4376,7 @@ Set_CGADSUB_1b:
    EOR.B #$FF                           ;009F75|      ;
    AND.W Color_Math_temp                ;009F77|001062;
    STA.W Color_Math_temp                ;009F7A|001062;
-   STA.W Color_math_desig               ;009F7D|002131;
+   STA.W Color_math                     ;009F7D|002131;
    REP #$20                             ;009F80|      ;
    RTL                                  ;009F82|      ;
 Set_RGB_3b:
@@ -4457,7 +4457,7 @@ Add_RGB_3b:
    JMP.W Set_color_planes               ;00A00C|009FA1;
 WasBtnPressed_2b:
    LDX.W Fn_results                     ;00A00F|001041; Reads the next word in $10, compares it with current button presses
-   LDA.W Array_Fn_results1,X            ;00A012|000CB3;
+   LDA.W Object_Accumulator,X           ;00A012|000CB3;
    ASL A                                ;00A015|      ;
    TAX                                  ;00A016|      ;
    JSR.W GetEventCode_2b                ;00A017|009B00;
@@ -4467,7 +4467,7 @@ WasBtnPressed_2b:
    RTL                                  ;00A021|      ;
 WasBtnPressedX_2b:
    LDX.W Fn_results                     ;00A022|001041; Takes 2 bytes (0080=A, 8000=B)
-   LDA.W Array_Fn_results1,X            ;00A025|000CB3;
+   LDA.W Object_Accumulator,X           ;00A025|000CB3;
    ASL A                                ;00A028|      ;
    TAX                                  ;00A029|      ;
    JSR.W GetEventCode_2b                ;00A02A|009B00;
@@ -4504,7 +4504,7 @@ Loop_til_RAM_is_val_2b_2b:
    STA.B $10                            ;00A063|000010;
    LDX.W Fn_results                     ;00A065|001041;
    LDA.W #$0001                         ;00A068|      ;
-   STA.W Array_Anim_Loopvar,X           ;00A06B|000B9F; Set some function result
+   STA.W Object_SCR_Wait_Timer,X        ;00A06B|000B9F; Set some function result
 CODE_00A06E:
    RTL                                  ;00A06E|      ;
 RAM_minus_val_2b_2b:
@@ -4531,8 +4531,8 @@ CODE_00A088:
    PLA                                  ;00A092|      ;
    JSR.W Zero_more_stuff                ;00A093|00A64D;
    RTL                                  ;00A096|      ;
-GetPtr_3b_Do_stuff_1b:
-   JSR.W GetEventCode_2b                ;00A097|009B00;
+Text_Init_3b_1b:
+   JSR.W GetEventCode_2b                ;00A097|009B00; (3b) Location of 5b temp text values; (1b) which text array to use (0: $109B, 1: $109B+28)
    STA.B $00                            ;00A09A|000000;
    JSR.W GetEventCode_1b                ;00A09C|009AF0;
    STA.B $02                            ;00A09F|000002;
@@ -4595,8 +4595,8 @@ Transfer_Setup2_6b:
    STA.B $09                            ;00A112|000009; Sets offset
    JSR.W GetEventCode_2b                ;00A114|009B00; Bytes to transfer(2b)
    TAY                                  ;00A117|      ;
-   LDX.W Selection                      ;00A118|00103F;
-   LDA.W Array_Selection,X              ;00A11B|0009EB;
+   LDX.W Selection_offset               ;00A118|00103F;
+   LDA.W Object_var2_Selection,X        ;00A11B|0009EB;
    ASL A                                ;00A11E|      ;
    TAX                                  ;00A11F|      ;
    LDA.L Tbl_A105,X                     ;00A120|00A138; Read dest offset based on context table
@@ -4650,7 +4650,7 @@ Confusing_RAM_Xfer_3b_4b:
    TAX                                  ;00A172|      ;
    LDA.L Tbl_Actor_Arrays,X             ;00A173|009739; Load 1 of 4 actor arrays from parameter 7
    STA.B $1C                            ;00A177|00001C;
-   LDY.W Selection                      ;00A179|00103F;
+   LDY.W Selection_offset               ;00A179|00103F;
    LDA.B ($1C),Y                        ;00A17C|00001C; Check if p7 value < p6 (i.e. $09A3,x < $#04)
    CMP.B $20                            ;00A17E|000020;
    BCC CODE_00A187                      ;00A180|00A187;
@@ -4699,32 +4699,32 @@ Loop_Xfer_Bytes:
    ADC.W #$0007                         ;00A1D0|      ;
    STA.B $10                            ;00A1D3|000010;
    RTL                                  ;00A1D5|      ;
-PtrTable_8DAD:
-   dl Script_18321                      ;00A1D6|018321; 216 entries (???)
-   dl Event_018A68                      ;00A1D9|018A68;
-   dl DATA8_01A32F                      ;00A1DC|01A32F;
-   dl DATA8_01A477                      ;00A1DF|01A477;
+Tbl_Events_Code:
+   dl Event_Main_00                     ;00A1D6|018321; Loaded from 00/8DAD with the corresponding tile data from Tbl_Events_TileData
+   dl Event_Main_01                     ;00A1D9|018A68;
+   dl Event_Main_02                     ;00A1DC|01A32F;
+   dl Event_Main_03                     ;00A1DF|01A477;
    dl Bank_05_Stat_Handling             ;00A1E2|058001;
-   dl DATA8_058645                      ;00A1E5|058645;
-   dl DATA8_05884E                      ;00A1E8|05884E;
-   dl DATA8_0589EB                      ;00A1EB|0589EB;
-   dl DATA8_058B88                      ;00A1EE|058B88;
-   dl DATA8_058D25                      ;00A1F1|058D25;
-   dl DATA8_058F57                      ;00A1F4|058F57;
-   dl DATA8_05910A                      ;00A1F7|05910A;
-   dl DATA8_059318                      ;00A1FA|059318;
-   dl DATA8_0594CB                      ;00A1FD|0594CB;
-   dl DATA8_059552                      ;00A200|059552;
-   dl DATA8_0595D1                      ;00A203|0595D1;
-   dl Bank_0F_Battle_anims              ;00A206|0F8001;
-   dl Event_Spell_Animation             ;00A209|0FCB2B;
+   dl Event_Main_05                     ;00A1E5|058645;
+   dl Event_Main_06                     ;00A1E8|05884E;
+   dl Event_Main_07                     ;00A1EB|0589EB;
+   dl Event_Main_08                     ;00A1EE|058B88;
+   dl Event_Main_09                     ;00A1F1|058D25;
+   dl Event_Main_0A                     ;00A1F4|058F57;
+   dl Event_Main_0B                     ;00A1F7|05910A;
+   dl Event_Main_0C                     ;00A1FA|059318;
+   dl Event_Main_0D                     ;00A1FD|0594CB;
+   dl Event_Main_0E                     ;00A200|059552;
+   dl Event_Main_0F                     ;00A203|0595D1;
+   dl Bank_0F_Battle_anims              ;00A206|0F8001; Event_Main_10 (Battle animations)
+   dl Event_Spell_Animations            ;00A209|0FCB2B; Event_Main_11 (Spell animations)
 Event_Brancher:
-   dl Call_Event_ASM                    ;00A20C|18968B;
-   dl DATA8_01A0D8                      ;00A20F|01A0D8;
-   dl Bank17_event_code                 ;00A212|17804D;
-   dl DATA8_178C43                      ;00A215|178C43;
-   dl DATA8_18849C                      ;00A218|18849C;
-   dl DATA8_18D9D9                      ;00A21B|18D9D9;
+   dl Event_Main_12                     ;00A20C|18968B; Called from 8D9C based on 0643,x
+   dl Event_Main_13                     ;00A20F|01A0D8;
+   dl Event_Main_14                     ;00A212|17804D;
+   dl Event_Main_15                     ;00A215|178C43;
+   dl Event_Main_16                     ;00A218|18849C;
+   dl Event_Main_17                     ;00A21B|18D9D9;
    dl LoadData_Enemy00                  ;00A21E|028001;
    dl LoadData_Enemy01                  ;00A221|028137;
    dl LoadData_Enemy02                  ;00A224|028255;
@@ -4805,29 +4805,29 @@ Event_Brancher:
    dl LoadData_Enemy4D                  ;00A305|02C770;
    dl LoadData_Enemy4E                  ;00A308|02C7E5;
    dl LoadData_Enemy4F                  ;00A30B|02C867;
-   dl DATA8_03CAAD                      ;00A30E|03CAAD;
-   dl DATA8_03ADFE                      ;00A311|03ADFE;
-   dl DATA8_01B807                      ;00A314|01B807;
-   dl DATA8_01BC51                      ;00A317|01BC51;
-Tbl_Anims_8DFA:
-   dl Event_018A68                      ;00A31A|018A68;
-   dl Tbl_018C6B                        ;00A31D|018C6B;
-   dl Tbl_01A467                        ;00A320|01A467;
-   dl Tbl_01B4CA                        ;00A323|01B4CA;
-   dl Tbl_0581F8                        ;00A326|0581F8;
-   dl Tbl_058834                        ;00A329|058834;
-   dl Tbl_058834                        ;00A32C|058834;
-   dl Tbl_058834                        ;00A32F|058834;
-   dl Tbl_058834                        ;00A332|058834;
-   dl Tbl_058F3D                        ;00A335|058F3D;
-   dl Tbl_0590F0                        ;00A338|0590F0;
-   dl Tbl_0592FE                        ;00A33B|0592FE;
-   dl Tbl_0594B1                        ;00A33E|0594B1;
-   dl Tbl_059542                        ;00A341|059542;
-   dl Tbl_0595C1                        ;00A344|0595C1;
-   dl Tbl_059640                        ;00A347|059640;
-   dl Tbl_Animation_Data                ;00A34A|0F817A;
-   dl Tbl_0FD024                        ;00A34D|0FD024;
+   dl Event_Main_68                     ;00A30E|03CAAD;
+   dl Event_Main_69                     ;00A311|03ADFE;
+   dl Event_Main_6A                     ;00A314|01B807;
+   dl Event_Main_6B                     ;00A317|01BC51;
+Tbl_Events_TileData:
+   dl Event_Main_01                     ;00A31A|018A68; Loaded from 00/8DFA with the corresponding entry from Tbl_EventCode
+   dl Tbl_Tileset_Event01               ;00A31D|018C6B;
+   dl Tbl_Tileset_Event02               ;00A320|01A467;
+   dl Tbl_Tileset_Event03               ;00A323|01B4CA;
+   dl Tbl_Tileset_Event04               ;00A326|0581F8;
+   dl Tbl_Tileset_Event05060708         ;00A329|058834;
+   dl Tbl_Tileset_Event05060708         ;00A32C|058834;
+   dl Tbl_Tileset_Event05060708         ;00A32F|058834;
+   dl Tbl_Tileset_Event05060708         ;00A332|058834;
+   dl Tbl_Tileset_Event09               ;00A335|058F3D;
+   dl Tbl_Tileset_Event0A               ;00A338|0590F0;
+   dl Tbl_Tileset_Event0B               ;00A33B|0592FE;
+   dl Tbl_Tileset_Event0C               ;00A33E|0594B1;
+   dl Tbl_Tileset_Event0D               ;00A341|059542;
+   dl Tbl_Tileset_Event0E               ;00A344|0595C1;
+   dl Tbl_Tileset_Event0F               ;00A347|059640;
+   dl Tbl_Tileset_Event10               ;00A34A|0F817A; Tiles for battle animations
+   dl Tbl_Tileset_Spell_Animations      ;00A34D|0FD024; Tiles for spell animations
    dl Tbl_1CC0D9                        ;00A350|1CC0D9;
    dl Tbl_01A30F                        ;00A353|01A30F;
    dl Tbl_1784CE                        ;00A356|1784CE;
@@ -4853,89 +4853,90 @@ Tbl_Anims_8DFA:
    dl Tbl_098CF1                        ;00A392|098CF1;
    dl Tbl_098D79                        ;00A395|098D79;
    dl Tbl_098E1F                        ;00A398|098E1F;
-   dl UNREACH_098F5D                    ;00A39B|098F5D;
-   dl UNREACH_099069                    ;00A39E|099069;
-   dl UNREACH_099635                    ;00A3A1|099635;
-   dl UNREACH_0997D7                    ;00A3A4|0997D7;
-   dl UNREACH_0998B3                    ;00A3A7|0998B3;
-   dl UNREACH_099923                    ;00A3AA|099923;
-   dl UNREACH_09996D                    ;00A3AD|09996D;
-   dl UNREACH_0999D3                    ;00A3B0|0999D3;
-   dl UNREACH_099A95                    ;00A3B3|099A95;
-   dl UNREACH_099B03                    ;00A3B6|099B03;
-   dl UNREACH_099B89                    ;00A3B9|099B89;
-   dl UNREACH_099C4D                    ;00A3BC|099C4D;
-   dl UNREACH_099D51                    ;00A3BF|099D51;
-   dl UNREACH_099DC3                    ;00A3C2|099DC3;
-   dl UNREACH_099E49                    ;00A3C5|099E49;
-   dl UNREACH_099F0D                    ;00A3C8|099F0D;
-   dl UNREACH_099F7B                    ;00A3CB|099F7B;
-   dl UNREACH_09A03D                    ;00A3CE|09A03D;
-   dl UNREACH_09A141                    ;00A3D1|09A141;
-   dl UNREACH_09A205                    ;00A3D4|09A205;
-   dl UNREACH_09A3AE                    ;00A3D7|09A3AE;
-   dl UNREACH_09A5EE                    ;00A3DA|09A5EE;
-   dl UNREACH_09A656                    ;00A3DD|09A656;
-   dl UNREACH_09A6BE                    ;00A3E0|09A6BE;
-   dl UNREACH_09A708                    ;00A3E3|09A708;
-   dl UNREACH_09A76E                    ;00A3E6|09A76E;
-   dl UNREACH_09A830                    ;00A3E9|09A830;
-   dl UNREACH_09A8F8                    ;00A3EC|09A8F8;
-   dl UNREACH_09A966                    ;00A3EF|09A966;
-   dl UNREACH_09AA28                    ;00A3F2|09AA28;
-   dl UNREACH_09AAB4                    ;00A3F5|09AAB4;
-   dl UNREACH_09AB3C                    ;00A3F8|09AB3C;
-   dl UNREACH_09AC00                    ;00A3FB|09AC00;
-   dl UNREACH_09ACC8                    ;00A3FE|09ACC8;
-   dl UNREACH_09ADCC                    ;00A401|09ADCC;
-   dl UNREACH_09AE90                    ;00A404|09AE90;
-   dl UNREACH_09AF52                    ;00A407|09AF52;
-   dl UNREACH_09B1F4                    ;00A40A|09B1F4;
-   dl UNREACH_09B4A7                    ;00A40D|09B4A7;
-   dl UNREACH_09B557                    ;00A410|09B557;
-   dl UNREACH_09B6F1                    ;00A413|09B6F1;
-   dl UNREACH_09B7AF                    ;00A416|09B7AF;
-   dl UNREACH_09B871                    ;00A419|09B871;
-   dl UNREACH_09B96F                    ;00A41C|09B96F;
-   dl UNREACH_09BA6F                    ;00A41F|09BA6F;
-   dl UNREACH_09BABB                    ;00A422|09BABB;
-   dl UNREACH_09BB7B                    ;00A425|09BB7B;
-   dl UNREACH_09BC07                    ;00A428|09BC07;
-   dl UNREACH_09BC8F                    ;00A42B|09BC8F;
-   dl UNREACH_09BCF9                    ;00A42E|09BCF9;
-   dl UNREACH_09BD61                    ;00A431|09BD61;
-   dl UNREACH_09BE23                    ;00A434|09BE23;
-   dl UNREACH_09BEEB                    ;00A437|09BEEB;
-   dl UNREACH_09BFB3                    ;00A43A|09BFB3;
-   dl UNREACH_09C021                    ;00A43D|09C021;
-   dl UNREACH_09C089                    ;00A440|09C089;
-   dl UNREACH_09C137                    ;00A443|09C137;
-   dl UNREACH_09C1E1                    ;00A446|09C1E1;
-   dl UNREACH_09C263                    ;00A449|09C263;
-   dl UNREACH_09C461                    ;00A44C|09C461;
+   dl PTR16_098F5D                      ;00A39B|098F5D;
+   dl PTR16_099069                      ;00A39E|099069;
+   dl PTR16_099635                      ;00A3A1|099635;
+   dl PTR16_0997D7                      ;00A3A4|0997D7;
+   dl PTR16_0998B3                      ;00A3A7|0998B3;
+   dl PTR16_099923                      ;00A3AA|099923;
+   dl PTR16_09996D                      ;00A3AD|09996D;
+   dl PTR16_0999D3                      ;00A3B0|0999D3;
+   dl PTR16_099A95                      ;00A3B3|099A95;
+   dl PTR16_099B03                      ;00A3B6|099B03;
+   dl PTR16_099B89                      ;00A3B9|099B89;
+   dl Tbl_099C4D_Sus                    ;00A3BC|099C4D;
+   dl PTR16_099D51                      ;00A3BF|099D51;
+   dl PTR16_099DC3                      ;00A3C2|099DC3;
+   dl PTR16_099E49                      ;00A3C5|099E49;
+   dl PTR16_099F0D                      ;00A3C8|099F0D;
+   dl PTR16_099F7B                      ;00A3CB|099F7B;
+   dl PTR16_09A03D                      ;00A3CE|09A03D;
+   dl PTR16_09A141                      ;00A3D1|09A141;
+   dl PTR16_09A205                      ;00A3D4|09A205;
+   dl PTR16_09A3AE                      ;00A3D7|09A3AE;
+   dl PTR16_09A5EE                      ;00A3DA|09A5EE;
+   dl PTR16_09A656                      ;00A3DD|09A656;
+   dl PTR16_09A6BE                      ;00A3E0|09A6BE;
+   dl PTR16_09A708                      ;00A3E3|09A708;
+   dl PTR16_09A76E                      ;00A3E6|09A76E;
+   dl PTR16_09A830                      ;00A3E9|09A830;
+   dl PTR16_09A8F8                      ;00A3EC|09A8F8;
+   dl PTR16_09A966                      ;00A3EF|09A966;
+   dl PTR16_09AA28                      ;00A3F2|09AA28;
+   dl PTR16_09AAB4                      ;00A3F5|09AAB4;
+   dl PTR16_09AB3C                      ;00A3F8|09AB3C;
+   dl PTR16_09AC00                      ;00A3FB|09AC00;
+   dl PTR16_09ACC8                      ;00A3FE|09ACC8;
+   dl PTR16_09ADCC                      ;00A401|09ADCC;
+   dl PTR16_09AE90                      ;00A404|09AE90;
+   dl PTR16_09AF52                      ;00A407|09AF52;
+   dl PTR16_09B1F4                      ;00A40A|09B1F4;
+   dl PTR16_09B4A7                      ;00A40D|09B4A7;
+   dl PTR16_09B557                      ;00A410|09B557;
+   dl PTR16_09B6F1                      ;00A413|09B6F1;
+   dl PTR16_09B7AF                      ;00A416|09B7AF;
+   dl PTR16_09B871                      ;00A419|09B871;
+   dl PTR16_09B96F                      ;00A41C|09B96F;
+   dl PTR16_09BA6F                      ;00A41F|09BA6F;
+   dl PTR16_09BABB                      ;00A422|09BABB;
+   dl PTR16_09BB7B                      ;00A425|09BB7B;
+   dl PTR16_09BC07                      ;00A428|09BC07;
+   dl PTR16_09BC8F                      ;00A42B|09BC8F;
+   dl PTR16_09BCF9                      ;00A42E|09BCF9;
+   dl PTR16_09BD61                      ;00A431|09BD61;
+   dl PTR16_09BE23                      ;00A434|09BE23;
+   dl PTR16_09BEEB                      ;00A437|09BEEB;
+   dl PTR16_09BFB3                      ;00A43A|09BFB3;
+   dl PTR16_09C021                      ;00A43D|09C021;
+   dl PTR16_09C089                      ;00A440|09C089;
+   dl PTR16_09C137                      ;00A443|09C137;
+   dl PTR16_09C1E1                      ;00A446|09C1E1;
+   dl PTR16_09C263                      ;00A449|09C263;
+   dl PTR16_09C461                      ;00A44C|09C461;
    dl $000000                           ;00A44F|      ;
    dl Tbl_03E9F7                        ;00A452|03E9F7;
    dl Tbl_03B24B                        ;00A455|03B24B;
    dl Tbl_Credits_Tiles                 ;00A458|16EF17;
    dl Tbl_Credits_Tiles                 ;00A45B|16EF17;
+Sub_Event_ID_Handling:
    LDX.W #$0000                         ;00A45E|      ;
 CODE_00A461:
-   LDA.W Battle_Enemy_ID,X              ;00A461|000643;
+   LDA.W Event_ID_Slot_00,X             ;00A461|000643; Loop through the Event IDs 0643-0665 to find the first positive ID
    BPL CODE_00A474                      ;00A464|00A474;
    INX                                  ;00A466|      ;
    INX                                  ;00A467|      ;
    CPX.W #$0024                         ;00A468|      ;
    BCC CODE_00A461                      ;00A46B|00A461;
-   LDA.W #$FFFF                         ;00A46D|      ;
-   STA.W $0641                          ;00A470|000641;
+   LDA.W #$FFFF                         ;00A46D|      ; If no Event IDs are in use, set 0641 to -1 and return
+   STA.W Event_ID_1st_Offset_In_Use     ;00A470|000641;
    RTS                                  ;00A473|      ;
 CODE_00A474:
-   STX.W $0641                          ;00A474|000641;
+   STX.W Event_ID_1st_Offset_In_Use     ;00A474|000641; Save the first Event ID x-offset to 0641
    TXY                                  ;00A477|      ;
    INX                                  ;00A478|      ;
    INX                                  ;00A479|      ;
 CODE_00A47A:
-   LDA.W Battle_Enemy_ID,X              ;00A47A|000643;
+   LDA.W Event_ID_Slot_00,X             ;00A47A|000643;
    BMI CODE_00A484                      ;00A47D|00A484;
    TXA                                  ;00A47F|      ;
    STA.W $068B,Y                        ;00A480|00068B;
@@ -4949,18 +4950,18 @@ CODE_00A484:
    STA.W $068B,Y                        ;00A48E|00068B;
    RTS                                  ;00A491|      ;
    LDA.W #$FFFF                         ;00A492|      ;
-   STA.W $0641                          ;00A495|000641;
+   STA.W Event_ID_1st_Offset_In_Use     ;00A495|000641;
    LDX.W $063B                          ;00A498|00063B;
    BMI CODE_00A4D4                      ;00A49B|00A4D4;
 CODE_00A49D:
    PHX                                  ;00A49D|      ;
    PHX                                  ;00A49E|      ;
-   LDA.W $073F,X                        ;00A49F|00073F;
+   LDA.W Object_ZPOS,X                  ;00A49F|00073F;
    LDX.W #$FFFF                         ;00A4A2|      ;
-   LDY.W $0641                          ;00A4A5|000641;
+   LDY.W Event_ID_1st_Offset_In_Use     ;00A4A5|000641;
    BMI CODE_00A4B5                      ;00A4A8|00A4B5;
 CODE_00A4AA:
-   CMP.W $073F,Y                        ;00A4AA|00073F;
+   CMP.W Object_ZPOS,Y                  ;00A4AA|00073F;
    BCC CODE_00A4B5                      ;00A4AD|00A4B5;
    TYX                                  ;00A4AF|      ;
    LDY.W $068B,X                        ;00A4B0|00068B;
@@ -4975,18 +4976,18 @@ CODE_00A4B5:
    STA.W $068B,X                        ;00A4C0|00068B;
    BRA CODE_00A4CE                      ;00A4C3|00A4CE;
 CODE_00A4C5:
-   LDA.W $0641                          ;00A4C5|000641;
+   LDA.W Event_ID_1st_Offset_In_Use     ;00A4C5|000641;
    STA.W $068B,Y                        ;00A4C8|00068B;
-   STY.W $0641                          ;00A4CB|000641;
+   STY.W Event_ID_1st_Offset_In_Use     ;00A4CB|000641;
 CODE_00A4CE:
    PLY                                  ;00A4CE|      ;
    LDX.W $0667,Y                        ;00A4CF|000667;
    BPL CODE_00A49D                      ;00A4D2|00A49D;
 CODE_00A4D4:
    RTS                                  ;00A4D4|      ;
-   LDA.W Cursor_Array_Xpos,Y            ;00A4D5|0006F7;
+   LDA.W Object_XPOS,Y                  ;00A4D5|0006F7;
    STA.W Cursor_Arr_Xpos_temp           ;00A4D8|001051;
-   LDA.W Cursor_Array_Ypos,Y            ;00A4DB|00071B;
+   LDA.W Object_YPOS,Y                  ;00A4DB|00071B;
    STA.W Cursor_Arr_Ypos_temp           ;00A4DE|001053;
    RTS                                  ;00A4E1|      ;
 Event_Text_0C_sub1:
@@ -5141,7 +5142,7 @@ _00A5EB_far:
    JSR.W Text_stuff                     ;00A5E7|00A5EB;
    RTL                                  ;00A5EA|      ;
 Text_stuff:
-   PHD                                  ;00A5EB|      ; $109x, $10Ax stuff
+   PHD                                  ;00A5EB|      ; $109x, $10Ax stuff. Reads 5b from ptr at $00 [$1E00]
    PHA                                  ;00A5EC|      ;
    TDC                                  ;00A5ED|      ;
    SEC                                  ;00A5EE|      ;
@@ -10998,20 +10999,20 @@ CODE_00CA4C:
    INY                                  ;00CA4D|      ;
    CPY.W #$0018                         ;00CA4E|      ;
    BCC LpBonusTurnCheck                 ;00CA51|00C9FE;
-   LDX.W Selection                      ;00CA53|00103F;
-   STZ.W Array_Menu_Cursor,X            ;00CA56|0009A3;
+   LDX.W Selection_offset               ;00CA53|00103F;
+   STZ.W Object_var0_Menu_Cursor,X      ;00CA56|0009A3;
    LDA.W $1143                          ;00CA59|001143;
    RTL                                  ;00CA5C|      ;
 Advance_turn_order:
-   LDX.W Selection                      ;00CA5D|00103F; $1143,y is the turn order. This function will cycle through each member, then exit (1) when it reaches the end.
-   INC.W Array_Menu_Cursor,X            ;00CA60|0009A3;
-   INC.W Array_Menu_Cursor,X            ;00CA63|0009A3;
-   LDA.W Array_Menu_Cursor,X            ;00CA66|0009A3;
+   LDX.W Selection_offset               ;00CA5D|00103F; $1143,y is the turn order. This function will cycle through each member, then exit (1) when it reaches the end.
+   INC.W Object_var0_Menu_Cursor,X      ;00CA60|0009A3;
+   INC.W Object_var0_Menu_Cursor,X      ;00CA63|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;00CA66|0009A3;
    TAY                                  ;00CA69|      ;
    LDA.W $1143,Y                        ;00CA6A|001143;
    CMP.W #$FFFF                         ;00CA6D|      ;
    BEQ CODE_00CA79                      ;00CA70|00CA79;
-   STA.W Array_Selection,X              ;00CA72|0009EB;
+   STA.W Object_var2_Selection,X        ;00CA72|0009EB;
    LDA.W #$0000                         ;00CA75|      ;
    RTL                                  ;00CA78|      ;
 CODE_00CA79:
@@ -11413,9 +11414,9 @@ DATA16_00CD49:
    dw $0600                             ;00CD51|      ;
    dw $0B00                             ;00CD53|      ;
 CODE_00CD55:
-   LDX.W Selection                      ;00CD55|00103F;
-   LDA.W Array_Menu_Cursor,X            ;00CD58|0009A3;
-   INC.W Array_Menu_Cursor,X            ;00CD5B|0009A3;
+   LDX.W Selection_offset               ;00CD55|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;00CD58|0009A3;
+   INC.W Object_var0_Menu_Cursor,X      ;00CD5B|0009A3;
    ASL A                                ;00CD5E|      ;
    PHA                                  ;00CD5F|      ;
    LSR A                                ;00CD60|      ;
@@ -11443,7 +11444,7 @@ CODE_00CD81:
    CPX.W #$0006                         ;00CD8C|      ;
    BCC CODE_00CD81                      ;00CD8F|00CD81;
    LDX.W #$0000                         ;00CD91|      ;
-   LDY.W Selection                      ;00CD94|00103F;
+   LDY.W Selection_offset               ;00CD94|00103F;
 CODE_00CD97:
    LDA.W $1181,X                        ;00CD97|001181;
    BNE CODE_00CDA7                      ;00CD9A|00CDA7;
@@ -11456,13 +11457,13 @@ CODE_00CD97:
 CODE_00CDA7:
    TXA                                  ;00CDA7|      ;
    LSR A                                ;00CDA8|      ;
-   STA.W Array_Menu_Cursor,Y            ;00CDA9|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;00CDA9|0009A3;
    CLC                                  ;00CDAC|      ;
    ADC.W #$0003                         ;00CDAD|      ;
-   STA.W Array_Category,Y               ;00CDB0|0009C7;
+   STA.W Object_var1_Category,Y         ;00CDB0|0009C7;
    JML.L CODE_00CE3E                    ;00CDB3|00CE3E;
 CODE_00CDB7:
-   LDY.W Selection                      ;00CDB7|00103F;
+   LDY.W Selection_offset               ;00CDB7|00103F;
    LDA.W Input_0031                     ;00CDBA|000031;
    BIT.W #$0080                         ;00CDBD|      ;
    BEQ CODE_00CDC6                      ;00CDC0|00CDC6;
@@ -11477,7 +11478,7 @@ CODE_00CDCF:
    LDA.W Input_0029_New                 ;00CDCF|000029;
    BIT.W #$0200                         ;00CDD2|      ;
    BEQ CODE_00CE06                      ;00CDD5|00CE06;
-   LDA.W Array_Menu_Cursor,Y            ;00CDD7|0009A3;
+   LDA.W Object_var0_Menu_Cursor,Y      ;00CDD7|0009A3;
    DEC A                                ;00CDDA|      ;
    CMP.W #$FFFF                         ;00CDDB|      ;
    BNE CODE_00CDE3                      ;00CDDE|00CDE3;
@@ -11497,15 +11498,15 @@ CODE_00CDE5:
 CODE_00CDF6:
    TXA                                  ;00CDF6|      ;
    LSR A                                ;00CDF7|      ;
-   STA.W Array_Menu_Cursor,Y            ;00CDF8|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;00CDF8|0009A3;
    CLC                                  ;00CDFB|      ;
    ADC.W #$0003                         ;00CDFC|      ;
-   STA.W Array_Category,Y               ;00CDFF|0009C7;
+   STA.W Object_var1_Category,Y         ;00CDFF|0009C7;
    JML.L CODE_00CE3E                    ;00CE02|00CE3E;
 CODE_00CE06:
    BIT.W #$0100                         ;00CE06|      ;
    BEQ CODE_00CE3A                      ;00CE09|00CE3A;
-   LDA.W Array_Menu_Cursor,Y            ;00CE0B|0009A3;
+   LDA.W Object_var0_Menu_Cursor,Y      ;00CE0B|0009A3;
    INC A                                ;00CE0E|      ;
    CMP.W #$0003                         ;00CE0F|      ;
    BCC CODE_00CE17                      ;00CE12|00CE17;
@@ -11525,17 +11526,17 @@ CODE_00CE19:
 CODE_00CE2A:
    TXA                                  ;00CE2A|      ;
    LSR A                                ;00CE2B|      ;
-   STA.W Array_Menu_Cursor,Y            ;00CE2C|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;00CE2C|0009A3;
    CLC                                  ;00CE2F|      ;
    ADC.W #$0003                         ;00CE30|      ;
-   STA.W Array_Category,Y               ;00CE33|0009C7;
+   STA.W Object_var1_Category,Y         ;00CE33|0009C7;
    JML.L CODE_00CE3E                    ;00CE36|00CE3E;
 CODE_00CE3A:
    LDA.W #$0001                         ;00CE3A|      ;
    RTL                                  ;00CE3D|      ;
 CODE_00CE3E:
-   LDY.W Selection                      ;00CE3E|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;00CE41|0009A3;
+   LDY.W Selection_offset               ;00CE3E|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;00CE41|0009A3;
    ASL A                                ;00CE44|      ;
    STA.B $00                            ;00CE45|000000;
    TAX                                  ;00CE47|      ;
@@ -11875,9 +11876,9 @@ Zero_117x_vals:
    STZ.W $117F                          ;00D05F|00117F;
    RTL                                  ;00D062|      ;
 CODE_00D063:
-   LDX.W Selection                      ;00D063|00103F;
-   LDA.W Array_Menu_Cursor,X            ;00D066|0009A3;
-   INC.W Array_Menu_Cursor,X            ;00D069|0009A3;
+   LDX.W Selection_offset               ;00D063|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;00D066|0009A3;
+   INC.W Object_var0_Menu_Cursor,X      ;00D069|0009A3;
    ASL A                                ;00D06C|      ;
    TAX                                  ;00D06D|      ;
    LSR A                                ;00D06E|      ;
@@ -11944,7 +11945,7 @@ DATA8_00D0A9:
    db $05                               ;00D0CF|      ; RTL
    LDA.W $1187                          ;00D0D0|001187;
    BNE CODE_00D0EB                      ;00D0D3|00D0EB;
-   LDA.W $0FEF                          ;00D0D5|000FEF;
+   LDA.W Object_XPOS_unk1               ;00D0D5|000FEF;
    STA.W $1193                          ;00D0D8|001193;
    STA.W $1195                          ;00D0DB|001195;
    STA.W $1197                          ;00D0DE|001197;
@@ -12120,50 +12121,65 @@ Tbl_Songs:
    dl Song3C                            ;00D22F|1ED660; Boom
    db $00                               ;00D232|      ;
    dl Song3D                            ;00D233|1ED7DF; The fucking souls of the damned idk
-   dw $6A00                             ;00D236|      ;
-   dl $001ED8                           ;00D238|001ED8;
+   db $00                               ;00D236|      ;
+   dl Song3E                            ;00D237|1ED86A; Reinoll ~ Generous Hermit
+   db $00                               ;00D23A|      ;
    dl Song3F                            ;00D23B|1EDE50; Ariel ~ Soldier of Betrayal
-   dw $3300                             ;00D23E|      ;
-   dl $001EE1                           ;00D240|001EE1;
+   db $00                               ;00D23E|      ;
+   dl Song40                            ;00D23F|1EE133; The Legend (best song)
+   db $00                               ;00D242|      ;
    dl Song41                            ;00D243|1F8001; Rimsala Revived
-   dw $0300                             ;00D246|      ;
-   dl $001EE6                           ;00D248|001EE6;
+   db $00                               ;00D246|      ;
+   dl Song42                            ;00D247|1EE603; Trickery
+   db $00                               ;00D24A|      ;
    dl Song43                            ;00D24B|1EEC78; Dawin ~ Treasure Hunter
-   dw $1A00                             ;00D24E|      ;
-   dl $001EF1                           ;00D250|001EF1;
+   db $00                               ;00D24E|      ;
+   dl Song44                            ;00D24F|1EF11A; Alchemist's Workshop
+   db $00                               ;00D252|      ;
    dl Song45                            ;00D253|1EF3DB; Crystal Sword
-   dw $B300                             ;00D256|      ;
-   dl $001EF5                           ;00D258|001EF5;
+   db $00                               ;00D256|      ;
+   dl Song46                            ;00D257|1EF5B3; Fanatical Warlock Galneon
+   db $00                               ;00D25A|      ;
    dl Song47                            ;00D25B|1F80FC; Rooks ~ The Card Master (Chapter 1 start)
-   dw $0B00                             ;00D25E|      ;
-   dl $001F83                           ;00D260|001F83;
+   db $00                               ;00D25E|      ;
+   dl Song48                            ;00D25F|1F830B; Birth of a Hero
+   db $00                               ;00D262|      ;
    dl Song49                            ;00D263|1F8442; Journey
-   dw $3700                             ;00D266|      ;
-   dl $001F85                           ;00D268|001F85;
+   db $00                               ;00D266|      ;
+   dl Song4A                            ;00D267|1F8537; Draven's Valley Pass
+   db $00                               ;00D26A|      ;
    dl Song4B                            ;00D26B|1F8A6F; Shrine for the Worship of Chaos (Balnea)
-   dw $3400                             ;00D26E|      ;
-   dl $001F92                           ;00D270|001F92;
+   db $00                               ;00D26E|      ;
+   dl Song4C                            ;00D26F|1F9234; Cavern of Ice
+   db $00                               ;00D272|      ;
    dl Song4D                            ;00D273|1F96FF; Silent Forest of Doubt
-   dw $2E00                             ;00D276|      ;
-   dl $001F9A                           ;00D278|001F9A;
+   db $00                               ;00D276|      ;
+   dl Song4E                            ;00D277|1F9A2E; Dark Castle Bintel
+   db $00                               ;00D27A|      ;
    dl Song4F                            ;00D27B|1FA7F3; Conflict
-   dw $E600                             ;00D27E|      ;
-   dl $001FB0                           ;00D280|001FB0;
+   db $00                               ;00D27E|      ;
+   dl Song50                            ;00D27F|1FB0E6; Decisive Battle
+   db $00                               ;00D282|      ;
    dl Song51                            ;00D283|1FBA47; Second Armageddon (Rimsala 2)
-   dw $2D00                             ;00D286|      ;
-   dl $001FC4                           ;00D288|001FC4;
+   db $00                               ;00D286|      ;
+   dl Song52                            ;00D287|1FC42D; The Goddess (Rimsala 1)
+   db $00                               ;00D28A|      ;
    dl Song53                            ;00D28B|1FC8D0; Grass Flute
-   dw $6900                             ;00D28E|      ;
-   dl $001FC9                           ;00D290|001FC9;
+   db $00                               ;00D28E|      ;
+   dl Song54                            ;00D28F|1FC969; Got Item
+   db $00                               ;00D292|      ;
    dl Song55                            ;00D293|1FCAEB; Fanfare (Victory theme)
-   dw $4000                             ;00D296|      ;
-   dl $001EFE                           ;00D298|001EFE;
+   db $00                               ;00D296|      ;
+   dl Song56                            ;00D297|1EFE40; Trusted Circle (New party member)
+   db $00                               ;00D29A|      ;
    dl Song57                            ;00D29B|1FCF72; Resting
-   dw $3200                             ;00D29E|      ;
-   dl $001EFF                           ;00D2A0|001EFF;
+   db $00                               ;00D29E|      ;
+   dl Song58                            ;00D29F|1EFF32; Magician's Tent
+   db $00                               ;00D2A2|      ;
    dl Song59                            ;00D2A3|1FD04A; Crowded Marketplace (Town theme)
-   dw $2000                             ;00D2A6|      ;
-   dl $001FD6                           ;00D2A8|001FD6;
+   db $00                               ;00D2A6|      ;
+   dl Song5A                            ;00D2A7|1FD620; Weapon Shop
+   db $00                               ;00D2AA|      ;
 Wait_for_SPC:
    STA.B $00                            ;00D2AB|000000; Asks VRAM to draw the monsters at the start of battle, then stalls in the meantime. Hang on, my notes say elsewhere this waits for SPC to load sounds, so I'll put that.
    STY.B $02                            ;00D2AD|000002;
@@ -12325,11 +12341,11 @@ DATA8_00D389:
    dw $119F                             ;00D3B2|00119F;
    dw $0000                             ;00D3B4|      ;
    db $07                               ;00D3B6|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;00D3B7|00A097;
+   dl Text_Init_3b_1b                   ;00D3B7|00A097;
    dl Unknown_data1                     ;00D3BA|00D48B;
    db $00                               ;00D3BD|      ;
    db $07                               ;00D3BE|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;00D3BF|00A097;
+   dl Text_Init_3b_1b                   ;00D3BF|00A097;
    dl DATA8_00D490                      ;00D3C2|00D490;
    db $01                               ;00D3C5|      ;
    db $07                               ;00D3C6|      ;

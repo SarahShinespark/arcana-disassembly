@@ -368,8 +368,8 @@ Enemy_spellcast:
    AND.W #$00FF                         ;07827A|      ;
    BEQ CODE_0782AF                      ;07827D|0782AF;
    PHA                                  ;07827F|      ;
-   LDY.W Selection                      ;078280|00103F;
-   LDA.W Array_Selection,Y              ;078283|0009EB;
+   LDY.W Selection_offset               ;078280|00103F;
+   LDA.W Object_var2_Selection,Y        ;078283|0009EB;
    ASL A                                ;078286|      ;
    TAY                                  ;078287|      ;
    TXA                                  ;078288|      ;
@@ -402,24 +402,24 @@ Spell_casting:
    AND.W #$00FF                         ;0782B8|      ;
    JML.L Play_SFX                       ;0782BB|009C47;
 CODE_0782BF:
-   LDX.W Selection                      ;0782BF|00103F;
+   LDX.W Selection_offset               ;0782BF|00103F;
    LDA.W #$0000                         ;0782C2|      ;
-   STA.W Array_Target,X                 ;0782C5|000A0F;
+   STA.W Object_var3_Target,X           ;0782C5|000A0F;
 CODE_0782C8:
-   LDX.W Selection                      ;0782C8|00103F;
-   LDA.W Array_Target,X                 ;0782CB|000A0F;
+   LDX.W Selection_offset               ;0782C8|00103F;
+   LDA.W Object_var3_Target,X           ;0782CB|000A0F;
    LDX.W #$0002                         ;0782CE|      ;
    JSL.L Condition_Compare_A_X          ;0782D1|07B0E1;
    BNE CODE_0782E6                      ;0782D5|0782E6;
-   LDX.W Selection                      ;0782D7|00103F;
-   LDA.W Array_Target,X                 ;0782DA|000A0F;
+   LDX.W Selection_offset               ;0782D7|00103F;
+   LDA.W Object_var3_Target,X           ;0782DA|000A0F;
    LDX.W #$0001                         ;0782DD|      ;
    JSL.L Condition_Compare_A_X          ;0782E0|07B0E1;
    BNE CODE_078320                      ;0782E4|078320;
 CODE_0782E6:
-   LDX.W Selection                      ;0782E6|00103F;
-   INC.W Array_Target,X                 ;0782E9|000A0F;
-   LDA.W Array_Target,X                 ;0782EC|000A0F;
+   LDX.W Selection_offset               ;0782E6|00103F;
+   INC.W Object_var3_Target,X           ;0782E9|000A0F;
+   LDA.W Object_var3_Target,X           ;0782EC|000A0F;
    CMP.W #$0001                         ;0782EF|      ;
    BEQ CODE_0782E6                      ;0782F2|0782E6;
    CMP.W #$0004                         ;0782F4|      ;
@@ -460,7 +460,7 @@ CODE_07833C:
    LDA.W #$0001                         ;07833C|      ;
    RTL                                  ;07833F|      ;
 Draw_Spellcast:
-   TAX                                  ;078340|      ;
+   TAX                                  ;078340|      ; Takes in palette ID: 00-0C
    LDA.L Spell_palette,X                ;078341|05ECF7;
    AND.W #$00FF                         ;078345|      ;
    BEQ CODE_078383                      ;078348|078383;
@@ -468,9 +468,9 @@ Draw_Spellcast:
    ASL A                                ;07834B|      ;
    TAX                                  ;07834C|      ;
    PHX                                  ;07834D|      ;
-   LDA.L DATA16_0783A8,X                ;07834E|0783A8; 12 entries
+   LDA.L DATA16_0783A8,X                ;07834E|0783A8; 12 entries (they're all 0D tho?)
    PHA                                  ;078352|      ;
-   LDA.L Tbl_Compressed_Spells,X        ;078353|078390;
+   LDA.L Tbl_Graphics_Spells,X          ;078353|078390;
    TAX                                  ;078357|      ;
    PLA                                  ;078358|      ;
    LDY.W #$9C00                         ;078359|      ;
@@ -483,7 +483,7 @@ Draw_Spellcast:
    LDA.W #$8387                         ;078367|      ;
    JSL.L RAM_Decomp80                   ;07836A|0084FE;
    PLX                                  ;07836E|      ;
-   LDA.L Tbl_Spelldata_MVN,X            ;07836F|0783C0;
+   LDA.L Tbl_Palette_Spells,X           ;07836F|0783C0;
    TAX                                  ;078373|      ;
    LDY.W #$0600                         ;078374|      ;
    LDA.W #$001F                         ;078377|      ;
@@ -505,19 +505,19 @@ Spell_Anim_Decomp_Stuff:
    db $00                               ;07838D|      ;
    db $78                               ;07838E|      ;
    db $FF                               ;07838F|      ;
-Tbl_Compressed_Spells:
-   dw Gfx_Compressed_Spell1             ;078390|0DB8F8;
-   dw DATA8_0DBBA7                      ;078392|0DBBA7;
-   dw DATA8_0DBFE0                      ;078394|0DBFE0;
-   dw DATA8_0DC608                      ;078396|0DC608;
-   dw DATA8_0DCB7A                      ;078398|0DCB7A;
-   dw DATA8_0DCB7A                      ;07839A|0DCB7A;
-   dw DATA8_0DCD49                      ;07839C|0DCD49;
-   dw DATA8_0DD34C                      ;07839E|0DD34C;
-   dw DATA8_0DD7E5                      ;0783A0|0DD7E5;
-   dw DATA8_0DDDE9                      ;0783A2|0DDDE9;
-   dw DATA8_0DDFD6                      ;0783A4|0DDFD6;
-   dw DATA8_0DDFD6                      ;0783A6|0DDFD6;
+Tbl_Graphics_Spells:
+   dw Gfx_Compressed_SpellGfx01         ;078390|0DB8F8; Spells have a byte 00-0C for determining which gfx to load
+   dw Gfx_Compressed_SpellGfx02         ;078392|0DBBA7;
+   dw Gfx_Compressed_SpellGfx03         ;078394|0DBFE0;
+   dw Gfx_Compressed_SpellGfx04         ;078396|0DC608;
+   dw Gfx_Compressed_SpellGfx05         ;078398|0DCB7A;
+   dw Gfx_Compressed_SpellGfx05         ;07839A|0DCB7A;
+   dw  Gfx_Compressed_SpellGfx07        ;07839C|0DCD49;
+   dw Gfx_Compressed_SpellGfx08         ;07839E|0DD34C;
+   dw Gfx_Compressed_SpellGfx09         ;0783A0|0DD7E5;
+   dw Gfx_Compressed_SpellGfx0A         ;0783A2|0DDDE9;
+   dw Gfx_Compressed_SpellGfx0B         ;0783A4|0DDFD6;
+   dw Gfx_Compressed_SpellGfx0B         ;0783A6|0DDFD6;
 DATA16_0783A8:
    dw $000D                             ;0783A8|      ;
    dw $000D                             ;0783AA|      ;
@@ -531,19 +531,19 @@ DATA16_0783A8:
    dw $000D                             ;0783BA|      ;
    dw $000D                             ;0783BC|      ;
    dw $000D                             ;0783BE|      ;
-Tbl_Spelldata_MVN:
-   dw Spelldata_MVN_1                   ;0783C0|0D95F2;
-   dw Spelldata_MVN_1                   ;0783C2|0D95F2;
-   dw Spelldata_MVN_1                   ;0783C4|0D95F2;
-   dw Spelldata_MVN2                    ;0783C6|0D9612;
-   dw Spelldata_MVN_3                   ;0783C8|0D9632;
-   dw Spelldata_MVN4                    ;0783CA|0D9652;
-   dw Spelldata_MVN5                    ;0783CC|0D9672;
-   dw Spelldata_MVN6                    ;0783CE|0D9692;
-   dw Spelldata_MVN7                    ;0783D0|0D96B2;
-   dw Spelldata_MVN8                    ;0783D2|0D96D2;
-   dw Spelldata_MVN9                    ;0783D4|0D96F2;
-   dw Spelldata_MVN10                   ;0783D6|0D9712;
+Tbl_Palette_Spells:
+   dw Palette_Spells_010203             ;0783C0|0D95F2;
+   dw Palette_Spells_010203             ;0783C2|0D95F2;
+   dw Palette_Spells_010203             ;0783C4|0D95F2;
+   dw Palette_Spells_04                 ;0783C6|0D9612;
+   dw Palette_Spells_05                 ;0783C8|0D9632;
+   dw Palette_Spells_06                 ;0783CA|0D9652;
+   dw Palette_Spells_07                 ;0783CC|0D9672;
+   dw Palette_Spells_08                 ;0783CE|0D9692;
+   dw Palette_Spells_09                 ;0783D0|0D96B2;
+   dw Palette_Spells_0A                 ;0783D2|0D96D2;
+   dw Palette_Spells_0B                 ;0783D4|0D96F2;
+   dw Palette_Spells_0C                 ;0783D6|0D9712;
    LDA.W Spell_ID                       ;0783D8|001127;
    BPL CODE_0783E1                      ;0783DB|0783E1;
    LDA.W #$0000                         ;0783DD|      ;
@@ -552,8 +552,8 @@ CODE_0783E1:
    LDA.W #$0001                         ;0783E1|      ;
    RTL                                  ;0783E4|      ;
 CODE_0783E5:
-   LDX.W Selection                      ;0783E5|00103F;
-   LDA.W Array_Selection,X              ;0783E8|0009EB;
+   LDX.W Selection_offset               ;0783E5|00103F;
+   LDA.W Object_var2_Selection,X        ;0783E8|0009EB;
    ASL A                                ;0783EB|      ;
    CMP.W Attacker                       ;0783EC|001121;
    BNE CODE_0783FA                      ;0783EF|0783FA;
@@ -641,11 +641,11 @@ Run_Fail:
    RTL                                  ;078492|      ;
 Use_Weapon_As_Item:
    STA.B $20                            ;078493|000020;
-   LDX.W Selection                      ;078495|00103F;
-   LDA.W Array_Category,X               ;078498|0009C7;
+   LDX.W Selection_offset               ;078495|00103F;
+   LDA.W Object_var1_Category,X         ;078498|0009C7;
    AND.W #$0001                         ;07849B|      ;
    BNE No_Spellcast                     ;07849E|0784AA;
-   LDA.W Array_Category,X               ;0784A0|0009C7;
+   LDA.W Object_var1_Category,X         ;0784A0|0009C7;
    BEQ Load_Weapon_Spell                ;0784A3|0784AE;
    CMP.W #$0002                         ;0784A5|      ;
    BEQ Use_Amulet_As_Item               ;0784A8|0784CC;
@@ -681,7 +681,7 @@ Use_Amulet_As_Item:
    LDA.W #$0002                         ;0784E6|      ;
    RTL                                  ;0784E9|      ;
 CODE_0784EA:
-   LDX.W Selection                      ;0784EA|00103F;
+   LDX.W Selection_offset               ;0784EA|00103F;
    LDA.W Input_0029_New                 ;0784ED|000029;
    BIT.W #$0800                         ;0784F0|      ;
    BNE CODE_0784FE                      ;0784F3|0784FE;
@@ -690,26 +690,26 @@ CODE_0784EA:
    LDA.W #$0000                         ;0784FA|      ;
    RTL                                  ;0784FD|      ;
 CODE_0784FE:
-   LDA.W Array_Category,X               ;0784FE|0009C7;
+   LDA.W Object_var1_Category,X         ;0784FE|0009C7;
    BEQ CODE_07850A                      ;078501|07850A;
-   DEC.W Array_Category,X               ;078503|0009C7;
+   DEC.W Object_var1_Category,X         ;078503|0009C7;
    LDA.W #$0000                         ;078506|      ;
    RTL                                  ;078509|      ;
 CODE_07850A:
    LDA.W #$0003                         ;07850A|      ;
-   STA.W Array_Category,X               ;07850D|0009C7;
+   STA.W Object_var1_Category,X         ;07850D|0009C7;
    RTL                                  ;078510|      ;
 CODE_078511:
-   LDA.W Array_Category,X               ;078511|0009C7;
+   LDA.W Object_var1_Category,X         ;078511|0009C7;
    CMP.W #$0003                         ;078514|      ;
    BEQ CODE_07851D                      ;078517|07851D;
-   INC.W Array_Category,X               ;078519|0009C7;
+   INC.W Object_var1_Category,X         ;078519|0009C7;
    RTL                                  ;07851C|      ;
 CODE_07851D:
-   STZ.W Array_Category,X               ;07851D|0009C7;
+   STZ.W Object_var1_Category,X         ;07851D|0009C7;
    RTL                                  ;078520|      ;
 CODE_078521:
-   LDX.W Selection                      ;078521|00103F;
+   LDX.W Selection_offset               ;078521|00103F;
    LDA.W Input_0029_New                 ;078524|000029;
    BIT.W #$0800                         ;078527|      ;
    BNE CODE_07853F                      ;07852A|07853F;
@@ -723,43 +723,43 @@ CODE_07853B:
    LDA.W #$0000                         ;07853B|      ;
    RTL                                  ;07853E|      ;
 CODE_07853F:
-   LDA.W Array_Category,X               ;07853F|0009C7;
+   LDA.W Object_var1_Category,X         ;07853F|0009C7;
    BIT.W #$0003                         ;078542|      ;
    BEQ CODE_07854E                      ;078545|07854E;
-   DEC.W Array_Category,X               ;078547|0009C7;
+   DEC.W Object_var1_Category,X         ;078547|0009C7;
    LDA.W #$0000                         ;07854A|      ;
    RTL                                  ;07854D|      ;
 CODE_07854E:
    JMP.W CODE_0785FA                    ;07854E|0785FA;
 CODE_078551:
-   LDA.W Array_Category,X               ;078551|0009C7;
+   LDA.W Object_var1_Category,X         ;078551|0009C7;
    AND.W #$0003                         ;078554|      ;
    CMP.W #$0003                         ;078557|      ;
    BEQ CODE_07856C                      ;07855A|07856C;
-   LDA.W Array_Category,X               ;07855C|0009C7;
+   LDA.W Object_var1_Category,X         ;07855C|0009C7;
    INC A                                ;07855F|      ;
    JSR.W CODE_07882E                    ;078560|07882E;
    BNE CODE_07856C                      ;078563|07856C;
-   INC.W Array_Category,X               ;078565|0009C7;
+   INC.W Object_var1_Category,X         ;078565|0009C7;
    LDA.W #$0000                         ;078568|      ;
    RTL                                  ;07856B|      ;
 CODE_07856C:
-   LDA.W Array_Category,X               ;07856C|0009C7;
+   LDA.W Object_var1_Category,X         ;07856C|0009C7;
    AND.W #$003C                         ;07856F|      ;
-   STA.W Array_Category,X               ;078572|0009C7;
+   STA.W Object_var1_Category,X         ;078572|0009C7;
    LDA.W #$0000                         ;078575|      ;
    RTL                                  ;078578|      ;
 CODE_078579:
-   LDA.W Array_Category,X               ;078579|0009C7;
+   LDA.W Object_var1_Category,X         ;078579|0009C7;
    BIT.W #$003C                         ;07857C|      ;
    BEQ CODE_07853B                      ;07857F|07853B;
    SEC                                  ;078581|      ;
    SBC.W #$0004                         ;078582|      ;
-   STA.W Array_Category,X               ;078585|0009C7;
+   STA.W Object_var1_Category,X         ;078585|0009C7;
    LDA.W #$0001                         ;078588|      ;
    RTL                                  ;07858B|      ;
 CODE_07858C:
-   LDA.W Array_Category,X               ;07858C|0009C7;
+   LDA.W Object_var1_Category,X         ;07858C|0009C7;
    AND.W #$001C                         ;07858F|      ;
    CMP.W #$001C                         ;078592|      ;
    BEQ CODE_0785B0                      ;078595|0785B0;
@@ -767,18 +767,18 @@ CODE_07858C:
    JSR.W CODE_07882E                    ;07859A|07882E;
    BNE CODE_0785B0                      ;07859D|0785B0;
    JSR.W CODE_0785C8                    ;07859F|0785C8;
-   LDA.W Array_Category,X               ;0785A2|0009C7;
+   LDA.W Object_var1_Category,X         ;0785A2|0009C7;
    CLC                                  ;0785A5|      ;
    ADC.W #$0004                         ;0785A6|      ;
-   STA.W Array_Category,X               ;0785A9|0009C7;
+   STA.W Object_var1_Category,X         ;0785A9|0009C7;
    LDA.W #$0001                         ;0785AC|      ;
    RTL                                  ;0785AF|      ;
 CODE_0785B0:
    JMP.W CODE_07853B                    ;0785B0|07853B;
 CODE_0785B3:
    PHX                                  ;0785B3|      ;
-   LDX.W Selection                      ;0785B4|00103F;
-   LDA.W Array_Category,X               ;0785B7|0009C7;
+   LDX.W Selection_offset               ;0785B4|00103F;
+   LDA.W Object_var1_Category,X         ;0785B7|0009C7;
    AND.W #$003C                         ;0785BA|      ;
    LSR A                                ;0785BD|      ;
    LSR A                                ;0785BE|      ;
@@ -789,8 +789,8 @@ CODE_0785B3:
    PLX                                  ;0785C6|      ;
    RTS                                  ;0785C7|      ;
 CODE_0785C8:
-   LDX.W Selection                      ;0785C8|00103F;
-   LDA.W Array_Category,X               ;0785CB|0009C7;
+   LDX.W Selection_offset               ;0785C8|00103F;
+   LDA.W Object_var1_Category,X         ;0785CB|0009C7;
    AND.W #$0003                         ;0785CE|      ;
    CMP.W #$0000                         ;0785D1|      ;
    BEQ CODE_0785E5                      ;0785D4|0785E5;
@@ -803,13 +803,13 @@ CODE_0785C8:
 CODE_0785E5:
    RTS                                  ;0785E5|      ;
 CODE_0785E6:
-   LDX.W Selection                      ;0785E6|00103F;
-   LDA.W Array_Category,X               ;0785E9|0009C7;
+   LDX.W Selection_offset               ;0785E6|00103F;
+   LDA.W Object_var1_Category,X         ;0785E9|0009C7;
    CLC                                  ;0785EC|      ;
    ADC.W #$0004                         ;0785ED|      ;
    JSR.W CODE_07882E                    ;0785F0|07882E;
    BEQ CODE_0785E5                      ;0785F3|0785E5;
-   DEC.W Array_Category,X               ;0785F5|0009C7;
+   DEC.W Object_var1_Category,X         ;0785F5|0009C7;
    BRA CODE_0785C8                      ;0785F8|0785C8;
 CODE_0785FA:
    PHA                                  ;0785FA|      ;
@@ -832,25 +832,25 @@ CODE_0785FA:
    BRA CODE_0785B0                      ;078618|0785B0;
 CODE_07861A:
    PLA                                  ;07861A|      ;
-   INC.W Array_Category,X               ;07861B|0009C7;
-   INC.W Array_Category,X               ;07861E|0009C7;
-   INC.W Array_Category,X               ;078621|0009C7;
+   INC.W Object_var1_Category,X         ;07861B|0009C7;
+   INC.W Object_var1_Category,X         ;07861E|0009C7;
+   INC.W Object_var1_Category,X         ;078621|0009C7;
    LDA.W #$0000                         ;078624|      ;
    RTL                                  ;078627|      ;
 CODE_078628:
    PLA                                  ;078628|      ;
-   INC.W Array_Category,X               ;078629|0009C7;
-   INC.W Array_Category,X               ;07862C|0009C7;
+   INC.W Object_var1_Category,X         ;078629|0009C7;
+   INC.W Object_var1_Category,X         ;07862C|0009C7;
    LDA.W #$0000                         ;07862F|      ;
    RTL                                  ;078632|      ;
 CODE_078633:
    PLA                                  ;078633|      ;
-   INC.W Array_Category,X               ;078634|0009C7;
+   INC.W Object_var1_Category,X         ;078634|0009C7;
    LDA.W #$0000                         ;078637|      ;
    RTL                                  ;07863A|      ;
 CODE_07863B:
-   LDX.W Selection                      ;07863B|00103F;
-   LDA.W Array_Category,X               ;07863E|0009C7;
+   LDX.W Selection_offset               ;07863B|00103F;
+   LDA.W Object_var1_Category,X         ;07863E|0009C7;
    AND.W #$001C                         ;078641|      ;
    LSR A                                ;078644|      ;
    LSR A                                ;078645|      ;
@@ -862,8 +862,8 @@ CODE_07863B:
    LDA.L DATA16_078916,X                ;07864E|078916;
    JSR.W CODE_07882E                    ;078652|07882E;
    BNE CODE_07866A                      ;078655|07866A;
-   LDX.W Selection                      ;078657|00103F;
-   LDA.W Array_Category,X               ;07865A|0009C7;
+   LDX.W Selection_offset               ;078657|00103F;
+   LDA.W Object_var1_Category,X         ;07865A|0009C7;
    AND.W #$001C                         ;07865D|      ;
    BEQ CODE_078666                      ;078660|078666;
    LDA.W #$0000                         ;078662|      ;
@@ -872,8 +872,8 @@ CODE_078666:
    LDA.W #$0001                         ;078666|      ;
    RTL                                  ;078669|      ;
 CODE_07866A:
-   LDX.W Selection                      ;07866A|00103F;
-   LDA.W Array_Category,X               ;07866D|0009C7;
+   LDX.W Selection_offset               ;07866A|00103F;
+   LDA.W Object_var1_Category,X         ;07866D|0009C7;
    AND.W #$001C                         ;078670|      ;
    BNE CODE_078679                      ;078673|078679;
    LDA.W #$0003                         ;078675|      ;
@@ -882,7 +882,7 @@ CODE_078679:
    LDA.W #$0002                         ;078679|      ;
    RTL                                  ;07867C|      ;
 CODE_07867D:
-   LDX.W Selection                      ;07867D|00103F;
+   LDX.W Selection_offset               ;07867D|00103F;
    LDA.W Input_0029_New                 ;078680|000029;
    BIT.W #$0800                         ;078683|      ;
    BNE CODE_07869B                      ;078686|07869B;
@@ -896,43 +896,43 @@ CODE_078697:
    LDA.W #$0000                         ;078697|      ;
    RTL                                  ;07869A|      ;
 CODE_07869B:
-   LDA.W Array_Category,X               ;07869B|0009C7;
+   LDA.W Object_var1_Category,X         ;07869B|0009C7;
    BIT.W #$0003                         ;07869E|      ;
    BEQ CODE_0786AA                      ;0786A1|0786AA;
-   DEC.W Array_Category,X               ;0786A3|0009C7;
+   DEC.W Object_var1_Category,X         ;0786A3|0009C7;
    LDA.W #$0000                         ;0786A6|      ;
    RTL                                  ;0786A9|      ;
 CODE_0786AA:
    JMP.W CODE_078756                    ;0786AA|078756;
 CODE_0786AD:
-   LDA.W Array_Category,X               ;0786AD|0009C7;
+   LDA.W Object_var1_Category,X         ;0786AD|0009C7;
    AND.W #$0003                         ;0786B0|      ;
    CMP.W #$0003                         ;0786B3|      ;
    BEQ CODE_0786C8                      ;0786B6|0786C8;
-   LDA.W Array_Category,X               ;0786B8|0009C7;
+   LDA.W Object_var1_Category,X         ;0786B8|0009C7;
    INC A                                ;0786BB|      ;
    JSR.W CODE_07885A                    ;0786BC|07885A;
    BNE CODE_0786C8                      ;0786BF|0786C8;
-   INC.W Array_Category,X               ;0786C1|0009C7;
+   INC.W Object_var1_Category,X         ;0786C1|0009C7;
    LDA.W #$0000                         ;0786C4|      ;
    RTL                                  ;0786C7|      ;
 CODE_0786C8:
-   LDA.W Array_Category,X               ;0786C8|0009C7;
+   LDA.W Object_var1_Category,X         ;0786C8|0009C7;
    AND.W #$003C                         ;0786CB|      ;
-   STA.W Array_Category,X               ;0786CE|0009C7;
+   STA.W Object_var1_Category,X         ;0786CE|0009C7;
    LDA.W #$0000                         ;0786D1|      ;
    RTL                                  ;0786D4|      ;
 CODE_0786D5:
-   LDA.W Array_Category,X               ;0786D5|0009C7;
+   LDA.W Object_var1_Category,X         ;0786D5|0009C7;
    BIT.W #$003C                         ;0786D8|      ;
    BEQ CODE_078697                      ;0786DB|078697;
    SEC                                  ;0786DD|      ;
    SBC.W #$0004                         ;0786DE|      ;
-   STA.W Array_Category,X               ;0786E1|0009C7;
+   STA.W Object_var1_Category,X         ;0786E1|0009C7;
    LDA.W #$0001                         ;0786E4|      ;
    RTL                                  ;0786E7|      ;
 CODE_0786E8:
-   LDA.W Array_Category,X               ;0786E8|0009C7;
+   LDA.W Object_var1_Category,X         ;0786E8|0009C7;
    AND.W #$003C                         ;0786EB|      ;
    CMP.W #$002C                         ;0786EE|      ;
    BEQ CODE_07870C                      ;0786F1|07870C;
@@ -940,18 +940,18 @@ CODE_0786E8:
    JSR.W CODE_07885A                    ;0786F6|07885A;
    BNE CODE_07870C                      ;0786F9|07870C;
    JSR.W CODE_078724                    ;0786FB|078724;
-   LDA.W Array_Category,X               ;0786FE|0009C7;
+   LDA.W Object_var1_Category,X         ;0786FE|0009C7;
    CLC                                  ;078701|      ;
    ADC.W #$0004                         ;078702|      ;
-   STA.W Array_Category,X               ;078705|0009C7;
+   STA.W Object_var1_Category,X         ;078705|0009C7;
    LDA.W #$0001                         ;078708|      ;
    RTL                                  ;07870B|      ;
 CODE_07870C:
    JMP.W CODE_078697                    ;07870C|078697;
 CODE_07870F:
    PHX                                  ;07870F|      ;
-   LDX.W Selection                      ;078710|00103F;
-   LDA.W Array_Category,X               ;078713|0009C7;
+   LDX.W Selection_offset               ;078710|00103F;
+   LDA.W Object_var1_Category,X         ;078713|0009C7;
    AND.W #$003C                         ;078716|      ;
    LSR A                                ;078719|      ;
    LSR A                                ;07871A|      ;
@@ -962,8 +962,8 @@ CODE_07870F:
    PLX                                  ;078722|      ;
    RTS                                  ;078723|      ;
 CODE_078724:
-   LDX.W Selection                      ;078724|00103F;
-   LDA.W Array_Category,X               ;078727|0009C7;
+   LDX.W Selection_offset               ;078724|00103F;
+   LDA.W Object_var1_Category,X         ;078727|0009C7;
    AND.W #$0003                         ;07872A|      ;
    CMP.W #$0000                         ;07872D|      ;
    BEQ CODE_078741                      ;078730|078741;
@@ -976,13 +976,13 @@ CODE_078724:
 CODE_078741:
    RTS                                  ;078741|      ;
 CODE_078742:
-   LDX.W Selection                      ;078742|00103F;
-   LDA.W Array_Category,X               ;078745|0009C7;
+   LDX.W Selection_offset               ;078742|00103F;
+   LDA.W Object_var1_Category,X         ;078745|0009C7;
    CLC                                  ;078748|      ;
    ADC.W #$0004                         ;078749|      ;
    JSR.W CODE_07885A                    ;07874C|07885A;
    BEQ CODE_078741                      ;07874F|078741;
-   DEC.W Array_Category,X               ;078751|0009C7;
+   DEC.W Object_var1_Category,X         ;078751|0009C7;
    BRA CODE_078724                      ;078754|078724;
 CODE_078756:
    PHA                                  ;078756|      ;
@@ -1005,25 +1005,25 @@ CODE_078756:
    BRA CODE_07870C                      ;078774|07870C;
 CODE_078776:
    PLA                                  ;078776|      ;
-   INC.W Array_Category,X               ;078777|0009C7;
-   INC.W Array_Category,X               ;07877A|0009C7;
-   INC.W Array_Category,X               ;07877D|0009C7;
+   INC.W Object_var1_Category,X         ;078777|0009C7;
+   INC.W Object_var1_Category,X         ;07877A|0009C7;
+   INC.W Object_var1_Category,X         ;07877D|0009C7;
    LDA.W #$0000                         ;078780|      ;
    RTL                                  ;078783|      ;
 CODE_078784:
    PLA                                  ;078784|      ;
-   INC.W Array_Category,X               ;078785|0009C7;
-   INC.W Array_Category,X               ;078788|0009C7;
+   INC.W Object_var1_Category,X         ;078785|0009C7;
+   INC.W Object_var1_Category,X         ;078788|0009C7;
    LDA.W #$0000                         ;07878B|      ;
    RTL                                  ;07878E|      ;
 CODE_07878F:
    PLA                                  ;07878F|      ;
-   INC.W Array_Category,X               ;078790|0009C7;
+   INC.W Object_var1_Category,X         ;078790|0009C7;
    LDA.W #$0000                         ;078793|      ;
    RTL                                  ;078796|      ;
 CODE_078797:
-   LDX.W Selection                      ;078797|00103F;
-   LDA.W Array_Category,X               ;07879A|0009C7;
+   LDX.W Selection_offset               ;078797|00103F;
+   LDA.W Object_var1_Category,X         ;07879A|0009C7;
    AND.W #$003C                         ;07879D|      ;
    LSR A                                ;0787A0|      ;
    LSR A                                ;0787A1|      ;
@@ -1035,8 +1035,8 @@ CODE_078797:
    LDA.L DATA16_078916,X                ;0787AA|078916;
    JSR.W CODE_07885A                    ;0787AE|07885A;
    BNE CODE_0787C6                      ;0787B1|0787C6;
-   LDX.W Selection                      ;0787B3|00103F;
-   LDA.W Array_Category,X               ;0787B6|0009C7;
+   LDX.W Selection_offset               ;0787B3|00103F;
+   LDA.W Object_var1_Category,X         ;0787B6|0009C7;
    AND.W #$003C                         ;0787B9|      ;
    BEQ CODE_0787C2                      ;0787BC|0787C2;
    LDA.W #$0000                         ;0787BE|      ;
@@ -1045,8 +1045,8 @@ CODE_0787C2:
    LDA.W #$0001                         ;0787C2|      ;
    RTL                                  ;0787C5|      ;
 CODE_0787C6:
-   LDX.W Selection                      ;0787C6|00103F;
-   LDA.W Array_Category,X               ;0787C9|0009C7;
+   LDX.W Selection_offset               ;0787C6|00103F;
+   LDA.W Object_var1_Category,X         ;0787C9|0009C7;
    AND.W #$003C                         ;0787CC|      ;
    BNE CODE_0787D5                      ;0787CF|0787D5;
    LDA.W #$0003                         ;0787D1|      ;
@@ -1055,14 +1055,14 @@ CODE_0787D5:
    LDA.W #$0002                         ;0787D5|      ;
    RTL                                  ;0787D8|      ;
 CODE_0787D9:
-   LDY.W Selection                      ;0787D9|00103F;
-   LDA.W Array_Category,Y               ;0787DC|0009C7;
+   LDY.W Selection_offset               ;0787D9|00103F;
+   LDA.W Object_var1_Category,Y         ;0787DC|0009C7;
    ASL A                                ;0787DF|      ;
    TAX                                  ;0787E0|      ;
    LDA.L Tbl_BtlSpell1_Xpos,X           ;0787E1|0787F0;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;0787E5|000787;
+   STA.W Object_XPOS_mirror,Y           ;0787E5|000787;
    LDA.L Tbl_BtlSpell1_Ypos,X           ;0787E8|0787F8;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;0787EC|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;0787EC|0007AB;
    RTL                                  ;0787EF|      ;
 Tbl_BtlSpell1_Xpos:
    dw $003A                             ;0787F0|      ;
@@ -1075,15 +1075,15 @@ Tbl_BtlSpell1_Ypos:
    dw $00BF                             ;0787FC|      ;
    dw $00CD                             ;0787FE|      ;
 CODE_078800:
-   LDY.W Selection                      ;078800|00103F;
-   LDA.W Array_Category,Y               ;078803|0009C7;
+   LDY.W Selection_offset               ;078800|00103F;
+   LDA.W Object_var1_Category,Y         ;078803|0009C7;
    AND.W #$0003                         ;078806|      ;
    ASL A                                ;078809|      ;
    TAX                                  ;07880A|      ;
    LDA.L Tbl_BtlSpell2_Xpos,X           ;07880B|07881A;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;07880F|000787;
+   STA.W Object_XPOS_mirror,Y           ;07880F|000787;
    LDA.L Tbl_BtlSpell2_Ypos,X           ;078812|078822;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;078816|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;078816|0007AB;
    RTL                                  ;078819|      ;
 Tbl_BtlSpell2_Xpos:
    dw $003E                             ;07881A|      ;
@@ -1102,8 +1102,8 @@ CODE_07882E:
    PHX                                  ;07882E|      ;
    ASL A                                ;07882F|      ;
    PHA                                  ;078830|      ;
-   LDX.W Selection                      ;078831|00103F;
-   LDA.W Array_Selection,X              ;078834|0009EB;
+   LDX.W Selection_offset               ;078831|00103F;
+   LDA.W Object_var2_Selection,X        ;078834|0009EB;
    ASL A                                ;078837|      ;
    TAX                                  ;078838|      ;
    LDA.L Spell_List_Offsets,X           ;078839|07A572;
@@ -1210,16 +1210,16 @@ CODE_0788CD:
    JSR.W CODE_0788F1                    ;0788ED|0788F1;
    RTL                                  ;0788F0|      ;
 CODE_0788F1:
-   LDX.W Selection                      ;0788F1|00103F;
-   LDA.W Array_Category,X               ;0788F4|0009C7;
+   LDX.W Selection_offset               ;0788F1|00103F;
+   LDA.W Object_var1_Category,X         ;0788F4|0009C7;
    AND.W #$001C                         ;0788F7|      ;
    LSR A                                ;0788FA|      ;
    TAX                                  ;0788FB|      ;
    LDA.L DATA16_078916,X                ;0788FC|078916;
    ASL A                                ;078900|      ;
    PHA                                  ;078901|      ;
-   LDX.W Selection                      ;078902|00103F;
-   LDA.W Array_Selection,X              ;078905|0009EB;
+   LDX.W Selection_offset               ;078902|00103F;
+   LDA.W Object_var2_Selection,X        ;078905|0009EB;
    ASL A                                ;078908|      ;
    TAX                                  ;078909|      ;
    LDA.L Spell_List_Offsets,X           ;07890A|07A572;
@@ -1245,8 +1245,8 @@ DATA16_078916:
    JSR.W CODE_078932                    ;07892E|078932;
    RTL                                  ;078931|      ;
 CODE_078932:
-   LDX.W Selection                      ;078932|00103F;
-   LDA.W Array_Category,X               ;078935|0009C7;
+   LDX.W Selection_offset               ;078932|00103F;
+   LDA.W Object_var1_Category,X         ;078935|0009C7;
    AND.W #$003C                         ;078938|      ;
    LSR A                                ;07893B|      ;
    TAX                                  ;07893C|      ;
@@ -1321,12 +1321,12 @@ CODE_0789A2:
    BCC CODE_07898E                      ;0789BF|07898E;
    RTL                                  ;0789C1|      ;
 Is_Spell_Battle_Usable:
-   LDX.W Selection                      ;0789C2|00103F; Returns 1 if selected spell is usable in battle or usable anywhere ($05EA4C value 2 or 3)
-   LDA.W Array_Category,X               ;0789C5|0009C7;
+   LDX.W Selection_offset               ;0789C2|00103F; Returns 1 if selected spell is usable in battle or usable anywhere ($05EA4C value 2 or 3)
+   LDA.W Object_var1_Category,X         ;0789C5|0009C7;
    ASL A                                ;0789C8|      ;
    STA.B $00                            ;0789C9|000000;
-   LDX.W Selection                      ;0789CB|00103F;
-   LDA.W Array_Selection,X              ;0789CE|0009EB;
+   LDX.W Selection_offset               ;0789CB|00103F;
+   LDA.W Object_var2_Selection,X        ;0789CE|0009EB;
    ASL A                                ;0789D1|      ;
    TAX                                  ;0789D2|      ;
    LDA.W Party_order,X                  ;0789D3|0011F3;
@@ -1348,8 +1348,8 @@ CODE_0789F8:
    LDA.W #$0001                         ;0789F8|      ;
    RTL                                  ;0789FB|      ;
 CODE_0789FC:
-   LDX.W Selection                      ;0789FC|00103F;
-   LDA.W Array_Category,X               ;0789FF|0009C7;
+   LDX.W Selection_offset               ;0789FC|00103F;
+   LDA.W Object_var1_Category,X         ;0789FF|0009C7;
    ASL A                                ;078A02|      ;
    TAX                                  ;078A03|      ;
    LDA.W Inventory_Items,X              ;078A04|0013B9;
@@ -1367,8 +1367,8 @@ CODE_078A20:
    LDA.W #$0001                         ;078A20|      ;
    RTL                                  ;078A23|      ;
 CODE_078A24:
-   LDX.W Selection                      ;078A24|00103F;
-   LDA.W Array_Category,X               ;078A27|0009C7;
+   LDX.W Selection_offset               ;078A24|00103F;
+   LDA.W Object_var1_Category,X         ;078A27|0009C7;
    ASL A                                ;078A2A|      ;
    TAX                                  ;078A2B|      ;
    STZ.W Inventory_Items,X              ;078A2C|0013B9;
@@ -1377,7 +1377,7 @@ Sub_Targeting_Prep:
    LDY.W #$0000                         ;078A30|      ;
    LDX.W #$0014                         ;078A33|      ; Loop up to 8 times
 CODE_078A36:
-   LDA.W Battle_Enemy_ID,X              ;078A36|000643; Load enemy ID
+   LDA.W Event_ID_Slot_00,X             ;078A36|000643; Load enemy ID
    BMI CODE_078A41                      ;078A39|078A41;
    TXA                                  ;078A3B|      ;
    STA.W $18AD,Y                        ;078A3C|0018AD;
@@ -1401,12 +1401,12 @@ CODE_078A56:
    LDX.W $18AD,Y                        ;078A58|0018AD;
    LDA.W $18AB,Y                        ;078A5B|0018AB;
    TAY                                  ;078A5E|      ;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;078A5F|0007AB;
-   CMP.W Cursor_Array_Ypos_Copy,Y       ;078A62|0007AB;
+   LDA.W Object_YPOS_mirror,X           ;078A5F|0007AB;
+   CMP.W Object_YPOS_mirror,Y           ;078A62|0007AB;
    BCC CODE_078A71                      ;078A65|078A71;
    BNE CODE_078A83                      ;078A67|078A83;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;078A69|000787;
-   CMP.W Cursor_Array_Xpos_Copy,Y       ;078A6C|000787;
+   LDA.W Object_XPOS_mirror,X           ;078A69|000787;
+   CMP.W Object_XPOS_mirror,Y           ;078A6C|000787;
    BCS CODE_078A83                      ;078A6F|078A83;
 CODE_078A71:
    LDX.B $02                            ;078A71|000002;
@@ -1426,9 +1426,9 @@ CODE_078A83:
 CODE_078A8D:
    STZ.W $18A9                          ;078A8D|0018A9;
    LDX.W $18AD                          ;078A90|0018AD;
-   LDA.W Cursor_Array_Xpos_Copy,X       ;078A93|000787;
+   LDA.W Object_XPOS_mirror,X           ;078A93|000787;
    STA.W $18BD                          ;078A96|0018BD;
-   LDA.W Cursor_Array_Ypos_Copy,X       ;078A99|0007AB;
+   LDA.W Object_YPOS_mirror,X           ;078A99|0007AB;
    STA.W $18BF                          ;078A9C|0018BF;
    RTL                                  ;078A9F|      ;
 CODE_078AA0:
@@ -1442,10 +1442,10 @@ CODE_078AA0:
    DEX                                  ;078AAF|      ;
 CODE_078AB0:
    LDY.W $18AD,X                        ;078AB0|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078AB3|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078AB3|0007AB;
    CMP.W $18BF                          ;078AB6|0018BF;
    BNE CODE_078AC4                      ;078AB9|078AC4;
-   LDA.W Cursor_Array_Xpos_Copy,Y       ;078ABB|000787;
+   LDA.W Object_XPOS_mirror,Y           ;078ABB|000787;
    STA.W $18BD                          ;078ABE|0018BD;
    STX.W $18A9                          ;078AC1|0018A9;
 CODE_078AC4:
@@ -1467,7 +1467,7 @@ CODE_078ADA:
    DEX                                  ;078ADD|      ;
    DEX                                  ;078ADE|      ;
    LDY.W $18AD,X                        ;078ADF|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078AE2|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078AE2|0007AB;
    CMP.W $18BF                          ;078AE5|0018BF;
    BEQ CODE_078ADA                      ;078AE8|078ADA;
    STA.W $18BF                          ;078AEA|0018BF;
@@ -1475,7 +1475,7 @@ CODE_078ADA:
    CMP.W #$0081                         ;078AF0|      ;
    BCS CODE_078B13                      ;078AF3|078B13;
 CODE_078AF5:
-   LDA.W Cursor_Array_Xpos_Copy,Y       ;078AF5|000787;
+   LDA.W Object_XPOS_mirror,Y           ;078AF5|000787;
    CMP.W $18BD                          ;078AF8|0018BD;
    BEQ CODE_078B40                      ;078AFB|078B40;
    BCC CODE_078B40                      ;078AFD|078B40;
@@ -1484,14 +1484,14 @@ CODE_078AF5:
    DEX                                  ;078B02|      ;
    DEX                                  ;078B03|      ;
    LDY.W $18AD,X                        ;078B04|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B07|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078B07|0007AB;
    CMP.W $18BF                          ;078B0A|0018BF;
    BEQ CODE_078AF5                      ;078B0D|078AF5;
    INX                                  ;078B0F|      ;
    INX                                  ;078B10|      ;
    BRA CODE_078B40                      ;078B11|078B40;
 CODE_078B13:
-   LDA.W Cursor_Array_Xpos_Copy,Y       ;078B13|000787;
+   LDA.W Object_XPOS_mirror,Y           ;078B13|000787;
    CMP.W $18BD                          ;078B16|0018BD;
    BEQ CODE_078B40                      ;078B19|078B40;
    BCC CODE_078B31                      ;078B1B|078B31;
@@ -1500,7 +1500,7 @@ CODE_078B13:
    DEX                                  ;078B20|      ;
    DEX                                  ;078B21|      ;
    LDY.W $18AD,X                        ;078B22|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B25|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078B25|0007AB;
    CMP.W $18BF                          ;078B28|0018BF;
    BEQ CODE_078B13                      ;078B2B|078B13;
    INX                                  ;078B2D|      ;
@@ -1510,7 +1510,7 @@ CODE_078B31:
    INX                                  ;078B31|      ;
    INX                                  ;078B32|      ;
    LDY.W $18AD,X                        ;078B33|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B36|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078B36|0007AB;
    CMP.W $18BF                          ;078B39|0018BF;
    BEQ CODE_078B40                      ;078B3C|078B40;
    DEX                                  ;078B3E|      ;
@@ -1528,7 +1528,7 @@ CODE_078B4B:
    INX                                  ;078B50|      ;
    INX                                  ;078B51|      ;
    LDY.W $18AD,X                        ;078B52|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B55|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078B55|0007AB;
    CMP.W $18BF                          ;078B58|0018BF;
    BEQ CODE_078B4B                      ;078B5B|078B4B;
    STA.W $18BF                          ;078B5D|0018BF;
@@ -1536,7 +1536,7 @@ CODE_078B4B:
    CMP.W #$0081                         ;078B63|      ;
    BCC CODE_078B86                      ;078B66|078B86;
 CODE_078B68:
-   LDA.W Cursor_Array_Xpos_Copy,Y       ;078B68|000787;
+   LDA.W Object_XPOS_mirror,Y           ;078B68|000787;
    CMP.W $18BD                          ;078B6B|0018BD;
    BCS CODE_078BB5                      ;078B6E|078BB5;
    CPX.W $18AB                          ;078B70|0018AB;
@@ -1544,14 +1544,14 @@ CODE_078B68:
    INX                                  ;078B75|      ;
    INX                                  ;078B76|      ;
    LDY.W $18AD,X                        ;078B77|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B7A|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078B7A|0007AB;
    CMP.W $18BF                          ;078B7D|0018BF;
    BEQ CODE_078B68                      ;078B80|078B68;
    DEX                                  ;078B82|      ;
    DEX                                  ;078B83|      ;
    BRA CODE_078BB5                      ;078B84|078BB5;
 CODE_078B86:
-   LDA.W Cursor_Array_Xpos_Copy,Y       ;078B86|000787;
+   LDA.W Object_XPOS_mirror,Y           ;078B86|000787;
    CMP.W $18BD                          ;078B89|0018BD;
    BEQ CODE_078BB5                      ;078B8C|078BB5;
    BCS CODE_078BA6                      ;078B8E|078BA6;
@@ -1560,7 +1560,7 @@ CODE_078B86:
    INX                                  ;078B95|      ;
    INX                                  ;078B96|      ;
    LDY.W $18AD,X                        ;078B97|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078B9A|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078B9A|0007AB;
    CMP.W $18BF                          ;078B9D|0018BF;
    BEQ CODE_078B86                      ;078BA0|078B86;
    DEX                                  ;078BA2|      ;
@@ -1570,7 +1570,7 @@ CODE_078BA6:
    DEX                                  ;078BA6|      ;
    DEX                                  ;078BA7|      ;
    LDY.W $18AD,X                        ;078BA8|0018AD;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078BAB|0007AB;
+   LDA.W Object_YPOS_mirror,Y           ;078BAB|0007AB;
    CMP.W $18BF                          ;078BAE|0018BF;
    BEQ CODE_078BB5                      ;078BB1|078BB5;
    INX                                  ;078BB3|      ;
@@ -1580,10 +1580,10 @@ CODE_078BB5:
 CODE_078BB8:
    LDX.W $18A9                          ;078BB8|0018A9;
    LDA.W $18AD,X                        ;078BBB|0018AD;
-   LDY.W Selection                      ;078BBE|00103F;
-   STA.W Array_Category,Y               ;078BC1|0009C7;
+   LDY.W Selection_offset               ;078BBE|00103F;
+   STA.W Object_var1_Category,Y         ;078BC1|0009C7;
    RTL                                  ;078BC4|      ;
-   LDX.W Selection                      ;078BC5|00103F;
+   LDX.W Selection_offset               ;078BC5|00103F;
    LDA.W Input_0029_New                 ;078BC8|000029;
    BIT.W #$0800                         ;078BCB|      ;
    BNE CODE_078BE0                      ;078BCE|078BE0;
@@ -1595,30 +1595,30 @@ CODE_078BB8:
    BNE CODE_078BE0                      ;078BDD|078BE0;
    RTL                                  ;078BDF|      ;
 CODE_078BE0:
-   LDX.W Selection                      ;078BE0|00103F;
-   INC.W Array_Category,X               ;078BE3|0009C7;
-   INC.W Array_Category,X               ;078BE6|0009C7;
-   LDA.W Array_Category,X               ;078BE9|0009C7;
+   LDX.W Selection_offset               ;078BE0|00103F;
+   INC.W Object_var1_Category,X         ;078BE3|0009C7;
+   INC.W Object_var1_Category,X         ;078BE6|0009C7;
+   LDA.W Object_var1_Category,X         ;078BE9|0009C7;
    CMP.W #$0024                         ;078BEC|      ;
    BCC CODE_078BF7                      ;078BEF|078BF7;
    LDA.W #$0014                         ;078BF1|      ;
-   STA.W Array_Category,X               ;078BF4|0009C7;
+   STA.W Object_var1_Category,X         ;078BF4|0009C7;
 CODE_078BF7:
-   LDY.W Array_Category,X               ;078BF7|0009C7;
-   LDA.W Battle_Enemy_ID,Y              ;078BFA|000643;
+   LDY.W Object_var1_Category,X         ;078BF7|0009C7;
+   LDA.W Event_ID_Slot_00,Y             ;078BFA|000643;
    BMI CODE_078BE0                      ;078BFD|078BE0;
    RTL                                  ;078BFF|      ;
 CODE_078C00:
-   DEC.W Array_Category,X               ;078C00|0009C7;
-   DEC.W Array_Category,X               ;078C03|0009C7;
-   LDA.W Array_Category,X               ;078C06|0009C7;
+   DEC.W Object_var1_Category,X         ;078C00|0009C7;
+   DEC.W Object_var1_Category,X         ;078C03|0009C7;
+   LDA.W Object_var1_Category,X         ;078C06|0009C7;
    CMP.W #$0014                         ;078C09|      ;
    BCS CODE_078C14                      ;078C0C|078C14;
    LDA.W #$0022                         ;078C0E|      ;
-   STA.W Array_Category,X               ;078C11|0009C7;
+   STA.W Object_var1_Category,X         ;078C11|0009C7;
 CODE_078C14:
-   LDY.W Array_Category,X               ;078C14|0009C7;
-   LDA.W Battle_Enemy_ID,Y              ;078C17|000643;
+   LDY.W Object_var1_Category,X         ;078C14|0009C7;
+   LDA.W Event_ID_Slot_00,Y             ;078C17|000643;
    BMI CODE_078C00                      ;078C1A|078C00;
    RTL                                  ;078C1C|      ;
 Loop_Confused:
@@ -1631,11 +1631,11 @@ Loop_Confused:
    ADC.W #$000A                         ;078C2E|      ;
    ASL A                                ;078C31|      ;
    TAX                                  ;078C32|      ;
-   LDA.W Battle_Enemy_ID,X              ;078C33|000643; Offset 2 x (1d8 + A)
+   LDA.W Event_ID_Slot_00,X             ;078C33|000643; Offset 2 x (1d8 + A)
    BMI Loop_Confused                    ;078C36|078C1D; If it's FF, roll again
    TXA                                  ;078C38|      ;
-   LDX.W Selection                      ;078C39|00103F;
-   STA.W Array_Category,X               ;078C3C|0009C7;
+   LDX.W Selection_offset               ;078C39|00103F;
+   STA.W Object_var1_Category,X         ;078C3C|0009C7;
    LDA.W #$0000                         ;078C3F|      ;
    RTL                                  ;078C42|      ;
 Roll_target:
@@ -1645,10 +1645,10 @@ Roll_target:
    ADC.W #$0006                         ;078C4B|      ;
    ASL A                                ;078C4E|      ;
    TAX                                  ;078C4F|      ;
-   LDA.W Battle_Enemy_ID,X              ;078C50|000643; Offset 2 x (1d4 + 6)
+   LDA.W Event_ID_Slot_00,X             ;078C50|000643; Offset 2 x (1d4 + 6)
    BMI Roll_target                      ;078C53|078C43; If it's FF, roll again
    STX.B $22                            ;078C55|000022;
-   LDA.W Array_Selection,X              ;078C57|0009EB;
+   LDA.W Object_var2_Selection,X        ;078C57|0009EB;
    ASL A                                ;078C5A|      ;
    TAX                                  ;078C5B|      ;
    LDA.W Party_slot1,X                  ;078C5C|00155B;
@@ -1657,25 +1657,25 @@ Roll_target:
    CMP.W #$0001                         ;078C64|      ; If spirit, re-roll
    BEQ Loop_Confused                    ;078C67|078C1D;
    LDA.B $22                            ;078C69|000022;
-   LDX.W Selection                      ;078C6B|00103F;
-   STA.W Array_Category,X               ;078C6E|0009C7;
+   LDX.W Selection_offset               ;078C6B|00103F;
+   STA.W Object_var1_Category,X         ;078C6E|0009C7;
    LDA.W #$0001                         ;078C71|      ;
    RTL                                  ;078C74|      ;
 Swap_values:
-   LDX.W Selection                      ;078C75|00103F;
-   LDY.W Array_Category,X               ;078C78|0009C7;
-   LDA.W Cursor_Array_Xpos_Copy,Y       ;078C7B|000787;
-   STA.W Cursor_Array_Xpos_Copy,X       ;078C7E|000787;
-   LDA.W Cursor_Array_Ypos_Copy,Y       ;078C81|0007AB;
-   STA.W Cursor_Array_Ypos_Copy,X       ;078C84|0007AB;
-   LDA.W $07CF,Y                        ;078C87|0007CF;
+   LDX.W Selection_offset               ;078C75|00103F;
+   LDY.W Object_var1_Category,X         ;078C78|0009C7;
+   LDA.W Object_XPOS_mirror,Y           ;078C7B|000787;
+   STA.W Object_XPOS_mirror,X           ;078C7E|000787;
+   LDA.W Object_YPOS_mirror,Y           ;078C81|0007AB;
+   STA.W Object_YPOS_mirror,X           ;078C84|0007AB;
+   LDA.W Object_ZPOS_mirror,Y           ;078C87|0007CF;
    DEC A                                ;078C8A|      ;
-   STA.W $07CF,X                        ;078C8B|0007CF;
+   STA.W Object_ZPOS_mirror,X           ;078C8B|0007CF;
    RTL                                  ;078C8E|      ;
 CODE_078C8F:
    LDX.W #$0014                         ;078C8F|      ;
 CODE_078C92:
-   LDA.W Battle_Enemy_ID,X              ;078C92|000643;
+   LDA.W Event_ID_Slot_00,X             ;078C92|000643;
    BPL CODE_078CA2                      ;078C95|078CA2;
    INX                                  ;078C97|      ;
    INX                                  ;078C98|      ;
@@ -1686,19 +1686,19 @@ CODE_078C92:
 CODE_078CA2:
    LDA.W #$0001                         ;078CA2|      ;
    RTL                                  ;078CA5|      ;
-   LDX.W Selection                      ;078CA6|00103F;
-   INC.W Array_Selection,X              ;078CA9|0009EB;
-   LDA.W Array_Selection,X              ;078CAC|0009EB;
+   LDX.W Selection_offset               ;078CA6|00103F;
+   INC.W Object_var2_Selection,X        ;078CA9|0009EB;
+   LDA.W Object_var2_Selection,X        ;078CAC|0009EB;
    CMP.W #$000C                         ;078CAF|      ;
    BCC CODE_078CB7                      ;078CB2|078CB7;
-   STZ.W Array_Selection,X              ;078CB4|0009EB;
+   STZ.W Object_var2_Selection,X        ;078CB4|0009EB;
 CODE_078CB7:
    RTL                                  ;078CB7|      ;
 Fatal_damage:
    STA.W $16DB                          ;078CB8|0016DB;
    STA.B $20                            ;078CBB|000020;
-   LDY.W Selection                      ;078CBD|00103F;
-   LDA.W Array_Target,Y                 ;078CC0|000A0F;
+   LDY.W Selection_offset               ;078CBD|00103F;
+   LDA.W Object_var3_Target,Y           ;078CC0|000A0F;
    ASL A                                ;078CC3|      ;
 CODE_078CC4:
    TAX                                  ;078CC4|      ;
@@ -1764,10 +1764,10 @@ Get_New_Spirit:
    PLA                                  ;078D35|      ;
    RTS                                  ;078D36|      ;
 CODE_078D37:
-   LDY.W Selection                      ;078D37|00103F;
-   LDX.W Array_Category,Y               ;078D3A|0009C7;
+   LDY.W Selection_offset               ;078D37|00103F;
+   LDX.W Object_var1_Category,Y         ;078D3A|0009C7;
    STA.B $20                            ;078D3D|000020;
-   LDA.W Array_Selection,X              ;078D3F|0009EB;
+   LDA.W Object_var2_Selection,X        ;078D3F|0009EB;
    ASL A                                ;078D42|      ;
    JMP.W CODE_078CC4                    ;078D43|078CC4;
 Death_Check_A_1:
@@ -2531,9 +2531,9 @@ Get_enemy_ID_from_09C7_far:
    JSR.W Get_enemy_ID_from_09C7         ;079118|07911C;
    RTL                                  ;07911B|      ;
 Get_enemy_ID_from_09C7:
-   LDY.W Selection                      ;07911C|00103F;
-   LDX.W Array_Category,Y               ;07911F|0009C7;
-   LDA.W Battle_Enemy_ID,X              ;079122|000643;
+   LDY.W Selection_offset               ;07911C|00103F;
+   LDX.W Object_var1_Category,Y         ;07911F|0009C7;
+   LDA.W Event_ID_Slot_00,X             ;079122|000643;
    SEC                                  ;079125|      ;
    SBC.W #$0018                         ;079126|      ;
    RTS                                  ;079129|      ;
@@ -2541,8 +2541,8 @@ Get_enemy_ID_from_103F_far:
    JSR.W Get_enemy_ID_from_103F         ;07912A|07912E;
    RTL                                  ;07912D|      ;
 Get_enemy_ID_from_103F:
-   LDX.W Selection                      ;07912E|00103F;
-   LDA.W Battle_Enemy_ID,X              ;079131|000643; Load enemy in battle list
+   LDX.W Selection_offset               ;07912E|00103F;
+   LDA.W Event_ID_Slot_00,X             ;079131|000643; Load enemy in battle list
    SEC                                  ;079134|      ;
    SBC.W #$0018                         ;079135|      ; Subtract 18 to get the ID
    RTS                                  ;079138|      ;
@@ -2550,7 +2550,7 @@ CODE_079139:
    STA.B $20                            ;079139|000020;
    LDX.W #$0014                         ;07913B|      ;
 CODE_07913E:
-   LDA.W Array_Selection,X              ;07913E|0009EB;
+   LDA.W Object_var2_Selection,X        ;07913E|0009EB;
    CMP.B $20                            ;079141|000020;
    BEQ CODE_07914C                      ;079143|07914C;
 CODE_079145:
@@ -2559,27 +2559,27 @@ CODE_079145:
    CPX.W #$0024                         ;079147|      ;
    BCC CODE_07913E                      ;07914A|07913E;
 CODE_07914C:
-   LDA.W Battle_Enemy_ID,X              ;07914C|000643;
+   LDA.W Event_ID_Slot_00,X             ;07914C|000643;
    BMI CODE_079145                      ;07914F|079145;
    SEC                                  ;079151|      ;
    SBC.W #$0018                         ;079152|      ;
    RTL                                  ;079155|      ;
 Set_attacker_target_using_09C7:
-   LDX.W Selection                      ;079156|00103F;
-   LDA.W Array_Selection,X              ;079159|0009EB;
+   LDX.W Selection_offset               ;079156|00103F;
+   LDA.W Object_var2_Selection,X        ;079159|0009EB;
    ASL A                                ;07915C|      ;
    STA.W Attacker                       ;07915D|001121;
-   LDY.W Array_Category,X               ;079160|0009C7;
-   LDA.W Array_Selection,Y              ;079163|0009EB;
+   LDY.W Object_var1_Category,X         ;079160|0009C7;
+   LDA.W Object_var2_Selection,Y        ;079163|0009EB;
    ASL A                                ;079166|      ;
    STA.W Target                         ;079167|001123;
    RTL                                  ;07916A|      ;
 Set_attacker_target_using_0A0F:
-   LDX.W Selection                      ;07916B|00103F;
-   LDA.W Array_Selection,X              ;07916E|0009EB;
+   LDX.W Selection_offset               ;07916B|00103F;
+   LDA.W Object_var2_Selection,X        ;07916E|0009EB;
    ASL A                                ;079171|      ;
    STA.W Attacker                       ;079172|001121;
-   LDA.W Array_Target,X                 ;079175|000A0F;
+   LDA.W Object_var3_Target,X           ;079175|000A0F;
    ASL A                                ;079178|      ;
    STA.W Target                         ;079179|001123;
    RTL                                  ;07917C|      ;
@@ -2645,7 +2645,7 @@ CODE_0791E5:
    LDA.W #$0001                         ;0791E5|      ;
    RTL                                  ;0791E8|      ;
 Some_Input_Listen:
-   LDX.W Selection                      ;0791E9|00103F;
+   LDX.W Selection_offset               ;0791E9|00103F;
    LDA.W Input_0029_New                 ;0791EC|000029;
    BIT.W #$0800                         ;0791EF|      ;
    BNE CODE_079207                      ;0791F2|079207;
@@ -2659,29 +2659,29 @@ CODE_079203:
    LDA.W #$0000                         ;079203|      ;
    RTL                                  ;079206|      ;
 CODE_079207:
-   LDA.W Array_Selection,X              ;079207|0009EB;
+   LDA.W Object_var2_Selection,X        ;079207|0009EB;
    BEQ CODE_079213                      ;07920A|079213;
-   DEC.W Array_Selection,X              ;07920C|0009EB;
+   DEC.W Object_var2_Selection,X        ;07920C|0009EB;
    LDA.W #$0001                         ;07920F|      ;
    RTL                                  ;079212|      ;
 CODE_079213:
    LDA.W #$0002                         ;079213|      ;
-   STA.W Array_Selection,X              ;079216|0009EB;
+   STA.W Object_var2_Selection,X        ;079216|0009EB;
    LDA.W #$0001                         ;079219|      ;
    RTL                                  ;07921C|      ;
 CODE_07921D:
-   LDA.W Array_Selection,X              ;07921D|0009EB;
+   LDA.W Object_var2_Selection,X        ;07921D|0009EB;
    CMP.W #$0002                         ;079220|      ;
    BEQ CODE_07922C                      ;079223|07922C;
-   INC.W Array_Selection,X              ;079225|0009EB;
+   INC.W Object_var2_Selection,X        ;079225|0009EB;
    LDA.W #$0001                         ;079228|      ;
    RTL                                  ;07922B|      ;
 CODE_07922C:
-   STZ.W Array_Selection,X              ;07922C|0009EB;
+   STZ.W Object_var2_Selection,X        ;07922C|0009EB;
    LDA.W #$0001                         ;07922F|      ;
    RTL                                  ;079232|      ;
 CODE_079233:
-   LDA.W Array_Selection,X              ;079233|0009EB;
+   LDA.W Object_var2_Selection,X        ;079233|0009EB;
    ASL A                                ;079236|      ;
    TAX                                  ;079237|      ;
    LDA.W Tbl_Offset,X                   ;079238|0011B5;
@@ -2691,7 +2691,7 @@ CODE_079233:
    LDA.W #$0001                         ;079243|      ;
    RTL                                  ;079246|      ;
 CODE_079247:
-   LDA.W Array_Selection,X              ;079247|0009EB;
+   LDA.W Object_var2_Selection,X        ;079247|0009EB;
    ASL A                                ;07924A|      ;
    TAX                                  ;07924B|      ;
    LDA.W Tbl_Offset,X                   ;07924C|0011B5;
@@ -2774,7 +2774,7 @@ CODE_0792A2:
    STA.W Win_Color                      ;0792E3|001577;
    RTL                                  ;0792E6|      ;
 Some_Input_Check_:
-   LDX.W Selection                      ;0792E7|00103F;
+   LDX.W Selection_offset               ;0792E7|00103F;
    LDA.W Input_0029_New                 ;0792EA|000029;
    BIT.W #$0800                         ;0792ED|      ;
    BNE CODE_07930B                      ;0792F0|07930B;
@@ -2784,33 +2784,33 @@ Some_Input_Check_:
    BNE CODE_07931B                      ;0792FA|07931B;
    BIT.W #$0100                         ;0792FC|      ;
    BNE CODE_07931B                      ;0792FF|07931B;
-   LDA.W Array_Category,X               ;079301|0009C7;
+   LDA.W Object_var1_Category,X         ;079301|0009C7;
    ORA.W #$0004                         ;079304|      ;
-   STA.W Array_Category,X               ;079307|0009C7;
+   STA.W Object_var1_Category,X         ;079307|0009C7;
    RTL                                  ;07930A|      ;
 CODE_07930B:
-   INC.W Array_Category,X               ;07930B|0009C7;
-   INC.W Array_Category,X               ;07930E|0009C7;
-   LDA.W Array_Category,X               ;079311|0009C7;
+   INC.W Object_var1_Category,X         ;07930B|0009C7;
+   INC.W Object_var1_Category,X         ;07930E|0009C7;
+   LDA.W Object_var1_Category,X         ;079311|0009C7;
    AND.W #$0003                         ;079314|      ;
-   STA.W Array_Category,X               ;079317|0009C7;
+   STA.W Object_var1_Category,X         ;079317|0009C7;
    RTL                                  ;07931A|      ;
 CODE_07931B:
-   LDA.W Array_Category,X               ;07931B|0009C7;
+   LDA.W Object_var1_Category,X         ;07931B|0009C7;
    AND.W #$0001                         ;07931E|      ;
    BNE CODE_079330                      ;079321|079330;
-   LDA.W Array_Category,X               ;079323|0009C7;
+   LDA.W Object_var1_Category,X         ;079323|0009C7;
    ORA.W #$0001                         ;079326|      ;
    AND.W #$0003                         ;079329|      ;
-   STA.W Array_Category,X               ;07932C|0009C7;
+   STA.W Object_var1_Category,X         ;07932C|0009C7;
    RTL                                  ;07932F|      ;
 CODE_079330:
-   LDA.W Array_Category,X               ;079330|0009C7;
+   LDA.W Object_var1_Category,X         ;079330|0009C7;
    AND.W #$0002                         ;079333|      ;
-   STA.W Array_Category,X               ;079336|0009C7;
+   STA.W Object_var1_Category,X         ;079336|0009C7;
    RTL                                  ;079339|      ;
 Checks_for_input_probably:
-   LDX.W Selection                      ;07933A|00103F; I think this returns a value depending on which portrait is highlighted.
+   LDX.W Selection_offset               ;07933A|00103F; I think this returns a value depending on which portrait is highlighted.
    LDA.W Input_0029_New                 ;07933D|000029;
    BIT.W #$0800                         ;079340|      ;
    BNE LeftRight_Press                  ;079343|079358;
@@ -2823,43 +2823,43 @@ Checks_for_input_probably:
    LDA.W #$0000                         ;079354|      ;
    RTL                                  ;079357|      ;
 LeftRight_Press:
-   INC.W Array_Category,X               ;079358|0009C7;
-   INC.W Array_Category,X               ;07935B|0009C7;
-   LDA.W Array_Category,X               ;07935E|0009C7;
+   INC.W Object_var1_Category,X         ;079358|0009C7;
+   INC.W Object_var1_Category,X         ;07935B|0009C7;
+   LDA.W Object_var1_Category,X         ;07935E|0009C7;
    AND.W #$0003                         ;079361|      ;
-   STA.W Array_Category,X               ;079364|0009C7;
+   STA.W Object_var1_Category,X         ;079364|0009C7;
    LDA.W #$0001                         ;079367|      ;
    RTL                                  ;07936A|      ;
 UpDown_Press:
-   LDA.W Array_Category,X               ;07936B|0009C7;
+   LDA.W Object_var1_Category,X         ;07936B|0009C7;
    AND.W #$0001                         ;07936E|      ; Odd/even check
    BNE CODE_079380                      ;079371|079380;
-   LDA.W Array_Category,X               ;079373|0009C7;
+   LDA.W Object_var1_Category,X         ;079373|0009C7;
    ORA.W #$0001                         ;079376|      ;
-   STA.W Array_Category,X               ;079379|0009C7;
+   STA.W Object_var1_Category,X         ;079379|0009C7;
    LDA.W #$0001                         ;07937C|      ;
    RTL                                  ;07937F|      ;
 CODE_079380:
-   LDA.W Array_Category,X               ;079380|0009C7;
+   LDA.W Object_var1_Category,X         ;079380|0009C7;
    AND.W #$0002                         ;079383|      ;
-   STA.W Array_Category,X               ;079386|0009C7;
+   STA.W Object_var1_Category,X         ;079386|0009C7;
    LDA.W #$0001                         ;079389|      ;
    RTL                                  ;07938C|      ;
 CODE_07938D:
-   LDX.W Selection                      ;07938D|00103F;
-   LDA.W Array_Selection,X              ;079390|0009EB;
+   LDX.W Selection_offset               ;07938D|00103F;
+   LDA.W Object_var2_Selection,X        ;079390|0009EB;
    BPL CODE_07939F                      ;079393|07939F;
-   LDA.W Array_Category,X               ;079395|0009C7;
-   STA.W Array_Selection,X              ;079398|0009EB;
+   LDA.W Object_var1_Category,X         ;079395|0009C7;
+   STA.W Object_var2_Selection,X        ;079398|0009EB;
    LDA.W #$0000                         ;07939B|      ;
    RTL                                  ;07939E|      ;
 CODE_07939F:
-   LDA.W Array_Category,X               ;07939F|0009C7;
-   STA.W Array_Target,X                 ;0793A2|000A0F;
-   LDA.W Array_Selection,X              ;0793A5|0009EB;
+   LDA.W Object_var1_Category,X         ;07939F|0009C7;
+   STA.W Object_var3_Target,X           ;0793A2|000A0F;
+   LDA.W Object_var2_Selection,X        ;0793A5|0009EB;
    JSR.W Get_character_offset           ;0793A8|07B0F5;
    TAY                                  ;0793AB|      ;
-   LDA.W Array_Target,X                 ;0793AC|000A0F;
+   LDA.W Object_var3_Target,X           ;0793AC|000A0F;
    JSR.W Get_character_offset           ;0793AF|07B0F5;
    TAX                                  ;0793B2|      ;
    LDA.W Party_order,Y                  ;0793B3|0011F3;
@@ -2871,8 +2871,8 @@ CODE_07939F:
    LDA.W #$0001                         ;0793C3|      ;
    RTL                                  ;0793C6|      ;
 CODE_0793C7:
-   LDX.W Selection                      ;0793C7|00103F;
-   LDA.W Array_Selection,X              ;0793CA|0009EB;
+   LDX.W Selection_offset               ;0793C7|00103F;
+   LDA.W Object_var2_Selection,X        ;0793CA|0009EB;
    BPL CODE_0793D3                      ;0793CD|0793D3;
    LDA.W #$0000                         ;0793CF|      ;
    RTL                                  ;0793D2|      ;
@@ -2880,7 +2880,7 @@ CODE_0793D3:
    LDA.W #$0001                         ;0793D3|      ;
    RTL                                  ;0793D6|      ;
 CODE_0793D7:
-   LDX.W Selection                      ;0793D7|00103F;
+   LDX.W Selection_offset               ;0793D7|00103F;
    LDA.W Input_0029_New                 ;0793DA|000029;
    BIT.W #$0800                         ;0793DD|      ;
    BNE CODE_0793FB                      ;0793E0|0793FB;
@@ -2897,16 +2897,16 @@ CODE_0793F7:
    LDA.W #$0000                         ;0793F7|      ;
    RTL                                  ;0793FA|      ;
 CODE_0793FB:
-   LDA.W Array_Selection,X              ;0793FB|0009EB;
+   LDA.W Object_var2_Selection,X        ;0793FB|0009EB;
    BEQ CODE_0793F7                      ;0793FE|0793F7;
    CMP.W #$0001                         ;079400|      ;
    BEQ CODE_0793F7                      ;079403|0793F7;
    CMP.W #$0002                         ;079405|      ;
    BEQ CODE_0793F7                      ;079408|0793F7;
-   DEC.W Array_Selection,X              ;07940A|0009EB;
+   DEC.W Object_var2_Selection,X        ;07940A|0009EB;
    RTL                                  ;07940D|      ;
 CODE_07940E:
-   LDA.W Array_Selection,X              ;07940E|0009EB;
+   LDA.W Object_var2_Selection,X        ;07940E|0009EB;
    BEQ CODE_079433                      ;079411|079433;
    CMP.W #$0001                         ;079413|      ;
    BEQ CODE_079448                      ;079416|079448;
@@ -2919,26 +2919,26 @@ CODE_07940E:
    JSR.W Empty_item_slot                ;079424|07A45F;
    BNE CODE_0793F7                      ;079427|0793F7;
 CODE_079429:
-   LDX.W Selection                      ;079429|00103F;
-   INC.W Array_Selection,X              ;07942C|0009EB;
+   LDX.W Selection_offset               ;079429|00103F;
+   INC.W Object_var2_Selection,X        ;07942C|0009EB;
    LDA.W #$0001                         ;07942F|      ;
    RTL                                  ;079432|      ;
 CODE_079433:
    JSR.W Empty_item_slot                ;079433|07A45F;
    BNE CODE_0793F7                      ;079436|0793F7;
-   LDX.W Selection                      ;079438|00103F;
-   INC.W Array_Selection,X              ;07943B|0009EB;
-   INC.W Array_Selection,X              ;07943E|0009EB;
-   INC.W Array_Selection,X              ;079441|0009EB;
+   LDX.W Selection_offset               ;079438|00103F;
+   INC.W Object_var2_Selection,X        ;07943B|0009EB;
+   INC.W Object_var2_Selection,X        ;07943E|0009EB;
+   INC.W Object_var2_Selection,X        ;079441|0009EB;
    LDA.W #$0001                         ;079444|      ;
    RTL                                  ;079447|      ;
 CODE_079448:
    DEC A                                ;079448|      ;
    JSR.W Empty_item_slot                ;079449|07A45F;
    BNE CODE_0793F7                      ;07944C|0793F7;
-   LDX.W Selection                      ;07944E|00103F;
-   INC.W Array_Selection,X              ;079451|0009EB;
-   INC.W Array_Selection,X              ;079454|0009EB;
+   LDX.W Selection_offset               ;07944E|00103F;
+   INC.W Object_var2_Selection,X        ;079451|0009EB;
+   INC.W Object_var2_Selection,X        ;079454|0009EB;
    LDA.W #$0001                         ;079457|      ;
    RTL                                  ;07945A|      ;
 CODE_07945B:
@@ -2948,7 +2948,7 @@ CODE_07945B:
    BNE CODE_0793F7                      ;079460|0793F7;
    BRA CODE_079429                      ;079462|079429;
 CODE_079464:
-   LDA.W Array_Selection,X              ;079464|0009EB;
+   LDA.W Object_var2_Selection,X        ;079464|0009EB;
    BEQ CODE_07947C                      ;079467|07947C;
    CMP.W #$0001                         ;079469|      ;
    BEQ CODE_079475                      ;07946C|079475;
@@ -2956,16 +2956,16 @@ CODE_079464:
    BEQ CODE_079475                      ;079471|079475;
    BRA CODE_0794A8                      ;079473|0794A8;
 CODE_079475:
-   DEC.W Array_Selection,X              ;079475|0009EB;
+   DEC.W Object_var2_Selection,X        ;079475|0009EB;
    LDA.W #$0001                         ;079478|      ;
    RTL                                  ;07947B|      ;
 CODE_07947C:
-   INC.W Array_Selection,X              ;07947C|0009EB;
-   INC.W Array_Selection,X              ;07947F|0009EB;
+   INC.W Object_var2_Selection,X        ;07947C|0009EB;
+   INC.W Object_var2_Selection,X        ;07947F|0009EB;
    LDA.W #$0001                         ;079482|      ;
    RTL                                  ;079485|      ;
 CODE_079486:
-   LDA.W Array_Selection,X              ;079486|0009EB;
+   LDA.W Object_var2_Selection,X        ;079486|0009EB;
    BEQ CODE_079497                      ;079489|079497;
    CMP.W #$0001                         ;07948B|      ;
    BEQ CODE_079497                      ;07948E|079497;
@@ -2973,19 +2973,19 @@ CODE_079486:
    BEQ CODE_07949E                      ;079493|07949E;
    BRA CODE_0794A8                      ;079495|0794A8;
 CODE_079497:
-   INC.W Array_Selection,X              ;079497|0009EB;
+   INC.W Object_var2_Selection,X        ;079497|0009EB;
    LDA.W #$0001                         ;07949A|      ;
    RTL                                  ;07949D|      ;
 CODE_07949E:
-   DEC.W Array_Selection,X              ;07949E|0009EB;
-   DEC.W Array_Selection,X              ;0794A1|0009EB;
+   DEC.W Object_var2_Selection,X        ;07949E|0009EB;
+   DEC.W Object_var2_Selection,X        ;0794A1|0009EB;
    LDA.W #$0001                         ;0794A4|      ;
    RTL                                  ;0794A7|      ;
 CODE_0794A8:
    LDA.W #$0000                         ;0794A8|      ;
    RTL                                  ;0794AB|      ;
 CODE_0794AC:
-   LDX.W Selection                      ;0794AC|00103F;
+   LDX.W Selection_offset               ;0794AC|00103F;
    LDA.W Input_0029_New                 ;0794AF|000029;
    BIT.W #$0800                         ;0794B2|      ;
    BNE CODE_0794D0                      ;0794B5|0794D0;
@@ -3002,14 +3002,14 @@ CODE_0794CC:
    LDA.W #$0000                         ;0794CC|      ;
    RTL                                  ;0794CF|      ;
 CODE_0794D0:
-   LDA.W Array_Selection,X              ;0794D0|0009EB;
+   LDA.W Object_var2_Selection,X        ;0794D0|0009EB;
    BEQ CODE_0794CC                      ;0794D3|0794CC;
    CMP.W #$0001                         ;0794D5|      ;
    BEQ CODE_0794CC                      ;0794D8|0794CC;
-   DEC.W Array_Selection,X              ;0794DA|0009EB;
+   DEC.W Object_var2_Selection,X        ;0794DA|0009EB;
    RTL                                  ;0794DD|      ;
 CODE_0794DE:
-   LDA.W Array_Selection,X              ;0794DE|0009EB;
+   LDA.W Object_var2_Selection,X        ;0794DE|0009EB;
    BEQ CODE_0794FD                      ;0794E1|0794FD;
    CMP.W #$0001                         ;0794E3|      ;
    BEQ CODE_0794ED                      ;0794E6|0794ED;
@@ -3019,51 +3019,51 @@ CODE_0794ED:
    DEC A                                ;0794ED|      ;
    JSR.W CODE_07A488                    ;0794EE|07A488;
    BNE CODE_0794CC                      ;0794F1|0794CC;
-   LDX.W Selection                      ;0794F3|00103F;
-   INC.W Array_Selection,X              ;0794F6|0009EB;
+   LDX.W Selection_offset               ;0794F3|00103F;
+   INC.W Object_var2_Selection,X        ;0794F6|0009EB;
    LDA.W #$0001                         ;0794F9|      ;
    RTL                                  ;0794FC|      ;
 CODE_0794FD:
    JSR.W CODE_07A488                    ;0794FD|07A488;
    BNE CODE_0794CC                      ;079500|0794CC;
-   LDX.W Selection                      ;079502|00103F;
-   INC.W Array_Selection,X              ;079505|0009EB;
-   INC.W Array_Selection,X              ;079508|0009EB;
+   LDX.W Selection_offset               ;079502|00103F;
+   INC.W Object_var2_Selection,X        ;079505|0009EB;
+   INC.W Object_var2_Selection,X        ;079508|0009EB;
    LDA.W #$0001                         ;07950B|      ;
    RTL                                  ;07950E|      ;
 CODE_07950F:
-   LDA.W Array_Selection,X              ;07950F|0009EB;
+   LDA.W Object_var2_Selection,X        ;07950F|0009EB;
    BEQ CODE_079525                      ;079512|079525;
    CMP.W #$0001                         ;079514|      ;
    BEQ CODE_07951E                      ;079517|07951E;
    BIT.W #$0001                         ;079519|      ;
    BRA CODE_0794CC                      ;07951C|0794CC;
 CODE_07951E:
-   DEC.W Array_Selection,X              ;07951E|0009EB;
+   DEC.W Object_var2_Selection,X        ;07951E|0009EB;
    LDA.W #$0001                         ;079521|      ;
    RTL                                  ;079524|      ;
 CODE_079525:
-   INC.W Array_Selection,X              ;079525|0009EB;
+   INC.W Object_var2_Selection,X        ;079525|0009EB;
    LDA.W #$0001                         ;079528|      ;
    RTL                                  ;07952B|      ;
 CODE_07952C:
-   LDA.W Array_Selection,X              ;07952C|0009EB;
+   LDA.W Object_var2_Selection,X        ;07952C|0009EB;
    BEQ CODE_079538                      ;07952F|079538;
    CMP.W #$0001                         ;079531|      ;
    BEQ CODE_07953F                      ;079534|07953F;
    BRA CODE_0794CC                      ;079536|0794CC;
 CODE_079538:
-   INC.W Array_Selection,X              ;079538|0009EB;
+   INC.W Object_var2_Selection,X        ;079538|0009EB;
    LDA.W #$0001                         ;07953B|      ;
    RTL                                  ;07953E|      ;
 CODE_07953F:
-   DEC.W Array_Selection,X              ;07953F|0009EB;
+   DEC.W Object_var2_Selection,X        ;07953F|0009EB;
    LDA.W #$0001                         ;079542|      ;
    RTL                                  ;079545|      ;
    LDA.W #$0000                         ;079546|      ;
    RTL                                  ;079549|      ;
 CODE_07954A:
-   LDX.W Selection                      ;07954A|00103F;
+   LDX.W Selection_offset               ;07954A|00103F;
    LDA.W Input_0029_New                 ;07954D|000029;
    BIT.W #$0800                         ;079550|      ;
    BNE CODE_079568                      ;079553|079568;
@@ -3077,69 +3077,69 @@ CODE_079564:
    LDA.W #$0000                         ;079564|      ;
    RTL                                  ;079567|      ;
 CODE_079568:
-   LDA.W Array_Selection,X              ;079568|0009EB;
+   LDA.W Object_var2_Selection,X        ;079568|0009EB;
    CMP.W #$0004                         ;07956B|      ;
    BCC CODE_079564                      ;07956E|079564;
    BEQ CODE_079579                      ;079570|079579;
-   DEC.W Array_Selection,X              ;079572|0009EB;
+   DEC.W Object_var2_Selection,X        ;079572|0009EB;
    LDA.W #$0001                         ;079575|      ;
    RTL                                  ;079578|      ;
 CODE_079579:
    LDA.W #$0001                         ;079579|      ;
-   STA.W Array_Selection,X              ;07957C|0009EB;
+   STA.W Object_var2_Selection,X        ;07957C|0009EB;
    RTL                                  ;07957F|      ;
 CODE_079580:
-   LDA.W Array_Selection,X              ;079580|0009EB;
+   LDA.W Object_var2_Selection,X        ;079580|0009EB;
    CMP.W #$0004                         ;079583|      ;
    BCC CODE_07959C                      ;079586|07959C;
    CMP.W #$000B                         ;079588|      ;
    BEQ CODE_079564                      ;07958B|079564;
    JSR.W CODE_0795DF                    ;07958D|0795DF;
    BNE CODE_079564                      ;079590|079564;
-   LDX.W Selection                      ;079592|00103F;
-   INC.W Array_Selection,X              ;079595|0009EB;
+   LDX.W Selection_offset               ;079592|00103F;
+   INC.W Object_var2_Selection,X        ;079595|0009EB;
    LDA.W #$0001                         ;079598|      ;
    RTL                                  ;07959B|      ;
 CODE_07959C:
    LDA.W #$0004                         ;07959C|      ;
-   STA.W Array_Selection,X              ;07959F|0009EB;
+   STA.W Object_var2_Selection,X        ;07959F|0009EB;
    LDA.W #$0001                         ;0795A2|      ;
    RTL                                  ;0795A5|      ;
 CODE_0795A6:
-   LDA.W Array_Selection,X              ;0795A6|0009EB;
+   LDA.W Object_var2_Selection,X        ;0795A6|0009EB;
    CMP.W #$0004                         ;0795A9|      ;
    BCS CODE_079564                      ;0795AC|079564;
-   LDA.W Array_Selection,X              ;0795AE|0009EB;
+   LDA.W Object_var2_Selection,X        ;0795AE|0009EB;
    BEQ CODE_0795BA                      ;0795B1|0795BA;
-   DEC.W Array_Selection,X              ;0795B3|0009EB;
+   DEC.W Object_var2_Selection,X        ;0795B3|0009EB;
    LDA.W #$0001                         ;0795B6|      ;
    RTL                                  ;0795B9|      ;
 CODE_0795BA:
    LDA.W #$0003                         ;0795BA|      ;
-   STA.W Array_Selection,X              ;0795BD|0009EB;
+   STA.W Object_var2_Selection,X        ;0795BD|0009EB;
    LDA.W #$0001                         ;0795C0|      ;
    RTL                                  ;0795C3|      ;
 CODE_0795C4:
-   LDA.W Array_Selection,X              ;0795C4|0009EB;
+   LDA.W Object_var2_Selection,X        ;0795C4|0009EB;
    CMP.W #$0004                         ;0795C7|      ;
    BCS CODE_079564                      ;0795CA|079564;
-   LDA.W Array_Selection,X              ;0795CC|0009EB;
+   LDA.W Object_var2_Selection,X        ;0795CC|0009EB;
    CMP.W #$0003                         ;0795CF|      ;
    BEQ CODE_0795DB                      ;0795D2|0795DB;
-   INC.W Array_Selection,X              ;0795D4|0009EB;
+   INC.W Object_var2_Selection,X        ;0795D4|0009EB;
    LDA.W #$0001                         ;0795D7|      ;
    RTL                                  ;0795DA|      ;
 CODE_0795DB:
-   STZ.W Array_Selection,X              ;0795DB|0009EB;
+   STZ.W Object_var2_Selection,X        ;0795DB|0009EB;
    RTL                                  ;0795DE|      ;
 CODE_0795DF:
    LDA.W Page_Num                       ;0795DF|0011B9;
    ASL A                                ;0795E2|      ;
    TAX                                  ;0795E3|      ;
    LDA.L Tbl_ItemPage_Offset1,X         ;0795E4|079CAC;
-   LDX.W Selection                      ;0795E8|00103F;
+   LDX.W Selection_offset               ;0795E8|00103F;
    CLC                                  ;0795EB|      ;
-   ADC.W Array_Selection,X              ;0795EC|0009EB;
+   ADC.W Object_var2_Selection,X        ;0795EC|0009EB;
    DEC A                                ;0795EF|      ;
    DEC A                                ;0795F0|      ;
    DEC A                                ;0795F1|      ;
@@ -3154,16 +3154,16 @@ CODE_079600:
    LDA.W #$0001                         ;079600|      ;
    RTS                                  ;079603|      ;
 CODE_079604:
-   LDY.W Selection                      ;079604|00103F;
-   LDA.W Array_Selection,Y              ;079607|0009EB;
+   LDY.W Selection_offset               ;079604|00103F;
+   LDA.W Object_var2_Selection,Y        ;079607|0009EB;
    TAX                                  ;07960A|      ;
    SEP #$20                             ;07960B|      ;
    LDA.L DATA8_079625,X                 ;07960D|079625;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;079611|000787;
+   STA.W Object_XPOS_mirror,Y           ;079611|000787;
    LDA.L DATA8_079630,X                 ;079614|079630;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;079618|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;079618|0007AB;
    LDA.L DATA8_07963B,X                 ;07961B|07963B;
-   STA.W Array_Anim_ID,Y                ;07961F|000A7B;
+   STA.W Object_Anim_Frame,Y            ;07961F|000A7B;
    REP #$20                             ;079622|      ;
    RTL                                  ;079624|      ;
 DATA8_079625:
@@ -3211,16 +3211,16 @@ DATA8_07963B:
    db $01                               ;07964C|      ;
    db $01                               ;07964D|      ;
 CODE_07964E:
-   LDY.W Selection                      ;07964E|00103F;
-   LDA.W Array_Selection,Y              ;079651|0009EB;
+   LDY.W Selection_offset               ;07964E|00103F;
+   LDA.W Object_var2_Selection,Y        ;079651|0009EB;
    TAX                                  ;079654|      ;
    SEP #$20                             ;079655|      ;
    LDA.L DATA8_07966F,X                 ;079657|07966F;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;07965B|000787;
+   STA.W Object_XPOS_mirror,Y           ;07965B|000787;
    LDA.L DATA8_079679,X                 ;07965E|079679;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;079662|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;079662|0007AB;
    LDA.L DATA8_079683,X                 ;079665|079683;
-   STA.W Array_Anim_ID,Y                ;079669|000A7B;
+   STA.W Object_Anim_Frame,Y            ;079669|000A7B;
    REP #$20                             ;07966C|      ;
    RTL                                  ;07966E|      ;
 DATA8_07966F:
@@ -3257,16 +3257,16 @@ DATA8_079683:
    db $01                               ;07968B|      ;
    db $01                               ;07968C|      ;
 CODE_07968D:
-   LDY.W Selection                      ;07968D|00103F;
-   LDA.W Array_Selection,Y              ;079690|0009EB;
+   LDY.W Selection_offset               ;07968D|00103F;
+   LDA.W Object_var2_Selection,Y        ;079690|0009EB;
    TAX                                  ;079693|      ;
    SEP #$20                             ;079694|      ;
    LDA.L DATA8_0796AE,X                 ;079696|0796AE;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;07969A|000787;
+   STA.W Object_XPOS_mirror,Y           ;07969A|000787;
    LDA.L DATA8_0796BA,X                 ;07969D|0796BA;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;0796A1|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;0796A1|0007AB;
    LDA.L DATA8_0796C6,X                 ;0796A4|0796C6;
-   STA.W Array_Anim_ID,Y                ;0796A8|000A7B;
+   STA.W Object_Anim_Frame,Y            ;0796A8|000A7B;
    REP #$20                             ;0796AB|      ;
    RTL                                  ;0796AD|      ;
 DATA8_0796AE:
@@ -3355,8 +3355,8 @@ CODE_07970A:
 CODE_079728:
    RTL                                  ;079728|      ;
 CODE_079729:
-   LDX.W Selection                      ;079729|00103F;
-   LDA.W Array_Selection,X              ;07972C|0009EB;
+   LDX.W Selection_offset               ;079729|00103F;
+   LDA.W Object_var2_Selection,X        ;07972C|0009EB;
    DEC A                                ;07972F|      ;
    ASL A                                ;079730|      ;
    TAX                                  ;079731|      ;
@@ -3364,8 +3364,8 @@ CODE_079729:
    AND.W #$00FF                         ;079735|      ;
    RTL                                  ;079738|      ;
 CODE_079739:
-   LDX.W Selection                      ;079739|00103F;
-   LDA.W Array_Selection,X              ;07973C|0009EB;
+   LDX.W Selection_offset               ;079739|00103F;
+   LDA.W Object_var2_Selection,X        ;07973C|0009EB;
    BEQ CODE_079745                      ;07973F|079745;
    JSL.L CODE_079729                    ;079741|079729;
 CODE_079745:
@@ -3399,8 +3399,8 @@ Banks_Cards_desc:
    dw $0008                             ;07977B|000008;
    dw $0008                             ;07977D|000008;
 Pull_Item_Info:
-   LDX.W Selection                      ;07977F|00103F; Locates the current inventory selection and...does something with it.
-   LDA.W Array_Selection,X              ;079782|0009EB; Load current selection in item list?
+   LDX.W Selection_offset               ;07977F|00103F; Locates the current inventory selection and...does something with it.
+   LDA.W Object_var2_Selection,X        ;079782|0009EB; Load current selection in item list?
    BEQ CODE_0797B1                      ;079785|0797B1;
    CMP.W #$0001                         ;079787|      ;
    BEQ CODE_0797B1                      ;07978A|0797B1;
@@ -3410,9 +3410,9 @@ Pull_Item_Info:
    LDX.W #$0008                         ;079794|      ; Multiply by number of rows per item page
    JSL.L MultiplyTo1E00_far             ;079797|008A39;
    LDA.B $00                            ;07979B|000000;
-   LDX.W Selection                      ;07979D|00103F;
+   LDX.W Selection_offset               ;07979D|00103F;
    CLC                                  ;0797A0|      ;
-   ADC.W Array_Selection,X              ;0797A1|0009EB;
+   ADC.W Object_var2_Selection,X        ;0797A1|0009EB;
    DEC A                                ;0797A4|      ;
    DEC A                                ;0797A5|      ;
    DEC A                                ;0797A6|      ;
@@ -3492,15 +3492,15 @@ CODE_07982B:
    LDX.W #$0008                         ;07982E|      ;
    JSL.L MultiplyTo1E00_far             ;079831|008A39;
    LDA.B $00                            ;079835|000000;
-   LDX.W Selection                      ;079837|00103F;
+   LDX.W Selection_offset               ;079837|00103F;
    CLC                                  ;07983A|      ;
-   ADC.W Array_Selection,X              ;07983B|0009EB;
+   ADC.W Object_var2_Selection,X        ;07983B|0009EB;
    DEC A                                ;07983E|      ;
    DEC A                                ;07983F|      ;
    ASL A                                ;079840|      ;
    STA.B $00                            ;079841|000000;
-   LDX.W Selection                      ;079843|00103F;
-   LDA.W Array_Category,X               ;079846|0009C7;
+   LDX.W Selection_offset               ;079843|00103F;
+   LDA.W Object_var1_Category,X         ;079846|0009C7;
    STA.B $02                            ;079849|000002;
    JSR.W GetSpellID_Offset              ;07984B|07A55E;
    TAX                                  ;07984E|      ;
@@ -3512,15 +3512,15 @@ CODE_079856:
    LDX.W #$0008                         ;079859|      ;
    JSL.L MultiplyTo1E00_far             ;07985C|008A39;
    LDA.B $00                            ;079860|000000;
-   LDX.W Selection                      ;079862|00103F;
+   LDX.W Selection_offset               ;079862|00103F;
    CLC                                  ;079865|      ;
-   ADC.W Array_Selection,X              ;079866|0009EB;
+   ADC.W Object_var2_Selection,X        ;079866|0009EB;
    DEC A                                ;079869|      ;
    DEC A                                ;07986A|      ;
    ASL A                                ;07986B|      ;
    STA.B $00                            ;07986C|000000;
-   LDX.W Selection                      ;07986E|00103F;
-   LDA.W Array_Category,X               ;079871|0009C7;
+   LDX.W Selection_offset               ;07986E|00103F;
+   LDA.W Object_var1_Category,X         ;079871|0009C7;
    STA.B $02                            ;079874|000002;
    JSR.W GetSpellID_Offset              ;079876|07A55E;
    TAX                                  ;079879|      ;
@@ -4071,8 +4071,8 @@ Tbl_ItemPage_Offset1:
    dw $0010                             ;079CB0|      ;
    dw $0018                             ;079CB2|      ;
 CODE_079CB4:
-   LDX.W Selection                      ;079CB4|00103F;
-   LDA.W Array_Category,X               ;079CB7|0009C7;
+   LDX.W Selection_offset               ;079CB4|00103F;
+   LDA.W Object_var1_Category,X         ;079CB7|0009C7;
    JSR.W Get_character_offset           ;079CBA|07B0F5;
    TAX                                  ;079CBD|      ;
    LDA.W Party_slot1,X                  ;079CBE|00155B;
@@ -4177,8 +4177,8 @@ CODE_079D89:
    STZ.W EqAmulet,X                     ;079D89|0012B3;
    JMP.W CODE_079CFB                    ;079D8C|079CFB;
 CODE_079D8F:
-   LDX.W Selection                      ;079D8F|00103F;
-   LDA.W Array_Category,X               ;079D92|0009C7;
+   LDX.W Selection_offset               ;079D8F|00103F;
+   LDA.W Object_var1_Category,X         ;079D92|0009C7;
    JSR.W Get_character_offset           ;079D95|07B0F5;
    TAX                                  ;079D98|      ;
    RTS                                  ;079D99|      ;
@@ -4214,8 +4214,8 @@ CODE_079DC7:
 CODE_079DCE:
    RTS                                  ;079DCE|      ;
 CODE_079DCF:
-   LDX.W Selection                      ;079DCF|00103F;
-   LDA.W Array_Selection,X              ;079DD2|0009EB;
+   LDX.W Selection_offset               ;079DCF|00103F;
+   LDA.W Object_var2_Selection,X        ;079DD2|0009EB;
    DEC A                                ;079DD5|      ;
    ASL A                                ;079DD6|      ;
    STA.B $22                            ;079DD7|000022;
@@ -4239,15 +4239,15 @@ Draw_Magic_Menu1:
    LDX.W #$0008                         ;079DF8|      ;
    JSL.L MultiplyTo1E00_far             ;079DFB|008A39;
    LDA.B $00                            ;079DFF|000000;
-   LDX.W Selection                      ;079E01|00103F;
+   LDX.W Selection_offset               ;079E01|00103F;
    CLC                                  ;079E04|      ;
-   ADC.W Array_Selection,X              ;079E05|0009EB;
+   ADC.W Object_var2_Selection,X        ;079E05|0009EB;
    DEC A                                ;079E08|      ;
    DEC A                                ;079E09|      ;
    ASL A                                ;079E0A|      ;
    STA.B $00                            ;079E0B|000000;
-   LDX.W Selection                      ;079E0D|00103F;
-   LDA.W Array_Category,X               ;079E10|0009C7;
+   LDX.W Selection_offset               ;079E0D|00103F;
+   LDA.W Object_var1_Category,X         ;079E10|0009C7;
    STA.B $02                            ;079E13|000002;
    JSR.W GetSpellID_Offset              ;079E15|07A55E;
    TAX                                  ;079E18|      ;
@@ -4270,9 +4270,9 @@ CODE_079E36:
    LDX.W #$0008                         ;079E39|      ;
    JSL.L MultiplyTo1E00_far             ;079E3C|008A39;
    LDA.B $00                            ;079E40|000000;
-   LDX.W Selection                      ;079E42|00103F;
+   LDX.W Selection_offset               ;079E42|00103F;
    CLC                                  ;079E45|      ;
-   ADC.W Array_Selection,X              ;079E46|0009EB;
+   ADC.W Object_var2_Selection,X        ;079E46|0009EB;
    DEC A                                ;079E49|      ;
    DEC A                                ;079E4A|      ;
    DEC A                                ;079E4B|      ;
@@ -4305,15 +4305,15 @@ CODE_079E7A:
    LDX.W #$0008                         ;079E7D|      ;
    JSL.L MultiplyTo1E00_far             ;079E80|008A39;
    LDA.B $00                            ;079E84|000000;
-   LDX.W Selection                      ;079E86|00103F;
+   LDX.W Selection_offset               ;079E86|00103F;
    CLC                                  ;079E89|      ;
-   ADC.W Array_Selection,X              ;079E8A|0009EB;
+   ADC.W Object_var2_Selection,X        ;079E8A|0009EB;
    DEC A                                ;079E8D|      ;
    DEC A                                ;079E8E|      ;
    ASL A                                ;079E8F|      ;
    STA.B $00                            ;079E90|000000;
-   LDX.W Selection                      ;079E92|00103F;
-   LDA.W Array_Category,X               ;079E95|0009C7;
+   LDX.W Selection_offset               ;079E92|00103F;
+   LDA.W Object_var1_Category,X         ;079E95|0009C7;
    STA.B $02                            ;079E98|000002;
    JSR.W GetSpellID_Offset              ;079E9A|07A55E;
    STA.B $22                            ;079E9D|000022;
@@ -4330,8 +4330,8 @@ CODE_079E7A:
    DEC A                                ;079EB5|      ;
    ASL A                                ;079EB6|      ;
    STA.B $00                            ;079EB7|000000;
-   LDX.W Selection                      ;079EB9|00103F;
-   LDA.W Array_Category,X               ;079EBC|0009C7;
+   LDX.W Selection_offset               ;079EB9|00103F;
+   LDA.W Object_var1_Category,X         ;079EBC|0009C7;
    STA.B $02                            ;079EBF|000002;
    JSR.W GetSpellID_Offset              ;079EC1|07A55E;
    STA.B $24                            ;079EC4|000024;
@@ -4348,9 +4348,9 @@ CODE_079ED6:
    ASL A                                ;079ED9|      ;
    TAX                                  ;079EDA|      ;
    LDA.L Tbl_ItemPage_Offset1,X         ;079EDB|079CAC;
-   LDX.W Selection                      ;079EDF|00103F;
+   LDX.W Selection_offset               ;079EDF|00103F;
    CLC                                  ;079EE2|      ;
-   ADC.W Array_Selection,X              ;079EE3|0009EB;
+   ADC.W Object_var2_Selection,X        ;079EE3|0009EB;
    DEC A                                ;079EE6|      ;
    DEC A                                ;079EE7|      ;
    DEC A                                ;079EE8|      ;
@@ -4473,8 +4473,8 @@ CODE_079F99:
    DEX                                  ;079FA2|      ;
    JMP.W CODE_079F7D                    ;079FA3|079F7D;
 CODE_079FA6:
-   LDX.W Selection                      ;079FA6|00103F;
-   LDA.W Array_Selection,X              ;079FA9|0009EB;
+   LDX.W Selection_offset               ;079FA6|00103F;
+   LDA.W Object_var2_Selection,X        ;079FA9|0009EB;
    BEQ CODE_079FBE                      ;079FAC|079FBE;
    LDA.W Page_Num                       ;079FAE|0011B9;
    CMP.W #$0005                         ;079FB1|      ;
@@ -4494,8 +4494,8 @@ CODE_079FC7:
    STA.W Page_Num                       ;079FCA|0011B9;
    RTL                                  ;079FCD|      ;
 CODE_079FCE:
-   LDX.W Selection                      ;079FCE|00103F;
-   LDA.W Array_Selection,X              ;079FD1|0009EB;
+   LDX.W Selection_offset               ;079FCE|00103F;
+   LDA.W Object_var2_Selection,X        ;079FD1|0009EB;
    BEQ CODE_079FE6                      ;079FD4|079FE6;
    LDA.W Page_Num                       ;079FD6|0011B9;
    CMP.W #$0003                         ;079FD9|      ;
@@ -4515,8 +4515,8 @@ CODE_079FEF:
    STA.W Page_Num                       ;079FF2|0011B9;
    RTL                                  ;079FF5|      ;
 CODE_079FF6:
-   LDX.W Selection                      ;079FF6|00103F;
-   LDA.W Array_Selection,X              ;079FF9|0009EB;
+   LDX.W Selection_offset               ;079FF6|00103F;
+   LDA.W Object_var2_Selection,X        ;079FF9|0009EB;
    BEQ CODE_07A00E                      ;079FFC|07A00E;
    LDA.W Page_Num                       ;079FFE|0011B9;
    CMP.W #$0003                         ;07A001|      ;
@@ -4536,7 +4536,7 @@ CODE_07A017:
    STA.W Page_Num                       ;07A01A|0011B9;
    RTL                                  ;07A01D|      ;
 CODE_07A01E:
-   LDX.W Selection                      ;07A01E|00103F;
+   LDX.W Selection_offset               ;07A01E|00103F;
    LDA.W Input_0029_New                 ;07A021|000029;
    BIT.W #$0800                         ;07A024|      ;
    BNE CODE_07A032                      ;07A027|07A032;
@@ -4546,19 +4546,19 @@ CODE_07A02E:
    LDA.W #$0000                         ;07A02E|      ;
    RTL                                  ;07A031|      ;
 CODE_07A032:
-   LDA.W Array_Selection,X              ;07A032|0009EB;
+   LDA.W Object_var2_Selection,X        ;07A032|0009EB;
    BEQ CODE_07A02E                      ;07A035|07A02E;
-   DEC.W Array_Selection,X              ;07A037|0009EB;
+   DEC.W Object_var2_Selection,X        ;07A037|0009EB;
    LDA.W #$0001                         ;07A03A|      ;
    RTL                                  ;07A03D|      ;
 CODE_07A03E:
-   LDA.W Array_Selection,X              ;07A03E|0009EB;
+   LDA.W Object_var2_Selection,X        ;07A03E|0009EB;
    CMP.W #$0008                         ;07A041|      ;
    BEQ CODE_07A02E                      ;07A044|07A02E;
    JSR.W CODE_07A409                    ;07A046|07A409;
    BNE CODE_07A02E                      ;07A049|07A02E;
-   LDX.W Selection                      ;07A04B|00103F;
-   INC.W Array_Selection,X              ;07A04E|0009EB;
+   LDX.W Selection_offset               ;07A04B|00103F;
+   INC.W Object_var2_Selection,X        ;07A04E|0009EB;
    LDA.W #$0001                         ;07A051|      ;
    RTL                                  ;07A054|      ;
 Sub_Get_ItemOffset:
@@ -4580,8 +4580,8 @@ Tbl_ItemPage_Offset2:
    dw $0020                             ;07A06D|      ;
    dw $0028                             ;07A06F|      ;
 CODE_07A071:
-   LDX.W Selection                      ;07A071|00103F;
-   LDA.W Array_Selection,X              ;07A074|0009EB;
+   LDX.W Selection_offset               ;07A071|00103F;
+   LDA.W Object_var2_Selection,X        ;07A074|0009EB;
    STA.B $20                            ;07A077|000020;
    LDA.W Page_Num                       ;07A079|0011B9;
    ASL A                                ;07A07C|      ;
@@ -4610,8 +4610,8 @@ CODE_07A0A6:
    LDA.W #$0000                         ;07A0A6|      ;
    RTL                                  ;07A0A9|      ;
 CODE_07A0AA:
-   LDX.W Selection                      ;07A0AA|00103F;
-   LDA.W Array_Selection,X              ;07A0AD|0009EB;
+   LDX.W Selection_offset               ;07A0AA|00103F;
+   LDA.W Object_var2_Selection,X        ;07A0AD|0009EB;
    STA.B $20                            ;07A0B0|000020;
    LDA.W Page_Num                       ;07A0B2|0011B9;
    ASL A                                ;07A0B5|      ;
@@ -4816,8 +4816,8 @@ CODE_07A21D:
    LDA.L Tbl_Page_Offset,X              ;07A222|07A236;
    ASL A                                ;07A226|      ;
    STA.B $00                            ;07A227|000000;
-   LDX.W Selection                      ;07A229|00103F;
-   LDA.W Array_Category,X               ;07A22C|0009C7;
+   LDX.W Selection_offset               ;07A229|00103F;
+   LDA.W Object_var1_Category,X         ;07A22C|0009C7;
    STA.B $02                            ;07A22F|000002;
    JSR.W GetSpellID_Offset              ;07A231|07A55E;
    TAX                                  ;07A234|      ;
@@ -4828,8 +4828,8 @@ Tbl_Page_Offset:
    dw $0010                             ;07A23A|      ;
    dw $0018                             ;07A23C|      ;
 Load_Equipment_menu:
-   LDX.W Selection                      ;07A23E|00103F;
-   LDA.W Array_Category,X               ;07A241|0009C7;
+   LDX.W Selection_offset               ;07A23E|00103F;
+   LDA.W Object_var1_Category,X         ;07A241|0009C7;
    JSR.W Get_character_offset           ;07A244|07B0F5;
    TAX                                  ;07A247|      ;
    LDA.W Party_slot1,X                  ;07A248|00155B;
@@ -4970,8 +4970,8 @@ CODE_07A33C:
    ASL A                                ;07A33C|      ;
    JMP.W Draw_Weapon_screen             ;07A33D|07A349;
 Draw_Weapon_screen_from_char:
-   LDX.W Selection                      ;07A340|00103F;
-   LDA.W Array_Category,X               ;07A343|0009C7;
+   LDX.W Selection_offset               ;07A340|00103F;
+   LDA.W Object_var1_Category,X         ;07A343|0009C7;
    JSR.W Get_character_offset           ;07A346|07B0F5;
 Draw_Weapon_screen:
    TAX                                  ;07A349|      ;
@@ -5153,8 +5153,8 @@ CODE_07A488:
    ADC.B $20                            ;07A499|000020;
    ASL A                                ;07A49B|      ;
    STA.B $00                            ;07A49C|000000;
-   LDX.W Selection                      ;07A49E|00103F;
-   LDA.W Array_Category,X               ;07A4A1|0009C7;
+   LDX.W Selection_offset               ;07A49E|00103F;
+   LDA.W Object_var1_Category,X         ;07A4A1|0009C7;
    STA.B $02                            ;07A4A4|000002;
    JSR.W GetSpellID_Offset              ;07A4A6|07A55E;
    TAX                                  ;07A4A9|      ;
@@ -5212,16 +5212,16 @@ Tbl_Page_Offsets2:
    AND.W #$0001                         ;07A502|      ;
    RTL                                  ;07A505|      ;
 CODE_07A506:
-   LDY.W Selection                      ;07A506|00103F;
-   LDA.W Array_Selection,Y              ;07A509|0009EB;
+   LDY.W Selection_offset               ;07A506|00103F;
+   LDA.W Object_var2_Selection,Y        ;07A509|0009EB;
    ASL A                                ;07A50C|      ;
    TAX                                  ;07A50D|      ;
    LDA.L Table_0787,X                   ;07A50E|07A524;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;07A512|000787;
+   STA.W Object_XPOS_mirror,Y           ;07A512|000787;
    LDA.L Table_07AB,X                   ;07A515|07A536;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;07A519|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;07A519|0007AB;
    LDA.L Table_0A7B,X                   ;07A51C|07A548;
-   STA.W Array_Anim_ID,Y                ;07A520|000A7B;
+   STA.W Object_Anim_Frame,Y            ;07A520|000A7B;
    RTL                                  ;07A523|      ;
 Table_0787:
    dw $009E                             ;07A524|      ; 9 entries
@@ -5274,7 +5274,7 @@ Spell_List_Offsets:
    dw $0080                             ;07A576|      ;
    dw $00C0                             ;07A578|      ;
 CODE_07A57A:
-   LDX.W Selection                      ;07A57A|00103F;
+   LDX.W Selection_offset               ;07A57A|00103F;
    LDA.W Input_0029_New                 ;07A57D|000029;
    BIT.W #$0200                         ;07A580|      ;
    BNE CODE_07A58E                      ;07A583|07A58E;
@@ -5283,25 +5283,25 @@ CODE_07A57A:
    LDA.W #$0000                         ;07A58A|      ;
    RTL                                  ;07A58D|      ;
 CODE_07A58E:
-   LDA.W Array_Target,X                 ;07A58E|000A0F;
+   LDA.W Object_var3_Target,X           ;07A58E|000A0F;
    BEQ CODE_07A59A                      ;07A591|07A59A;
-   DEC.W Array_Target,X                 ;07A593|000A0F;
+   DEC.W Object_var3_Target,X           ;07A593|000A0F;
    LDA.W #$0001                         ;07A596|      ;
    RTL                                  ;07A599|      ;
 CODE_07A59A:
    LDA.W #$0004                         ;07A59A|      ;
-   STA.W Array_Target,X                 ;07A59D|000A0F;
+   STA.W Object_var3_Target,X           ;07A59D|000A0F;
    LDA.W #$0001                         ;07A5A0|      ;
    RTL                                  ;07A5A3|      ;
 CODE_07A5A4:
-   LDA.W Array_Target,X                 ;07A5A4|000A0F;
+   LDA.W Object_var3_Target,X           ;07A5A4|000A0F;
    CMP.W #$0004                         ;07A5A7|      ;
    BEQ CODE_07A5B3                      ;07A5AA|07A5B3;
-   INC.W Array_Target,X                 ;07A5AC|000A0F;
+   INC.W Object_var3_Target,X           ;07A5AC|000A0F;
    LDA.W #$0001                         ;07A5AF|      ;
    RTL                                  ;07A5B2|      ;
 CODE_07A5B3:
-   STZ.W Array_Target,X                 ;07A5B3|000A0F;
+   STZ.W Object_var3_Target,X           ;07A5B3|000A0F;
    LDA.W #$0001                         ;07A5B6|      ;
    RTL                                  ;07A5B9|      ;
 _11B1_input_stuff:
@@ -5614,16 +5614,16 @@ Treasure_Save_Value:
    JSL.L Treasure_Opening               ;07A827|188563; Probably does this separately from "get contents" to animate opening the chest in between.
    STA.B $20                            ;07A82B|000020;
    STX.B $22                            ;07A82D|000022;
-   LDX.W Selection                      ;07A82F|00103F;
+   LDX.W Selection_offset               ;07A82F|00103F;
    LDA.B $20                            ;07A832|000020;
-   STA.W Array_Category,X               ;07A834|0009C7;
+   STA.W Object_var1_Category,X         ;07A834|0009C7;
    LDA.B $22                            ;07A837|000022;
-   STA.W Array_Selection,X              ;07A839|0009EB;
+   STA.W Object_var2_Selection,X        ;07A839|0009EB;
    RTL                                  ;07A83C|      ;
 Get_Treasure_Contents:
-   LDY.W Selection                      ;07A83D|00103F;
-   LDA.W Array_Category,Y               ;07A840|0009C7; Load treasure type (card, item, equipment, GP, Monster, empty)
-   LDX.W Array_Selection,Y              ;07A843|0009EB; Load treasure value/amount
+   LDY.W Selection_offset               ;07A83D|00103F;
+   LDA.W Object_var1_Category,Y         ;07A840|0009C7; Load treasure type (card, item, equipment, GP, Monster, empty)
+   LDX.W Object_var2_Selection,Y        ;07A843|0009EB; Load treasure value/amount
    CMP.W #$0000                         ;07A846|      ;
    BEQ Treasure_Card                    ;07A849|07A866;
    CMP.W #$0001                         ;07A84B|      ;
@@ -6191,7 +6191,7 @@ Tbl_Spell_List_Offsets:
 Unequip_character:
    JSL.L GetEventCode_2b_far            ;07AC6E|009B07; Get the character to unequip
    TAX                                  ;07AC72|      ;
-   LDA.W Array_Selection,X              ;07AC73|0009EB;
+   LDA.W Object_var2_Selection,X        ;07AC73|0009EB;
    ASL A                                ;07AC76|      ;
    TAX                                  ;07AC77|      ;
    STX.B $22                            ;07AC78|000022; Save the offset to their equipped items
@@ -6223,8 +6223,8 @@ CODE_07ACAD:
 MoveMenuCursor_2b:
    JSL.L GetEventCode_2b_far            ;07ACAE|009B07;
    STA.B $20                            ;07ACB2|000020;
-   LDY.W Selection                      ;07ACB4|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;07ACB7|0009A3;
+   LDY.W Selection_offset               ;07ACB4|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;07ACB7|0009A3;
    ASL A                                ;07ACBA|      ;
    CLC                                  ;07ACBB|      ;
    ADC.B $20                            ;07ACBC|000020;
@@ -6241,8 +6241,8 @@ MoveMenuCursor_2b:
    LDA.W #$0000                         ;07ACD6|      ;
 UpdateCursor:
    CLC                                  ;07ACD9|      ;
-   ADC.W Array_Menu_Cursor,Y            ;07ACDA|0009A3;
-   STA.W Array_Menu_Cursor,Y            ;07ACDD|0009A3;
+   ADC.W Object_var0_Menu_Cursor,Y      ;07ACDA|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;07ACDD|0009A3;
    RTL                                  ;07ACE0|      ;
 CODE_07ACE1:
    LDA.L Tbl_MenuUp,X                   ;07ACE1|07ACFD; Up press
@@ -6441,15 +6441,15 @@ Tbl_MenuRight:
    dw $0000                             ;07AE61|      ;
    dw $0000                             ;07AE63|      ;
 CODE_07AE65:
-   LDY.W Selection                      ;07AE65|00103F;
+   LDY.W Selection_offset               ;07AE65|00103F;
    TYX                                  ;07AE68|      ;
-   LDA.W Array_Menu_Cursor,X            ;07AE69|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07AE69|0009A3;
    ASL A                                ;07AE6C|      ;
    TAX                                  ;07AE6D|      ;
    LDA.L Tbl_07AE6E,X                   ;07AE6E|07AE7D;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;07AE72|000787;
+   STA.W Object_XPOS_mirror,Y           ;07AE72|000787;
    LDA.L Tbl_07AE75,X                   ;07AE75|07AE8F;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;07AE79|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;07AE79|0007AB;
    RTL                                  ;07AE7C|      ;
 Tbl_07AE6E:
    dw $003E                             ;07AE7D|      ; 9 entries; probably X distance of the menu cursor
@@ -6472,15 +6472,15 @@ Tbl_07AE75:
    dw $00B2                             ;07AE9D|      ;
    dw $00C0                             ;07AE9F|      ;
 SetBattleCursorPos:
-   LDY.W Selection                      ;07AEA1|00103F;
+   LDY.W Selection_offset               ;07AEA1|00103F;
    TYX                                  ;07AEA4|      ;
-   LDA.W Array_Menu_Cursor,X            ;07AEA5|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07AEA5|0009A3;
    ASL A                                ;07AEA8|      ;
    TAX                                  ;07AEA9|      ;
    LDA.L BattleCursorXPos,X             ;07AEAA|07AEB9;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;07AEAE|000787;
+   STA.W Object_XPOS_mirror,Y           ;07AEAE|000787;
    LDA.L BattleCursorYPos,X             ;07AEB1|07AECB;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;07AEB5|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;07AEB5|0007AB;
    RTL                                  ;07AEB8|      ;
 BattleCursorXPos:
    dw $003E                             ;07AEB9|      ; Attack
@@ -6503,8 +6503,8 @@ BattleCursorYPos:
    dw $00B1                             ;07AED9|      ; Run
    dw $00BF                             ;07AEDB|      ; Call
 Is_Equals_1575:
-   LDX.W Selection                      ;07AEDD|00103F; Return true if selection value = $1575 value
-   LDA.W Array_Selection,X              ;07AEE0|0009EB;
+   LDX.W Selection_offset               ;07AEDD|00103F; Return true if selection value = $1575 value
+   LDA.W Object_var2_Selection,X        ;07AEE0|0009EB;
    CMP.W Comparison                     ;07AEE3|001575;
    BEQ CODE_07AEEC                      ;07AEE6|07AEEC;
    LDA.W #$0000                         ;07AEE8|      ;
@@ -6556,26 +6556,26 @@ CODE_07AF35:
 Set_1575_from_2b:
    JSL.L GetEventCode_2b_far            ;07AF39|009B07; Reads 2 bytes and loads one of 4 RAM offsets
    STA.B $20                            ;07AF3D|000020;
-   LDX.W Selection                      ;07AF3F|00103F;
+   LDX.W Selection_offset               ;07AF3F|00103F;
    LDA.B $20                            ;07AF42|000020; If word=0, store $09A3,x in $1575
    BEQ CODE_07AF57                      ;07AF44|07AF57;
    CMP.W #$0001                         ;07AF46|      ; If word=1, store $09C7,x in $1575
    BEQ CODE_07AF5E                      ;07AF49|07AF5E;
    CMP.W #$0002                         ;07AF4B|      ; If word=2, store $09EB,x in $1575
    BEQ CODE_07AF65                      ;07AF4E|07AF65;
-   LDA.W Array_Target,X                 ;07AF50|000A0F; If word not 0-2, store $0A0F,x in $1575
+   LDA.W Object_var3_Target,X           ;07AF50|000A0F; If word not 0-2, store $0A0F,x in $1575
    STA.W Comparison                     ;07AF53|001575;
    RTL                                  ;07AF56|      ;
 CODE_07AF57:
-   LDA.W Array_Menu_Cursor,X            ;07AF57|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07AF57|0009A3;
    STA.W Comparison                     ;07AF5A|001575;
    RTL                                  ;07AF5D|      ;
 CODE_07AF5E:
-   LDA.W Array_Category,X               ;07AF5E|0009C7;
+   LDA.W Object_var1_Category,X         ;07AF5E|0009C7;
    STA.W Comparison                     ;07AF61|001575;
    RTL                                  ;07AF64|      ;
 CODE_07AF65:
-   LDA.W Array_Selection,X              ;07AF65|0009EB;
+   LDA.W Object_var2_Selection,X        ;07AF65|0009EB;
    STA.W Comparison                     ;07AF68|001575;
    RTL                                  ;07AF6B|      ;
 Is_Enemy_Attack_Done_1b:
@@ -6584,7 +6584,7 @@ Is_Enemy_Attack_Done_1b:
    TAX                                  ;07AF71|      ;
    LDA.W Tbl_Offset,X                   ;07AF72|0011B5; Get enemy offset for 0643
    TAX                                  ;07AF75|      ;
-   LDA.W Battle_Enemy_ID,X              ;07AF76|000643; Load "Enemies in battle", set to FFFF when removed
+   LDA.W Event_ID_Slot_00,X             ;07AF76|000643; Load "Enemies in battle", set to FFFF when removed
    BMI CODE_07AF7F                      ;07AF79|07AF7F;
    LDA.W #$0000                         ;07AF7B|      ; If enemy exists, return false
    RTL                                  ;07AF7E|      ;
@@ -6595,7 +6595,7 @@ Search_0643_x_for_val:
    STA.B $20                            ;07AF83|000020; Pre: Search value on A. Loops 0643,x; returns false if found
    LDX.W #$0000                         ;07AF85|      ; Prime the loop (Loop eighteen times)
 CODE_07AF88:
-   LDA.W Battle_Enemy_ID,X              ;07AF88|000643;
+   LDA.W Event_ID_Slot_00,X             ;07AF88|000643;
    CMP.B $20                            ;07AF8B|000020; If value is found, return false
    BEQ CODE_07AF9A                      ;07AF8D|07AF9A;
    INX                                  ;07AF8F|      ;
@@ -6621,14 +6621,14 @@ Compare_an_offset_to_11B5:
    JSL.L GetEventCode_1b_far            ;07AFB0|009AF8; Read $11B5 offset to compare
    ASL A                                ;07AFB4|      ;
    PHA                                  ;07AFB5|      ; Double it and save to the stack
-   LDX.W Selection                      ;07AFB6|00103F;
+   LDX.W Selection_offset               ;07AFB6|00103F;
    LDA.B $20                            ;07AFB9|000020; If byte 1 is 0, load $09A3,x
    BEQ CODE_07AFE0                      ;07AFBB|07AFE0;
    CMP.W #$0001                         ;07AFBD|      ; If byte 1 is 1, load $09C7,x
    BEQ CODE_07AFE6                      ;07AFC0|07AFE6;
    CMP.W #$0002                         ;07AFC2|      ; If byte 1 is 2, load $09EB,x
    BEQ CODE_07AFEC                      ;07AFC5|07AFEC;
-   LDA.W Array_Target,X                 ;07AFC7|000A0F; If byte 1 is 3, load $0A0F,x
+   LDA.W Object_var3_Target,X           ;07AFC7|000A0F; If byte 1 is 3, load $0A0F,x
 CODE_07AFCA:
    PLX                                  ;07AFCA|      ;
    CMP.W Tbl_Offset,X                   ;07AFCB|0011B5; Compare with $11B5,x
@@ -6645,27 +6645,27 @@ CODE_07AFDC:
    LDA.W #$0002                         ;07AFDC|      ;
    RTL                                  ;07AFDF|      ;
 CODE_07AFE0:
-   LDA.W Array_Menu_Cursor,X            ;07AFE0|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07AFE0|0009A3;
    JMP.W CODE_07AFCA                    ;07AFE3|07AFCA;
 CODE_07AFE6:
-   LDA.W Array_Category,X               ;07AFE6|0009C7;
+   LDA.W Object_var1_Category,X         ;07AFE6|0009C7;
    JMP.W CODE_07AFCA                    ;07AFE9|07AFCA;
 CODE_07AFEC:
-   LDA.W Array_Selection,X              ;07AFEC|0009EB;
+   LDA.W Object_var2_Selection,X        ;07AFEC|0009EB;
    JMP.W CODE_07AFCA                    ;07AFEF|07AFCA;
 Similar_to_7AFAA:
    JSL.L GetEventCode_1b_far            ;07AFF2|009AF8;
    STA.B $20                            ;07AFF6|000020;
    JSL.L GetEventCode_1b_far            ;07AFF8|009AF8;
    STA.B $22                            ;07AFFC|000022;
-   LDX.W Selection                      ;07AFFE|00103F;
+   LDX.W Selection_offset               ;07AFFE|00103F;
    LDA.B $22                            ;07B001|000022;
    BEQ CODE_07B039                      ;07B003|07B039;
    CMP.W #$0001                         ;07B005|      ;
    BEQ CODE_07B03F                      ;07B008|07B03F;
    CMP.W #$0002                         ;07B00A|      ;
    BEQ CODE_07B045                      ;07B00D|07B045;
-   LDA.W Array_Target,X                 ;07B00F|000A0F;
+   LDA.W Object_var3_Target,X           ;07B00F|000A0F;
 CODE_07B012:
    STA.B $22                            ;07B012|000022;
    LDA.B $20                            ;07B014|000020;
@@ -6674,7 +6674,7 @@ CODE_07B012:
    BEQ CODE_07B051                      ;07B01B|07B051;
    CMP.W #$0002                         ;07B01D|      ;
    BEQ CODE_07B057                      ;07B020|07B057;
-   LDA.W Array_Target,X                 ;07B022|000A0F;
+   LDA.W Object_var3_Target,X           ;07B022|000A0F;
 CODE_07B025:
    CMP.B $22                            ;07B025|000022;
    BEQ CODE_07B02D                      ;07B027|07B02D;
@@ -6690,22 +6690,22 @@ CODE_07B035:
    LDA.W #$0002                         ;07B035|      ;
    RTL                                  ;07B038|      ;
 CODE_07B039:
-   LDA.W Array_Menu_Cursor,X            ;07B039|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07B039|0009A3;
    JMP.W CODE_07B012                    ;07B03C|07B012;
 CODE_07B03F:
-   LDA.W Array_Category,X               ;07B03F|0009C7;
+   LDA.W Object_var1_Category,X         ;07B03F|0009C7;
    JMP.W CODE_07B012                    ;07B042|07B012;
 CODE_07B045:
-   LDA.W Array_Selection,X              ;07B045|0009EB;
+   LDA.W Object_var2_Selection,X        ;07B045|0009EB;
    JMP.W CODE_07B012                    ;07B048|07B012;
 CODE_07B04B:
-   LDA.W Array_Menu_Cursor,X            ;07B04B|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07B04B|0009A3;
    JMP.W CODE_07B025                    ;07B04E|07B025;
 CODE_07B051:
-   LDA.W Array_Category,X               ;07B051|0009C7;
+   LDA.W Object_var1_Category,X         ;07B051|0009C7;
    JMP.W CODE_07B025                    ;07B054|07B025;
 CODE_07B057:
-   LDA.W Array_Selection,X              ;07B057|0009EB;
+   LDA.W Object_var2_Selection,X        ;07B057|0009EB;
    JMP.W CODE_07B025                    ;07B05A|07B025;
 CODE_07B05D:
    JSL.L GetEventCode_1b_far            ;07B05D|009AF8;
@@ -6823,14 +6823,14 @@ CODE_07B11C:
 AfterEnemyLoot_4b:
    JSL.L GetEventCode_2b_far            ;07B122|009B07; 2b->$22  (ex: 0001)
    STA.B $22                            ;07B126|000022;
-   LDX.W Selection                      ;07B128|00103F;
+   LDX.W Selection_offset               ;07B128|00103F;
    LDA.B $20                            ;07B12B|000020;
    BEQ CODE_07B15A                      ;07B12D|07B15A;
    CMP.W #$0001                         ;07B12F|      ;
    BEQ CODE_07B15F                      ;07B132|07B15F;
    CMP.W #$0002                         ;07B134|      ;
    BEQ CODE_07B164                      ;07B137|07B164;
-   LDA.W Array_Target,X                 ;07B139|000A0F;
+   LDA.W Object_var3_Target,X           ;07B139|000A0F;
 CODE_07B13C:
    ASL A                                ;07B13C|      ;
    TAX                                  ;07B13D|      ;
@@ -6848,13 +6848,13 @@ CODE_07B151:
    STA.W Condition,X                    ;07B156|0011C3;
    RTL                                  ;07B159|      ;
 CODE_07B15A:
-   LDA.W Array_Menu_Cursor,X            ;07B15A|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07B15A|0009A3;
    BRA CODE_07B13C                      ;07B15D|07B13C;
 CODE_07B15F:
-   LDA.W Array_Category,X               ;07B15F|0009C7;
+   LDA.W Object_var1_Category,X         ;07B15F|0009C7;
    BRA CODE_07B13C                      ;07B162|07B13C;
 CODE_07B164:
-   LDA.W Array_Selection,X              ;07B164|0009EB;
+   LDA.W Object_var2_Selection,X        ;07B164|0009EB;
    BRA CODE_07B13C                      ;07B167|07B13C;
 OR_element_with_2b:
    PHA                                  ;07B169|      ;
@@ -6972,8 +6972,8 @@ CODE_07B230:
    LDA.W #$0001                         ;07B230|      ;
    RTS                                  ;07B233|      ;
 Sub_Levelup_check:
-   LDX.W Selection                      ;07B234|00103F; Returns 1 if they gained a level, 0 otherwise
-   LDA.W Array_Selection,X              ;07B237|0009EB; Get character ID?
+   LDX.W Selection_offset               ;07B234|00103F; Returns 1 if they gained a level, 0 otherwise
+   LDA.W Object_var2_Selection,X        ;07B237|0009EB; Get character ID?
    CMP.W #$0001                         ;07B23A|      ; If it's the spirit(?) return 1
    BEQ CODE_07B252                      ;07B23D|07B252;
    ASL A                                ;07B23F|      ;
@@ -6990,8 +6990,8 @@ CODE_07B252:
    LDA.W #$0001                         ;07B252|      ;
    RTL                                  ;07B255|      ;
 Sub_Increase_LV:
-   LDX.W Selection                      ;07B256|00103F;
-   LDA.W Array_Selection,X              ;07B259|0009EB; Get character ID?
+   LDX.W Selection_offset               ;07B256|00103F;
+   LDA.W Object_var2_Selection,X        ;07B259|0009EB; Get character ID?
    ASL A                                ;07B25C|      ;
    TAX                                  ;07B25D|      ;
    CPX.W #$0002                         ;07B25E|      ;
@@ -7007,8 +7007,8 @@ Sub_Increase_LV:
 CODE_07B279:
    RTL                                  ;07B279|      ;
 Sub_Get_EXP_to_next:
-   LDX.W Selection                      ;07B27A|00103F;
-   LDA.W Array_Selection,X              ;07B27D|0009EB; Load character offset (Rooks=0, Spirit=1...)
+   LDX.W Selection_offset               ;07B27A|00103F;
+   LDA.W Object_var2_Selection,X        ;07B27D|0009EB; Load character offset (Rooks=0, Spirit=1...)
    ASL A                                ;07B280|      ;
    TAX                                  ;07B281|      ;
    PHA                                  ;07B282|      ;
@@ -7104,8 +7104,8 @@ CODE_07B31F:
    LDA.W Max_MP_Rooks,X                 ;07B331|00139B;
    RTL                                  ;07B334|      ;
 LevelUp2:
-   LDX.W Selection                      ;07B335|00103F;
-   LDA.W Array_Selection,X              ;07B338|0009EB;
+   LDX.W Selection_offset               ;07B335|00103F;
+   LDA.W Object_var2_Selection,X        ;07B338|0009EB;
    ASL A                                ;07B33B|      ;
    TAX                                  ;07B33C|      ;
    LDA.W Party_slot1,X                  ;07B33D|00155B; Load party member's ID (0-8)
@@ -7123,8 +7123,8 @@ CODE_07B358:
    JSL.L MultiplyTo1E00_far             ;07B35B|008A39;
    LDA.B $00                            ;07B35F|000000; Load offset for levelup stats
    PHA                                  ;07B361|      ;
-   LDX.W Selection                      ;07B362|00103F;
-   LDA.W Array_Selection,X              ;07B365|0009EB;
+   LDX.W Selection_offset               ;07B362|00103F;
+   LDA.W Object_var2_Selection,X        ;07B365|0009EB;
    ASL A                                ;07B368|      ;
    TAX                                  ;07B369|      ;
    LDA.W Curr_LV_Rooks,X                ;07B36A|00137B;
@@ -7134,8 +7134,8 @@ CODE_07B358:
    CLC                                  ;07B375|      ;
    ADC.B $00                            ;07B376|000000; Get the current entry (+HP, +MP, +Str etc)
    TAX                                  ;07B378|      ;
-   LDY.W Selection                      ;07B379|00103F;
-   LDA.W Array_Selection,Y              ;07B37C|0009EB;
+   LDY.W Selection_offset               ;07B379|00103F;
+   LDA.W Object_var2_Selection,Y        ;07B37C|0009EB;
    ASL A                                ;07B37F|      ;
    TAY                                  ;07B380|      ; Get offset for updating party member's stats
    LDA.L Level_up_stats,X               ;07B381|05AD52;
@@ -7204,8 +7204,8 @@ CODE_07B40C:
    STA.W Alertness,Y                    ;07B40C|00126B;
    RTL                                  ;07B40F|      ;
 CODE_07B410:
-   LDX.W Selection                      ;07B410|00103F;
-   LDA.W Array_Selection,X              ;07B413|0009EB;
+   LDX.W Selection_offset               ;07B410|00103F;
+   LDA.W Object_var2_Selection,X        ;07B413|0009EB;
    CMP.W #$0001                         ;07B416|      ;
    BEQ CODE_07B437                      ;07B419|07B437;
    ASL A                                ;07B41B|      ;
@@ -7235,8 +7235,8 @@ CODE_07B448:
    STA.W Curr_GP                        ;07B448|001559;
    RTL                                  ;07B44B|      ;
 Add_EXP_to_total_won:
-   LDX.W Selection                      ;07B44C|00103F;
-   LDA.W Array_Selection,X              ;07B44F|0009EB;
+   LDX.W Selection_offset               ;07B44C|00103F;
+   LDA.W Object_var2_Selection,X        ;07B44F|0009EB;
    ASL A                                ;07B452|      ;
    TAX                                  ;07B453|      ;
    LDA.W Curr_EXP_Rooks,X               ;07B454|001363; Get target's EXP value
@@ -7256,8 +7256,8 @@ Add_GP_to_total_won:
 Set_character_ID_2b:
    JSL.L GetEventCode_2b_far            ;07B470|009B07; Takes 2b (character ID) and stores it in the party
    PHA                                  ;07B474|      ;
-   LDX.W Selection                      ;07B475|00103F; Current selection?
-   LDA.W Array_Selection,X              ;07B478|0009EB; Current character ID?
+   LDX.W Selection_offset               ;07B475|00103F; Current selection?
+   LDA.W Object_var2_Selection,X        ;07B478|0009EB; Current character ID?
    ASL A                                ;07B47B|      ;
    TAY                                  ;07B47C|      ;
    PLA                                  ;07B47D|      ;
@@ -7284,32 +7284,32 @@ CODE_07B49D:
 Load_Temp_Var_2b:
    JSL.L GetEventCode_2b_far            ;07B4A1|009B07; Loads offset from 1 of 4 temp vars (input=00-03)
    STA.B $20                            ;07B4A5|000020;
-   LDX.W Selection                      ;07B4A7|00103F;
+   LDX.W Selection_offset               ;07B4A7|00103F;
    LDA.B $20                            ;07B4AA|000020; Load input value
    BEQ CODE_07B4C1                      ;07B4AC|07B4C1;
    CMP.W #$0001                         ;07B4AE|      ;
    BEQ CODE_07B4CA                      ;07B4B1|07B4CA;
    CMP.W #$0002                         ;07B4B3|      ;
    BEQ CODE_07B4D3                      ;07B4B6|07B4D3;
-   LDA.W Array_Target,X                 ;07B4B8|000A0F;
+   LDA.W Object_var3_Target,X           ;07B4B8|000A0F;
    ASL A                                ;07B4BB|      ;
    TAY                                  ;07B4BC|      ;
    LDA.W Party_slot1,Y                  ;07B4BD|00155B;
    RTL                                  ;07B4C0|      ;
 CODE_07B4C1:
-   LDA.W Array_Menu_Cursor,X            ;07B4C1|0009A3;
+   LDA.W Object_var0_Menu_Cursor,X      ;07B4C1|0009A3;
    ASL A                                ;07B4C4|      ;
    TAY                                  ;07B4C5|      ;
    LDA.W Party_slot1,Y                  ;07B4C6|00155B;
    RTL                                  ;07B4C9|      ;
 CODE_07B4CA:
-   LDA.W Array_Category,X               ;07B4CA|0009C7;
+   LDA.W Object_var1_Category,X         ;07B4CA|0009C7;
    ASL A                                ;07B4CD|      ;
    TAY                                  ;07B4CE|      ;
    LDA.W Party_slot1,Y                  ;07B4CF|00155B;
    RTL                                  ;07B4D2|      ;
 CODE_07B4D3:
-   LDA.W Array_Selection,X              ;07B4D3|0009EB;
+   LDA.W Object_var2_Selection,X        ;07B4D3|0009EB;
    ASL A                                ;07B4D6|      ;
    TAY                                  ;07B4D7|      ;
    LDA.W Party_slot1,Y                  ;07B4D8|00155B;
@@ -7357,8 +7357,8 @@ Get_EnemyX_Name:
    JSL.L Text_to_RAM                    ;07B535|07BE1A;
    DEY                                  ;07B539|      ;
    PHY                                  ;07B53A|      ;
-   LDX.W Selection                      ;07B53B|00103F;
-   LDA.W Array_Selection,X              ;07B53E|0009EB;
+   LDX.W Selection_offset               ;07B53B|00103F;
+   LDA.W Object_var2_Selection,X        ;07B53E|0009EB;
    ASL A                                ;07B541|      ;
    TAX                                  ;07B542|      ;
    LDA.W Party_slot1,X                  ;07B543|00155B;
@@ -7397,10 +7397,10 @@ Get_enemy_name:
    JSL.L Text_to_RAM                    ;07B582|07BE1A;
    DEY                                  ;07B586|      ;
    PHY                                  ;07B587|      ;
-   LDX.W Selection                      ;07B588|00103F;
-   LDA.W Array_Category,X               ;07B58B|0009C7;
+   LDX.W Selection_offset               ;07B588|00103F;
+   LDA.W Object_var1_Category,X         ;07B58B|0009C7;
    TAX                                  ;07B58E|      ;
-   LDA.W Array_Selection,X              ;07B58F|0009EB;
+   LDA.W Object_var2_Selection,X        ;07B58F|0009EB;
    ASL A                                ;07B592|      ;
    TAX                                  ;07B593|      ;
    LDA.W Party_slot1,X                  ;07B594|00155B;
@@ -7439,8 +7439,8 @@ Get_Enemy_Name:
    JSL.L Text_to_RAM                    ;07B5D3|07BE1A;
    DEY                                  ;07B5D7|      ;
    PHY                                  ;07B5D8|      ;
-   LDX.W Selection                      ;07B5D9|00103F;
-   LDA.W Array_Target,X                 ;07B5DC|000A0F;
+   LDX.W Selection_offset               ;07B5D9|00103F;
+   LDA.W Object_var3_Target,X           ;07B5DC|000A0F;
    ASL A                                ;07B5DF|      ;
    TAX                                  ;07B5E0|      ;
    LDA.W Party_slot1,X                  ;07B5E1|00155B;
@@ -7466,8 +7466,8 @@ CODE_07B605:
    PLY                                  ;07B605|      ;
    RTL                                  ;07B606|      ;
 GetEnemyWpnLookup:
-   LDX.W Selection                      ;07B607|00103F; Gets a value from 0-5 (?)
-   LDA.W Array_Selection,X              ;07B60A|0009EB;
+   LDX.W Selection_offset               ;07B607|00103F; Gets the enemy attack animation from their EqWeapon stat. (It's basically the high byte divided by 2, but they made a table for it instead.)
+   LDA.W Object_var2_Selection,X        ;07B60A|0009EB; Load var02 (attacker ID)
    ASL A                                ;07B60D|      ;
    TAX                                  ;07B60E|      ;
    LDA.W EqWeapon,X                     ;07B60F|001283;
@@ -7475,9 +7475,9 @@ GetEnemyWpnLookup:
    LDA.L Data_Enemy_WeaponLookup,X      ;07B613|05D0D5;
    AND.W #$00FF                         ;07B617|      ;
    RTL                                  ;07B61A|      ;
-Get_Boss_music_flag:
+Get_Enemy_AtkFrame_flag:
    TAX                                  ;07B61B|      ;
-   LDA.L Flag_Boss_music,X              ;07B61C|05D195;
+   LDA.L Flag_Enemy_AtkFrame,X          ;07B61C|05D195;
    AND.W #$00FF                         ;07B620|      ;
    RTL                                  ;07B623|      ;
 BattleStart_ChooseSpeaker_far:
@@ -7592,8 +7592,8 @@ Bank_COMBAT_Text:
 Crit_Text_Setup:
    LDA.W $1125                          ;07B6F9|001125; "Take that!" $1125=1 is a crit
    BEQ Non_Crit_Text_Setup              ;07B6FC|07B71F;
-   LDX.W Selection                      ;07B6FE|00103F;
-   LDA.W Array_Selection,X              ;07B701|0009EB;
+   LDX.W Selection_offset               ;07B6FE|00103F;
+   LDA.W Object_var2_Selection,X        ;07B701|0009EB;
    ASL A                                ;07B704|      ;
    TAX                                  ;07B705|      ;
    LDA.W Party_slot1,X                  ;07B706|00155B;
@@ -7637,8 +7637,8 @@ Bank_Critical_hit_text:
 CODE_07B755:
    LDA.W $1125                          ;07B755|001125;
    BEQ CODE_07B77E                      ;07B758|07B77E;
-   LDX.W Selection                      ;07B75A|00103F;
-   LDA.W Array_Target,X                 ;07B75D|000A0F;
+   LDX.W Selection_offset               ;07B75A|00103F;
+   LDA.W Object_var3_Target,X           ;07B75D|000A0F;
    ASL A                                ;07B760|      ;
    TAX                                  ;07B761|      ;
    LDA.W Party_slot1,X                  ;07B762|00155B;
@@ -7676,8 +7676,8 @@ Bank_Getting_crit_text:
    dw $0008                             ;07B7A2|      ;
    dw $0008                             ;07B7A4|      ;
 Show_Dodge_text:
-   LDX.W Selection                      ;07B7A6|00103F; "That's the best you can do?"
-   LDA.W Array_Target,X                 ;07B7A9|000A0F;
+   LDX.W Selection_offset               ;07B7A6|00103F; "That's the best you can do?"
+   LDA.W Object_var3_Target,X           ;07B7A9|000A0F;
    ASL A                                ;07B7AC|      ;
    TAX                                  ;07B7AD|      ;
    LDA.W Party_slot1,X                  ;07B7AE|00155B;
@@ -7727,7 +7727,7 @@ CODE_07B7F8:
    LDY.W #$0014                         ;07B808|      ;
 CODE_07B80B:
    LDX.W #$0000                         ;07B80B|      ;
-   LDA.W Battle_Enemy_ID,Y              ;07B80E|000643;
+   LDA.W Event_ID_Slot_00,Y             ;07B80E|000643;
    CMP.W #$FFFF                         ;07B811|      ;
    BEQ CODE_07B847                      ;07B814|07B847;
    SEC                                  ;07B816|      ;
@@ -7751,7 +7751,7 @@ CODE_07B837:
    INC.W $16DB,X                        ;07B837|0016DB;
    LDA.W $16DB,X                        ;07B83A|0016DB;
    PHA                                  ;07B83D|      ;
-   LDA.W Array_Selection,Y              ;07B83E|0009EB;
+   LDA.W Object_var2_Selection,Y        ;07B83E|0009EB;
    ASL A                                ;07B841|      ;
    TAX                                  ;07B842|      ;
    PLA                                  ;07B843|      ;
@@ -7773,7 +7773,7 @@ CODE_07B851:
    STA.B $20                            ;07B862|000020;
    LDY.W #$0014                         ;07B864|      ;
 CODE_07B867:
-   LDA.W Battle_Enemy_ID,Y              ;07B867|000643;
+   LDA.W Event_ID_Slot_00,Y             ;07B867|000643;
    CMP.B $20                            ;07B86A|000020;
    BEQ CODE_07B877                      ;07B86C|07B877;
    INY                                  ;07B86E|      ;
@@ -7782,7 +7782,7 @@ CODE_07B867:
    BCC CODE_07B867                      ;07B873|07B867;
    BRA CODE_07B882                      ;07B875|07B882;
 CODE_07B877:
-   LDA.W Array_Selection,Y              ;07B877|0009EB;
+   LDA.W Object_var2_Selection,Y        ;07B877|0009EB;
    ASL A                                ;07B87A|      ;
    TAY                                  ;07B87B|      ;
    LDA.W #$0000                         ;07B87C|      ;
@@ -7870,20 +7870,20 @@ CODE_07B913:
    REP #$20                             ;07B913|      ;
    RTL                                  ;07B915|      ;
 CODE_07B916:
-   LDX.W Selection                      ;07B916|00103F;
-   LDA.W Array_Target,X                 ;07B919|000A0F;
+   LDX.W Selection_offset               ;07B916|00103F;
+   LDA.W Object_var3_Target,X           ;07B919|000A0F;
    CMP.W Curr_area                      ;07B91C|001573;
    BNE CODE_07B925                      ;07B91F|07B925;
    LDA.W #$0000                         ;07B921|      ;
    RTL                                  ;07B924|      ;
 CODE_07B925:
    LDA.W Curr_area                      ;07B925|001573;
-   STA.W Array_Target,X                 ;07B928|000A0F;
+   STA.W Object_var3_Target,X           ;07B928|000A0F;
    LDA.W #$0001                         ;07B92B|      ;
    RTL                                  ;07B92E|      ;
 Max_heal:
-   LDX.W Selection                      ;07B92F|00103F;
-   LDA.W Array_Selection,X              ;07B932|0009EB;
+   LDX.W Selection_offset               ;07B92F|00103F;
+   LDA.W Object_var2_Selection,X        ;07B932|0009EB;
    ASL A                                ;07B935|      ;
    TAX                                  ;07B936|      ;
    LDA.W Max_HP_Rooks,X                 ;07B937|001393;
@@ -7894,8 +7894,8 @@ Max_heal:
    STA.W Curr_MP_Rooks_copy,X           ;07B946|00133B;
    RTL                                  ;07B949|      ;
 KillEnemy:
-   LDX.W Selection                      ;07B94A|00103F;
-   LDA.W Array_Selection,X              ;07B94D|0009EB;
+   LDX.W Selection_offset               ;07B94A|00103F;
+   LDA.W Object_var2_Selection,X        ;07B94D|0009EB;
    ASL A                                ;07B950|      ;
    TAX                                  ;07B951|      ;
    STZ.W Curr_HP_Rooks,X                ;07B952|0012F3;
@@ -7939,8 +7939,8 @@ CODE_07B98A:
 CODE_07B9A1:
    RTL                                  ;07B9A1|      ;
 CODE_07B9A2:
-   LDX.W Selection                      ;07B9A2|00103F;
-   LDA.W Array_Category,X               ;07B9A5|0009C7;
+   LDX.W Selection_offset               ;07B9A2|00103F;
+   LDA.W Object_var1_Category,X         ;07B9A5|0009C7;
    BNE CODE_07B9AF                      ;07B9A8|07B9AF;
    LDX.W Attacker                       ;07B9AA|001121;
    BRA CODE_07B9BF                      ;07B9AD|07B9BF;
@@ -7957,17 +7957,17 @@ CODE_07B9BF:
    ASL A                                ;07B9C2|      ;
    TAX                                  ;07B9C3|      ;
    LDA.L New_stuff,X                    ;07B9C4|18954E;
-   LDX.W Selection                      ;07B9C8|00103F;
+   LDX.W Selection_offset               ;07B9C8|00103F;
    PHA                                  ;07B9CB|      ;
    AND.W #$00FF                         ;07B9CC|      ;
-   STA.W Cursor_Array_Xpos_Copy,X       ;07B9CF|000787;
+   STA.W Object_XPOS_mirror,X           ;07B9CF|000787;
    PLA                                  ;07B9D2|      ;
    XBA                                  ;07B9D3|      ;
    AND.W #$00FF                         ;07B9D4|      ;
-   STA.W Cursor_Array_Ypos_Copy,X       ;07B9D7|0007AB;
+   STA.W Object_YPOS_mirror,X           ;07B9D7|0007AB;
    EOR.W #$FFFF                         ;07B9DA|      ;
    DEC A                                ;07B9DD|      ;
-   STA.W $07CF,X                        ;07B9DE|0007CF;
+   STA.W Object_ZPOS_mirror,X           ;07B9DE|0007CF;
    RTL                                  ;07B9E1|      ;
 CODE_07B9E2:
    ASL A                                ;07B9E2|      ;
@@ -7976,15 +7976,15 @@ CODE_07B9E2:
    ASL A                                ;07B9E7|      ;
    TAX                                  ;07B9E8|      ;
    LDA.L New_stuff,X                    ;07B9E9|18954E;
-   LDX.W Selection                      ;07B9ED|00103F;
+   LDX.W Selection_offset               ;07B9ED|00103F;
    PHA                                  ;07B9F0|      ;
    AND.W #$00FF                         ;07B9F1|      ;
-   STA.W Cursor_Array_Xpos_Copy,X       ;07B9F4|000787;
+   STA.W Object_XPOS_mirror,X           ;07B9F4|000787;
    PLA                                  ;07B9F7|      ;
    XBA                                  ;07B9F8|      ;
    AND.W #$00FF                         ;07B9F9|      ;
-   STA.W Cursor_Array_Ypos_Copy,X       ;07B9FC|0007AB;
-   STZ.W $07CF,X                        ;07B9FF|0007CF;
+   STA.W Object_YPOS_mirror,X           ;07B9FC|0007AB;
+   STZ.W Object_ZPOS_mirror,X           ;07B9FF|0007CF;
    RTL                                  ;07BA02|      ;
 Wait_For_A_Press_1b:
    JSL.L GetEventCode_1b_far            ;07BA03|009AF8; $1095 stuff
@@ -8055,8 +8055,8 @@ Facing_related:
    LSR A                                ;07BA8E|      ;
    CLC                                  ;07BA8F|      ;
    ADC.W #$0008                         ;07BA90|      ;
-   LDX.W Selection                      ;07BA93|00103F;
-   STA.W Array_Anim_ID,X                ;07BA96|000A7B;
+   LDX.W Selection_offset               ;07BA93|00103F;
+   STA.W Object_Anim_Frame,X            ;07BA96|000A7B;
    RTL                                  ;07BA99|      ;
 Sub_Turning_Around:
    LDA.W Map_Compass                    ;07BA9A|0016FB; Load Facing direction
@@ -8073,18 +8073,18 @@ CODE_07BAA3:
    BEQ CODE_07BAB5                      ;07BAAA|07BAB5;
    BMI CODE_07BABC                      ;07BAAC|07BABC;
    LDA.W #$0001                         ;07BAAE|      ;
-   STA.W Array_Category,X               ;07BAB1|0009C7;
+   STA.W Object_var1_Category,X         ;07BAB1|0009C7;
    RTL                                  ;07BAB4|      ;
 CODE_07BAB5:
    LDA.W #$0002                         ;07BAB5|      ;
-   STA.W Array_Category,X               ;07BAB8|0009C7;
+   STA.W Object_var1_Category,X         ;07BAB8|0009C7;
    RTL                                  ;07BABB|      ;
 CODE_07BABC:
    LDA.W #$0000                         ;07BABC|      ;
-   STA.W Array_Category,X               ;07BABF|0009C7;
+   STA.W Object_var1_Category,X         ;07BABF|0009C7;
    RTL                                  ;07BAC2|      ;
 CODE_07BAC3:
-   LDX.W Selection                      ;07BAC3|00103F;
+   LDX.W Selection_offset               ;07BAC3|00103F;
    LDA.W Compass_Subdirection           ;07BAC6|00157D;
    ROL A                                ;07BAC9|      ;
    ROL A                                ;07BACA|      ;
@@ -8092,17 +8092,17 @@ CODE_07BAC3:
    ROL A                                ;07BACC|      ;
    ROL A                                ;07BACD|      ;
    AND.W #$000F                         ;07BACE|      ;
-   STA.W Array_Anim_ID,X                ;07BAD1|000A7B;
+   STA.W Object_Anim_Frame,X            ;07BAD1|000A7B;
    RTL                                  ;07BAD4|      ;
    JSL.L GetEventCode_2b_far            ;07BAD5|009B07;
    STA.B $20                            ;07BAD9|000020;
    JSL.L GetEventCode_2b_far            ;07BADB|009B07;
-   LDX.W Selection                      ;07BADF|00103F;
-   CMP.W Cursor_Array_Ypos_Copy,X       ;07BAE2|0007AB;
+   LDX.W Selection_offset               ;07BADF|00103F;
+   CMP.W Object_YPOS_mirror,X           ;07BAE2|0007AB;
    BCC CODE_07BAF3                      ;07BAE5|07BAF3;
    LDA.B $20                            ;07BAE7|000020;
    DEC A                                ;07BAE9|      ;
-   CMP.W Cursor_Array_Ypos_Copy,X       ;07BAEA|0007AB;
+   CMP.W Object_YPOS_mirror,X           ;07BAEA|0007AB;
    BCS CODE_07BAF3                      ;07BAED|07BAF3;
    LDA.W #$0000                         ;07BAEF|      ;
    RTL                                  ;07BAF2|      ;
@@ -8117,14 +8117,14 @@ LoadSaveItem:
    STA.W $18C3                          ;07BB00|0018C3;
    RTL                                  ;07BB03|      ;
 Get_Item_Selection:
-   LDX.W Selection                      ;07BB04|00103F;
+   LDX.W Selection_offset               ;07BB04|00103F;
    LDA.W Game_State                     ;07BB07|0011C1; In battle?
    CMP.W #$0002                         ;07BB0A|      ;
    BNE CODE_07BB14                      ;07BB0D|07BB14;
-   LDA.W Array_Category,X               ;07BB0F|0009C7;
+   LDA.W Object_var1_Category,X         ;07BB0F|0009C7;
    BRA CODE_07BB28                      ;07BB12|07BB28;
 CODE_07BB14:
-   LDA.W Array_Selection,X              ;07BB14|0009EB;
+   LDA.W Object_var2_Selection,X        ;07BB14|0009EB;
    STA.B $20                            ;07BB17|000020;
    LDA.W Page_Num                       ;07BB19|0011B9;
    ASL A                                ;07BB1C|      ;
@@ -8139,14 +8139,14 @@ CODE_07BB28:
    ASL A                                ;07BB28|      ;
    RTL                                  ;07BB29|      ;
 Get_Item_Info:
-   LDY.W Selection                      ;07BB2A|00103F; Called when double clicking an item to load its data
-   LDA.W Array_Menu_Cursor,Y            ;07BB2D|0009A3;
+   LDY.W Selection_offset               ;07BB2A|00103F; Called when double clicking an item to load its data
+   LDA.W Object_var0_Menu_Cursor,Y      ;07BB2D|0009A3;
    STA.W $11A1                          ;07BB30|0011A1;
-   LDA.W Array_Category,Y               ;07BB33|0009C7;
+   LDA.W Object_var1_Category,Y         ;07BB33|0009C7;
    STA.W $11A3                          ;07BB36|0011A3;
-   LDA.W Array_Selection,Y              ;07BB39|0009EB;
+   LDA.W Object_var2_Selection,Y        ;07BB39|0009EB;
    STA.W $11A5                          ;07BB3C|0011A5;
-   LDA.W Array_Target,Y                 ;07BB3F|000A0F;
+   LDA.W Object_var3_Target,Y           ;07BB3F|000A0F;
    STA.W $11A7                          ;07BB42|0011A7;
    LDA.W Tbl_Offset                     ;07BB45|0011B5;
    STA.W $11A9                          ;07BB48|0011A9;
@@ -8162,15 +8162,15 @@ Get_Item_Info:
    STA.W $11B3                          ;07BB66|0011B3;
    RTL                                  ;07BB69|      ;
 CODE_07BB6A:
-   LDY.W Selection                      ;07BB6A|00103F;
+   LDY.W Selection_offset               ;07BB6A|00103F;
    LDA.W $11A1                          ;07BB6D|0011A1;
-   STA.W Array_Menu_Cursor,Y            ;07BB70|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;07BB70|0009A3;
    LDA.W $11A3                          ;07BB73|0011A3;
-   STA.W Array_Category,Y               ;07BB76|0009C7;
+   STA.W Object_var1_Category,Y         ;07BB76|0009C7;
    LDA.W $11A5                          ;07BB79|0011A5;
-   STA.W Array_Selection,Y              ;07BB7C|0009EB;
+   STA.W Object_var2_Selection,Y        ;07BB7C|0009EB;
    LDA.W $11A7                          ;07BB7F|0011A7;
-   STA.W Array_Target,Y                 ;07BB82|000A0F;
+   STA.W Object_var3_Target,Y           ;07BB82|000A0F;
    LDA.W $11A9                          ;07BB85|0011A9;
    STA.W Tbl_Offset                     ;07BB88|0011B5;
    LDA.W $11AB                          ;07BB8B|0011AB;
@@ -8283,7 +8283,7 @@ CODE_07BC5B:
    ASL A                                ;07BC5C|      ;
    TAX                                  ;07BC5D|      ;
    LDY.W Fn_results                     ;07BC5E|001041;
-   LDA.W Array_Fn_results1,Y            ;07BC61|000CB3;
+   LDA.W Object_Accumulator,Y           ;07BC61|000CB3;
    STA.B $00                            ;07BC64|000000;
    LDA.W Curr_HP_Rooks,X                ;07BC66|0012F3;
    CLC                                  ;07BC69|      ;
@@ -8304,7 +8304,7 @@ MP_Recovery:
    ASL A                                ;07BC83|      ;
    TAX                                  ;07BC84|      ;
    LDY.W Fn_results                     ;07BC85|001041;
-   LDA.W Array_Fn_results1,Y            ;07BC88|000CB3;
+   LDA.W Object_Accumulator,Y           ;07BC88|000CB3;
    STA.B $00                            ;07BC8B|000000;
    LDA.W Curr_MP_Rooks,X                ;07BC8D|001323;
    CLC                                  ;07BC90|      ;
@@ -8415,16 +8415,16 @@ CODE_07BD63:
 CODE_07BD6C:
    JML.L Checks_for_input_probably      ;07BD6C|07933A;
 Sets_Some_Values:
-   LDY.W Selection                      ;07BD70|00103F; Menu related?
-   LDA.W Array_Category,Y               ;07BD73|0009C7;
+   LDY.W Selection_offset               ;07BD70|00103F; Menu related?
+   LDA.W Object_var1_Category,Y         ;07BD73|0009C7;
    ASL A                                ;07BD76|      ;
    TAX                                  ;07BD77|      ;
    LDA.L DATA16_07BD8D,X                ;07BD78|07BD8D;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;07BD7C|000787;
-   STA.W Cursor_Array_Xpos,Y            ;07BD7F|0006F7;
+   STA.W Object_XPOS_mirror,Y           ;07BD7C|000787;
+   STA.W Object_XPOS,Y                  ;07BD7F|0006F7;
    LDA.L DATA16_07BD95,X                ;07BD82|07BD95;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;07BD86|0007AB;
-   STA.W Cursor_Array_Ypos,Y            ;07BD89|00071B;
+   STA.W Object_YPOS_mirror,Y           ;07BD86|0007AB;
+   STA.W Object_YPOS,Y                  ;07BD89|00071B;
    RTL                                  ;07BD8C|      ;
 DATA16_07BD8D:
    dw $001C                             ;07BD8D|      ;
@@ -8448,8 +8448,8 @@ CODE_07BDA7:
    LDA.W Party_slot1,X                  ;07BDAA|00155B;
    JML.L Get_PC_Name1_far               ;07BDAD|07B4DC;
 CODE_07BDB1:
-   LDY.W Selection                      ;07BDB1|00103F;
-   LDA.W Array_Category,Y               ;07BDB4|0009C7;
+   LDY.W Selection_offset               ;07BDB1|00103F;
+   LDA.W Object_var1_Category,Y         ;07BDB4|0009C7;
    LDX.W #$0000                         ;07BDB7|      ;
 CODE_07BDBA:
    CMP.W Party_order,X                  ;07BDBA|0011F3;
@@ -8474,16 +8474,16 @@ Store_results_in_2b:
    JSL.L GetEventCode_2b_far            ;07BDD9|009B07;
    STA.B $00                            ;07BDDD|000000;
    LDY.W Fn_results                     ;07BDDF|001041;
-   LDA.W Array_Fn_results1,Y            ;07BDE2|000CB3;
+   LDA.W Object_Accumulator,Y           ;07BDE2|000CB3;
    STA.B ($00)                          ;07BDE5|000000;
    RTL                                  ;07BDE7|      ;
 CODE_07BDE8:
    JSR.W Get_enemy_ID_from_09C7         ;07BDE8|07911C;
-   JSL.L Get_Boss_music_flag            ;07BDEB|07B61B;
+   JSL.L Get_Enemy_AtkFrame_flag        ;07BDEB|07B61B;
    CLC                                  ;07BDEF|      ;
    ADC.W #$0007                         ;07BDF0|      ;
-   LDY.W Selection                      ;07BDF3|00103F;
-   STA.W Array_Anim_ID,Y                ;07BDF6|000A7B;
+   LDY.W Selection_offset               ;07BDF3|00103F;
+   STA.W Object_Anim_Frame,Y            ;07BDF6|000A7B;
    RTL                                  ;07BDF9|      ;
 CODE_07BDFA:
    LDA.W $18C3                          ;07BDFA|0018C3;
@@ -8554,7 +8554,7 @@ Load_Item_Name:
    JML.L Text_to_RAM                    ;07BE76|07BE1A;
 Load_Status_Healed:
    LDY.W Fn_results                     ;07BE7A|001041;
-   LDA.W Array_Fn_results1,Y            ;07BE7D|000CB3;
+   LDA.W Object_Accumulator,Y           ;07BE7D|000CB3;
    DEC A                                ;07BE80|      ;
    LDX.W #$000A                         ;07BE81|      ;
    JSL.L MultiplyTo1E00_far             ;07BE84|008A39;
@@ -8568,14 +8568,14 @@ Load_Status_Healed:
    STA.B $04                            ;07BE98|000004;
    JML.L Text_to_RAM                    ;07BE9A|07BE1A;
 Get_Spell_ID:
-   LDX.W Selection                      ;07BE9E|00103F;
+   LDX.W Selection_offset               ;07BE9E|00103F;
    LDA.W Game_State                     ;07BEA1|0011C1;
    CMP.W #$0002                         ;07BEA4|      ;
    BNE CODE_07BEB5                      ;07BEA7|07BEB5;
-   LDA.W Array_Category,X               ;07BEA9|0009C7;
+   LDA.W Object_var1_Category,X         ;07BEA9|0009C7;
    ASL A                                ;07BEAC|      ;
    STA.B $00                            ;07BEAD|000000;
-   LDA.W Array_Selection,X              ;07BEAF|0009EB;
+   LDA.W Object_var2_Selection,X        ;07BEAF|0009EB;
    ASL A                                ;07BEB2|      ;
    BRA CODE_07BEDC                      ;07BEB3|07BEDC;
 CODE_07BEB5:
@@ -8584,13 +8584,13 @@ CODE_07BEB5:
    LDA.W #$0008                         ;07BEBA|      ;
 CODE_07BEBD:
    CLC                                  ;07BEBD|      ;
-   ADC.W Array_Selection,X              ;07BEBE|0009EB;
+   ADC.W Object_var2_Selection,X        ;07BEBE|0009EB;
    DEC A                                ;07BEC1|      ;
    DEC A                                ;07BEC2|      ;
    ASL A                                ;07BEC3|      ;
    STA.B $00                            ;07BEC4|000000;
-   LDX.W Selection                      ;07BEC6|00103F;
-   LDA.W Array_Category,X               ;07BEC9|0009C7;
+   LDX.W Selection_offset               ;07BEC6|00103F;
+   LDA.W Object_var1_Category,X         ;07BEC9|0009C7;
    LDY.W #$0000                         ;07BECC|      ;
 CODE_07BECF:
    CMP.W Party_order,Y                  ;07BECF|0011F3;
@@ -8847,9 +8847,9 @@ Ptr_Casting_on_enemies_FX:
    dw CODE_07C0A3                       ;07C0BC|07C0A3; Restoration of Spirit
    dw CODE_07C0A3                       ;07C0BE|07C0A3; Out of battle
 CODE_07C0C0:
-   LDY.W Selection                      ;07C0C0|00103F;
-   LDX.W Array_Category,Y               ;07C0C3|0009C7;
-   LDA.W Array_Selection,X              ;07C0C6|0009EB;
+   LDY.W Selection_offset               ;07C0C0|00103F;
+   LDX.W Object_var1_Category,Y         ;07C0C3|0009C7;
+   LDA.W Object_var2_Selection,X        ;07C0C6|0009EB;
    ASL A                                ;07C0C9|      ;
    TAX                                  ;07C0CA|      ;
    STX.W Target                         ;07C0CB|001123;
@@ -8899,9 +8899,9 @@ CODE_07C127:
 CODE_07C12D:
    RTL                                  ;07C12D|      ;
 CODE_07C12E:
-   LDY.W Selection                      ;07C12E|00103F;
-   LDX.W Array_Category,Y               ;07C131|0009C7;
-   LDA.W Array_Selection,X              ;07C134|0009EB;
+   LDY.W Selection_offset               ;07C12E|00103F;
+   LDX.W Object_var1_Category,Y         ;07C131|0009C7;
+   LDA.W Object_var2_Selection,X        ;07C134|0009EB;
    ASL A                                ;07C137|      ;
    TAX                                  ;07C138|      ;
    STX.W Target                         ;07C139|001123;
@@ -8962,9 +8962,9 @@ DATA8_07C1A2:
    db $01                               ;07C1A5|      ;
    db $02                               ;07C1A6|      ;
 CODE_07C1A7:
-   LDY.W Selection                      ;07C1A7|00103F;
-   LDX.W Array_Category,Y               ;07C1AA|0009C7;
-   LDA.W Array_Selection,X              ;07C1AD|0009EB;
+   LDY.W Selection_offset               ;07C1A7|00103F;
+   LDX.W Object_var1_Category,Y         ;07C1AA|0009C7;
+   LDA.W Object_var2_Selection,X        ;07C1AD|0009EB;
    ASL A                                ;07C1B0|      ;
    TAX                                  ;07C1B1|      ;
    STX.W Target                         ;07C1B2|001123;
@@ -9302,7 +9302,7 @@ CODE_07C486:
    JSL.L CODE_079139                    ;07C4B2|079139;
    TXY                                  ;07C4B6|      ;
    LDA.W #$0001                         ;07C4B7|      ;
-   STA.W Array_Category,Y               ;07C4BA|0009C7;
+   STA.W Object_var1_Category,Y         ;07C4BA|0009C7;
    PLX                                  ;07C4BD|      ;
 CODE_07C4BE:
    PHX                                  ;07C4BE|      ;
@@ -9681,8 +9681,8 @@ CODE_07C83B:
    JSL.L Get_enemy_ID                   ;07C83C|07C851;
    PHA                                  ;07C840|      ;
    LDA.W $18C7                          ;07C841|0018C7;
-   LDX.W Selection                      ;07C844|00103F;
-   STA.W Array_Category,X               ;07C847|0009C7;
+   LDX.W Selection_offset               ;07C844|00103F;
+   STA.W Object_var1_Category,X         ;07C847|0009C7;
    PLA                                  ;07C84A|      ;
    JSL.L Get_enemy_name                 ;07C84B|07B569;
 CODE_07C84F:
@@ -9693,7 +9693,7 @@ Get_enemy_ID:
    STA.B $20                            ;07C852|000020;
    LDX.W #$0014                         ;07C854|      ;
 CODE_07C857:
-   LDA.W Battle_Enemy_ID,X              ;07C857|000643;
+   LDA.W Event_ID_Slot_00,X             ;07C857|000643;
    CMP.W #$FFFF                         ;07C85A|      ;
    BNE CODE_07C863                      ;07C85D|07C863;
 CODE_07C85F:
@@ -9702,10 +9702,10 @@ CODE_07C85F:
    BRA CODE_07C857                      ;07C861|07C857;
 CODE_07C863:
    LDA.B $20                            ;07C863|000020;
-   CMP.W Array_Selection,X              ;07C865|0009EB;
+   CMP.W Object_var2_Selection,X        ;07C865|0009EB;
    BNE CODE_07C85F                      ;07C868|07C85F;
    STX.W $18C7                          ;07C86A|0018C7;
-   LDA.W Battle_Enemy_ID,X              ;07C86D|000643;
+   LDA.W Event_ID_Slot_00,X             ;07C86D|000643;
    SEC                                  ;07C870|      ;
    SBC.W #$0018                         ;07C871|      ;
    RTL                                  ;07C874|      ;

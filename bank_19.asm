@@ -2029,25 +2029,25 @@ Palette_Rimsala2:
    dw $0873                             ;198F1A|      ;
    dw $0000                             ;198F1C|      ;
    dl DATA16_1CD568                     ;198F1E|1CD568;
-SourceData:
-   dw SrcData1_AtkSwords                ;198F21|198F41; Called after enemy attack animations. The first and second table are used together (1st entry of each, etc)
-   dw SrcData1_AtkBitey                 ;198F23|199311;
-   dw SrcData1_AtkSploosh               ;198F25|19961C;
-   dw SrcData1_AtkSlash                 ;198F27|199955;
-   dw SrcData1_AtkStinger               ;198F29|199D22;
-   dw SrcData1_AtkPunch                 ;198F2B|19A0D8;
-   dw SrcData1_AtkC                     ;198F2D|19A3F5;
-   dw SrcData1_DamageStar               ;198F2F|19A7A1;
-SourceData2:
-   dw SrcData2_AtkSwords                ;198F31|1992F1;
-   dw SrcData2_AtkBitey                 ;198F33|1995FC;
-   dw SrcData2_AtkSploosh               ;198F35|199935;
-   dw SrcData2_AtkSlash                 ;198F37|199D02;
-   dw SrcData2_AtkStinger               ;198F39|19A0B8;
-   dw SrcData2_AtkPunch                 ;198F3B|19A3D5;
-   dw SrcData2_AtkC                     ;198F3D|19A781;
-   dw SrcData2_DamageStar               ;198F3F|19AC58;
-SrcData1_AtkSwords:
+Tbl_Graphics_Atk:
+   dw Gfx_Atk_Sword                     ;198F21|198F41; Called after enemy attack animations. The first and second table are used together (1st entry of each, etc)
+   dw Gfx_Atk_Bite                      ;198F23|199311;
+   dw Gfx_Atk_Splash                    ;198F25|19961C;
+   dw Gfx_Atk_Claw                      ;198F27|199955;
+   dw Gfx_Atk_Sting                     ;198F29|199D22;
+   dw Gfx_Atk_Punch                     ;198F2B|19A0D8;
+   dw Gfx_Atk_06                        ;198F2D|19A3F5;
+   dw Gfx_Atk_DamageStar                ;198F2F|19A7A1;
+Tbl_Palette_Atk:
+   dw Palette_Atk_Sword                 ;198F31|1992F1;
+   dw Palette_Atk_Bite                  ;198F33|1995FC;
+   dw Palette_Atk_Splash                ;198F35|199935;
+   dw Palette_Atk_Claw                  ;198F37|199D02;
+   dw Palette_Atk_Sting                 ;198F39|19A0B8;
+   dw Palette_Atk_Punch                 ;198F3B|19A3D5;
+   dw Palette_Atk_06                    ;198F3D|19A781;
+   dw Palette_Atk_DamageStar            ;198F3F|19AC58;
+Gfx_Atk_Sword:
    db $42                               ;198F41|      ;
    db $FB                               ;198F42|      ;
    db $FF                               ;198F43|      ;
@@ -2992,7 +2992,7 @@ SrcData1_AtkSwords:
    db $3F                               ;1992EE|      ;
    db $FF                               ;1992EF|      ;
    db $FF                               ;1992F0|      ;
-SrcData2_AtkSwords:
+Palette_Atk_Sword:
    db $00                               ;1992F1|      ;
    db $00                               ;1992F2|      ;
    db $FF                               ;1992F3|      ;
@@ -3025,7 +3025,7 @@ SrcData2_AtkSwords:
    db $0D                               ;19930E|      ;
    db $00                               ;19930F|      ;
    db $00                               ;199310|      ;
-SrcData1_AtkBitey:
+Gfx_Atk_Bite:
    db $E4                               ;199311|      ;
    db $21                               ;199312|      ;
    db $FF                               ;199313|      ;
@@ -3773,7 +3773,7 @@ SrcData1_AtkBitey:
    db $05                               ;1995F9|      ;
    db $00                               ;1995FA|      ;
    db $FF                               ;1995FB|      ;
-SrcData2_AtkBitey:
+Palette_Atk_Bite:
    db $00                               ;1995FC|      ;
    db $00                               ;1995FD|      ;
    db $FF                               ;1995FE|      ;
@@ -3806,7 +3806,7 @@ SrcData2_AtkBitey:
    db $0D                               ;199619|      ;
    db $00                               ;19961A|      ;
    db $00                               ;19961B|      ;
-SrcData1_AtkSploosh:
+Gfx_Atk_Splash:
    db $E4                               ;19961C|      ;
    db $4B                               ;19961D|      ;
    db $FF                               ;19961E|      ;
@@ -4600,7 +4600,7 @@ SrcData1_AtkSploosh:
    db $05                               ;199932|      ;
    db $80                               ;199933|      ;
    db $FF                               ;199934|      ;
-SrcData2_AtkSploosh:
+Palette_Atk_Splash:
    db $A7                               ;199935|      ;
    db $3D                               ;199936|      ;
    db $FF                               ;199937|      ;
@@ -4633,7 +4633,7 @@ SrcData2_AtkSploosh:
    db $0D                               ;199952|      ;
    db $00                               ;199953|      ;
    db $00                               ;199954|      ;
-SrcData1_AtkSlash:
+Gfx_Atk_Claw:
    db $2B                               ;199955|      ;
    db $FF                               ;199956|      ;
    db $01                               ;199957|      ;
@@ -5575,7 +5575,7 @@ SrcData1_AtkSlash:
    db $3F                               ;199CFF|      ;
    db $FF                               ;199D00|      ;
    db $FF                               ;199D01|      ;
-SrcData2_AtkSlash:
+Palette_Atk_Claw:
    db $00                               ;199D02|      ;
    db $00                               ;199D03|      ;
    db $FF                               ;199D04|      ;
@@ -5608,7 +5608,7 @@ SrcData2_AtkSlash:
    db $0D                               ;199D1F|      ;
    db $00                               ;199D20|      ;
    db $00                               ;199D21|      ;
-SrcData1_AtkStinger:
+Gfx_Atk_Sting:
    db $23                               ;199D22|      ;
    db $FF                               ;199D23|      ;
    db $00                               ;199D24|      ;
@@ -6527,7 +6527,7 @@ SrcData1_AtkStinger:
    db $47                               ;19A0B5|      ;
    db $FF                               ;19A0B6|      ;
    db $FF                               ;19A0B7|      ;
-SrcData2_AtkStinger:
+Palette_Atk_Sting:
    db $00                               ;19A0B8|      ;
    db $00                               ;19A0B9|      ;
    db $FF                               ;19A0BA|      ;
@@ -6560,7 +6560,7 @@ SrcData2_AtkStinger:
    db $0D                               ;19A0D5|      ;
    db $00                               ;19A0D6|      ;
    db $00                               ;19A0D7|      ;
-SrcData1_AtkPunch:
+Gfx_Atk_Punch:
    db $E4                               ;19A0D8|      ;
    db $4A                               ;19A0D9|      ;
    db $FF                               ;19A0DA|      ;
@@ -7326,7 +7326,7 @@ SrcData1_AtkPunch:
    db $05                               ;19A3D2|      ;
    db $80                               ;19A3D3|      ;
    db $FF                               ;19A3D4|      ;
-SrcData2_AtkPunch:
+Palette_Atk_Punch:
    db $00                               ;19A3D5|      ;
    db $00                               ;19A3D6|      ;
    db $FF                               ;19A3D7|      ;
@@ -7359,7 +7359,7 @@ SrcData2_AtkPunch:
    db $0D                               ;19A3F2|      ;
    db $00                               ;19A3F3|      ;
    db $00                               ;19A3F4|      ;
-SrcData1_AtkC:
+Gfx_Atk_06:
    db $27                               ;19A3F5|      ;
    db $FF                               ;19A3F6|      ;
    db $07                               ;19A3F7|      ;
@@ -8268,7 +8268,7 @@ SrcData1_AtkC:
    db $3F                               ;19A77E|      ;
    db $FF                               ;19A77F|      ;
    db $FF                               ;19A780|      ;
-SrcData2_AtkC:
+Palette_Atk_06:
    db $00                               ;19A781|      ;
    db $00                               ;19A782|      ;
    db $FF                               ;19A783|      ;
@@ -8301,7 +8301,7 @@ SrcData2_AtkC:
    db $0D                               ;19A79E|      ;
    db $00                               ;19A79F|      ;
    db $00                               ;19A7A0|      ;
-SrcData1_DamageStar:
+Gfx_Atk_DamageStar:
    db $41                               ;19A7A1|      ;
    db $C0                               ;19A7A2|      ;
    db $E0                               ;19A7A3|      ;
@@ -9509,7 +9509,7 @@ SrcData1_DamageStar:
    db $07                               ;19AC55|      ;
    db $D9                               ;19AC56|      ;
    db $FF                               ;19AC57|      ;
-SrcData2_DamageStar:
+Palette_Atk_DamageStar:
    db $00                               ;19AC58|      ;
    db $00                               ;19AC59|      ;
    db $FF                               ;19AC5A|      ;

@@ -373,7 +373,7 @@ CODE_188294:
    CLC                                  ;1882BB|      ;
    ADC.W #$0018                         ;1882BC|      ;
    PLY                                  ;1882BF|      ;
-   JSL.L Way_more_anim_stuff            ;1882C0|008D24;
+   JSL.L Setup_Code_Ptr                 ;1882C0|008D24;
    INC.W Temp_party_order               ;1882C4|00062D;
    INC.B $18                            ;1882C7|000018;
    INC.W $0637                          ;1882C9|000637;
@@ -394,12 +394,12 @@ _18EF_table:
    db $50                               ;1882E3|      ;
    db $52                               ;1882E4|      ;
    db $51                               ;1882E5|      ;
-CODE_1882E6:
-   ASL A                                ;1882E6|      ;
+GetAttackAnimation:
+   ASL A                                ;1882E6|      ; Takes in an attack animation 0-7 (Sword, Bite, Splash, Claw, Sting, Punch) (6=??) (7=Damaged Star)
    PHA                                  ;1882E7|      ;
    TAX                                  ;1882E8|      ;
 Decomp_Attack_Data:
-   LDA.L SourceData,X                   ;1882E9|198F21;
+   LDA.L Tbl_Graphics_Atk,X             ;1882E9|198F21;
    TAX                                  ;1882ED|      ;
    LDA.W #$0019                         ;1882EE|      ;
    LDY.W #$F000                         ;1882F1|      ;
@@ -412,10 +412,10 @@ Decomp_Attack_Data:
    LDA.W #$8318                         ;1882FF|      ;
    JSL.L RAM_Decomp80                   ;188302|0084FE;
    PLX                                  ;188306|      ;
-   LDA.L SourceData2,X                  ;188307|198F31;
+   LDA.L Tbl_Palette_Atk,X              ;188307|198F31;
    TAX                                  ;18830B|      ;
    LDY.W #$0600                         ;18830C|      ;
-   LDA.W #$001F                         ;18830F|      ; Transfer 1F bytes
+   LDA.W #$001F                         ;18830F|      ; Transfer 1F bytes to RAM 0600-061F
    PHB                                  ;188312|      ;
    MVN $00,$19                          ;188313|      ;
    PLB                                  ;188316|      ;
@@ -609,8 +609,8 @@ CODE_188469:
    LDA.W #$0008                         ;18848F|      ;
    STA.W $0639                          ;188492|000639;
    LDA.W #$0016                         ;188495|      ;
-   JML.L Way_more_anim_stuff            ;188498|008D24;
-DATA8_18849C:
+   JML.L Setup_Code_Ptr                 ;188498|008D24;
+Event_Main_16:
    db $16                               ;18849C|      ;
    dw $18EB                             ;18849D|      ;
    dw $0000                             ;18849F|      ;
@@ -699,14 +699,14 @@ CODE_188519:
 CODE_18851A:
    LDA.W Dungeon_in_motion              ;18851A|0016F3;
    BNE CODE_18853E                      ;18851D|18853E;
-   LDX.W Selection                      ;18851F|00103F;
-   LDA.W Array_Menu_Cursor,X            ;188522|0009A3;
+   LDX.W Selection_offset               ;18851F|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;188522|0009A3;
    CMP.W Map_X                          ;188525|0016F7;
    BNE CODE_188542                      ;188528|188542;
-   LDA.W Array_Category,X               ;18852A|0009C7;
+   LDA.W Object_var1_Category,X         ;18852A|0009C7;
    CMP.W Map_Y                          ;18852D|0016F9;
    BNE CODE_188542                      ;188530|188542;
-   LDA.W Array_Selection,X              ;188532|0009EB;
+   LDA.W Object_var2_Selection,X        ;188532|0009EB;
    CMP.W Map_Compass                    ;188535|0016FB;
    BNE CODE_18853E                      ;188538|18853E;
    LDA.W #$0000                         ;18853A|      ;
@@ -718,14 +718,14 @@ CODE_188542:
    LDA.W #$0002                         ;188542|      ;
    RTL                                  ;188545|      ;
 Treasure_Opened_Bool:
-   LDX.W Selection                      ;188546|00103F; Returns 1 if opened, 0 if not
-   LDA.W Array_Target,X                 ;188549|000A0F;
+   LDX.W Selection_offset               ;188546|00103F; Returns 1 if opened, 0 if not
+   LDA.W Object_var3_Target,X           ;188549|000A0F;
    AND.W #$0030                         ;18854C|      ;
    LSR A                                ;18854F|      ;
    LSR A                                ;188550|      ;
    LSR A                                ;188551|      ;
    TAY                                  ;188552|      ;
-   LDA.W Array_Target,X                 ;188553|000A0F;
+   LDA.W Object_var3_Target,X           ;188553|000A0F;
    AND.W #$000F                         ;188556|      ;
    ASL A                                ;188559|      ;
    TAX                                  ;18855A|      ;
@@ -3958,7 +3958,7 @@ Call_Event_Code:
    LDX.W #$0000                         ;189638|      ;
    LDY.W #$0000                         ;18963B|      ;
    LDA.W #$0012                         ;18963E|      ;
-   JSL.L Way_more_anim_stuff            ;189641|008D24;
+   JSL.L Setup_Code_Ptr                 ;189641|008D24;
    INC.W $1901                          ;189645|001901;
    INC.W Story_Progress                 ;189648|0018FF;
    STZ.W Animation_Finish_Timer         ;18964B|001091;
@@ -3995,7 +3995,7 @@ TBL_EVENTS:
    dw EVENT_1B_Tiamat                   ;189685|18C6D1; Vs Tiamat; Darwin/Teefa leave
    dw EVENT_1C_Final_door               ;189687|18C814; Final door
    dw EVENT_1D_Credits                  ;189689|18D281; Roll credits
-Call_Event_ASM:
+Event_Main_12:
    db $24                               ;18968B|      ;
    db $00                               ;18968C|      ;
    db $11                               ;18968D|      ;
@@ -4117,7 +4117,7 @@ Ch1_Town:
    LDA.W #$0011                         ;189749|      ;
    JSL.L Play_SFX                       ;18974C|009C47; Play Confirm SFX
 CODE_189750:
-   LDX.W Selection                      ;189750|00103F;
+   LDX.W Selection_offset               ;189750|00103F;
    LDA.W Portrait_offset                ;189753|00108F;
    CMP.W #$00FE                         ;189756|      ;
    BEQ CODE_189775                      ;189759|189775;
@@ -4126,7 +4126,7 @@ CODE_189750:
    LSR A                                ;189760|      ;
    BCS CODE_18976B                      ;189761|18976B;
    ASL A                                ;189763|      ;
-   STA.W Array_Anim_ID,X                ;189764|000A7B;
+   STA.W Object_Anim_Frame,X            ;189764|000A7B;
    LDA.W #$0000                         ;189767|      ;
    RTL                                  ;18976A|      ;
 CODE_18976B:
@@ -4136,7 +4136,7 @@ CODE_18976B:
 CODE_18976F:
    LDA.W #$FFFF                         ;18976F|      ;
 CODE_189772:
-   STA.W Array_Anim_ID,X                ;189772|000A7B;
+   STA.W Object_Anim_Frame,X            ;189772|000A7B;
 CODE_189775:
    LDA.W #$0001                         ;189775|      ;
    RTL                                  ;189778|      ;
@@ -5133,7 +5133,7 @@ CrystalSword_anims:
    db $1C                               ;189C9D|      ; Return
 DMA_transfer:
    db $07                               ;189C9E|      ;
-   dl DMA_xfer_6b                       ;189C9F|009EE0;
+   dl HDMA_xfer_6b                      ;189C9F|009EE0;
    db $07                               ;189CA2|      ;
    db $01                               ;189CA3|      ;
    db $26                               ;189CA4|      ;
@@ -5299,19 +5299,19 @@ Ch1_End_pt6:
    dl Setup_07AX_vals                   ;189D6E|189D72;
    db $0A                               ;189D71|      ;
 Setup_07AX_vals:
-   LDY.W Selection                      ;189D72|00103F;
+   LDY.W Selection_offset               ;189D72|00103F;
    LDA.W $11F7                          ;189D75|0011F7;
    ASL A                                ;189D78|      ;
    TAX                                  ;189D79|      ;
    LDA.L New_stuff,X                    ;189D7A|18954E; Load lower byte
    AND.W #$00FF                         ;189D7E|      ;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;189D81|000787; Store lower byte
+   STA.W Object_XPOS_mirror,Y           ;189D81|000787; Store lower byte
    LDA.L New_stuff,X                    ;189D84|18954E; Load upper byte
    AND.W #$FF00                         ;189D88|      ;
    XBA                                  ;189D8B|      ;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;189D8C|0007AB; Store upper byte
+   STA.W Object_YPOS_mirror,Y           ;189D8C|0007AB; Store upper byte
    LDA.W #$0041                         ;189D8F|      ;
-   STA.W Array_Anim_ID,Y                ;189D92|000A7B; Overwrite it with 41 (??)
+   STA.W Object_Anim_Frame,Y            ;189D92|000A7B; Overwrite it with 41 (??)
    RTL                                  ;189D95|      ;
 Ch1_End_pt5:
    db $30                               ;189D96|      ;
@@ -5428,7 +5428,7 @@ Ch1_End_pt3:
    dw $0003                             ;189E33|      ;
    db $00                               ;189E35|      ; Return
 BeatUp_end_check:
-   LDX.W Selection                      ;189E36|00103F;
+   LDX.W Selection_offset               ;189E36|00103F;
    LDA.W Condition_Spirit               ;189E39|0011C5; Checks if spirit is Not Here
    AND.W #$00FF                         ;189E3C|      ;
    CMP.W #$0002                         ;189E3F|      ;
@@ -5444,20 +5444,20 @@ Stop_Hitting_Yourself:
    BCC CODE_189E68                      ;189E54|189E68;
    LDA.W #$0000                         ;189E56|      ;
 CODE_189E59:
-   STA.W Array_Selection,X              ;189E59|0009EB;
-   LDA.W Array_Target,X                 ;189E5C|000A0F; Switch between Teefa and Ariel
+   STA.W Object_var2_Selection,X        ;189E59|0009EB;
+   LDA.W Object_var3_Target,X           ;189E5C|000A0F; Switch between Teefa and Ariel
    EOR.W #$0002                         ;189E5F|      ;
-   STA.W Array_Target,X                 ;189E62|000A0F;
+   STA.W Object_var3_Target,X           ;189E62|000A0F;
    LDA.W #$0000                         ;189E65|      ;
 CODE_189E68:
    RTL                                  ;189E68|      ;
 ArielTeefa_Attack_Text:
-   LDY.W Selection                      ;189E69|00103F;
-   LDA.W Array_Target,Y                 ;189E6C|000A0F;
+   LDY.W Selection_offset               ;189E69|00103F;
+   LDA.W Object_var3_Target,Y           ;189E6C|000A0F;
    LSR A                                ;189E6F|      ;
    ADC.W #$001E                         ;189E70|      ;
    STA.W Animation_Finish_Timer         ;189E73|001091;
-   LDX.W Array_Target,Y                 ;189E76|000A0F;
+   LDX.W Object_var3_Target,Y           ;189E76|000A0F;
    LDA.L Tbl_Who_Hits_Rooks,X           ;189E79|189E8B;
    STA.B $00                            ;189E7D|000000;
    LDA.W #$0018                         ;189E7F|      ;
@@ -5513,8 +5513,8 @@ Wind_Spirit_break:
    db "has been broken."                ;189F1F|      ;
    db $00                               ;189F2F|      ;
 Beaten_Up_Attack:
-   LDY.W Selection                      ;189F30|00103F; Either halves Rooks' HP or kills Sylph
-   LDX.W Array_Selection,Y              ;189F33|0009EB;
+   LDY.W Selection_offset               ;189F30|00103F; Either halves Rooks' HP or kills Sylph
+   LDX.W Object_var2_Selection,Y        ;189F33|0009EB;
    BEQ CODE_189F41                      ;189F36|189F41;
    JSL.L Spirit_stuff_far               ;189F38|078CEE;
    LDA.W Curr_HP_Rooks,X                ;189F3C|0012F3;
@@ -5524,8 +5524,8 @@ CODE_189F41:
    LSR A                                ;189F44|      ;
 CODE_189F45:
    STA.W $1903                          ;189F45|001903;
-   LDY.W Selection                      ;189F48|00103F;
-   LDX.W Array_Selection,Y              ;189F4B|0009EB;
+   LDY.W Selection_offset               ;189F48|00103F;
+   LDX.W Object_var2_Selection,Y        ;189F4B|0009EB;
    LDA.W Curr_HP_Rooks,X                ;189F4E|0012F3;
    SEC                                  ;189F51|      ;
    SBC.W $1903                          ;189F52|001903;
@@ -5534,8 +5534,8 @@ CODE_189F45:
    LDA.W #$0001                         ;189F5A|      ;
    STA.W Condition,X                    ;189F5D|0011C3;
 CODE_189F60:
-   LDY.W Selection                      ;189F60|00103F;
-   LDX.W Array_Selection,Y              ;189F63|0009EB;
+   LDY.W Selection_offset               ;189F60|00103F;
+   LDX.W Object_var2_Selection,Y        ;189F63|0009EB;
    LDA.L Tbl_Paralyze_Targets,X         ;189F66|189F78;
    STA.B $00                            ;189F6A|000000;
    LDA.W #$0018                         ;189F6C|      ;
@@ -5552,17 +5552,17 @@ Color_Setup:
    LDA.B #$00                           ;189F83|      ;
    STA.W OBJcolor_Winmask_logic         ;189F85|00212B;
    LDA.B #$10                           ;189F88|      ;
-   STA.W Color_add_select               ;189F8A|002130;
+   STA.W Color_window                   ;189F8A|002130;
    REP #$20                             ;189F8D|      ;
    RTL                                  ;189F8F|      ;
 Zero_WinMask_stuff:
    SEP #$20                             ;189F90|      ;
    STZ.W OBJcolor_Winmask               ;189F92|002125;
-   STZ.W Color_add_select               ;189F95|002130;
+   STZ.W Color_window                   ;189F95|002130;
    REP #$20                             ;189F98|      ;
    RTL                                  ;189F9A|      ;
 Get_YN_Answer:
-   LDY.W Selection                      ;189F9B|00103F;
+   LDY.W Selection_offset               ;189F9B|00103F;
    LDA.W Input_0031                     ;189F9E|000031;
    AND.W #$0200                         ;189FA1|      ;
    BEQ CODE_189FAB                      ;189FA4|189FAB;
@@ -5574,17 +5574,17 @@ CODE_189FAB:
    BEQ CODE_189FB9                      ;189FB1|189FB9;
    LDA.W #$0001                         ;189FB3|      ;
 CODE_189FB6:
-   STA.W Array_Menu_Cursor,Y            ;189FB6|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;189FB6|0009A3;
 CODE_189FB9:
-   LDA.W Array_Menu_Cursor,Y            ;189FB9|0009A3;
+   LDA.W Object_var0_Menu_Cursor,Y      ;189FB9|0009A3;
    ASL A                                ;189FBC|      ;
    TAX                                  ;189FBD|      ;
    LDA.L Question_YN,X                  ;189FBE|189FF2;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;189FC2|000787;
+   STA.W Object_XPOS_mirror,Y           ;189FC2|000787;
    LDA.W #$00B2                         ;189FC5|      ;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;189FC8|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;189FC8|0007AB;
    LDA.W #$005B                         ;189FCB|      ;
-   STA.W Array_Anim_ID,Y                ;189FCE|000A7B;
+   STA.W Object_Anim_Frame,Y            ;189FCE|000A7B;
    LDA.W Input_0031                     ;189FD1|000031;
    AND.W #$0080                         ;189FD4|      ;
    BNE CODE_189FDD                      ;189FD7|189FDD;
@@ -5593,10 +5593,10 @@ CODE_189FB9:
 CODE_189FDD:
    LDA.W #$0011                         ;189FDD|      ;
    JSL.L Play_SFX                       ;189FE0|009C47;
-   LDY.W Selection                      ;189FE4|00103F;
+   LDY.W Selection_offset               ;189FE4|00103F;
    LDA.W #$FFFF                         ;189FE7|      ;
-   STA.W Array_Anim_ID,Y                ;189FEA|000A7B;
-   LDA.W Array_Menu_Cursor,Y            ;189FED|0009A3;
+   STA.W Object_Anim_Frame,Y            ;189FEA|000A7B;
+   LDA.W Object_var0_Menu_Cursor,Y      ;189FED|0009A3;
    INC A                                ;189FF0|      ;
    RTL                                  ;189FF1|      ;
 Question_YN:
@@ -6664,7 +6664,7 @@ Text_SCRIPT035:
    dl Setup_Reinoll_Scene               ;18A562|18AA53;
 Draw_Spirits_Rei:
    db $07                               ;18A565|      ;
-   dl DMA_xfer_6b                       ;18A566|009EE0;
+   dl HDMA_xfer_6b                      ;18A566|009EE0;
    db $07                               ;18A569|      ;
    db $01                               ;18A56A|      ;
    db $26                               ;18A56B|      ;
@@ -7727,7 +7727,7 @@ Setup_Reinoll_Scene:
    AND.B #$0F                           ;18AA67|      ;
    ORA.B #$10                           ;18AA69|      ;
    STA.W Color_Add_temp                 ;18AA6B|001061;
-   STA.W Color_add_select               ;18AA6E|002130;
+   STA.W Color_window                   ;18AA6E|002130;
    REP #$20                             ;18AA71|      ;
    RTL                                  ;18AA73|      ;
 EVENT_09_Ch3:
@@ -8907,14 +8907,14 @@ _18ADA7_data:
    db $45                               ;18B04B|0000FF;
    db $FF                               ;18B04C|103FAE;
 Move_Lots_of_Data:
-   LDX.W Selection                      ;18B04D|00103F;
-   LDA.W Array_Selection,X              ;18B050|0009EB;
+   LDX.W Selection_offset               ;18B04D|00103F;
+   LDA.W Object_var2_Selection,X        ;18B050|0009EB;
    INC A                                ;18B053|      ;
    CMP.W #$0038                         ;18B054|      ;
    BCC CODE_18B05C                      ;18B057|18B05C;
    LDA.W #$0000                         ;18B059|      ;
 CODE_18B05C:
-   STA.W Array_Selection,X              ;18B05C|0009EB;
+   STA.W Object_var2_Selection,X        ;18B05C|0009EB;
    LSR A                                ;18B05F|      ;
    LSR A                                ;18B060|      ;
    LSR A                                ;18B061|      ;
@@ -9157,7 +9157,7 @@ DATA8_18B16C:
    db $14                               ;18B17E|      ;
 Transfer_7b:
    db $07                               ;18B17F|      ;
-   dl DMA_xfer_6b                       ;18B180|009EE0;
+   dl HDMA_xfer_6b                      ;18B180|009EE0;
    db $07                               ;18B183|      ;
    db $41                               ;18B184|      ;
    db $28                               ;18B185|      ;
@@ -9188,8 +9188,8 @@ _18B186_data:
    db $19                               ;18B1A3|      ;
    db $00                               ;18B1A4|      ;
 Zeros_190X_vars:
-   LDX.W Selection                      ;18B1A5|00103F; These vars are for suckers
-   LDA.W Cursor_Array_Xpos,X            ;18B1A8|0006F7;
+   LDX.W Selection_offset               ;18B1A5|00103F; These vars are for suckers
+   LDA.W Object_XPOS,X                  ;18B1A8|0006F7;
    CLC                                  ;18B1AB|      ;
    ADC.W #$0011                         ;18B1AC|      ;
    SEP #$20                             ;18B1AF|      ;
@@ -12120,7 +12120,7 @@ Random_loopvar:
    LDX.W Fn_results                     ;18C0C6|001041;
    CLC                                  ;18C0C9|      ;
    ADC.W #$000F                         ;18C0CA|      ;
-   STA.W Array_Anim_Loopvar,X           ;18C0CD|000B9F;
+   STA.W Object_SCR_Wait_Timer,X        ;18C0CD|000B9F;
    RTL                                  ;18C0D0|      ;
 DATA8_18C0D1:
    db $30                               ;18C0D1|      ;
@@ -12372,16 +12372,16 @@ Weird_RNG_Rolls:
    JSL.L RNG                            ;18C1D8|0089F1;
    ASL A                                ;18C1DC|      ;
    TAX                                  ;18C1DD|      ;
-   LDY.W Selection                      ;18C1DE|00103F;
+   LDY.W Selection_offset               ;18C1DE|00103F;
    LDA.L DATA16_18C202,X                ;18C1E1|18C202;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;18C1E5|000787;
+   STA.W Object_XPOS_mirror,Y           ;18C1E5|000787;
    LDA.W #$0006                         ;18C1E8|      ;
    JSL.L RNG                            ;18C1EB|0089F1;
    ASL A                                ;18C1EF|      ;
    TAX                                  ;18C1F0|      ;
-   LDY.W Selection                      ;18C1F1|00103F;
+   LDY.W Selection_offset               ;18C1F1|00103F;
    LDA.L DATA16_18C20E,X                ;18C1F4|18C20E;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;18C1F8|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;18C1F8|0007AB;
    LDA.W #$0002                         ;18C1FB|      ;
    JML.L RNG                            ;18C1FE|0089F1;
 DATA16_18C202:
@@ -13556,7 +13556,7 @@ Loop_FadeToBlack:
    db $04                               ;18C866|      ;
    dl Sub_Disable_HDMA                  ;18C867|0189F1;
    db $07                               ;18C86A|      ; DMA xfer (6 bytes)
-   dl DMA_xfer_6b                       ;18C86B|009EE0;
+   dl HDMA_xfer_6b                      ;18C86B|009EE0;
    db $07                               ;18C86E|      ;
    db $40                               ;18C86F|      ;
    db $2C                               ;18C870|      ;
@@ -13946,7 +13946,7 @@ Text_SCRIPT116:
    db $06                               ;18CA70|      ;
    db $3C                               ;18CA71|      ;
    db $07                               ;18CA72|      ;
-   dl DMA_xfer_6b                       ;18CA73|009EE0;
+   dl HDMA_xfer_6b                      ;18CA73|009EE0;
    db $06                               ;18CA76|      ;
    db $01                               ;18CA77|      ;
    db $26                               ;18CA78|      ;
@@ -14996,11 +14996,11 @@ Maybe_Rimsala_beat:
    db $00                               ;18CFC3|      ;
    dw $0008                             ;18CFC4|      ;
    db $07                               ;18CFC6|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;18CFC7|00A097;
+   dl Text_Init_3b_1b                   ;18CFC7|00A097;
    dl A5EB_data                         ;18CFCA|18D007;
    db $00                               ;18CFCD|      ;
    db $07                               ;18CFCE|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;18CFCF|00A097;
+   dl Text_Init_3b_1b                   ;18CFCF|00A097;
    dl A5EB_data2                        ;18CFD2|18D00C;
    db $01                               ;18CFD5|      ;
 Set_up_display:
@@ -15064,8 +15064,8 @@ A140_data:
    db $00                               ;18D017|      ;
    db $00                               ;18D018|      ;
 Epilogue_text_setup:
-   LDY.W Selection                      ;18D019|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;18D01C|0009A3;
+   LDY.W Selection_offset               ;18D019|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;18D01C|0009A3;
    ASL A                                ;18D01F|      ;
    TAX                                  ;18D020|      ;
    PHX                                  ;18D021|      ;
@@ -15075,10 +15075,10 @@ Epilogue_text_setup:
    STA.B $02                            ;18D02B|000002;
    LDA.W #$0000                         ;18D02D|      ;
    JSL.L Set_Text_Parser_long           ;18D030|00A688;
-   LDY.W Selection                      ;18D034|00103F;
+   LDY.W Selection_offset               ;18D034|00103F;
    PLX                                  ;18D037|      ;
    LDA.L Epilogue_text_delays,X         ;18D038|18D040;
-   STA.W Array_Category,Y               ;18D03C|0009C7;
+   STA.W Object_var1_Category,Y         ;18D03C|0009C7;
    RTL                                  ;18D03F|      ;
 Epilogue_text_delays:
    dw $00F0                             ;18D040|      ;
@@ -15676,10 +15676,10 @@ Load_Event_Text_NoClear:
 Check_Party:
    LDX.W #$0000                         ;18D4D9|      ; ?? Called before a fight and many other places
 CODE_18D4DC:
-   LDA.W Battle_Enemy_ID,X              ;18D4DC|000643;
+   LDA.W Event_ID_Slot_00,X             ;18D4DC|000643;
    CMP.W #$0012                         ;18D4DF|      ;
    BNE CODE_18D4EF                      ;18D4E2|18D4EF;
-   CPX.W Selection                      ;18D4E4|00103F;
+   CPX.W Selection_offset               ;18D4E4|00103F;
    BEQ CODE_18D4EF                      ;18D4E7|18D4EF;
    PHX                                  ;18D4E9|      ;
    JSL.L A_buncha_stuff_far             ;18D4EA|00995C;
@@ -15984,7 +15984,7 @@ Travel_Decomp_Setup:
 CODE_18D68F:
    LDX.W #$0000                         ;18D68F|      ;
 CODE_18D692:
-   LDA.W Battle_Enemy_ID,X              ;18D692|000643;
+   LDA.W Event_ID_Slot_00,X             ;18D692|000643;
    CMP.W #$0017                         ;18D695|      ;
    BNE CODE_18D6A0                      ;18D698|18D6A0;
    PHX                                  ;18D69A|      ;
@@ -16002,10 +16002,10 @@ World_map_Posi:
    ASL A                                ;18D6AC|      ;
    TAX                                  ;18D6AD|      ;
    LDA.L World_map_Xpos,X               ;18D6AE|18D6C3;
-   STA.W $0FEF                          ;18D6B2|000FEF;
+   STA.W Object_XPOS_unk1               ;18D6B2|000FEF;
    STA.W TownCompass                    ;18D6B5|000FF1;
    LDA.L World_map_Ypos,X               ;18D6B8|18D6CD;
-   STA.W $0FF7                          ;18D6BC|000FF7;
+   STA.W Object_YPOS_unk1               ;18D6BC|000FF7;
    STA.W $0FF9                          ;18D6BF|000FF9;
    RTL                                  ;18D6C2|      ;
 World_map_Xpos:
@@ -16645,7 +16645,7 @@ Data_Chibi_Axs:
    db $00                               ;18D9D6|      ;
    db $00                               ;18D9D7|      ;
    db $00                               ;18D9D8|      ; End chibi MVN data
-DATA8_18D9D9:
+Event_Main_17:
    db $08                               ;18D9D9|      ;
    dw DATA8_18D9E7                      ;18D9DA|18D9E7;
    db $07                               ;18D9DC|      ;
@@ -16677,26 +16677,26 @@ CODE_18D9FC:
    ORA.B $00                            ;18DA01|000000;
    ASL A                                ;18DA03|      ;
    TAX                                  ;18DA04|      ;
-   LDY.W Selection                      ;18DA05|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;18DA08|0009A3;
+   LDY.W Selection_offset               ;18DA05|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;18DA08|0009A3;
    CLC                                  ;18DA0B|      ;
    ADC.L DATA16_18DA48,X                ;18DA0C|18DA48;
-   STA.W Array_Anim_ID,Y                ;18DA10|000A7B;
+   STA.W Object_Anim_Frame,Y            ;18DA10|000A7B;
    LDA.L DATA16_18DA5C,X                ;18DA13|18DA5C;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;18DA17|000787;
+   STA.W Object_XPOS_mirror,Y           ;18DA17|000787;
    LDA.L DATA16_18DA70,X                ;18DA1A|18DA70;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;18DA1E|0007AB;
+   STA.W Object_YPOS_mirror,Y           ;18DA1E|0007AB;
    LDA.L UNREACH_18DA84,X               ;18DA21|18DA84;
-   STA.W $08CB,Y                        ;18DA25|0008CB;
+   STA.W Object_XVEL_fractional,Y       ;18DA25|0008CB;
    LDA.L UNREACH_18DA98,X               ;18DA28|18DA98;
-   STA.W $085F,Y                        ;18DA2C|00085F;
+   STA.W Object_XVEL,Y                  ;18DA2C|00085F;
    LDA.L UNREACH_18DAAC,X               ;18DA2F|18DAAC;
-   STA.W $08EF,Y                        ;18DA33|0008EF;
+   STA.W Object_YVEL_fractional,Y       ;18DA33|0008EF;
    LDA.L UNREACH_18DAC0,X               ;18DA36|18DAC0;
-   STA.W $0883,Y                        ;18DA3A|000883;
+   STA.W Object_YVEL,Y                  ;18DA3A|000883;
    LDY.W Fn_results                     ;18DA3D|001041;
    LDA.L UNREACH_18DAD4,X               ;18DA40|18DAD4;
-   STA.W Array_Anim_Loopvar,Y           ;18DA44|000B9F;
+   STA.W Object_SCR_Wait_Timer,Y        ;18DA44|000B9F;
    RTL                                  ;18DA47|      ;
 DATA16_18DA48:
    dw $0000                             ;18DA48|      ;

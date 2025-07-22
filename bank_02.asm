@@ -221,10 +221,10 @@ DATA8_0280C9:
 CODE_0280EF:
    JSL.L Is_Equals_1575                 ;0280EF|07AEDD;
    BNE CODE_02811F                      ;0280F3|02811F;
-   LDX.W Selection                      ;0280F5|00103F;
-   LDA.W Array_Category,X               ;0280F8|0009C7;
+   LDX.W Selection_offset               ;0280F5|00103F;
+   LDA.W Object_var1_Category,X         ;0280F8|0009C7;
    STA.B $20                            ;0280FB|000020;
-   LDA.W Array_Selection,X              ;0280FD|0009EB;
+   LDA.W Object_var2_Selection,X        ;0280FD|0009EB;
    ASL A                                ;028100|      ;
    TAX                                  ;028101|      ;
    LDA.W Curr_HP_Rooks,X                ;028102|0012F3;
@@ -233,22 +233,22 @@ CODE_0280EF:
    BCS CODE_02812D                      ;028109|02812D;
 CODE_02810B:
    LDA.W Curr_HP_Rooks,X                ;02810B|0012F3;
-   LDX.W Selection                      ;02810E|00103F;
-   STA.W Array_Category,X               ;028111|0009C7;
+   LDX.W Selection_offset               ;02810E|00103F;
+   STA.W Object_var1_Category,X         ;028111|0009C7;
    LDA.W #$801D                         ;028114|      ;
    LDY.W #$0002                         ;028117|      ;
    JML.L Sub_LoadStuff                  ;02811A|008DB4;
    RTL                                  ;02811E|      ;
 CODE_02811F:
-   LDX.W Selection                      ;02811F|00103F;
+   LDX.W Selection_offset               ;02811F|00103F;
    LDA.W #$800C                         ;028122|      ;
    LDY.W #$0002                         ;028125|      ;
    JML.L Sub_LoadStuff                  ;028128|008DB4;
    RTL                                  ;02812C|      ;
 CODE_02812D:
    LDA.W Curr_HP_Rooks,X                ;02812D|0012F3;
-   LDX.W Selection                      ;028130|00103F;
-   STA.W Array_Category,X               ;028133|0009C7;
+   LDX.W Selection_offset               ;028130|00103F;
+   STA.W Object_var1_Category,X         ;028133|0009C7;
    RTL                                  ;028136|      ;
 LoadData_Enemy01:
    db $04                               ;028137|      ;
@@ -447,10 +447,10 @@ DATA8_0281E9:
 CODE_02820D:
    JSL.L Is_Equals_1575                 ;02820D|07AEDD;
    BNE CODE_02823D                      ;028211|02823D;
-   LDX.W Selection                      ;028213|00103F;
-   LDA.W Array_Category,X               ;028216|0009C7;
+   LDX.W Selection_offset               ;028213|00103F;
+   LDA.W Object_var1_Category,X         ;028216|0009C7;
    STA.B $20                            ;028219|000020;
-   LDA.W Array_Selection,X              ;02821B|0009EB;
+   LDA.W Object_var2_Selection,X        ;02821B|0009EB;
    ASL A                                ;02821E|      ;
    TAX                                  ;02821F|      ;
    LDA.W Curr_HP_Rooks,X                ;028220|0012F3;
@@ -459,22 +459,22 @@ CODE_02820D:
    BCS CODE_02824B                      ;028227|02824B;
 CODE_028229:
    LDA.W Curr_HP_Rooks,X                ;028229|0012F3;
-   LDX.W Selection                      ;02822C|00103F;
-   STA.W Array_Category,X               ;02822F|0009C7;
+   LDX.W Selection_offset               ;02822C|00103F;
+   STA.W Object_var1_Category,X         ;02822F|0009C7;
    LDA.W #$8153                         ;028232|      ;
    LDY.W #$0002                         ;028235|      ;
    JML.L Sub_LoadStuff                  ;028238|008DB4;
    RTL                                  ;02823C|      ;
 CODE_02823D:
-   LDX.W Selection                      ;02823D|00103F;
+   LDX.W Selection_offset               ;02823D|00103F;
    LDA.W #$8142                         ;028240|      ;
    LDY.W #$0002                         ;028243|      ;
    JML.L Sub_LoadStuff                  ;028246|008DB4;
    RTL                                  ;02824A|      ;
 CODE_02824B:
    LDA.W Curr_HP_Rooks,X                ;02824B|0012F3;
-   LDX.W Selection                      ;02824E|00103F;
-   STA.W Array_Category,X               ;028251|0009C7;
+   LDX.W Selection_offset               ;02824E|00103F;
+   STA.W Object_var1_Category,X         ;028251|0009C7;
    RTL                                  ;028254|      ;
 LoadData_Enemy02:
    db $04                               ;028255|      ;
@@ -673,10 +673,10 @@ DATA8_028307:
 CODE_02832B:
    JSL.L Is_Equals_1575                 ;02832B|07AEDD;
    BNE CODE_02835B                      ;02832F|02835B;
-   LDX.W Selection                      ;028331|00103F;
-   LDA.W Array_Category,X               ;028334|0009C7;
+   LDX.W Selection_offset               ;028331|00103F;
+   LDA.W Object_var1_Category,X         ;028334|0009C7;
    STA.B $20                            ;028337|000020;
-   LDA.W Array_Selection,X              ;028339|0009EB;
+   LDA.W Object_var2_Selection,X        ;028339|0009EB;
    ASL A                                ;02833C|      ;
    TAX                                  ;02833D|      ;
    LDA.W Curr_HP_Rooks,X                ;02833E|0012F3;
@@ -685,22 +685,22 @@ CODE_02832B:
    BCS CODE_028369                      ;028345|028369;
 CODE_028347:
    LDA.W Curr_HP_Rooks,X                ;028347|0012F3;
-   LDX.W Selection                      ;02834A|00103F;
-   STA.W Array_Category,X               ;02834D|0009C7;
+   LDX.W Selection_offset               ;02834A|00103F;
+   STA.W Object_var1_Category,X         ;02834D|0009C7;
    LDA.W #$8271                         ;028350|      ;
    LDY.W #$0002                         ;028353|      ;
    JML.L Sub_LoadStuff                  ;028356|008DB4;
    RTL                                  ;02835A|      ;
 CODE_02835B:
-   LDX.W Selection                      ;02835B|00103F;
+   LDX.W Selection_offset               ;02835B|00103F;
    LDA.W #$8260                         ;02835E|      ;
    LDY.W #$0002                         ;028361|      ;
    JML.L Sub_LoadStuff                  ;028364|008DB4;
    RTL                                  ;028368|      ;
 CODE_028369:
    LDA.W Curr_HP_Rooks,X                ;028369|0012F3;
-   LDX.W Selection                      ;02836C|00103F;
-   STA.W Array_Category,X               ;02836F|0009C7;
+   LDX.W Selection_offset               ;02836C|00103F;
+   STA.W Object_var1_Category,X         ;02836F|0009C7;
    RTL                                  ;028372|      ;
 LoadData_Enemy03:
    db $04                               ;028373|      ;
@@ -835,10 +835,10 @@ DATA8_0283FB:
 CODE_028409:
    JSL.L Is_Equals_1575                 ;028409|07AEDD;
    BNE CODE_028439                      ;02840D|028439;
-   LDX.W Selection                      ;02840F|00103F;
-   LDA.W Array_Category,X               ;028412|0009C7;
+   LDX.W Selection_offset               ;02840F|00103F;
+   LDA.W Object_var1_Category,X         ;028412|0009C7;
    STA.B $20                            ;028415|000020;
-   LDA.W Array_Selection,X              ;028417|0009EB;
+   LDA.W Object_var2_Selection,X        ;028417|0009EB;
    ASL A                                ;02841A|      ;
    TAX                                  ;02841B|      ;
    LDA.W Curr_HP_Rooks,X                ;02841C|0012F3;
@@ -847,22 +847,22 @@ CODE_028409:
    BCS CODE_028447                      ;028423|028447;
 CODE_028425:
    LDA.W Curr_HP_Rooks,X                ;028425|0012F3;
-   LDX.W Selection                      ;028428|00103F;
-   STA.W Array_Category,X               ;02842B|0009C7;
+   LDX.W Selection_offset               ;028428|00103F;
+   STA.W Object_var1_Category,X         ;02842B|0009C7;
    LDA.W #$838F                         ;02842E|      ;
    LDY.W #$0002                         ;028431|      ;
    JML.L Sub_LoadStuff                  ;028434|008DB4;
    RTL                                  ;028438|      ;
 CODE_028439:
-   LDX.W Selection                      ;028439|00103F;
+   LDX.W Selection_offset               ;028439|00103F;
    LDA.W #$837E                         ;02843C|      ;
    LDY.W #$0002                         ;02843F|      ;
    JML.L Sub_LoadStuff                  ;028442|008DB4;
    RTL                                  ;028446|      ;
 CODE_028447:
    LDA.W Curr_HP_Rooks,X                ;028447|0012F3;
-   LDX.W Selection                      ;02844A|00103F;
-   STA.W Array_Category,X               ;02844D|0009C7;
+   LDX.W Selection_offset               ;02844A|00103F;
+   STA.W Object_var1_Category,X         ;02844D|0009C7;
    RTL                                  ;028450|      ;
 LoadData_Enemy04:
    db $04                               ;028451|      ;
@@ -997,10 +997,10 @@ DATA8_0284D9:
 CODE_0284E7:
    JSL.L Is_Equals_1575                 ;0284E7|07AEDD;
    BNE CODE_028517                      ;0284EB|028517;
-   LDX.W Selection                      ;0284ED|00103F;
-   LDA.W Array_Category,X               ;0284F0|0009C7;
+   LDX.W Selection_offset               ;0284ED|00103F;
+   LDA.W Object_var1_Category,X         ;0284F0|0009C7;
    STA.B $20                            ;0284F3|000020;
-   LDA.W Array_Selection,X              ;0284F5|0009EB;
+   LDA.W Object_var2_Selection,X        ;0284F5|0009EB;
    ASL A                                ;0284F8|      ;
    TAX                                  ;0284F9|      ;
    LDA.W Curr_HP_Rooks,X                ;0284FA|0012F3;
@@ -1009,22 +1009,22 @@ CODE_0284E7:
    BCS CODE_028525                      ;028501|028525;
 CODE_028503:
    LDA.W Curr_HP_Rooks,X                ;028503|0012F3;
-   LDX.W Selection                      ;028506|00103F;
-   STA.W Array_Category,X               ;028509|0009C7;
+   LDX.W Selection_offset               ;028506|00103F;
+   STA.W Object_var1_Category,X         ;028509|0009C7;
    LDA.W #$846D                         ;02850C|      ;
    LDY.W #$0002                         ;02850F|      ;
    JML.L Sub_LoadStuff                  ;028512|008DB4;
    RTL                                  ;028516|      ;
 CODE_028517:
-   LDX.W Selection                      ;028517|00103F;
+   LDX.W Selection_offset               ;028517|00103F;
    LDA.W #$845C                         ;02851A|      ;
    LDY.W #$0002                         ;02851D|      ;
    JML.L Sub_LoadStuff                  ;028520|008DB4;
    RTL                                  ;028524|      ;
 CODE_028525:
    LDA.W Curr_HP_Rooks,X                ;028525|0012F3;
-   LDX.W Selection                      ;028528|00103F;
-   STA.W Array_Category,X               ;02852B|0009C7;
+   LDX.W Selection_offset               ;028528|00103F;
+   STA.W Object_var1_Category,X         ;02852B|0009C7;
    RTL                                  ;02852E|      ;
 LoadData_Enemy05:
    db $04                               ;02852F|      ;
@@ -1249,10 +1249,10 @@ Play_attack_anim:
 CODE_02861E:
    JSL.L Is_Equals_1575                 ;02861E|07AEDD;
    BNE CODE_02864E                      ;028622|02864E;
-   LDX.W Selection                      ;028624|00103F;
-   LDA.W Array_Category,X               ;028627|0009C7;
+   LDX.W Selection_offset               ;028624|00103F;
+   LDA.W Object_var1_Category,X         ;028627|0009C7;
    STA.B $20                            ;02862A|000020;
-   LDA.W Array_Selection,X              ;02862C|0009EB;
+   LDA.W Object_var2_Selection,X        ;02862C|0009EB;
    ASL A                                ;02862F|      ;
    TAX                                  ;028630|      ;
    LDA.W Curr_HP_Rooks,X                ;028631|0012F3;
@@ -1261,22 +1261,22 @@ CODE_02861E:
    BCS CODE_02865C                      ;028638|02865C;
 CODE_02863A:
    LDA.W Curr_HP_Rooks,X                ;02863A|0012F3;
-   LDX.W Selection                      ;02863D|00103F;
-   STA.W Array_Category,X               ;028640|0009C7;
+   LDX.W Selection_offset               ;02863D|00103F;
+   STA.W Object_var1_Category,X         ;028640|0009C7;
    LDA.W #$854B                         ;028643|      ;
    LDY.W #$0002                         ;028646|      ;
    JML.L Sub_LoadStuff                  ;028649|008DB4;
    RTL                                  ;02864D|      ;
 CODE_02864E:
-   LDX.W Selection                      ;02864E|00103F;
+   LDX.W Selection_offset               ;02864E|00103F;
    LDA.W #$853A                         ;028651|      ;
    LDY.W #$0002                         ;028654|      ;
    JML.L Sub_LoadStuff                  ;028657|008DB4;
    RTL                                  ;02865B|      ;
 CODE_02865C:
    LDA.W Curr_HP_Rooks,X                ;02865C|0012F3;
-   LDX.W Selection                      ;02865F|00103F;
-   STA.W Array_Category,X               ;028662|0009C7;
+   LDX.W Selection_offset               ;02865F|00103F;
+   STA.W Object_var1_Category,X         ;028662|0009C7;
    RTL                                  ;028665|      ;
 LoadData_Enemy06:
    db $04                               ;028666|      ;
@@ -1500,10 +1500,10 @@ DATA8_028722:
 CODE_028755:
    JSL.L Is_Equals_1575                 ;028755|07AEDD;
    BNE CODE_028785                      ;028759|028785;
-   LDX.W Selection                      ;02875B|00103F;
-   LDA.W Array_Category,X               ;02875E|0009C7;
+   LDX.W Selection_offset               ;02875B|00103F;
+   LDA.W Object_var1_Category,X         ;02875E|0009C7;
    STA.B $20                            ;028761|000020;
-   LDA.W Array_Selection,X              ;028763|0009EB;
+   LDA.W Object_var2_Selection,X        ;028763|0009EB;
    ASL A                                ;028766|      ;
    TAX                                  ;028767|      ;
    LDA.W Curr_HP_Rooks,X                ;028768|0012F3;
@@ -1512,22 +1512,22 @@ CODE_028755:
    BCS CODE_028793                      ;02876F|028793;
 CODE_028771:
    LDA.W Curr_HP_Rooks,X                ;028771|0012F3;
-   LDX.W Selection                      ;028774|00103F;
-   STA.W Array_Category,X               ;028777|0009C7;
+   LDX.W Selection_offset               ;028774|00103F;
+   STA.W Object_var1_Category,X         ;028777|0009C7;
    LDA.W #$8682                         ;02877A|      ;
    LDY.W #$0002                         ;02877D|      ;
    JML.L Sub_LoadStuff                  ;028780|008DB4;
    RTL                                  ;028784|      ;
 CODE_028785:
-   LDX.W Selection                      ;028785|00103F;
+   LDX.W Selection_offset               ;028785|00103F;
    LDA.W #$8671                         ;028788|      ;
    LDY.W #$0002                         ;02878B|      ;
    JML.L Sub_LoadStuff                  ;02878E|008DB4;
    RTL                                  ;028792|      ;
 CODE_028793:
    LDA.W Curr_HP_Rooks,X                ;028793|0012F3;
-   LDX.W Selection                      ;028796|00103F;
-   STA.W Array_Category,X               ;028799|0009C7;
+   LDX.W Selection_offset               ;028796|00103F;
+   STA.W Object_var1_Category,X         ;028799|0009C7;
    RTL                                  ;02879C|      ;
 LoadData_Enemy07:
    db $04                               ;02879D|      ;
@@ -1754,10 +1754,10 @@ DATA8_028867:
 CODE_02888F:
    JSL.L Is_Equals_1575                 ;02888F|07AEDD;
    BNE CODE_0288BF                      ;028893|0288BF;
-   LDX.W Selection                      ;028895|00103F;
-   LDA.W Array_Category,X               ;028898|0009C7;
+   LDX.W Selection_offset               ;028895|00103F;
+   LDA.W Object_var1_Category,X         ;028898|0009C7;
    STA.B $20                            ;02889B|000020;
-   LDA.W Array_Selection,X              ;02889D|0009EB;
+   LDA.W Object_var2_Selection,X        ;02889D|0009EB;
    ASL A                                ;0288A0|      ;
    TAX                                  ;0288A1|      ;
    LDA.W Curr_HP_Rooks,X                ;0288A2|0012F3;
@@ -1766,22 +1766,22 @@ CODE_02888F:
    BCS CODE_0288CD                      ;0288A9|0288CD;
 CODE_0288AB:
    LDA.W Curr_HP_Rooks,X                ;0288AB|0012F3;
-   LDX.W Selection                      ;0288AE|00103F;
-   STA.W Array_Category,X               ;0288B1|0009C7;
+   LDX.W Selection_offset               ;0288AE|00103F;
+   STA.W Object_var1_Category,X         ;0288B1|0009C7;
    LDA.W #$87B9                         ;0288B4|      ;
    LDY.W #$0002                         ;0288B7|      ;
    JML.L Sub_LoadStuff                  ;0288BA|008DB4;
    RTL                                  ;0288BE|      ;
 CODE_0288BF:
-   LDX.W Selection                      ;0288BF|00103F;
+   LDX.W Selection_offset               ;0288BF|00103F;
    LDA.W #$87A8                         ;0288C2|      ;
    LDY.W #$0002                         ;0288C5|      ;
    JML.L Sub_LoadStuff                  ;0288C8|008DB4;
    RTL                                  ;0288CC|      ;
 CODE_0288CD:
    LDA.W Curr_HP_Rooks,X                ;0288CD|0012F3;
-   LDX.W Selection                      ;0288D0|00103F;
-   STA.W Array_Category,X               ;0288D3|0009C7;
+   LDX.W Selection_offset               ;0288D0|00103F;
+   STA.W Object_var1_Category,X         ;0288D3|0009C7;
    RTL                                  ;0288D6|      ;
 LoadData_Enemy08:
    db $04                               ;0288D7|      ;
@@ -1920,10 +1920,10 @@ DATA8_028961:
 CODE_028971:
    JSL.L Is_Equals_1575                 ;028971|07AEDD;
    BNE CODE_0289A1                      ;028975|0289A1;
-   LDX.W Selection                      ;028977|00103F;
-   LDA.W Array_Category,X               ;02897A|0009C7;
+   LDX.W Selection_offset               ;028977|00103F;
+   LDA.W Object_var1_Category,X         ;02897A|0009C7;
    STA.B $20                            ;02897D|000020;
-   LDA.W Array_Selection,X              ;02897F|0009EB;
+   LDA.W Object_var2_Selection,X        ;02897F|0009EB;
    ASL A                                ;028982|      ;
    TAX                                  ;028983|      ;
    LDA.W Curr_HP_Rooks,X                ;028984|0012F3;
@@ -1932,22 +1932,22 @@ CODE_028971:
    BCS CODE_0289AF                      ;02898B|0289AF;
 CODE_02898D:
    LDA.W Curr_HP_Rooks,X                ;02898D|0012F3;
-   LDX.W Selection                      ;028990|00103F;
-   STA.W Array_Category,X               ;028993|0009C7;
+   LDX.W Selection_offset               ;028990|00103F;
+   STA.W Object_var1_Category,X         ;028993|0009C7;
    LDA.W #$88F3                         ;028996|      ;
    LDY.W #$0002                         ;028999|      ;
    JML.L Sub_LoadStuff                  ;02899C|008DB4;
    RTL                                  ;0289A0|      ;
 CODE_0289A1:
-   LDX.W Selection                      ;0289A1|00103F;
+   LDX.W Selection_offset               ;0289A1|00103F;
    LDA.W #$88E2                         ;0289A4|      ;
    LDY.W #$0002                         ;0289A7|      ;
    JML.L Sub_LoadStuff                  ;0289AA|008DB4;
    RTL                                  ;0289AE|      ;
 CODE_0289AF:
    LDA.W Curr_HP_Rooks,X                ;0289AF|0012F3;
-   LDX.W Selection                      ;0289B2|00103F;
-   STA.W Array_Category,X               ;0289B5|0009C7;
+   LDX.W Selection_offset               ;0289B2|00103F;
+   STA.W Object_var1_Category,X         ;0289B5|0009C7;
    RTL                                  ;0289B8|      ;
 LoadData_Enemy09:
    db $04                               ;0289B9|      ;
@@ -2082,10 +2082,10 @@ DATA8_028A41:
 CODE_028A4F:
    JSL.L Is_Equals_1575                 ;028A4F|07AEDD;
    BNE CODE_028A7F                      ;028A53|028A7F;
-   LDX.W Selection                      ;028A55|00103F;
-   LDA.W Array_Category,X               ;028A58|0009C7;
+   LDX.W Selection_offset               ;028A55|00103F;
+   LDA.W Object_var1_Category,X         ;028A58|0009C7;
    STA.B $20                            ;028A5B|000020;
-   LDA.W Array_Selection,X              ;028A5D|0009EB;
+   LDA.W Object_var2_Selection,X        ;028A5D|0009EB;
    ASL A                                ;028A60|      ;
    TAX                                  ;028A61|      ;
    LDA.W Curr_HP_Rooks,X                ;028A62|0012F3;
@@ -2094,22 +2094,22 @@ CODE_028A4F:
    BCS CODE_028A8D                      ;028A69|028A8D;
 CODE_028A6B:
    LDA.W Curr_HP_Rooks,X                ;028A6B|0012F3;
-   LDX.W Selection                      ;028A6E|00103F;
-   STA.W Array_Category,X               ;028A71|0009C7;
+   LDX.W Selection_offset               ;028A6E|00103F;
+   STA.W Object_var1_Category,X         ;028A71|0009C7;
    LDA.W #$89D5                         ;028A74|      ;
    LDY.W #$0002                         ;028A77|      ;
    JML.L Sub_LoadStuff                  ;028A7A|008DB4;
    RTL                                  ;028A7E|      ;
 CODE_028A7F:
-   LDX.W Selection                      ;028A7F|00103F;
+   LDX.W Selection_offset               ;028A7F|00103F;
    LDA.W #$89C4                         ;028A82|      ;
    LDY.W #$0002                         ;028A85|      ;
    JML.L Sub_LoadStuff                  ;028A88|008DB4;
    RTL                                  ;028A8C|      ;
 CODE_028A8D:
    LDA.W Curr_HP_Rooks,X                ;028A8D|0012F3;
-   LDX.W Selection                      ;028A90|00103F;
-   STA.W Array_Category,X               ;028A93|0009C7;
+   LDX.W Selection_offset               ;028A90|00103F;
+   STA.W Object_var1_Category,X         ;028A93|0009C7;
    RTL                                  ;028A96|      ;
 LoadData_Enemy0A:
    db $04                               ;028A97|      ;
@@ -2338,10 +2338,10 @@ DATA8_028B65:
 CODE_028B8B:
    JSL.L Is_Equals_1575                 ;028B8B|07AEDD;
    BNE CODE_028BBB                      ;028B8F|028BBB;
-   LDX.W Selection                      ;028B91|00103F;
-   LDA.W Array_Category,X               ;028B94|0009C7;
+   LDX.W Selection_offset               ;028B91|00103F;
+   LDA.W Object_var1_Category,X         ;028B94|0009C7;
    STA.B $20                            ;028B97|000020;
-   LDA.W Array_Selection,X              ;028B99|0009EB;
+   LDA.W Object_var2_Selection,X        ;028B99|0009EB;
    ASL A                                ;028B9C|      ;
    TAX                                  ;028B9D|      ;
    LDA.W Curr_HP_Rooks,X                ;028B9E|0012F3;
@@ -2350,22 +2350,22 @@ CODE_028B8B:
    BCS CODE_028BC9                      ;028BA5|028BC9;
 CODE_028BA7:
    LDA.W Curr_HP_Rooks,X                ;028BA7|0012F3;
-   LDX.W Selection                      ;028BAA|00103F;
-   STA.W Array_Category,X               ;028BAD|0009C7;
+   LDX.W Selection_offset               ;028BAA|00103F;
+   STA.W Object_var1_Category,X         ;028BAD|0009C7;
    LDA.W #$8AB3                         ;028BB0|      ;
    LDY.W #$0002                         ;028BB3|      ;
    JML.L Sub_LoadStuff                  ;028BB6|008DB4;
    RTL                                  ;028BBA|      ;
 CODE_028BBB:
-   LDX.W Selection                      ;028BBB|00103F;
+   LDX.W Selection_offset               ;028BBB|00103F;
    LDA.W #$8AA2                         ;028BBE|      ;
    LDY.W #$0002                         ;028BC1|      ;
    JML.L Sub_LoadStuff                  ;028BC4|008DB4;
    RTL                                  ;028BC8|      ;
 CODE_028BC9:
    LDA.W Curr_HP_Rooks,X                ;028BC9|0012F3;
-   LDX.W Selection                      ;028BCC|00103F;
-   STA.W Array_Category,X               ;028BCF|0009C7;
+   LDX.W Selection_offset               ;028BCC|00103F;
+   STA.W Object_var1_Category,X         ;028BCF|0009C7;
    RTL                                  ;028BD2|      ;
 LoadData_Enemy0B:
    db $04                               ;028BD3|      ;
@@ -2418,10 +2418,10 @@ DATA8_028C03:
 CODE_028C11:
    JSL.L Is_Equals_1575                 ;028C11|07AEDD;
    BNE CODE_028C41                      ;028C15|028C41;
-   LDX.W Selection                      ;028C17|00103F;
-   LDA.W Array_Category,X               ;028C1A|0009C7;
+   LDX.W Selection_offset               ;028C17|00103F;
+   LDA.W Object_var1_Category,X         ;028C1A|0009C7;
    STA.B $20                            ;028C1D|000020;
-   LDA.W Array_Selection,X              ;028C1F|0009EB;
+   LDA.W Object_var2_Selection,X        ;028C1F|0009EB;
    ASL A                                ;028C22|      ;
    TAX                                  ;028C23|      ;
    LDA.W Curr_HP_Rooks,X                ;028C24|0012F3;
@@ -2430,22 +2430,22 @@ CODE_028C11:
    BCS CODE_028C4F                      ;028C2B|028C4F;
 CODE_028C2D:
    LDA.W Curr_HP_Rooks,X                ;028C2D|0012F3;
-   LDX.W Selection                      ;028C30|00103F;
-   STA.W Array_Category,X               ;028C33|0009C7;
+   LDX.W Selection_offset               ;028C30|00103F;
+   STA.W Object_var1_Category,X         ;028C33|0009C7;
    LDA.W #$8BE8                         ;028C36|      ;
    LDY.W #$0002                         ;028C39|      ;
    JML.L Sub_LoadStuff                  ;028C3C|008DB4;
    RTL                                  ;028C40|      ;
 CODE_028C41:
-   LDX.W Selection                      ;028C41|00103F;
+   LDX.W Selection_offset               ;028C41|00103F;
    LDA.W #$8BDE                         ;028C44|      ;
    LDY.W #$0002                         ;028C47|      ;
    JML.L Sub_LoadStuff                  ;028C4A|008DB4;
    RTL                                  ;028C4E|      ;
 CODE_028C4F:
    LDA.W Curr_HP_Rooks,X                ;028C4F|0012F3;
-   LDX.W Selection                      ;028C52|00103F;
-   STA.W Array_Category,X               ;028C55|0009C7;
+   LDX.W Selection_offset               ;028C52|00103F;
+   STA.W Object_var1_Category,X         ;028C55|0009C7;
    RTL                                  ;028C58|      ;
 LoadData_Enemy0C:
    db $04                               ;028C59|      ;
@@ -2498,10 +2498,10 @@ DATA8_028C89:
 CODE_028C97:
    JSL.L Is_Equals_1575                 ;028C97|07AEDD;
    BNE CODE_028CC7                      ;028C9B|028CC7;
-   LDX.W Selection                      ;028C9D|00103F;
-   LDA.W Array_Category,X               ;028CA0|0009C7;
+   LDX.W Selection_offset               ;028C9D|00103F;
+   LDA.W Object_var1_Category,X         ;028CA0|0009C7;
    STA.B $20                            ;028CA3|000020;
-   LDA.W Array_Selection,X              ;028CA5|0009EB;
+   LDA.W Object_var2_Selection,X        ;028CA5|0009EB;
    ASL A                                ;028CA8|      ;
    TAX                                  ;028CA9|      ;
    LDA.W Curr_HP_Rooks,X                ;028CAA|0012F3;
@@ -2510,22 +2510,22 @@ CODE_028C97:
    BCS CODE_028CD5                      ;028CB1|028CD5;
 CODE_028CB3:
    LDA.W Curr_HP_Rooks,X                ;028CB3|0012F3;
-   LDX.W Selection                      ;028CB6|00103F;
-   STA.W Array_Category,X               ;028CB9|0009C7;
+   LDX.W Selection_offset               ;028CB6|00103F;
+   STA.W Object_var1_Category,X         ;028CB9|0009C7;
    LDA.W #$8C6E                         ;028CBC|      ;
    LDY.W #$0002                         ;028CBF|      ;
    JML.L Sub_LoadStuff                  ;028CC2|008DB4;
    RTL                                  ;028CC6|      ;
 CODE_028CC7:
-   LDX.W Selection                      ;028CC7|00103F;
+   LDX.W Selection_offset               ;028CC7|00103F;
    LDA.W #$8C64                         ;028CCA|      ;
    LDY.W #$0002                         ;028CCD|      ;
    JML.L Sub_LoadStuff                  ;028CD0|008DB4;
    RTL                                  ;028CD4|      ;
 CODE_028CD5:
    LDA.W Curr_HP_Rooks,X                ;028CD5|0012F3;
-   LDX.W Selection                      ;028CD8|00103F;
-   STA.W Array_Category,X               ;028CDB|0009C7;
+   LDX.W Selection_offset               ;028CD8|00103F;
+   STA.W Object_var1_Category,X         ;028CDB|0009C7;
    RTL                                  ;028CDE|      ;
 DATA8_028CDF:
    db $07                               ;028CDF|      ;
@@ -2928,11 +2928,10 @@ Sub_Enemy_death_anim:
    db $07                               ;028F24|      ; Play 07 "Damage" SFX
    dl GetSet_SFX                        ;028F25|009C44;
    db $07                               ;028F28|      ;
-   db $1E                               ;028F29|      ; Store 7 in $0CB3,x
-   db $07                               ;028F2A|      ;
-   db $00                               ;028F2B|      ;
-   db $07                               ;028F2C|      ; Data pull
-   dl CODE_1882E6                       ;028F2D|1882E6;
+   db $1E                               ;028F29|      ; Load 7
+   dw $0007                             ;028F2A|      ;
+   db $07                               ;028F2C|      ; Load gfx 7: damage star
+   dl GetAttackAnimation                ;028F2D|1882E6;
    db $31                               ;028F30|      ; Animation 00
    db $00                               ;028F31|      ;
    db $AC                               ;028F32|      ; Next animation
@@ -3384,8 +3383,8 @@ Get_EnemyID_BattleStats:
 Get_EnemyBattleStats:
    ASL A                                ;02913D|      ;
    TAX                                  ;02913E|      ;
-   LDY.W Selection                      ;02913F|00103F;
-   LDA.W Array_Selection,Y              ;029142|0009EB; Temp var used for the offset of this fighter's battle stats
+   LDY.W Selection_offset               ;02913F|00103F;
+   LDA.W Object_var2_Selection,Y        ;029142|0009EB; Temp var used for the offset of this fighter's battle stats
    ASL A                                ;029145|      ;
    TAY                                  ;029146|      ;
    LDA.L Data_Enemy_Affinity,X          ;029147|05C92D;
@@ -3410,8 +3409,8 @@ Get_EnemyBattleStats:
    STA.W Curr_EXP_Rooks,Y               ;02918A|001363;
    LDA.L Data_Enemy_mHP,X               ;02918D|05CE55;
    STA.W Curr_HP_Rooks,Y                ;029191|0012F3;
-   LDX.W Selection                      ;029194|00103F;
-   STA.W Array_Category,X               ;029197|0009C7; Save their HP to some temp variable battle list
+   LDX.W Selection_offset               ;029194|00103F;
+   STA.W Object_var1_Category,X         ;029197|0009C7; Save their HP to some temp variable battle list
    RTL                                  ;02919A|      ;
 LoadData_Enemy0D:
    db $04                               ;02919B|      ;
@@ -3535,10 +3534,10 @@ DATA8_02921F:
 CODE_029226:
    JSL.L Is_Equals_1575                 ;029226|07AEDD;
    BNE CODE_029256                      ;02922A|029256;
-   LDX.W Selection                      ;02922C|00103F;
-   LDA.W Array_Category,X               ;02922F|0009C7;
+   LDX.W Selection_offset               ;02922C|00103F;
+   LDA.W Object_var1_Category,X         ;02922F|0009C7;
    STA.B $20                            ;029232|000020;
-   LDA.W Array_Selection,X              ;029234|0009EB;
+   LDA.W Object_var2_Selection,X        ;029234|0009EB;
    ASL A                                ;029237|      ;
    TAX                                  ;029238|      ;
    LDA.W Curr_HP_Rooks,X                ;029239|0012F3;
@@ -3547,22 +3546,22 @@ CODE_029226:
    BCS CODE_029264                      ;029240|029264;
 CODE_029242:
    LDA.W Curr_HP_Rooks,X                ;029242|0012F3;
-   LDX.W Selection                      ;029245|00103F;
-   STA.W Array_Category,X               ;029248|0009C7;
+   LDX.W Selection_offset               ;029245|00103F;
+   STA.W Object_var1_Category,X         ;029248|0009C7;
    LDA.W #$91B7                         ;02924B|      ;
    LDY.W #$0002                         ;02924E|      ;
    JML.L Sub_LoadStuff                  ;029251|008DB4;
    RTL                                  ;029255|      ;
 CODE_029256:
-   LDX.W Selection                      ;029256|00103F;
+   LDX.W Selection_offset               ;029256|00103F;
    LDA.W #$91A6                         ;029259|      ;
    LDY.W #$0002                         ;02925C|      ;
    JML.L Sub_LoadStuff                  ;02925F|008DB4;
    RTL                                  ;029263|      ;
 CODE_029264:
    LDA.W Curr_HP_Rooks,X                ;029264|0012F3;
-   LDX.W Selection                      ;029267|00103F;
-   STA.W Array_Category,X               ;02926A|0009C7;
+   LDX.W Selection_offset               ;029267|00103F;
+   STA.W Object_var1_Category,X         ;02926A|0009C7;
    RTL                                  ;02926D|      ;
 LoadData_Enemy0E:
    db $04                               ;02926E|      ;
@@ -3692,10 +3691,10 @@ DATA8_0292F4:
 CODE_0292FF:
    JSL.L Is_Equals_1575                 ;0292FF|07AEDD;
    BNE CODE_02932F                      ;029303|02932F;
-   LDX.W Selection                      ;029305|00103F;
-   LDA.W Array_Category,X               ;029308|0009C7;
+   LDX.W Selection_offset               ;029305|00103F;
+   LDA.W Object_var1_Category,X         ;029308|0009C7;
    STA.B $20                            ;02930B|000020;
-   LDA.W Array_Selection,X              ;02930D|0009EB;
+   LDA.W Object_var2_Selection,X        ;02930D|0009EB;
    ASL A                                ;029310|      ;
    TAX                                  ;029311|      ;
    LDA.W Curr_HP_Rooks,X                ;029312|0012F3;
@@ -3704,22 +3703,22 @@ CODE_0292FF:
    BCS CODE_02933D                      ;029319|02933D;
 CODE_02931B:
    LDA.W Curr_HP_Rooks,X                ;02931B|0012F3;
-   LDX.W Selection                      ;02931E|00103F;
-   STA.W Array_Category,X               ;029321|0009C7;
+   LDX.W Selection_offset               ;02931E|00103F;
+   STA.W Object_var1_Category,X         ;029321|0009C7;
    LDA.W #$928A                         ;029324|      ;
    LDY.W #$0002                         ;029327|      ;
    JML.L Sub_LoadStuff                  ;02932A|008DB4;
    RTL                                  ;02932E|      ;
 CODE_02932F:
-   LDX.W Selection                      ;02932F|00103F;
+   LDX.W Selection_offset               ;02932F|00103F;
    LDA.W #$9279                         ;029332|      ;
    LDY.W #$0002                         ;029335|      ;
    JML.L Sub_LoadStuff                  ;029338|008DB4;
    RTL                                  ;02933C|      ;
 CODE_02933D:
    LDA.W Curr_HP_Rooks,X                ;02933D|0012F3;
-   LDX.W Selection                      ;029340|00103F;
-   STA.W Array_Category,X               ;029343|0009C7;
+   LDX.W Selection_offset               ;029340|00103F;
+   STA.W Object_var1_Category,X         ;029343|0009C7;
    RTL                                  ;029346|      ;
 LoadData_Enemy0F:
    db $04                               ;029347|      ;
@@ -3849,10 +3848,10 @@ DATA8_0293CD:
 CODE_0293D8:
    JSL.L Is_Equals_1575                 ;0293D8|07AEDD;
    BNE CODE_029408                      ;0293DC|029408;
-   LDX.W Selection                      ;0293DE|00103F;
-   LDA.W Array_Category,X               ;0293E1|0009C7;
+   LDX.W Selection_offset               ;0293DE|00103F;
+   LDA.W Object_var1_Category,X         ;0293E1|0009C7;
    STA.B $20                            ;0293E4|000020;
-   LDA.W Array_Selection,X              ;0293E6|0009EB;
+   LDA.W Object_var2_Selection,X        ;0293E6|0009EB;
    ASL A                                ;0293E9|      ;
    TAX                                  ;0293EA|      ;
    LDA.W Curr_HP_Rooks,X                ;0293EB|0012F3;
@@ -3861,22 +3860,22 @@ CODE_0293D8:
    BCS CODE_029416                      ;0293F2|029416;
 CODE_0293F4:
    LDA.W Curr_HP_Rooks,X                ;0293F4|0012F3;
-   LDX.W Selection                      ;0293F7|00103F;
-   STA.W Array_Category,X               ;0293FA|0009C7;
+   LDX.W Selection_offset               ;0293F7|00103F;
+   STA.W Object_var1_Category,X         ;0293FA|0009C7;
    LDA.W #$9363                         ;0293FD|      ;
    LDY.W #$0002                         ;029400|      ;
    JML.L Sub_LoadStuff                  ;029403|008DB4;
    RTL                                  ;029407|      ;
 CODE_029408:
-   LDX.W Selection                      ;029408|00103F;
+   LDX.W Selection_offset               ;029408|00103F;
    LDA.W #$9352                         ;02940B|      ;
    LDY.W #$0002                         ;02940E|      ;
    JML.L Sub_LoadStuff                  ;029411|008DB4;
    RTL                                  ;029415|      ;
 CODE_029416:
    LDA.W Curr_HP_Rooks,X                ;029416|0012F3;
-   LDX.W Selection                      ;029419|00103F;
-   STA.W Array_Category,X               ;02941C|0009C7;
+   LDX.W Selection_offset               ;029419|00103F;
+   STA.W Object_var1_Category,X         ;02941C|0009C7;
    RTL                                  ;02941F|      ;
 LoadData_Enemy10:
    db $04                               ;029420|      ;
@@ -4083,10 +4082,10 @@ DATA8_0294D6:
 CODE_0294FE:
    JSL.L Is_Equals_1575                 ;0294FE|07AEDD;
    BNE CODE_02952E                      ;029502|02952E;
-   LDX.W Selection                      ;029504|00103F;
-   LDA.W Array_Category,X               ;029507|0009C7;
+   LDX.W Selection_offset               ;029504|00103F;
+   LDA.W Object_var1_Category,X         ;029507|0009C7;
    STA.B $20                            ;02950A|000020;
-   LDA.W Array_Selection,X              ;02950C|0009EB;
+   LDA.W Object_var2_Selection,X        ;02950C|0009EB;
    ASL A                                ;02950F|      ;
    TAX                                  ;029510|      ;
    LDA.W Curr_HP_Rooks,X                ;029511|0012F3;
@@ -4095,22 +4094,22 @@ CODE_0294FE:
    BCS CODE_02953C                      ;029518|02953C;
 CODE_02951A:
    LDA.W Curr_HP_Rooks,X                ;02951A|0012F3;
-   LDX.W Selection                      ;02951D|00103F;
-   STA.W Array_Category,X               ;029520|0009C7;
+   LDX.W Selection_offset               ;02951D|00103F;
+   STA.W Object_var1_Category,X         ;029520|0009C7;
    LDA.W #$943C                         ;029523|      ;
    LDY.W #$0002                         ;029526|      ;
    JML.L Sub_LoadStuff                  ;029529|008DB4;
    RTL                                  ;02952D|      ;
 CODE_02952E:
-   LDX.W Selection                      ;02952E|00103F;
+   LDX.W Selection_offset               ;02952E|00103F;
    LDA.W #$942B                         ;029531|      ;
    LDY.W #$0002                         ;029534|      ;
    JML.L Sub_LoadStuff                  ;029537|008DB4;
    RTL                                  ;02953B|      ;
 CODE_02953C:
    LDA.W Curr_HP_Rooks,X                ;02953C|0012F3;
-   LDX.W Selection                      ;02953F|00103F;
-   STA.W Array_Category,X               ;029542|0009C7;
+   LDX.W Selection_offset               ;02953F|00103F;
+   STA.W Object_var1_Category,X         ;029542|0009C7;
    RTL                                  ;029545|      ;
 LoadData_Enemy11:
    db $04                               ;029546|      ;
@@ -4317,10 +4316,10 @@ DATA8_0295FC:
 CODE_029624:
    JSL.L Is_Equals_1575                 ;029624|07AEDD;
    BNE CODE_029654                      ;029628|029654;
-   LDX.W Selection                      ;02962A|00103F;
-   LDA.W Array_Category,X               ;02962D|0009C7;
+   LDX.W Selection_offset               ;02962A|00103F;
+   LDA.W Object_var1_Category,X         ;02962D|0009C7;
    STA.B $20                            ;029630|000020;
-   LDA.W Array_Selection,X              ;029632|0009EB;
+   LDA.W Object_var2_Selection,X        ;029632|0009EB;
    ASL A                                ;029635|      ;
    TAX                                  ;029636|      ;
    LDA.W Curr_HP_Rooks,X                ;029637|0012F3;
@@ -4329,22 +4328,22 @@ CODE_029624:
    BCS CODE_029662                      ;02963E|029662;
 CODE_029640:
    LDA.W Curr_HP_Rooks,X                ;029640|0012F3;
-   LDX.W Selection                      ;029643|00103F;
-   STA.W Array_Category,X               ;029646|0009C7;
+   LDX.W Selection_offset               ;029643|00103F;
+   STA.W Object_var1_Category,X         ;029646|0009C7;
    LDA.W #$9562                         ;029649|      ;
    LDY.W #$0002                         ;02964C|      ;
    JML.L Sub_LoadStuff                  ;02964F|008DB4;
    RTL                                  ;029653|      ;
 CODE_029654:
-   LDX.W Selection                      ;029654|00103F;
+   LDX.W Selection_offset               ;029654|00103F;
    LDA.W #$9551                         ;029657|      ;
    LDY.W #$0002                         ;02965A|      ;
    JML.L Sub_LoadStuff                  ;02965D|008DB4;
    RTL                                  ;029661|      ;
 CODE_029662:
    LDA.W Curr_HP_Rooks,X                ;029662|0012F3;
-   LDX.W Selection                      ;029665|00103F;
-   STA.W Array_Category,X               ;029668|0009C7;
+   LDX.W Selection_offset               ;029665|00103F;
+   STA.W Object_var1_Category,X         ;029668|0009C7;
    RTL                                  ;02966B|      ;
 LoadData_Enemy12:
    db $04                               ;02966C|      ;
@@ -4545,10 +4544,10 @@ DATA8_029722:
 CODE_029744:
    JSL.L Is_Equals_1575                 ;029744|07AEDD;
    BNE CODE_029774                      ;029748|029774;
-   LDX.W Selection                      ;02974A|00103F;
-   LDA.W Array_Category,X               ;02974D|0009C7;
+   LDX.W Selection_offset               ;02974A|00103F;
+   LDA.W Object_var1_Category,X         ;02974D|0009C7;
    STA.B $20                            ;029750|000020;
-   LDA.W Array_Selection,X              ;029752|0009EB;
+   LDA.W Object_var2_Selection,X        ;029752|0009EB;
    ASL A                                ;029755|      ;
    TAX                                  ;029756|      ;
    LDA.W Curr_HP_Rooks,X                ;029757|0012F3;
@@ -4557,22 +4556,22 @@ CODE_029744:
    BCS CODE_029782                      ;02975E|029782;
 CODE_029760:
    LDA.W Curr_HP_Rooks,X                ;029760|0012F3;
-   LDX.W Selection                      ;029763|00103F;
-   STA.W Array_Category,X               ;029766|0009C7;
+   LDX.W Selection_offset               ;029763|00103F;
+   STA.W Object_var1_Category,X         ;029766|0009C7;
    LDA.W #$9688                         ;029769|      ;
    LDY.W #$0002                         ;02976C|      ;
    JML.L Sub_LoadStuff                  ;02976F|008DB4;
    RTL                                  ;029773|      ;
 CODE_029774:
-   LDX.W Selection                      ;029774|00103F;
+   LDX.W Selection_offset               ;029774|00103F;
    LDA.W #$9677                         ;029777|      ;
    LDY.W #$0002                         ;02977A|      ;
    JML.L Sub_LoadStuff                  ;02977D|008DB4;
    RTL                                  ;029781|      ;
 CODE_029782:
    LDA.W Curr_HP_Rooks,X                ;029782|0012F3;
-   LDX.W Selection                      ;029785|00103F;
-   STA.W Array_Category,X               ;029788|0009C7;
+   LDX.W Selection_offset               ;029785|00103F;
+   STA.W Object_var1_Category,X         ;029788|0009C7;
    RTL                                  ;02978B|      ;
 LoadData_Enemy13:
    db $04                               ;02978C|      ;
@@ -4771,10 +4770,10 @@ DATA8_02983E:
 CODE_029862:
    JSL.L Is_Equals_1575                 ;029862|07AEDD;
    BNE CODE_029892                      ;029866|029892;
-   LDX.W Selection                      ;029868|00103F;
-   LDA.W Array_Category,X               ;02986B|0009C7;
+   LDX.W Selection_offset               ;029868|00103F;
+   LDA.W Object_var1_Category,X         ;02986B|0009C7;
    STA.B $20                            ;02986E|000020;
-   LDA.W Array_Selection,X              ;029870|0009EB;
+   LDA.W Object_var2_Selection,X        ;029870|0009EB;
    ASL A                                ;029873|      ;
    TAX                                  ;029874|      ;
    LDA.W Curr_HP_Rooks,X                ;029875|0012F3;
@@ -4783,22 +4782,22 @@ CODE_029862:
    BCS CODE_0298A0                      ;02987C|0298A0;
 CODE_02987E:
    LDA.W Curr_HP_Rooks,X                ;02987E|0012F3;
-   LDX.W Selection                      ;029881|00103F;
-   STA.W Array_Category,X               ;029884|0009C7;
+   LDX.W Selection_offset               ;029881|00103F;
+   STA.W Object_var1_Category,X         ;029884|0009C7;
    LDA.W #$97A8                         ;029887|      ;
    LDY.W #$0002                         ;02988A|      ;
    JML.L Sub_LoadStuff                  ;02988D|008DB4;
    RTL                                  ;029891|      ;
 CODE_029892:
-   LDX.W Selection                      ;029892|00103F;
+   LDX.W Selection_offset               ;029892|00103F;
    LDA.W #$9797                         ;029895|      ;
    LDY.W #$0002                         ;029898|      ;
    JML.L Sub_LoadStuff                  ;02989B|008DB4;
    RTL                                  ;02989F|      ;
 CODE_0298A0:
    LDA.W Curr_HP_Rooks,X                ;0298A0|0012F3;
-   LDX.W Selection                      ;0298A3|00103F;
-   STA.W Array_Category,X               ;0298A6|0009C7;
+   LDX.W Selection_offset               ;0298A3|00103F;
+   STA.W Object_var1_Category,X         ;0298A6|0009C7;
    RTL                                  ;0298A9|      ;
 LoadData_Enemy14:
    db $04                               ;0298AA|      ;
@@ -4834,10 +4833,10 @@ DATA8_0298D1:
 CODE_0298D6:
    JSL.L Is_Equals_1575                 ;0298D6|07AEDD;
    BNE CODE_029906                      ;0298DA|029906;
-   LDX.W Selection                      ;0298DC|00103F;
-   LDA.W Array_Category,X               ;0298DF|0009C7;
+   LDX.W Selection_offset               ;0298DC|00103F;
+   LDA.W Object_var1_Category,X         ;0298DF|0009C7;
    STA.B $20                            ;0298E2|000020;
-   LDA.W Array_Selection,X              ;0298E4|0009EB;
+   LDA.W Object_var2_Selection,X        ;0298E4|0009EB;
    ASL A                                ;0298E7|      ;
    TAX                                  ;0298E8|      ;
    LDA.W Curr_HP_Rooks,X                ;0298E9|0012F3;
@@ -4846,22 +4845,22 @@ CODE_0298D6:
    BCS CODE_029914                      ;0298F0|029914;
 CODE_0298F2:
    LDA.W Curr_HP_Rooks,X                ;0298F2|0012F3;
-   LDX.W Selection                      ;0298F5|00103F;
-   STA.W Array_Category,X               ;0298F8|0009C7;
+   LDX.W Selection_offset               ;0298F5|00103F;
+   STA.W Object_var1_Category,X         ;0298F8|0009C7;
    LDA.W #$98BF                         ;0298FB|      ;
    LDY.W #$0002                         ;0298FE|      ;
    JML.L Sub_LoadStuff                  ;029901|008DB4;
    RTL                                  ;029905|      ;
 CODE_029906:
-   LDX.W Selection                      ;029906|00103F;
+   LDX.W Selection_offset               ;029906|00103F;
    LDA.W #$98B5                         ;029909|      ;
    LDY.W #$0002                         ;02990C|      ;
    JML.L Sub_LoadStuff                  ;02990F|008DB4;
    RTL                                  ;029913|      ;
 CODE_029914:
    LDA.W Curr_HP_Rooks,X                ;029914|0012F3;
-   LDX.W Selection                      ;029917|00103F;
-   STA.W Array_Category,X               ;02991A|0009C7;
+   LDX.W Selection_offset               ;029917|00103F;
+   STA.W Object_var1_Category,X         ;02991A|0009C7;
    RTL                                  ;02991D|      ;
 LoadData_Enemy15:
    db $04                               ;02991E|      ;
@@ -4930,10 +4929,10 @@ DATA8_029952:
 CODE_02996B:
    JSL.L Is_Equals_1575                 ;02996B|07AEDD;
    BNE CODE_02999B                      ;02996F|02999B;
-   LDX.W Selection                      ;029971|00103F;
-   LDA.W Array_Category,X               ;029974|0009C7;
+   LDX.W Selection_offset               ;029971|00103F;
+   LDA.W Object_var1_Category,X         ;029974|0009C7;
    STA.B $20                            ;029977|000020;
-   LDA.W Array_Selection,X              ;029979|0009EB;
+   LDA.W Object_var2_Selection,X        ;029979|0009EB;
    ASL A                                ;02997C|      ;
    TAX                                  ;02997D|      ;
    LDA.W Curr_HP_Rooks,X                ;02997E|0012F3;
@@ -4942,22 +4941,22 @@ CODE_02996B:
    BCS CODE_0299A9                      ;029985|0299A9;
 CODE_029987:
    LDA.W Curr_HP_Rooks,X                ;029987|0012F3;
-   LDX.W Selection                      ;02998A|00103F;
-   STA.W Array_Category,X               ;02998D|0009C7;
+   LDX.W Selection_offset               ;02998A|00103F;
+   STA.W Object_var1_Category,X         ;02998D|0009C7;
    LDA.W #$9933                         ;029990|      ;
    LDY.W #$0002                         ;029993|      ;
    JML.L Sub_LoadStuff                  ;029996|008DB4;
    RTL                                  ;02999A|      ;
 CODE_02999B:
-   LDX.W Selection                      ;02999B|00103F;
+   LDX.W Selection_offset               ;02999B|00103F;
    LDA.W #$9929                         ;02999E|      ;
    LDY.W #$0002                         ;0299A1|      ;
    JML.L Sub_LoadStuff                  ;0299A4|008DB4;
    RTL                                  ;0299A8|      ;
 CODE_0299A9:
    LDA.W Curr_HP_Rooks,X                ;0299A9|0012F3;
-   LDX.W Selection                      ;0299AC|00103F;
-   STA.W Array_Category,X               ;0299AF|0009C7;
+   LDX.W Selection_offset               ;0299AC|00103F;
+   STA.W Object_var1_Category,X         ;0299AF|0009C7;
    RTL                                  ;0299B2|      ;
 LoadData_Enemy16:
    db $04                               ;0299B3|      ;
@@ -4993,10 +4992,10 @@ DATA8_0299DA:
 CODE_0299DF:
    JSL.L Is_Equals_1575                 ;0299DF|07AEDD;
    BNE CODE_029A0F                      ;0299E3|029A0F;
-   LDX.W Selection                      ;0299E5|00103F;
-   LDA.W Array_Category,X               ;0299E8|0009C7;
+   LDX.W Selection_offset               ;0299E5|00103F;
+   LDA.W Object_var1_Category,X         ;0299E8|0009C7;
    STA.B $20                            ;0299EB|000020;
-   LDA.W Array_Selection,X              ;0299ED|0009EB;
+   LDA.W Object_var2_Selection,X        ;0299ED|0009EB;
    ASL A                                ;0299F0|      ;
    TAX                                  ;0299F1|      ;
    LDA.W Curr_HP_Rooks,X                ;0299F2|0012F3;
@@ -5005,22 +5004,22 @@ CODE_0299DF:
    BCS CODE_029A1D                      ;0299F9|029A1D;
 CODE_0299FB:
    LDA.W Curr_HP_Rooks,X                ;0299FB|0012F3;
-   LDX.W Selection                      ;0299FE|00103F;
-   STA.W Array_Category,X               ;029A01|0009C7;
+   LDX.W Selection_offset               ;0299FE|00103F;
+   STA.W Object_var1_Category,X         ;029A01|0009C7;
    LDA.W #$99C8                         ;029A04|      ;
    LDY.W #$0002                         ;029A07|      ;
    JML.L Sub_LoadStuff                  ;029A0A|008DB4;
    RTL                                  ;029A0E|      ;
 CODE_029A0F:
-   LDX.W Selection                      ;029A0F|00103F;
+   LDX.W Selection_offset               ;029A0F|00103F;
    LDA.W #$99BE                         ;029A12|      ;
    LDY.W #$0002                         ;029A15|      ;
    JML.L Sub_LoadStuff                  ;029A18|008DB4;
    RTL                                  ;029A1C|      ;
 CODE_029A1D:
    LDA.W Curr_HP_Rooks,X                ;029A1D|0012F3;
-   LDX.W Selection                      ;029A20|00103F;
-   STA.W Array_Category,X               ;029A23|0009C7;
+   LDX.W Selection_offset               ;029A20|00103F;
+   STA.W Object_var1_Category,X         ;029A23|0009C7;
    RTL                                  ;029A26|      ;
 LoadData_Enemy17:
    db $04                               ;029A27|      ;
@@ -5249,10 +5248,10 @@ DATA8_029AF5:
 CODE_029B1B:
    JSL.L Is_Equals_1575                 ;029B1B|07AEDD;
    BNE CODE_029B4B                      ;029B1F|029B4B;
-   LDX.W Selection                      ;029B21|00103F;
-   LDA.W Array_Category,X               ;029B24|0009C7;
+   LDX.W Selection_offset               ;029B21|00103F;
+   LDA.W Object_var1_Category,X         ;029B24|0009C7;
    STA.B $20                            ;029B27|000020;
-   LDA.W Array_Selection,X              ;029B29|0009EB;
+   LDA.W Object_var2_Selection,X        ;029B29|0009EB;
    ASL A                                ;029B2C|      ;
    TAX                                  ;029B2D|      ;
    LDA.W Curr_HP_Rooks,X                ;029B2E|0012F3;
@@ -5261,22 +5260,22 @@ CODE_029B1B:
    BCS CODE_029B59                      ;029B35|029B59;
 CODE_029B37:
    LDA.W Curr_HP_Rooks,X                ;029B37|0012F3;
-   LDX.W Selection                      ;029B3A|00103F;
-   STA.W Array_Category,X               ;029B3D|0009C7;
+   LDX.W Selection_offset               ;029B3A|00103F;
+   STA.W Object_var1_Category,X         ;029B3D|0009C7;
    LDA.W #$9A43                         ;029B40|      ;
    LDY.W #$0002                         ;029B43|      ;
    JML.L Sub_LoadStuff                  ;029B46|008DB4;
    RTL                                  ;029B4A|      ;
 CODE_029B4B:
-   LDX.W Selection                      ;029B4B|00103F;
+   LDX.W Selection_offset               ;029B4B|00103F;
    LDA.W #$9A32                         ;029B4E|      ;
    LDY.W #$0002                         ;029B51|      ;
    JML.L Sub_LoadStuff                  ;029B54|008DB4;
    RTL                                  ;029B58|      ;
 CODE_029B59:
    LDA.W Curr_HP_Rooks,X                ;029B59|0012F3;
-   LDX.W Selection                      ;029B5C|00103F;
-   STA.W Array_Category,X               ;029B5F|0009C7;
+   LDX.W Selection_offset               ;029B5C|00103F;
+   STA.W Object_var1_Category,X         ;029B5F|0009C7;
    RTL                                  ;029B62|      ;
 LoadData_Enemy18:
    db $04                               ;029B63|      ;
@@ -5411,10 +5410,10 @@ DATA8_029BEB:
 CODE_029BF9:
    JSL.L Is_Equals_1575                 ;029BF9|07AEDD;
    BNE CODE_029C29                      ;029BFD|029C29;
-   LDX.W Selection                      ;029BFF|00103F;
-   LDA.W Array_Category,X               ;029C02|0009C7;
+   LDX.W Selection_offset               ;029BFF|00103F;
+   LDA.W Object_var1_Category,X         ;029C02|0009C7;
    STA.B $20                            ;029C05|000020;
-   LDA.W Array_Selection,X              ;029C07|0009EB;
+   LDA.W Object_var2_Selection,X        ;029C07|0009EB;
    ASL A                                ;029C0A|      ;
    TAX                                  ;029C0B|      ;
    LDA.W Curr_HP_Rooks,X                ;029C0C|0012F3;
@@ -5423,22 +5422,22 @@ CODE_029BF9:
    BCS CODE_029C37                      ;029C13|029C37;
 CODE_029C15:
    LDA.W Curr_HP_Rooks,X                ;029C15|0012F3;
-   LDX.W Selection                      ;029C18|00103F;
-   STA.W Array_Category,X               ;029C1B|0009C7;
+   LDX.W Selection_offset               ;029C18|00103F;
+   STA.W Object_var1_Category,X         ;029C1B|0009C7;
    LDA.W #$9B7F                         ;029C1E|      ;
    LDY.W #$0002                         ;029C21|      ;
    JML.L Sub_LoadStuff                  ;029C24|008DB4;
    RTL                                  ;029C28|      ;
 CODE_029C29:
-   LDX.W Selection                      ;029C29|00103F;
+   LDX.W Selection_offset               ;029C29|00103F;
    LDA.W #$9B6E                         ;029C2C|      ;
    LDY.W #$0002                         ;029C2F|      ;
    JML.L Sub_LoadStuff                  ;029C32|008DB4;
    RTL                                  ;029C36|      ;
 CODE_029C37:
    LDA.W Curr_HP_Rooks,X                ;029C37|0012F3;
-   LDX.W Selection                      ;029C3A|00103F;
-   STA.W Array_Category,X               ;029C3D|0009C7;
+   LDX.W Selection_offset               ;029C3A|00103F;
+   STA.W Object_var1_Category,X         ;029C3D|0009C7;
    RTL                                  ;029C40|      ;
 LoadData_Enemy19:
    db $04                               ;029C41|      ;
@@ -5563,10 +5562,10 @@ DATA8_029CC3:
 CODE_029CCD:
    JSL.L Is_Equals_1575                 ;029CCD|07AEDD;
    BNE CODE_029CFD                      ;029CD1|029CFD;
-   LDX.W Selection                      ;029CD3|00103F;
-   LDA.W Array_Category,X               ;029CD6|0009C7;
+   LDX.W Selection_offset               ;029CD3|00103F;
+   LDA.W Object_var1_Category,X         ;029CD6|0009C7;
    STA.B $20                            ;029CD9|000020;
-   LDA.W Array_Selection,X              ;029CDB|0009EB;
+   LDA.W Object_var2_Selection,X        ;029CDB|0009EB;
    ASL A                                ;029CDE|      ;
    TAX                                  ;029CDF|      ;
    LDA.W Curr_HP_Rooks,X                ;029CE0|0012F3;
@@ -5575,22 +5574,22 @@ CODE_029CCD:
    BCS CODE_029D0B                      ;029CE7|029D0B;
 CODE_029CE9:
    LDA.W Curr_HP_Rooks,X                ;029CE9|0012F3;
-   LDX.W Selection                      ;029CEC|00103F;
-   STA.W Array_Category,X               ;029CEF|0009C7;
+   LDX.W Selection_offset               ;029CEC|00103F;
+   STA.W Object_var1_Category,X         ;029CEF|0009C7;
    LDA.W #$9C5D                         ;029CF2|      ;
    LDY.W #$0002                         ;029CF5|      ;
    JML.L Sub_LoadStuff                  ;029CF8|008DB4;
    RTL                                  ;029CFC|      ;
 CODE_029CFD:
-   LDX.W Selection                      ;029CFD|00103F;
+   LDX.W Selection_offset               ;029CFD|00103F;
    LDA.W #$9C4C                         ;029D00|      ;
    LDY.W #$0002                         ;029D03|      ;
    JML.L Sub_LoadStuff                  ;029D06|008DB4;
    RTL                                  ;029D0A|      ;
 CODE_029D0B:
    LDA.W Curr_HP_Rooks,X                ;029D0B|0012F3;
-   LDX.W Selection                      ;029D0E|00103F;
-   STA.W Array_Category,X               ;029D11|0009C7;
+   LDX.W Selection_offset               ;029D0E|00103F;
+   STA.W Object_var1_Category,X         ;029D11|0009C7;
    RTL                                  ;029D14|      ;
 LoadData_Enemy1A:
    db $04                               ;029D15|      ;
@@ -5729,10 +5728,10 @@ DATA8_029D9F:
 CODE_029DAF:
    JSL.L Is_Equals_1575                 ;029DAF|07AEDD;
    BNE CODE_029DDF                      ;029DB3|029DDF;
-   LDX.W Selection                      ;029DB5|00103F;
-   LDA.W Array_Category,X               ;029DB8|0009C7;
+   LDX.W Selection_offset               ;029DB5|00103F;
+   LDA.W Object_var1_Category,X         ;029DB8|0009C7;
    STA.B $20                            ;029DBB|000020;
-   LDA.W Array_Selection,X              ;029DBD|0009EB;
+   LDA.W Object_var2_Selection,X        ;029DBD|0009EB;
    ASL A                                ;029DC0|      ;
    TAX                                  ;029DC1|      ;
    LDA.W Curr_HP_Rooks,X                ;029DC2|0012F3;
@@ -5741,22 +5740,22 @@ CODE_029DAF:
    BCS CODE_029DED                      ;029DC9|029DED;
 CODE_029DCB:
    LDA.W Curr_HP_Rooks,X                ;029DCB|0012F3;
-   LDX.W Selection                      ;029DCE|00103F;
-   STA.W Array_Category,X               ;029DD1|0009C7;
+   LDX.W Selection_offset               ;029DCE|00103F;
+   STA.W Object_var1_Category,X         ;029DD1|0009C7;
    LDA.W #$9D31                         ;029DD4|      ;
    LDY.W #$0002                         ;029DD7|      ;
    JML.L Sub_LoadStuff                  ;029DDA|008DB4;
    RTL                                  ;029DDE|      ;
 CODE_029DDF:
-   LDX.W Selection                      ;029DDF|00103F;
+   LDX.W Selection_offset               ;029DDF|00103F;
    LDA.W #$9D20                         ;029DE2|      ;
    LDY.W #$0002                         ;029DE5|      ;
    JML.L Sub_LoadStuff                  ;029DE8|008DB4;
    RTL                                  ;029DEC|      ;
 CODE_029DED:
    LDA.W Curr_HP_Rooks,X                ;029DED|0012F3;
-   LDX.W Selection                      ;029DF0|00103F;
-   STA.W Array_Category,X               ;029DF3|0009C7;
+   LDX.W Selection_offset               ;029DF0|00103F;
+   STA.W Object_var1_Category,X         ;029DF3|0009C7;
    RTL                                  ;029DF6|      ;
 LoadData_Enemy1B:
    db $04                               ;029DF7|      ;
@@ -5926,10 +5925,10 @@ DATA8_029E9D:
 CODE_029EB0:
    JSL.L Is_Equals_1575                 ;029EB0|07AEDD;
    BNE CODE_029EE0                      ;029EB4|029EE0;
-   LDX.W Selection                      ;029EB6|00103F;
-   LDA.W Array_Category,X               ;029EB9|0009C7;
+   LDX.W Selection_offset               ;029EB6|00103F;
+   LDA.W Object_var1_Category,X         ;029EB9|0009C7;
    STA.B $20                            ;029EBC|000020;
-   LDA.W Array_Selection,X              ;029EBE|0009EB;
+   LDA.W Object_var2_Selection,X        ;029EBE|0009EB;
    ASL A                                ;029EC1|      ;
    TAX                                  ;029EC2|      ;
    LDA.W Curr_HP_Rooks,X                ;029EC3|0012F3;
@@ -5938,22 +5937,22 @@ CODE_029EB0:
    BCS CODE_029EEE                      ;029ECA|029EEE;
 CODE_029ECC:
    LDA.W Curr_HP_Rooks,X                ;029ECC|0012F3;
-   LDX.W Selection                      ;029ECF|00103F;
-   STA.W Array_Category,X               ;029ED2|0009C7;
+   LDX.W Selection_offset               ;029ECF|00103F;
+   STA.W Object_var1_Category,X         ;029ED2|0009C7;
    LDA.W #$9E13                         ;029ED5|      ;
    LDY.W #$0002                         ;029ED8|      ;
    JML.L Sub_LoadStuff                  ;029EDB|008DB4;
    RTL                                  ;029EDF|      ;
 CODE_029EE0:
-   LDX.W Selection                      ;029EE0|00103F;
+   LDX.W Selection_offset               ;029EE0|00103F;
    LDA.W #$9E02                         ;029EE3|      ;
    LDY.W #$0002                         ;029EE6|      ;
    JML.L Sub_LoadStuff                  ;029EE9|008DB4;
    RTL                                  ;029EED|      ;
 CODE_029EEE:
    LDA.W Curr_HP_Rooks,X                ;029EEE|0012F3;
-   LDX.W Selection                      ;029EF1|00103F;
-   STA.W Array_Category,X               ;029EF4|0009C7;
+   LDX.W Selection_offset               ;029EF1|00103F;
+   STA.W Object_var1_Category,X         ;029EF4|0009C7;
    RTL                                  ;029EF7|      ;
 LoadData_Enemy1C:
    db $04                               ;029EF8|      ;
@@ -6092,10 +6091,10 @@ DATA8_029F82:
 CODE_029F92:
    JSL.L Is_Equals_1575                 ;029F92|07AEDD;
    BNE CODE_029FC2                      ;029F96|029FC2;
-   LDX.W Selection                      ;029F98|00103F;
-   LDA.W Array_Category,X               ;029F9B|0009C7;
+   LDX.W Selection_offset               ;029F98|00103F;
+   LDA.W Object_var1_Category,X         ;029F9B|0009C7;
    STA.B $20                            ;029F9E|000020;
-   LDA.W Array_Selection,X              ;029FA0|0009EB;
+   LDA.W Object_var2_Selection,X        ;029FA0|0009EB;
    ASL A                                ;029FA3|      ;
    TAX                                  ;029FA4|      ;
    LDA.W Curr_HP_Rooks,X                ;029FA5|0012F3;
@@ -6104,22 +6103,22 @@ CODE_029F92:
    BCS CODE_029FD0                      ;029FAC|029FD0;
 CODE_029FAE:
    LDA.W Curr_HP_Rooks,X                ;029FAE|0012F3;
-   LDX.W Selection                      ;029FB1|00103F;
-   STA.W Array_Category,X               ;029FB4|0009C7;
+   LDX.W Selection_offset               ;029FB1|00103F;
+   STA.W Object_var1_Category,X         ;029FB4|0009C7;
    LDA.W #$9F14                         ;029FB7|      ;
    LDY.W #$0002                         ;029FBA|      ;
    JML.L Sub_LoadStuff                  ;029FBD|008DB4;
    RTL                                  ;029FC1|      ;
 CODE_029FC2:
-   LDX.W Selection                      ;029FC2|00103F;
+   LDX.W Selection_offset               ;029FC2|00103F;
    LDA.W #$9F03                         ;029FC5|      ;
    LDY.W #$0002                         ;029FC8|      ;
    JML.L Sub_LoadStuff                  ;029FCB|008DB4;
    RTL                                  ;029FCF|      ;
 CODE_029FD0:
    LDA.W Curr_HP_Rooks,X                ;029FD0|0012F3;
-   LDX.W Selection                      ;029FD3|00103F;
-   STA.W Array_Category,X               ;029FD6|0009C7;
+   LDX.W Selection_offset               ;029FD3|00103F;
+   STA.W Object_var1_Category,X         ;029FD6|0009C7;
    RTL                                  ;029FD9|      ;
 LoadData_Enemy1D:
    db $04                               ;029FDA|      ;
@@ -6258,10 +6257,10 @@ DATA8_02A064:
 CODE_02A074:
    JSL.L Is_Equals_1575                 ;02A074|07AEDD;
    BNE CODE_02A0A4                      ;02A078|02A0A4;
-   LDX.W Selection                      ;02A07A|00103F;
-   LDA.W Array_Category,X               ;02A07D|0009C7;
+   LDX.W Selection_offset               ;02A07A|00103F;
+   LDA.W Object_var1_Category,X         ;02A07D|0009C7;
    STA.B $20                            ;02A080|000020;
-   LDA.W Array_Selection,X              ;02A082|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A082|0009EB;
    ASL A                                ;02A085|      ;
    TAX                                  ;02A086|      ;
    LDA.W Curr_HP_Rooks,X                ;02A087|0012F3;
@@ -6270,22 +6269,22 @@ CODE_02A074:
    BCS CODE_02A0B2                      ;02A08E|02A0B2;
 CODE_02A090:
    LDA.W Curr_HP_Rooks,X                ;02A090|0012F3;
-   LDX.W Selection                      ;02A093|00103F;
-   STA.W Array_Category,X               ;02A096|0009C7;
+   LDX.W Selection_offset               ;02A093|00103F;
+   STA.W Object_var1_Category,X         ;02A096|0009C7;
    LDA.W #$9FF6                         ;02A099|      ;
    LDY.W #$0002                         ;02A09C|      ;
    JML.L Sub_LoadStuff                  ;02A09F|008DB4;
    RTL                                  ;02A0A3|      ;
 CODE_02A0A4:
-   LDX.W Selection                      ;02A0A4|00103F;
+   LDX.W Selection_offset               ;02A0A4|00103F;
    LDA.W #$9FE5                         ;02A0A7|      ;
    LDY.W #$0002                         ;02A0AA|      ;
    JML.L Sub_LoadStuff                  ;02A0AD|008DB4;
    RTL                                  ;02A0B1|      ;
 CODE_02A0B2:
    LDA.W Curr_HP_Rooks,X                ;02A0B2|0012F3;
-   LDX.W Selection                      ;02A0B5|00103F;
-   STA.W Array_Category,X               ;02A0B8|0009C7;
+   LDX.W Selection_offset               ;02A0B5|00103F;
+   STA.W Object_var1_Category,X         ;02A0B8|0009C7;
    RTL                                  ;02A0BB|      ;
 LoadData_Enemy1E:
    db $04                               ;02A0BC|      ;
@@ -6424,10 +6423,10 @@ DATA8_02A146:
 CODE_02A156:
    JSL.L Is_Equals_1575                 ;02A156|07AEDD;
    BNE CODE_02A186                      ;02A15A|02A186;
-   LDX.W Selection                      ;02A15C|00103F;
-   LDA.W Array_Category,X               ;02A15F|0009C7;
+   LDX.W Selection_offset               ;02A15C|00103F;
+   LDA.W Object_var1_Category,X         ;02A15F|0009C7;
    STA.B $20                            ;02A162|000020;
-   LDA.W Array_Selection,X              ;02A164|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A164|0009EB;
    ASL A                                ;02A167|      ;
    TAX                                  ;02A168|      ;
    LDA.W Curr_HP_Rooks,X                ;02A169|0012F3;
@@ -6436,22 +6435,22 @@ CODE_02A156:
    BCS CODE_02A194                      ;02A170|02A194;
 CODE_02A172:
    LDA.W Curr_HP_Rooks,X                ;02A172|0012F3;
-   LDX.W Selection                      ;02A175|00103F;
-   STA.W Array_Category,X               ;02A178|0009C7;
+   LDX.W Selection_offset               ;02A175|00103F;
+   STA.W Object_var1_Category,X         ;02A178|0009C7;
    LDA.W #$A0D8                         ;02A17B|      ;
    LDY.W #$0002                         ;02A17E|      ;
    JML.L Sub_LoadStuff                  ;02A181|008DB4;
    RTL                                  ;02A185|      ;
 CODE_02A186:
-   LDX.W Selection                      ;02A186|00103F;
+   LDX.W Selection_offset               ;02A186|00103F;
    LDA.W #$A0C7                         ;02A189|      ;
    LDY.W #$0002                         ;02A18C|      ;
    JML.L Sub_LoadStuff                  ;02A18F|008DB4;
    RTL                                  ;02A193|      ;
 CODE_02A194:
    LDA.W Curr_HP_Rooks,X                ;02A194|0012F3;
-   LDX.W Selection                      ;02A197|00103F;
-   STA.W Array_Category,X               ;02A19A|0009C7;
+   LDX.W Selection_offset               ;02A197|00103F;
+   STA.W Object_var1_Category,X         ;02A19A|0009C7;
    RTL                                  ;02A19D|      ;
 LoadData_Enemy1F:
    db $04                               ;02A19E|      ;
@@ -6673,10 +6672,10 @@ DATA8_02A266:
 CODE_02A28B:
    JSL.L Is_Equals_1575                 ;02A28B|07AEDD;
    BNE CODE_02A2BB                      ;02A28F|02A2BB;
-   LDX.W Selection                      ;02A291|00103F;
-   LDA.W Array_Category,X               ;02A294|0009C7;
+   LDX.W Selection_offset               ;02A291|00103F;
+   LDA.W Object_var1_Category,X         ;02A294|0009C7;
    STA.B $20                            ;02A297|000020;
-   LDA.W Array_Selection,X              ;02A299|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A299|0009EB;
    ASL A                                ;02A29C|      ;
    TAX                                  ;02A29D|      ;
    LDA.W Curr_HP_Rooks,X                ;02A29E|0012F3;
@@ -6685,22 +6684,22 @@ CODE_02A28B:
    BCS CODE_02A2C9                      ;02A2A5|02A2C9;
 CODE_02A2A7:
    LDA.W Curr_HP_Rooks,X                ;02A2A7|0012F3;
-   LDX.W Selection                      ;02A2AA|00103F;
-   STA.W Array_Category,X               ;02A2AD|0009C7;
+   LDX.W Selection_offset               ;02A2AA|00103F;
+   STA.W Object_var1_Category,X         ;02A2AD|0009C7;
    LDA.W #$A1BA                         ;02A2B0|      ;
    LDY.W #$0002                         ;02A2B3|      ;
    JML.L Sub_LoadStuff                  ;02A2B6|008DB4;
    RTL                                  ;02A2BA|      ;
 CODE_02A2BB:
-   LDX.W Selection                      ;02A2BB|00103F;
+   LDX.W Selection_offset               ;02A2BB|00103F;
    LDA.W #$A1A9                         ;02A2BE|      ;
    LDY.W #$0002                         ;02A2C1|      ;
    JML.L Sub_LoadStuff                  ;02A2C4|008DB4;
    RTL                                  ;02A2C8|      ;
 CODE_02A2C9:
    LDA.W Curr_HP_Rooks,X                ;02A2C9|0012F3;
-   LDX.W Selection                      ;02A2CC|00103F;
-   STA.W Array_Category,X               ;02A2CF|0009C7;
+   LDX.W Selection_offset               ;02A2CC|00103F;
+   STA.W Object_var1_Category,X         ;02A2CF|0009C7;
    RTL                                  ;02A2D2|      ;
 LoadData_Enemy20:
    db $04                               ;02A2D3|      ;
@@ -6835,10 +6834,10 @@ DATA8_02A35B:
 CODE_02A369:
    JSL.L Is_Equals_1575                 ;02A369|07AEDD;
    BNE Load_Stuff_A2DE                  ;02A36D|02A399;
-   LDX.W Selection                      ;02A36F|00103F;
-   LDA.W Array_Category,X               ;02A372|0009C7;
+   LDX.W Selection_offset               ;02A36F|00103F;
+   LDA.W Object_var1_Category,X         ;02A372|0009C7;
    STA.B $20                            ;02A375|000020;
-   LDA.W Array_Selection,X              ;02A377|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A377|0009EB;
    ASL A                                ;02A37A|      ;
    TAX                                  ;02A37B|      ;
    LDA.W Curr_HP_Rooks,X                ;02A37C|0012F3;
@@ -6847,22 +6846,22 @@ CODE_02A369:
    BCS CODE_02A3A7                      ;02A383|02A3A7;
 Load_Stuff_A2EF:
    LDA.W Curr_HP_Rooks,X                ;02A385|0012F3;
-   LDX.W Selection                      ;02A388|00103F;
-   STA.W Array_Category,X               ;02A38B|0009C7;
+   LDX.W Selection_offset               ;02A388|00103F;
+   STA.W Object_var1_Category,X         ;02A38B|0009C7;
    LDA.W #$A2EF                         ;02A38E|      ;
    LDY.W #$0002                         ;02A391|      ;
    JML.L Sub_LoadStuff                  ;02A394|008DB4;
    RTL                                  ;02A398|      ;
 Load_Stuff_A2DE:
-   LDX.W Selection                      ;02A399|00103F;
+   LDX.W Selection_offset               ;02A399|00103F;
    LDA.W #$A2DE                         ;02A39C|      ;
    LDY.W #$0002                         ;02A39F|      ;
    JML.L Sub_LoadStuff                  ;02A3A2|008DB4;
    RTL                                  ;02A3A6|      ;
 CODE_02A3A7:
    LDA.W Curr_HP_Rooks,X                ;02A3A7|0012F3;
-   LDX.W Selection                      ;02A3AA|00103F;
-   STA.W Array_Category,X               ;02A3AD|0009C7;
+   LDX.W Selection_offset               ;02A3AA|00103F;
+   STA.W Object_var1_Category,X         ;02A3AD|0009C7;
    RTL                                  ;02A3B0|      ;
 LoadData_Enemy21:
    db $04                               ;02A3B1|      ;
@@ -7001,10 +7000,10 @@ DATA8_02A43B:
 CODE_02A44B:
    JSL.L Is_Equals_1575                 ;02A44B|07AEDD;
    BNE Load_Stuff_A3BC                  ;02A44F|02A47B;
-   LDX.W Selection                      ;02A451|00103F;
-   LDA.W Array_Category,X               ;02A454|0009C7;
+   LDX.W Selection_offset               ;02A451|00103F;
+   LDA.W Object_var1_Category,X         ;02A454|0009C7;
    STA.B $20                            ;02A457|000020;
-   LDA.W Array_Selection,X              ;02A459|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A459|0009EB;
    ASL A                                ;02A45C|      ;
    TAX                                  ;02A45D|      ;
    LDA.W Curr_HP_Rooks,X                ;02A45E|0012F3;
@@ -7013,22 +7012,22 @@ CODE_02A44B:
    BCS CODE_02A489                      ;02A465|02A489;
 Load_Stuff_A3CD:
    LDA.W Curr_HP_Rooks,X                ;02A467|0012F3;
-   LDX.W Selection                      ;02A46A|00103F;
-   STA.W Array_Category,X               ;02A46D|0009C7;
+   LDX.W Selection_offset               ;02A46A|00103F;
+   STA.W Object_var1_Category,X         ;02A46D|0009C7;
    LDA.W #$A3CD                         ;02A470|      ;
    LDY.W #$0002                         ;02A473|      ;
    JML.L Sub_LoadStuff                  ;02A476|008DB4;
    RTL                                  ;02A47A|      ;
 Load_Stuff_A3BC:
-   LDX.W Selection                      ;02A47B|00103F;
+   LDX.W Selection_offset               ;02A47B|00103F;
    LDA.W #$A3BC                         ;02A47E|      ;
    LDY.W #$0002                         ;02A481|      ;
    JML.L Sub_LoadStuff                  ;02A484|008DB4;
    RTL                                  ;02A488|      ;
 CODE_02A489:
    LDA.W Curr_HP_Rooks,X                ;02A489|0012F3;
-   LDX.W Selection                      ;02A48C|00103F;
-   STA.W Array_Category,X               ;02A48F|0009C7;
+   LDX.W Selection_offset               ;02A48C|00103F;
+   STA.W Object_var1_Category,X         ;02A48F|0009C7;
    RTL                                  ;02A492|      ;
 LoadData_Enemy22:
    db $04                               ;02A493|      ;
@@ -7167,10 +7166,10 @@ DATA8_02A51D:
 CODE_02A52D:
    JSL.L Is_Equals_1575                 ;02A52D|07AEDD;
    BNE Load_Stuff_A39E                  ;02A531|02A55D;
-   LDX.W Selection                      ;02A533|00103F;
-   LDA.W Array_Category,X               ;02A536|0009C7;
+   LDX.W Selection_offset               ;02A533|00103F;
+   LDA.W Object_var1_Category,X         ;02A536|0009C7;
    STA.B $20                            ;02A539|000020;
-   LDA.W Array_Selection,X              ;02A53B|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A53B|0009EB;
    ASL A                                ;02A53E|      ;
    TAX                                  ;02A53F|      ;
    LDA.W Curr_HP_Rooks,X                ;02A540|0012F3;
@@ -7179,22 +7178,22 @@ CODE_02A52D:
    BCS CODE_02A56B                      ;02A547|02A56B;
 Load_Stuff_A4AF:
    LDA.W Curr_HP_Rooks,X                ;02A549|0012F3;
-   LDX.W Selection                      ;02A54C|00103F;
-   STA.W Array_Category,X               ;02A54F|0009C7;
+   LDX.W Selection_offset               ;02A54C|00103F;
+   STA.W Object_var1_Category,X         ;02A54F|0009C7;
    LDA.W #$A4AF                         ;02A552|      ;
    LDY.W #$0002                         ;02A555|      ;
    JML.L Sub_LoadStuff                  ;02A558|008DB4;
    RTL                                  ;02A55C|      ;
 Load_Stuff_A39E:
-   LDX.W Selection                      ;02A55D|00103F;
+   LDX.W Selection_offset               ;02A55D|00103F;
    LDA.W #$A49E                         ;02A560|      ;
    LDY.W #$0002                         ;02A563|      ;
    JML.L Sub_LoadStuff                  ;02A566|008DB4;
    RTL                                  ;02A56A|      ;
 CODE_02A56B:
    LDA.W Curr_HP_Rooks,X                ;02A56B|0012F3;
-   LDX.W Selection                      ;02A56E|00103F;
-   STA.W Array_Category,X               ;02A571|0009C7;
+   LDX.W Selection_offset               ;02A56E|00103F;
+   STA.W Object_var1_Category,X         ;02A571|0009C7;
    RTL                                  ;02A574|      ;
 LoadData_Enemy23:
    db $04                               ;02A575|      ;
@@ -7333,10 +7332,10 @@ DATA8_02A5FF:
 CODE_02A60F:
    JSL.L Is_Equals_1575                 ;02A60F|07AEDD;
    BNE Load_Stuff_A580                  ;02A613|02A63F;
-   LDX.W Selection                      ;02A615|00103F;
-   LDA.W Array_Category,X               ;02A618|0009C7;
+   LDX.W Selection_offset               ;02A615|00103F;
+   LDA.W Object_var1_Category,X         ;02A618|0009C7;
    STA.B $20                            ;02A61B|000020;
-   LDA.W Array_Selection,X              ;02A61D|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A61D|0009EB;
    ASL A                                ;02A620|      ;
    TAX                                  ;02A621|      ;
    LDA.W Curr_HP_Rooks,X                ;02A622|0012F3;
@@ -7345,22 +7344,22 @@ CODE_02A60F:
    BCS CODE_02A64D                      ;02A629|02A64D;
 Load_Stuff_A591:
    LDA.W Curr_HP_Rooks,X                ;02A62B|0012F3;
-   LDX.W Selection                      ;02A62E|00103F;
-   STA.W Array_Category,X               ;02A631|0009C7;
+   LDX.W Selection_offset               ;02A62E|00103F;
+   STA.W Object_var1_Category,X         ;02A631|0009C7;
    LDA.W #$A591                         ;02A634|      ;
    LDY.W #$0002                         ;02A637|      ;
    JML.L Sub_LoadStuff                  ;02A63A|008DB4;
    RTL                                  ;02A63E|      ;
 Load_Stuff_A580:
-   LDX.W Selection                      ;02A63F|00103F;
+   LDX.W Selection_offset               ;02A63F|00103F;
    LDA.W #$A580                         ;02A642|      ;
    LDY.W #$0002                         ;02A645|      ;
    JML.L Sub_LoadStuff                  ;02A648|008DB4;
    RTL                                  ;02A64C|      ;
 CODE_02A64D:
    LDA.W Curr_HP_Rooks,X                ;02A64D|0012F3;
-   LDX.W Selection                      ;02A650|00103F;
-   STA.W Array_Category,X               ;02A653|0009C7;
+   LDX.W Selection_offset               ;02A650|00103F;
+   STA.W Object_var1_Category,X         ;02A653|0009C7;
    RTL                                  ;02A656|      ;
 LoadData_Enemy24:
    db $04                               ;02A657|      ;
@@ -7530,10 +7529,10 @@ DATA8_02A6FD:
 CODE_02A710:
    JSL.L Is_Equals_1575                 ;02A710|07AEDD;
    BNE Load_Stuff_A662                  ;02A714|02A740;
-   LDX.W Selection                      ;02A716|00103F;
-   LDA.W Array_Category,X               ;02A719|0009C7;
+   LDX.W Selection_offset               ;02A716|00103F;
+   LDA.W Object_var1_Category,X         ;02A719|0009C7;
    STA.B $20                            ;02A71C|000020;
-   LDA.W Array_Selection,X              ;02A71E|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A71E|0009EB;
    ASL A                                ;02A721|      ;
    TAX                                  ;02A722|      ;
    LDA.W Curr_HP_Rooks,X                ;02A723|0012F3;
@@ -7542,22 +7541,22 @@ CODE_02A710:
    BCS CODE_02A74E                      ;02A72A|02A74E;
 Load_Stuff_A673:
    LDA.W Curr_HP_Rooks,X                ;02A72C|0012F3;
-   LDX.W Selection                      ;02A72F|00103F;
-   STA.W Array_Category,X               ;02A732|0009C7;
+   LDX.W Selection_offset               ;02A72F|00103F;
+   STA.W Object_var1_Category,X         ;02A732|0009C7;
    LDA.W #$A673                         ;02A735|      ;
    LDY.W #$0002                         ;02A738|      ;
    JML.L Sub_LoadStuff                  ;02A73B|008DB4;
    RTL                                  ;02A73F|      ;
 Load_Stuff_A662:
-   LDX.W Selection                      ;02A740|00103F;
+   LDX.W Selection_offset               ;02A740|00103F;
    LDA.W #$A662                         ;02A743|      ;
    LDY.W #$0002                         ;02A746|      ;
    JML.L Sub_LoadStuff                  ;02A749|008DB4;
    RTL                                  ;02A74D|      ;
 CODE_02A74E:
    LDA.W Curr_HP_Rooks,X                ;02A74E|0012F3;
-   LDX.W Selection                      ;02A751|00103F;
-   STA.W Array_Category,X               ;02A754|0009C7;
+   LDX.W Selection_offset               ;02A751|00103F;
+   STA.W Object_var1_Category,X         ;02A754|0009C7;
    RTL                                  ;02A757|      ;
 LoadData_Enemy25:
    db $04                               ;02A758|      ;
@@ -7692,10 +7691,10 @@ DATA8_02A7E2:
 CODE_02A7EE:
    JSL.L Is_Equals_1575                 ;02A7EE|07AEDD;
    BNE Load_Stuff_A763                  ;02A7F2|02A81E;
-   LDX.W Selection                      ;02A7F4|00103F;
-   LDA.W Array_Category,X               ;02A7F7|0009C7;
+   LDX.W Selection_offset               ;02A7F4|00103F;
+   LDA.W Object_var1_Category,X         ;02A7F7|0009C7;
    STA.B $20                            ;02A7FA|000020;
-   LDA.W Array_Selection,X              ;02A7FC|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A7FC|0009EB;
    ASL A                                ;02A7FF|      ;
    TAX                                  ;02A800|      ;
    LDA.W Curr_HP_Rooks,X                ;02A801|0012F3;
@@ -7704,22 +7703,22 @@ CODE_02A7EE:
    BCS CODE_02A82C                      ;02A808|02A82C;
 Load_Stuff_A774:
    LDA.W Curr_HP_Rooks,X                ;02A80A|0012F3;
-   LDX.W Selection                      ;02A80D|00103F;
-   STA.W Array_Category,X               ;02A810|0009C7;
+   LDX.W Selection_offset               ;02A80D|00103F;
+   STA.W Object_var1_Category,X         ;02A810|0009C7;
    LDA.W #$A774                         ;02A813|      ;
    LDY.W #$0002                         ;02A816|      ;
    JML.L Sub_LoadStuff                  ;02A819|008DB4;
    RTL                                  ;02A81D|      ;
 Load_Stuff_A763:
-   LDX.W Selection                      ;02A81E|00103F;
+   LDX.W Selection_offset               ;02A81E|00103F;
    LDA.W #$A763                         ;02A821|      ;
    LDY.W #$0002                         ;02A824|      ;
    JML.L Sub_LoadStuff                  ;02A827|008DB4;
    RTL                                  ;02A82B|      ;
 CODE_02A82C:
    LDA.W Curr_HP_Rooks,X                ;02A82C|0012F3;
-   LDX.W Selection                      ;02A82F|00103F;
-   STA.W Array_Category,X               ;02A832|0009C7;
+   LDX.W Selection_offset               ;02A82F|00103F;
+   STA.W Object_var1_Category,X         ;02A832|0009C7;
    RTL                                  ;02A835|      ;
 LoadData_Enemy26:
    db $04                               ;02A836|      ;
@@ -7927,10 +7926,10 @@ DATA8_02A8EA:
 CODE_02A915:
    JSL.L Is_Equals_1575                 ;02A915|07AEDD;
    BNE Load_Stuff_A841                  ;02A919|02A945;
-   LDX.W Selection                      ;02A91B|00103F;
-   LDA.W Array_Category,X               ;02A91E|0009C7;
+   LDX.W Selection_offset               ;02A91B|00103F;
+   LDA.W Object_var1_Category,X         ;02A91E|0009C7;
    STA.B $20                            ;02A921|000020;
-   LDA.W Array_Selection,X              ;02A923|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A923|0009EB;
    ASL A                                ;02A926|      ;
    TAX                                  ;02A927|      ;
    LDA.W Curr_HP_Rooks,X                ;02A928|0012F3;
@@ -7939,22 +7938,22 @@ CODE_02A915:
    BCS CODE_02A953                      ;02A92F|02A953;
 Load_Stuff_A852:
    LDA.W Curr_HP_Rooks,X                ;02A931|0012F3;
-   LDX.W Selection                      ;02A934|00103F;
-   STA.W Array_Category,X               ;02A937|0009C7;
+   LDX.W Selection_offset               ;02A934|00103F;
+   STA.W Object_var1_Category,X         ;02A937|0009C7;
    LDA.W #$A852                         ;02A93A|      ;
    LDY.W #$0002                         ;02A93D|      ;
    JML.L Sub_LoadStuff                  ;02A940|008DB4;
    RTL                                  ;02A944|      ;
 Load_Stuff_A841:
-   LDX.W Selection                      ;02A945|00103F;
+   LDX.W Selection_offset               ;02A945|00103F;
    LDA.W #$A841                         ;02A948|      ;
    LDY.W #$0002                         ;02A94B|      ;
    JML.L Sub_LoadStuff                  ;02A94E|008DB4;
    RTL                                  ;02A952|      ;
 CODE_02A953:
    LDA.W Curr_HP_Rooks,X                ;02A953|0012F3;
-   LDX.W Selection                      ;02A956|00103F;
-   STA.W Array_Category,X               ;02A959|0009C7;
+   LDX.W Selection_offset               ;02A956|00103F;
+   STA.W Object_var1_Category,X         ;02A959|0009C7;
    RTL                                  ;02A95C|      ;
 LoadData_Enemy27:
    db $04                               ;02A95D|      ;
@@ -7998,10 +7997,10 @@ DATA8_02A984:
 CODE_02A991:
    JSL.L Is_Equals_1575                 ;02A991|07AEDD;
    BNE Load_Stuff_A968                  ;02A995|02A9C1;
-   LDX.W Selection                      ;02A997|00103F;
-   LDA.W Array_Category,X               ;02A99A|0009C7;
+   LDX.W Selection_offset               ;02A997|00103F;
+   LDA.W Object_var1_Category,X         ;02A99A|0009C7;
    STA.B $20                            ;02A99D|000020;
-   LDA.W Array_Selection,X              ;02A99F|0009EB;
+   LDA.W Object_var2_Selection,X        ;02A99F|0009EB;
    ASL A                                ;02A9A2|      ;
    TAX                                  ;02A9A3|      ;
    LDA.W Curr_HP_Rooks,X                ;02A9A4|0012F3;
@@ -8010,22 +8009,22 @@ CODE_02A991:
    BCS CODE_02A9CF                      ;02A9AB|02A9CF;
 Load_Stuff_A972:
    LDA.W Curr_HP_Rooks,X                ;02A9AD|0012F3;
-   LDX.W Selection                      ;02A9B0|00103F;
-   STA.W Array_Category,X               ;02A9B3|0009C7;
+   LDX.W Selection_offset               ;02A9B0|00103F;
+   STA.W Object_var1_Category,X         ;02A9B3|0009C7;
    LDA.W #$A972                         ;02A9B6|      ;
    LDY.W #$0002                         ;02A9B9|      ;
    JML.L Sub_LoadStuff                  ;02A9BC|008DB4;
    RTL                                  ;02A9C0|      ;
 Load_Stuff_A968:
-   LDX.W Selection                      ;02A9C1|00103F;
+   LDX.W Selection_offset               ;02A9C1|00103F;
    LDA.W #$A968                         ;02A9C4|      ;
    LDY.W #$0002                         ;02A9C7|      ;
    JML.L Sub_LoadStuff                  ;02A9CA|008DB4;
    RTL                                  ;02A9CE|      ;
 CODE_02A9CF:
    LDA.W Curr_HP_Rooks,X                ;02A9CF|0012F3;
-   LDX.W Selection                      ;02A9D2|00103F;
-   STA.W Array_Category,X               ;02A9D5|0009C7;
+   LDX.W Selection_offset               ;02A9D2|00103F;
+   STA.W Object_var1_Category,X         ;02A9D5|0009C7;
    RTL                                  ;02A9D8|      ;
 LoadData_Enemy28:
    db $04                               ;02A9D9|      ;
@@ -8061,10 +8060,10 @@ DATA8_02AA00:
 CODE_02AA05:
    JSL.L Is_Equals_1575                 ;02AA05|07AEDD;
    BNE CODE_02AA35                      ;02AA09|02AA35;
-   LDX.W Selection                      ;02AA0B|00103F;
-   LDA.W Array_Category,X               ;02AA0E|0009C7;
+   LDX.W Selection_offset               ;02AA0B|00103F;
+   LDA.W Object_var1_Category,X         ;02AA0E|0009C7;
    STA.B $20                            ;02AA11|000020;
-   LDA.W Array_Selection,X              ;02AA13|0009EB;
+   LDA.W Object_var2_Selection,X        ;02AA13|0009EB;
    ASL A                                ;02AA16|      ;
    TAX                                  ;02AA17|      ;
    LDA.W Curr_HP_Rooks,X                ;02AA18|0012F3;
@@ -8073,22 +8072,22 @@ CODE_02AA05:
    BCS CODE_02AA43                      ;02AA1F|02AA43;
 CODE_02AA21:
    LDA.W Curr_HP_Rooks,X                ;02AA21|0012F3;
-   LDX.W Selection                      ;02AA24|00103F;
-   STA.W Array_Category,X               ;02AA27|0009C7;
+   LDX.W Selection_offset               ;02AA24|00103F;
+   STA.W Object_var1_Category,X         ;02AA27|0009C7;
    LDA.W #$A9EE                         ;02AA2A|      ;
    LDY.W #$0002                         ;02AA2D|      ;
    JML.L Sub_LoadStuff                  ;02AA30|008DB4;
    RTL                                  ;02AA34|      ;
 CODE_02AA35:
-   LDX.W Selection                      ;02AA35|00103F;
+   LDX.W Selection_offset               ;02AA35|00103F;
    LDA.W #$A9E4                         ;02AA38|      ;
    LDY.W #$0002                         ;02AA3B|      ;
    JML.L Sub_LoadStuff                  ;02AA3E|008DB4;
    RTL                                  ;02AA42|      ;
 CODE_02AA43:
    LDA.W Curr_HP_Rooks,X                ;02AA43|0012F3;
-   LDX.W Selection                      ;02AA46|00103F;
-   STA.W Array_Category,X               ;02AA49|0009C7;
+   LDX.W Selection_offset               ;02AA46|00103F;
+   STA.W Object_var1_Category,X         ;02AA49|0009C7;
    RTL                                  ;02AA4C|      ;
 LoadData_Enemy29:
    db $04                               ;02AA4D|      ;
@@ -8227,10 +8226,10 @@ DATA8_02AAD7:
 CODE_02AAE7:
    JSL.L Is_Equals_1575                 ;02AAE7|07AEDD;
    BNE Load_Stuff_AA58                  ;02AAEB|02AB17;
-   LDX.W Selection                      ;02AAED|00103F;
-   LDA.W Array_Category,X               ;02AAF0|0009C7;
+   LDX.W Selection_offset               ;02AAED|00103F;
+   LDA.W Object_var1_Category,X         ;02AAF0|0009C7;
    STA.B $20                            ;02AAF3|000020;
-   LDA.W Array_Selection,X              ;02AAF5|0009EB;
+   LDA.W Object_var2_Selection,X        ;02AAF5|0009EB;
    ASL A                                ;02AAF8|      ;
    TAX                                  ;02AAF9|      ;
    LDA.W Curr_HP_Rooks,X                ;02AAFA|0012F3;
@@ -8239,22 +8238,22 @@ CODE_02AAE7:
    BCS CODE_02AB25                      ;02AB01|02AB25;
 Load_Stuff_AA69:
    LDA.W Curr_HP_Rooks,X                ;02AB03|0012F3;
-   LDX.W Selection                      ;02AB06|00103F;
-   STA.W Array_Category,X               ;02AB09|0009C7;
+   LDX.W Selection_offset               ;02AB06|00103F;
+   STA.W Object_var1_Category,X         ;02AB09|0009C7;
    LDA.W #$AA69                         ;02AB0C|      ;
    LDY.W #$0002                         ;02AB0F|      ;
    JML.L Sub_LoadStuff                  ;02AB12|008DB4;
    RTL                                  ;02AB16|      ;
 Load_Stuff_AA58:
-   LDX.W Selection                      ;02AB17|00103F;
+   LDX.W Selection_offset               ;02AB17|00103F;
    LDA.W #$AA58                         ;02AB1A|      ;
    LDY.W #$0002                         ;02AB1D|      ;
    JML.L Sub_LoadStuff                  ;02AB20|008DB4;
    RTL                                  ;02AB24|      ;
 CODE_02AB25:
    LDA.W Curr_HP_Rooks,X                ;02AB25|0012F3;
-   LDX.W Selection                      ;02AB28|00103F;
-   STA.W Array_Category,X               ;02AB2B|0009C7;
+   LDX.W Selection_offset               ;02AB28|00103F;
+   STA.W Object_var1_Category,X         ;02AB2B|0009C7;
    RTL                                  ;02AB2E|      ;
 LoadData_Enemy2A:
    db $04                               ;02AB2F|      ;
@@ -8389,10 +8388,10 @@ DATA8_02ABB7:
 CODE_02ABC5:
    JSL.L Is_Equals_1575                 ;02ABC5|07AEDD;
    BNE CODE_02ABF5                      ;02ABC9|02ABF5;
-   LDX.W Selection                      ;02ABCB|00103F;
-   LDA.W Array_Category,X               ;02ABCE|0009C7;
+   LDX.W Selection_offset               ;02ABCB|00103F;
+   LDA.W Object_var1_Category,X         ;02ABCE|0009C7;
    STA.B $20                            ;02ABD1|000020;
-   LDA.W Array_Selection,X              ;02ABD3|0009EB;
+   LDA.W Object_var2_Selection,X        ;02ABD3|0009EB;
    ASL A                                ;02ABD6|      ;
    TAX                                  ;02ABD7|      ;
    LDA.W Curr_HP_Rooks,X                ;02ABD8|0012F3;
@@ -8401,22 +8400,22 @@ CODE_02ABC5:
    BCS CODE_02AC03                      ;02ABDF|02AC03;
 CODE_02ABE1:
    LDA.W Curr_HP_Rooks,X                ;02ABE1|0012F3;
-   LDX.W Selection                      ;02ABE4|00103F;
-   STA.W Array_Category,X               ;02ABE7|0009C7;
+   LDX.W Selection_offset               ;02ABE4|00103F;
+   STA.W Object_var1_Category,X         ;02ABE7|0009C7;
    LDA.W #$AB4B                         ;02ABEA|      ;
    LDY.W #$0002                         ;02ABED|      ;
    JML.L Sub_LoadStuff                  ;02ABF0|008DB4;
    RTL                                  ;02ABF4|      ;
 CODE_02ABF5:
-   LDX.W Selection                      ;02ABF5|00103F;
+   LDX.W Selection_offset               ;02ABF5|00103F;
    LDA.W #$AB3A                         ;02ABF8|      ;
    LDY.W #$0002                         ;02ABFB|      ;
    JML.L Sub_LoadStuff                  ;02ABFE|008DB4;
    RTL                                  ;02AC02|      ;
 CODE_02AC03:
    LDA.W Curr_HP_Rooks,X                ;02AC03|0012F3;
-   LDX.W Selection                      ;02AC06|00103F;
-   STA.W Array_Category,X               ;02AC09|0009C7;
+   LDX.W Selection_offset               ;02AC06|00103F;
+   STA.W Object_var1_Category,X         ;02AC09|0009C7;
    RTL                                  ;02AC0C|      ;
 LoadData_Enemy2B:
    db $04                               ;02AC0D|      ;
@@ -8541,10 +8540,10 @@ DATA8_02AC8F:
 CODE_02AC99:
    JSL.L Is_Equals_1575                 ;02AC99|07AEDD;
    BNE CODE_02ACC9                      ;02AC9D|02ACC9;
-   LDX.W Selection                      ;02AC9F|00103F;
-   LDA.W Array_Category,X               ;02ACA2|0009C7;
+   LDX.W Selection_offset               ;02AC9F|00103F;
+   LDA.W Object_var1_Category,X         ;02ACA2|0009C7;
    STA.B $20                            ;02ACA5|000020;
-   LDA.W Array_Selection,X              ;02ACA7|0009EB;
+   LDA.W Object_var2_Selection,X        ;02ACA7|0009EB;
    ASL A                                ;02ACAA|      ;
    TAX                                  ;02ACAB|      ;
    LDA.W Curr_HP_Rooks,X                ;02ACAC|0012F3;
@@ -8553,22 +8552,22 @@ CODE_02AC99:
    BCS CODE_02ACD7                      ;02ACB3|02ACD7;
 CODE_02ACB5:
    LDA.W Curr_HP_Rooks,X                ;02ACB5|0012F3;
-   LDX.W Selection                      ;02ACB8|00103F;
-   STA.W Array_Category,X               ;02ACBB|0009C7;
+   LDX.W Selection_offset               ;02ACB8|00103F;
+   STA.W Object_var1_Category,X         ;02ACBB|0009C7;
    LDA.W #$AC29                         ;02ACBE|      ;
    LDY.W #$0002                         ;02ACC1|      ;
    JML.L Sub_LoadStuff                  ;02ACC4|008DB4;
    RTL                                  ;02ACC8|      ;
 CODE_02ACC9:
-   LDX.W Selection                      ;02ACC9|00103F;
+   LDX.W Selection_offset               ;02ACC9|00103F;
    LDA.W #$AC18                         ;02ACCC|      ;
    LDY.W #$0002                         ;02ACCF|      ;
    JML.L Sub_LoadStuff                  ;02ACD2|008DB4;
    RTL                                  ;02ACD6|      ;
 CODE_02ACD7:
    LDA.W Curr_HP_Rooks,X                ;02ACD7|0012F3;
-   LDX.W Selection                      ;02ACDA|00103F;
-   STA.W Array_Category,X               ;02ACDD|0009C7;
+   LDX.W Selection_offset               ;02ACDA|00103F;
+   STA.W Object_var1_Category,X         ;02ACDD|0009C7;
    RTL                                  ;02ACE0|      ;
 LoadData_Enemy2C:
    db $04                               ;02ACE1|      ;
@@ -8692,10 +8691,10 @@ DATA8_02AD65:
 CODE_02AD6C:
    JSL.L Is_Equals_1575                 ;02AD6C|07AEDD;
    BNE CODE_02AD9C                      ;02AD70|02AD9C;
-   LDX.W Selection                      ;02AD72|00103F;
-   LDA.W Array_Category,X               ;02AD75|0009C7;
+   LDX.W Selection_offset               ;02AD72|00103F;
+   LDA.W Object_var1_Category,X         ;02AD75|0009C7;
    STA.B $20                            ;02AD78|000020;
-   LDA.W Array_Selection,X              ;02AD7A|0009EB;
+   LDA.W Object_var2_Selection,X        ;02AD7A|0009EB;
    ASL A                                ;02AD7D|      ;
    TAX                                  ;02AD7E|      ;
    LDA.W Curr_HP_Rooks,X                ;02AD7F|0012F3;
@@ -8704,22 +8703,22 @@ CODE_02AD6C:
    BCS CODE_02ADAA                      ;02AD86|02ADAA;
 CODE_02AD88:
    LDA.W Curr_HP_Rooks,X                ;02AD88|0012F3;
-   LDX.W Selection                      ;02AD8B|00103F;
-   STA.W Array_Category,X               ;02AD8E|0009C7;
+   LDX.W Selection_offset               ;02AD8B|00103F;
+   STA.W Object_var1_Category,X         ;02AD8E|0009C7;
    LDA.W #$ACFD                         ;02AD91|      ;
    LDY.W #$0002                         ;02AD94|      ;
    JML.L Sub_LoadStuff                  ;02AD97|008DB4;
    RTL                                  ;02AD9B|      ;
 CODE_02AD9C:
-   LDX.W Selection                      ;02AD9C|00103F;
+   LDX.W Selection_offset               ;02AD9C|00103F;
    LDA.W #$ACEC                         ;02AD9F|      ;
    LDY.W #$0002                         ;02ADA2|      ;
    JML.L Sub_LoadStuff                  ;02ADA5|008DB4;
    RTL                                  ;02ADA9|      ;
 CODE_02ADAA:
    LDA.W Curr_HP_Rooks,X                ;02ADAA|0012F3;
-   LDX.W Selection                      ;02ADAD|00103F;
-   STA.W Array_Category,X               ;02ADB0|0009C7;
+   LDX.W Selection_offset               ;02ADAD|00103F;
+   STA.W Object_var1_Category,X         ;02ADB0|0009C7;
    RTL                                  ;02ADB3|      ;
 LoadData_Enemy2D:
    db $04                               ;02ADB4|      ;
@@ -8853,10 +8852,10 @@ DATA8_02AE3C:
 CODE_02AE49:
    JSL.L Is_Equals_1575                 ;02AE49|07AEDD;
    BNE CODE_02AE79                      ;02AE4D|02AE79;
-   LDX.W Selection                      ;02AE4F|00103F;
-   LDA.W Array_Category,X               ;02AE52|0009C7;
+   LDX.W Selection_offset               ;02AE4F|00103F;
+   LDA.W Object_var1_Category,X         ;02AE52|0009C7;
    STA.B $20                            ;02AE55|000020;
-   LDA.W Array_Selection,X              ;02AE57|0009EB;
+   LDA.W Object_var2_Selection,X        ;02AE57|0009EB;
    ASL A                                ;02AE5A|      ;
    TAX                                  ;02AE5B|      ;
    LDA.W Curr_HP_Rooks,X                ;02AE5C|0012F3;
@@ -8865,22 +8864,22 @@ CODE_02AE49:
    BCS CODE_02AE87                      ;02AE63|02AE87;
 CODE_02AE65:
    LDA.W Curr_HP_Rooks,X                ;02AE65|0012F3;
-   LDX.W Selection                      ;02AE68|00103F;
-   STA.W Array_Category,X               ;02AE6B|0009C7;
+   LDX.W Selection_offset               ;02AE68|00103F;
+   STA.W Object_var1_Category,X         ;02AE6B|0009C7;
    LDA.W #$ADD0                         ;02AE6E|      ;
    LDY.W #$0002                         ;02AE71|      ;
    JML.L Sub_LoadStuff                  ;02AE74|008DB4;
    RTL                                  ;02AE78|      ;
 CODE_02AE79:
-   LDX.W Selection                      ;02AE79|00103F;
+   LDX.W Selection_offset               ;02AE79|00103F;
    LDA.W #$ADBF                         ;02AE7C|      ;
    LDY.W #$0002                         ;02AE7F|      ;
    JML.L Sub_LoadStuff                  ;02AE82|008DB4;
    RTL                                  ;02AE86|      ;
 CODE_02AE87:
    LDA.W Curr_HP_Rooks,X                ;02AE87|0012F3;
-   LDX.W Selection                      ;02AE8A|00103F;
-   STA.W Array_Category,X               ;02AE8D|0009C7;
+   LDX.W Selection_offset               ;02AE8A|00103F;
+   STA.W Object_var1_Category,X         ;02AE8D|0009C7;
    RTL                                  ;02AE90|      ;
 LoadData_Enemy2E:
    db $04                               ;02AE91|      ;
@@ -9019,10 +9018,10 @@ DATA8_02AF1B:
 CODE_02AF2B:
    JSL.L Is_Equals_1575                 ;02AF2B|07AEDD;
    BNE CODE_02AF5B                      ;02AF2F|02AF5B;
-   LDX.W Selection                      ;02AF31|00103F;
-   LDA.W Array_Category,X               ;02AF34|0009C7;
+   LDX.W Selection_offset               ;02AF31|00103F;
+   LDA.W Object_var1_Category,X         ;02AF34|0009C7;
    STA.B $20                            ;02AF37|000020;
-   LDA.W Array_Selection,X              ;02AF39|0009EB;
+   LDA.W Object_var2_Selection,X        ;02AF39|0009EB;
    ASL A                                ;02AF3C|      ;
    TAX                                  ;02AF3D|      ;
    LDA.W Curr_HP_Rooks,X                ;02AF3E|0012F3;
@@ -9031,22 +9030,22 @@ CODE_02AF2B:
    BCS CODE_02AF69                      ;02AF45|02AF69;
 CODE_02AF47:
    LDA.W Curr_HP_Rooks,X                ;02AF47|0012F3;
-   LDX.W Selection                      ;02AF4A|00103F;
-   STA.W Array_Category,X               ;02AF4D|0009C7;
+   LDX.W Selection_offset               ;02AF4A|00103F;
+   STA.W Object_var1_Category,X         ;02AF4D|0009C7;
    LDA.W #$AEAD                         ;02AF50|      ;
    LDY.W #$0002                         ;02AF53|      ;
    JML.L Sub_LoadStuff                  ;02AF56|008DB4;
    RTL                                  ;02AF5A|      ;
 CODE_02AF5B:
-   LDX.W Selection                      ;02AF5B|00103F;
+   LDX.W Selection_offset               ;02AF5B|00103F;
    LDA.W #$AE9C                         ;02AF5E|      ;
    LDY.W #$0002                         ;02AF61|      ;
    JML.L Sub_LoadStuff                  ;02AF64|008DB4;
    RTL                                  ;02AF68|      ;
 CODE_02AF69:
    LDA.W Curr_HP_Rooks,X                ;02AF69|0012F3;
-   LDX.W Selection                      ;02AF6C|00103F;
-   STA.W Array_Category,X               ;02AF6F|0009C7;
+   LDX.W Selection_offset               ;02AF6C|00103F;
+   STA.W Object_var1_Category,X         ;02AF6F|0009C7;
    RTL                                  ;02AF72|      ;
 LoadData_Enemy2F:
    db $04                               ;02AF73|      ;
@@ -9185,10 +9184,10 @@ DATA8_02AFFD:
 CODE_02B00D:
    JSL.L Is_Equals_1575                 ;02B00D|07AEDD;
    BNE CODE_02B03D                      ;02B011|02B03D;
-   LDX.W Selection                      ;02B013|00103F;
-   LDA.W Array_Category,X               ;02B016|0009C7;
+   LDX.W Selection_offset               ;02B013|00103F;
+   LDA.W Object_var1_Category,X         ;02B016|0009C7;
    STA.B $20                            ;02B019|000020;
-   LDA.W Array_Selection,X              ;02B01B|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B01B|0009EB;
    ASL A                                ;02B01E|      ;
    TAX                                  ;02B01F|      ;
    LDA.W Curr_HP_Rooks,X                ;02B020|0012F3;
@@ -9197,22 +9196,22 @@ CODE_02B00D:
    BCS CODE_02B04B                      ;02B027|02B04B;
 CODE_02B029:
    LDA.W Curr_HP_Rooks,X                ;02B029|0012F3;
-   LDX.W Selection                      ;02B02C|00103F;
-   STA.W Array_Category,X               ;02B02F|0009C7;
+   LDX.W Selection_offset               ;02B02C|00103F;
+   STA.W Object_var1_Category,X         ;02B02F|0009C7;
    LDA.W #$AF8F                         ;02B032|      ;
    LDY.W #$0002                         ;02B035|      ;
    JML.L Sub_LoadStuff                  ;02B038|008DB4;
    RTL                                  ;02B03C|      ;
 CODE_02B03D:
-   LDX.W Selection                      ;02B03D|00103F;
+   LDX.W Selection_offset               ;02B03D|00103F;
    LDA.W #$AF7E                         ;02B040|      ;
    LDY.W #$0002                         ;02B043|      ;
    JML.L Sub_LoadStuff                  ;02B046|008DB4;
    RTL                                  ;02B04A|      ;
 CODE_02B04B:
    LDA.W Curr_HP_Rooks,X                ;02B04B|0012F3;
-   LDX.W Selection                      ;02B04E|00103F;
-   STA.W Array_Category,X               ;02B051|0009C7;
+   LDX.W Selection_offset               ;02B04E|00103F;
+   STA.W Object_var1_Category,X         ;02B051|0009C7;
    RTL                                  ;02B054|      ;
 LoadData_Enemy30:
    db $04                               ;02B055|      ;
@@ -9346,10 +9345,10 @@ DATA8_02B0DD:
 CODE_02B0EA:
    JSL.L Is_Equals_1575                 ;02B0EA|07AEDD;
    BNE CODE_02B11A                      ;02B0EE|02B11A;
-   LDX.W Selection                      ;02B0F0|00103F;
-   LDA.W Array_Category,X               ;02B0F3|0009C7;
+   LDX.W Selection_offset               ;02B0F0|00103F;
+   LDA.W Object_var1_Category,X         ;02B0F3|0009C7;
    STA.B $20                            ;02B0F6|000020;
-   LDA.W Array_Selection,X              ;02B0F8|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B0F8|0009EB;
    ASL A                                ;02B0FB|      ;
    TAX                                  ;02B0FC|      ;
    LDA.W Curr_HP_Rooks,X                ;02B0FD|0012F3;
@@ -9358,22 +9357,22 @@ CODE_02B0EA:
    BCS CODE_02B128                      ;02B104|02B128;
 CODE_02B106:
    LDA.W Curr_HP_Rooks,X                ;02B106|0012F3;
-   LDX.W Selection                      ;02B109|00103F;
-   STA.W Array_Category,X               ;02B10C|0009C7;
+   LDX.W Selection_offset               ;02B109|00103F;
+   STA.W Object_var1_Category,X         ;02B10C|0009C7;
    LDA.W #$B071                         ;02B10F|      ;
    LDY.W #$0002                         ;02B112|      ;
    JML.L Sub_LoadStuff                  ;02B115|008DB4;
    RTL                                  ;02B119|      ;
 CODE_02B11A:
-   LDX.W Selection                      ;02B11A|00103F;
+   LDX.W Selection_offset               ;02B11A|00103F;
    LDA.W #$B060                         ;02B11D|      ;
    LDY.W #$0002                         ;02B120|      ;
    JML.L Sub_LoadStuff                  ;02B123|008DB4;
    RTL                                  ;02B127|      ;
 CODE_02B128:
    LDA.W Curr_HP_Rooks,X                ;02B128|0012F3;
-   LDX.W Selection                      ;02B12B|00103F;
-   STA.W Array_Category,X               ;02B12E|0009C7;
+   LDX.W Selection_offset               ;02B12B|00103F;
+   STA.W Object_var1_Category,X         ;02B12E|0009C7;
    RTL                                  ;02B131|      ;
 LoadData_Enemy31:
    db $04                               ;02B132|      ;
@@ -9512,10 +9511,10 @@ DATA8_02B1BC:
 CODE_02B1CC:
    JSL.L Is_Equals_1575                 ;02B1CC|07AEDD;
    BNE CODE_02B1FC                      ;02B1D0|02B1FC;
-   LDX.W Selection                      ;02B1D2|00103F;
-   LDA.W Array_Category,X               ;02B1D5|0009C7;
+   LDX.W Selection_offset               ;02B1D2|00103F;
+   LDA.W Object_var1_Category,X         ;02B1D5|0009C7;
    STA.B $20                            ;02B1D8|000020;
-   LDA.W Array_Selection,X              ;02B1DA|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B1DA|0009EB;
    ASL A                                ;02B1DD|      ;
    TAX                                  ;02B1DE|      ;
    LDA.W Curr_HP_Rooks,X                ;02B1DF|0012F3;
@@ -9524,22 +9523,22 @@ CODE_02B1CC:
    BCS CODE_02B20A                      ;02B1E6|02B20A;
 CODE_02B1E8:
    LDA.W Curr_HP_Rooks,X                ;02B1E8|0012F3;
-   LDX.W Selection                      ;02B1EB|00103F;
-   STA.W Array_Category,X               ;02B1EE|0009C7;
+   LDX.W Selection_offset               ;02B1EB|00103F;
+   STA.W Object_var1_Category,X         ;02B1EE|0009C7;
    LDA.W #$B14E                         ;02B1F1|      ;
    LDY.W #$0002                         ;02B1F4|      ;
    JML.L Sub_LoadStuff                  ;02B1F7|008DB4;
    RTL                                  ;02B1FB|      ;
 CODE_02B1FC:
-   LDX.W Selection                      ;02B1FC|00103F;
+   LDX.W Selection_offset               ;02B1FC|00103F;
    LDA.W #$B13D                         ;02B1FF|      ;
    LDY.W #$0002                         ;02B202|      ;
    JML.L Sub_LoadStuff                  ;02B205|008DB4;
    RTL                                  ;02B209|      ;
 CODE_02B20A:
    LDA.W Curr_HP_Rooks,X                ;02B20A|0012F3;
-   LDX.W Selection                      ;02B20D|00103F;
-   STA.W Array_Category,X               ;02B210|0009C7;
+   LDX.W Selection_offset               ;02B20D|00103F;
+   STA.W Object_var1_Category,X         ;02B210|0009C7;
    RTL                                  ;02B213|      ;
 LoadData_Enemy32:
    db $04                               ;02B214|      ;
@@ -9698,10 +9697,10 @@ DATA8_02B2AC:
 CODE_02B2C3:
    JSL.L Is_Equals_1575                 ;02B2C3|07AEDD;
    BNE CODE_02B2F3                      ;02B2C7|02B2F3;
-   LDX.W Selection                      ;02B2C9|00103F;
-   LDA.W Array_Category,X               ;02B2CC|0009C7;
+   LDX.W Selection_offset               ;02B2C9|00103F;
+   LDA.W Object_var1_Category,X         ;02B2CC|0009C7;
    STA.B $20                            ;02B2CF|000020;
-   LDA.W Array_Selection,X              ;02B2D1|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B2D1|0009EB;
    ASL A                                ;02B2D4|      ;
    TAX                                  ;02B2D5|      ;
    LDA.W Curr_HP_Rooks,X                ;02B2D6|0012F3;
@@ -9710,22 +9709,22 @@ CODE_02B2C3:
    BCS CODE_02B301                      ;02B2DD|02B301;
 CODE_02B2DF:
    LDA.W Curr_HP_Rooks,X                ;02B2DF|0012F3;
-   LDX.W Selection                      ;02B2E2|00103F;
-   STA.W Array_Category,X               ;02B2E5|0009C7;
+   LDX.W Selection_offset               ;02B2E2|00103F;
+   STA.W Object_var1_Category,X         ;02B2E5|0009C7;
    LDA.W #$B230                         ;02B2E8|      ;
    LDY.W #$0002                         ;02B2EB|      ;
    JML.L Sub_LoadStuff                  ;02B2EE|008DB4;
    RTL                                  ;02B2F2|      ;
 CODE_02B2F3:
-   LDX.W Selection                      ;02B2F3|00103F;
+   LDX.W Selection_offset               ;02B2F3|00103F;
    LDA.W #$B21F                         ;02B2F6|      ;
    LDY.W #$0002                         ;02B2F9|      ;
    JML.L Sub_LoadStuff                  ;02B2FC|008DB4;
    RTL                                  ;02B300|      ;
 CODE_02B301:
    LDA.W Curr_HP_Rooks,X                ;02B301|0012F3;
-   LDX.W Selection                      ;02B304|00103F;
-   STA.W Array_Category,X               ;02B307|0009C7;
+   LDX.W Selection_offset               ;02B304|00103F;
+   STA.W Object_var1_Category,X         ;02B307|0009C7;
    RTL                                  ;02B30A|      ;
 LoadData_Enemy33:
    db $04                               ;02B30B|      ;
@@ -9894,10 +9893,10 @@ DATA8_02B3B1:
 CODE_02B3C4:
    JSL.L Is_Equals_1575                 ;02B3C4|07AEDD;
    BNE CODE_02B3F4                      ;02B3C8|02B3F4;
-   LDX.W Selection                      ;02B3CA|00103F;
-   LDA.W Array_Category,X               ;02B3CD|0009C7;
+   LDX.W Selection_offset               ;02B3CA|00103F;
+   LDA.W Object_var1_Category,X         ;02B3CD|0009C7;
    STA.B $20                            ;02B3D0|000020;
-   LDA.W Array_Selection,X              ;02B3D2|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B3D2|0009EB;
    ASL A                                ;02B3D5|      ;
    TAX                                  ;02B3D6|      ;
    LDA.W Curr_HP_Rooks,X                ;02B3D7|0012F3;
@@ -9906,22 +9905,22 @@ CODE_02B3C4:
    BCS CODE_02B402                      ;02B3DE|02B402;
 CODE_02B3E0:
    LDA.W Curr_HP_Rooks,X                ;02B3E0|0012F3;
-   LDX.W Selection                      ;02B3E3|00103F;
-   STA.W Array_Category,X               ;02B3E6|0009C7;
+   LDX.W Selection_offset               ;02B3E3|00103F;
+   STA.W Object_var1_Category,X         ;02B3E6|0009C7;
    LDA.W #$B327                         ;02B3E9|      ;
    LDY.W #$0002                         ;02B3EC|      ;
    JML.L Sub_LoadStuff                  ;02B3EF|008DB4;
    RTL                                  ;02B3F3|      ;
 CODE_02B3F4:
-   LDX.W Selection                      ;02B3F4|00103F;
+   LDX.W Selection_offset               ;02B3F4|00103F;
    LDA.W #$B316                         ;02B3F7|      ;
    LDY.W #$0002                         ;02B3FA|      ;
    JML.L Sub_LoadStuff                  ;02B3FD|008DB4;
    RTL                                  ;02B401|      ;
 CODE_02B402:
    LDA.W Curr_HP_Rooks,X                ;02B402|0012F3;
-   LDX.W Selection                      ;02B405|00103F;
-   STA.W Array_Category,X               ;02B408|0009C7;
+   LDX.W Selection_offset               ;02B405|00103F;
+   STA.W Object_var1_Category,X         ;02B408|0009C7;
    RTL                                  ;02B40B|      ;
 LoadData_Enemy34:
    db $04                               ;02B40C|      ;
@@ -10059,10 +10058,10 @@ DATA8_02B496:
 CODE_02B4A6:
    JSL.L Is_Equals_1575                 ;02B4A6|07AEDD;
    BNE CODE_02B4D6                      ;02B4AA|02B4D6;
-   LDX.W Selection                      ;02B4AC|00103F;
-   LDA.W Array_Category,X               ;02B4AF|0009C7;
+   LDX.W Selection_offset               ;02B4AC|00103F;
+   LDA.W Object_var1_Category,X         ;02B4AF|0009C7;
    STA.B $20                            ;02B4B2|000020;
-   LDA.W Array_Selection,X              ;02B4B4|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B4B4|0009EB;
    ASL A                                ;02B4B7|      ;
    TAX                                  ;02B4B8|      ;
    LDA.W Curr_HP_Rooks,X                ;02B4B9|0012F3;
@@ -10071,22 +10070,22 @@ CODE_02B4A6:
    BCS CODE_02B4E4                      ;02B4C0|02B4E4;
 CODE_02B4C2:
    LDA.W Curr_HP_Rooks,X                ;02B4C2|0012F3;
-   LDX.W Selection                      ;02B4C5|00103F;
-   STA.W Array_Category,X               ;02B4C8|0009C7;
+   LDX.W Selection_offset               ;02B4C5|00103F;
+   STA.W Object_var1_Category,X         ;02B4C8|0009C7;
    LDA.W #$B428                         ;02B4CB|      ;
    LDY.W #$0002                         ;02B4CE|      ;
    JML.L Sub_LoadStuff                  ;02B4D1|008DB4;
    RTL                                  ;02B4D5|      ;
 CODE_02B4D6:
-   LDX.W Selection                      ;02B4D6|00103F;
+   LDX.W Selection_offset               ;02B4D6|00103F;
    LDA.W #$B417                         ;02B4D9|      ;
    LDY.W #$0002                         ;02B4DC|      ;
    JML.L Sub_LoadStuff                  ;02B4DF|008DB4;
    RTL                                  ;02B4E3|      ;
 CODE_02B4E4:
    LDA.W Curr_HP_Rooks,X                ;02B4E4|0012F3;
-   LDX.W Selection                      ;02B4E7|00103F;
-   STA.W Array_Category,X               ;02B4EA|0009C7;
+   LDX.W Selection_offset               ;02B4E7|00103F;
+   STA.W Object_var1_Category,X         ;02B4EA|0009C7;
    RTL                                  ;02B4ED|      ;
 LoadData_Enemy35:
    db $04                               ;02B4EE|      ;
@@ -10220,10 +10219,10 @@ DATA8_02B578:
 CODE_02B584:
    JSL.L Is_Equals_1575                 ;02B584|07AEDD;
    BNE CODE_02B5B4                      ;02B588|02B5B4;
-   LDX.W Selection                      ;02B58A|00103F;
-   LDA.W Array_Category,X               ;02B58D|0009C7;
+   LDX.W Selection_offset               ;02B58A|00103F;
+   LDA.W Object_var1_Category,X         ;02B58D|0009C7;
    STA.B $20                            ;02B590|000020;
-   LDA.W Array_Selection,X              ;02B592|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B592|0009EB;
    ASL A                                ;02B595|      ;
    TAX                                  ;02B596|      ;
    LDA.W Curr_HP_Rooks,X                ;02B597|0012F3;
@@ -10232,22 +10231,22 @@ CODE_02B584:
    BCS CODE_02B5C2                      ;02B59E|02B5C2;
 CODE_02B5A0:
    LDA.W Curr_HP_Rooks,X                ;02B5A0|0012F3;
-   LDX.W Selection                      ;02B5A3|00103F;
-   STA.W Array_Category,X               ;02B5A6|0009C7;
+   LDX.W Selection_offset               ;02B5A3|00103F;
+   STA.W Object_var1_Category,X         ;02B5A6|0009C7;
    LDA.W #$B50A                         ;02B5A9|      ;
    LDY.W #$0002                         ;02B5AC|      ;
    JML.L Sub_LoadStuff                  ;02B5AF|008DB4;
    RTL                                  ;02B5B3|      ;
 CODE_02B5B4:
-   LDX.W Selection                      ;02B5B4|00103F;
+   LDX.W Selection_offset               ;02B5B4|00103F;
    LDA.W #$B4F9                         ;02B5B7|      ;
    LDY.W #$0002                         ;02B5BA|      ;
    JML.L Sub_LoadStuff                  ;02B5BD|008DB4;
    RTL                                  ;02B5C1|      ;
 CODE_02B5C2:
    LDA.W Curr_HP_Rooks,X                ;02B5C2|0012F3;
-   LDX.W Selection                      ;02B5C5|00103F;
-   STA.W Array_Category,X               ;02B5C8|0009C7;
+   LDX.W Selection_offset               ;02B5C5|00103F;
+   STA.W Object_var1_Category,X         ;02B5C8|0009C7;
    RTL                                  ;02B5CB|      ;
 LoadData_Enemy36:
    db $04                               ;02B5CC|      ;
@@ -10379,10 +10378,10 @@ DATA8_02B652:
 CODE_02B65F:
    JSL.L Is_Equals_1575                 ;02B65F|07AEDD;
    BNE CODE_02B68F                      ;02B663|02B68F;
-   LDX.W Selection                      ;02B665|00103F;
-   LDA.W Array_Category,X               ;02B668|0009C7;
+   LDX.W Selection_offset               ;02B665|00103F;
+   LDA.W Object_var1_Category,X         ;02B668|0009C7;
    STA.B $20                            ;02B66B|000020;
-   LDA.W Array_Selection,X              ;02B66D|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B66D|0009EB;
    ASL A                                ;02B670|      ;
    TAX                                  ;02B671|      ;
    LDA.W Curr_HP_Rooks,X                ;02B672|0012F3;
@@ -10391,22 +10390,22 @@ CODE_02B65F:
    BCS CODE_02B69D                      ;02B679|02B69D;
 CODE_02B67B:
    LDA.W Curr_HP_Rooks,X                ;02B67B|0012F3;
-   LDX.W Selection                      ;02B67E|00103F;
-   STA.W Array_Category,X               ;02B681|0009C7;
+   LDX.W Selection_offset               ;02B67E|00103F;
+   STA.W Object_var1_Category,X         ;02B681|0009C7;
    LDA.W #$B5E8                         ;02B684|      ;
    LDY.W #$0002                         ;02B687|      ;
    JML.L Sub_LoadStuff                  ;02B68A|008DB4;
    RTL                                  ;02B68E|      ;
 CODE_02B68F:
-   LDX.W Selection                      ;02B68F|00103F;
+   LDX.W Selection_offset               ;02B68F|00103F;
    LDA.W #$B5D7                         ;02B692|      ;
    LDY.W #$0002                         ;02B695|      ;
    JML.L Sub_LoadStuff                  ;02B698|008DB4;
    RTL                                  ;02B69C|      ;
 CODE_02B69D:
    LDA.W Curr_HP_Rooks,X                ;02B69D|0012F3;
-   LDX.W Selection                      ;02B6A0|00103F;
-   STA.W Array_Category,X               ;02B6A3|0009C7;
+   LDX.W Selection_offset               ;02B6A0|00103F;
+   STA.W Object_var1_Category,X         ;02B6A3|0009C7;
    RTL                                  ;02B6A6|      ;
 LoadData_Enemy37:
    db $04                               ;02B6A7|      ;
@@ -10537,10 +10536,10 @@ DATA8_02B72D:
 CODE_02B73A:
    JSL.L Is_Equals_1575                 ;02B73A|07AEDD;
    BNE CODE_02B76A                      ;02B73E|02B76A;
-   LDX.W Selection                      ;02B740|00103F;
-   LDA.W Array_Category,X               ;02B743|0009C7;
+   LDX.W Selection_offset               ;02B740|00103F;
+   LDA.W Object_var1_Category,X         ;02B743|0009C7;
    STA.B $20                            ;02B746|000020;
-   LDA.W Array_Selection,X              ;02B748|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B748|0009EB;
    ASL A                                ;02B74B|      ;
    TAX                                  ;02B74C|      ;
    LDA.W Curr_HP_Rooks,X                ;02B74D|0012F3;
@@ -10549,22 +10548,22 @@ CODE_02B73A:
    BCS CODE_02B778                      ;02B754|02B778;
 CODE_02B756:
    LDA.W Curr_HP_Rooks,X                ;02B756|0012F3;
-   LDX.W Selection                      ;02B759|00103F;
-   STA.W Array_Category,X               ;02B75C|0009C7;
+   LDX.W Selection_offset               ;02B759|00103F;
+   STA.W Object_var1_Category,X         ;02B75C|0009C7;
    LDA.W #$B6C3                         ;02B75F|      ;
    LDY.W #$0002                         ;02B762|      ;
    JML.L Sub_LoadStuff                  ;02B765|008DB4;
    RTL                                  ;02B769|      ;
 CODE_02B76A:
-   LDX.W Selection                      ;02B76A|00103F;
+   LDX.W Selection_offset               ;02B76A|00103F;
    LDA.W #$B6B2                         ;02B76D|      ;
    LDY.W #$0002                         ;02B770|      ;
    JML.L Sub_LoadStuff                  ;02B773|008DB4;
    RTL                                  ;02B777|      ;
 CODE_02B778:
    LDA.W Curr_HP_Rooks,X                ;02B778|0012F3;
-   LDX.W Selection                      ;02B77B|00103F;
-   STA.W Array_Category,X               ;02B77E|0009C7;
+   LDX.W Selection_offset               ;02B77B|00103F;
+   STA.W Object_var1_Category,X         ;02B77E|0009C7;
    RTL                                  ;02B781|      ;
 LoadData_Enemy38:
    db $04                               ;02B782|      ;
@@ -10604,10 +10603,10 @@ DATA8_02B7A9:
 CODE_02B7B3:
    JSL.L Is_Equals_1575                 ;02B7B3|07AEDD;
    BNE CODE_02B7E3                      ;02B7B7|02B7E3;
-   LDX.W Selection                      ;02B7B9|00103F;
-   LDA.W Array_Category,X               ;02B7BC|0009C7;
+   LDX.W Selection_offset               ;02B7B9|00103F;
+   LDA.W Object_var1_Category,X         ;02B7BC|0009C7;
    STA.B $20                            ;02B7BF|000020;
-   LDA.W Array_Selection,X              ;02B7C1|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B7C1|0009EB;
    ASL A                                ;02B7C4|      ;
    TAX                                  ;02B7C5|      ;
    LDA.W Curr_HP_Rooks,X                ;02B7C6|0012F3;
@@ -10616,22 +10615,22 @@ CODE_02B7B3:
    BCS CODE_02B7F1                      ;02B7CD|02B7F1;
 CODE_02B7CF:
    LDA.W Curr_HP_Rooks,X                ;02B7CF|0012F3;
-   LDX.W Selection                      ;02B7D2|00103F;
-   STA.W Array_Category,X               ;02B7D5|0009C7;
+   LDX.W Selection_offset               ;02B7D2|00103F;
+   STA.W Object_var1_Category,X         ;02B7D5|0009C7;
    LDA.W #$B797                         ;02B7D8|      ;
    LDY.W #$0002                         ;02B7DB|      ;
    JML.L Sub_LoadStuff                  ;02B7DE|008DB4;
    RTL                                  ;02B7E2|      ;
 CODE_02B7E3:
-   LDX.W Selection                      ;02B7E3|00103F;
+   LDX.W Selection_offset               ;02B7E3|00103F;
    LDA.W #$B78D                         ;02B7E6|      ;
    LDY.W #$0002                         ;02B7E9|      ;
    JML.L Sub_LoadStuff                  ;02B7EC|008DB4;
    RTL                                  ;02B7F0|      ;
 CODE_02B7F1:
    LDA.W Curr_HP_Rooks,X                ;02B7F1|0012F3;
-   LDX.W Selection                      ;02B7F4|00103F;
-   STA.W Array_Category,X               ;02B7F7|0009C7;
+   LDX.W Selection_offset               ;02B7F4|00103F;
+   STA.W Object_var1_Category,X         ;02B7F7|0009C7;
    RTL                                  ;02B7FA|      ;
 LoadData_Enemy39:
    db $04                               ;02B7FB|      ;
@@ -10671,10 +10670,10 @@ DATA8_02B822:
 CODE_02B82C:
    JSL.L Is_Equals_1575                 ;02B82C|07AEDD;
    BNE CODE_02B85C                      ;02B830|02B85C;
-   LDX.W Selection                      ;02B832|00103F;
-   LDA.W Array_Category,X               ;02B835|0009C7;
+   LDX.W Selection_offset               ;02B832|00103F;
+   LDA.W Object_var1_Category,X         ;02B835|0009C7;
    STA.B $20                            ;02B838|000020;
-   LDA.W Array_Selection,X              ;02B83A|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B83A|0009EB;
    ASL A                                ;02B83D|      ;
    TAX                                  ;02B83E|      ;
    LDA.W Curr_HP_Rooks,X                ;02B83F|0012F3;
@@ -10683,22 +10682,22 @@ CODE_02B82C:
    BCS CODE_02B86A                      ;02B846|02B86A;
 CODE_02B848:
    LDA.W Curr_HP_Rooks,X                ;02B848|0012F3;
-   LDX.W Selection                      ;02B84B|00103F;
-   STA.W Array_Category,X               ;02B84E|0009C7;
+   LDX.W Selection_offset               ;02B84B|00103F;
+   STA.W Object_var1_Category,X         ;02B84E|0009C7;
    LDA.W #$B810                         ;02B851|      ;
    LDY.W #$0002                         ;02B854|      ;
    JML.L Sub_LoadStuff                  ;02B857|008DB4;
    RTL                                  ;02B85B|      ;
 CODE_02B85C:
-   LDX.W Selection                      ;02B85C|00103F;
+   LDX.W Selection_offset               ;02B85C|00103F;
    LDA.W #$B806                         ;02B85F|      ;
    LDY.W #$0002                         ;02B862|      ;
    JML.L Sub_LoadStuff                  ;02B865|008DB4;
    RTL                                  ;02B869|      ;
 CODE_02B86A:
    LDA.W Curr_HP_Rooks,X                ;02B86A|0012F3;
-   LDX.W Selection                      ;02B86D|00103F;
-   STA.W Array_Category,X               ;02B870|0009C7;
+   LDX.W Selection_offset               ;02B86D|00103F;
+   STA.W Object_var1_Category,X         ;02B870|0009C7;
    RTL                                  ;02B873|      ;
 LoadData_Enemy3A:
    db $04                               ;02B874|      ;
@@ -10733,10 +10732,10 @@ DATA8_02B89B:
 CODE_02B8A0:
    JSL.L Is_Equals_1575                 ;02B8A0|07AEDD;
    BNE CODE_02B8D0                      ;02B8A4|02B8D0;
-   LDX.W Selection                      ;02B8A6|00103F;
-   LDA.W Array_Category,X               ;02B8A9|0009C7;
+   LDX.W Selection_offset               ;02B8A6|00103F;
+   LDA.W Object_var1_Category,X         ;02B8A9|0009C7;
    STA.B $20                            ;02B8AC|000020;
-   LDA.W Array_Selection,X              ;02B8AE|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B8AE|0009EB;
    ASL A                                ;02B8B1|      ;
    TAX                                  ;02B8B2|      ;
    LDA.W Curr_HP_Rooks,X                ;02B8B3|0012F3;
@@ -10745,22 +10744,22 @@ CODE_02B8A0:
    BCS CODE_02B8DE                      ;02B8BA|02B8DE;
 CODE_02B8BC:
    LDA.W Curr_HP_Rooks,X                ;02B8BC|0012F3;
-   LDX.W Selection                      ;02B8BF|00103F;
-   STA.W Array_Category,X               ;02B8C2|0009C7;
+   LDX.W Selection_offset               ;02B8BF|00103F;
+   STA.W Object_var1_Category,X         ;02B8C2|0009C7;
    LDA.W #$B889                         ;02B8C5|      ;
    LDY.W #$0002                         ;02B8C8|      ;
    JML.L Sub_LoadStuff                  ;02B8CB|008DB4;
    RTL                                  ;02B8CF|      ;
 CODE_02B8D0:
-   LDX.W Selection                      ;02B8D0|00103F;
+   LDX.W Selection_offset               ;02B8D0|00103F;
    LDA.W #$B87F                         ;02B8D3|      ;
    LDY.W #$0002                         ;02B8D6|      ;
    JML.L Sub_LoadStuff                  ;02B8D9|008DB4;
    RTL                                  ;02B8DD|      ;
 CODE_02B8DE:
    LDA.W Curr_HP_Rooks,X                ;02B8DE|0012F3;
-   LDX.W Selection                      ;02B8E1|00103F;
-   STA.W Array_Category,X               ;02B8E4|0009C7;
+   LDX.W Selection_offset               ;02B8E1|00103F;
+   STA.W Object_var1_Category,X         ;02B8E4|0009C7;
    RTL                                  ;02B8E7|      ;
 LoadData_Enemy3B:
    db $04                               ;02B8E8|      ;
@@ -10796,10 +10795,10 @@ DATA8_02B90F:
 CODE_02B914:
    JSL.L Is_Equals_1575                 ;02B914|07AEDD;
    BNE CODE_02B944                      ;02B918|02B944;
-   LDX.W Selection                      ;02B91A|00103F;
-   LDA.W Array_Category,X               ;02B91D|0009C7;
+   LDX.W Selection_offset               ;02B91A|00103F;
+   LDA.W Object_var1_Category,X         ;02B91D|0009C7;
    STA.B $20                            ;02B920|000020;
-   LDA.W Array_Selection,X              ;02B922|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B922|0009EB;
    ASL A                                ;02B925|      ;
    TAX                                  ;02B926|      ;
    LDA.W Curr_HP_Rooks,X                ;02B927|0012F3;
@@ -10808,22 +10807,22 @@ CODE_02B914:
    BCS CODE_02B952                      ;02B92E|02B952;
 CODE_02B930:
    LDA.W Curr_HP_Rooks,X                ;02B930|0012F3;
-   LDX.W Selection                      ;02B933|00103F;
-   STA.W Array_Category,X               ;02B936|0009C7;
+   LDX.W Selection_offset               ;02B933|00103F;
+   STA.W Object_var1_Category,X         ;02B936|0009C7;
    LDA.W #$B8FD                         ;02B939|      ;
    LDY.W #$0002                         ;02B93C|      ;
    JML.L Sub_LoadStuff                  ;02B93F|008DB4;
    RTL                                  ;02B943|      ;
 CODE_02B944:
-   LDX.W Selection                      ;02B944|00103F;
+   LDX.W Selection_offset               ;02B944|00103F;
    LDA.W #$B8F3                         ;02B947|      ;
    LDY.W #$0002                         ;02B94A|      ;
    JML.L Sub_LoadStuff                  ;02B94D|008DB4;
    RTL                                  ;02B951|      ;
 CODE_02B952:
    LDA.W Curr_HP_Rooks,X                ;02B952|0012F3;
-   LDX.W Selection                      ;02B955|00103F;
-   STA.W Array_Category,X               ;02B958|0009C7;
+   LDX.W Selection_offset               ;02B955|00103F;
+   STA.W Object_var1_Category,X         ;02B958|0009C7;
    RTL                                  ;02B95B|      ;
 LoadData_Enemy3C:
    db $04                               ;02B95C|      ;
@@ -10954,10 +10953,10 @@ DATA8_02B9E3:
 CODE_02B9F0:
    JSL.L Is_Equals_1575                 ;02B9F0|07AEDD;
    BNE CODE_02BA20                      ;02B9F4|02BA20;
-   LDX.W Selection                      ;02B9F6|00103F;
-   LDA.W Array_Category,X               ;02B9F9|0009C7;
+   LDX.W Selection_offset               ;02B9F6|00103F;
+   LDA.W Object_var1_Category,X         ;02B9F9|0009C7;
    STA.B $20                            ;02B9FC|000020;
-   LDA.W Array_Selection,X              ;02B9FE|0009EB;
+   LDA.W Object_var2_Selection,X        ;02B9FE|0009EB;
    ASL A                                ;02BA01|      ;
    TAX                                  ;02BA02|      ;
    LDA.W Curr_HP_Rooks,X                ;02BA03|0012F3;
@@ -10966,22 +10965,22 @@ CODE_02B9F0:
    BCS CODE_02BA2E                      ;02BA0A|02BA2E;
 CODE_02BA0C:
    LDA.W Curr_HP_Rooks,X                ;02BA0C|0012F3;
-   LDX.W Selection                      ;02BA0F|00103F;
-   STA.W Array_Category,X               ;02BA12|0009C7;
+   LDX.W Selection_offset               ;02BA0F|00103F;
+   STA.W Object_var1_Category,X         ;02BA12|0009C7;
    LDA.W #$B978                         ;02BA15|      ;
    LDY.W #$0002                         ;02BA18|      ;
    JML.L Sub_LoadStuff                  ;02BA1B|008DB4;
    RTL                                  ;02BA1F|      ;
 CODE_02BA20:
-   LDX.W Selection                      ;02BA20|00103F;
+   LDX.W Selection_offset               ;02BA20|00103F;
    LDA.W #$B967                         ;02BA23|      ;
    LDY.W #$0002                         ;02BA26|      ;
    JML.L Sub_LoadStuff                  ;02BA29|008DB4;
    RTL                                  ;02BA2D|      ;
 CODE_02BA2E:
    LDA.W Curr_HP_Rooks,X                ;02BA2E|0012F3;
-   LDX.W Selection                      ;02BA31|00103F;
-   STA.W Array_Category,X               ;02BA34|0009C7;
+   LDX.W Selection_offset               ;02BA31|00103F;
+   STA.W Object_var1_Category,X         ;02BA34|0009C7;
    RTL                                  ;02BA37|      ;
 LoadData_Enemy3D:
    db $04                               ;02BA38|      ;
@@ -11112,10 +11111,10 @@ DATA8_02BABF:
 CODE_02BACC:
    JSL.L Is_Equals_1575                 ;02BACC|07AEDD;
    BNE CODE_02BAFC                      ;02BAD0|02BAFC;
-   LDX.W Selection                      ;02BAD2|00103F;
-   LDA.W Array_Category,X               ;02BAD5|0009C7;
+   LDX.W Selection_offset               ;02BAD2|00103F;
+   LDA.W Object_var1_Category,X         ;02BAD5|0009C7;
    STA.B $20                            ;02BAD8|000020;
-   LDA.W Array_Selection,X              ;02BADA|0009EB;
+   LDA.W Object_var2_Selection,X        ;02BADA|0009EB;
    ASL A                                ;02BADD|      ;
    TAX                                  ;02BADE|      ;
    LDA.W Curr_HP_Rooks,X                ;02BADF|0012F3;
@@ -11124,22 +11123,22 @@ CODE_02BACC:
    BCS CODE_02BB0A                      ;02BAE6|02BB0A;
 CODE_02BAE8:
    LDA.W Curr_HP_Rooks,X                ;02BAE8|0012F3;
-   LDX.W Selection                      ;02BAEB|00103F;
-   STA.W Array_Category,X               ;02BAEE|0009C7;
+   LDX.W Selection_offset               ;02BAEB|00103F;
+   STA.W Object_var1_Category,X         ;02BAEE|0009C7;
    LDA.W #$BA54                         ;02BAF1|      ;
    LDY.W #$0002                         ;02BAF4|      ;
    JML.L Sub_LoadStuff                  ;02BAF7|008DB4;
    RTL                                  ;02BAFB|      ;
 CODE_02BAFC:
-   LDX.W Selection                      ;02BAFC|00103F;
+   LDX.W Selection_offset               ;02BAFC|00103F;
    LDA.W #$BA43                         ;02BAFF|      ;
    LDY.W #$0002                         ;02BB02|      ;
    JML.L Sub_LoadStuff                  ;02BB05|008DB4;
    RTL                                  ;02BB09|      ;
 CODE_02BB0A:
    LDA.W Curr_HP_Rooks,X                ;02BB0A|0012F3;
-   LDX.W Selection                      ;02BB0D|00103F;
-   STA.W Array_Category,X               ;02BB10|0009C7;
+   LDX.W Selection_offset               ;02BB0D|00103F;
+   STA.W Object_var1_Category,X         ;02BB10|0009C7;
    RTL                                  ;02BB13|      ;
 LoadData_Enemy3E:
    db $04                               ;02BB14|      ;
@@ -11273,10 +11272,10 @@ DATA8_02BB9F:
 CODE_02BBAB:
    JSL.L Is_Equals_1575                 ;02BBAB|07AEDD;
    BNE CODE_02BBDB                      ;02BBAF|02BBDB;
-   LDX.W Selection                      ;02BBB1|00103F;
-   LDA.W Array_Category,X               ;02BBB4|0009C7;
+   LDX.W Selection_offset               ;02BBB1|00103F;
+   LDA.W Object_var1_Category,X         ;02BBB4|0009C7;
    STA.B $20                            ;02BBB7|000020;
-   LDA.W Array_Selection,X              ;02BBB9|0009EB;
+   LDA.W Object_var2_Selection,X        ;02BBB9|0009EB;
    ASL A                                ;02BBBC|      ;
    TAX                                  ;02BBBD|      ;
    LDA.W Curr_HP_Rooks,X                ;02BBBE|0012F3;
@@ -11285,22 +11284,22 @@ CODE_02BBAB:
    BCS CODE_02BBE9                      ;02BBC5|02BBE9;
 CODE_02BBC7:
    LDA.W Curr_HP_Rooks,X                ;02BBC7|0012F3;
-   LDX.W Selection                      ;02BBCA|00103F;
-   STA.W Array_Category,X               ;02BBCD|0009C7;
+   LDX.W Selection_offset               ;02BBCA|00103F;
+   STA.W Object_var1_Category,X         ;02BBCD|0009C7;
    LDA.W #$BB30                         ;02BBD0|      ;
    LDY.W #$0002                         ;02BBD3|      ;
    JML.L Sub_LoadStuff                  ;02BBD6|008DB4;
    RTL                                  ;02BBDA|      ;
 CODE_02BBDB:
-   LDX.W Selection                      ;02BBDB|00103F;
+   LDX.W Selection_offset               ;02BBDB|00103F;
    LDA.W #$BB1F                         ;02BBDE|      ;
    LDY.W #$0002                         ;02BBE1|      ;
    JML.L Sub_LoadStuff                  ;02BBE4|008DB4;
    RTL                                  ;02BBE8|      ;
 CODE_02BBE9:
    LDA.W Curr_HP_Rooks,X                ;02BBE9|0012F3;
-   LDX.W Selection                      ;02BBEC|00103F;
-   STA.W Array_Category,X               ;02BBEF|0009C7;
+   LDX.W Selection_offset               ;02BBEC|00103F;
+   STA.W Object_var1_Category,X         ;02BBEF|0009C7;
    RTL                                  ;02BBF2|      ;
 LoadData_Enemy3F:
    db $04                               ;02BBF3|      ;
@@ -11434,10 +11433,10 @@ DATA8_02BC7E:
 CODE_02BC8A:
    JSL.L Is_Equals_1575                 ;02BC8A|07AEDD;
    BNE CODE_02BCBA                      ;02BC8E|02BCBA;
-   LDX.W Selection                      ;02BC90|00103F;
-   LDA.W Array_Category,X               ;02BC93|0009C7;
+   LDX.W Selection_offset               ;02BC90|00103F;
+   LDA.W Object_var1_Category,X         ;02BC93|0009C7;
    STA.B $20                            ;02BC96|000020;
-   LDA.W Array_Selection,X              ;02BC98|0009EB;
+   LDA.W Object_var2_Selection,X        ;02BC98|0009EB;
    ASL A                                ;02BC9B|      ;
    TAX                                  ;02BC9C|      ;
    LDA.W Curr_HP_Rooks,X                ;02BC9D|0012F3;
@@ -11446,22 +11445,22 @@ CODE_02BC8A:
    BCS CODE_02BCC8                      ;02BCA4|02BCC8;
 CODE_02BCA6:
    LDA.W Curr_HP_Rooks,X                ;02BCA6|0012F3;
-   LDX.W Selection                      ;02BCA9|00103F;
-   STA.W Array_Category,X               ;02BCAC|0009C7;
+   LDX.W Selection_offset               ;02BCA9|00103F;
+   STA.W Object_var1_Category,X         ;02BCAC|0009C7;
    LDA.W #$BC0F                         ;02BCAF|      ;
    LDY.W #$0002                         ;02BCB2|      ;
    JML.L Sub_LoadStuff                  ;02BCB5|008DB4;
    RTL                                  ;02BCB9|      ;
 CODE_02BCBA:
-   LDX.W Selection                      ;02BCBA|00103F;
+   LDX.W Selection_offset               ;02BCBA|00103F;
    LDA.W #$BBFE                         ;02BCBD|      ;
    LDY.W #$0002                         ;02BCC0|      ;
    JML.L Sub_LoadStuff                  ;02BCC3|008DB4;
    RTL                                  ;02BCC7|      ;
 CODE_02BCC8:
    LDA.W Curr_HP_Rooks,X                ;02BCC8|0012F3;
-   LDX.W Selection                      ;02BCCB|00103F;
-   STA.W Array_Category,X               ;02BCCE|0009C7;
+   LDX.W Selection_offset               ;02BCCB|00103F;
+   STA.W Object_var1_Category,X         ;02BCCE|0009C7;
    RTL                                  ;02BCD1|      ;
 LoadData_Enemy40:
    db $04                               ;02BCD2|      ;
@@ -11585,10 +11584,10 @@ DATA8_02BD55:
 CODE_02BD5F:
    JSL.L Is_Equals_1575                 ;02BD5F|07AEDD;
    BNE CODE_02BD8F                      ;02BD63|02BD8F;
-   LDX.W Selection                      ;02BD65|00103F;
-   LDA.W Array_Category,X               ;02BD68|0009C7;
+   LDX.W Selection_offset               ;02BD65|00103F;
+   LDA.W Object_var1_Category,X         ;02BD68|0009C7;
    STA.B $20                            ;02BD6B|000020;
-   LDA.W Array_Selection,X              ;02BD6D|0009EB;
+   LDA.W Object_var2_Selection,X        ;02BD6D|0009EB;
    ASL A                                ;02BD70|      ;
    TAX                                  ;02BD71|      ;
    LDA.W Curr_HP_Rooks,X                ;02BD72|0012F3;
@@ -11597,22 +11596,22 @@ CODE_02BD5F:
    BCS CODE_02BD9D                      ;02BD79|02BD9D;
 CODE_02BD7B:
    LDA.W Curr_HP_Rooks,X                ;02BD7B|0012F3;
-   LDX.W Selection                      ;02BD7E|00103F;
-   STA.W Array_Category,X               ;02BD81|0009C7;
+   LDX.W Selection_offset               ;02BD7E|00103F;
+   STA.W Object_var1_Category,X         ;02BD81|0009C7;
    LDA.W #$BCEE                         ;02BD84|      ;
    LDY.W #$0002                         ;02BD87|      ;
    JML.L Sub_LoadStuff                  ;02BD8A|008DB4;
    RTL                                  ;02BD8E|      ;
 CODE_02BD8F:
-   LDX.W Selection                      ;02BD8F|00103F;
+   LDX.W Selection_offset               ;02BD8F|00103F;
    LDA.W #$BCDD                         ;02BD92|      ;
    LDY.W #$0002                         ;02BD95|      ;
    JML.L Sub_LoadStuff                  ;02BD98|008DB4;
    RTL                                  ;02BD9C|      ;
 CODE_02BD9D:
    LDA.W Curr_HP_Rooks,X                ;02BD9D|0012F3;
-   LDX.W Selection                      ;02BDA0|00103F;
-   STA.W Array_Category,X               ;02BDA3|0009C7;
+   LDX.W Selection_offset               ;02BDA0|00103F;
+   STA.W Object_var1_Category,X         ;02BDA3|0009C7;
    RTL                                  ;02BDA6|      ;
 LoadData_Enemy41:
    db $04                               ;02BDA7|      ;
@@ -11779,10 +11778,10 @@ DATA8_02BE4C:
 CODE_02BE5F:
    JSL.L Is_Equals_1575                 ;02BE5F|07AEDD;
    BNE CODE_02BE8F                      ;02BE63|02BE8F;
-   LDX.W Selection                      ;02BE65|00103F;
-   LDA.W Array_Category,X               ;02BE68|0009C7;
+   LDX.W Selection_offset               ;02BE65|00103F;
+   LDA.W Object_var1_Category,X         ;02BE68|0009C7;
    STA.B $20                            ;02BE6B|000020;
-   LDA.W Array_Selection,X              ;02BE6D|0009EB;
+   LDA.W Object_var2_Selection,X        ;02BE6D|0009EB;
    ASL A                                ;02BE70|      ;
    TAX                                  ;02BE71|      ;
    LDA.W Curr_HP_Rooks,X                ;02BE72|0012F3;
@@ -11791,22 +11790,22 @@ CODE_02BE5F:
    BCS CODE_02BE9D                      ;02BE79|02BE9D;
 CODE_02BE7B:
    LDA.W Curr_HP_Rooks,X                ;02BE7B|0012F3;
-   LDX.W Selection                      ;02BE7E|00103F;
-   STA.W Array_Category,X               ;02BE81|0009C7;
+   LDX.W Selection_offset               ;02BE7E|00103F;
+   STA.W Object_var1_Category,X         ;02BE81|0009C7;
    LDA.W #$BDC3                         ;02BE84|      ;
    LDY.W #$0002                         ;02BE87|      ;
    JML.L Sub_LoadStuff                  ;02BE8A|008DB4;
    RTL                                  ;02BE8E|      ;
 CODE_02BE8F:
-   LDX.W Selection                      ;02BE8F|00103F;
+   LDX.W Selection_offset               ;02BE8F|00103F;
    LDA.W #$BDB2                         ;02BE92|      ;
    LDY.W #$0002                         ;02BE95|      ;
    JML.L Sub_LoadStuff                  ;02BE98|008DB4;
    RTL                                  ;02BE9C|      ;
 CODE_02BE9D:
    LDA.W Curr_HP_Rooks,X                ;02BE9D|0012F3;
-   LDX.W Selection                      ;02BEA0|00103F;
-   STA.W Array_Category,X               ;02BEA3|0009C7;
+   LDX.W Selection_offset               ;02BEA0|00103F;
+   STA.W Object_var1_Category,X         ;02BEA3|0009C7;
    RTL                                  ;02BEA6|      ;
 LoadData_Enemy42:
    db $04                               ;02BEA7|      ;
@@ -11943,10 +11942,10 @@ DATA8_02BF31:
 CODE_02BF41:
    JSL.L Is_Equals_1575                 ;02BF41|07AEDD;
    BNE CODE_02BF71                      ;02BF45|02BF71;
-   LDX.W Selection                      ;02BF47|00103F;
-   LDA.W Array_Category,X               ;02BF4A|0009C7;
+   LDX.W Selection_offset               ;02BF47|00103F;
+   LDA.W Object_var1_Category,X         ;02BF4A|0009C7;
    STA.B $20                            ;02BF4D|000020;
-   LDA.W Array_Selection,X              ;02BF4F|0009EB;
+   LDA.W Object_var2_Selection,X        ;02BF4F|0009EB;
    ASL A                                ;02BF52|      ;
    TAX                                  ;02BF53|      ;
    LDA.W Curr_HP_Rooks,X                ;02BF54|0012F3;
@@ -11955,22 +11954,22 @@ CODE_02BF41:
    BCS CODE_02BF7F                      ;02BF5B|02BF7F;
 CODE_02BF5D:
    LDA.W Curr_HP_Rooks,X                ;02BF5D|0012F3;
-   LDX.W Selection                      ;02BF60|00103F;
-   STA.W Array_Category,X               ;02BF63|0009C7;
+   LDX.W Selection_offset               ;02BF60|00103F;
+   STA.W Object_var1_Category,X         ;02BF63|0009C7;
    LDA.W #$BEC3                         ;02BF66|      ;
    LDY.W #$0002                         ;02BF69|      ;
    JML.L Sub_LoadStuff                  ;02BF6C|008DB4;
    RTL                                  ;02BF70|      ;
 CODE_02BF71:
-   LDX.W Selection                      ;02BF71|00103F;
+   LDX.W Selection_offset               ;02BF71|00103F;
    LDA.W #$BEB2                         ;02BF74|      ;
    LDY.W #$0002                         ;02BF77|      ;
    JML.L Sub_LoadStuff                  ;02BF7A|008DB4;
    RTL                                  ;02BF7E|      ;
 CODE_02BF7F:
    LDA.W Curr_HP_Rooks,X                ;02BF7F|0012F3;
-   LDX.W Selection                      ;02BF82|00103F;
-   STA.W Array_Category,X               ;02BF85|0009C7;
+   LDX.W Selection_offset               ;02BF82|00103F;
+   STA.W Object_var1_Category,X         ;02BF85|0009C7;
    RTL                                  ;02BF88|      ;
 LoadData_Enemy43:
    db $04                               ;02BF89|      ;
@@ -12129,10 +12128,10 @@ DATA8_02C022:
 CODE_02C039:
    JSL.L Is_Equals_1575                 ;02C039|07AEDD;
    BNE CODE_02C069                      ;02C03D|02C069;
-   LDX.W Selection                      ;02C03F|00103F;
-   LDA.W Array_Category,X               ;02C042|0009C7;
+   LDX.W Selection_offset               ;02C03F|00103F;
+   LDA.W Object_var1_Category,X         ;02C042|0009C7;
    STA.B $20                            ;02C045|000020;
-   LDA.W Array_Selection,X              ;02C047|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C047|0009EB;
    ASL A                                ;02C04A|      ;
    TAX                                  ;02C04B|      ;
    LDA.W Curr_HP_Rooks,X                ;02C04C|0012F3;
@@ -12141,22 +12140,22 @@ CODE_02C039:
    BCS CODE_02C077                      ;02C053|02C077;
 CODE_02C055:
    LDA.W Curr_HP_Rooks,X                ;02C055|0012F3;
-   LDX.W Selection                      ;02C058|00103F;
-   STA.W Array_Category,X               ;02C05B|0009C7;
+   LDX.W Selection_offset               ;02C058|00103F;
+   STA.W Object_var1_Category,X         ;02C05B|0009C7;
    LDA.W #$BFA5                         ;02C05E|      ;
    LDY.W #$0002                         ;02C061|      ;
    JML.L Sub_LoadStuff                  ;02C064|008DB4;
    RTL                                  ;02C068|      ;
 CODE_02C069:
-   LDX.W Selection                      ;02C069|00103F;
+   LDX.W Selection_offset               ;02C069|00103F;
    LDA.W #$BF94                         ;02C06C|      ;
    LDY.W #$0002                         ;02C06F|      ;
    JML.L Sub_LoadStuff                  ;02C072|008DB4;
    RTL                                  ;02C076|      ;
 CODE_02C077:
    LDA.W Curr_HP_Rooks,X                ;02C077|0012F3;
-   LDX.W Selection                      ;02C07A|00103F;
-   STA.W Array_Category,X               ;02C07D|0009C7;
+   LDX.W Selection_offset               ;02C07A|00103F;
+   STA.W Object_var1_Category,X         ;02C07D|0009C7;
    RTL                                  ;02C080|      ;
 LoadData_Enemy44:
    db $04                               ;02C081|      ;
@@ -12290,10 +12289,10 @@ DATA8_02C10A:
 CODE_02C118:
    JSL.L Is_Equals_1575                 ;02C118|07AEDD;
    BNE CODE_02C148                      ;02C11C|02C148;
-   LDX.W Selection                      ;02C11E|00103F;
-   LDA.W Array_Category,X               ;02C121|0009C7;
+   LDX.W Selection_offset               ;02C11E|00103F;
+   LDA.W Object_var1_Category,X         ;02C121|0009C7;
    STA.B $20                            ;02C124|000020;
-   LDA.W Array_Selection,X              ;02C126|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C126|0009EB;
    ASL A                                ;02C129|      ;
    TAX                                  ;02C12A|      ;
    LDA.W Curr_HP_Rooks,X                ;02C12B|0012F3;
@@ -12302,22 +12301,22 @@ CODE_02C118:
    BCS CODE_02C156                      ;02C132|02C156;
 CODE_02C134:
    LDA.W Curr_HP_Rooks,X                ;02C134|0012F3;
-   LDX.W Selection                      ;02C137|00103F;
-   STA.W Array_Category,X               ;02C13A|0009C7;
+   LDX.W Selection_offset               ;02C137|00103F;
+   STA.W Object_var1_Category,X         ;02C13A|0009C7;
    LDA.W #$C09D                         ;02C13D|      ;
    LDY.W #$0002                         ;02C140|      ;
    JML.L Sub_LoadStuff                  ;02C143|008DB4;
    RTL                                  ;02C147|      ;
 CODE_02C148:
-   LDX.W Selection                      ;02C148|00103F;
+   LDX.W Selection_offset               ;02C148|00103F;
    LDA.W #$C08C                         ;02C14B|      ;
    LDY.W #$0002                         ;02C14E|      ;
    JML.L Sub_LoadStuff                  ;02C151|008DB4;
    RTL                                  ;02C155|      ;
 CODE_02C156:
    LDA.W Curr_HP_Rooks,X                ;02C156|0012F3;
-   LDX.W Selection                      ;02C159|00103F;
-   STA.W Array_Category,X               ;02C15C|0009C7;
+   LDX.W Selection_offset               ;02C159|00103F;
+   STA.W Object_var1_Category,X         ;02C15C|0009C7;
    RTL                                  ;02C15F|      ;
 LoadData_Enemy45:
    db $04                               ;02C160|      ;
@@ -12451,10 +12450,10 @@ DATA8_02C1E9:
 CODE_02C1F7:
    JSL.L Is_Equals_1575                 ;02C1F7|07AEDD;
    BNE CODE_02C227                      ;02C1FB|02C227;
-   LDX.W Selection                      ;02C1FD|00103F;
-   LDA.W Array_Category,X               ;02C200|0009C7;
+   LDX.W Selection_offset               ;02C1FD|00103F;
+   LDA.W Object_var1_Category,X         ;02C200|0009C7;
    STA.B $20                            ;02C203|000020;
-   LDA.W Array_Selection,X              ;02C205|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C205|0009EB;
    ASL A                                ;02C208|      ;
    TAX                                  ;02C209|      ;
    LDA.W Curr_HP_Rooks,X                ;02C20A|0012F3;
@@ -12463,22 +12462,22 @@ CODE_02C1F7:
    BCS CODE_02C235                      ;02C211|02C235;
 CODE_02C213:
    LDA.W Curr_HP_Rooks,X                ;02C213|0012F3;
-   LDX.W Selection                      ;02C216|00103F;
-   STA.W Array_Category,X               ;02C219|0009C7;
+   LDX.W Selection_offset               ;02C216|00103F;
+   STA.W Object_var1_Category,X         ;02C219|0009C7;
    LDA.W #$C17C                         ;02C21C|      ;
    LDY.W #$0002                         ;02C21F|      ;
    JML.L Sub_LoadStuff                  ;02C222|008DB4;
    RTL                                  ;02C226|      ;
 CODE_02C227:
-   LDX.W Selection                      ;02C227|00103F;
+   LDX.W Selection_offset               ;02C227|00103F;
    LDA.W #$C16B                         ;02C22A|      ;
    LDY.W #$0002                         ;02C22D|      ;
    JML.L Sub_LoadStuff                  ;02C230|008DB4;
    RTL                                  ;02C234|      ;
 CODE_02C235:
    LDA.W Curr_HP_Rooks,X                ;02C235|0012F3;
-   LDX.W Selection                      ;02C238|00103F;
-   STA.W Array_Category,X               ;02C23B|0009C7;
+   LDX.W Selection_offset               ;02C238|00103F;
+   STA.W Object_var1_Category,X         ;02C23B|0009C7;
    RTL                                  ;02C23E|      ;
 LoadData_Enemy46:
    db $04                               ;02C23F|      ;
@@ -12616,10 +12615,10 @@ DATA8_02C2CA:
 CODE_02C2DA:
    JSL.L Is_Equals_1575                 ;02C2DA|07AEDD;
    BNE CODE_02C30A                      ;02C2DE|02C30A;
-   LDX.W Selection                      ;02C2E0|00103F;
-   LDA.W Array_Category,X               ;02C2E3|0009C7;
+   LDX.W Selection_offset               ;02C2E0|00103F;
+   LDA.W Object_var1_Category,X         ;02C2E3|0009C7;
    STA.B $20                            ;02C2E6|000020;
-   LDA.W Array_Selection,X              ;02C2E8|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C2E8|0009EB;
    ASL A                                ;02C2EB|      ;
    TAX                                  ;02C2EC|      ;
    LDA.W Curr_HP_Rooks,X                ;02C2ED|0012F3;
@@ -12628,22 +12627,22 @@ CODE_02C2DA:
    BCS CODE_02C318                      ;02C2F4|02C318;
 CODE_02C2F6:
    LDA.W Curr_HP_Rooks,X                ;02C2F6|0012F3;
-   LDX.W Selection                      ;02C2F9|00103F;
-   STA.W Array_Category,X               ;02C2FC|0009C7;
+   LDX.W Selection_offset               ;02C2F9|00103F;
+   STA.W Object_var1_Category,X         ;02C2FC|0009C7;
    LDA.W #$C25B                         ;02C2FF|      ;
    LDY.W #$0002                         ;02C302|      ;
    JML.L Sub_LoadStuff                  ;02C305|008DB4;
    RTL                                  ;02C309|      ;
 CODE_02C30A:
-   LDX.W Selection                      ;02C30A|00103F;
+   LDX.W Selection_offset               ;02C30A|00103F;
    LDA.W #$C24A                         ;02C30D|      ;
    LDY.W #$0002                         ;02C310|      ;
    JML.L Sub_LoadStuff                  ;02C313|008DB4;
    RTL                                  ;02C317|      ;
 CODE_02C318:
    LDA.W Curr_HP_Rooks,X                ;02C318|0012F3;
-   LDX.W Selection                      ;02C31B|00103F;
-   STA.W Array_Category,X               ;02C31E|0009C7;
+   LDX.W Selection_offset               ;02C31B|00103F;
+   STA.W Object_var1_Category,X         ;02C31E|0009C7;
    RTL                                  ;02C321|      ;
 LoadData_Enemy47:
    db $04                               ;02C322|      ;
@@ -12776,10 +12775,10 @@ DATA8_02C3AB:
 CODE_02C3B8:
    JSL.L Is_Equals_1575                 ;02C3B8|07AEDD;
    BNE CODE_02C3E8                      ;02C3BC|02C3E8;
-   LDX.W Selection                      ;02C3BE|00103F;
-   LDA.W Array_Category,X               ;02C3C1|0009C7;
+   LDX.W Selection_offset               ;02C3BE|00103F;
+   LDA.W Object_var1_Category,X         ;02C3C1|0009C7;
    STA.B $20                            ;02C3C4|000020;
-   LDA.W Array_Selection,X              ;02C3C6|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C3C6|0009EB;
    ASL A                                ;02C3C9|      ;
    TAX                                  ;02C3CA|      ;
    LDA.W Curr_HP_Rooks,X                ;02C3CB|0012F3;
@@ -12788,22 +12787,22 @@ CODE_02C3B8:
    BCS CODE_02C3F6                      ;02C3D2|02C3F6;
 CODE_02C3D4:
    LDA.W Curr_HP_Rooks,X                ;02C3D4|0012F3;
-   LDX.W Selection                      ;02C3D7|00103F;
-   STA.W Array_Category,X               ;02C3DA|0009C7;
+   LDX.W Selection_offset               ;02C3D7|00103F;
+   STA.W Object_var1_Category,X         ;02C3DA|0009C7;
    LDA.W #$C33E                         ;02C3DD|      ;
    LDY.W #$0002                         ;02C3E0|      ;
    JML.L Sub_LoadStuff                  ;02C3E3|008DB4;
    RTL                                  ;02C3E7|      ;
 CODE_02C3E8:
-   LDX.W Selection                      ;02C3E8|00103F;
+   LDX.W Selection_offset               ;02C3E8|00103F;
    LDA.W #$C32D                         ;02C3EB|      ;
    LDY.W #$0002                         ;02C3EE|      ;
    JML.L Sub_LoadStuff                  ;02C3F1|008DB4;
    RTL                                  ;02C3F5|      ;
 CODE_02C3F6:
    LDA.W Curr_HP_Rooks,X                ;02C3F6|0012F3;
-   LDX.W Selection                      ;02C3F9|00103F;
-   STA.W Array_Category,X               ;02C3FC|0009C7;
+   LDX.W Selection_offset               ;02C3F9|00103F;
+   STA.W Object_var1_Category,X         ;02C3FC|0009C7;
    RTL                                  ;02C3FF|      ;
 LoadData_Enemy48:
    db $04                               ;02C400|      ;
@@ -12936,10 +12935,10 @@ DATA8_02C489:
 CODE_02C496:
    JSL.L Is_Equals_1575                 ;02C496|07AEDD;
    BNE CODE_02C4C6                      ;02C49A|02C4C6;
-   LDX.W Selection                      ;02C49C|00103F;
-   LDA.W Array_Category,X               ;02C49F|0009C7;
+   LDX.W Selection_offset               ;02C49C|00103F;
+   LDA.W Object_var1_Category,X         ;02C49F|0009C7;
    STA.B $20                            ;02C4A2|000020;
-   LDA.W Array_Selection,X              ;02C4A4|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C4A4|0009EB;
    ASL A                                ;02C4A7|      ;
    TAX                                  ;02C4A8|      ;
    LDA.W Curr_HP_Rooks,X                ;02C4A9|0012F3;
@@ -12948,22 +12947,22 @@ CODE_02C496:
    BCS CODE_02C4D4                      ;02C4B0|02C4D4;
 CODE_02C4B2:
    LDA.W Curr_HP_Rooks,X                ;02C4B2|0012F3;
-   LDX.W Selection                      ;02C4B5|00103F;
-   STA.W Array_Category,X               ;02C4B8|0009C7;
+   LDX.W Selection_offset               ;02C4B5|00103F;
+   STA.W Object_var1_Category,X         ;02C4B8|0009C7;
    LDA.W #$C41C                         ;02C4BB|      ;
    LDY.W #$0002                         ;02C4BE|      ;
    JML.L Sub_LoadStuff                  ;02C4C1|008DB4;
    RTL                                  ;02C4C5|      ;
 CODE_02C4C6:
-   LDX.W Selection                      ;02C4C6|00103F;
+   LDX.W Selection_offset               ;02C4C6|00103F;
    LDA.W #$C40B                         ;02C4C9|      ;
    LDY.W #$0002                         ;02C4CC|      ;
    JML.L Sub_LoadStuff                  ;02C4CF|008DB4;
    RTL                                  ;02C4D3|      ;
 CODE_02C4D4:
    LDA.W Curr_HP_Rooks,X                ;02C4D4|0012F3;
-   LDX.W Selection                      ;02C4D7|00103F;
-   STA.W Array_Category,X               ;02C4DA|0009C7;
+   LDX.W Selection_offset               ;02C4D7|00103F;
+   STA.W Object_var1_Category,X         ;02C4DA|0009C7;
    RTL                                  ;02C4DD|      ;
 LoadData_Enemy49:
    db $04                               ;02C4DE|      ;
@@ -13086,10 +13085,10 @@ DATA8_02C563:
 CODE_02C56A:
    JSL.L Is_Equals_1575                 ;02C56A|07AEDD;
    BNE CODE_02C59A                      ;02C56E|02C59A;
-   LDX.W Selection                      ;02C570|00103F;
-   LDA.W Array_Category,X               ;02C573|0009C7;
+   LDX.W Selection_offset               ;02C570|00103F;
+   LDA.W Object_var1_Category,X         ;02C573|0009C7;
    STA.B $20                            ;02C576|000020;
-   LDA.W Array_Selection,X              ;02C578|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C578|0009EB;
    ASL A                                ;02C57B|      ;
    TAX                                  ;02C57C|      ;
    LDA.W Curr_HP_Rooks,X                ;02C57D|0012F3;
@@ -13098,22 +13097,22 @@ CODE_02C56A:
    BCS CODE_02C5A8                      ;02C584|02C5A8;
 CODE_02C586:
    LDA.W Curr_HP_Rooks,X                ;02C586|0012F3;
-   LDX.W Selection                      ;02C589|00103F;
-   STA.W Array_Category,X               ;02C58C|0009C7;
+   LDX.W Selection_offset               ;02C589|00103F;
+   STA.W Object_var1_Category,X         ;02C58C|0009C7;
    LDA.W #$C4FA                         ;02C58F|      ;
    LDY.W #$0002                         ;02C592|      ;
    JML.L Sub_LoadStuff                  ;02C595|008DB4;
    RTL                                  ;02C599|      ;
 CODE_02C59A:
-   LDX.W Selection                      ;02C59A|00103F;
+   LDX.W Selection_offset               ;02C59A|00103F;
    LDA.W #$C4E9                         ;02C59D|      ;
    LDY.W #$0002                         ;02C5A0|      ;
    JML.L Sub_LoadStuff                  ;02C5A3|008DB4;
    RTL                                  ;02C5A7|      ;
 CODE_02C5A8:
    LDA.W Curr_HP_Rooks,X                ;02C5A8|0012F3;
-   LDX.W Selection                      ;02C5AB|00103F;
-   STA.W Array_Category,X               ;02C5AE|0009C7;
+   LDX.W Selection_offset               ;02C5AB|00103F;
+   STA.W Object_var1_Category,X         ;02C5AE|0009C7;
    RTL                                  ;02C5B1|      ;
 LoadData_Enemy4A:
    db $04                               ;02C5B2|      ;
@@ -13236,10 +13235,10 @@ DATA8_02C637:
 CODE_02C63E:
    JSL.L Is_Equals_1575                 ;02C63E|07AEDD;
    BNE CODE_02C66E                      ;02C642|02C66E;
-   LDX.W Selection                      ;02C644|00103F;
-   LDA.W Array_Category,X               ;02C647|0009C7;
+   LDX.W Selection_offset               ;02C644|00103F;
+   LDA.W Object_var1_Category,X         ;02C647|0009C7;
    STA.B $20                            ;02C64A|000020;
-   LDA.W Array_Selection,X              ;02C64C|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C64C|0009EB;
    ASL A                                ;02C64F|      ;
    TAX                                  ;02C650|      ;
    LDA.W Curr_HP_Rooks,X                ;02C651|0012F3;
@@ -13248,22 +13247,22 @@ CODE_02C63E:
    BCS CODE_02C67C                      ;02C658|02C67C;
 CODE_02C65A:
    LDA.W Curr_HP_Rooks,X                ;02C65A|0012F3;
-   LDX.W Selection                      ;02C65D|00103F;
-   STA.W Array_Category,X               ;02C660|0009C7;
+   LDX.W Selection_offset               ;02C65D|00103F;
+   STA.W Object_var1_Category,X         ;02C660|0009C7;
    LDA.W #$C5CE                         ;02C663|      ;
    LDY.W #$0002                         ;02C666|      ;
    JML.L Sub_LoadStuff                  ;02C669|008DB4;
    RTL                                  ;02C66D|      ;
 CODE_02C66E:
-   LDX.W Selection                      ;02C66E|00103F;
+   LDX.W Selection_offset               ;02C66E|00103F;
    LDA.W #$C5BD                         ;02C671|      ;
    LDY.W #$0002                         ;02C674|      ;
    JML.L Sub_LoadStuff                  ;02C677|008DB4;
    RTL                                  ;02C67B|      ;
 CODE_02C67C:
    LDA.W Curr_HP_Rooks,X                ;02C67C|0012F3;
-   LDX.W Selection                      ;02C67F|00103F;
-   STA.W Array_Category,X               ;02C682|0009C7;
+   LDX.W Selection_offset               ;02C67F|00103F;
+   STA.W Object_var1_Category,X         ;02C682|0009C7;
    RTL                                  ;02C685|      ;
 LoadData_Enemy4B:
    db $04                               ;02C686|      ;
@@ -13298,10 +13297,10 @@ DATA8_02C6AE:
 CODE_02C6B3:
    JSL.L Is_Equals_1575                 ;02C6B3|07AEDD;
    BNE CODE_02C6E3                      ;02C6B7|02C6E3;
-   LDX.W Selection                      ;02C6B9|00103F;
-   LDA.W Array_Category,X               ;02C6BC|0009C7;
+   LDX.W Selection_offset               ;02C6B9|00103F;
+   LDA.W Object_var1_Category,X         ;02C6BC|0009C7;
    STA.B $20                            ;02C6BF|000020;
-   LDA.W Array_Selection,X              ;02C6C1|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C6C1|0009EB;
    ASL A                                ;02C6C4|      ;
    TAX                                  ;02C6C5|      ;
    LDA.W Curr_HP_Rooks,X                ;02C6C6|0012F3;
@@ -13310,22 +13309,22 @@ CODE_02C6B3:
    BCS CODE_02C6F1                      ;02C6CD|02C6F1;
 CODE_02C6CF:
    LDA.W Curr_HP_Rooks,X                ;02C6CF|0012F3;
-   LDX.W Selection                      ;02C6D2|00103F;
-   STA.W Array_Category,X               ;02C6D5|0009C7;
+   LDX.W Selection_offset               ;02C6D2|00103F;
+   STA.W Object_var1_Category,X         ;02C6D5|0009C7;
    LDA.W #$C69B                         ;02C6D8|      ;
    LDY.W #$0002                         ;02C6DB|      ;
    JML.L Sub_LoadStuff                  ;02C6DE|008DB4;
    RTL                                  ;02C6E2|      ;
 CODE_02C6E3:
-   LDX.W Selection                      ;02C6E3|00103F;
+   LDX.W Selection_offset               ;02C6E3|00103F;
    LDA.W #$C691                         ;02C6E6|      ;
    LDY.W #$0002                         ;02C6E9|      ;
    JML.L Sub_LoadStuff                  ;02C6EC|008DB4;
    RTL                                  ;02C6F0|      ;
 CODE_02C6F1:
    LDA.W Curr_HP_Rooks,X                ;02C6F1|0012F3;
-   LDX.W Selection                      ;02C6F4|00103F;
-   STA.W Array_Category,X               ;02C6F7|0009C7;
+   LDX.W Selection_offset               ;02C6F4|00103F;
+   STA.W Object_var1_Category,X         ;02C6F7|0009C7;
    RTL                                  ;02C6FA|      ;
 LoadData_Enemy4C:
    db $04                               ;02C6FB|      ;
@@ -13360,10 +13359,10 @@ DATA8_02C723:
 CODE_02C728:
    JSL.L Is_Equals_1575                 ;02C728|07AEDD;
    BNE CODE_02C758                      ;02C72C|02C758;
-   LDX.W Selection                      ;02C72E|00103F;
-   LDA.W Array_Category,X               ;02C731|0009C7;
+   LDX.W Selection_offset               ;02C72E|00103F;
+   LDA.W Object_var1_Category,X         ;02C731|0009C7;
    STA.B $20                            ;02C734|000020;
-   LDA.W Array_Selection,X              ;02C736|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C736|0009EB;
    ASL A                                ;02C739|      ;
    TAX                                  ;02C73A|      ;
    LDA.W Curr_HP_Rooks,X                ;02C73B|0012F3;
@@ -13372,22 +13371,22 @@ CODE_02C728:
    BCS CODE_02C766                      ;02C742|02C766;
 CODE_02C744:
    LDA.W Curr_HP_Rooks,X                ;02C744|0012F3;
-   LDX.W Selection                      ;02C747|00103F;
-   STA.W Array_Category,X               ;02C74A|0009C7;
+   LDX.W Selection_offset               ;02C747|00103F;
+   STA.W Object_var1_Category,X         ;02C74A|0009C7;
    LDA.W #$C710                         ;02C74D|      ;
    LDY.W #$0002                         ;02C750|      ;
    JML.L Sub_LoadStuff                  ;02C753|008DB4;
    RTL                                  ;02C757|      ;
 CODE_02C758:
-   LDX.W Selection                      ;02C758|00103F;
+   LDX.W Selection_offset               ;02C758|00103F;
    LDA.W #$C706                         ;02C75B|      ;
    LDY.W #$0002                         ;02C75E|      ;
    JML.L Sub_LoadStuff                  ;02C761|008DB4;
    RTL                                  ;02C765|      ;
 CODE_02C766:
    LDA.W Curr_HP_Rooks,X                ;02C766|0012F3;
-   LDX.W Selection                      ;02C769|00103F;
-   STA.W Array_Category,X               ;02C76C|0009C7;
+   LDX.W Selection_offset               ;02C769|00103F;
+   STA.W Object_var1_Category,X         ;02C76C|0009C7;
    RTL                                  ;02C76F|      ;
 LoadData_Enemy4D:
    db $04                               ;02C770|      ;
@@ -13422,10 +13421,10 @@ DATA8_02C798:
 CODE_02C79D:
    JSL.L Is_Equals_1575                 ;02C79D|07AEDD;
    BNE CODE_02C7CD                      ;02C7A1|02C7CD;
-   LDX.W Selection                      ;02C7A3|00103F;
-   LDA.W Array_Category,X               ;02C7A6|0009C7;
+   LDX.W Selection_offset               ;02C7A3|00103F;
+   LDA.W Object_var1_Category,X         ;02C7A6|0009C7;
    STA.B $20                            ;02C7A9|000020;
-   LDA.W Array_Selection,X              ;02C7AB|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C7AB|0009EB;
    ASL A                                ;02C7AE|      ;
    TAX                                  ;02C7AF|      ;
    LDA.W Curr_HP_Rooks,X                ;02C7B0|0012F3;
@@ -13434,22 +13433,22 @@ CODE_02C79D:
    BCS CODE_02C7DB                      ;02C7B7|02C7DB;
 CODE_02C7B9:
    LDA.W Curr_HP_Rooks,X                ;02C7B9|0012F3;
-   LDX.W Selection                      ;02C7BC|00103F;
-   STA.W Array_Category,X               ;02C7BF|0009C7;
+   LDX.W Selection_offset               ;02C7BC|00103F;
+   STA.W Object_var1_Category,X         ;02C7BF|0009C7;
    LDA.W #$C785                         ;02C7C2|      ;
    LDY.W #$0002                         ;02C7C5|      ;
    JML.L Sub_LoadStuff                  ;02C7C8|008DB4;
    RTL                                  ;02C7CC|      ;
 CODE_02C7CD:
-   LDX.W Selection                      ;02C7CD|00103F;
+   LDX.W Selection_offset               ;02C7CD|00103F;
    LDA.W #$C77B                         ;02C7D0|      ;
    LDY.W #$0002                         ;02C7D3|      ;
    JML.L Sub_LoadStuff                  ;02C7D6|008DB4;
    RTL                                  ;02C7DA|      ;
 CODE_02C7DB:
    LDA.W Curr_HP_Rooks,X                ;02C7DB|0012F3;
-   LDX.W Selection                      ;02C7DE|00103F;
-   STA.W Array_Category,X               ;02C7E1|0009C7;
+   LDX.W Selection_offset               ;02C7DE|00103F;
+   STA.W Object_var1_Category,X         ;02C7E1|0009C7;
    RTL                                  ;02C7E4|      ;
 LoadData_Enemy4E:
    db $04                               ;02C7E5|      ;
@@ -13499,10 +13498,10 @@ DATA8_02C815:
 CODE_02C81F:
    JSL.L Is_Equals_1575                 ;02C81F|07AEDD;
    BNE CODE_02C84F                      ;02C823|02C84F;
-   LDX.W Selection                      ;02C825|00103F;
-   LDA.W Array_Category,X               ;02C828|0009C7;
+   LDX.W Selection_offset               ;02C825|00103F;
+   LDA.W Object_var1_Category,X         ;02C828|0009C7;
    STA.B $20                            ;02C82B|000020;
-   LDA.W Array_Selection,X              ;02C82D|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C82D|0009EB;
    ASL A                                ;02C830|      ;
    TAX                                  ;02C831|      ;
    LDA.W Curr_HP_Rooks,X                ;02C832|0012F3;
@@ -13511,22 +13510,22 @@ CODE_02C81F:
    BCS CODE_02C85D                      ;02C839|02C85D;
 CODE_02C83B:
    LDA.W Curr_HP_Rooks,X                ;02C83B|0012F3;
-   LDX.W Selection                      ;02C83E|00103F;
-   STA.W Array_Category,X               ;02C841|0009C7;
+   LDX.W Selection_offset               ;02C83E|00103F;
+   STA.W Object_var1_Category,X         ;02C841|0009C7;
    LDA.W #$C7FA                         ;02C844|      ;
    LDY.W #$0002                         ;02C847|      ;
    JML.L Sub_LoadStuff                  ;02C84A|008DB4;
    RTL                                  ;02C84E|      ;
 CODE_02C84F:
-   LDX.W Selection                      ;02C84F|00103F;
+   LDX.W Selection_offset               ;02C84F|00103F;
    LDA.W #$C7F0                         ;02C852|      ;
    LDY.W #$0002                         ;02C855|      ;
    JML.L Sub_LoadStuff                  ;02C858|008DB4;
    RTL                                  ;02C85C|      ;
 CODE_02C85D:
    LDA.W Curr_HP_Rooks,X                ;02C85D|0012F3;
-   LDX.W Selection                      ;02C860|00103F;
-   STA.W Array_Category,X               ;02C863|0009C7;
+   LDX.W Selection_offset               ;02C860|00103F;
+   STA.W Object_var1_Category,X         ;02C863|0009C7;
    RTL                                  ;02C866|      ;
 LoadData_Enemy4F:
    db $04                               ;02C867|      ;
@@ -13616,10 +13615,10 @@ DATA8_02C8C0:
 CODE_02C8D7:
    JSL.L Is_Equals_1575                 ;02C8D7|07AEDD;
    BNE CODE_02C907                      ;02C8DB|02C907;
-   LDX.W Selection                      ;02C8DD|00103F;
-   LDA.W Array_Category,X               ;02C8E0|0009C7;
+   LDX.W Selection_offset               ;02C8DD|00103F;
+   LDA.W Object_var1_Category,X         ;02C8E0|0009C7;
    STA.B $20                            ;02C8E3|000020;
-   LDA.W Array_Selection,X              ;02C8E5|0009EB;
+   LDA.W Object_var2_Selection,X        ;02C8E5|0009EB;
    ASL A                                ;02C8E8|      ;
    TAX                                  ;02C8E9|      ;
    LDA.W Curr_HP_Rooks,X                ;02C8EA|0012F3;
@@ -13628,22 +13627,22 @@ CODE_02C8D7:
    BCS CODE_02C915                      ;02C8F1|02C915;
 CODE_02C8F3:
    LDA.W Curr_HP_Rooks,X                ;02C8F3|0012F3;
-   LDX.W Selection                      ;02C8F6|00103F;
-   STA.W Array_Category,X               ;02C8F9|0009C7;
+   LDX.W Selection_offset               ;02C8F6|00103F;
+   STA.W Object_var1_Category,X         ;02C8F9|0009C7;
    LDA.W #$C87C                         ;02C8FC|      ;
    LDY.W #$0002                         ;02C8FF|      ;
    JML.L Sub_LoadStuff                  ;02C902|008DB4;
    RTL                                  ;02C906|      ;
 CODE_02C907:
-   LDX.W Selection                      ;02C907|00103F;
+   LDX.W Selection_offset               ;02C907|00103F;
    LDA.W #$C872                         ;02C90A|      ;
    LDY.W #$0002                         ;02C90D|      ;
    JML.L Sub_LoadStuff                  ;02C910|008DB4;
    RTL                                  ;02C914|      ;
 CODE_02C915:
    LDA.W Curr_HP_Rooks,X                ;02C915|0012F3;
-   LDX.W Selection                      ;02C918|00103F;
-   STA.W Array_Category,X               ;02C91B|0009C7;
+   LDX.W Selection_offset               ;02C918|00103F;
+   STA.W Object_var1_Category,X         ;02C91B|0009C7;
    RTL                                  ;02C91E|      ;
    db $14                               ;02C91F|000000;
    db $00                               ;02C920|      ;

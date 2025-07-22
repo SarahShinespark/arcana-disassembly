@@ -1669,12 +1669,12 @@ CODE_0388DE:
 CODE_0388EF:
    SEP #$20                             ;0388EF|      ;
    LDA.B #$03                           ;0388F1|      ;
-   STA.W $4324                          ;0388F3|004324;
-   STA.W $4327                          ;0388F6|004327;
+   STA.W DMA2_Source_bank               ;0388F3|004324;
+   STA.W HDMA2_IA_bank                  ;0388F6|004327;
    REP #$20                             ;0388F9|      ;
    LDX.B $00                            ;0388FB|000000;
    LDA.L DATA8_03891C,X                 ;0388FD|03891C;
-   STA.W $4322                          ;038901|004322;
+   STA.W DMA2_Source_lo                 ;038901|004322;
    LDA.W #$0001                         ;038904|      ;
    STA.W $1187                          ;038907|001187;
    RTL                                  ;03890A|      ;
@@ -7034,8 +7034,8 @@ Some_enemy_ID_check:
 CODE_03ADEA:
    RTL                                  ;03ADEA|      ;
 The_69_check:
-   LDX.W #$0008                         ;03ADEB|      ; Returns 1 if enemy slot 1 has battle ID 69. What's that...?
-   LDA.W Battle_Enemy_ID,X              ;03ADEE|000643;
+   LDX.W #$0008                         ;03ADEB|      ; Checks if the current event ID is 69.
+   LDA.W Event_ID_Slot_00,X             ;03ADEE|000643;
    CMP.W #$0069                         ;03ADF1|      ; Nice.
    BEQ CODE_03ADFA                      ;03ADF4|03ADFA;
    LDA.W #$0000                         ;03ADF6|      ;
@@ -7043,7 +7043,7 @@ The_69_check:
 CODE_03ADFA:
    LDA.W #$0001                         ;03ADFA|      ;
    RTL                                  ;03ADFD|      ;
-DATA8_03ADFE:
+Event_Main_69:
    db $38                               ;03ADFE|      ;
    dw $0080                             ;03ADFF|      ;
    db $40                               ;03AE01|      ;
@@ -7063,8 +7063,8 @@ DATA8_03AE04:
    db $0C                               ;03AE0F|      ;
    db $1A                               ;03AE10|      ;
    dw DATA8_03AE04                      ;03AE11|03AE04;
-UNREACH_03AE13:
-   db $01                               ;03AE13|000038;
+DATA8_03AE13:
+   db $01                               ;03AE13|      ;
    db $38                               ;03AE14|      ;
    db $20                               ;03AE15|030848;
    db $48                               ;03AE16|      ;
@@ -7424,8 +7424,8 @@ UNREACH_03AE13:
    db $30                               ;03AF78|03AFE2;
    db $68                               ;03AF79|      ;
    db $08                               ;03AF7A|      ;
-UNREACH_03AF7B:
-   db $01                               ;03AF7B|0000B8;
+DATA8_03AF7B:
+   db $01                               ;03AF7B|      ;
    db $B8                               ;03AF7C|      ;
    db $20                               ;03AF7D|034848;
    db $48                               ;03AF7E|      ;
@@ -7785,8 +7785,8 @@ UNREACH_03AF7B:
    db $30                               ;03B0E0|03B14A;
    db $68                               ;03B0E1|      ;
    db $48                               ;03B0E2|      ;
-UNREACH_03B0E3:
-   db $01                               ;03B0E3|000038;
+DATA8_03B0E3:
+   db $01                               ;03B0E3|      ;
    db $38                               ;03B0E4|      ;
    db $20                               ;03B0E5|030848;
    db $48                               ;03B0E6|      ;
@@ -8147,9 +8147,9 @@ UNREACH_03B0E3:
    db $6C                               ;03B249|001308;
    db $08                               ;03B24A|      ;
 Tbl_03B24B:
-   dw UNREACH_03AE13                    ;03B24B|03AE13;
-   dw UNREACH_03AF7B                    ;03B24D|03AF7B;
-   dw UNREACH_03B0E3                    ;03B24F|03B0E3;
+   dw DATA8_03AE13                      ;03B24B|03AE13;
+   dw DATA8_03AF7B                      ;03B24D|03AF7B;
+   dw DATA8_03B0E3                      ;03B24F|03B0E3;
 TileData:
    db $00                               ;03B251|      ;
    db $80                               ;03B252|      ;
@@ -8533,8 +8533,8 @@ CODE_03B448:
    JSL.L RAM_Decomp80                   ;03B454|0084FE;
    SEP #$20                             ;03B458|      ;
    LDA.B #$03                           ;03B45A|      ;
-   STA.W $4324                          ;03B45C|004324;
-   STA.W $4327                          ;03B45F|004327;
+   STA.W DMA2_Source_bank               ;03B45C|004324;
+   STA.W HDMA2_IA_bank                  ;03B45F|004327;
    REP #$20                             ;03B462|      ;
    LDA.W Curr_area                      ;03B464|001573;
    CMP.W #$0003                         ;03B467|      ;
@@ -8544,7 +8544,7 @@ CODE_03B448:
 CODE_03B471:
    LDA.W #$B6A2                         ;03B471|      ;
 CODE_03B474:
-   STA.W $4322                          ;03B474|004322;
+   STA.W DMA2_Source_lo                 ;03B474|004322;
    LDA.W #$0001                         ;03B477|      ;
    STA.W $1187                          ;03B47A|001187;
    RTL                                  ;03B47D|      ;
@@ -9496,11 +9496,11 @@ Some_section:
    db $23                               ;03B8E1|000003;
    db $03                               ;03B8E2|000007;
    db $07                               ;03B8E3|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;03B8E4|00A097;
+   dl Text_Init_3b_1b                   ;03B8E4|00A097;
    dl DATA8_018A45                      ;03B8E7|018A45;
    db $00                               ;03B8EA|      ;
    db $07                               ;03B8EB|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;03B8EC|00A097;
+   dl Text_Init_3b_1b                   ;03B8EC|00A097;
    dl DATA8_018A4A                      ;03B8EF|018A4A;
    db $01                               ;03B8F2|      ;
    db $07                               ;03B8F3|      ;
@@ -9595,11 +9595,11 @@ DATA8_03B93F:
    db $01                               ;03B986|      ;
    db $02                               ;03B987|      ;
    db $07                               ;03B988|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;03B989|00A097;
+   dl Text_Init_3b_1b                   ;03B989|00A097;
    dl DATA8_018A45                      ;03B98C|018A45;
    db $00                               ;03B98F|      ;
    db $07                               ;03B990|      ;
-   dl GetPtr_3b_Do_stuff_1b             ;03B991|00A097;
+   dl Text_Init_3b_1b                   ;03B991|00A097;
    dl DATA8_018A4A                      ;03B994|018A4A;
    db $01                               ;03B997|      ;
    db $07                               ;03B998|      ;
@@ -10286,7 +10286,7 @@ File_saved:
    db $2A                               ;03BDD7|      ;
    db $06                               ;03BDD8|      ; 06 5A
    db $5A                               ;03BDD9|      ;
-   db $07                               ;03BDDA|      ;
+   db $07                               ;03BDDA|      ; Text "File is saved"
    dl Setup_Text_Parser_3b              ;03BDDB|00A0AC;
    dl Inn_File_x_is_saved               ;03BDDE|08CE1B;
    db $00                               ;03BDE1|      ;
@@ -12340,7 +12340,7 @@ Call_Travel_ASM:
    db $1E                               ;03CAA9|      ;
    dw $0001                             ;03CAAA|      ;
    db $05                               ;03CAAC|      ; 05: RTL
-DATA8_03CAAD:
+Event_Main_68:
    db $21                               ;03CAAD|      ;
    db $01                               ;03CAAE|      ;
    db $38                               ;03CAAF|      ;
@@ -13335,7 +13335,7 @@ DATA8_03CF68:
 Xfer_03CF6D:
    db $07                               ;03CF6D|      ;
    dl Transfer_Data_3b_1b_2b            ;03CF6E|00A140;
-   dl Xfer_05_9507                      ;03CF71|0D920A;
+   dl Palette_05_9507                   ;03CF71|0D920A;
    db $70                               ;03CF74|      ;
    dw $0020                             ;03CF75|      ;
 Xfer_03CF77:
@@ -13366,7 +13366,7 @@ Xfer_03CF91:
 Xfer_03CFA0:
    db $07                               ;03CFA0|      ;
    dl Transfer_Data_3b_1b_2b            ;03CFA1|00A140;
-   dl Xfer_05_9507                      ;03CFA4|0D920A;
+   dl Palette_05_9507                   ;03CFA4|0D920A;
    db $50                               ;03CFA7|      ;
    dw $0020                             ;03CFA8|      ;
    db $1C                               ;03CFAA|      ; RTS
@@ -13391,7 +13391,7 @@ Xfer_03CFBA:
 Xfer_03CFC9:
    db $07                               ;03CFC9|      ;
    dl Transfer_Data_3b_1b_2b            ;03CFCA|00A140;
-   dl Xfer_05_9507                      ;03CFCD|0D920A;
+   dl Palette_05_9507                   ;03CFCD|0D920A;
    db $60                               ;03CFD0|      ;
    dw $0020                             ;03CFD1|      ;
    db $1C                               ;03CFD3|      ;
@@ -13734,21 +13734,21 @@ Load_shop_music__:
    AND.W #$00FF                         ;03D20E|      ;
    JML.L Sub_Set_Music                  ;03D211|00D118;
 Shop_Handling:
-   LDX.W Selection                      ;03D215|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D218|0009A3;
+   LDX.W Selection_offset               ;03D215|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D218|0009A3;
    SEC                                  ;03D21B|      ;
    SBC.W #$0008                         ;03D21C|      ;
-   STA.W Array_Menu_Cursor,X            ;03D21F|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D21F|0009A3;
    LDA.W #$0003                         ;03D222|      ;
    STA.W Shop_Curr_Selection            ;03D225|00188D;
    DEC.W Shop_selection                 ;03D228|001885;
    BRA CODE_03D240                      ;03D22B|03D240;
 CODE_03D22D:
-   LDX.W Selection                      ;03D22D|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D230|0009A3;
+   LDX.W Selection_offset               ;03D22D|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D230|0009A3;
    CLC                                  ;03D233|      ;
    ADC.W #$0008                         ;03D234|      ;
-   STA.W Array_Menu_Cursor,X            ;03D237|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D237|0009A3;
    STZ.W Shop_Curr_Selection            ;03D23A|00188D;
    INC.W Shop_selection                 ;03D23D|001885;
 CODE_03D240:
@@ -13761,10 +13761,10 @@ Get_Shop_Weapons:
    LDA.W Curr_area                      ;03D24D|001573;
    ASL A                                ;03D250|      ;
    TAX                                  ;03D251|      ;
-   LDY.W Selection                      ;03D252|00103F;
+   LDY.W Selection_offset               ;03D252|00103F;
    LDA.W Tbl_Wpn_Shop_Size,X            ;03D255|03D2D1;
    STA.W Shop_Max_Entries               ;03D258|001883;
-   LDA.W Array_Menu_Cursor,Y            ;03D25B|0009A3;
+   LDA.W Object_var0_Menu_Cursor,Y      ;03D25B|0009A3;
    CLC                                  ;03D25E|      ;
    ADC.W Tbl_Weapon_Shops,X             ;03D25F|03D2DB;
    STA.B $00                            ;03D262|000000;
@@ -13918,21 +13918,21 @@ Wpn_Shop_Ch5:
    dw $005E                             ;03D381|      ;
    dw $005F                             ;03D383|      ;
 Prev_Shop_Item:
-   LDX.W Selection                      ;03D385|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D388|0009A3;
+   LDX.W Selection_offset               ;03D385|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D388|0009A3;
    SEC                                  ;03D38B|      ;
    SBC.W #$0008                         ;03D38C|      ;
-   STA.W Array_Menu_Cursor,X            ;03D38F|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D38F|0009A3;
    LDA.W #$0003                         ;03D392|      ;
    STA.W Shop_Curr_Selection            ;03D395|00188D;
    DEC.W Shop_selection                 ;03D398|001885;
    BRA Shop_input_related               ;03D39B|03D3B0;
 Next_Shop_Item:
-   LDX.W Selection                      ;03D39D|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D3A0|0009A3;
+   LDX.W Selection_offset               ;03D39D|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D3A0|0009A3;
    CLC                                  ;03D3A3|      ;
    ADC.W #$0008                         ;03D3A4|      ;
-   STA.W Array_Menu_Cursor,X            ;03D3A7|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D3A7|0009A3;
    STZ.W Shop_Curr_Selection            ;03D3AA|00188D;
    INC.W Shop_selection                 ;03D3AD|001885;
 Shop_input_related:
@@ -13946,12 +13946,12 @@ Shop_input_related:
    TAY                                  ;03D3C1|      ;
    LDA.W Tbl_Item_Shop_Size,Y           ;03D3C2|03D461;
    STA.W Shop_Max_Entries               ;03D3C5|001883;
-   LDX.W Selection                      ;03D3C8|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D3CB|0009A3;
+   LDX.W Selection_offset               ;03D3C8|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D3CB|0009A3;
    CLC                                  ;03D3CE|      ;
    ADC.W Tbl_Item_Shops,Y               ;03D3CF|03D46B;
    STA.B $00                            ;03D3D2|000000;
-   LDA.W Tbl_Item_Prices,Y              ;03D3D4|03D49F;
+   LDA.W Tbl_Ch_Item_Prices,Y           ;03D3D4|03D49F;
    STA.B $02                            ;03D3D7|000002;
    LDY.W #$0006                         ;03D3D9|      ;
 CODE_03D3DC:
@@ -13978,12 +13978,12 @@ CODE_03D3DC:
    DEY                                  ;03D403|      ;
    BPL CODE_03D3DC                      ;03D404|03D3DC;
    PLB                                  ;03D406|      ;
-   LDX.W Selection                      ;03D407|00103F;
+   LDX.W Selection_offset               ;03D407|00103F;
    LDA.W Shop_Max_Entries               ;03D40A|001883;
    DEC A                                ;03D40D|      ;
    ASL A                                ;03D40E|      ;
    SEC                                  ;03D40F|      ;
-   SBC.W Array_Menu_Cursor,X            ;03D410|0009A3;
+   SBC.W Object_var0_Menu_Cursor,X      ;03D410|0009A3;
    CMP.W #$0008                         ;03D413|      ;
    BCC CODE_03D41B                      ;03D416|03D41B;
    LDA.W #$0006                         ;03D418|      ;
@@ -14056,7 +14056,7 @@ Item_Shop_2:
    dw $0006                             ;03D499|      ;
    dw $0007                             ;03D49B|      ;
    dw $0008                             ;03D49D|      ;
-Tbl_Item_Prices:
+Tbl_Ch_Item_Prices:
    dw Galia_Item_Prices                 ;03D49F|03D4A7;
    dw Doraf_Item_Prices                 ;03D4A1|03D4C9;
    dw Doraf_Item_Prices                 ;03D4A3|03D4C9;
@@ -14358,7 +14358,7 @@ CODE_03D6D0:
    TAX                                  ;03D6D8|      ;
    LDA.W Tbl_Item_Shops,X               ;03D6D9|03D46B;
    STA.B $00                            ;03D6DC|000000;
-   LDA.W Tbl_Item_Prices,X              ;03D6DE|03D49F;
+   LDA.W Tbl_Ch_Item_Prices,X           ;03D6DE|03D49F;
    STA.B $08                            ;03D6E1|000008;
    LDA.W $189F                          ;03D6E3|00189F;
    ASL A                                ;03D6E6|      ;
@@ -14422,21 +14422,21 @@ CODE_03D72E:
    LDA.W #$0000                         ;03D752|      ;
    RTL                                  ;03D755|      ;
 CODE_03D756:
-   LDX.W Selection                      ;03D756|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D759|0009A3;
+   LDX.W Selection_offset               ;03D756|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D759|0009A3;
    SEC                                  ;03D75C|      ;
    SBC.W #$000C                         ;03D75D|      ;
-   STA.W Array_Menu_Cursor,X            ;03D760|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D760|0009A3;
    LDA.W #$0005                         ;03D763|      ;
    STA.W Shop_Curr_Selection            ;03D766|00188D;
    DEC.W Shop_selection                 ;03D769|001885;
    BRA CODE_03D781                      ;03D76C|03D781;
 CODE_03D76E:
-   LDX.W Selection                      ;03D76E|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D771|0009A3;
+   LDX.W Selection_offset               ;03D76E|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D771|0009A3;
    CLC                                  ;03D774|      ;
    ADC.W #$000C                         ;03D775|      ;
-   STA.W Array_Menu_Cursor,X            ;03D778|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D778|0009A3;
    STZ.W Shop_Curr_Selection            ;03D77B|00188D;
    INC.W Shop_selection                 ;03D77E|001885;
 CODE_03D781:
@@ -14456,8 +14456,8 @@ CODE_03D79A:
    LSR A                                ;03D79B|      ;
    INC A                                ;03D79C|      ;
    STA.W Shop_Max_Entries               ;03D79D|001883;
-   LDY.W Selection                      ;03D7A0|00103F;
-   LDX.W Array_Menu_Cursor,Y            ;03D7A3|0009A3;
+   LDY.W Selection_offset               ;03D7A0|00103F;
+   LDX.W Object_var0_Menu_Cursor,Y      ;03D7A3|0009A3;
    LDY.W #$0000                         ;03D7A6|      ;
 CODE_03D7A9:
    CPX.W #$0040                         ;03D7A9|      ;
@@ -14512,21 +14512,21 @@ CODE_03D7E8:
    LDA.W #$0001                         ;03D813|      ;
    JML.L Set_Text_Parser_long           ;03D816|00A688;
 CODE_03D81A:
-   LDX.W Selection                      ;03D81A|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D81D|0009A3;
+   LDX.W Selection_offset               ;03D81A|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D81D|0009A3;
    SEC                                  ;03D820|      ;
    SBC.W #$000C                         ;03D821|      ;
-   STA.W Array_Menu_Cursor,X            ;03D824|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D824|0009A3;
    LDA.W #$0005                         ;03D827|      ;
    STA.W Shop_Curr_Selection            ;03D82A|00188D;
    DEC.W Shop_selection                 ;03D82D|001885;
    BRA Trade_Draw_Items                 ;03D830|03D845;
 CODE_03D832:
-   LDX.W Selection                      ;03D832|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03D835|0009A3;
+   LDX.W Selection_offset               ;03D832|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03D835|0009A3;
    CLC                                  ;03D838|      ;
    ADC.W #$000C                         ;03D839|      ;
-   STA.W Array_Menu_Cursor,X            ;03D83C|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03D83C|0009A3;
    STZ.W Shop_Curr_Selection            ;03D83F|00188D;
    INC.W Shop_selection                 ;03D842|001885;
 Trade_Draw_Items:
@@ -14545,8 +14545,8 @@ CODE_03D85B:
    LSR A                                ;03D85C|      ;
    INC A                                ;03D85D|      ;
    STA.W Shop_Max_Entries               ;03D85E|001883;
-   LDY.W Selection                      ;03D861|00103F;
-   LDX.W Array_Menu_Cursor,Y            ;03D864|0009A3;
+   LDY.W Selection_offset               ;03D861|00103F;
+   LDX.W Object_var0_Menu_Cursor,Y      ;03D864|0009A3;
    LDY.W #$0000                         ;03D867|      ;
 CODE_03D86A:
    CPX.W #$0060                         ;03D86A|      ;
@@ -14579,7 +14579,7 @@ CODE_03D87B:
    LDA.W #$0001                         ;03D8A3|      ;
    JML.L Set_Text_Parser_long           ;03D8A6|00A688;
 CODE_03D8AA:
-   LDY.W Selection                      ;03D8AA|00103F;
+   LDY.W Selection_offset               ;03D8AA|00103F;
    LDA.W Shop_selection                 ;03D8AD|001885;
    ASL A                                ;03D8B0|      ;
    TAX                                  ;03D8B1|      ;
@@ -14606,8 +14606,8 @@ CODE_03D8AA:
    STA.B $02                            ;03D8E5|000002;
    LDA.W #$0001                         ;03D8E7|      ;
    JSL.L Set_Text_Parser_long           ;03D8EA|00A688;
-   LDY.W Selection                      ;03D8EE|00103F;
-   LDA.W Array_Target,Y                 ;03D8F1|000A0F;
+   LDY.W Selection_offset               ;03D8EE|00103F;
+   LDA.W Object_var3_Target,Y           ;03D8F1|000A0F;
    TAY                                  ;03D8F4|      ;
    PLX                                  ;03D8F5|      ;
    LDA.L Inventory_Eqp,X                ;03D8F6|001419;
@@ -14615,8 +14615,8 @@ CODE_03D8AA:
    CMP.W #$FF00                         ;03D8FD|      ;
    BNE CODE_03D90C                      ;03D900|03D90C;
    LDA.W #$0180                         ;03D902|      ;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;03D905|0007AB;
-   STA.W Cursor_Array_Ypos,Y            ;03D908|00071B;
+   STA.W Object_YPOS_mirror,Y           ;03D905|0007AB;
+   STA.W Object_YPOS,Y                  ;03D908|00071B;
    RTL                                  ;03D90B|      ;
 CODE_03D90C:
    XBA                                  ;03D90C|      ;
@@ -14632,11 +14632,11 @@ CODE_03D91A:
    ASL A                                ;03D91E|      ;
    TAX                                  ;03D91F|      ;
    LDA.L DATA16_03D935,X                ;03D920|03D935;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;03D924|000787;
-   STA.W Cursor_Array_Xpos,Y            ;03D927|0006F7;
+   STA.W Object_XPOS_mirror,Y           ;03D924|000787;
+   STA.W Object_XPOS,Y                  ;03D927|0006F7;
    LDA.L DATA16_03D93D,X                ;03D92A|03D93D;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;03D92E|0007AB;
-   STA.W Cursor_Array_Ypos,Y            ;03D931|00071B;
+   STA.W Object_YPOS_mirror,Y           ;03D92E|0007AB;
+   STA.W Object_YPOS,Y                  ;03D931|00071B;
    RTL                                  ;03D934|      ;
 DATA16_03D935:
    dw $001C                             ;03D935|      ;
@@ -14649,7 +14649,7 @@ DATA16_03D93D:
    dw $00A0                             ;03D941|      ;
    dw $00A0                             ;03D943|      ;
 Trade_Item:
-   LDY.W Selection                      ;03D945|00103F;
+   LDY.W Selection_offset               ;03D945|00103F;
    LDA.W Shop_selection                 ;03D948|001885;
    ASL A                                ;03D94B|      ;
    TAX                                  ;03D94C|      ;
@@ -14671,7 +14671,7 @@ Trade_Item:
    LDA.W Curr_area                      ;03D974|001573;
    ASL A                                ;03D977|      ;
    TAY                                  ;03D978|      ;
-   LDA.W Tbl_Item_Prices,Y              ;03D979|03D49F;
+   LDA.W Tbl_Ch_Item_Prices,Y           ;03D979|03D49F;
    STA.B $00                            ;03D97C|000000;
    LDY.B $04                            ;03D97E|000004;
    LDA.B ($00),Y                        ;03D980|000000;
@@ -14698,7 +14698,7 @@ CODE_03D9A3:
    LDY.B #$06                           ;03D9AB|      ;
    STY.W $4206                          ;03D9AD|004206;
    REP #$10                             ;03D9B0|      ;
-   LDY.W Selection                      ;03D9B2|00103F;
+   LDY.W Selection_offset               ;03D9B2|00103F;
    STA.W Shop_selection                 ;03D9B5|001885;
    LDX.W Mult_Divide_Result             ;03D9B8|004216;
    LDA.W Quotient                       ;03D9BB|004214;
@@ -14706,7 +14706,7 @@ CODE_03D9A3:
    STA.W Multiply_lo                    ;03D9C1|004202;
    STX.W Shop_Curr_Selection            ;03D9C4|00188D;
    LDA.W Mult_Divide_Result             ;03D9C7|004216;
-   STA.W Array_Menu_Cursor,Y            ;03D9CA|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03D9CA|0009A3;
    RTL                                  ;03D9CD|      ;
 Trade_Cursor_Sus1:
    LDA.W $18A1                          ;03D9CE|0018A1;
@@ -14725,67 +14725,67 @@ Trade_Cursor_Sus1:
    LDA.W Quotient                       ;03D9F0|004214;
    ORA.W #$0C00                         ;03D9F3|      ;
    STA.W Multiply_lo                    ;03D9F6|004202;
-   LDY.W Selection                      ;03D9F9|00103F;
+   LDY.W Selection_offset               ;03D9F9|00103F;
    LDA.W Mult_Divide_Result             ;03D9FC|004216;
-   STA.W Array_Menu_Cursor,Y            ;03D9FF|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03D9FF|0009A3;
    RTL                                  ;03DA02|      ;
 CODE_03DA03:
    LDA.W $189F                          ;03DA03|00189F;
    AND.W #$0003                         ;03DA06|      ;
    ORA.W #$0300                         ;03DA09|      ;
    STA.W Multiply_lo                    ;03DA0C|004202;
-   LDY.W Selection                      ;03DA0F|00103F;
+   LDY.W Selection_offset               ;03DA0F|00103F;
    LDX.W Mult_Divide_Result             ;03DA12|004216;
    LDA.L DATA8_03E6D2,X                 ;03DA15|03E6D2;
    AND.W #$00FF                         ;03DA19|      ;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;03DA1C|000787;
-   STA.W Cursor_Array_Xpos,Y            ;03DA1F|0006F7;
+   STA.W Object_XPOS_mirror,Y           ;03DA1C|000787;
+   STA.W Object_XPOS,Y                  ;03DA1F|0006F7;
    LDA.L DATA8_03E6D3,X                 ;03DA22|03E6D3;
    AND.W #$00FF                         ;03DA26|      ;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;03DA29|0007AB;
-   STA.W Cursor_Array_Ypos,Y            ;03DA2C|00071B;
+   STA.W Object_YPOS_mirror,Y           ;03DA29|0007AB;
+   STA.W Object_YPOS,Y                  ;03DA2C|00071B;
    LDA.W $189F                          ;03DA2F|00189F;
    AND.W #$FFFC                         ;03DA32|      ;
    ASL A                                ;03DA35|      ;
-   STA.W Array_Menu_Cursor,Y            ;03DA36|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03DA36|0009A3;
    RTL                                  ;03DA39|      ;
 CODE_03DA3A:
    LDA.W $189F                          ;03DA3A|00189F;
    AND.W #$0003                         ;03DA3D|      ;
    ORA.W #$0300                         ;03DA40|      ;
    STA.W Multiply_lo                    ;03DA43|004202;
-   LDY.W Selection                      ;03DA46|00103F;
+   LDY.W Selection_offset               ;03DA46|00103F;
    LDX.W Mult_Divide_Result             ;03DA49|004216;
    LDA.L DATA8_03E6D2,X                 ;03DA4C|03E6D2;
    AND.W #$00FF                         ;03DA50|      ;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;03DA53|000787;
-   STA.W Cursor_Array_Xpos,Y            ;03DA56|0006F7;
+   STA.W Object_XPOS_mirror,Y           ;03DA53|000787;
+   STA.W Object_XPOS,Y                  ;03DA56|0006F7;
    LDA.L DATA8_03E6D3,X                 ;03DA59|03E6D3;
    AND.W #$00FF                         ;03DA5D|      ;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;03DA60|0007AB;
-   STA.W Cursor_Array_Ypos,Y            ;03DA63|00071B;
+   STA.W Object_YPOS_mirror,Y           ;03DA60|0007AB;
+   STA.W Object_YPOS,Y                  ;03DA63|00071B;
    LDA.W $189F                          ;03DA66|00189F;
    AND.W #$FFFC                         ;03DA69|      ;
    ASL A                                ;03DA6C|      ;
-   STA.W Array_Menu_Cursor,Y            ;03DA6D|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03DA6D|0009A3;
    RTL                                  ;03DA70|      ;
 Shop_related_2b:
-   LDX.W Selection                      ;03DA71|00103F;
+   LDX.W Selection_offset               ;03DA71|00103F;
    JSL.L GetEventCode_2b_far            ;03DA74|009B07;
    STA.B $18                            ;03DA78|000018;
    LDA.B ($18)                          ;03DA7A|000018;
    STA.W Shop_selection                 ;03DA7C|001885;
    AND.W #$FFFC                         ;03DA7F|      ;
    ASL A                                ;03DA82|      ;
-   STA.W Array_Menu_Cursor,X            ;03DA83|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03DA83|0009A3;
    LDA.B ($18)                          ;03DA86|000018;
    AND.W #$0003                         ;03DA88|      ;
    STA.W Shop_Curr_Selection            ;03DA8B|00188D;
    RTL                                  ;03DA8E|      ;
 Shop_Equipment_Helper:
    STZ.B $00                            ;03DA8F|000000; Not really sure what this does yet
-   LDY.W Selection                      ;03DA91|00103F;
-   LDX.W Array_Menu_Cursor,Y            ;03DA94|0009A3;
+   LDY.W Selection_offset               ;03DA91|00103F;
+   LDX.W Object_var0_Menu_Cursor,Y      ;03DA94|0009A3;
    LDY.W #$0000                         ;03DA97|      ;
 CODE_03DA9A:
    CPX.W #$0040                         ;03DA9A|      ;
@@ -14849,8 +14849,8 @@ CODE_03DB15:
    RTL                                  ;03DB18|      ;
 CODE_03DB19:
    STZ.B $00                            ;03DB19|000000;
-   LDY.W Selection                      ;03DB1B|00103F;
-   LDX.W Array_Menu_Cursor,Y            ;03DB1E|0009A3;
+   LDY.W Selection_offset               ;03DB1B|00103F;
+   LDX.W Object_var0_Menu_Cursor,Y      ;03DB1E|0009A3;
    LDY.W #$0000                         ;03DB21|      ;
 CODE_03DB24:
    CPX.W #$0060                         ;03DB24|      ;
@@ -14892,12 +14892,12 @@ CODE_03DB6F:
    STA.W Shop_Max_Entries               ;03DB6F|001883;
    RTL                                  ;03DB72|      ;
 Sell_Weapon_Desc:
-   LDY.W Selection                      ;03DB73|00103F;
+   LDY.W Selection_offset               ;03DB73|00103F;
    LDA.W Shop_selection                 ;03DB76|001885;
    DEC A                                ;03DB79|      ;
    ASL A                                ;03DB7A|      ;
    CLC                                  ;03DB7B|      ;
-   ADC.W Array_Menu_Cursor,Y            ;03DB7C|0009A3;
+   ADC.W Object_var0_Menu_Cursor,Y      ;03DB7C|0009A3;
    TAX                                  ;03DB7F|      ;
    PHX                                  ;03DB80|      ;
    LDA.L Inventory_Eqp,X                ;03DB81|001419;
@@ -14910,8 +14910,8 @@ Sell_Weapon_Desc:
    STA.B $02                            ;03DB94|000002;
    LDA.W #$0000                         ;03DB96|      ;
    JSL.L Set_Text_Parser_long           ;03DB99|00A688;
-   LDY.W Selection                      ;03DB9D|00103F;
-   LDA.W Array_Target,Y                 ;03DBA0|000A0F;
+   LDY.W Selection_offset               ;03DB9D|00103F;
+   LDA.W Object_var3_Target,Y           ;03DBA0|000A0F;
    TAY                                  ;03DBA3|      ;
    PLX                                  ;03DBA4|      ;
    LDA.L Inventory_Eqp,X                ;03DBA5|001419;
@@ -14919,8 +14919,8 @@ Sell_Weapon_Desc:
    CMP.W #$FF00                         ;03DBAC|      ;
    BNE CODE_03DBBB                      ;03DBAF|03DBBB;
    LDA.W #$0180                         ;03DBB1|      ;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;03DBB4|0007AB;
-   STA.W Cursor_Array_Ypos,Y            ;03DBB7|00071B;
+   STA.W Object_YPOS_mirror,Y           ;03DBB4|0007AB;
+   STA.W Object_YPOS,Y                  ;03DBB7|00071B;
    RTL                                  ;03DBBA|      ;
 CODE_03DBBB:
    XBA                                  ;03DBBB|      ;
@@ -14936,20 +14936,20 @@ CODE_03DBC9:
    ASL A                                ;03DBCD|      ;
    TAX                                  ;03DBCE|      ;
    LDA.L DATA16_03D935,X                ;03DBCF|03D935;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;03DBD3|000787;
-   STA.W Cursor_Array_Xpos,Y            ;03DBD6|0006F7;
+   STA.W Object_XPOS_mirror,Y           ;03DBD3|000787;
+   STA.W Object_XPOS,Y                  ;03DBD6|0006F7;
    LDA.L DATA16_03D93D,X                ;03DBD9|03D93D;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;03DBDD|0007AB;
-   STA.W Cursor_Array_Ypos,Y            ;03DBE0|00071B;
+   STA.W Object_YPOS_mirror,Y           ;03DBDD|0007AB;
+   STA.W Object_YPOS,Y                  ;03DBE0|00071B;
    RTL                                  ;03DBE3|      ;
 CODE_03DBE4:
-   LDY.W Selection                      ;03DBE4|00103F;
+   LDY.W Selection_offset               ;03DBE4|00103F;
    LDA.W Shop_selection                 ;03DBE7|001885;
    DEC A                                ;03DBEA|      ;
    DEC A                                ;03DBEB|      ;
    ASL A                                ;03DBEC|      ;
    CLC                                  ;03DBED|      ;
-   ADC.W Array_Menu_Cursor,Y            ;03DBEE|0009A3;
+   ADC.W Object_var0_Menu_Cursor,Y      ;03DBEE|0009A3;
    TAX                                  ;03DBF1|      ;
    LDA.L Inventory_Items,X              ;03DBF2|0013B9;
    INC A                                ;03DBF6|      ;
@@ -14963,28 +14963,28 @@ CODE_03DBE4:
    LDA.W #$0000                         ;03DC06|      ;
    JML.L Set_Text_Parser_long           ;03DC09|00A688;
 CODE_03DC0D:
-   LDY.W Selection                      ;03DC0D|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;03DC10|0009A3;
+   LDY.W Selection_offset               ;03DC0D|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;03DC10|0009A3;
    SEC                                  ;03DC13|      ;
    SBC.W #$0010                         ;03DC14|      ;
    BCS CODE_03DC1C                      ;03DC17|03DC1C;
    ADC.W #$0040                         ;03DC19|      ;
 CODE_03DC1C:
-   STA.W Array_Menu_Cursor,Y            ;03DC1C|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03DC1C|0009A3;
    JSL.L Shop_Equipment_Helper          ;03DC1F|03DA8F;
    CMP.W #$0000                         ;03DC23|      ;
    BEQ CODE_03DC0D                      ;03DC26|03DC0D;
    BRA CODE_03DC48                      ;03DC28|03DC48;
 CODE_03DC2A:
-   LDY.W Selection                      ;03DC2A|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;03DC2D|0009A3;
+   LDY.W Selection_offset               ;03DC2A|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;03DC2D|0009A3;
    CLC                                  ;03DC30|      ;
    ADC.W #$0010                         ;03DC31|      ;
    CMP.W #$0040                         ;03DC34|      ;
    BCC CODE_03DC3C                      ;03DC37|03DC3C;
    SBC.W #$0040                         ;03DC39|      ;
 CODE_03DC3C:
-   STA.W Array_Menu_Cursor,Y            ;03DC3C|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03DC3C|0009A3;
    JSL.L Shop_Equipment_Helper          ;03DC3F|03DA8F;
    CMP.W #$0000                         ;03DC43|      ;
    BEQ CODE_03DC2A                      ;03DC46|03DC2A;
@@ -14998,28 +14998,28 @@ CODE_03DC48:
    LDA.W #$0001                         ;03DC58|      ;
    JML.L Set_Text_Parser_long           ;03DC5B|00A688;
 CODE_03DC5F:
-   LDY.W Selection                      ;03DC5F|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;03DC62|0009A3;
+   LDY.W Selection_offset               ;03DC5F|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;03DC62|0009A3;
    SEC                                  ;03DC65|      ;
    SBC.W #$0010                         ;03DC66|      ;
    BCS CODE_03DC6E                      ;03DC69|03DC6E;
    ADC.W #$0060                         ;03DC6B|      ;
 CODE_03DC6E:
-   STA.W Array_Menu_Cursor,Y            ;03DC6E|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03DC6E|0009A3;
    JSL.L CODE_03DB19                    ;03DC71|03DB19;
    CMP.W #$0000                         ;03DC75|      ;
    BEQ CODE_03DC5F                      ;03DC78|03DC5F;
    BRA CODE_03DC9A                      ;03DC7A|03DC9A;
 Shop_cursor_related:
-   LDY.W Selection                      ;03DC7C|00103F; Probably the cursor??
-   LDA.W Array_Menu_Cursor,Y            ;03DC7F|0009A3;
+   LDY.W Selection_offset               ;03DC7C|00103F; Probably the cursor??
+   LDA.W Object_var0_Menu_Cursor,Y      ;03DC7F|0009A3;
    CLC                                  ;03DC82|      ;
    ADC.W #$0010                         ;03DC83|      ;
    CMP.W #$0060                         ;03DC86|      ;
    BCC CODE_03DC8E                      ;03DC89|03DC8E;
    SBC.W #$0060                         ;03DC8B|      ;
 CODE_03DC8E:
-   STA.W Array_Menu_Cursor,Y            ;03DC8E|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03DC8E|0009A3;
    JSL.L CODE_03DB19                    ;03DC91|03DB19;
    CMP.W #$0000                         ;03DC95|      ;
    BEQ Shop_cursor_related              ;03DC98|03DC7C;
@@ -15031,12 +15031,12 @@ CODE_03DC9A:
    LDA.W #$0001                         ;03DCA4|      ;
    JML.L Set_Text_Parser_long           ;03DCA7|00A688;
 CODE_03DCAB:
-   LDY.W Selection                      ;03DCAB|00103F;
+   LDY.W Selection_offset               ;03DCAB|00103F;
    LDA.W Shop_selection                 ;03DCAE|001885;
    DEC A                                ;03DCB1|      ;
    ASL A                                ;03DCB2|      ;
    CLC                                  ;03DCB3|      ;
-   ADC.W Array_Menu_Cursor,Y            ;03DCB4|0009A3;
+   ADC.W Object_var0_Menu_Cursor,Y      ;03DCB4|0009A3;
    STA.W $189F                          ;03DCB7|00189F;
    TAX                                  ;03DCBA|      ;
    LDA.W Inventory_Eqp,X                ;03DCBB|001419;
@@ -15069,13 +15069,13 @@ CODE_03DCE8:
    LDA.W #$0000                         ;03DCF5|      ;
    RTL                                  ;03DCF8|      ;
 CODE_03DCF9:
-   LDY.W Selection                      ;03DCF9|00103F;
+   LDY.W Selection_offset               ;03DCF9|00103F;
    LDA.W Shop_selection                 ;03DCFC|001885;
    DEC A                                ;03DCFF|      ;
    DEC A                                ;03DD00|      ;
    ASL A                                ;03DD01|      ;
    CLC                                  ;03DD02|      ;
-   ADC.W Array_Menu_Cursor,Y            ;03DD03|0009A3;
+   ADC.W Object_var0_Menu_Cursor,Y      ;03DD03|0009A3;
    STA.W $189F                          ;03DD06|00189F;
    TAX                                  ;03DD09|      ;
    LDA.W Inventory_Items,X              ;03DD0A|0013B9;
@@ -15365,10 +15365,10 @@ Alchemist_healing:
    JSL.L GetEventCode_1b_far            ;03DF2F|009AF8; Returns 1 if success, 0 if not available/dead
    ASL A                                ;03DF33|      ;
    TAX                                  ;03DF34|      ;
-   LDY.W Selection                      ;03DF35|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;03DF38|0009A3;
+   LDY.W Selection_offset               ;03DF35|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;03DF38|0009A3;
    INC A                                ;03DF3B|      ;
-   STA.W Array_Menu_Cursor,Y            ;03DF3C|0009A3;
+   STA.W Object_var0_Menu_Cursor,Y      ;03DF3C|0009A3;
    DEC A                                ;03DF3F|      ;
    ASL A                                ;03DF40|      ;
    TAY                                  ;03DF41|      ;
@@ -15421,21 +15421,21 @@ Alchemist_MP_heal:
    dw $0000                             ;03DFAA|      ;
    dw $0005                             ;03DFAC|      ;
 CODE_03DFAE:
-   LDX.W Selection                      ;03DFAE|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03DFB1|0009A3;
+   LDX.W Selection_offset               ;03DFAE|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03DFB1|0009A3;
    SEC                                  ;03DFB4|      ;
    SBC.W #$0008                         ;03DFB5|      ;
-   STA.W Array_Menu_Cursor,X            ;03DFB8|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03DFB8|0009A3;
    LDA.W #$0003                         ;03DFBB|      ;
    STA.W Shop_Curr_Selection            ;03DFBE|00188D;
    DEC.W Shop_selection                 ;03DFC1|001885;
    BRA CODE_03DFD9                      ;03DFC4|03DFD9;
 CODE_03DFC6:
-   LDX.W Selection                      ;03DFC6|00103F;
-   LDA.W Array_Menu_Cursor,X            ;03DFC9|0009A3;
+   LDX.W Selection_offset               ;03DFC6|00103F;
+   LDA.W Object_var0_Menu_Cursor,X      ;03DFC9|0009A3;
    CLC                                  ;03DFCC|      ;
    ADC.W #$0008                         ;03DFCD|      ;
-   STA.W Array_Menu_Cursor,X            ;03DFD0|0009A3;
+   STA.W Object_var0_Menu_Cursor,X      ;03DFD0|0009A3;
    STZ.W Shop_Curr_Selection            ;03DFD3|00188D;
    INC.W Shop_selection                 ;03DFD6|001885;
 CODE_03DFD9:
@@ -15446,8 +15446,8 @@ CODE_03DFD9:
    STA.W Shop_Max_Entries               ;03DFE5|001883;
    PEA.W $0003                          ;03DFE8|000003;
    PLB                                  ;03DFEB|      ;
-   LDY.W Selection                      ;03DFEC|00103F;
-   LDA.W Array_Menu_Cursor,Y            ;03DFEF|0009A3;
+   LDY.W Selection_offset               ;03DFEC|00103F;
+   LDA.W Object_var0_Menu_Cursor,Y      ;03DFEF|0009A3;
    CLC                                  ;03DFF2|      ;
    ADC.W #$E044                         ;03DFF3|      ;
    STA.B $00                            ;03DFF6|000000;
@@ -15496,9 +15496,8 @@ Card_Shop_choices:
    dw $0004                             ;03E04A|      ;
    dw $0006                             ;03E04C|      ; 06 = Fog Card
    dw $0007                             ;03E04E|      ; 07 = Null Card
-Prices:
-   dw $0005                             ;03E050|      ; This is "Call Amulet", but the price code points here.
 Card_Shop_prices:
+   dw $0005                             ;03E050|      ; This is "Call Amulet", but the price code points here.
    dw $000A                             ;03E052|      ;
    dw $000A                             ;03E054|      ;
    dw $000A                             ;03E056|      ;
@@ -15516,7 +15515,7 @@ Buying_Cards:
    TAX                                  ;03E06C|      ;
    LDA.W Curr_GP                        ;03E06D|001559;
    SEC                                  ;03E070|      ;
-   SBC.L Prices,X                       ;03E071|03E050; Check if it's buyable
+   SBC.L Card_Shop_prices,X             ;03E071|03E050; Check if it's buyable
    BCS Can_buy_card                     ;03E075|03E07B;
    LDA.W #$0001                         ;03E077|      ; Return 1 if can't afford a card
    RTL                                  ;03E07A|      ;
@@ -15732,7 +15731,7 @@ Zero_06xx_s_do_stuff:
    STZ.W $0631                          ;03E233|000631;
    LDY.W #$0000                         ;03E236|      ;
    LDX.W #$0000                         ;03E239|      ;
-   JSL.L Way_more_anim_stuff            ;03E23C|008D24;
+   JSL.L Setup_Code_Ptr                 ;03E23C|008D24;
    RTS                                  ;03E240|      ;
 CODE_03E241:
    JSL.L Zero_18FD                      ;03E241|188321;
@@ -15828,13 +15827,13 @@ CODE_03E2E4:
    STZ.W $188F                          ;03E313|00188F;
    RTL                                  ;03E316|      ;
 Shop_input_checker:
-   LDY.W Selection                      ;03E317|00103F; Returns button pressed: A=1, B=2,
+   LDY.W Selection_offset               ;03E317|00103F; Returns button pressed: A=1, B=2,
    LDA.W Input_0031                     ;03E31A|000031;
    BIT.W #$0080                         ;03E31D|      ; Check A press
    BEQ Shop_A_not_pressed               ;03E320|03E333;
 Shop_A_press:
    LDA.W #$FFFF                         ;03E322|      ; A pressed
-   STA.W Array_Anim_ID,Y                ;03E325|000A7B;
+   STA.W Object_Anim_Frame,Y            ;03E325|000A7B;
    LDA.W #$0011                         ;03E328|      ; Confirm SFX
    JSL.L Play_SFX                       ;03E32B|009C47;
    LDA.W #$0001                         ;03E32F|      ; Return 1 (Confirm)
@@ -15844,7 +15843,7 @@ Shop_A_not_pressed:
    BEQ Shop_B_not_pressed               ;03E336|03E349;
 Shop_B_press:
    LDA.W #$FFFF                         ;03E338|      ;
-   STA.W Array_Anim_ID,Y                ;03E33B|000A7B;
+   STA.W Object_Anim_Frame,Y            ;03E33B|000A7B;
    LDA.W #$0006                         ;03E33E|      ; Cancel SFX
    JSL.L Play_SFX                       ;03E341|009C47;
    LDA.W #$0002                         ;03E345|      ; Return 2 (Cancel)
@@ -16039,13 +16038,13 @@ CODE_03E4C7:
    ASL A                                ;03E4D9|      ;
    TAX                                  ;03E4DA|      ;
    LDA.L $7FFFA0,X                      ;03E4DB|7FFFA0;
-   STA.W Cursor_Array_Xpos_Copy,Y       ;03E4DF|000787;
-   STA.W Cursor_Array_Xpos,Y            ;03E4E2|0006F7;
+   STA.W Object_XPOS_mirror,Y           ;03E4DF|000787;
+   STA.W Object_XPOS,Y                  ;03E4E2|0006F7;
    LDA.L $7FFFC0,X                      ;03E4E5|7FFFC0;
-   STA.W Cursor_Array_Ypos_Copy,Y       ;03E4E9|0007AB;
-   STA.W Cursor_Array_Xpos,Y            ;03E4EC|0006F7;
+   STA.W Object_YPOS_mirror,Y           ;03E4E9|0007AB;
+   STA.W Object_XPOS,Y                  ;03E4EC|0006F7;
    LDA.L $7FFFE0,X                      ;03E4EF|7FFFE0;
-   STA.W Array_Anim_ID,Y                ;03E4F3|000A7B;
+   STA.W Object_Anim_Frame,Y            ;03E4F3|000A7B;
    PLA                                  ;03E4F6|      ;
    RTL                                  ;03E4F7|      ; Return 3
 Store_RAM_2b_into_2b:
@@ -16061,7 +16060,7 @@ Set_Cursors_1b:
    TAX                                  ;03E50D|      ;
    LDA.L Tbl_Actor_Arrays,X             ;03E50E|009739;
    STA.B $18                            ;03E512|000018;
-   LDY.W Selection                      ;03E514|00103F;
+   LDY.W Selection_offset               ;03E514|00103F;
    LDA.B ($18),Y                        ;03E517|000018;
    STA.W Shop_selection                 ;03E519|001885;
    STA.W $188B                          ;03E51C|00188B;
@@ -16071,11 +16070,11 @@ _063x_stuff_4b:
    STZ.W $0637                          ;03E523|000637;
    LDA.W #$0024                         ;03E526|      ;
    STA.W $0639                          ;03E529|000639;
-   LDX.W Selection                      ;03E52C|00103F;
+   LDX.W Selection_offset               ;03E52C|00103F;
    JSL.L GetEventCode_2b_far            ;03E52F|009B07;
    PHA                                  ;03E533|      ;
    AND.W #$8000                         ;03E534|      ;
-   ORA.W Selection                      ;03E537|00103F;
+   ORA.W Selection_offset               ;03E537|00103F;
    ORA.W #$4000                         ;03E53A|      ;
    STA.W $0635                          ;03E53D|000635;
    JSL.L GetEventCode_2b_far            ;03E540|009B07;
@@ -16084,37 +16083,37 @@ _063x_stuff_4b:
    STZ.W $062F                          ;03E54A|00062F;
    STZ.W $0631                          ;03E54D|000631;
    STZ.W $0633                          ;03E550|000633;
-   LDY.W Cursor_Array_Ypos,X            ;03E553|00071B;
-   LDA.W Cursor_Array_Xpos,X            ;03E556|0006F7;
+   LDY.W Object_YPOS,X                  ;03E553|00071B;
+   LDA.W Object_XPOS,X                  ;03E556|0006F7;
    TAX                                  ;03E559|      ;
    PLA                                  ;03E55A|      ;
    AND.W #$7FFF                         ;03E55B|      ;
-   JML.L Way_more_anim_stuff            ;03E55E|008D24;
+   JML.L Setup_Code_Ptr                 ;03E55E|008D24;
 Color_stuff_2b:
    SEP #$20                             ;03E562|      ; Maybe the blinking cursor
-   STZ.W Color_add_select               ;03E564|002130;
+   STZ.W Color_window                   ;03E564|002130;
    REP #$20                             ;03E567|      ;
    JSL.L GetEventCode_2b_far            ;03E569|009B07;
    AND.W #$1F3F                         ;03E56D|      ;
    ORA.W #$0080                         ;03E570|      ;
    STA.W $1893                          ;03E573|001893;
    ORA.W #$E000                         ;03E576|      ;
-   STA.W Color_math_desig               ;03E579|002131;
+   STA.W Color_math                     ;03E579|002131;
    RTL                                  ;03E57C|      ;
 Adjust_color_math:
    SEP #$20                             ;03E57D|      ;
-   STZ.W Color_add_select               ;03E57F|002130;
+   STZ.W Color_window                   ;03E57F|002130;
    REP #$20                             ;03E582|      ;
    JSL.L GetEventCode_2b_far            ;03E584|009B07;
    AND.W #$1F3F                         ;03E588|      ;
    STA.W $1893                          ;03E58B|001893;
    ORA.W #$E000                         ;03E58E|      ; Enable color math on backdrop, subtract the colors
-   STA.W Color_math_desig               ;03E591|002131;
+   STA.W Color_math                     ;03E591|002131;
    RTL                                  ;03E594|      ;
 Zero_1893_and_E000_to_2131:
    STZ.W $1893                          ;03E595|001893;
    LDA.W #$E000                         ;03E598|      ;
-   STA.W Color_math_desig               ;03E59B|002131;
+   STA.W Color_math                     ;03E59B|002131;
    RTL                                  ;03E59E|      ;
 Subtract_color_math_designation_1b:
    JSL.L GetEventCode_1b_far            ;03E59F|009AF8;
@@ -16128,7 +16127,7 @@ Subtract_color_math_designation_1b:
 CODE_03E5B1:
    STA.W $1893                          ;03E5B1|001893;
    ORA.W #$E000                         ;03E5B4|      ;
-   STA.W Color_math_desig               ;03E5B7|002131;
+   STA.W Color_math                     ;03E5B7|002131;
    RTL                                  ;03E5BA|      ;
 Add_color_math_designation_1b:
    JSL.L GetEventCode_1b_far            ;03E5BB|009AF8;
@@ -16142,7 +16141,7 @@ Add_color_math_designation_1b:
 CODE_03E5CF:
    STA.W $1893                          ;03E5CF|001893;
    ORA.W #$E000                         ;03E5D2|      ;
-   STA.W Color_math_desig               ;03E5D5|002131;
+   STA.W Color_math                     ;03E5D5|002131;
    RTL                                  ;03E5D8|      ;
 Lots_of_1885:
    LDA.W Shop_selection                 ;03E5D9|001885; Saves the game?
@@ -16569,8 +16568,8 @@ DATA8_03E79D:
    db $E0                               ;03E7B5|      ;
    db $05                               ;03E7B6|0000FF;
    db $FF                               ;03E7B7|000801;
-UNREACH_03E7B8:
-   db $01                               ;03E7B8|000008;
+DATA8_03E7B8:
+   db $01                               ;03E7B8|      ;
    db $08                               ;03E7B9|      ;
    db $00                               ;03E7BA|      ;
    db $0C                               ;03E7BB|000138;
@@ -16625,8 +16624,8 @@ UNREACH_03E7B8:
    db $E0                               ;03E7EC|      ;
    db $00                               ;03E7ED|      ;
    db $38                               ;03E7EE|      ;
-UNREACH_03E7EF:
-   db $01                               ;03E7EF|000008;
+DATA8_03E7EF:
+   db $01                               ;03E7EF|      ;
    db $08                               ;03E7F0|      ;
    db $00                               ;03E7F1|      ;
    db $42                               ;03E7F2|      ;
@@ -16681,7 +16680,7 @@ UNREACH_03E7EF:
    db $E0                               ;03E823|      ;
    db $26                               ;03E824|000038;
    db $38                               ;03E825|      ;
-UNREACH_03E826:
+DATA8_03E826:
    db $00                               ;03E826|      ;
    db $E0                               ;03E827|      ;
    db $20                               ;03E828|033886;
@@ -16777,8 +16776,8 @@ UNREACH_03E826:
    db $E0                               ;03E882|      ;
    db $4C                               ;03E883|030138;
    db $38                               ;03E884|      ;
-UNREACH_03E885:
-   db $01                               ;03E885|0000F8;
+DATA8_03E885:
+   db $01                               ;03E885|      ;
    db $F8                               ;03E886|      ;
    db $16                               ;03E887|0000C0;
    db $C0                               ;03E888|      ;
@@ -16878,7 +16877,7 @@ UNREACH_03E885:
    db $E0                               ;03E8E6|      ;
    db $8A                               ;03E8E7|      ;
    db $38                               ;03E8E8|      ;
-UNREACH_03E8E9:
+DATA8_03E8E9:
    db $00                               ;03E8E9|      ;
    db $18                               ;03E8EA|      ;
    db $F8                               ;03E8EB|      ;
@@ -16964,7 +16963,7 @@ UNREACH_03E8E9:
    db $E0                               ;03E93B|      ;
    db $C6                               ;03E93C|000038;
    db $38                               ;03E93D|      ;
-UNREACH_03E93E:
+DATA8_03E93E:
    db $00                               ;03E93E|      ;
    db $08                               ;03E93F|      ;
    db $18                               ;03E940|      ;
@@ -17065,7 +17064,7 @@ UNREACH_03E93E:
    db $D8                               ;03E99F|      ;
    db $02                               ;03E9A0|      ;
    db $39                               ;03E9A1|001000;
-UNREACH_03E9A2:
+DATA8_03E9A2:
    db $00                               ;03E9A2|      ;
    db $10                               ;03E9A3|03E9BD;
    db $18                               ;03E9A4|      ;
@@ -17152,13 +17151,13 @@ UNREACH_03E9A2:
    db $2A                               ;03E9F5|      ;
    db $39                               ;03E9F6|00E7B8;
 Tbl_03E9F7:
-   dw UNREACH_03E7B8                    ;03E9F7|03E7B8;
-   dw UNREACH_03E7EF                    ;03E9F9|03E7EF;
-   dw UNREACH_03E826                    ;03E9FB|03E826;
-   dw UNREACH_03E885                    ;03E9FD|03E885;
-   dw UNREACH_03E8E9                    ;03E9FF|03E8E9;
-   dw UNREACH_03E93E                    ;03EA01|03E93E;
-   dw UNREACH_03E9A2                    ;03EA03|03E9A2;
+   dw DATA8_03E7B8                      ;03E9F7|03E7B8;
+   dw DATA8_03E7EF                      ;03E9F9|03E7EF;
+   dw DATA8_03E826                      ;03E9FB|03E826;
+   dw DATA8_03E885                      ;03E9FD|03E885;
+   dw DATA8_03E8E9                      ;03E9FF|03E8E9;
+   dw DATA8_03E93E                      ;03EA01|03E93E;
+   dw DATA8_03E9A2                      ;03EA03|03E9A2;
    dw $0000                             ;03EA05|      ;
    db $F1                               ;03EA07|00007F;
    db $7F                               ;03EA08|F77FFF;
