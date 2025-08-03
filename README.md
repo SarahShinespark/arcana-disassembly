@@ -7,33 +7,33 @@ Diz Arcana (U).dizraw - This is the project file, open this in DiztinGUIsh and p
 main.asm - Calls all the other files.\
 bank_00.asm - Common multipurpose functions.\
 bank_01.asm - Game setup, Gameplay and the Ending.\
-bank_02.asm - Battles: Status handling and boss animations\
+bank_02.asm - Battles: Status handling, enemy behavior, and boss animations\
 bank_03.asm - Dungeon exploration, town exploration, loading maps and graphics\
 bank_04.asm - Compressed graphics: Towns\
 bank_05.asm - Battles: Stats, Item names and battle text.\
 bank_06.asm - Compressed graphics: Shops, World Map, Travel sprites. Stage select savefile data.\
 bank_07.asm - Dungeons and Gameplay\
-bank_08.asm - Small scripts: menus, some conversations\
-bank_09.asm - Unknown data\
+bank_08.asm - Small scripts: menus, items/spells/equipment descriptions, town and battle conversations\
+bank_09.asm - Enemy graphics (tile data)\
 bank_0A.asm - Fonts: Latin, Japanese, Greek, Cyrillic and some Kanji\
 bank_0B.asm - Kanji\
 bank_0C.asm - Kanji, Main story and most dialogue\
-bank_0D.asm - Compressed data\
-bank_0E.asm - Compressed data\
+bank_0D.asm - Compressed graphics\
+bank_0E.asm - Compressed data/graphics (playable character sprites)\
 bank_0F.asm - Animations: spells and enemies\
 bank_10.asm - Compressed graphics: Dungeon Bricks\
 bank_11.asm - Compressed graphics: Forest of Doubt\
 bank_12.asm - Compressed graphics: Bintel Castle\
-bank_13.asm - Compressed graphics: Various\
-bank_14.asm - Compressed graphics: Sprites\
+bank_13.asm - Compressed graphics: Bubble walls, the game map data\
+bank_14.asm - Compressed graphics: Sprites. Possible DMA transfer lists.\
 bank_15.asm - Compressed graphics: Sprites\
 bank_16.asm - Compressed graphics: Ending. Credits data.\
 bank_17.asm - Game start/Initialization\
-bank_18.asm - Main story events; treasure chests; encounters and enemy formations\
-bank_19.asm - Compressed graphics: Enemy sprites, standard attack animations\
-bank_1A.asm - Compressed graphics: Enemy sprites\
-bank_1B.asm - Compressed graphics: Enemy sprites\
-bank_1C.asm - Compressed graphics: Rimsala; Also unknown data\
+bank_18.asm - ASM for Main story events; treasure chests; encounters and enemy formations\
+bank_19.asm - Compressed graphics: Enemy sprites (Slime to Flytrap), standard attack animations. Uncompressed enemy palettes.\
+bank_1A.asm - Compressed graphics: Enemy sprites (Bee to Shaman)\
+bank_1B.asm - Compressed graphics: Enemy sprites (Minotaurus to Galneon)\
+bank_1C.asm - Compressed graphics: Rimsala; tile data for the main story (event 12)\
 bank_1D.asm - Unknown data\
 bank_1E.asm - Sounds and music\
 bank_1F.asm - Music\
