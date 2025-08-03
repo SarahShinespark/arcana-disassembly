@@ -1,6 +1,6 @@
    ORG $0F8000
    db $FF                               ;0F8000|      ;
-Bank_0F_Battle_anims:
+Event_Main_10_BATTLE_ANIMATIONS:
    db $1F                               ;0F8001|      ; Load $11B5
    dw $11B5                             ;0F8002|      ;
    db $23                               ;0F8004|      ; Store in var2 (attacker)
@@ -346,127 +346,127 @@ Anim_BossMusicFlag_0203:
    db $06                               ;0F8177|      ;
    db $0D                               ;0F8178|      ;
    db $00                               ;0F8179|      ;
-Tbl_Tileset_Event10:
+Tbl_Tileset_Event10_BATTLE_ANIM:
    dw Tileset_Event10_00                ;0F817A|0F826A; Battle animation tiles (120 entries)
    dw Tileset_Event10_01                ;0F817C|0F82D3;
-   dw DATA8_0F834B                      ;0F817E|0F834B;
-   dw DATA8_0F83C3                      ;0F8180|0F83C3;
-   dw DATA8_0F842C                      ;0F8182|0F842C;
-   dw DATA8_0F84A4                      ;0F8184|0F84A4;
-   dw DATA8_0F851C                      ;0F8186|0F851C;
-   dw DATA8_0F85D0                      ;0F8188|0F85D0;
-   dw DATA8_0F8675                      ;0F818A|0F8675;
-   dw DATA8_0F870B                      ;0F818C|0F870B;
-   dw DATA8_0F87BF                      ;0F818E|0F87BF;
-   dw DATA8_0F8864                      ;0F8190|0F8864;
-   dw DATA8_0F88FA                      ;0F8192|0F88FA;
-   dw DATA8_0F89F4                      ;0F8194|0F89F4;
-   dw DATA8_0F8B2A                      ;0F8196|0F8B2A;
-   dw DATA8_0F8C06                      ;0F8198|0F8C06;
-   dw DATA8_0F8D00                      ;0F819A|0F8D00;
-   dw DATA8_0F8E36                      ;0F819C|0F8E36;
-   dw DATA8_0F8F12                      ;0F819E|0F8F12;
-   dw DATA8_0F8FC6                      ;0F81A0|0F8FC6;
-   dw DATA8_0F906B                      ;0F81A2|0F906B;
-   dw DATA8_0F9101                      ;0F81A4|0F9101;
-   dw DATA8_0F91B5                      ;0F81A6|0F91B5;
-   dw DATA8_0F925A                      ;0F81A8|0F925A;
+   dw Tileset_Event10_02                ;0F817E|0F834B;
+   dw Tileset_Event10_03                ;0F8180|0F83C3;
+   dw Tileset_Event10_04                ;0F8182|0F842C;
+   dw Tileset_Event10_05                ;0F8184|0F84A4;
+   dw Tileset_Event10_06                ;0F8186|0F851C;
+   dw Tileset_Event10_07                ;0F8188|0F85D0;
+   dw Tileset_Event10_08                ;0F818A|0F8675;
+   dw Tileset_Event10_09                ;0F818C|0F870B;
+   dw Tileset_Event10_0A                ;0F818E|0F87BF;
+   dw Tileset_Event10_0B                ;0F8190|0F8864;
+   dw Tileset_Event10_0C                ;0F8192|0F88FA;
+   dw Tileset_Event10_0D                ;0F8194|0F89F4;
+   dw Tileset_Event10_0E                ;0F8196|0F8B2A;
+   dw Tileset_Event10_0F                ;0F8198|0F8C06;
+   dw Tileset_Event10_10                ;0F819A|0F8D00;
+   dw Tileset_Event10_11                ;0F819C|0F8E36;
+   dw Tileset_Event10_12                ;0F819E|0F8F12;
+   dw Tileset_Event10_13                ;0F81A0|0F8FC6;
+   dw Tileset_Event10_14                ;0F81A2|0F906B;
+   dw Tileset_Event10_15                ;0F81A4|0F9101;
+   dw Tileset_Event10_16                ;0F81A6|0F91B5;
+   dw Tileset_Event10_17                ;0F81A8|0F925A;
    dw Tileset_Event10_18_Bite1          ;0F81AA|0FAEE3;
    dw Tileset_Event10_19_Bite2          ;0F81AC|0FAF3D;
    dw Tileset_Event10_1A_Bite3          ;0F81AE|0FAF88;
    dw Tileset_Event10_1B_Bite4          ;0F81B0|0FAFD3;
    dw Tileset_Event10_1C_Bite5          ;0F81B2|0FB02D;
    dw Tileset_Event10_1D_Bite6          ;0F81B4|0FB078;
-   dw DATA8_0FB0C3                      ;0F81B6|0FB0C3;
-   dw DATA8_0FB14F                      ;0F81B8|0FB14F;
-   dw DATA8_0FB1CC                      ;0F81BA|0FB1CC;
-   dw DATA8_0FB249                      ;0F81BC|0FB249;
-   dw DATA8_0FB2D5                      ;0F81BE|0FB2D5;
-   dw DATA8_0FB352                      ;0F81C0|0FB352;
-   dw DATA8_0FB3CF                      ;0F81C2|0FB3CF;
-   dw DATA8_0FB497                      ;0F81C4|0FB497;
-   dw DATA8_0FB550                      ;0F81C6|0FB550;
-   dw DATA8_0FB609                      ;0F81C8|0FB609;
-   dw DATA8_0FB6D1                      ;0F81CA|0FB6D1;
-   dw DATA8_0FB78A                      ;0F81CC|0FB78A;
-   dw DATA8_0FB843                      ;0F81CE|0FB843;
-   dw DATA8_0FB8E8                      ;0F81D0|0FB8E8;
-   dw DATA8_0FB9BA                      ;0F81D2|0FB9BA;
-   dw DATA8_0FBA5F                      ;0F81D4|0FBA5F;
-   dw DATA8_0FBB04                      ;0F81D6|0FBB04;
-   dw DATA8_0FBBD6                      ;0F81D8|0FBBD6;
-   dw DATA8_0FC360                      ;0F81DA|0FC360;
-   dw DATA8_0FC392                      ;0F81DC|0FC392;
-   dw DATA8_0FC3CE                      ;0F81DE|0FC3CE;
-   dw DATA8_0FC40A                      ;0F81E0|0FC40A;
-   dw DATA8_0FC446                      ;0F81E2|0FC446;
-   dw DATA8_0FC4DC                      ;0F81E4|0FC4DC;
-   dw DATA8_0FC572                      ;0F81E6|0FC572;
-   dw DATA8_0FC65D                      ;0F81E8|0FC65D;
-   dw DATA8_0FC784                      ;0F81EA|0FC784;
-   dw DATA8_0FC88D                      ;0F81EC|0FC88D;
-   dw DATA8_0FC978                      ;0F81EE|0FC978;
-   dw DATA8_0FC9FF                      ;0F81F0|0FC9FF;
-   dw DATA8_0FCA95                      ;0F81F2|0FCA95;
-   dw DATA8_0F9E7B                      ;0F81F4|0F9E7B;
-   dw DATA8_0F9EE4                      ;0F81F6|0F9EE4;
-   dw DATA8_0F9F5C                      ;0F81F8|0F9F5C;
-   dw DATA8_0F9FC5                      ;0F81FA|0F9FC5;
-   dw DATA8_0FA02E                      ;0F81FC|0FA02E;
-   dw DATA8_0FA0A6                      ;0F81FE|0FA0A6;
-   dw DATA8_0FA10F                      ;0F8200|0FA10F;
-   dw DATA8_0FA1A5                      ;0F8202|0FA1A5;
-   dw DATA8_0FA24A                      ;0F8204|0FA24A;
-   dw DATA8_0FA2FE                      ;0F8206|0FA2FE;
-   dw DATA8_0FA394                      ;0F8208|0FA394;
-   dw DATA8_0FA439                      ;0F820A|0FA439;
-   dw DATA8_0FA4ED                      ;0F820C|0FA4ED;
-   dw DATA8_0FA5C9                      ;0F820E|0FA5C9;
-   dw DATA8_0FA6FF                      ;0F8210|0FA6FF;
-   dw DATA8_0FA7F9                      ;0F8212|0FA7F9;
-   dw DATA8_0FA8D5                      ;0F8214|0FA8D5;
-   dw DATA8_0FAA0B                      ;0F8216|0FAA0B;
-   dw DATA8_0FAB05                      ;0F8218|0FAB05;
-   dw DATA8_0FAB9B                      ;0F821A|0FAB9B;
-   dw DATA8_0FAC40                      ;0F821C|0FAC40;
-   dw DATA8_0FACF4                      ;0F821E|0FACF4;
-   dw DATA8_0FAD8A                      ;0F8220|0FAD8A;
-   dw DATA8_0FAE2F                      ;0F8222|0FAE2F;
-   dw DATA8_0FBC7B                      ;0F8224|0FBC7B;
-   dw DATA8_0FBCC1                      ;0F8226|0FBCC1;
-   dw DATA8_0FBCFD                      ;0F8228|0FBCFD;
-   dw DATA8_0FBD57                      ;0F822A|0FBD57;
-   dw DATA8_0FBDED                      ;0F822C|0FBDED;
-   dw DATA8_0FBE65                      ;0F822E|0FBE65;
-   dw DATA8_0FBF0A                      ;0F8230|0FBF0A;
-   dw DATA8_0FBFCD                      ;0F8232|0FBFCD;
-   dw DATA8_0FC0BD                      ;0F8234|0FC0BD;
-   dw DATA8_0FC1AD                      ;0F8236|0FC1AD;
-   dw DATA8_0FC243                      ;0F8238|0FC243;
-   dw DATA8_0FC2BB                      ;0F823A|0FC2BB;
-   dw DATA8_0F92F0                      ;0F823C|0F92F0;
-   dw DATA8_0F931D                      ;0F823E|0F931D;
-   dw DATA8_0F9368                      ;0F8240|0F9368;
-   dw DATA8_0F9386                      ;0F8242|0F9386;
-   dw DATA8_0F93B3                      ;0F8244|0F93B3;
-   dw DATA8_0F93FE                      ;0F8246|0F93FE;
-   dw DATA8_0F941C                      ;0F8248|0F941C;
-   dw DATA8_0F9494                      ;0F824A|0F9494;
-   dw DATA8_0F952A                      ;0F824C|0F952A;
-   dw DATA8_0F95A2                      ;0F824E|0F95A2;
-   dw DATA8_0F961A                      ;0F8250|0F961A;
-   dw DATA8_0F96B0                      ;0F8252|0F96B0;
-   dw DATA8_0F9728                      ;0F8254|0F9728;
-   dw DATA8_0F97DC                      ;0F8256|0F97DC;
-   dw DATA8_0F98AE                      ;0F8258|0F98AE;
-   dw DATA8_0F9971                      ;0F825A|0F9971;
-   dw DATA8_0F9A34                      ;0F825C|0F9A34;
-   dw DATA8_0F9AF7                      ;0F825E|0F9AF7;
-   dw DATA8_0F9B8D                      ;0F8260|0F9B8D;
-   dw DATA8_0F9C23                      ;0F8262|0F9C23;
-   dw DATA8_0F9CB9                      ;0F8264|0F9CB9;
-   dw DATA8_0F9D4F                      ;0F8266|0F9D4F;
-   dw DATA8_0F9DE5                      ;0F8268|0F9DE5;
+   dw Tileset_Event10_1E                ;0F81B6|0FB0C3;
+   dw Tileset_Event10_1F                ;0F81B8|0FB14F;
+   dw Tileset_Event10_20                ;0F81BA|0FB1CC;
+   dw Tileset_Event10_21                ;0F81BC|0FB249;
+   dw Tileset_Event10_22                ;0F81BE|0FB2D5;
+   dw Tileset_Event10_23                ;0F81C0|0FB352;
+   dw Tileset_Event10_24                ;0F81C2|0FB3CF;
+   dw Tileset_Event10_25                ;0F81C4|0FB497;
+   dw Tileset_Event10_26                ;0F81C6|0FB550;
+   dw Tileset_Event10_27                ;0F81C8|0FB609;
+   dw Tileset_Event10_28                ;0F81CA|0FB6D1;
+   dw Tileset_Event10_29                ;0F81CC|0FB78A;
+   dw Tileset_Event10_2A                ;0F81CE|0FB843;
+   dw Tileset_Event10_2B                ;0F81D0|0FB8E8;
+   dw Tileset_Event10_2C                ;0F81D2|0FB9BA;
+   dw Tileset_Event10_2D                ;0F81D4|0FBA5F;
+   dw Tileset_Event10_2E                ;0F81D6|0FBB04;
+   dw Tileset_Event10_2F                ;0F81D8|0FBBD6;
+   dw Tileset_Event10_30                ;0F81DA|0FC360;
+   dw Tileset_Event10_31                ;0F81DC|0FC392;
+   dw Tileset_Event10_32                ;0F81DE|0FC3CE;
+   dw Tileset_Event10_33                ;0F81E0|0FC40A;
+   dw Tileset_Event10_34                ;0F81E2|0FC446;
+   dw Tileset_Event10_35                ;0F81E4|0FC4DC;
+   dw Tileset_Event10_36                ;0F81E6|0FC572;
+   dw Tileset_Event10_37                ;0F81E8|0FC65D;
+   dw Tileset_Event10_38                ;0F81EA|0FC784;
+   dw Tileset_Event10_39                ;0F81EC|0FC88D;
+   dw Tileset_Event10_3A                ;0F81EE|0FC978;
+   dw Tileset_Event10_3B                ;0F81F0|0FC9FF;
+   dw Tileset_Event10_3C                ;0F81F2|0FCA95;
+   dw Tileset_Event10_3D                ;0F81F4|0F9E7B;
+   dw Tileset_Event10_3E                ;0F81F6|0F9EE4;
+   dw Tileset_Event10_3F                ;0F81F8|0F9F5C;
+   dw Tileset_Event10_40                ;0F81FA|0F9FC5;
+   dw Tileset_Event10_41                ;0F81FC|0FA02E;
+   dw Tileset_Event10_42                ;0F81FE|0FA0A6;
+   dw Tileset_Event10_43                ;0F8200|0FA10F;
+   dw Tileset_Event10_44                ;0F8202|0FA1A5;
+   dw Tileset_Event10_45                ;0F8204|0FA24A;
+   dw Tileset_Event10_46                ;0F8206|0FA2FE;
+   dw Tileset_Event10_47                ;0F8208|0FA394;
+   dw Tileset_Event10_48                ;0F820A|0FA439;
+   dw Tileset_Event10_49                ;0F820C|0FA4ED;
+   dw Tileset_Event10_4A                ;0F820E|0FA5C9;
+   dw Tileset_Event10_4B                ;0F8210|0FA6FF;
+   dw Tileset_Event10_4C                ;0F8212|0FA7F9;
+   dw Tileset_Event10_4D                ;0F8214|0FA8D5;
+   dw Tileset_Event10_4E                ;0F8216|0FAA0B;
+   dw Tileset_Event10_4F                ;0F8218|0FAB05;
+   dw Tileset_Event10_50                ;0F821A|0FAB9B;
+   dw Tileset_Event10_51                ;0F821C|0FAC40;
+   dw Tileset_Event10_52                ;0F821E|0FACF4;
+   dw Tileset_Event10_53                ;0F8220|0FAD8A;
+   dw Tileset_Event10_54                ;0F8222|0FAE2F;
+   dw Tileset_Event10_55                ;0F8224|0FBC7B;
+   dw Tileset_Event10_56                ;0F8226|0FBCC1;
+   dw Tileset_Event10_57                ;0F8228|0FBCFD;
+   dw Tileset_Event10_58                ;0F822A|0FBD57;
+   dw Tileset_Event10_59                ;0F822C|0FBDED;
+   dw Tileset_Event10_5A                ;0F822E|0FBE65;
+   dw Tileset_Event10_5B                ;0F8230|0FBF0A;
+   dw Tileset_Event10_5C                ;0F8232|0FBFCD;
+   dw Tileset_Event10_5D                ;0F8234|0FC0BD;
+   dw Tileset_Event10_5E                ;0F8236|0FC1AD;
+   dw Tileset_Event10_5F                ;0F8238|0FC243;
+   dw Tileset_Event10_60                ;0F823A|0FC2BB;
+   dw Tileset_Event10_61                ;0F823C|0F92F0;
+   dw Tileset_Event10_62                ;0F823E|0F931D;
+   dw Tileset_Event10_63                ;0F8240|0F9368;
+   dw Tileset_Event10_64                ;0F8242|0F9386;
+   dw Tileset_Event10_65                ;0F8244|0F93B3;
+   dw Tileset_Event10_66                ;0F8246|0F93FE;
+   dw Tileset_Event10_67                ;0F8248|0F941C;
+   dw Tileset_Event10_68                ;0F824A|0F9494;
+   dw Tileset_Event10_69                ;0F824C|0F952A;
+   dw Tileset_Event10_6A                ;0F824E|0F95A2;
+   dw Tileset_Event10_6B                ;0F8250|0F961A;
+   dw Tileset_Event10_6C                ;0F8252|0F96B0;
+   dw Tileset_Event10_6D                ;0F8254|0F9728;
+   dw Tileset_Event10_6E                ;0F8256|0F97DC;
+   dw Tileset_Event10_6F                ;0F8258|0F98AE;
+   dw Tileset_Event10_70                ;0F825A|0F9971;
+   dw Tileset_Event10_71                ;0F825C|0F9A34;
+   dw Tileset_Event10_72                ;0F825E|0F9AF7;
+   dw Tileset_Event10_73                ;0F8260|0F9B8D;
+   dw Tileset_Event10_74                ;0F8262|0F9C23;
+   dw Tileset_Event10_75                ;0F8264|0F9CB9;
+   dw Tileset_Event10_76                ;0F8266|0F9D4F;
+   dw Tileset_Event10_77                ;0F8268|0F9DE5;
 Tileset_Event10_00:
    db $00                               ;0F826A|      ;
    db $00                               ;0F826B|      ;
@@ -694,7 +694,7 @@ Tileset_Event10_01:
    db $F0                               ;0F8348|      ;
    db $8C                               ;0F8349|      ;
    db $3F                               ;0F834A|      ;
-DATA8_0F834B:
+Tileset_Event10_02:
    db $00                               ;0F834B|      ;
    db $00                               ;0F834C|      ;
    db $F0                               ;0F834D|      ;
@@ -815,7 +815,7 @@ DATA8_0F834B:
    db $F8                               ;0F83C0|      ;
    db $80                               ;0F83C1|      ;
    db $3F                               ;0F83C2|      ;
-DATA8_0F83C3:
+Tileset_Event10_03:
    db $00                               ;0F83C3|      ;
    db $F8                               ;0F83C4|      ;
    db $F0                               ;0F83C5|      ;
@@ -921,7 +921,7 @@ DATA8_0F83C3:
    db $E8                               ;0F8429|      ;
    db $A0                               ;0F842A|      ;
    db $7F                               ;0F842B|      ;
-DATA8_0F842C:
+Tileset_Event10_04:
    db $00                               ;0F842C|      ;
    db $00                               ;0F842D|      ;
    db $F0                               ;0F842E|      ;
@@ -1042,7 +1042,7 @@ DATA8_0F842C:
    db $F0                               ;0F84A1|      ;
    db $8C                               ;0F84A2|      ;
    db $7F                               ;0F84A3|      ;
-DATA8_0F84A4:
+Tileset_Event10_05:
    db $00                               ;0F84A4|      ;
    db $F8                               ;0F84A5|      ;
    db $F0                               ;0F84A6|      ;
@@ -1163,7 +1163,7 @@ DATA8_0F84A4:
    db $F8                               ;0F8519|      ;
    db $80                               ;0F851A|      ;
    db $7F                               ;0F851B|      ;
-DATA8_0F851C:
+Tileset_Event10_06:
    db $00                               ;0F851C|      ;
    db $E8                               ;0F851D|      ;
    db $E0                               ;0F851E|      ;
@@ -1344,7 +1344,7 @@ DATA8_0F851C:
    db $E8                               ;0F85CD|      ;
    db $81                               ;0F85CE|      ;
    db $3F                               ;0F85CF|      ;
-DATA8_0F85D0:
+Tileset_Event10_07:
    db $00                               ;0F85D0|      ;
    db $F0                               ;0F85D1|      ;
    db $E8                               ;0F85D2|      ;
@@ -1510,7 +1510,7 @@ DATA8_0F85D0:
    db $E8                               ;0F8672|      ;
    db $BA                               ;0F8673|      ;
    db $7F                               ;0F8674|      ;
-DATA8_0F8675:
+Tileset_Event10_08:
    db $01                               ;0F8675|      ;
    db $00                               ;0F8676|      ;
    db $E8                               ;0F8677|      ;
@@ -1661,7 +1661,7 @@ DATA8_0F8675:
    db $E8                               ;0F8708|      ;
    db $BA                               ;0F8709|      ;
    db $7F                               ;0F870A|      ;
-DATA8_0F870B:
+Tileset_Event10_09:
    db $00                               ;0F870B|      ;
    db $10                               ;0F870C|      ;
    db $E0                               ;0F870D|      ;
@@ -1842,7 +1842,7 @@ DATA8_0F870B:
    db $E8                               ;0F87BC|      ;
    db $81                               ;0F87BD|      ;
    db $7F                               ;0F87BE|      ;
-DATA8_0F87BF:
+Tileset_Event10_0A:
    db $00                               ;0F87BF|      ;
    db $08                               ;0F87C0|      ;
    db $E8                               ;0F87C1|      ;
@@ -2008,7 +2008,7 @@ DATA8_0F87BF:
    db $E8                               ;0F8861|      ;
    db $BA                               ;0F8862|      ;
    db $3F                               ;0F8863|      ;
-DATA8_0F8864:
+Tileset_Event10_0B:
    db $01                               ;0F8864|      ;
    db $F0                               ;0F8865|      ;
    db $E8                               ;0F8866|      ;
@@ -2159,7 +2159,7 @@ DATA8_0F8864:
    db $E8                               ;0F88F7|      ;
    db $BA                               ;0F88F8|      ;
    db $3F                               ;0F88F9|      ;
-DATA8_0F88FA:
+Tileset_Event10_0C:
    db $00                               ;0F88FA|      ;
    db $18                               ;0F88FB|      ;
    db $20                               ;0F88FC|      ;
@@ -2410,7 +2410,7 @@ DATA8_0F88FA:
    db $E0                               ;0F89F1|      ;
    db $BA                               ;0F89F2|      ;
    db $7F                               ;0F89F3|      ;
-DATA8_0F89F4:
+Tileset_Event10_0D:
    db $00                               ;0F89F4|      ;
    db $18                               ;0F89F5|      ;
    db $20                               ;0F89F6|      ;
@@ -2721,7 +2721,7 @@ DATA8_0F89F4:
    db $E0                               ;0F8B27|      ;
    db $BA                               ;0F8B28|      ;
    db $7F                               ;0F8B29|      ;
-DATA8_0F8B2A:
+Tileset_Event10_0E:
    db $01                               ;0F8B2A|      ;
    db $F8                               ;0F8B2B|      ;
    db $10                               ;0F8B2C|      ;
@@ -2942,7 +2942,7 @@ DATA8_0F8B2A:
    db $E0                               ;0F8C03|      ;
    db $BA                               ;0F8C04|      ;
    db $7F                               ;0F8C05|      ;
-DATA8_0F8C06:
+Tileset_Event10_0F:
    db $00                               ;0F8C06|      ;
    db $E0                               ;0F8C07|      ;
    db $20                               ;0F8C08|      ;
@@ -3193,7 +3193,7 @@ DATA8_0F8C06:
    db $E0                               ;0F8CFD|      ;
    db $BA                               ;0F8CFE|      ;
    db $3F                               ;0F8CFF|      ;
-DATA8_0F8D00:
+Tileset_Event10_10:
    db $00                               ;0F8D00|      ;
    db $E0                               ;0F8D01|      ;
    db $20                               ;0F8D02|      ;
@@ -3504,7 +3504,7 @@ DATA8_0F8D00:
    db $E0                               ;0F8E33|      ;
    db $BA                               ;0F8E34|      ;
    db $3F                               ;0F8E35|      ;
-DATA8_0F8E36:
+Tileset_Event10_11:
    db $01                               ;0F8E36|      ;
    db $F8                               ;0F8E37|      ;
    db $10                               ;0F8E38|      ;
@@ -3725,7 +3725,7 @@ DATA8_0F8E36:
    db $E0                               ;0F8F0F|      ;
    db $BA                               ;0F8F10|      ;
    db $3F                               ;0F8F11|      ;
-DATA8_0F8F12:
+Tileset_Event10_12:
    db $01                               ;0F8F12|      ;
    db $00                               ;0F8F13|      ;
    db $08                               ;0F8F14|      ;
@@ -3906,7 +3906,7 @@ DATA8_0F8F12:
    db $E8                               ;0F8FC3|      ;
    db $9A                               ;0F8FC4|      ;
    db $7F                               ;0F8FC5|      ;
-DATA8_0F8FC6:
+Tileset_Event10_13:
    db $01                               ;0F8FC6|      ;
    db $00                               ;0F8FC7|      ;
    db $E8                               ;0F8FC8|      ;
@@ -4072,7 +4072,7 @@ DATA8_0F8FC6:
    db $E8                               ;0F9068|      ;
    db $9A                               ;0F9069|      ;
    db $7F                               ;0F906A|      ;
-DATA8_0F906B:
+Tileset_Event10_14:
    db $01                               ;0F906B|      ;
    db $00                               ;0F906C|      ;
    db $E8                               ;0F906D|      ;
@@ -4223,7 +4223,7 @@ DATA8_0F906B:
    db $E8                               ;0F90FE|      ;
    db $9A                               ;0F90FF|      ;
    db $7F                               ;0F9100|      ;
-DATA8_0F9101:
+Tileset_Event10_15:
    db $01                               ;0F9101|      ;
    db $F0                               ;0F9102|      ;
    db $08                               ;0F9103|      ;
@@ -4404,7 +4404,7 @@ DATA8_0F9101:
    db $E8                               ;0F91B2|      ;
    db $9A                               ;0F91B3|      ;
    db $3F                               ;0F91B4|      ;
-DATA8_0F91B5:
+Tileset_Event10_16:
    db $01                               ;0F91B5|      ;
    db $F0                               ;0F91B6|      ;
    db $E8                               ;0F91B7|      ;
@@ -4570,7 +4570,7 @@ DATA8_0F91B5:
    db $E8                               ;0F9257|      ;
    db $9A                               ;0F9258|      ;
    db $3F                               ;0F9259|      ;
-DATA8_0F925A:
+Tileset_Event10_17:
    db $01                               ;0F925A|      ;
    db $F0                               ;0F925B|      ;
    db $E8                               ;0F925C|      ;
@@ -4721,7 +4721,7 @@ DATA8_0F925A:
    db $E8                               ;0F92ED|      ;
    db $9A                               ;0F92EE|      ;
    db $3F                               ;0F92EF|      ;
-DATA8_0F92F0:
+Tileset_Event10_61:
    db $00                               ;0F92F0|      ;
    db $F8                               ;0F92F1|      ;
    db $00                               ;0F92F2|      ;
@@ -4767,7 +4767,7 @@ DATA8_0F92F0:
    db $E8                               ;0F931A|      ;
    db $9D                               ;0F931B|      ;
    db $3F                               ;0F931C|      ;
-DATA8_0F931D:
+Tileset_Event10_62:
    db $00                               ;0F931D|      ;
    db $F8                               ;0F931E|      ;
    db $10                               ;0F931F|      ;
@@ -4843,7 +4843,7 @@ DATA8_0F931D:
    db $E8                               ;0F9365|      ;
    db $A4                               ;0F9366|      ;
    db $3F                               ;0F9367|      ;
-DATA8_0F9368:
+Tileset_Event10_63:
    db $01                               ;0F9368|      ;
    db $F0                               ;0F9369|      ;
    db $08                               ;0F936A|      ;
@@ -4874,7 +4874,7 @@ DATA8_0F9368:
    db $F8                               ;0F9383|      ;
    db $88                               ;0F9384|      ;
    db $3F                               ;0F9385|      ;
-DATA8_0F9386:
+Tileset_Event10_64:
    db $00                               ;0F9386|      ;
    db $00                               ;0F9387|      ;
    db $00                               ;0F9388|      ;
@@ -4920,7 +4920,7 @@ DATA8_0F9386:
    db $E8                               ;0F93B0|      ;
    db $9D                               ;0F93B1|      ;
    db $7F                               ;0F93B2|      ;
-DATA8_0F93B3:
+Tileset_Event10_65:
    db $00                               ;0F93B3|      ;
    db $00                               ;0F93B4|      ;
    db $10                               ;0F93B5|      ;
@@ -4996,7 +4996,7 @@ DATA8_0F93B3:
    db $E8                               ;0F93FB|      ;
    db $A4                               ;0F93FC|      ;
    db $7F                               ;0F93FD|      ;
-DATA8_0F93FE:
+Tileset_Event10_66:
    db $01                               ;0F93FE|      ;
    db $00                               ;0F93FF|      ;
    db $08                               ;0F9400|      ;
@@ -5027,7 +5027,7 @@ DATA8_0F93FE:
    db $F8                               ;0F9419|      ;
    db $88                               ;0F941A|      ;
    db $7F                               ;0F941B|      ;
-DATA8_0F941C:
+Tileset_Event10_67:
    db $00                               ;0F941C|      ;
    db $F8                               ;0F941D|      ;
    db $00                               ;0F941E|      ;
@@ -5148,7 +5148,7 @@ DATA8_0F941C:
    db $E0                               ;0F9491|      ;
    db $9D                               ;0F9492|      ;
    db $3F                               ;0F9493|      ;
-DATA8_0F9494:
+Tileset_Event10_68:
    db $00                               ;0F9494|      ;
    db $10                               ;0F9495|      ;
    db $00                               ;0F9496|      ;
@@ -5299,7 +5299,7 @@ DATA8_0F9494:
    db $F8                               ;0F9527|      ;
    db $A0                               ;0F9528|      ;
    db $3F                               ;0F9529|      ;
-DATA8_0F952A:
+Tileset_Event10_69:
    db $00                               ;0F952A|      ;
    db $F8                               ;0F952B|      ;
    db $08                               ;0F952C|      ;
@@ -5420,7 +5420,7 @@ DATA8_0F952A:
    db $F8                               ;0F959F|      ;
    db $A8                               ;0F95A0|      ;
    db $3F                               ;0F95A1|      ;
-DATA8_0F95A2:
+Tileset_Event10_6A:
    db $00                               ;0F95A2|      ;
    db $00                               ;0F95A3|      ;
    db $00                               ;0F95A4|      ;
@@ -5541,7 +5541,7 @@ DATA8_0F95A2:
    db $E0                               ;0F9617|      ;
    db $9D                               ;0F9618|      ;
    db $7F                               ;0F9619|      ;
-DATA8_0F961A:
+Tileset_Event10_6B:
    db $00                               ;0F961A|      ;
    db $E8                               ;0F961B|      ;
    db $00                               ;0F961C|      ;
@@ -5692,7 +5692,7 @@ DATA8_0F961A:
    db $F8                               ;0F96AD|      ;
    db $A0                               ;0F96AE|      ;
    db $7F                               ;0F96AF|      ;
-DATA8_0F96B0:
+Tileset_Event10_6C:
    db $00                               ;0F96B0|      ;
    db $00                               ;0F96B1|      ;
    db $08                               ;0F96B2|      ;
@@ -5813,7 +5813,7 @@ DATA8_0F96B0:
    db $F8                               ;0F9725|      ;
    db $A8                               ;0F9726|      ;
    db $7F                               ;0F9727|      ;
-DATA8_0F9728:
+Tileset_Event10_6D:
    db $00                               ;0F9728|      ;
    db $E0                               ;0F9729|      ;
    db $20                               ;0F972A|      ;
@@ -5994,7 +5994,7 @@ DATA8_0F9728:
    db $E0                               ;0F97D9|      ;
    db $8A                               ;0F97DA|      ;
    db $3F                               ;0F97DB|      ;
-DATA8_0F97DC:
+Tileset_Event10_6E:
    db $01                               ;0F97DC|      ;
    db $D8                               ;0F97DD|      ;
    db $18                               ;0F97DE|      ;
@@ -6205,7 +6205,7 @@ DATA8_0F97DC:
    db $18                               ;0F98AB|      ;
    db $A0                               ;0F98AC|      ;
    db $3F                               ;0F98AD|      ;
-DATA8_0F98AE:
+Tileset_Event10_6F:
    db $00                               ;0F98AE|      ;
    db $10                               ;0F98AF|      ;
    db $E0                               ;0F98B0|      ;
@@ -6401,7 +6401,7 @@ DATA8_0F98AE:
    db $18                               ;0F996E|      ;
    db $A4                               ;0F996F|      ;
    db $3F                               ;0F9970|      ;
-DATA8_0F9971:
+Tileset_Event10_70:
    db $00                               ;0F9971|      ;
    db $0C                               ;0F9972|      ;
    db $E0                               ;0F9973|      ;
@@ -6597,7 +6597,7 @@ DATA8_0F9971:
    db $18                               ;0F9A31|      ;
    db $A4                               ;0F9A32|      ;
    db $3F                               ;0F9A33|      ;
-DATA8_0F9A34:
+Tileset_Event10_71:
    db $00                               ;0F9A34|      ;
    db $14                               ;0F9A35|      ;
    db $E0                               ;0F9A36|      ;
@@ -6793,7 +6793,7 @@ DATA8_0F9A34:
    db $18                               ;0F9AF4|      ;
    db $A4                               ;0F9AF5|      ;
    db $3F                               ;0F9AF6|      ;
-DATA8_0F9AF7:
+Tileset_Event10_72:
    db $01                               ;0F9AF7|      ;
    db $F0                               ;0F9AF8|      ;
    db $F8                               ;0F9AF9|      ;
@@ -6944,7 +6944,7 @@ DATA8_0F9AF7:
    db $E0                               ;0F9B8A|      ;
    db $A7                               ;0F9B8B|      ;
    db $3F                               ;0F9B8C|      ;
-DATA8_0F9B8D:
+Tileset_Event10_73:
    db $00                               ;0F9B8D|      ;
    db $10                               ;0F9B8E|      ;
    db $00                               ;0F9B8F|      ;
@@ -7095,7 +7095,7 @@ DATA8_0F9B8D:
    db $E8                               ;0F9C20|      ;
    db $80                               ;0F9C21|      ;
    db $3F                               ;0F9C22|      ;
-DATA8_0F9C23:
+Tileset_Event10_74:
    db $00                               ;0F9C23|      ;
    db $08                               ;0F9C24|      ;
    db $18                               ;0F9C25|      ;
@@ -7246,7 +7246,7 @@ DATA8_0F9C23:
    db $F8                               ;0F9CB6|      ;
    db $A8                               ;0F9CB7|      ;
    db $3F                               ;0F9CB8|      ;
-DATA8_0F9CB9:
+Tileset_Event10_75:
    db $01                               ;0F9CB9|      ;
    db $00                               ;0F9CBA|      ;
    db $F8                               ;0F9CBB|      ;
@@ -7397,7 +7397,7 @@ DATA8_0F9CB9:
    db $E0                               ;0F9D4C|      ;
    db $A7                               ;0F9D4D|      ;
    db $7F                               ;0F9D4E|      ;
-DATA8_0F9D4F:
+Tileset_Event10_76:
    db $00                               ;0F9D4F|      ;
    db $E8                               ;0F9D50|      ;
    db $00                               ;0F9D51|      ;
@@ -7548,7 +7548,7 @@ DATA8_0F9D4F:
    db $E8                               ;0F9DE2|      ;
    db $80                               ;0F9DE3|      ;
    db $7F                               ;0F9DE4|      ;
-DATA8_0F9DE5:
+Tileset_Event10_77:
    db $00                               ;0F9DE5|      ;
    db $F0                               ;0F9DE6|      ;
    db $18                               ;0F9DE7|      ;
@@ -7699,7 +7699,7 @@ DATA8_0F9DE5:
    db $F8                               ;0F9E78|      ;
    db $A8                               ;0F9E79|      ;
    db $7F                               ;0F9E7A|      ;
-DATA8_0F9E7B:
+Tileset_Event10_3D:
    db $00                               ;0F9E7B|      ;
    db $00                               ;0F9E7C|      ;
    db $F0                               ;0F9E7D|      ;
@@ -7805,7 +7805,7 @@ DATA8_0F9E7B:
    db $E8                               ;0F9EE1|      ;
    db $9E                               ;0F9EE2|      ;
    db $3F                               ;0F9EE3|      ;
-DATA8_0F9EE4:
+Tileset_Event10_3E:
    db $00                               ;0F9EE4|      ;
    db $08                               ;0F9EE5|      ;
    db $00                               ;0F9EE6|      ;
@@ -7926,7 +7926,7 @@ DATA8_0F9EE4:
    db $E8                               ;0F9F59|      ;
    db $82                               ;0F9F5A|      ;
    db $3F                               ;0F9F5B|      ;
-DATA8_0F9F5C:
+Tileset_Event10_3F:
    db $00                               ;0F9F5C|      ;
    db $F0                               ;0F9F5D|      ;
    db $10                               ;0F9F5E|      ;
@@ -8032,7 +8032,7 @@ DATA8_0F9F5C:
    db $10                               ;0F9FC2|      ;
    db $BB                               ;0F9FC3|      ;
    db $3F                               ;0F9FC4|      ;
-DATA8_0F9FC5:
+Tileset_Event10_40:
    db $00                               ;0F9FC5|      ;
    db $F8                               ;0F9FC6|      ;
    db $F0                               ;0F9FC7|      ;
@@ -8138,7 +8138,7 @@ DATA8_0F9FC5:
    db $E8                               ;0FA02B|      ;
    db $9E                               ;0FA02C|      ;
    db $7F                               ;0FA02D|      ;
-DATA8_0FA02E:
+Tileset_Event10_41:
    db $00                               ;0FA02E|      ;
    db $F0                               ;0FA02F|      ;
    db $00                               ;0FA030|      ;
@@ -8259,7 +8259,7 @@ DATA8_0FA02E:
    db $E8                               ;0FA0A3|      ;
    db $82                               ;0FA0A4|      ;
    db $7F                               ;0FA0A5|      ;
-DATA8_0FA0A6:
+Tileset_Event10_42:
    db $00                               ;0FA0A6|      ;
    db $08                               ;0FA0A7|      ;
    db $10                               ;0FA0A8|      ;
@@ -8365,7 +8365,7 @@ DATA8_0FA0A6:
    db $10                               ;0FA10C|      ;
    db $BB                               ;0FA10D|      ;
    db $7F                               ;0FA10E|      ;
-DATA8_0FA10F:
+Tileset_Event10_43:
    db $00                               ;0FA10F|      ;
    db $E8                               ;0FA110|      ;
    db $18                               ;0FA111|      ;
@@ -8516,7 +8516,7 @@ DATA8_0FA10F:
    db $E8                               ;0FA1A2|      ;
    db $80                               ;0FA1A3|      ;
    db $3F                               ;0FA1A4|      ;
-DATA8_0FA1A5:
+Tileset_Event10_44:
    db $00                               ;0FA1A5|      ;
    db $10                               ;0FA1A6|      ;
    db $10                               ;0FA1A7|      ;
@@ -8682,7 +8682,7 @@ DATA8_0FA1A5:
    db $E8                               ;0FA247|      ;
    db $84                               ;0FA248|      ;
    db $3F                               ;0FA249|      ;
-DATA8_0FA24A:
+Tileset_Event10_45:
    db $00                               ;0FA24A|      ;
    db $10                               ;0FA24B|      ;
    db $18                               ;0FA24C|      ;
@@ -8863,7 +8863,7 @@ DATA8_0FA24A:
    db $08                               ;0FA2FB|      ;
    db $A2                               ;0FA2FC|      ;
    db $3F                               ;0FA2FD|      ;
-DATA8_0FA2FE:
+Tileset_Event10_46:
    db $00                               ;0FA2FE|      ;
    db $10                               ;0FA2FF|      ;
    db $18                               ;0FA300|      ;
@@ -9014,7 +9014,7 @@ DATA8_0FA2FE:
    db $E8                               ;0FA391|      ;
    db $80                               ;0FA392|      ;
    db $7F                               ;0FA393|      ;
-DATA8_0FA394:
+Tileset_Event10_47:
    db $00                               ;0FA394|      ;
    db $E8                               ;0FA395|      ;
    db $10                               ;0FA396|      ;
@@ -9180,7 +9180,7 @@ DATA8_0FA394:
    db $E8                               ;0FA436|      ;
    db $84                               ;0FA437|      ;
    db $7F                               ;0FA438|      ;
-DATA8_0FA439:
+Tileset_Event10_48:
    db $00                               ;0FA439|      ;
    db $E8                               ;0FA43A|      ;
    db $18                               ;0FA43B|      ;
@@ -9361,7 +9361,7 @@ DATA8_0FA439:
    db $08                               ;0FA4EA|      ;
    db $A2                               ;0FA4EB|      ;
    db $7F                               ;0FA4EC|      ;
-DATA8_0FA4ED:
+Tileset_Event10_49:
    db $01                               ;0FA4ED|      ;
    db $08                               ;0FA4EE|      ;
    db $10                               ;0FA4EF|      ;
@@ -9582,7 +9582,7 @@ DATA8_0FA4ED:
    db $E0                               ;0FA5C6|      ;
    db $AA                               ;0FA5C7|      ;
    db $7F                               ;0FA5C8|      ;
-DATA8_0FA5C9:
+Tileset_Event10_4A:
    db $01                               ;0FA5C9|      ;
    db $08                               ;0FA5CA|      ;
    db $E0                               ;0FA5CB|      ;
@@ -9893,7 +9893,7 @@ DATA8_0FA5C9:
    db $E0                               ;0FA6FC|      ;
    db $AA                               ;0FA6FD|      ;
    db $7F                               ;0FA6FE|      ;
-DATA8_0FA6FF:
+Tileset_Event10_4B:
    db $00                               ;0FA6FF|      ;
    db $E8                               ;0FA700|      ;
    db $18                               ;0FA701|      ;
@@ -10144,7 +10144,7 @@ DATA8_0FA6FF:
    db $E0                               ;0FA7F6|      ;
    db $AA                               ;0FA7F7|      ;
    db $7F                               ;0FA7F8|      ;
-DATA8_0FA7F9:
+Tileset_Event10_4C:
    db $01                               ;0FA7F9|      ;
    db $E8                               ;0FA7FA|      ;
    db $10                               ;0FA7FB|      ;
@@ -10365,7 +10365,7 @@ DATA8_0FA7F9:
    db $E0                               ;0FA8D2|      ;
    db $AA                               ;0FA8D3|      ;
    db $3F                               ;0FA8D4|      ;
-DATA8_0FA8D5:
+Tileset_Event10_4D:
    db $01                               ;0FA8D5|      ;
    db $E8                               ;0FA8D6|      ;
    db $E0                               ;0FA8D7|      ;
@@ -10676,7 +10676,7 @@ DATA8_0FA8D5:
    db $E0                               ;0FAA08|      ;
    db $AA                               ;0FAA09|      ;
    db $3F                               ;0FAA0A|      ;
-DATA8_0FAA0B:
+Tileset_Event10_4E:
    db $00                               ;0FAA0B|      ;
    db $10                               ;0FAA0C|      ;
    db $18                               ;0FAA0D|      ;
@@ -10927,7 +10927,7 @@ DATA8_0FAA0B:
    db $E0                               ;0FAB02|      ;
    db $AA                               ;0FAB03|      ;
    db $3F                               ;0FAB04|      ;
-DATA8_0FAB05:
+Tileset_Event10_4F:
    db $01                               ;0FAB05|      ;
    db $00                               ;0FAB06|      ;
    db $08                               ;0FAB07|      ;
@@ -11078,7 +11078,7 @@ DATA8_0FAB05:
    db $E8                               ;0FAB98|      ;
    db $BA                               ;0FAB99|      ;
    db $7F                               ;0FAB9A|      ;
-DATA8_0FAB9B:
+Tileset_Event10_50:
    db $00                               ;0FAB9B|      ;
    db $08                               ;0FAB9C|      ;
    db $F0                               ;0FAB9D|      ;
@@ -11244,7 +11244,7 @@ DATA8_0FAB9B:
    db $E8                               ;0FAC3D|      ;
    db $BA                               ;0FAC3E|      ;
    db $7F                               ;0FAC3F|      ;
-DATA8_0FAC40:
+Tileset_Event10_51:
    db $01                               ;0FAC40|      ;
    db $00                               ;0FAC41|      ;
    db $E8                               ;0FAC42|      ;
@@ -11425,7 +11425,7 @@ DATA8_0FAC40:
    db $E8                               ;0FACF1|      ;
    db $BA                               ;0FACF2|      ;
    db $7F                               ;0FACF3|      ;
-DATA8_0FACF4:
+Tileset_Event10_52:
    db $01                               ;0FACF4|      ;
    db $F0                               ;0FACF5|      ;
    db $08                               ;0FACF6|      ;
@@ -11576,7 +11576,7 @@ DATA8_0FACF4:
    db $E8                               ;0FAD87|      ;
    db $BA                               ;0FAD88|      ;
    db $3F                               ;0FAD89|      ;
-DATA8_0FAD8A:
+Tileset_Event10_53:
    db $00                               ;0FAD8A|      ;
    db $F0                               ;0FAD8B|      ;
    db $F0                               ;0FAD8C|      ;
@@ -11742,7 +11742,7 @@ DATA8_0FAD8A:
    db $E8                               ;0FAE2C|      ;
    db $BA                               ;0FAE2D|      ;
    db $3F                               ;0FAE2E|      ;
-DATA8_0FAE2F:
+Tileset_Event10_54:
    db $01                               ;0FAE2F|      ;
    db $F0                               ;0FAE30|      ;
    db $E8                               ;0FAE31|      ;
@@ -12409,7 +12409,7 @@ Tileset_Event10_1D_Bite6:
    db $F0                               ;0FB0C0|      ;
    db $86                               ;0FB0C1|      ;
    db $7F                               ;0FB0C2|      ;
-DATA8_0FB0C3:
+Tileset_Event10_1E:
    db $00                               ;0FB0C3|      ;
    db $08                               ;0FB0C4|      ;
    db $08                               ;0FB0C5|      ;
@@ -12550,7 +12550,7 @@ DATA8_0FB0C3:
    db $10                               ;0FB14C|      ;
    db $80                               ;0FB14D|      ;
    db $3F                               ;0FB14E|      ;
-DATA8_0FB14F:
+Tileset_Event10_1F:
    db $00                               ;0FB14F|      ;
    db $10                               ;0FB150|      ;
    db $E0                               ;0FB151|      ;
@@ -12676,7 +12676,7 @@ DATA8_0FB14F:
    db $E8                               ;0FB1C9|      ;
    db $84                               ;0FB1CA|      ;
    db $3F                               ;0FB1CB|      ;
-DATA8_0FB1CC:
+Tileset_Event10_20:
    db $00                               ;0FB1CC|      ;
    db $08                               ;0FB1CD|      ;
    db $18                               ;0FB1CE|      ;
@@ -12802,7 +12802,7 @@ DATA8_0FB1CC:
    db $E8                               ;0FB246|      ;
    db $86                               ;0FB247|      ;
    db $3F                               ;0FB248|      ;
-DATA8_0FB249:
+Tileset_Event10_21:
    db $00                               ;0FB249|      ;
    db $F0                               ;0FB24A|      ;
    db $08                               ;0FB24B|      ;
@@ -12943,7 +12943,7 @@ DATA8_0FB249:
    db $10                               ;0FB2D2|      ;
    db $80                               ;0FB2D3|      ;
    db $7F                               ;0FB2D4|      ;
-DATA8_0FB2D5:
+Tileset_Event10_22:
    db $00                               ;0FB2D5|      ;
    db $E8                               ;0FB2D6|      ;
    db $E0                               ;0FB2D7|      ;
@@ -13069,7 +13069,7 @@ DATA8_0FB2D5:
    db $E8                               ;0FB34F|      ;
    db $84                               ;0FB350|      ;
    db $7F                               ;0FB351|      ;
-DATA8_0FB352:
+Tileset_Event10_23:
    db $00                               ;0FB352|      ;
    db $F0                               ;0FB353|      ;
    db $18                               ;0FB354|      ;
@@ -13195,7 +13195,7 @@ DATA8_0FB352:
    db $E8                               ;0FB3CC|      ;
    db $86                               ;0FB3CD|      ;
    db $7F                               ;0FB3CE|      ;
-DATA8_0FB3CF:
+Tileset_Event10_24:
    db $01                               ;0FB3CF|      ;
    db $D8                               ;0FB3D0|      ;
    db $10                               ;0FB3D1|      ;
@@ -13396,7 +13396,7 @@ DATA8_0FB3CF:
    db $18                               ;0FB494|      ;
    db $A2                               ;0FB495|      ;
    db $3F                               ;0FB496|      ;
-DATA8_0FB497:
+Tileset_Event10_25:
    db $00                               ;0FB497|      ;
    db $E0                               ;0FB498|      ;
    db $20                               ;0FB499|      ;
@@ -13582,7 +13582,7 @@ DATA8_0FB497:
    db $E0                               ;0FB54D|      ;
    db $84                               ;0FB54E|      ;
    db $3F                               ;0FB54F|      ;
-DATA8_0FB550:
+Tileset_Event10_26:
    db $00                               ;0FB550|      ;
    db $10                               ;0FB551|      ;
    db $D8                               ;0FB552|      ;
@@ -13768,7 +13768,7 @@ DATA8_0FB550:
    db $E0                               ;0FB606|      ;
    db $86                               ;0FB607|      ;
    db $3F                               ;0FB608|      ;
-DATA8_0FB609:
+Tileset_Event10_27:
    db $01                               ;0FB609|      ;
    db $18                               ;0FB60A|      ;
    db $10                               ;0FB60B|      ;
@@ -13969,7 +13969,7 @@ DATA8_0FB609:
    db $18                               ;0FB6CE|      ;
    db $A2                               ;0FB6CF|      ;
    db $7F                               ;0FB6D0|      ;
-DATA8_0FB6D1:
+Tileset_Event10_28:
    db $00                               ;0FB6D1|      ;
    db $18                               ;0FB6D2|      ;
    db $20                               ;0FB6D3|      ;
@@ -14155,7 +14155,7 @@ DATA8_0FB6D1:
    db $E0                               ;0FB787|      ;
    db $84                               ;0FB788|      ;
    db $7F                               ;0FB789|      ;
-DATA8_0FB78A:
+Tileset_Event10_29:
    db $00                               ;0FB78A|      ;
    db $E8                               ;0FB78B|      ;
    db $D8                               ;0FB78C|      ;
@@ -14341,7 +14341,7 @@ DATA8_0FB78A:
    db $E0                               ;0FB840|      ;
    db $86                               ;0FB841|      ;
    db $7F                               ;0FB842|      ;
-DATA8_0FB843:
+Tileset_Event10_2A:
    db $00                               ;0FB843|      ;
    db $08                               ;0FB844|      ;
    db $10                               ;0FB845|      ;
@@ -14507,7 +14507,7 @@ DATA8_0FB843:
    db $08                               ;0FB8E5|      ;
    db $8C                               ;0FB8E6|      ;
    db $3F                               ;0FB8E7|      ;
-DATA8_0FB8E8:
+Tileset_Event10_2B:
    db $00                               ;0FB8E8|      ;
    db $E8                               ;0FB8E9|      ;
    db $E0                               ;0FB8EA|      ;
@@ -14718,7 +14718,7 @@ DATA8_0FB8E8:
    db $F0                               ;0FB9B7|      ;
    db $84                               ;0FB9B8|      ;
    db $3F                               ;0FB9B9|      ;
-DATA8_0FB9BA:
+Tileset_Event10_2C:
    db $00                               ;0FB9BA|      ;
    db $08                               ;0FB9BB|      ;
    db $E0                               ;0FB9BC|      ;
@@ -14884,7 +14884,7 @@ DATA8_0FB9BA:
    db $E8                               ;0FBA5C|      ;
    db $86                               ;0FBA5D|      ;
    db $3F                               ;0FBA5E|      ;
-DATA8_0FBA5F:
+Tileset_Event10_2D:
    db $00                               ;0FBA5F|      ;
    db $F0                               ;0FBA60|      ;
    db $10                               ;0FBA61|      ;
@@ -15050,7 +15050,7 @@ DATA8_0FBA5F:
    db $08                               ;0FBB01|      ;
    db $8C                               ;0FBB02|      ;
    db $7F                               ;0FBB03|      ;
-DATA8_0FBB04:
+Tileset_Event10_2E:
    db $00                               ;0FBB04|      ;
    db $10                               ;0FBB05|      ;
    db $E0                               ;0FBB06|      ;
@@ -15261,7 +15261,7 @@ DATA8_0FBB04:
    db $F0                               ;0FBBD3|      ;
    db $84                               ;0FBBD4|      ;
    db $7F                               ;0FBBD5|      ;
-DATA8_0FBBD6:
+Tileset_Event10_2F:
    db $00                               ;0FBBD6|      ;
    db $F0                               ;0FBBD7|      ;
    db $E0                               ;0FBBD8|      ;
@@ -15427,7 +15427,7 @@ DATA8_0FBBD6:
    db $E8                               ;0FBC78|      ;
    db $86                               ;0FBC79|      ;
    db $7F                               ;0FBC7A|      ;
-DATA8_0FBC7B:
+Tileset_Event10_55:
    db $01                               ;0FBC7B|      ;
    db $E8                               ;0FBC7C|      ;
    db $00                               ;0FBC7D|      ;
@@ -15498,7 +15498,7 @@ DATA8_0FBC7B:
    db $E8                               ;0FBCBE|      ;
    db $80                               ;0FBCBF|      ;
    db $3F                               ;0FBCC0|      ;
-DATA8_0FBCC1:
+Tileset_Event10_56:
    db $00                               ;0FBCC1|      ;
    db $08                               ;0FBCC2|      ;
    db $00                               ;0FBCC3|      ;
@@ -15559,7 +15559,7 @@ DATA8_0FBCC1:
    db $E8                               ;0FBCFA|      ;
    db $88                               ;0FBCFB|      ;
    db $3F                               ;0FBCFC|      ;
-DATA8_0FBCFD:
+Tileset_Event10_57:
    db $00                               ;0FBCFD|      ;
    db $08                               ;0FBCFE|      ;
    db $E8                               ;0FBCFF|      ;
@@ -15650,7 +15650,7 @@ DATA8_0FBCFD:
    db $08                               ;0FBD54|      ;
    db $A2                               ;0FBD55|      ;
    db $3F                               ;0FBD56|      ;
-DATA8_0FBD57:
+Tileset_Event10_58:
    db $00                               ;0FBD57|      ;
    db $08                               ;0FBD58|      ;
    db $E0                               ;0FBD59|      ;
@@ -15801,7 +15801,7 @@ DATA8_0FBD57:
    db $F0                               ;0FBDEA|      ;
    db $90                               ;0FBDEB|      ;
    db $3F                               ;0FBDEC|      ;
-DATA8_0FBDED:
+Tileset_Event10_59:
    db $01                               ;0FBDED|      ;
    db $E0                               ;0FBDEE|      ;
    db $08                               ;0FBDEF|      ;
@@ -15922,7 +15922,7 @@ DATA8_0FBDED:
    db $F0                               ;0FBE62|      ;
    db $88                               ;0FBE63|      ;
    db $3F                               ;0FBE64|      ;
-DATA8_0FBE65:
+Tileset_Event10_5A:
    db $01                               ;0FBE65|      ;
    db $E0                               ;0FBE66|      ;
    db $E8                               ;0FBE67|      ;
@@ -16088,7 +16088,7 @@ DATA8_0FBE65:
    db $00                               ;0FBF07|      ;
    db $82                               ;0FBF08|      ;
    db $3F                               ;0FBF09|      ;
-DATA8_0FBF0A:
+Tileset_Event10_5B:
    db $00                               ;0FBF0A|      ;
    db $10                               ;0FBF0B|      ;
    db $D8                               ;0FBF0C|      ;
@@ -16284,7 +16284,7 @@ DATA8_0FBF0A:
    db $E0                               ;0FBFCA|      ;
    db $A0                               ;0FBFCB|      ;
    db $3F                               ;0FBFCC|      ;
-DATA8_0FBFCD:
+Tileset_Event10_5C:
    db $01                               ;0FBFCD|      ;
    db $18                               ;0FBFCE|      ;
    db $10                               ;0FBFCF|      ;
@@ -16525,7 +16525,7 @@ DATA8_0FBFCD:
    db $F8                               ;0FC0BA|      ;
    db $88                               ;0FC0BB|      ;
    db $3F                               ;0FC0BC|      ;
-DATA8_0FC0BD:
+Tileset_Event10_5D:
    db $01                               ;0FC0BD|      ;
    db $D8                               ;0FC0BE|      ;
    db $10                               ;0FC0BF|      ;
@@ -16766,7 +16766,7 @@ DATA8_0FC0BD:
    db $08                               ;0FC1AA|      ;
    db $82                               ;0FC1AB|      ;
    db $3F                               ;0FC1AC|      ;
-DATA8_0FC1AD:
+Tileset_Event10_5E:
    db $00                               ;0FC1AD|      ;
    db $10                               ;0FC1AE|      ;
    db $18                               ;0FC1AF|      ;
@@ -16917,7 +16917,7 @@ DATA8_0FC1AD:
    db $F0                               ;0FC240|      ;
    db $90                               ;0FC241|      ;
    db $3F                               ;0FC242|      ;
-DATA8_0FC243:
+Tileset_Event10_5F:
    db $00                               ;0FC243|      ;
    db $10                               ;0FC244|      ;
    db $18                               ;0FC245|      ;
@@ -17038,7 +17038,7 @@ DATA8_0FC243:
    db $10                               ;0FC2B8|      ;
    db $AA                               ;0FC2B9|      ;
    db $3F                               ;0FC2BA|      ;
-DATA8_0FC2BB:
+Tileset_Event10_60:
    db $01                               ;0FC2BB|      ;
    db $10                               ;0FC2BC|      ;
    db $08                               ;0FC2BD|      ;
@@ -17204,7 +17204,7 @@ DATA8_0FC2BB:
    db $10                               ;0FC35D|      ;
    db $A2                               ;0FC35E|      ;
    db $3F                               ;0FC35F|      ;
-DATA8_0FC360:
+Tileset_Event10_30:
    db $01                               ;0FC360|      ;
    db $F8                               ;0FC361|      ;
    db $10                               ;0FC362|      ;
@@ -17255,7 +17255,7 @@ DATA8_0FC360:
    db $00                               ;0FC38F|      ;
    db $AA                               ;0FC390|      ;
    db $3F                               ;0FC391|      ;
-DATA8_0FC392:
+Tileset_Event10_31:
    db $00                               ;0FC392|      ;
    db $F0                               ;0FC393|      ;
    db $F0                               ;0FC394|      ;
@@ -17316,7 +17316,7 @@ DATA8_0FC392:
    db $F8                               ;0FC3CB|      ;
    db $88                               ;0FC3CC|      ;
    db $3F                               ;0FC3CD|      ;
-DATA8_0FC3CE:
+Tileset_Event10_32:
    db $00                               ;0FC3CE|      ;
    db $08                               ;0FC3CF|      ;
    db $F0                               ;0FC3D0|      ;
@@ -17377,7 +17377,7 @@ DATA8_0FC3CE:
    db $F8                               ;0FC407|      ;
    db $88                               ;0FC408|      ;
    db $7F                               ;0FC409|      ;
-DATA8_0FC40A:
+Tileset_Event10_33:
    db $01                               ;0FC40A|      ;
    db $08                               ;0FC40B|      ;
    db $00                               ;0FC40C|      ;
@@ -17438,7 +17438,7 @@ DATA8_0FC40A:
    db $00                               ;0FC443|      ;
    db $AA                               ;0FC444|      ;
    db $3F                               ;0FC445|      ;
-DATA8_0FC446:
+Tileset_Event10_34:
    db $00                               ;0FC446|      ;
    db $08                               ;0FC447|      ;
    db $18                               ;0FC448|      ;
@@ -17589,7 +17589,7 @@ DATA8_0FC446:
    db $E8                               ;0FC4D9|      ;
    db $80                               ;0FC4DA|      ;
    db $3F                               ;0FC4DB|      ;
-DATA8_0FC4DC:
+Tileset_Event10_35:
    db $00                               ;0FC4DC|      ;
    db $F0                               ;0FC4DD|      ;
    db $18                               ;0FC4DE|      ;
@@ -17740,7 +17740,7 @@ DATA8_0FC4DC:
    db $E8                               ;0FC56F|      ;
    db $80                               ;0FC570|      ;
    db $7F                               ;0FC571|      ;
-DATA8_0FC572:
+Tileset_Event10_36:
    db $00                               ;0FC572|      ;
    db $E0                               ;0FC573|      ;
    db $18                               ;0FC574|      ;
@@ -17976,7 +17976,7 @@ DATA8_0FC572:
    db $E0                               ;0FC65A|      ;
    db $9A                               ;0FC65B|      ;
    db $3F                               ;0FC65C|      ;
-DATA8_0FC65D:
+Tileset_Event10_37:
    db $00                               ;0FC65D|      ;
    db $08                               ;0FC65E|      ;
    db $F8                               ;0FC65F|      ;
@@ -18272,7 +18272,7 @@ DATA8_0FC65D:
    db $F0                               ;0FC781|      ;
    db $80                               ;0FC782|      ;
    db $3F                               ;0FC783|      ;
-DATA8_0FC784:
+Tileset_Event10_38:
    db $00                               ;0FC784|      ;
    db $E0                               ;0FC785|      ;
    db $F8                               ;0FC786|      ;
@@ -18538,7 +18538,7 @@ DATA8_0FC784:
    db $00                               ;0FC88A|      ;
    db $86                               ;0FC88B|      ;
    db $3F                               ;0FC88C|      ;
-DATA8_0FC88D:
+Tileset_Event10_39:
    db $00                               ;0FC88D|      ;
    db $E0                               ;0FC88E|      ;
    db $E0                               ;0FC88F|      ;
@@ -18774,7 +18774,7 @@ DATA8_0FC88D:
    db $18                               ;0FC975|      ;
    db $9A                               ;0FC976|      ;
    db $BF                               ;0FC977|      ;
-DATA8_0FC978:
+Tileset_Event10_3A:
    db $00                               ;0FC978|      ;
    db $08                               ;0FC979|      ;
    db $08                               ;0FC97A|      ;
@@ -18910,7 +18910,7 @@ DATA8_0FC978:
    db $E0                               ;0FC9FC|      ;
    db $8C                               ;0FC9FD|      ;
    db $3F                               ;0FC9FE|      ;
-DATA8_0FC9FF:
+Tileset_Event10_3B:
    db $00                               ;0FC9FF|      ;
    db $10                               ;0FCA00|      ;
    db $10                               ;0FCA01|      ;
@@ -19061,7 +19061,7 @@ DATA8_0FC9FF:
    db $E8                               ;0FCA92|      ;
    db $80                               ;0FCA93|      ;
    db $3F                               ;0FCA94|      ;
-DATA8_0FCA95:
+Tileset_Event10_3C:
    db $00                               ;0FCA95|      ;
    db $E8                               ;0FCA96|      ;
    db $10                               ;0FCA97|      ;
@@ -19212,7 +19212,7 @@ DATA8_0FCA95:
    db $E8                               ;0FCB28|      ;
    db $80                               ;0FCB29|      ;
    db $7F                               ;0FCB2A|      ;
-Event_Spell_Animations:
+Event_Main_11_SPELL_ANIMATIONS:
    db $07                               ;0FCB2B|      ;
    dl CODE_07B9A2                       ;0FCB2C|07B9A2;
    db $1F                               ;0FCB2F|      ;
@@ -20017,10 +20017,9 @@ CODE_0FCF31:
    CLC                                  ;0FCF4D|      ;
    ADC.W #$000C                         ;0FCF4E|      ;
    CMP.W #$0032                         ;0FCF51|      ;
-   BCC CODE_0FCF59                      ;0FCF54|0FCF59;
+   BCC +                                ;0FCF54|0FCF59;
    LDA.W #$0000                         ;0FCF56|      ;
-CODE_0FCF59:
-   STA.W Object_var1_Category,X         ;0FCF59|0009C7;
+ + STA.W Object_var1_Category,X         ;0FCF59|0009C7;
    RTL                                  ;0FCF5C|      ;
 MVN_0604:
    db $18                               ;0FCF5D|      ;
@@ -20099,7 +20098,7 @@ Load_Some_Anim_Data:
    LDX.W Selection_offset               ;0FCFA5|00103F;
    LDA.W Object_var2_Selection,X        ;0FCFA8|0009EB;
    AND.W #$0003                         ;0FCFAB|      ;
-   BNE CODE_0FCFD8                      ;0FCFAE|0FCFD8;
+   BNE +                                ;0FCFAE|0FCFD8;
    LDA.W Object_var1_Category,X         ;0FCFB0|0009C7;
    CLC                                  ;0FCFB3|      ;
    ADC.W #$CFDC                         ;0FCFB4|      ;
@@ -20114,12 +20113,10 @@ Load_Some_Anim_Data:
    CLC                                  ;0FCFC9|      ;
    ADC.W #$000C                         ;0FCFCA|      ;
    CMP.W #$0032                         ;0FCFCD|      ;
-   BCC CODE_0FCFD5                      ;0FCFD0|0FCFD5;
+   BCC ++                               ;0FCFD0|0FCFD5;
    LDA.W #$0000                         ;0FCFD2|      ;
-CODE_0FCFD5:
-   STA.W Object_var1_Category,X         ;0FCFD5|0009C7;
-CODE_0FCFD8:
-   INC.W Object_var2_Selection,X        ;0FCFD8|0009EB;
+++ STA.W Object_var1_Category,X         ;0FCFD5|0009C7;
+ + INC.W Object_var2_Selection,X        ;0FCFD8|0009EB;
    RTL                                  ;0FCFDB|      ;
 MVN_0604_two:
    db $18                               ;0FCFDC|      ;
@@ -20194,142 +20191,142 @@ MVN_0604_two:
    db $1C                               ;0FD021|007F18;
    db $18                               ;0FD022|      ;
    db $7F                               ;0FD023|29D124;
-Tbl_Tileset_Spell_Animations:
-   dw DATA8_0FD124                      ;0FD024|0FD124;
-   dw DATA8_0FD129                      ;0FD026|0FD129;
-   dw DATA8_0FD133                      ;0FD028|0FD133;
-   dw DATA8_0FD142                      ;0FD02A|0FD142;
-   dw DATA8_0FD151                      ;0FD02C|0FD151;
-   dw DATA8_0FD160                      ;0FD02E|0FD160;
-   dw DATA8_0FD16F                      ;0FD030|0FD16F;
-   dw DATA8_0FD17E                      ;0FD032|0FD17E;
-   dw DATA8_0FD18D                      ;0FD034|0FD18D;
-   dw DATA8_0FD19C                      ;0FD036|0FD19C;
-   dw DATA8_0FD1AB                      ;0FD038|0FD1AB;
-   dw DATA8_0FD1BA                      ;0FD03A|0FD1BA;
-   dw DATA8_0FD1C9                      ;0FD03C|0FD1C9;
-   dw DATA8_0FD1D8                      ;0FD03E|0FD1D8;
-   dw DATA8_0FD1E7                      ;0FD040|0FD1E7;
-   dw DATA8_0FD1F6                      ;0FD042|0FD1F6;
-   dw DATA8_0FD205                      ;0FD044|0FD205;
-   dw DATA8_0FD20A                      ;0FD046|0FD20A;
-   dw DATA8_0FD214                      ;0FD048|0FD214;
-   dw DATA8_0FD223                      ;0FD04A|0FD223;
-   dw DATA8_0FD232                      ;0FD04C|0FD232;
-   dw DATA8_0FD241                      ;0FD04E|0FD241;
-   dw DATA8_0FD24B                      ;0FD050|0FD24B;
-   dw DATA8_0FD25A                      ;0FD052|0FD25A;
-   dw DATA8_0FD269                      ;0FD054|0FD269;
-   dw DATA8_0FD278                      ;0FD056|0FD278;
-   dw DATA8_0FD28C                      ;0FD058|0FD28C;
-   dw DATA8_0FD29B                      ;0FD05A|0FD29B;
-   dw DATA8_0FD2AA                      ;0FD05C|0FD2AA;
-   dw DATA8_0FD2B9                      ;0FD05E|0FD2B9;
-   dw DATA8_0FD2C3                      ;0FD060|0FD2C3;
-   dw DATA8_0FD2CD                      ;0FD062|0FD2CD;
-   dw DATA8_0FD2D2                      ;0FD064|0FD2D2;
-   dw DATA8_0FD2D7                      ;0FD066|0FD2D7;
-   dw DATA8_0FD2E1                      ;0FD068|0FD2E1;
-   dw DATA8_0FD2EB                      ;0FD06A|0FD2EB;
-   dw DATA8_0FD2FA                      ;0FD06C|0FD2FA;
-   dw DATA8_0FD309                      ;0FD06E|0FD309;
-   dw DATA8_0FD313                      ;0FD070|0FD313;
-   dw DATA8_0FD327                      ;0FD072|0FD327;
-   dw DATA8_0FD336                      ;0FD074|0FD336;
-   dw DATA8_0FD345                      ;0FD076|0FD345;
-   dw DATA8_0FD354                      ;0FD078|0FD354;
-   dw DATA8_0FD35E                      ;0FD07A|0FD35E;
-   dw DATA8_0FD36D                      ;0FD07C|0FD36D;
-   dw DATA8_0FD37C                      ;0FD07E|0FD37C;
-   dw DATA8_0FD38B                      ;0FD080|0FD38B;
-   dw DATA8_0FD395                      ;0FD082|0FD395;
-   dw DATA8_0FD39A                      ;0FD084|0FD39A;
-   dw DATA8_0FD39F                      ;0FD086|0FD39F;
-   dw DATA8_0FD3A9                      ;0FD088|0FD3A9;
-   dw DATA8_0FD3BD                      ;0FD08A|0FD3BD;
-   dw DATA8_0FD3DB                      ;0FD08C|0FD3DB;
-   dw DATA8_0FD3EF                      ;0FD08E|0FD3EF;
-   dw DATA8_0FD403                      ;0FD090|0FD403;
-   dw DATA8_0FD412                      ;0FD092|0FD412;
-   dw DATA8_0FD421                      ;0FD094|0FD421;
-   dw DATA8_0FD43A                      ;0FD096|0FD43A;
-   dw DATA8_0FD453                      ;0FD098|0FD453;
-   dw DATA8_0FD462                      ;0FD09A|0FD462;
-   dw DATA8_0FD471                      ;0FD09C|0FD471;
-   dw DATA8_0FD480                      ;0FD09E|0FD480;
-   dw DATA8_0FD48F                      ;0FD0A0|0FD48F;
-   dw DATA8_0FD49E                      ;0FD0A2|0FD49E;
-   dw DATA8_0FD4B7                      ;0FD0A4|0FD4B7;
-   dw DATA8_0FD52F                      ;0FD0A6|0FD52F;
-   dw DATA8_0FD5A7                      ;0FD0A8|0FD5A7;
-   dw DATA8_0FD61F                      ;0FD0AA|0FD61F;
-   dw DATA8_0FD6A6                      ;0FD0AC|0FD6A6;
-   dw DATA8_0FD6E2                      ;0FD0AE|0FD6E2;
-   dw DATA8_0FD71E                      ;0FD0B0|0FD71E;
-   dw DATA8_0FD75A                      ;0FD0B2|0FD75A;
-   dw DATA8_0FD7B4                      ;0FD0B4|0FD7B4;
-   dw DATA8_0FD82C                      ;0FD0B6|0FD82C;
-   dw DATA8_0FD8A4                      ;0FD0B8|0FD8A4;
-   dw DATA8_0FD8E0                      ;0FD0BA|0FD8E0;
-   dw DATA8_0FD91C                      ;0FD0BC|0FD91C;
-   dw DATA8_0FD958                      ;0FD0BE|0FD958;
-   dw DATA8_0FD962                      ;0FD0C0|0FD962;
-   dw DATA8_0FD976                      ;0FD0C2|0FD976;
-   dw DATA8_0FD994                      ;0FD0C4|0FD994;
-   dw DATA8_0FD9BC                      ;0FD0C6|0FD9BC;
-   dw DATA8_0FD9EE                      ;0FD0C8|0FD9EE;
-   dw DATA8_0FDA20                      ;0FD0CA|0FDA20;
-   dw DATA8_0FDA52                      ;0FD0CC|0FDA52;
-   dw DATA8_0FDA84                      ;0FD0CE|0FDA84;
-   dw DATA8_0FDAB6                      ;0FD0D0|0FDAB6;
-   dw DATA8_0FDAE8                      ;0FD0D2|0FDAE8;
-   dw DATA8_0FDB1A                      ;0FD0D4|0FDB1A;
-   dw DATA8_0FDB47                      ;0FD0D6|0FDB47;
-   dw DATA8_0FDB6A                      ;0FD0D8|0FDB6A;
-   dw DATA8_0FDB83                      ;0FD0DA|0FDB83;
-   dw DATA8_0FDB92                      ;0FD0DC|0FDB92;
-   dw DATA8_0FDB97                      ;0FD0DE|0FDB97;
-   dw DATA8_0FDBC4                      ;0FD0E0|0FDBC4;
-   dw DATA8_0FDBD8                      ;0FD0E2|0FDBD8;
-   dw DATA8_0FDC6E                      ;0FD0E4|0FDC6E;
-   dw DATA8_0FDCE6                      ;0FD0E6|0FDCE6;
-   dw DATA8_0FDCEB                      ;0FD0E8|0FDCEB;
-   dw DATA8_0FDCF5                      ;0FD0EA|0FDCF5;
-   dw DATA8_0FDD04                      ;0FD0EC|0FDD04;
-   dw DATA8_0FDD13                      ;0FD0EE|0FDD13;
-   dw DATA8_0FDD22                      ;0FD0F0|0FDD22;
-   dw DATA8_0FDD2C                      ;0FD0F2|0FDD2C;
-   dw DATA8_0FDD3B                      ;0FD0F4|0FDD3B;
-   dw DATA8_0FDD4A                      ;0FD0F6|0FDD4A;
-   dw DATA8_0FDD59                      ;0FD0F8|0FDD59;
-   dw DATA8_0FDD6D                      ;0FD0FA|0FDD6D;
-   dw DATA8_0FDD7C                      ;0FD0FC|0FDD7C;
-   dw DATA8_0FDD8B                      ;0FD0FE|0FDD8B;
-   dw DATA8_0FDD9A                      ;0FD100|0FDD9A;
-   dw DATA8_0FDDA4                      ;0FD102|0FDDA4;
-   dw DATA8_0FDDAE                      ;0FD104|0FDDAE;
-   dw DATA8_0FDDB3                      ;0FD106|0FDDB3;
-   dw DATA8_0FDE1C                      ;0FD108|0FDE1C;
-   dw DATA8_0FDE3A                      ;0FD10A|0FDE3A;
-   dw DATA8_0FDE94                      ;0FD10C|0FDE94;
-   dw DATA8_0FDED0                      ;0FD10E|0FDED0;
-   dw DATA8_0FDF0C                      ;0FD110|0FDF0C;
-   dw DATA8_0FDF84                      ;0FD112|0FDF84;
-   dw DATA8_0FDFFC                      ;0FD114|0FDFFC;
-   dw DATA8_0FE074                      ;0FD116|0FE074;
-   dw DATA8_0FE0EC                      ;0FD118|0FE0EC;
-   dw DATA8_0FE164                      ;0FD11A|0FE164;
-   dw DATA8_0FE1DC                      ;0FD11C|0FE1DC;
-   dw DATA8_0FE254                      ;0FD11E|0FE254;
-   dw DATA8_0FE2CC                      ;0FD120|0FE2CC;
-   dw DATA8_0FE344                      ;0FD122|0FE344;
-DATA8_0FD124:
+Tbl_Tileset_Event11_SPELL_ANIMATIONS:
+   dw Tileset_Event11_00                ;0FD024|0FD124;
+   dw Tileset_Event11_01                ;0FD026|0FD129;
+   dw Tileset_Event11_02                ;0FD028|0FD133;
+   dw Tileset_Event11_03                ;0FD02A|0FD142;
+   dw Tileset_Event11_04                ;0FD02C|0FD151;
+   dw Tileset_Event11_05                ;0FD02E|0FD160;
+   dw Tileset_Event11_06                ;0FD030|0FD16F;
+   dw Tileset_Event11_07                ;0FD032|0FD17E;
+   dw Tileset_Event11_08                ;0FD034|0FD18D;
+   dw Tileset_Event11_09                ;0FD036|0FD19C;
+   dw Tileset_Event11_0A                ;0FD038|0FD1AB;
+   dw Tileset_Event11_0B                ;0FD03A|0FD1BA;
+   dw Tileset_Event11_0C                ;0FD03C|0FD1C9;
+   dw Tileset_Event11_0D                ;0FD03E|0FD1D8;
+   dw Tileset_Event11_0E                ;0FD040|0FD1E7;
+   dw Tileset_Event11_0F                ;0FD042|0FD1F6;
+   dw Tileset_Event11_10                ;0FD044|0FD205;
+   dw Tileset_Event11_11                ;0FD046|0FD20A;
+   dw Tileset_Event11_12                ;0FD048|0FD214;
+   dw Tileset_Event11_13                ;0FD04A|0FD223;
+   dw Tileset_Event11_14                ;0FD04C|0FD232;
+   dw Tileset_Event11_15                ;0FD04E|0FD241;
+   dw Tileset_Event11_16                ;0FD050|0FD24B;
+   dw Tileset_Event11_17                ;0FD052|0FD25A;
+   dw Tileset_Event11_18                ;0FD054|0FD269;
+   dw Tileset_Event11_19                ;0FD056|0FD278;
+   dw Tileset_Event11_1A                ;0FD058|0FD28C;
+   dw Tileset_Event11_1B                ;0FD05A|0FD29B;
+   dw Tileset_Event11_1C                ;0FD05C|0FD2AA;
+   dw Tileset_Event11_1D                ;0FD05E|0FD2B9;
+   dw Tileset_Event11_1E                ;0FD060|0FD2C3;
+   dw Tileset_Event11_1F                ;0FD062|0FD2CD;
+   dw Tileset_Event11_20                ;0FD064|0FD2D2;
+   dw Tileset_Event11_21                ;0FD066|0FD2D7;
+   dw Tileset_Event11_22                ;0FD068|0FD2E1;
+   dw Tileset_Event11_23                ;0FD06A|0FD2EB;
+   dw Tileset_Event11_24                ;0FD06C|0FD2FA;
+   dw Tileset_Event11_25                ;0FD06E|0FD309;
+   dw Tileset_Event11_26                ;0FD070|0FD313;
+   dw Tileset_Event11_27                ;0FD072|0FD327;
+   dw Tileset_Event11_28                ;0FD074|0FD336;
+   dw Tileset_Event11_29                ;0FD076|0FD345;
+   dw Tileset_Event11_2A                ;0FD078|0FD354;
+   dw Tileset_Event11_2B                ;0FD07A|0FD35E;
+   dw Tileset_Event11_2C                ;0FD07C|0FD36D;
+   dw Tileset_Event11_2D                ;0FD07E|0FD37C;
+   dw Tileset_Event11_2E                ;0FD080|0FD38B;
+   dw Tileset_Event11_2F                ;0FD082|0FD395;
+   dw Tileset_Event11_30                ;0FD084|0FD39A;
+   dw Tileset_Event11_31                ;0FD086|0FD39F;
+   dw Tileset_Event11_32                ;0FD088|0FD3A9;
+   dw Tileset_Event11_33                ;0FD08A|0FD3BD;
+   dw Tileset_Event11_34                ;0FD08C|0FD3DB;
+   dw Tileset_Event11_35                ;0FD08E|0FD3EF;
+   dw Tileset_Event11_36                ;0FD090|0FD403;
+   dw Tileset_Event11_37                ;0FD092|0FD412;
+   dw Tileset_Event11_38                ;0FD094|0FD421;
+   dw Tileset_Event11_39                ;0FD096|0FD43A;
+   dw Tileset_Event11_3A                ;0FD098|0FD453;
+   dw Tileset_Event11_3B                ;0FD09A|0FD462;
+   dw Tileset_Event11_3C                ;0FD09C|0FD471;
+   dw Tileset_Event11_3D                ;0FD09E|0FD480;
+   dw Tileset_Event11_3E                ;0FD0A0|0FD48F;
+   dw Tileset_Event11_3F                ;0FD0A2|0FD49E;
+   dw Tileset_Event11_40                ;0FD0A4|0FD4B7;
+   dw Tileset_Event11_41                ;0FD0A6|0FD52F;
+   dw Tileset_Event11_42                ;0FD0A8|0FD5A7;
+   dw Tileset_Event11_43                ;0FD0AA|0FD61F;
+   dw Tileset_Event11_44                ;0FD0AC|0FD6A6;
+   dw Tileset_Event11_45                ;0FD0AE|0FD6E2;
+   dw Tileset_Event11_46                ;0FD0B0|0FD71E;
+   dw Tileset_Event11_47                ;0FD0B2|0FD75A;
+   dw Tileset_Event11_48                ;0FD0B4|0FD7B4;
+   dw Tileset_Event11_49                ;0FD0B6|0FD82C;
+   dw Tileset_Event11_4A                ;0FD0B8|0FD8A4;
+   dw Tileset_Event11_4B                ;0FD0BA|0FD8E0;
+   dw Tileset_Event11_4C                ;0FD0BC|0FD91C;
+   dw Tileset_Event11_4D                ;0FD0BE|0FD958;
+   dw Tileset_Event11_4E                ;0FD0C0|0FD962;
+   dw Tileset_Event11_4F                ;0FD0C2|0FD976;
+   dw Tileset_Event11_50                ;0FD0C4|0FD994;
+   dw Tileset_Event11_51                ;0FD0C6|0FD9BC;
+   dw Tileset_Event11_52                ;0FD0C8|0FD9EE;
+   dw Tileset_Event11_53                ;0FD0CA|0FDA20;
+   dw Tileset_Event11_54                ;0FD0CC|0FDA52;
+   dw Tileset_Event11_55                ;0FD0CE|0FDA84;
+   dw Tileset_Event11_56                ;0FD0D0|0FDAB6;
+   dw Tileset_Event11_57                ;0FD0D2|0FDAE8;
+   dw Tileset_Event11_58                ;0FD0D4|0FDB1A;
+   dw Tileset_Event11_59                ;0FD0D6|0FDB47;
+   dw Tileset_Event11_5A                ;0FD0D8|0FDB6A;
+   dw Tileset_Event11_5B                ;0FD0DA|0FDB83;
+   dw Tileset_Event11_5C                ;0FD0DC|0FDB92;
+   dw Tileset_Event11_5D                ;0FD0DE|0FDB97;
+   dw Tileset_Event11_5E                ;0FD0E0|0FDBC4;
+   dw Tileset_Event11_5F                ;0FD0E2|0FDBD8;
+   dw Tileset_Event11_60                ;0FD0E4|0FDC6E;
+   dw Tileset_Event11_61                ;0FD0E6|0FDCE6;
+   dw Tileset_Event11_62                ;0FD0E8|0FDCEB;
+   dw Tileset_Event11_63                ;0FD0EA|0FDCF5;
+   dw Tileset_Event11_64                ;0FD0EC|0FDD04;
+   dw Tileset_Event11_65                ;0FD0EE|0FDD13;
+   dw Tileset_Event11_66                ;0FD0F0|0FDD22;
+   dw Tileset_Event11_67                ;0FD0F2|0FDD2C;
+   dw Tileset_Event11_68                ;0FD0F4|0FDD3B;
+   dw Tileset_Event11_69                ;0FD0F6|0FDD4A;
+   dw Tileset_Event11_6A                ;0FD0F8|0FDD59;
+   dw Tileset_Event11_6B                ;0FD0FA|0FDD6D;
+   dw Tileset_Event11_6C                ;0FD0FC|0FDD7C;
+   dw Tileset_Event11_6D                ;0FD0FE|0FDD8B;
+   dw Tileset_Event11_6E                ;0FD100|0FDD9A;
+   dw Tileset_Event11_6F                ;0FD102|0FDDA4;
+   dw Tileset_Event11_70                ;0FD104|0FDDAE;
+   dw Tileset_Event11_71                ;0FD106|0FDDB3;
+   dw Tileset_Event11_72                ;0FD108|0FDE1C;
+   dw Tileset_Event11_73                ;0FD10A|0FDE3A;
+   dw Tileset_Event11_74                ;0FD10C|0FDE94;
+   dw Tileset_Event11_75                ;0FD10E|0FDED0;
+   dw Tileset_Event11_76                ;0FD110|0FDF0C;
+   dw Tileset_Event11_77                ;0FD112|0FDF84;
+   dw Tileset_Event11_78                ;0FD114|0FDFFC;
+   dw Tileset_Event11_79                ;0FD116|0FE074;
+   dw Tileset_Event11_7A                ;0FD118|0FE0EC;
+   dw Tileset_Event11_7B                ;0FD11A|0FE164;
+   dw Tileset_Event11_7C                ;0FD11C|0FE1DC;
+   dw Tileset_Event11_7D                ;0FD11E|0FE254;
+   dw Tileset_Event11_7E                ;0FD120|0FE2CC;
+   dw Tileset_Event11_7F                ;0FD122|0FE344;
+Tileset_Event11_00:
    db $03                               ;0FD124|      ;
    db $F8                               ;0FD125|      ;
    db $0E                               ;0FD126|      ;
    db $88                               ;0FD127|      ;
    db $3F                               ;0FD128|      ;
-DATA8_0FD129:
+Tileset_Event11_01:
    db $01                               ;0FD129|      ;
    db $F8                               ;0FD12A|      ;
    db $0E                               ;0FD12B|      ;
@@ -20340,7 +20337,7 @@ DATA8_0FD129:
    db $0C                               ;0FD130|      ;
    db $88                               ;0FD131|      ;
    db $3F                               ;0FD132|      ;
-DATA8_0FD133:
+Tileset_Event11_02:
    db $01                               ;0FD133|      ;
    db $F8                               ;0FD134|      ;
    db $0E                               ;0FD135|      ;
@@ -20356,7 +20353,7 @@ DATA8_0FD133:
    db $0A                               ;0FD13F|      ;
    db $88                               ;0FD140|      ;
    db $3F                               ;0FD141|      ;
-DATA8_0FD142:
+Tileset_Event11_03:
    db $01                               ;0FD142|      ;
    db $06                               ;0FD143|      ;
    db $06                               ;0FD144|      ;
@@ -20372,7 +20369,7 @@ DATA8_0FD142:
    db $0C                               ;0FD14E|      ;
    db $8C                               ;0FD14F|      ;
    db $3F                               ;0FD150|      ;
-DATA8_0FD151:
+Tileset_Event11_04:
    db $01                               ;0FD151|      ;
    db $01                               ;0FD152|      ;
    db $04                               ;0FD153|      ;
@@ -20388,7 +20385,7 @@ DATA8_0FD151:
    db $0A                               ;0FD15D|      ;
    db $8C                               ;0FD15E|      ;
    db $3F                               ;0FD15F|      ;
-DATA8_0FD160:
+Tileset_Event11_05:
    db $01                               ;0FD160|      ;
    db $F4                               ;0FD161|      ;
    db $03                               ;0FD162|      ;
@@ -20404,7 +20401,7 @@ DATA8_0FD160:
    db $06                               ;0FD16C|      ;
    db $8E                               ;0FD16D|      ;
    db $7F                               ;0FD16E|      ;
-DATA8_0FD16F:
+Tileset_Event11_06:
    db $01                               ;0FD16F|      ;
    db $EB                               ;0FD170|      ;
    db $01                               ;0FD171|      ;
@@ -20420,7 +20417,7 @@ DATA8_0FD16F:
    db $03                               ;0FD17B|      ;
    db $8C                               ;0FD17C|      ;
    db $7F                               ;0FD17D|      ;
-DATA8_0FD17E:
+Tileset_Event11_07:
    db $01                               ;0FD17E|      ;
    db $EB                               ;0FD17F|      ;
    db $FD                               ;0FD180|      ;
@@ -20436,7 +20433,7 @@ DATA8_0FD17E:
    db $03                               ;0FD18A|      ;
    db $8E                               ;0FD18B|      ;
    db $7F                               ;0FD18C|      ;
-DATA8_0FD18D:
+Tileset_Event11_08:
    db $01                               ;0FD18D|      ;
    db $EB                               ;0FD18E|      ;
    db $01                               ;0FD18F|      ;
@@ -20452,7 +20449,7 @@ DATA8_0FD18D:
    db $FA                               ;0FD199|      ;
    db $88                               ;0FD19A|      ;
    db $3F                               ;0FD19B|      ;
-DATA8_0FD19C:
+Tileset_Event11_09:
    db $01                               ;0FD19C|      ;
    db $06                               ;0FD19D|      ;
    db $F8                               ;0FD19E|      ;
@@ -20468,7 +20465,7 @@ DATA8_0FD19C:
    db $FD                               ;0FD1A8|      ;
    db $8C                               ;0FD1A9|      ;
    db $3F                               ;0FD1AA|      ;
-DATA8_0FD1AB:
+Tileset_Event11_0A:
    db $01                               ;0FD1AB|      ;
    db $06                               ;0FD1AC|      ;
    db $F1                               ;0FD1AD|      ;
@@ -20484,7 +20481,7 @@ DATA8_0FD1AB:
    db $FA                               ;0FD1B7|      ;
    db $8C                               ;0FD1B8|      ;
    db $3F                               ;0FD1B9|      ;
-DATA8_0FD1BA:
+Tileset_Event11_0B:
    db $01                               ;0FD1BA|      ;
    db $F9                               ;0FD1BB|      ;
    db $EF                               ;0FD1BC|      ;
@@ -20500,7 +20497,7 @@ DATA8_0FD1BA:
    db $F8                               ;0FD1C6|      ;
    db $8C                               ;0FD1C7|      ;
    db $3F                               ;0FD1C8|      ;
-DATA8_0FD1C9:
+Tileset_Event11_0C:
    db $01                               ;0FD1C9|      ;
    db $EE                               ;0FD1CA|      ;
    db $EB                               ;0FD1CB|      ;
@@ -20516,7 +20513,7 @@ DATA8_0FD1C9:
    db $F1                               ;0FD1D5|      ;
    db $8E                               ;0FD1D6|      ;
    db $7F                               ;0FD1D7|      ;
-DATA8_0FD1D8:
+Tileset_Event11_0D:
    db $01                               ;0FD1D8|      ;
    db $E9                               ;0FD1D9|      ;
    db $E7                               ;0FD1DA|      ;
@@ -20532,7 +20529,7 @@ DATA8_0FD1D8:
    db $EF                               ;0FD1E4|      ;
    db $8E                               ;0FD1E5|      ;
    db $7F                               ;0FD1E6|      ;
-DATA8_0FD1E7:
+Tileset_Event11_0E:
    db $01                               ;0FD1E7|      ;
    db $F1                               ;0FD1E8|      ;
    db $E2                               ;0FD1E9|      ;
@@ -20548,7 +20545,7 @@ DATA8_0FD1E7:
    db $EB                               ;0FD1F3|      ;
    db $8E                               ;0FD1F4|      ;
    db $7F                               ;0FD1F5|      ;
-DATA8_0FD1F6:
+Tileset_Event11_0F:
    db $01                               ;0FD1F6|      ;
    db $F9                               ;0FD1F7|      ;
    db $E0                               ;0FD1F8|      ;
@@ -20564,13 +20561,13 @@ DATA8_0FD1F6:
    db $E7                               ;0FD202|      ;
    db $8C                               ;0FD203|      ;
    db $3F                               ;0FD204|      ;
-DATA8_0FD205:
+Tileset_Event11_10:
    db $03                               ;0FD205|      ;
    db $FB                               ;0FD206|      ;
    db $FF                               ;0FD207|      ;
    db $86                               ;0FD208|      ;
    db $3F                               ;0FD209|      ;
-DATA8_0FD20A:
+Tileset_Event11_11:
    db $01                               ;0FD20A|      ;
    db $FD                               ;0FD20B|      ;
    db $02                               ;0FD20C|      ;
@@ -20581,7 +20578,7 @@ DATA8_0FD20A:
    db $F2                               ;0FD211|      ;
    db $86                               ;0FD212|      ;
    db $3F                               ;0FD213|      ;
-DATA8_0FD214:
+Tileset_Event11_12:
    db $01                               ;0FD214|      ;
    db $F7                               ;0FD215|      ;
    db $00                               ;0FD216|      ;
@@ -20597,7 +20594,7 @@ DATA8_0FD214:
    db $07                               ;0FD220|      ;
    db $82                               ;0FD221|      ;
    db $3F                               ;0FD222|      ;
-DATA8_0FD223:
+Tileset_Event11_13:
    db $01                               ;0FD223|      ;
    db $F6                               ;0FD224|      ;
    db $03                               ;0FD225|      ;
@@ -20613,7 +20610,7 @@ DATA8_0FD223:
    db $0E                               ;0FD22F|      ;
    db $80                               ;0FD230|      ;
    db $3F                               ;0FD231|      ;
-DATA8_0FD232:
+Tileset_Event11_14:
    db $01                               ;0FD232|      ;
    db $F2                               ;0FD233|      ;
    db $F1                               ;0FD234|      ;
@@ -20629,7 +20626,7 @@ DATA8_0FD232:
    db $EB                               ;0FD23E|      ;
    db $80                               ;0FD23F|      ;
    db $3F                               ;0FD240|      ;
-DATA8_0FD241:
+Tileset_Event11_15:
    db $01                               ;0FD241|      ;
    db $F5                               ;0FD242|      ;
    db $0E                               ;0FD243|      ;
@@ -20640,7 +20637,7 @@ DATA8_0FD241:
    db $EE                               ;0FD248|      ;
    db $84                               ;0FD249|      ;
    db $3F                               ;0FD24A|      ;
-DATA8_0FD24B:
+Tileset_Event11_16:
    db $01                               ;0FD24B|      ;
    db $F1                               ;0FD24C|      ;
    db $F9                               ;0FD24D|      ;
@@ -20656,7 +20653,7 @@ DATA8_0FD24B:
    db $ED                               ;0FD257|      ;
    db $82                               ;0FD258|      ;
    db $3F                               ;0FD259|      ;
-DATA8_0FD25A:
+Tileset_Event11_17:
    db $01                               ;0FD25A|      ;
    db $F0                               ;0FD25B|      ;
    db $F9                               ;0FD25C|      ;
@@ -20672,7 +20669,7 @@ DATA8_0FD25A:
    db $EA                               ;0FD266|      ;
    db $80                               ;0FD267|      ;
    db $3F                               ;0FD268|      ;
-DATA8_0FD269:
+Tileset_Event11_18:
    db $01                               ;0FD269|      ;
    db $FB                               ;0FD26A|      ;
    db $F7                               ;0FD26B|      ;
@@ -20688,7 +20685,7 @@ DATA8_0FD269:
    db $E6                               ;0FD275|      ;
    db $82                               ;0FD276|      ;
    db $3F                               ;0FD277|      ;
-DATA8_0FD278:
+Tileset_Event11_19:
    db $01                               ;0FD278|      ;
    db $E8                               ;0FD279|      ;
    db $FB                               ;0FD27A|      ;
@@ -20709,7 +20706,7 @@ DATA8_0FD278:
    db $DF                               ;0FD289|      ;
    db $80                               ;0FD28A|      ;
    db $3F                               ;0FD28B|      ;
-DATA8_0FD28C:
+Tileset_Event11_1A:
    db $01                               ;0FD28C|      ;
    db $F1                               ;0FD28D|      ;
    db $01                               ;0FD28E|      ;
@@ -20725,7 +20722,7 @@ DATA8_0FD28C:
    db $F7                               ;0FD298|      ;
    db $82                               ;0FD299|      ;
    db $3F                               ;0FD29A|      ;
-DATA8_0FD29B:
+Tileset_Event11_1B:
    db $01                               ;0FD29B|      ;
    db $FD                               ;0FD29C|      ;
    db $FA                               ;0FD29D|      ;
@@ -20741,7 +20738,7 @@ DATA8_0FD29B:
    db $F7                               ;0FD2A7|      ;
    db $80                               ;0FD2A8|      ;
    db $3F                               ;0FD2A9|      ;
-DATA8_0FD2AA:
+Tileset_Event11_1C:
    db $01                               ;0FD2AA|      ;
    db $F5                               ;0FD2AB|      ;
    db $EE                               ;0FD2AC|      ;
@@ -20757,7 +20754,7 @@ DATA8_0FD2AA:
    db $FD                               ;0FD2B6|      ;
    db $80                               ;0FD2B7|      ;
    db $3F                               ;0FD2B8|      ;
-DATA8_0FD2B9:
+Tileset_Event11_1D:
    db $01                               ;0FD2B9|      ;
    db $02                               ;0FD2BA|      ;
    db $FD                               ;0FD2BB|      ;
@@ -20768,7 +20765,7 @@ DATA8_0FD2B9:
    db $EB                               ;0FD2C0|      ;
    db $84                               ;0FD2C1|      ;
    db $3F                               ;0FD2C2|      ;
-DATA8_0FD2C3:
+Tileset_Event11_1E:
    db $01                               ;0FD2C3|      ;
    db $07                               ;0FD2C4|      ;
    db $00                               ;0FD2C5|      ;
@@ -20779,19 +20776,19 @@ DATA8_0FD2C3:
    db $E6                               ;0FD2CA|      ;
    db $82                               ;0FD2CB|      ;
    db $3F                               ;0FD2CC|      ;
-DATA8_0FD2CD:
+Tileset_Event11_1F:
    db $03                               ;0FD2CD|      ;
    db $F0                               ;0FD2CE|      ;
    db $DF                               ;0FD2CF|      ;
    db $80                               ;0FD2D0|      ;
    db $3F                               ;0FD2D1|      ;
-DATA8_0FD2D2:
+Tileset_Event11_20:
    db $03                               ;0FD2D2|      ;
    db $F0                               ;0FD2D3|      ;
    db $DF                               ;0FD2D4|      ;
    db $A0                               ;0FD2D5|      ;
    db $3F                               ;0FD2D6|      ;
-DATA8_0FD2D7:
+Tileset_Event11_21:
    db $01                               ;0FD2D7|      ;
    db $07                               ;0FD2D8|      ;
    db $00                               ;0FD2D9|      ;
@@ -20802,7 +20799,7 @@ DATA8_0FD2D7:
    db $E6                               ;0FD2DE|      ;
    db $A2                               ;0FD2DF|      ;
    db $3F                               ;0FD2E0|      ;
-DATA8_0FD2E1:
+Tileset_Event11_22:
    db $01                               ;0FD2E1|      ;
    db $02                               ;0FD2E2|      ;
    db $FD                               ;0FD2E3|      ;
@@ -20813,7 +20810,7 @@ DATA8_0FD2E1:
    db $EB                               ;0FD2E8|      ;
    db $A4                               ;0FD2E9|      ;
    db $3F                               ;0FD2EA|      ;
-DATA8_0FD2EB:
+Tileset_Event11_23:
    db $01                               ;0FD2EB|      ;
    db $F5                               ;0FD2EC|      ;
    db $EE                               ;0FD2ED|      ;
@@ -20829,7 +20826,7 @@ DATA8_0FD2EB:
    db $0D                               ;0FD2F7|      ;
    db $A0                               ;0FD2F8|      ;
    db $3F                               ;0FD2F9|      ;
-DATA8_0FD2FA:
+Tileset_Event11_24:
    db $01                               ;0FD2FA|      ;
    db $04                               ;0FD2FB|      ;
    db $F7                               ;0FD2FC|      ;
@@ -20845,7 +20842,7 @@ DATA8_0FD2FA:
    db $07                               ;0FD306|      ;
    db $A2                               ;0FD307|      ;
    db $3F                               ;0FD308|      ;
-DATA8_0FD309:
+Tileset_Event11_25:
    db $01                               ;0FD309|      ;
    db $F1                               ;0FD30A|      ;
    db $01                               ;0FD30B|      ;
@@ -20856,7 +20853,7 @@ DATA8_0FD309:
    db $F7                               ;0FD310|      ;
    db $A2                               ;0FD311|      ;
    db $3F                               ;0FD312|      ;
-DATA8_0FD313:
+Tileset_Event11_26:
    db $01                               ;0FD313|      ;
    db $E8                               ;0FD314|      ;
    db $FB                               ;0FD315|      ;
@@ -20877,7 +20874,7 @@ DATA8_0FD313:
    db $FD                               ;0FD324|      ;
    db $A6                               ;0FD325|      ;
    db $3F                               ;0FD326|      ;
-DATA8_0FD327:
+Tileset_Event11_27:
    db $01                               ;0FD327|      ;
    db $FB                               ;0FD328|      ;
    db $F7                               ;0FD329|      ;
@@ -20893,7 +20890,7 @@ DATA8_0FD327:
    db $E6                               ;0FD333|      ;
    db $A2                               ;0FD334|      ;
    db $3F                               ;0FD335|      ;
-DATA8_0FD336:
+Tileset_Event11_28:
    db $01                               ;0FD336|      ;
    db $E8                               ;0FD337|      ;
    db $EA                               ;0FD338|      ;
@@ -20909,7 +20906,7 @@ DATA8_0FD336:
    db $F9                               ;0FD342|      ;
    db $A4                               ;0FD343|      ;
    db $3F                               ;0FD344|      ;
-DATA8_0FD345:
+Tileset_Event11_29:
    db $01                               ;0FD345|      ;
    db $EE                               ;0FD346|      ;
    db $ED                               ;0FD347|      ;
@@ -20925,7 +20922,7 @@ DATA8_0FD345:
    db $EE                               ;0FD351|      ;
    db $A6                               ;0FD352|      ;
    db $3F                               ;0FD353|      ;
-DATA8_0FD354:
+Tileset_Event11_2A:
    db $01                               ;0FD354|      ;
    db $F0                               ;0FD355|      ;
    db $EE                               ;0FD356|      ;
@@ -20936,7 +20933,7 @@ DATA8_0FD354:
    db $0E                               ;0FD35B|      ;
    db $A0                               ;0FD35C|      ;
    db $3F                               ;0FD35D|      ;
-DATA8_0FD35E:
+Tileset_Event11_2B:
    db $01                               ;0FD35E|      ;
    db $07                               ;0FD35F|      ;
    db $EB                               ;0FD360|      ;
@@ -20952,7 +20949,7 @@ DATA8_0FD35E:
    db $07                               ;0FD36A|      ;
    db $A2                               ;0FD36B|      ;
    db $3F                               ;0FD36C|      ;
-DATA8_0FD36D:
+Tileset_Event11_2C:
    db $01                               ;0FD36D|      ;
    db $07                               ;0FD36E|      ;
    db $0E                               ;0FD36F|      ;
@@ -20968,7 +20965,7 @@ DATA8_0FD36D:
    db $03                               ;0FD379|      ;
    db $A4                               ;0FD37A|      ;
    db $3F                               ;0FD37B|      ;
-DATA8_0FD37C:
+Tileset_Event11_2D:
    db $01                               ;0FD37C|      ;
    db $01                               ;0FD37D|      ;
    db $07                               ;0FD37E|      ;
@@ -20984,7 +20981,7 @@ DATA8_0FD37C:
    db $FF                               ;0FD388|      ;
    db $A6                               ;0FD389|      ;
    db $3F                               ;0FD38A|      ;
-DATA8_0FD38B:
+Tileset_Event11_2E:
    db $01                               ;0FD38B|      ;
    db $FD                               ;0FD38C|      ;
    db $02                               ;0FD38D|      ;
@@ -20995,19 +20992,19 @@ DATA8_0FD38B:
    db $F2                               ;0FD392|      ;
    db $A6                               ;0FD393|      ;
    db $3F                               ;0FD394|      ;
-DATA8_0FD395:
+Tileset_Event11_2F:
    db $03                               ;0FD395|      ;
    db $FB                               ;0FD396|      ;
    db $FF                               ;0FD397|      ;
    db $A6                               ;0FD398|      ;
    db $3F                               ;0FD399|      ;
-DATA8_0FD39A:
+Tileset_Event11_30:
    db $03                               ;0FD39A|      ;
    db $F9                               ;0FD39B|      ;
    db $E5                               ;0FD39C|      ;
    db $A8                               ;0FD39D|      ;
    db $3F                               ;0FD39E|      ;
-DATA8_0FD39F:
+Tileset_Event11_31:
    db $01                               ;0FD39F|      ;
    db $F7                               ;0FD3A0|      ;
    db $F4                               ;0FD3A1|      ;
@@ -21018,7 +21015,7 @@ DATA8_0FD39F:
    db $E5                               ;0FD3A6|      ;
    db $A8                               ;0FD3A7|      ;
    db $7F                               ;0FD3A8|      ;
-DATA8_0FD3A9:
+Tileset_Event11_32:
    db $01                               ;0FD3A9|      ;
    db $F9                               ;0FD3AA|      ;
    db $F0                               ;0FD3AB|      ;
@@ -21039,7 +21036,7 @@ DATA8_0FD3A9:
    db $E4                               ;0FD3BA|      ;
    db $A8                               ;0FD3BB|      ;
    db $3F                               ;0FD3BC|      ;
-DATA8_0FD3BD:
+Tileset_Event11_33:
    db $01                               ;0FD3BD|      ;
    db $04                               ;0FD3BE|      ;
    db $04                               ;0FD3BF|      ;
@@ -21070,7 +21067,7 @@ DATA8_0FD3BD:
    db $E4                               ;0FD3D8|      ;
    db $AC                               ;0FD3D9|      ;
    db $3F                               ;0FD3DA|      ;
-DATA8_0FD3DB:
+Tileset_Event11_34:
    db $01                               ;0FD3DB|      ;
    db $04                               ;0FD3DC|      ;
    db $F9                               ;0FD3DD|      ;
@@ -21091,7 +21088,7 @@ DATA8_0FD3DB:
    db $EA                               ;0FD3EC|      ;
    db $AC                               ;0FD3ED|      ;
    db $3F                               ;0FD3EE|      ;
-DATA8_0FD3EF:
+Tileset_Event11_35:
    db $01                               ;0FD3EF|      ;
    db $F9                               ;0FD3F0|      ;
    db $00                               ;0FD3F1|      ;
@@ -21112,7 +21109,7 @@ DATA8_0FD3EF:
    db $F0                               ;0FD400|      ;
    db $AA                               ;0FD401|      ;
    db $BF                               ;0FD402|      ;
-DATA8_0FD403:
+Tileset_Event11_36:
    db $01                               ;0FD403|      ;
    db $F4                               ;0FD404|      ;
    db $ED                               ;0FD405|      ;
@@ -21128,7 +21125,7 @@ DATA8_0FD403:
    db $FB                               ;0FD40F|      ;
    db $AE                               ;0FD410|      ;
    db $BF                               ;0FD411|      ;
-DATA8_0FD412:
+Tileset_Event11_37:
    db $01                               ;0FD412|      ;
    db $FB                               ;0FD413|      ;
    db $02                               ;0FD414|      ;
@@ -21144,7 +21141,7 @@ DATA8_0FD412:
    db $00                               ;0FD41E|      ;
    db $A8                               ;0FD41F|      ;
    db $3F                               ;0FD420|      ;
-DATA8_0FD421:
+Tileset_Event11_38:
    db $01                               ;0FD421|      ;
    db $F7                               ;0FD422|      ;
    db $08                               ;0FD423|      ;
@@ -21170,7 +21167,7 @@ DATA8_0FD421:
    db $E8                               ;0FD437|      ;
    db $AE                               ;0FD438|      ;
    db $3F                               ;0FD439|      ;
-DATA8_0FD43A:
+Tileset_Event11_39:
    db $01                               ;0FD43A|      ;
    db $FE                               ;0FD43B|      ;
    db $EA                               ;0FD43C|      ;
@@ -21196,7 +21193,7 @@ DATA8_0FD43A:
    db $EA                               ;0FD450|      ;
    db $AE                               ;0FD451|      ;
    db $BF                               ;0FD452|      ;
-DATA8_0FD453:
+Tileset_Event11_3A:
    db $01                               ;0FD453|      ;
    db $F1                               ;0FD454|      ;
    db $FA                               ;0FD455|      ;
@@ -21212,7 +21209,7 @@ DATA8_0FD453:
    db $F9                               ;0FD45F|      ;
    db $AA                               ;0FD460|      ;
    db $3F                               ;0FD461|      ;
-DATA8_0FD462:
+Tileset_Event11_3B:
    db $01                               ;0FD462|      ;
    db $F0                               ;0FD463|      ;
    db $EF                               ;0FD464|      ;
@@ -21228,7 +21225,7 @@ DATA8_0FD462:
    db $FD                               ;0FD46E|      ;
    db $AE                               ;0FD46F|      ;
    db $FF                               ;0FD470|      ;
-DATA8_0FD471:
+Tileset_Event11_3C:
    db $01                               ;0FD471|      ;
    db $FA                               ;0FD472|      ;
    db $F3                               ;0FD473|      ;
@@ -21244,7 +21241,7 @@ DATA8_0FD471:
    db $00                               ;0FD47D|      ;
    db $AC                               ;0FD47E|      ;
    db $3F                               ;0FD47F|      ;
-DATA8_0FD480:
+Tileset_Event11_3D:
    db $01                               ;0FD480|      ;
    db $F2                               ;0FD481|      ;
    db $F8                               ;0FD482|      ;
@@ -21260,7 +21257,7 @@ DATA8_0FD480:
    db $F7                               ;0FD48C|      ;
    db $AC                               ;0FD48D|      ;
    db $3F                               ;0FD48E|      ;
-DATA8_0FD48F:
+Tileset_Event11_3E:
    db $01                               ;0FD48F|      ;
    db $F6                               ;0FD490|      ;
    db $05                               ;0FD491|      ;
@@ -21276,7 +21273,7 @@ DATA8_0FD48F:
    db $F5                               ;0FD49B|      ;
    db $A8                               ;0FD49C|      ;
    db $3F                               ;0FD49D|      ;
-DATA8_0FD49E:
+Tileset_Event11_3F:
    db $01                               ;0FD49E|      ;
    db $F3                               ;0FD49F|      ;
    db $17                               ;0FD4A0|      ;
@@ -21302,7 +21299,7 @@ DATA8_0FD49E:
    db $D6                               ;0FD4B4|      ;
    db $A8                               ;0FD4B5|      ;
    db $3F                               ;0FD4B6|      ;
-DATA8_0FD4B7:
+Tileset_Event11_40:
    db $00                               ;0FD4B7|      ;
    db $10                               ;0FD4B8|      ;
    db $00                               ;0FD4B9|      ;
@@ -21423,7 +21420,7 @@ DATA8_0FD4B7:
    db $E0                               ;0FD52C|      ;
    db $8C                               ;0FD52D|      ;
    db $3F                               ;0FD52E|      ;
-DATA8_0FD52F:
+Tileset_Event11_41:
    db $00                               ;0FD52F|      ;
    db $F0                               ;0FD530|      ;
    db $F8                               ;0FD531|      ;
@@ -21544,7 +21541,7 @@ DATA8_0FD52F:
    db $00                               ;0FD5A4|      ;
    db $80                               ;0FD5A5|      ;
    db $3F                               ;0FD5A6|      ;
-DATA8_0FD5A7:
+Tileset_Event11_42:
    db $00                               ;0FD5A7|      ;
    db $10                               ;0FD5A8|      ;
    db $F8                               ;0FD5A9|      ;
@@ -21665,7 +21662,7 @@ DATA8_0FD5A7:
    db $00                               ;0FD61C|      ;
    db $80                               ;0FD61D|      ;
    db $3F                               ;0FD61E|      ;
-DATA8_0FD61F:
+Tileset_Event11_43:
    db $00                               ;0FD61F|      ;
    db $F8                               ;0FD620|      ;
    db $E8                               ;0FD621|      ;
@@ -21801,7 +21798,7 @@ DATA8_0FD61F:
    db $00                               ;0FD6A3|      ;
    db $80                               ;0FD6A4|      ;
    db $3F                               ;0FD6A5|      ;
-DATA8_0FD6A6:
+Tileset_Event11_44:
    db $01                               ;0FD6A6|      ;
    db $08                               ;0FD6A7|      ;
    db $10                               ;0FD6A8|      ;
@@ -21862,7 +21859,7 @@ DATA8_0FD6A6:
    db $E0                               ;0FD6DF|      ;
    db $80                               ;0FD6E0|      ;
    db $3F                               ;0FD6E1|      ;
-DATA8_0FD6E2:
+Tileset_Event11_45:
    db $01                               ;0FD6E2|      ;
    db $08                               ;0FD6E3|      ;
    db $10                               ;0FD6E4|      ;
@@ -21923,7 +21920,7 @@ DATA8_0FD6E2:
    db $E0                               ;0FD71B|      ;
    db $88                               ;0FD71C|      ;
    db $3F                               ;0FD71D|      ;
-DATA8_0FD71E:
+Tileset_Event11_46:
    db $01                               ;0FD71E|      ;
    db $E8                               ;0FD71F|      ;
    db $F0                               ;0FD720|      ;
@@ -21984,7 +21981,7 @@ DATA8_0FD71E:
    db $E0                               ;0FD757|      ;
    db $8A                               ;0FD758|      ;
    db $7F                               ;0FD759|      ;
-DATA8_0FD75A:
+Tileset_Event11_47:
    db $00                               ;0FD75A|      ;
    db $F0                               ;0FD75B|      ;
    db $E0                               ;0FD75C|      ;
@@ -22075,7 +22072,7 @@ DATA8_0FD75A:
    db $00                               ;0FD7B1|      ;
    db $80                               ;0FD7B2|      ;
    db $3F                               ;0FD7B3|      ;
-DATA8_0FD7B4:
+Tileset_Event11_48:
    db $00                               ;0FD7B4|      ;
    db $08                               ;0FD7B5|      ;
    db $E0                               ;0FD7B6|      ;
@@ -22196,7 +22193,7 @@ DATA8_0FD7B4:
    db $00                               ;0FD829|      ;
    db $80                               ;0FD82A|      ;
    db $3F                               ;0FD82B|      ;
-DATA8_0FD82C:
+Tileset_Event11_49:
    db $00                               ;0FD82C|      ;
    db $08                               ;0FD82D|      ;
    db $F0                               ;0FD82E|      ;
@@ -22317,7 +22314,7 @@ DATA8_0FD82C:
    db $00                               ;0FD8A1|      ;
    db $8C                               ;0FD8A2|      ;
    db $3F                               ;0FD8A3|      ;
-DATA8_0FD8A4:
+Tileset_Event11_4A:
    db $01                               ;0FD8A4|      ;
    db $08                               ;0FD8A5|      ;
    db $F0                               ;0FD8A6|      ;
@@ -22378,7 +22375,7 @@ DATA8_0FD8A4:
    db $E0                               ;0FD8DD|      ;
    db $80                               ;0FD8DE|      ;
    db $3F                               ;0FD8DF|      ;
-DATA8_0FD8E0:
+Tileset_Event11_4B:
    db $01                               ;0FD8E0|      ;
    db $08                               ;0FD8E1|      ;
    db $F0                               ;0FD8E2|      ;
@@ -22439,7 +22436,7 @@ DATA8_0FD8E0:
    db $00                               ;0FD919|      ;
    db $84                               ;0FD91A|      ;
    db $3F                               ;0FD91B|      ;
-DATA8_0FD91C:
+Tileset_Event11_4C:
    db $01                               ;0FD91C|      ;
    db $F8                               ;0FD91D|      ;
    db $F0                               ;0FD91E|      ;
@@ -22500,7 +22497,7 @@ DATA8_0FD91C:
    db $E0                               ;0FD955|      ;
    db $80                               ;0FD956|      ;
    db $3F                               ;0FD957|      ;
-DATA8_0FD958:
+Tileset_Event11_4D:
    db $00                               ;0FD958|      ;
    db $E8                               ;0FD959|      ;
    db $00                               ;0FD95A|      ;
@@ -22511,7 +22508,7 @@ DATA8_0FD958:
    db $F8                               ;0FD95F|      ;
    db $B5                               ;0FD960|      ;
    db $3F                               ;0FD961|      ;
-DATA8_0FD962:
+Tileset_Event11_4E:
    db $01                               ;0FD962|      ;
    db $E4                               ;0FD963|      ;
    db $FC                               ;0FD964|      ;
@@ -22532,7 +22529,7 @@ DATA8_0FD962:
    db $EC                               ;0FD973|      ;
    db $B5                               ;0FD974|      ;
    db $3F                               ;0FD975|      ;
-DATA8_0FD976:
+Tileset_Event11_4F:
    db $01                               ;0FD976|      ;
    db $EC                               ;0FD977|      ;
    db $E8                               ;0FD978|      ;
@@ -22563,7 +22560,7 @@ DATA8_0FD976:
    db $E8                               ;0FD991|      ;
    db $B5                               ;0FD992|      ;
    db $3F                               ;0FD993|      ;
-DATA8_0FD994:
+Tileset_Event11_50:
    db $01                               ;0FD994|      ;
    db $FC                               ;0FD995|      ;
    db $E4                               ;0FD996|      ;
@@ -22604,7 +22601,7 @@ DATA8_0FD994:
    db $F0                               ;0FD9B9|      ;
    db $B5                               ;0FD9BA|      ;
    db $3F                               ;0FD9BB|      ;
-DATA8_0FD9BC:
+Tileset_Event11_51:
    db $01                               ;0FD9BC|      ;
    db $08                               ;0FD9BD|      ;
    db $EC                               ;0FD9BE|      ;
@@ -22655,7 +22652,7 @@ DATA8_0FD9BC:
    db $00                               ;0FD9EB|      ;
    db $B5                               ;0FD9EC|      ;
    db $3F                               ;0FD9ED|      ;
-DATA8_0FD9EE:
+Tileset_Event11_52:
    db $01                               ;0FD9EE|      ;
    db $0C                               ;0FD9EF|      ;
    db $FC                               ;0FD9F0|      ;
@@ -22706,7 +22703,7 @@ DATA8_0FD9EE:
    db $0C                               ;0FDA1D|      ;
    db $B5                               ;0FDA1E|      ;
    db $3F                               ;0FDA1F|      ;
-DATA8_0FDA20:
+Tileset_Event11_53:
    db $01                               ;0FDA20|      ;
    db $03                               ;0FDA21|      ;
    db $08                               ;0FDA22|      ;
@@ -22757,7 +22754,7 @@ DATA8_0FDA20:
    db $0C                               ;0FDA4F|      ;
    db $B5                               ;0FDA50|      ;
    db $3F                               ;0FDA51|      ;
-DATA8_0FDA52:
+Tileset_Event11_54:
    db $00                               ;0FDA52|      ;
    db $08                               ;0FDA53|      ;
    db $EC                               ;0FDA54|      ;
@@ -22808,7 +22805,7 @@ DATA8_0FDA52:
    db $00                               ;0FDA81|      ;
    db $A5                               ;0FDA82|      ;
    db $3F                               ;0FDA83|      ;
-DATA8_0FDA84:
+Tileset_Event11_55:
    db $00                               ;0FDA84|      ;
    db $0C                               ;0FDA85|      ;
    db $07                               ;0FDA86|      ;
@@ -22859,7 +22856,7 @@ DATA8_0FDA84:
    db $F8                               ;0FDAB3|      ;
    db $A4                               ;0FDAB4|      ;
    db $3F                               ;0FDAB5|      ;
-DATA8_0FDAB6:
+Tileset_Event11_56:
    db $00                               ;0FDAB6|      ;
    db $00                               ;0FDAB7|      ;
    db $FC                               ;0FDAB8|      ;
@@ -22910,7 +22907,7 @@ DATA8_0FDAB6:
    db $07                               ;0FDAE5|      ;
    db $A4                               ;0FDAE6|      ;
    db $3F                               ;0FDAE7|      ;
-DATA8_0FDAE8:
+Tileset_Event11_57:
    db $00                               ;0FDAE8|      ;
    db $FC                               ;0FDAE9|      ;
    db $01                               ;0FDAEA|      ;
@@ -22961,7 +22958,7 @@ DATA8_0FDAE8:
    db $0D                               ;0FDB17|      ;
    db $A4                               ;0FDB18|      ;
    db $3F                               ;0FDB19|      ;
-DATA8_0FDB1A:
+Tileset_Event11_58:
    db $00                               ;0FDB1A|      ;
    db $F9                               ;0FDB1B|      ;
    db $FF                               ;0FDB1C|      ;
@@ -23007,7 +23004,7 @@ DATA8_0FDB1A:
    db $07                               ;0FDB44|      ;
    db $A4                               ;0FDB45|      ;
    db $3F                               ;0FDB46|      ;
-DATA8_0FDB47:
+Tileset_Event11_59:
    db $00                               ;0FDB47|      ;
    db $F9                               ;0FDB48|      ;
    db $FF                               ;0FDB49|      ;
@@ -23043,7 +23040,7 @@ DATA8_0FDB47:
    db $F9                               ;0FDB67|      ;
    db $A4                               ;0FDB68|      ;
    db $3F                               ;0FDB69|      ;
-DATA8_0FDB6A:
+Tileset_Event11_5A:
    db $00                               ;0FDB6A|      ;
    db $F9                               ;0FDB6B|      ;
    db $FE                               ;0FDB6C|      ;
@@ -23069,7 +23066,7 @@ DATA8_0FDB6A:
    db $F8                               ;0FDB80|      ;
    db $A4                               ;0FDB81|      ;
    db $3F                               ;0FDB82|      ;
-DATA8_0FDB83:
+Tileset_Event11_5B:
    db $00                               ;0FDB83|      ;
    db $F9                               ;0FDB84|      ;
    db $FE                               ;0FDB85|      ;
@@ -23085,13 +23082,13 @@ DATA8_0FDB83:
    db $FE                               ;0FDB8F|      ;
    db $A4                               ;0FDB90|      ;
    db $3F                               ;0FDB91|      ;
-DATA8_0FDB92:
+Tileset_Event11_5C:
    db $02                               ;0FDB92|      ;
    db $F9                               ;0FDB93|      ;
    db $FE                               ;0FDB94|      ;
    db $A4                               ;0FDB95|      ;
    db $3F                               ;0FDB96|      ;
-DATA8_0FDB97:
+Tileset_Event11_5D:
    db $01                               ;0FDB97|      ;
    db $08                               ;0FDB98|      ;
    db $08                               ;0FDB99|      ;
@@ -23137,7 +23134,7 @@ DATA8_0FDB97:
    db $E8                               ;0FDBC1|      ;
    db $80                               ;0FDBC2|      ;
    db $3F                               ;0FDBC3|      ;
-DATA8_0FDBC4:
+Tileset_Event11_5E:
    db $01                               ;0FDBC4|      ;
    db $F0                               ;0FDBC5|      ;
    db $00                               ;0FDBC6|      ;
@@ -23158,7 +23155,7 @@ DATA8_0FDBC4:
    db $F0                               ;0FDBD5|      ;
    db $84                               ;0FDBD6|      ;
    db $3F                               ;0FDBD7|      ;
-DATA8_0FDBD8:
+Tileset_Event11_5F:
    db $00                               ;0FDBD8|      ;
    db $E8                               ;0FDBD9|      ;
    db $E0                               ;0FDBDA|      ;
@@ -23309,7 +23306,7 @@ DATA8_0FDBD8:
    db $F0                               ;0FDC6B|      ;
    db $8C                               ;0FDC6C|      ;
    db $3F                               ;0FDC6D|      ;
-DATA8_0FDC6E:
+Tileset_Event11_60:
    db $00                               ;0FDC6E|      ;
    db $E8                               ;0FDC6F|      ;
    db $18                               ;0FDC70|      ;
@@ -23430,13 +23427,13 @@ DATA8_0FDC6E:
    db $F0                               ;0FDCE3|      ;
    db $CE                               ;0FDCE4|      ;
    db $33                               ;0FDCE5|      ;
-DATA8_0FDCE6:
+Tileset_Event11_61:
    db $03                               ;0FDCE6|      ;
    db $FB                               ;0FDCE7|      ;
    db $FF                               ;0FDCE8|      ;
    db $86                               ;0FDCE9|      ;
    db $3F                               ;0FDCEA|      ;
-DATA8_0FDCEB:
+Tileset_Event11_62:
    db $01                               ;0FDCEB|      ;
    db $FE                               ;0FDCEC|      ;
    db $F2                               ;0FDCED|      ;
@@ -23447,7 +23444,7 @@ DATA8_0FDCEB:
    db $02                               ;0FDCF2|      ;
    db $84                               ;0FDCF3|      ;
    db $3F                               ;0FDCF4|      ;
-DATA8_0FDCF5:
+Tileset_Event11_63:
    db $01                               ;0FDCF5|      ;
    db $F7                               ;0FDCF6|      ;
    db $00                               ;0FDCF7|      ;
@@ -23463,7 +23460,7 @@ DATA8_0FDCF5:
    db $07                               ;0FDD01|      ;
    db $82                               ;0FDD02|      ;
    db $3F                               ;0FDD03|      ;
-DATA8_0FDD04:
+Tileset_Event11_64:
    db $01                               ;0FDD04|      ;
    db $F6                               ;0FDD05|      ;
    db $03                               ;0FDD06|      ;
@@ -23479,7 +23476,7 @@ DATA8_0FDD04:
    db $0E                               ;0FDD10|      ;
    db $80                               ;0FDD11|      ;
    db $3F                               ;0FDD12|      ;
-DATA8_0FDD13:
+Tileset_Event11_65:
    db $01                               ;0FDD13|      ;
    db $07                               ;0FDD14|      ;
    db $EB                               ;0FDD15|      ;
@@ -23495,7 +23492,7 @@ DATA8_0FDD13:
    db $07                               ;0FDD1F|      ;
    db $8A                               ;0FDD20|      ;
    db $3F                               ;0FDD21|      ;
-DATA8_0FDD22:
+Tileset_Event11_66:
    db $01                               ;0FDD22|      ;
    db $F5                               ;0FDD23|      ;
    db $0E                               ;0FDD24|      ;
@@ -23506,7 +23503,7 @@ DATA8_0FDD22:
    db $EE                               ;0FDD29|      ;
    db $A4                               ;0FDD2A|      ;
    db $3F                               ;0FDD2B|      ;
-DATA8_0FDD2C:
+Tileset_Event11_67:
    db $01                               ;0FDD2C|      ;
    db $F1                               ;0FDD2D|      ;
    db $F9                               ;0FDD2E|      ;
@@ -23522,7 +23519,7 @@ DATA8_0FDD2C:
    db $EE                               ;0FDD38|      ;
    db $86                               ;0FDD39|      ;
    db $3F                               ;0FDD3A|      ;
-DATA8_0FDD3B:
+Tileset_Event11_68:
    db $01                               ;0FDD3B|      ;
    db $E8                               ;0FDD3C|      ;
    db $EA                               ;0FDD3D|      ;
@@ -23538,7 +23535,7 @@ DATA8_0FDD3B:
    db $EA                               ;0FDD47|      ;
    db $84                               ;0FDD48|      ;
    db $3F                               ;0FDD49|      ;
-DATA8_0FDD4A:
+Tileset_Event11_69:
    db $01                               ;0FDD4A|      ;
    db $ED                               ;0FDD4B|      ;
    db $FA                               ;0FDD4C|      ;
@@ -23554,7 +23551,7 @@ DATA8_0FDD4A:
    db $E6                               ;0FDD56|      ;
    db $82                               ;0FDD57|      ;
    db $3F                               ;0FDD58|      ;
-DATA8_0FDD59:
+Tileset_Event11_6A:
    db $01                               ;0FDD59|      ;
    db $F2                               ;0FDD5A|      ;
    db $FD                               ;0FDD5B|      ;
@@ -23575,7 +23572,7 @@ DATA8_0FDD59:
    db $DF                               ;0FDD6A|      ;
    db $80                               ;0FDD6B|      ;
    db $3F                               ;0FDD6C|      ;
-DATA8_0FDD6D:
+Tileset_Event11_6B:
    db $01                               ;0FDD6D|      ;
    db $F1                               ;0FDD6E|      ;
    db $01                               ;0FDD6F|      ;
@@ -23591,7 +23588,7 @@ DATA8_0FDD6D:
    db $DF                               ;0FDD79|      ;
    db $84                               ;0FDD7A|      ;
    db $3F                               ;0FDD7B|      ;
-DATA8_0FDD7C:
+Tileset_Event11_6C:
    db $01                               ;0FDD7C|      ;
    db $04                               ;0FDD7D|      ;
    db $F7                               ;0FDD7E|      ;
@@ -23607,7 +23604,7 @@ DATA8_0FDD7C:
    db $FA                               ;0FDD88|      ;
    db $86                               ;0FDD89|      ;
    db $3F                               ;0FDD8A|      ;
-DATA8_0FDD8B:
+Tileset_Event11_6D:
    db $01                               ;0FDD8B|      ;
    db $E9                               ;0FDD8C|      ;
    db $0D                               ;0FDD8D|      ;
@@ -23623,7 +23620,7 @@ DATA8_0FDD8B:
    db $FD                               ;0FDD97|      ;
    db $80                               ;0FDD98|      ;
    db $3F                               ;0FDD99|      ;
-DATA8_0FDD9A:
+Tileset_Event11_6E:
    db $01                               ;0FDD9A|      ;
    db $02                               ;0FDD9B|      ;
    db $FD                               ;0FDD9C|      ;
@@ -23634,7 +23631,7 @@ DATA8_0FDD9A:
    db $EB                               ;0FDDA1|      ;
    db $84                               ;0FDDA2|      ;
    db $3F                               ;0FDDA3|      ;
-DATA8_0FDDA4:
+Tileset_Event11_6F:
    db $01                               ;0FDDA4|      ;
    db $07                               ;0FDDA5|      ;
    db $00                               ;0FDDA6|      ;
@@ -23645,13 +23642,13 @@ DATA8_0FDDA4:
    db $E6                               ;0FDDAB|      ;
    db $82                               ;0FDDAC|      ;
    db $3F                               ;0FDDAD|      ;
-DATA8_0FDDAE:
+Tileset_Event11_70:
    db $03                               ;0FDDAE|      ;
    db $F0                               ;0FDDAF|      ;
    db $DF                               ;0FDDB0|      ;
    db $80                               ;0FDDB1|      ;
    db $3F                               ;0FDDB2|      ;
-DATA8_0FDDB3:
+Tileset_Event11_71:
    db $00                               ;0FDDB3|      ;
    db $08                               ;0FDDB4|      ;
    db $F0                               ;0FDDB5|      ;
@@ -23757,7 +23754,7 @@ DATA8_0FDDB3:
    db $10                               ;0FDE19|      ;
    db $A0                               ;0FDE1A|      ;
    db $3F                               ;0FDE1B|      ;
-DATA8_0FDE1C:
+Tileset_Event11_72:
    db $01                               ;0FDE1C|      ;
    db $00                               ;0FDE1D|      ;
    db $10                               ;0FDE1E|      ;
@@ -23788,7 +23785,7 @@ DATA8_0FDE1C:
    db $F0                               ;0FDE37|      ;
    db $83                               ;0FDE38|      ;
    db $3F                               ;0FDE39|      ;
-DATA8_0FDE3A:
+Tileset_Event11_73:
    db $01                               ;0FDE3A|      ;
    db $00                               ;0FDE3B|      ;
    db $10                               ;0FDE3C|      ;
@@ -23879,7 +23876,7 @@ DATA8_0FDE3A:
    db $F0                               ;0FDE91|      ;
    db $84                               ;0FDE92|      ;
    db $3F                               ;0FDE93|      ;
-DATA8_0FDE94:
+Tileset_Event11_74:
    db $01                               ;0FDE94|      ;
    db $00                               ;0FDE95|      ;
    db $F0                               ;0FDE96|      ;
@@ -23940,7 +23937,7 @@ DATA8_0FDE94:
    db $10                               ;0FDECD|      ;
    db $A7                               ;0FDECE|      ;
    db $3F                               ;0FDECF|      ;
-DATA8_0FDED0:
+Tileset_Event11_75:
    db $00                               ;0FDED0|      ;
    db $F0                               ;0FDED1|      ;
    db $18                               ;0FDED2|      ;
@@ -24001,7 +23998,7 @@ DATA8_0FDED0:
    db $F0                               ;0FDF09|      ;
    db $AE                               ;0FDF0A|      ;
    db $3F                               ;0FDF0B|      ;
-DATA8_0FDF0C:
+Tileset_Event11_76:
    db $00                               ;0FDF0C|      ;
    db $08                               ;0FDF0D|      ;
    db $00                               ;0FDF0E|      ;
@@ -24122,7 +24119,7 @@ DATA8_0FDF0C:
    db $10                               ;0FDF81|      ;
    db $A1                               ;0FDF82|      ;
    db $3F                               ;0FDF83|      ;
-DATA8_0FDF84:
+Tileset_Event11_77:
    db $00                               ;0FDF84|      ;
    db $08                               ;0FDF85|      ;
    db $F0                               ;0FDF86|      ;
@@ -24243,7 +24240,7 @@ DATA8_0FDF84:
    db $F8                               ;0FDFF9|      ;
    db $86                               ;0FDFFA|      ;
    db $3F                               ;0FDFFB|      ;
-DATA8_0FDFFC:
+Tileset_Event11_78:
    db $00                               ;0FDFFC|      ;
    db $00                               ;0FDFFD|      ;
    db $F0                               ;0FDFFE|      ;
@@ -24364,7 +24361,7 @@ DATA8_0FDFFC:
    db $18                               ;0FE071|      ;
    db $B0                               ;0FE072|      ;
    db $3F                               ;0FE073|      ;
-DATA8_0FE074:
+Tileset_Event11_79:
    db $00                               ;0FE074|      ;
    db $F0                               ;0FE075|      ;
    db $F8                               ;0FE076|      ;
@@ -24485,7 +24482,7 @@ DATA8_0FE074:
    db $18                               ;0FE0E9|      ;
    db $B0                               ;0FE0EA|      ;
    db $3F                               ;0FE0EB|      ;
-DATA8_0FE0EC:
+Tileset_Event11_7A:
    db $00                               ;0FE0EC|      ;
    db $F0                               ;0FE0ED|      ;
    db $F8                               ;0FE0EE|      ;
@@ -24606,7 +24603,7 @@ DATA8_0FE0EC:
    db $18                               ;0FE161|      ;
    db $B0                               ;0FE162|      ;
    db $3F                               ;0FE163|      ;
-DATA8_0FE164:
+Tileset_Event11_7B:
    db $00                               ;0FE164|      ;
    db $F0                               ;0FE165|      ;
    db $F8                               ;0FE166|      ;
@@ -24727,7 +24724,7 @@ DATA8_0FE164:
    db $18                               ;0FE1D9|      ;
    db $B0                               ;0FE1DA|      ;
    db $3F                               ;0FE1DB|      ;
-DATA8_0FE1DC:
+Tileset_Event11_7C:
    db $00                               ;0FE1DC|      ;
    db $F0                               ;0FE1DD|      ;
    db $F8                               ;0FE1DE|      ;
@@ -24848,7 +24845,7 @@ DATA8_0FE1DC:
    db $18                               ;0FE251|      ;
    db $B0                               ;0FE252|      ;
    db $3F                               ;0FE253|      ;
-DATA8_0FE254:
+Tileset_Event11_7D:
    db $00                               ;0FE254|      ;
    db $F0                               ;0FE255|      ;
    db $F8                               ;0FE256|      ;
@@ -24969,7 +24966,7 @@ DATA8_0FE254:
    db $18                               ;0FE2C9|      ;
    db $B0                               ;0FE2CA|      ;
    db $3F                               ;0FE2CB|      ;
-DATA8_0FE2CC:
+Tileset_Event11_7E:
    db $00                               ;0FE2CC|      ;
    db $F0                               ;0FE2CD|      ;
    db $F8                               ;0FE2CE|      ;
@@ -25090,7 +25087,7 @@ DATA8_0FE2CC:
    db $18                               ;0FE341|      ;
    db $B0                               ;0FE342|      ;
    db $3F                               ;0FE343|      ;
-DATA8_0FE344:
+Tileset_Event11_7F:
    db $00                               ;0FE344|      ;
    db $08                               ;0FE345|      ;
    db $F8                               ;0FE346|      ;

@@ -4619,7 +4619,7 @@ RLE_0D_91F0:
    db $46                               ;0D9207|000000;
    db $00                               ;0D9208|      ;
    db $60                               ;0D9209|      ;
-Palette_05_9507:
+Palette_059503:
    db $00                               ;0D920A|      ;
    db $00                               ;0D920B|      ;
    db $FF                               ;0D920C|      ;
@@ -4652,7 +4652,7 @@ Palette_05_9507:
    db $00                               ;0D9227|      ;
    db $00                               ;0D9228|      ;
    db $00                               ;0D9229|      ;
-Data_3CF4A:
+Gfx_Palette_03CF4A:
    db $00                               ;0D922A|      ;
    db $00                               ;0D922B|      ;
    db $FF                               ;0D922C|      ;
@@ -4773,7 +4773,7 @@ Data_3CF4A:
    db $00                               ;0D929F|      ;
    db $00                               ;0D92A0|      ;
    db $00                               ;0D92A1|      ;
-Data_3CF82:
+Palette_058D70:
    db $E0                               ;0D92A2|      ;
    db $7F                               ;0D92A3|      ;
    db $FF                               ;0D92A4|      ;
@@ -4806,7 +4806,7 @@ Data_3CF82:
    db $04                               ;0D92BF|      ;
    db $00                               ;0D92C0|      ;
    db $00                               ;0D92C1|      ;
-DATA8_0D92C2:
+Palette_058FA2:
    db $E0                               ;0D92C2|      ;
    db $7F                               ;0D92C3|      ;
    db $FF                               ;0D92C4|      ;
@@ -4839,7 +4839,7 @@ DATA8_0D92C2:
    db $00                               ;0D92DF|      ;
    db $00                               ;0D92E0|      ;
    db $00                               ;0D92E1|      ;
-DATA8_0D92E2:
+Palette_059155:
    db $E0                               ;0D92E2|      ;
    db $7F                               ;0D92E3|      ;
    db $FF                               ;0D92E4|      ;
@@ -4872,7 +4872,7 @@ DATA8_0D92E2:
    db $04                               ;0D92FF|      ;
    db $00                               ;0D9300|      ;
    db $00                               ;0D9301|      ;
-DATA8_0D9302:
+Palette_059363:
    db $E0                               ;0D9302|      ;
    db $7F                               ;0D9303|      ;
    db $F1                               ;0D9304|      ;
@@ -4905,7 +4905,7 @@ DATA8_0D9302:
    db $04                               ;0D931F|      ;
    db $00                               ;0D9320|      ;
    db $00                               ;0D9321|      ;
-_058477_data:
+Palette_058473:
    db $1F                               ;0D9322|      ;
    db $00                               ;0D9323|      ;
    db $00                               ;0D9324|      ;
@@ -4928,7 +4928,7 @@ _058477_data:
    db $04                               ;0D9335|      ;
    db $00                               ;0D9336|      ;
    db $00                               ;0D9337|      ;
-DATA8_0D9338:
+Palette_0586B8:
    db $B5                               ;0D9338|      ;
    db $56                               ;0D9339|      ;
    db $8C                               ;0D933A|      ;
@@ -4951,7 +4951,7 @@ DATA8_0D9338:
    db $00                               ;0D934B|      ;
    db $00                               ;0D934C|      ;
    db $00                               ;0D934D|      ;
-DATA8_0D934E:
+Palette_0588A8:
    db $B5                               ;0D934E|      ;
    db $56                               ;0D934F|      ;
    db $8C                               ;0D9350|      ;
@@ -4974,7 +4974,7 @@ DATA8_0D934E:
    db $04                               ;0D9361|      ;
    db $00                               ;0D9362|      ;
    db $00                               ;0D9363|      ;
-DATA8_0D9364:
+Palette_058A45:
    db $B5                               ;0D9364|      ;
    db $56                               ;0D9365|      ;
    db $8C                               ;0D9366|      ;
@@ -4997,7 +4997,7 @@ DATA8_0D9364:
    db $18                               ;0D9377|      ;
    db $00                               ;0D9378|      ;
    db $00                               ;0D9379|      ;
-_058BE6_data:
+Palette_058BE2:
    db $B5                               ;0D937A|      ; Also 8C07
    db $56                               ;0D937B|      ;
    db $8C                               ;0D937C|      ;
@@ -5112,27 +5112,27 @@ DATA8_0D93D2:
    db $04                               ;0D93E5|      ;
    db $00                               ;0D93E6|      ;
    db $00                               ;0D93E7|      ;
-UNREACH_0D93E8:
-   db $EF                               ;0D93E8|39CE3D;
-   db $3D                               ;0D93E9|0039CE;
-   db $CE                               ;0D93EA|00E739;
-   db $39                               ;0D93EB|001CE7;
-   db $E7                               ;0D93EC|00001C;
-   db $1C                               ;0D93ED|004E73;
-   db $73                               ;0D93EE|00004E;
-   db $4E                               ;0D93EF|00318C;
-   db $8C                               ;0D93F0|005A31;
-   db $31                               ;0D93F1|00005A;
+Palette_PC_Petrify:
+   db $EF                               ;0D93E8|      ;
+   db $3D                               ;0D93E9|      ;
+   db $CE                               ;0D93EA|      ;
+   db $39                               ;0D93EB|      ;
+   db $E7                               ;0D93EC|      ;
+   db $1C                               ;0D93ED|      ;
+   db $73                               ;0D93EE|      ;
+   db $4E                               ;0D93EF|      ;
+   db $8C                               ;0D93F0|      ;
+   db $31                               ;0D93F1|      ;
    db $5A                               ;0D93F2|      ;
    db $6B                               ;0D93F3|      ;
-   db $94                               ;0D93F4|000052;
-   db $52                               ;0D93F5|0000CE;
-   db $CE                               ;0D93F6|00E739;
-   db $39                               ;0D93F7|001CE7;
-   db $E7                               ;0D93F8|00001C;
-   db $1C                               ;0D93F9|000C63;
-   db $63                               ;0D93FA|00000C;
-   db $0C                               ;0D93FB|000000;
+   db $94                               ;0D93F4|      ;
+   db $52                               ;0D93F5|      ;
+   db $CE                               ;0D93F6|      ;
+   db $39                               ;0D93F7|      ;
+   db $E7                               ;0D93F8|      ;
+   db $1C                               ;0D93F9|      ;
+   db $63                               ;0D93FA|      ;
+   db $0C                               ;0D93FB|      ;
    db $00                               ;0D93FC|      ;
    db $00                               ;0D93FD|      ;
 UNREACH_0D93FE:
@@ -5204,7 +5204,7 @@ UNREACH_0D942A:
    db $0C                               ;0D943D|000000;
    db $00                               ;0D943E|      ;
    db $00                               ;0D943F|      ;
-DATA8_0D9440:
+Palette_0585A5:
    db $EF                               ;0D9440|      ;
    db $3D                               ;0D9441|      ;
    db $73                               ;0D9442|      ;
@@ -5227,48 +5227,48 @@ DATA8_0D9440:
    db $0C                               ;0D9453|      ;
    db $00                               ;0D9454|      ;
    db $00                               ;0D9455|      ;
-UNREACH_0D9456:
-   db $1F                               ;0D9456|600000;
+Palette_05847E:
+   db $1F                               ;0D9456|      ;
    db $00                               ;0D9457|      ;
    db $00                               ;0D9458|      ;
    db $60                               ;0D9459|      ;
    db $00                               ;0D945A|      ;
-   db $34                               ;0D945B|000073;
-   db $73                               ;0D945C|00004E;
-   db $4E                               ;0D945D|00318C;
-   db $8C                               ;0D945E|005D31;
-   db $31                               ;0D945F|00005D;
-   db $5D                               ;0D9460|00BA5F;
-   db $5F                               ;0D9461|1446BA;
+   db $34                               ;0D945B|      ;
+   db $73                               ;0D945C|      ;
+   db $4E                               ;0D945D|      ;
+   db $8C                               ;0D945E|      ;
+   db $31                               ;0D945F|      ;
+   db $5D                               ;0D9460|      ;
+   db $5F                               ;0D9461|      ;
    db $BA                               ;0D9462|      ;
-   db $46                               ;0D9463|000014;
-   db $14                               ;0D9464|00002E;
-   db $2E                               ;0D9465|00112C;
-   db $2C                               ;0D9466|00C911;
-   db $11                               ;0D9467|0000C9;
+   db $46                               ;0D9463|      ;
+   db $14                               ;0D9464|      ;
+   db $2E                               ;0D9465|      ;
+   db $2C                               ;0D9466|      ;
+   db $11                               ;0D9467|      ;
    db $C9                               ;0D9468|      ;
-   db $04                               ;0D9469|000000;
+   db $04                               ;0D9469|      ;
    db $00                               ;0D946A|      ;
    db $00                               ;0D946B|      ;
-UNREACH_0D946C:
-   db $B5                               ;0D946C|000056;
-   db $56                               ;0D946D|00008C;
-   db $8C                               ;0D946E|00E731;
-   db $31                               ;0D946F|0000E7;
-   db $E7                               ;0D9470|00001C;
-   db $1C                               ;0D9471|006000;
+Palette_058A66:
+   db $B5                               ;0D946C|      ;
+   db $56                               ;0D946D|      ;
+   db $8C                               ;0D946E|      ;
+   db $31                               ;0D946F|      ;
+   db $E7                               ;0D9470|      ;
+   db $1C                               ;0D9471|      ;
    db $00                               ;0D9472|      ;
    db $60                               ;0D9473|      ;
-   db $30                               ;0D9474|0D94F5;
-   db $7F                               ;0D9475|487F29;
+   db $30                               ;0D9474|      ;
+   db $7F                               ;0D9475|      ;
    db $29                               ;0D9476|      ;
-   db $7F                               ;0D9477|C87E48;
+   db $7F                               ;0D9477|      ;
    db $48                               ;0D9478|      ;
-   db $7E                               ;0D9479|007DC8;
+   db $7E                               ;0D9479|      ;
    db $C8                               ;0D947A|      ;
-   db $7D                               ;0D947B|0074C0;
+   db $7D                               ;0D947B|      ;
    db $C0                               ;0D947C|      ;
-   db $74                               ;0D947D|000060;
+   db $74                               ;0D947D|      ;
    db $60                               ;0D947E|      ;
    db $54                               ;0D947F|      ;
    db $00                               ;0D9480|      ;
@@ -5342,7 +5342,7 @@ UNREACH_0D94AE:
    db $00                               ;0D94C1|      ;
    db $00                               ;0D94C2|      ;
    db $00                               ;0D94C3|      ;
-DATA8_0D94C4:
+Palette_05859A:
    db $1F                               ;0D94C4|      ;
    db $00                               ;0D94C5|      ;
    db $73                               ;0D94C6|      ;
@@ -5365,27 +5365,27 @@ DATA8_0D94C4:
    db $00                               ;0D94D7|      ;
    db $00                               ;0D94D8|      ;
    db $00                               ;0D94D9|      ;
-UNREACH_0D94DA:
-   db $EF                               ;0D94DA|39CE3D;
-   db $3D                               ;0D94DB|0039CE;
-   db $CE                               ;0D94DC|00E739;
-   db $39                               ;0D94DD|001CE7;
-   db $E7                               ;0D94DE|00001C;
-   db $1C                               ;0D94DF|004E73;
-   db $73                               ;0D94E0|00004E;
-   db $4E                               ;0D94E1|00318C;
-   db $8C                               ;0D94E2|005A31;
-   db $31                               ;0D94E3|00005A;
+Palette_058494:
+   db $EF                               ;0D94DA|      ;
+   db $3D                               ;0D94DB|      ;
+   db $CE                               ;0D94DC|      ;
+   db $39                               ;0D94DD|      ;
+   db $E7                               ;0D94DE|      ;
+   db $1C                               ;0D94DF|      ;
+   db $73                               ;0D94E0|      ;
+   db $4E                               ;0D94E1|      ;
+   db $8C                               ;0D94E2|      ;
+   db $31                               ;0D94E3|      ;
    db $5A                               ;0D94E4|      ;
    db $6B                               ;0D94E5|      ;
-   db $94                               ;0D94E6|000052;
-   db $52                               ;0D94E7|0000CE;
-   db $CE                               ;0D94E8|00E739;
-   db $39                               ;0D94E9|001CE7;
-   db $E7                               ;0D94EA|00001C;
-   db $1C                               ;0D94EB|000C63;
-   db $63                               ;0D94EC|00000C;
-   db $0C                               ;0D94ED|000000;
+   db $94                               ;0D94E6|      ;
+   db $52                               ;0D94E7|      ;
+   db $CE                               ;0D94E8|      ;
+   db $39                               ;0D94E9|      ;
+   db $E7                               ;0D94EA|      ;
+   db $1C                               ;0D94EB|      ;
+   db $63                               ;0D94EC|      ;
+   db $0C                               ;0D94ED|      ;
    db $00                               ;0D94EE|      ;
    db $00                               ;0D94EF|      ;
 UNREACH_0D94F0:
@@ -5457,7 +5457,7 @@ UNREACH_0D951C:
    db $0C                               ;0D952F|000000;
    db $00                               ;0D9530|      ;
    db $00                               ;0D9531|      ;
-DATA8_0D9532:
+Palette_0585B0:
    db $EF                               ;0D9532|      ;
    db $3D                               ;0D9533|      ;
    db $73                               ;0D9534|      ;
@@ -5480,8 +5480,8 @@ DATA8_0D9532:
    db $0C                               ;0D9545|      ;
    db $00                               ;0D9546|      ;
    db $00                               ;0D9547|      ;
-Data_0D_9548:
-   db $C5                               ;0D9548|      ; From $05/922A
+Palette_05922A:
+   db $C5                               ;0D9548|      ; 1A bytes for some reason
    db $14                               ;0D9549|      ;
    db $62                               ;0D954A|      ;
    db $08                               ;0D954B|      ;
@@ -5565,16 +5565,16 @@ DATA8_0D9588:
 DATA8_0D958A:
    db $5F                               ;0D958A|      ;
    db $0D                               ;0D958B|0000DF;
-_189A85_2_bytes:
+Text_Color_Red:
    db $DF                               ;0D958C|      ;
    db $00                               ;0D958D|      ;
-_189AD2_2_bytes:
+Text_Color_Yellow:
    db $FF                               ;0D958E|      ;
    db $03                               ;0D958F|      ;
-Weapons_Menu:
+Text_Color_Gray:
    db $31                               ;0D9590|      ;
    db $46                               ;0D9591|      ;
-DATA8_0D9592:
+Gfx_Palette_01A14A:
    db $00                               ;0D9592|      ;
    db $00                               ;0D9593|      ;
    db $FF                               ;0D9594|      ;
@@ -5607,7 +5607,7 @@ DATA8_0D9592:
    db $10                               ;0D95AF|      ;
    db $00                               ;0D95B0|      ;
    db $00                               ;0D95B1|      ;
-DATA8_0D95B2:
+Gfx_Palette_01A16B:
    db $00                               ;0D95B2|      ;
    db $00                               ;0D95B3|      ;
    db $FF                               ;0D95B4|      ;
@@ -5640,7 +5640,7 @@ DATA8_0D95B2:
    db $10                               ;0D95CF|      ;
    db $00                               ;0D95D0|      ;
    db $00                               ;0D95D1|      ;
-DATA8_0D95D2:
+Gfx_Palette_01A175:
    db $00                               ;0D95D2|      ;
    db $00                               ;0D95D3|      ;
    db $FF                               ;0D95D4|      ;
@@ -19857,7 +19857,7 @@ Gfx_Compressed_SpellGfx05:
    db $02                               ;0DCD46|      ;
    db $BE                               ;0DCD47|      ;
    db $FF                               ;0DCD48|      ;
- Gfx_Compressed_SpellGfx07:
+Gfx_Compressed_SpellGfx07:
    db $41                               ;0DCD49|      ; Used for Call Wind Spirit
    db $FF                               ;0DCD4A|      ;
    db $BF                               ;0DCD4B|      ;

@@ -3,7 +3,7 @@
 Bank_03_Maps_and_Gfx:
    LDA.W Stairs_next_floor              ;038001|0016F1;
    STA.W Curr_area                      ;038004|001573;
-CODE_038007:
+CODE_FL_038007:
    LDA.W Curr_area                      ;038007|001573;
    AND.W #$00FF                         ;03800A|      ;
    ASL A                                ;03800D|      ;
@@ -1464,74 +1464,67 @@ DATA8_038756:
    db $00                               ;038760|      ;
 CODE_038761:
    CMP.W #$0000                         ;038761|      ;
-   BNE CODE_038786                      ;038764|038786;
+   BNE +                                ;038764|038786;
    LDX.W Map_Compass                    ;038766|0016FB;
    JSR.W Update_position                ;038769|03A2FA;
    TYA                                  ;03876C|      ;
-   BEQ CODE_038777                      ;03876D|038777;
+   BEQ ++                               ;03876D|038777;
    ASL A                                ;03876F|      ;
    TAX                                  ;038770|      ;
    LDA.L DATA16_038813,X                ;038771|038813;
    PHA                                  ;038775|      ;
    RTS                                  ;038776|      ;
-CODE_038777:
-   LDA.B $22                            ;038777|000022;
+++ LDA.B $22                            ;038777|000022;
    STA.W Map_X                          ;038779|0016F7;
    LDA.B $24                            ;03877C|000024;
    STA.W Map_Y                          ;03877E|0016F9;
-   JSR.W CODE_038EDB                    ;038781|038EDB;
-   BRA CODE_0387CE                      ;038784|0387CE;
-CODE_038786:
-   DEC A                                ;038786|      ;
-   BNE CODE_038799                      ;038787|038799;
-   JSR.W CODE_039256                    ;038789|039256;
+   JSR.W CODE_FN_038EDB                 ;038781|038EDB;
+   BRA ++                               ;038784|0387CE;
+ + DEC A                                ;038786|      ;
+   BNE +                                ;038787|038799;
+   JSR.W CODE_FN_039256                 ;038789|039256;
    LDA.W Map_Compass                    ;03878C|0016FB;
    INC A                                ;03878F|      ;
    INC A                                ;038790|      ;
    AND.W #$0006                         ;038791|      ;
    STA.W Map_Compass                    ;038794|0016FB;
-   BRA CODE_0387CE                      ;038797|0387CE;
-CODE_038799:
-   DEC A                                ;038799|      ;
-   BNE CODE_0387C0                      ;03879A|0387C0;
+   BRA ++                               ;038797|0387CE;
+ + DEC A                                ;038799|      ;
+   BNE +                                ;03879A|0387C0;
    LDA.W Map_Compass                    ;03879C|0016FB;
    EOR.W #$0004                         ;03879F|      ;
    TAX                                  ;0387A2|      ;
    JSR.W Update_position                ;0387A3|03A2FA;
    TYA                                  ;0387A6|      ;
-   BEQ CODE_0387B1                      ;0387A7|0387B1;
+   BEQ +++                              ;0387A7|0387B1;
    ASL A                                ;0387A9|      ;
    TAX                                  ;0387AA|      ;
    LDA.L DATA16_038813,X                ;0387AB|038813;
    PHA                                  ;0387AF|      ;
    RTS                                  ;0387B0|      ;
-CODE_0387B1:
-   JSR.W CODE_038EDB                    ;0387B1|038EDB;
++++ JSR.W CODE_FN_038EDB                 ;0387B1|038EDB;
    LDA.B $22                            ;0387B4|000022;
    STA.W Map_X                          ;0387B6|0016F7;
    LDA.B $24                            ;0387B9|000024;
    STA.W Map_Y                          ;0387BB|0016F9;
-   BRA CODE_0387CE                      ;0387BE|0387CE;
-CODE_0387C0:
-   LDA.W Map_Compass                    ;0387C0|0016FB;
+   BRA ++                               ;0387BE|0387CE;
+ + LDA.W Map_Compass                    ;0387C0|0016FB;
    DEC A                                ;0387C3|      ;
    DEC A                                ;0387C4|      ;
    AND.W #$0006                         ;0387C5|      ;
    STA.W Map_Compass                    ;0387C8|0016FB;
-   JSR.W CODE_039256                    ;0387CB|039256;
-CODE_0387CE:
-   LDA.W #$0001                         ;0387CE|      ;
+   JSR.W CODE_FN_039256                 ;0387CB|039256;
+++ LDA.W #$0001                         ;0387CE|      ;
    STA.W Dungeon_in_motion              ;0387D1|0016F3;
    JML.L Wait_Vblank_far                ;0387D4|0088DE;
-CODE_0387D8:
-   LDX.B $22                            ;0387D8|000022;
+ - LDX.B $22                            ;0387D8|000022;
    LDA.B $24                            ;0387DA|000024;
    JSR.W Update_map_progress            ;0387DC|03A494;
    LDA.W #$0002                         ;0387DF|      ;
    RTL                                  ;0387E2|      ;
    LDA.W Story_Progress                 ;0387E3|0018FF;
    CMP.W #$0012                         ;0387E6|      ;
-   BCS CODE_0387D8                      ;0387E9|0387D8;
+   BCS -                                ;0387E9|0387D8;
    LDA.W #$0014                         ;0387EB|      ;
    JSL.L Play_SFX                       ;0387EE|009C47;
    LDX.B $22                            ;0387F2|000022;
@@ -1600,33 +1593,30 @@ Fog_tile_check:
    LDX.W Map_X                          ;038855|0016F7;
    JSR.W Get_map_tile_value             ;038858|03A457;
    CMP.W #$0065                         ;03885B|      ; is it the Fog tile to Reinoll?
-   BEQ CODE_03886E                      ;03885E|03886E;
+   BEQ +                                ;03885E|03886E;
    CMP.W #$0060                         ;038860|      ; is it a Fog tile?
    BCC CODE_03886A                      ;038863|03886A; tile 10-5F: return 0
    CMP.W #$0070                         ;038865|      ; is it a Boss tile?
-   BCC CODE_038876                      ;038868|038876; Fog tile besides Reinoll's: return 1
+   BCC ++                               ;038868|038876; Fog tile besides Reinoll's: return 1
 CODE_03886A:
    LDA.W #$0000                         ;03886A|      ;
    RTL                                  ;03886D|      ;
-CODE_03886E:
-   LDA.W Curr_area                      ;03886E|001573;
+ + LDA.W Curr_area                      ;03886E|001573;
    CMP.W #$0104                         ;038871|      ; In the Forest of Doubt?
    BEQ CODE_03886A                      ;038874|03886A;
-CODE_038876:
-   LDA.W #$0001                         ;038876|      ;
+++ LDA.W #$0001                         ;038876|      ;
    RTL                                  ;038879|      ;
-CODE_03887A:
+CODE_JP_03887A:
    LDA.W Curr_area                      ;03887A|001573;
    BIT.W #$0100                         ;03887D|      ;
-   BNE CODE_038885                      ;038880|038885;
+   BNE +                                ;038880|038885;
    JMP.W More_Town_Loading              ;038882|03B3FD;
-CODE_038885:
-   AND.W #$00FF                         ;038885|      ;
+ + AND.W #$00FF                         ;038885|      ;
    ASL A                                ;038888|      ;
    STA.B $00                            ;038889|000000;
    TAX                                  ;03888B|      ;
    LDA.L Tbl_Compressed_Gfx_Banks_5,X   ;03888C|0382B4;
-   BEQ CODE_0388C3                      ;038890|0388C3;
+   BEQ +                                ;038890|0388C3;
    PEA.W $007E                          ;038892|00007E;
    PLB                                  ;038895|      ;
    PHA                                  ;038896|      ;
@@ -1646,8 +1636,7 @@ CODE_038885:
    LDA.W #$890B                         ;0388B8|      ;
    JSL.L RAM_Decomp80                   ;0388BB|0084FE;
    JSL.L Wait_Vblank_far                ;0388BF|0088DE;
-CODE_0388C3:
-   LDX.B $00                            ;0388C3|000000;
+ + LDX.B $00                            ;0388C3|000000;
    LDA.L Some_Ptr_Tables,X              ;0388C5|0383C4;
    STA.B $02                            ;0388C9|000002;
    LDA.W #$0003                         ;0388CB|      ;
@@ -1657,17 +1646,15 @@ CODE_0388C3:
    LDA.L PTR16_038408,X                 ;0388D5|038408;
    STA.B $02                            ;0388D9|000002;
    LDY.W #$003E                         ;0388DB|      ;
-CODE_0388DE:
-   LDA.B [$02],Y                        ;0388DE|000002;
+ - LDA.B [$02],Y                        ;0388DE|000002;
    STA.W $0440,Y                        ;0388E0|000440;
    DEY                                  ;0388E3|      ;
    DEY                                  ;0388E4|      ;
-   BPL CODE_0388DE                      ;0388E5|0388DE;
+   BPL -                                ;0388E5|0388DE;
    LDA.W Map_temp01                     ;0388E7|0016EF;
-   BEQ CODE_0388EF                      ;0388EA|0388EF;
-   JSR.W CODE_03AD73                    ;0388EC|03AD73;
-CODE_0388EF:
-   SEP #$20                             ;0388EF|      ;
+   BEQ +                                ;0388EA|0388EF;
+   JSR.W CODE_FN_03AD73                 ;0388EC|03AD73;
+ + SEP #$20                             ;0388EF|      ;
    LDA.B #$03                           ;0388F1|      ;
    STA.W DMA2_Source_bank               ;0388F3|004324;
    STA.W HDMA2_IA_bank                  ;0388F6|004327;
@@ -1840,19 +1827,17 @@ Loop_Get_FoV:
    LDY.W #$E000                         ;0389D5|      ;
    JSL.L Decompression_far              ;0389D8|008762;
    LDA.W $A69C                          ;0389DC|7EA69C;
-   BNE CODE_0389ED                      ;0389DF|0389ED;
+   BNE +                                ;0389DF|0389ED;
    LDA.W #$0000                         ;0389E1|      ;
    LDX.W #$0264                         ;0389E4|      ;
    LDY.W #$0044                         ;0389E7|      ;
    JSR.W Some_RAM_xfer                  ;0389EA|0399FE;
-CODE_0389ED:
-   LDA.W $A698                          ;0389ED|7EA698;
+ + LDA.W $A698                          ;0389ED|7EA698;
    AND.W #$00F0                         ;0389F0|      ;
    CMP.W #$0060                         ;0389F3|      ;
-   BNE CODE_038A20                      ;0389F6|038A20;
+   BNE +                                ;0389F6|038A20;
    LDX.W #$00DE                         ;0389F8|      ;
-CODE_0389FB:
-   STZ.W $CCF0,X                        ;0389FB|7ECCF0; Zero out a bunch of RAM
+ - STZ.W $CCF0,X                        ;0389FB|7ECCF0; Zero out a bunch of RAM
    STZ.W $CE00,X                        ;0389FE|7ECE00;
    STZ.W $CF10,X                        ;038A01|7ECF10;
    STZ.W $D020,X                        ;038A04|7ED020;
@@ -1863,42 +1848,38 @@ CODE_0389FB:
    STZ.W $D570,X                        ;038A13|7ED570;
    DEX                                  ;038A16|      ;
    DEX                                  ;038A17|      ;
-   BPL CODE_0389FB                      ;038A18|0389FB;
+   BPL -                                ;038A18|0389FB;
    INC.W Map_temp01                     ;038A1A|0016EF;
-   JMP.W CODE_038BD9                    ;038A1D|038BD9;
-CODE_038A20:
-   LDA.W $A698                          ;038A20|7EA698;
-   JSR.W CODE_03A36D                    ;038A23|03A36D;
+   JMP.W CODE_JP_038BD9                 ;038A1D|038BD9;
+ + LDA.W $A698                          ;038A20|7EA698;
+   JSR.W CODE_FN_03A36D                 ;038A23|03A36D;
    DEY                                  ;038A26|      ;
-   BNE CODE_038A38                      ;038A27|038A38;
+   BNE +                                ;038A27|038A38;
    LDA.W #$0000                         ;038A29|      ;
    LDX.W #$151E                         ;038A2C|      ;
    LDY.W #$0099                         ;038A2F|      ;
    JSR.W Some_RAM_xfer                  ;038A32|0399FE;
-   JMP.W CODE_038BD9                    ;038A35|038BD9;
-CODE_038A38:
-   DEY                                  ;038A38|      ;
-   BNE CODE_038A4A                      ;038A39|038A4A;
+   JMP.W CODE_JP_038BD9                 ;038A35|038BD9;
+ + DEY                                  ;038A38|      ;
+   BNE +                                ;038A39|038A4A;
    LDA.W #$0000                         ;038A3B|      ;
    LDX.W #$1694                         ;038A3E|      ;
    LDY.W #$0099                         ;038A41|      ;
    JSR.W Some_RAM_xfer                  ;038A44|0399FE;
-   JMP.W CODE_038BD9                    ;038A47|038BD9;
-CODE_038A4A:
-   DEY                                  ;038A4A|      ;
-   BNE CODE_038A5C                      ;038A4B|038A5C;
+   JMP.W CODE_JP_038BD9                 ;038A47|038BD9;
+ + DEY                                  ;038A4A|      ;
+   BNE +                                ;038A4B|038A5C;
    LDA.W #$0000                         ;038A4D|      ;
    LDX.W #$180A                         ;038A50|      ;
    LDY.W #$0099                         ;038A53|      ;
    JSR.W Some_RAM_xfer                  ;038A56|0399FE;
-   JMP.W CODE_038BD9                    ;038A59|038BD9;
-CODE_038A5C:
-   LDA.W $A69C                          ;038A5C|7EA69C;
-   BEQ CODE_038AC1                      ;038A5F|038AC1;
+   JMP.W CODE_JP_038BD9                 ;038A59|038BD9;
+ + LDA.W $A69C                          ;038A5C|7EA69C;
+   BEQ +                                ;038A5F|038AC1;
    LDA.W $A696                          ;038A61|7EA696;
-   JSR.W CODE_03A36D                    ;038A64|03A36D;
+   JSR.W CODE_FN_03A36D                 ;038A64|03A36D;
    DEY                                  ;038A67|      ;
-   BNE CODE_038A85                      ;038A68|038A85;
+   BNE ++                               ;038A68|038A85;
    LDA.W #$0220                         ;038A6A|      ;
    LDX.W #$02EC                         ;038A6D|      ;
    LDY.W #$0088                         ;038A70|      ;
@@ -1907,10 +1888,9 @@ CODE_038A5C:
    LDX.W #$1650                         ;038A79|      ;
    LDY.W #$0022                         ;038A7C|      ;
    JSR.W Some_RAM_xfer                  ;038A7F|0399FE;
-   JMP.W CODE_038BD9                    ;038A82|038BD9;
-CODE_038A85:
-   DEY                                  ;038A85|      ;
-   BNE CODE_038AA3                      ;038A86|038AA3;
+   JMP.W CODE_JP_038BD9                 ;038A82|038BD9;
+++ DEY                                  ;038A85|      ;
+   BNE ++                               ;038A86|038AA3;
    LDA.W #$0220                         ;038A88|      ;
    LDX.W #$02EC                         ;038A8B|      ;
    LDY.W #$0088                         ;038A8E|      ;
@@ -1919,10 +1899,9 @@ CODE_038A85:
    LDX.W #$17C6                         ;038A97|      ;
    LDY.W #$0022                         ;038A9A|      ;
    JSR.W Some_RAM_xfer                  ;038A9D|0399FE;
-   JMP.W CODE_038BD9                    ;038AA0|038BD9;
-CODE_038AA3:
-   DEY                                  ;038AA3|      ;
-   BNE CODE_038AC1                      ;038AA4|038AC1;
+   JMP.W CODE_JP_038BD9                 ;038AA0|038BD9;
+++ DEY                                  ;038AA3|      ;
+   BNE +                                ;038AA4|038AC1;
    LDA.W #$0220                         ;038AA6|      ;
    LDX.W #$02EC                         ;038AA9|      ;
    LDY.W #$0088                         ;038AAC|      ;
@@ -1931,19 +1910,16 @@ CODE_038AA3:
    LDX.W #$193C                         ;038AB5|      ;
    LDY.W #$0022                         ;038AB8|      ;
    JSR.W Some_RAM_xfer                  ;038ABB|0399FE;
-   JMP.W CODE_038BD9                    ;038ABE|038BD9;
-CODE_038AC1:
-   LDA.W #$0000                         ;038AC1|      ;
+   JMP.W CODE_JP_038BD9                 ;038ABE|038BD9;
+ + LDA.W #$0000                         ;038AC1|      ;
    LDX.W $A696                          ;038AC4|7EA696;
-   BNE CODE_038ACC                      ;038AC7|038ACC;
+   BNE +                                ;038AC7|038ACC;
    ORA.W #$0004                         ;038AC9|      ;
-CODE_038ACC:
-   LDX.W $A698                          ;038ACC|7EA698;
-   BNE CODE_038AD4                      ;038ACF|038AD4;
+ + LDX.W $A698                          ;038ACC|7EA698;
+   BNE +                                ;038ACF|038AD4;
    ORA.W #$0002                         ;038AD1|      ;
-CODE_038AD4:
-   TAX                                  ;038AD4|      ;
-   BEQ CODE_038AF0                      ;038AD5|038AF0;
+ + TAX                                  ;038AD4|      ;
+   BEQ +                                ;038AD5|038AF0;
    PHX                                  ;038AD7|      ;
    LDA.L Error_Data_01,X                ;038AD8|038E19;
    TAY                                  ;038ADC|      ;
@@ -1954,15 +1930,13 @@ CODE_038AD4:
    JSR.W Some_RAM_xfer                  ;038AE7|0399FE;
    PLA                                  ;038AEA|      ;
    AND.W #$0002                         ;038AEB|      ;
-   BNE CODE_038B23                      ;038AEE|038B23;
-CODE_038AF0:
-   LDA.W $A690                          ;038AF0|7EA690;
+   BNE ++                               ;038AEE|038B23;
+ + LDA.W $A690                          ;038AF0|7EA690;
    AND.W #$00F0                         ;038AF3|      ;
    CMP.W #$0060                         ;038AF6|      ;
-   BNE CODE_038B23                      ;038AF9|038B23;
+   BNE ++                               ;038AF9|038B23;
    LDX.W #$007E                         ;038AFB|      ;
-CODE_038AFE:
-   STZ.W $CD20,X                        ;038AFE|7ECD20;
+ - STZ.W $CD20,X                        ;038AFE|7ECD20;
    STZ.W $CE30,X                        ;038B01|7ECE30;
    STZ.W $CF40,X                        ;038B04|7ECF40;
    STZ.W $D050,X                        ;038B07|7ED050;
@@ -1973,25 +1947,21 @@ CODE_038AFE:
    STZ.W $D5A0,X                        ;038B16|7ED5A0;
    DEX                                  ;038B19|      ;
    DEX                                  ;038B1A|      ;
-   BPL CODE_038AFE                      ;038B1B|038AFE;
+   BPL -                                ;038B1B|038AFE;
    INC.W Map_temp01                     ;038B1D|0016EF;
-   JMP.W CODE_038BD9                    ;038B20|038BD9;
-CODE_038B23:
-   LDA.W #$0000                         ;038B23|      ;
+   JMP.W CODE_JP_038BD9                 ;038B20|038BD9;
+++ LDA.W #$0000                         ;038B23|      ;
    LDX.W $A68C                          ;038B26|7EA68C;
-   BNE CODE_038B2E                      ;038B29|038B2E;
+   BNE +                                ;038B29|038B2E;
    ORA.W #$0008                         ;038B2B|      ;
-CODE_038B2E:
-   LDX.W $A68E                          ;038B2E|7EA68E;
-   BNE CODE_038B36                      ;038B31|038B36;
+ + LDX.W $A68E                          ;038B2E|7EA68E;
+   BNE +                                ;038B31|038B36;
    ORA.W #$0004                         ;038B33|      ;
-CODE_038B36:
-   LDX.W $A690                          ;038B36|7EA690;
-   BNE CODE_038B3E                      ;038B39|038B3E;
+ + LDX.W $A690                          ;038B36|7EA690;
+   BNE +                                ;038B39|038B3E;
    ORA.W #$0002                         ;038B3B|      ;
-CODE_038B3E:
-   TAX                                  ;038B3E|      ;
-   BEQ CODE_038B66                      ;038B3F|038B66;
+ + TAX                                  ;038B3E|      ;
+   BEQ +                                ;038B3F|038B66;
    PHX                                  ;038B41|      ;
    LDA.L DATA8_038E31,X                 ;038B42|038E31;
    TAY                                  ;038B46|      ;
@@ -2002,27 +1972,23 @@ CODE_038B3E:
    JSR.W Some_RAM_xfer                  ;038B51|0399FE;
    PLX                                  ;038B54|      ;
    CPX.W #$000A                         ;038B55|      ;
-   BNE CODE_038B66                      ;038B58|038B66;
+   BNE +                                ;038B58|038B66;
    LDA.W #$0880                         ;038B5A|      ;
    LDX.W #$05FA                         ;038B5D|      ;
    LDY.W #$0055                         ;038B60|      ;
    JSR.W Some_RAM_xfer                  ;038B63|0399FE;
-CODE_038B66:
-   LDA.W #$0000                         ;038B66|      ;
+ + LDA.W #$0000                         ;038B66|      ;
    LDX.W $A682                          ;038B69|7EA682;
-   BNE CODE_038B71                      ;038B6C|038B71;
+   BNE +                                ;038B6C|038B71;
    ORA.W #$0008                         ;038B6E|      ;
-CODE_038B71:
-   LDX.W $A684                          ;038B71|7EA684;
-   BNE CODE_038B79                      ;038B74|038B79;
+ + LDX.W $A684                          ;038B71|7EA684;
+   BNE +                                ;038B74|038B79;
    ORA.W #$0004                         ;038B76|      ;
-CODE_038B79:
-   LDX.W $A686                          ;038B79|7EA686;
-   BNE CODE_038B81                      ;038B7C|038B81;
+ + LDX.W $A686                          ;038B79|7EA686;
+   BNE +                                ;038B7C|038B81;
    ORA.W #$0002                         ;038B7E|      ;
-CODE_038B81:
-   TAX                                  ;038B81|      ;
-   BEQ CODE_038BA9                      ;038B82|038BA9;
+ + TAX                                  ;038B81|      ;
+   BEQ +                                ;038B82|038BA9;
    PHX                                  ;038B84|      ;
    LDA.L UNREACH_038E69,X               ;038B85|038E69;
    TAY                                  ;038B89|      ;
@@ -2033,27 +1999,23 @@ CODE_038B81:
    JSR.W Some_RAM_xfer                  ;038B94|0399FE;
    PLX                                  ;038B97|      ;
    CPX.W #$000A                         ;038B98|      ;
-   BNE CODE_038BA9                      ;038B9B|038BA9;
+   BNE +                                ;038B9B|038BA9;
    LDA.W #$0CC0                         ;038B9D|      ;
    LDX.W #$096E                         ;038BA0|      ;
    LDY.W #$0033                         ;038BA3|      ;
    JSR.W Some_RAM_xfer                  ;038BA6|0399FE;
-CODE_038BA9:
-   LDA.W #$0000                         ;038BA9|      ;
+ + LDA.W #$0000                         ;038BA9|      ;
    LDX.W $A678                          ;038BAC|7EA678;
-   BNE CODE_038BB4                      ;038BAF|038BB4;
+   BNE +                                ;038BAF|038BB4;
    ORA.W #$0008                         ;038BB1|      ;
-CODE_038BB4:
-   LDX.W $A67A                          ;038BB4|7EA67A;
-   BNE CODE_038BBC                      ;038BB7|038BBC;
+ + LDX.W $A67A                          ;038BB4|7EA67A;
+   BNE +                                ;038BB7|038BBC;
    ORA.W #$0004                         ;038BB9|      ;
-CODE_038BBC:
-   LDX.W $A67C                          ;038BBC|7EA67C;
-   BNE CODE_038BC4                      ;038BBF|038BC4;
+ + LDX.W $A67C                          ;038BBC|7EA67C;
+   BNE +                                ;038BBF|038BC4;
    ORA.W #$0002                         ;038BC1|      ;
-CODE_038BC4:
-   TAX                                  ;038BC4|      ;
-   BEQ CODE_038BD9                      ;038BC5|038BD9;
+ + TAX                                  ;038BC4|      ;
+   BEQ CODE_JP_038BD9                   ;038BC5|038BD9;
    LDA.L UNREACH_038EA1,X               ;038BC7|038EA1;
    TAY                                  ;038BCB|      ;
    LDA.L UNREACH_038EAF,X               ;038BCC|038EAF;
@@ -2061,7 +2023,7 @@ CODE_038BC4:
    LDA.L UNREACH_038EBD,X               ;038BD1|038EBD;
    PLX                                  ;038BD5|      ;
    JSR.W Some_RAM_xfer                  ;038BD6|0399FE;
-CODE_038BD9:
+CODE_JP_038BD9:
    LDA.W #$0000                         ;038BD9|      ;
    LDX.W #$0000                         ;038BDC|      ;
    LDY.W #$0099                         ;038BDF|      ;
@@ -2069,19 +2031,17 @@ CODE_038BD9:
    LDA.W #$99DA                         ;038BE5|      ;
    JSL.L RAM_Decomp80                   ;038BE8|0084FE;
    LDA.W $A69E                          ;038BEC|7EA69E;
-   BNE CODE_038BFD                      ;038BEF|038BFD;
+   BNE +                                ;038BEF|038BFD;
    LDA.W #$1320                         ;038BF1|      ;
    LDX.W #$0264                         ;038BF4|      ;
    LDY.W #$0044                         ;038BF7|      ;
    JSR.W Some_RAM_xfer                  ;038BFA|0399FE;
-CODE_038BFD:
-   LDA.W $A698                          ;038BFD|7EA698;
+ + LDA.W $A698                          ;038BFD|7EA698;
    AND.W #$00F0                         ;038C00|      ;
    CMP.W #$0060                         ;038C03|      ;
-   BNE CODE_038C30                      ;038C06|038C30;
+   BNE +                                ;038C06|038C30;
    LDX.W #$00DE                         ;038C08|      ;
-CODE_038C0B:
-   STZ.W $D680,X                        ;038C0B|7ED680;
+ - STZ.W $D680,X                        ;038C0B|7ED680;
    STZ.W $D790,X                        ;038C0E|7ED790;
    STZ.W $D8A0,X                        ;038C11|7ED8A0;
    STZ.W $D9B0,X                        ;038C14|7ED9B0;
@@ -2092,42 +2052,38 @@ CODE_038C0B:
    STZ.W $DF00,X                        ;038C23|7EDF00;
    DEX                                  ;038C26|      ;
    DEX                                  ;038C27|      ;
-   BPL CODE_038C0B                      ;038C28|038C0B;
+   BPL -                                ;038C28|038C0B;
    INC.W Map_temp01                     ;038C2A|0016EF;
-   JMP.W CODE_038DE9                    ;038C2D|038DE9;
-CODE_038C30:
-   LDA.W $A698                          ;038C30|7EA698;
-   JSR.W CODE_03A36D                    ;038C33|03A36D;
+   JMP.W CODE_JP_038DE9                 ;038C2D|038DE9;
+ + LDA.W $A698                          ;038C30|7EA698;
+   JSR.W CODE_FN_03A36D                 ;038C33|03A36D;
    DEY                                  ;038C36|      ;
-   BNE CODE_038C48                      ;038C37|038C48;
+   BNE +                                ;038C37|038C48;
    LDA.W #$1320                         ;038C39|      ;
    LDX.W #$151E                         ;038C3C|      ;
    LDY.W #$0099                         ;038C3F|      ;
    JSR.W Some_RAM_xfer                  ;038C42|0399FE;
-   JMP.W CODE_038DE9                    ;038C45|038DE9;
-CODE_038C48:
-   DEY                                  ;038C48|      ;
-   BNE CODE_038C5A                      ;038C49|038C5A;
+   JMP.W CODE_JP_038DE9                 ;038C45|038DE9;
+ + DEY                                  ;038C48|      ;
+   BNE +                                ;038C49|038C5A;
    LDA.W #$1320                         ;038C4B|      ;
    LDX.W #$1694                         ;038C4E|      ;
    LDY.W #$0099                         ;038C51|      ;
    JSR.W Some_RAM_xfer                  ;038C54|0399FE;
-   JMP.W CODE_038DE9                    ;038C57|038DE9;
-CODE_038C5A:
-   DEY                                  ;038C5A|      ;
-   BNE CODE_038C6C                      ;038C5B|038C6C;
+   JMP.W CODE_JP_038DE9                 ;038C57|038DE9;
+ + DEY                                  ;038C5A|      ;
+   BNE +                                ;038C5B|038C6C;
    LDA.W #$1320                         ;038C5D|      ;
    LDX.W #$180A                         ;038C60|      ;
    LDY.W #$0099                         ;038C63|      ;
    JSR.W Some_RAM_xfer                  ;038C66|0399FE;
-   JMP.W CODE_038DE9                    ;038C69|038DE9;
-CODE_038C6C:
-   LDA.W $A69E                          ;038C6C|7EA69E;
-   BEQ CODE_038CD1                      ;038C6F|038CD1;
+   JMP.W CODE_JP_038DE9                 ;038C69|038DE9;
+ + LDA.W $A69E                          ;038C6C|7EA69E;
+   BEQ +                                ;038C6F|038CD1;
    LDA.W $A69A                          ;038C71|7EA69A;
-   JSR.W CODE_03A36D                    ;038C74|03A36D;
+   JSR.W CODE_FN_03A36D                 ;038C74|03A36D;
    DEY                                  ;038C77|      ;
-   BNE CODE_038C95                      ;038C78|038C95;
+   BNE ++                               ;038C78|038C95;
    LDA.W #$1540                         ;038C7A|      ;
    LDX.W #$02EC                         ;038C7D|      ;
    LDY.W #$0088                         ;038C80|      ;
@@ -2136,10 +2092,9 @@ CODE_038C6C:
    LDX.W #$1650                         ;038C89|      ;
    LDY.W #$0022                         ;038C8C|      ;
    JSR.W Some_RAM_xfer                  ;038C8F|0399FE;
-   JMP.W CODE_038DE9                    ;038C92|038DE9;
-CODE_038C95:
-   DEY                                  ;038C95|      ;
-   BNE CODE_038CB3                      ;038C96|038CB3;
+   JMP.W CODE_JP_038DE9                 ;038C92|038DE9;
+++ DEY                                  ;038C95|      ;
+   BNE ++                               ;038C96|038CB3;
    LDA.W #$1540                         ;038C98|      ;
    LDX.W #$02EC                         ;038C9B|      ;
    LDY.W #$0088                         ;038C9E|      ;
@@ -2148,10 +2103,9 @@ CODE_038C95:
    LDX.W #$17C6                         ;038CA7|      ;
    LDY.W #$0022                         ;038CAA|      ;
    JSR.W Some_RAM_xfer                  ;038CAD|0399FE;
-   JMP.W CODE_038DE9                    ;038CB0|038DE9;
-CODE_038CB3:
-   DEY                                  ;038CB3|      ;
-   BNE CODE_038CD1                      ;038CB4|038CD1;
+   JMP.W CODE_JP_038DE9                 ;038CB0|038DE9;
+++ DEY                                  ;038CB3|      ;
+   BNE +                                ;038CB4|038CD1;
    LDA.W #$1540                         ;038CB6|      ;
    LDX.W #$02EC                         ;038CB9|      ;
    LDY.W #$0088                         ;038CBC|      ;
@@ -2160,19 +2114,16 @@ CODE_038CB3:
    LDX.W #$193C                         ;038CC5|      ;
    LDY.W #$0022                         ;038CC8|      ;
    JSR.W Some_RAM_xfer                  ;038CCB|0399FE;
-   JMP.W CODE_038DE9                    ;038CCE|038DE9;
-CODE_038CD1:
-   LDA.W #$0000                         ;038CD1|      ;
+   JMP.W CODE_JP_038DE9                 ;038CCE|038DE9;
+ + LDA.W #$0000                         ;038CD1|      ;
    LDX.W $A69A                          ;038CD4|7EA69A;
-   BNE CODE_038CDC                      ;038CD7|038CDC;
+   BNE +                                ;038CD7|038CDC;
    ORA.W #$0004                         ;038CD9|      ;
-CODE_038CDC:
-   LDX.W $A698                          ;038CDC|7EA698;
-   BNE CODE_038CE4                      ;038CDF|038CE4;
+ + LDX.W $A698                          ;038CDC|7EA698;
+   BNE +                                ;038CDF|038CE4;
    ORA.W #$0002                         ;038CE1|      ;
-CODE_038CE4:
-   TAX                                  ;038CE4|      ;
-   BEQ CODE_038D00                      ;038CE5|038D00;
+ + TAX                                  ;038CE4|      ;
+   BEQ +                                ;038CE5|038D00;
    PHX                                  ;038CE7|      ;
 IsThisABug:
    LDA.L Error_Data_01,X                ;038CE8|038E19;
@@ -2184,15 +2135,13 @@ IsThisABug:
    JSR.W Some_RAM_xfer                  ;038CF7|0399FE;
    PLA                                  ;038CFA|      ;
    AND.W #$0002                         ;038CFB|      ;
-   BNE CODE_038D33                      ;038CFE|038D33;
-CODE_038D00:
-   LDA.W $A690                          ;038D00|7EA690;
+   BNE ++                               ;038CFE|038D33;
+ + LDA.W $A690                          ;038D00|7EA690;
    AND.W #$00F0                         ;038D03|      ;
    CMP.W #$0060                         ;038D06|      ;
-   BNE CODE_038D33                      ;038D09|038D33;
+   BNE ++                               ;038D09|038D33;
    LDX.W #$007E                         ;038D0B|      ;
-CODE_038D0E:
-   STZ.W $D6B0,X                        ;038D0E|7ED6B0;
+ - STZ.W $D6B0,X                        ;038D0E|7ED6B0;
    STZ.W $D7C0,X                        ;038D11|7ED7C0;
    STZ.W $D8D0,X                        ;038D14|7ED8D0;
    STZ.W $D9E0,X                        ;038D17|7ED9E0;
@@ -2203,25 +2152,21 @@ CODE_038D0E:
    STZ.W $DF30,X                        ;038D26|7EDF30;
    DEX                                  ;038D29|      ;
    DEX                                  ;038D2A|      ;
-   BPL CODE_038D0E                      ;038D2B|038D0E;
+   BPL -                                ;038D2B|038D0E;
    INC.W Map_temp01                     ;038D2D|0016EF;
-   JMP.W CODE_038DE9                    ;038D30|038DE9;
-CODE_038D33:
-   LDA.W #$0000                         ;038D33|      ;
+   JMP.W CODE_JP_038DE9                 ;038D30|038DE9;
+++ LDA.W #$0000                         ;038D33|      ;
    LDX.W $A694                          ;038D36|7EA694;
-   BNE CODE_038D3E                      ;038D39|038D3E;
+   BNE +                                ;038D39|038D3E;
    ORA.W #$0008                         ;038D3B|      ;
-CODE_038D3E:
-   LDX.W $A692                          ;038D3E|7EA692;
-   BNE CODE_038D46                      ;038D41|038D46;
+ + LDX.W $A692                          ;038D3E|7EA692;
+   BNE +                                ;038D41|038D46;
    ORA.W #$0004                         ;038D43|      ;
-CODE_038D46:
-   LDX.W $A690                          ;038D46|7EA690;
-   BNE CODE_038D4E                      ;038D49|038D4E;
+ + LDX.W $A690                          ;038D46|7EA690;
+   BNE +                                ;038D49|038D4E;
    ORA.W #$0002                         ;038D4B|      ;
-CODE_038D4E:
-   TAX                                  ;038D4E|      ;
-   BEQ CODE_038D76                      ;038D4F|038D76;
+ + TAX                                  ;038D4E|      ;
+   BEQ +                                ;038D4F|038D76;
    PHX                                  ;038D51|      ;
    LDA.L DATA8_038E31,X                 ;038D52|038E31;
    TAY                                  ;038D56|      ;
@@ -2232,27 +2177,23 @@ CODE_038D4E:
    JSR.W Some_RAM_xfer                  ;038D61|0399FE;
    PLX                                  ;038D64|      ;
    CPX.W #$000A                         ;038D65|      ;
-   BNE CODE_038D76                      ;038D68|038D76;
+   BNE +                                ;038D68|038D76;
    LDA.W #$1BA0                         ;038D6A|      ;
    LDX.W #$05FA                         ;038D6D|      ;
    LDY.W #$0055                         ;038D70|      ;
    JSR.W Some_RAM_xfer                  ;038D73|0399FE;
-CODE_038D76:
-   LDA.W #$0000                         ;038D76|      ;
+ + LDA.W #$0000                         ;038D76|      ;
    LDX.W $A68A                          ;038D79|7EA68A;
-   BNE CODE_038D81                      ;038D7C|038D81;
+   BNE +                                ;038D7C|038D81;
    ORA.W #$0008                         ;038D7E|      ;
-CODE_038D81:
-   LDX.W $A688                          ;038D81|7EA688;
-   BNE CODE_038D89                      ;038D84|038D89;
+ + LDX.W $A688                          ;038D81|7EA688;
+   BNE +                                ;038D84|038D89;
    ORA.W #$0004                         ;038D86|      ;
-CODE_038D89:
-   LDX.W $A686                          ;038D89|7EA686;
-   BNE CODE_038D91                      ;038D8C|038D91;
+ + LDX.W $A686                          ;038D89|7EA686;
+   BNE +                                ;038D8C|038D91;
    ORA.W #$0002                         ;038D8E|      ;
-CODE_038D91:
-   TAX                                  ;038D91|      ;
-   BEQ CODE_038DB9                      ;038D92|038DB9;
+ + TAX                                  ;038D91|      ;
+   BEQ +                                ;038D92|038DB9;
    PHX                                  ;038D94|      ;
    LDA.L UNREACH_038E69,X               ;038D95|038E69;
    TAY                                  ;038D99|      ;
@@ -2263,27 +2204,23 @@ CODE_038D91:
    JSR.W Some_RAM_xfer                  ;038DA4|0399FE;
    PLX                                  ;038DA7|      ;
    CPX.W #$000A                         ;038DA8|      ;
-   BNE CODE_038DB9                      ;038DAB|038DB9;
+   BNE +                                ;038DAB|038DB9;
    LDA.W #$1FE0                         ;038DAD|      ;
    LDX.W #$096E                         ;038DB0|      ;
    LDY.W #$0033                         ;038DB3|      ;
    JSR.W Some_RAM_xfer                  ;038DB6|0399FE;
-CODE_038DB9:
-   LDA.W #$0000                         ;038DB9|      ;
+ + LDA.W #$0000                         ;038DB9|      ;
    LDX.W $A680                          ;038DBC|7EA680;
-   BNE CODE_038DC4                      ;038DBF|038DC4;
+   BNE +                                ;038DBF|038DC4;
    ORA.W #$0008                         ;038DC1|      ;
-CODE_038DC4:
-   LDX.W $A67E                          ;038DC4|7EA67E;
-   BNE CODE_038DCC                      ;038DC7|038DCC;
+ + LDX.W $A67E                          ;038DC4|7EA67E;
+   BNE +                                ;038DC7|038DCC;
    ORA.W #$0004                         ;038DC9|      ;
-CODE_038DCC:
-   LDX.W $A67C                          ;038DCC|7EA67C;
-   BNE CODE_038DD4                      ;038DCF|038DD4;
+ + LDX.W $A67C                          ;038DCC|7EA67C;
+   BNE +                                ;038DCF|038DD4;
    ORA.W #$0002                         ;038DD1|      ;
-CODE_038DD4:
-   TAX                                  ;038DD4|      ;
-   BEQ CODE_038DE9                      ;038DD5|038DE9;
+ + TAX                                  ;038DD4|      ;
+   BEQ CODE_JP_038DE9                   ;038DD5|038DE9;
    LDA.L UNREACH_038EA1,X               ;038DD7|038EA1;
    TAY                                  ;038DDB|      ;
    LDA.L UNREACH_038EAF,X               ;038DDC|038EAF;
@@ -2291,20 +2228,18 @@ CODE_038DD4:
    LDA.L UNREACH_038ECB,X               ;038DE1|038ECB;
    PLX                                  ;038DE5|      ;
    JSR.W Some_RAM_xfer                  ;038DE6|0399FE;
-CODE_038DE9:
+CODE_JP_038DE9:
    LDA.W #$1320                         ;038DE9|      ;
    LDX.W #$0132                         ;038DEC|      ;
    LDY.W #$0099                         ;038DEF|      ;
    JSR.W Some_RAM_xfer                  ;038DF2|0399FE;
    PLB                                  ;038DF5|      ;
    LDA.W Map_temp01                     ;038DF6|0016EF;
-   BEQ CODE_038E00                      ;038DF9|038E00;
-   JSR.W CODE_03AD73                    ;038DFB|03AD73;
-   BRA CODE_038E04                      ;038DFE|038E04;
-CODE_038E00:
-   JSL.L Some_enemy_ID_check            ;038E00|03ADE0;
-CODE_038E04:
-   LDA.W #$99E3                         ;038E04|      ;
+   BEQ +                                ;038DF9|038E00;
+   JSR.W CODE_FN_03AD73                 ;038DFB|03AD73;
+   BRA ++                               ;038DFE|038E04;
+ + JSL.L Some_enemy_ID_check            ;038E00|03ADE0;
+++ LDA.W #$99E3                         ;038E04|      ;
    JSL.L RAM_Decomp80                   ;038E07|0084FE;
    LDA.W #$FFD8                         ;038E0B|      ;
    STA.W TownCompass                    ;038E0E|000FF1;
@@ -2519,7 +2454,7 @@ UNREACH_038ECB:
    db $13                               ;038ED8|000020;
    db $20                               ;038ED9|039C13;
    db $13                               ;038EDA|00009C;
-CODE_038EDB:
+CODE_FN_038EDB:
    STZ.W Map_temp01                     ;038EDB|0016EF;
    LDX.W Map_Compass                    ;038EDE|0016FB;
    LDA.L Tbl_Dungeon_View_XOffset,X     ;038EE1|039891;
@@ -2531,8 +2466,7 @@ CODE_038EDB:
    LDA.W #$0003                         ;038EF2|      ;
    STA.B $1E                            ;038EF5|00001E;
    LDY.W #$0026                         ;038EF7|      ;
-CODE_038EFA:
-   LDA.B [$18],Y                        ;038EFA|000018;
+ - LDA.B [$18],Y                        ;038EFA|000018;
    CLC                                  ;038EFC|      ;
    ADC.W Map_X                          ;038EFD|0016F7;
    TAX                                  ;038F00|      ;
@@ -2544,7 +2478,7 @@ CODE_038EFA:
    STA.L $7EA678,X                      ;038F0B|7EA678;
    DEY                                  ;038F0F|      ;
    DEY                                  ;038F10|      ;
-   BPL CODE_038EFA                      ;038F11|038EFA;
+   BPL -                                ;038F11|038EFA;
    JSR.W Move_Dungeon_Ram               ;038F13|0399B1;
    LDA.W Curr_area                      ;038F16|001573;
    AND.W #$00FF                         ;038F19|      ;
@@ -2559,19 +2493,17 @@ CODE_038EFA:
    LDY.W #$E000                         ;038F2C|      ;
    JSL.L Decompression_far              ;038F2F|008762;
    LDA.W $A69E                          ;038F33|7EA69E;
-   BNE CODE_038F44                      ;038F36|038F44;
+   BNE +                                ;038F36|038F44;
    LDA.W #$1320                         ;038F38|      ;
    LDX.W #$0264                         ;038F3B|      ;
    LDY.W #$0055                         ;038F3E|      ;
    JSR.W Some_RAM_xfer                  ;038F41|0399FE;
-CODE_038F44:
-   LDA.W $A698                          ;038F44|7EA698;
+ + LDA.W $A698                          ;038F44|7EA698;
    AND.W #$00F0                         ;038F47|      ;
    CMP.W #$0060                         ;038F4A|      ;
-   BNE CODE_038F77                      ;038F4D|038F77;
+   BNE +                                ;038F4D|038F77;
    LDX.W #$00AE                         ;038F4F|      ;
-CODE_038F52:
-   STZ.W $D698,X                        ;038F52|7ED698;
+ - STZ.W $D698,X                        ;038F52|7ED698;
    STZ.W $D7A8,X                        ;038F55|7ED7A8;
    STZ.W $D8B8,X                        ;038F58|7ED8B8;
    STZ.W $D9C8,X                        ;038F5B|7ED9C8;
@@ -2582,21 +2514,18 @@ CODE_038F52:
    STZ.W $DF18,X                        ;038F6A|7EDF18;
    DEX                                  ;038F6D|      ;
    DEX                                  ;038F6E|      ;
-   BPL CODE_038F52                      ;038F6F|038F52;
+   BPL -                                ;038F6F|038F52;
    INC.W Map_temp01                     ;038F71|0016EF;
-   JMP.W CODE_039042                    ;038F74|039042;
-CODE_038F77:
-   LDA.W #$0000                         ;038F77|      ;
+   JMP.W CODE_JP_039042                 ;038F74|039042;
+ + LDA.W #$0000                         ;038F77|      ;
    LDX.W $A69A                          ;038F7A|7EA69A;
-   BNE CODE_038F82                      ;038F7D|038F82;
+   BNE +                                ;038F7D|038F82;
    ORA.W #$0004                         ;038F7F|      ;
-CODE_038F82:
-   LDX.W $A698                          ;038F82|7EA698;
-   BNE CODE_038F8A                      ;038F85|038F8A;
+ + LDX.W $A698                          ;038F82|7EA698;
+   BNE +                                ;038F85|038F8A;
    ORA.W #$0002                         ;038F87|      ;
-CODE_038F8A:
-   TAX                                  ;038F8A|      ;
-   BEQ CODE_038F9F                      ;038F8B|038F9F;
+ + TAX                                  ;038F8A|      ;
+   BEQ +                                ;038F8B|038F9F;
    LDA.L Error_Read_2,X                 ;038F8D|039194;
    TAY                                  ;038F91|      ;
    LDA.L DATA8_03919A,X                 ;038F92|03919A;
@@ -2604,22 +2533,18 @@ CODE_038F8A:
    LDA.L DATA8_0391A6,X                 ;038F97|0391A6;
    PLX                                  ;038F9B|      ;
    JSR.W Some_RAM_xfer                  ;038F9C|0399FE;
-CODE_038F9F:
-   LDA.W #$0000                         ;038F9F|      ;
+ + LDA.W #$0000                         ;038F9F|      ;
    LDX.W $A694                          ;038FA2|7EA694;
-   BNE CODE_038FAA                      ;038FA5|038FAA;
+   BNE +                                ;038FA5|038FAA;
    ORA.W #$0008                         ;038FA7|      ;
-CODE_038FAA:
-   LDX.W $A692                          ;038FAA|7EA692;
-   BNE CODE_038FB2                      ;038FAD|038FB2;
+ + LDX.W $A692                          ;038FAA|7EA692;
+   BNE +                                ;038FAD|038FB2;
    ORA.W #$0004                         ;038FAF|      ;
-CODE_038FB2:
-   LDX.W $A690                          ;038FB2|7EA690;
-   BNE CODE_038FBA                      ;038FB5|038FBA;
+ + LDX.W $A690                          ;038FB2|7EA690;
+   BNE +                                ;038FB5|038FBA;
    ORA.W #$0002                         ;038FB7|      ;
-CODE_038FBA:
-   TAX                                  ;038FBA|      ;
-   BEQ CODE_038FE2                      ;038FBB|038FE2;
+ + TAX                                  ;038FBA|      ;
+   BEQ +                                ;038FBB|038FE2;
    PHX                                  ;038FBD|      ;
    LDA.L DATA8_0391AC,X                 ;038FBE|0391AC;
    TAY                                  ;038FC2|      ;
@@ -2630,27 +2555,23 @@ CODE_038FBA:
    JSR.W Some_RAM_xfer                  ;038FCD|0399FE;
    PLX                                  ;038FD0|      ;
    CPX.W #$000A                         ;038FD1|      ;
-   BNE CODE_038FE2                      ;038FD4|038FE2;
+   BNE +                                ;038FD4|038FE2;
    LDA.W #$1DC0                         ;038FD6|      ;
    LDX.W #$061C                         ;038FD9|      ;
    LDY.W #$0044                         ;038FDC|      ;
    JSR.W Some_RAM_xfer                  ;038FDF|0399FE;
-CODE_038FE2:
-   LDA.W #$0000                         ;038FE2|      ;
+ + LDA.W #$0000                         ;038FE2|      ;
    LDX.W $A68A                          ;038FE5|7EA68A;
-   BNE CODE_038FED                      ;038FE8|038FED;
+   BNE +                                ;038FE8|038FED;
    ORA.W #$0008                         ;038FEA|      ;
-CODE_038FED:
-   LDX.W $A688                          ;038FED|7EA688;
-   BNE CODE_038FF5                      ;038FF0|038FF5;
+ + LDX.W $A688                          ;038FED|7EA688;
+   BNE +                                ;038FF0|038FF5;
    ORA.W #$0004                         ;038FF2|      ;
-CODE_038FF5:
-   LDX.W $A686                          ;038FF5|7EA686;
-   BNE CODE_038FFD                      ;038FF8|038FFD;
+ + LDX.W $A686                          ;038FF5|7EA686;
+   BNE +                                ;038FF8|038FFD;
    ORA.W #$0002                         ;038FFA|      ;
-CODE_038FFD:
-   TAX                                  ;038FFD|      ;
-   BEQ CODE_039012                      ;038FFE|039012;
+ + TAX                                  ;038FFD|      ;
+   BEQ +                                ;038FFE|039012;
    LDA.L DATA8_0391E4,X                 ;039000|0391E4;
    TAY                                  ;039004|      ;
    LDA.L DATA8_0391F2,X                 ;039005|0391F2;
@@ -2658,22 +2579,18 @@ CODE_038FFD:
    LDA.L DATA8_03920E,X                 ;03900A|03920E;
    PLX                                  ;03900E|      ;
    JSR.W Some_RAM_xfer                  ;03900F|0399FE;
-CODE_039012:
-   LDA.W #$0000                         ;039012|      ;
+ + LDA.W #$0000                         ;039012|      ;
    LDX.W $A680                          ;039015|7EA680;
-   BNE CODE_03901D                      ;039018|03901D;
+   BNE +                                ;039018|03901D;
    ORA.W #$0008                         ;03901A|      ;
-CODE_03901D:
-   LDX.W $A67E                          ;03901D|7EA67E;
-   BNE CODE_039025                      ;039020|039025;
+ + LDX.W $A67E                          ;03901D|7EA67E;
+   BNE +                                ;039020|039025;
    ORA.W #$0004                         ;039022|      ;
-CODE_039025:
-   LDX.W $A67C                          ;039025|7EA67C;
-   BNE CODE_03902D                      ;039028|03902D;
+ + LDX.W $A67C                          ;039025|7EA67C;
+   BNE +                                ;039028|03902D;
    ORA.W #$0002                         ;03902A|      ;
-CODE_03902D:
-   TAX                                  ;03902D|      ;
-   BEQ CODE_039042                      ;03902E|039042;
+ + TAX                                  ;03902D|      ;
+   BEQ CODE_JP_039042                   ;03902E|039042;
    LDA.L DATA8_03921C,X                 ;039030|03921C;
    TAY                                  ;039034|      ;
    LDA.L DATA8_03922A,X                 ;039035|03922A;
@@ -2681,7 +2598,7 @@ CODE_03902D:
    LDA.L DATA8_039246,X                 ;03903A|039246;
    PLX                                  ;03903E|      ;
    JSR.W Some_RAM_xfer                  ;03903F|0399FE;
-CODE_039042:
+CODE_JP_039042:
    LDA.W #$1320                         ;039042|      ;
    LDX.W #$0132                         ;039045|      ;
    LDY.W #$0099                         ;039048|      ;
@@ -2689,19 +2606,17 @@ CODE_039042:
    LDA.W #$99F5                         ;03904E|      ;
    JSL.L RAM_Decomp80                   ;039051|0084FE;
    LDA.W $A69C                          ;039055|7EA69C;
-   BNE CODE_039066                      ;039058|039066;
+   BNE +                                ;039058|039066;
    LDA.W #$0000                         ;03905A|      ;
    LDX.W #$0264                         ;03905D|      ;
    LDY.W #$0055                         ;039060|      ;
    JSR.W Some_RAM_xfer                  ;039063|0399FE;
-CODE_039066:
-   LDA.W $A698                          ;039066|7EA698;
+ + LDA.W $A698                          ;039066|7EA698;
    AND.W #$00F0                         ;039069|      ;
    CMP.W #$0060                         ;03906C|      ;
-   BNE CODE_039099                      ;03906F|039099;
+   BNE +                                ;03906F|039099;
    LDX.W #$00AE                         ;039071|      ;
-CODE_039074:
-   STZ.W $CD08,X                        ;039074|7ECD08;
+ - STZ.W $CD08,X                        ;039074|7ECD08;
    STZ.W $CE18,X                        ;039077|7ECE18;
    STZ.W $CF28,X                        ;03907A|7ECF28;
    STZ.W $D038,X                        ;03907D|7ED038;
@@ -2712,21 +2627,18 @@ CODE_039074:
    STZ.W $D588,X                        ;03908C|7ED588;
    DEX                                  ;03908F|      ;
    DEX                                  ;039090|      ;
-   BPL CODE_039074                      ;039091|039074;
+   BPL -                                ;039091|039074;
    INC.W Map_temp01                     ;039093|0016EF;
-   JMP.W CODE_039164                    ;039096|039164;
-CODE_039099:
-   LDA.W #$0000                         ;039099|      ;
+   JMP.W CODE_JP_039164                 ;039096|039164;
+ + LDA.W #$0000                         ;039099|      ;
    LDX.W $A696                          ;03909C|7EA696;
-   BNE CODE_0390A4                      ;03909F|0390A4;
+   BNE +                                ;03909F|0390A4;
    ORA.W #$0004                         ;0390A1|      ;
-CODE_0390A4:
-   LDX.W $A698                          ;0390A4|7EA698;
-   BNE CODE_0390AC                      ;0390A7|0390AC;
+ + LDX.W $A698                          ;0390A4|7EA698;
+   BNE +                                ;0390A7|0390AC;
    ORA.W #$0002                         ;0390A9|      ;
-CODE_0390AC:
-   TAX                                  ;0390AC|      ;
-   BEQ CODE_0390C1                      ;0390AD|0390C1;
+ + TAX                                  ;0390AC|      ;
+   BEQ +                                ;0390AD|0390C1;
    LDA.L Error_Read_2,X                 ;0390AF|039194;
    TAY                                  ;0390B3|      ;
    LDA.L DATA8_03919A,X                 ;0390B4|03919A;
@@ -2734,22 +2646,18 @@ CODE_0390AC:
    LDA.L DATA8_0391A0,X                 ;0390B9|0391A0;
    PLX                                  ;0390BD|      ;
    JSR.W Some_RAM_xfer                  ;0390BE|0399FE;
-CODE_0390C1:
-   LDA.W #$0000                         ;0390C1|      ;
+ + LDA.W #$0000                         ;0390C1|      ;
    LDX.W $A68C                          ;0390C4|7EA68C;
-   BNE CODE_0390CC                      ;0390C7|0390CC;
+   BNE +                                ;0390C7|0390CC;
    ORA.W #$0008                         ;0390C9|      ;
-CODE_0390CC:
-   LDX.W $A68E                          ;0390CC|7EA68E;
-   BNE CODE_0390D4                      ;0390CF|0390D4;
+ + LDX.W $A68E                          ;0390CC|7EA68E;
+   BNE +                                ;0390CF|0390D4;
    ORA.W #$0004                         ;0390D1|      ;
-CODE_0390D4:
-   LDX.W $A690                          ;0390D4|7EA690;
-   BNE CODE_0390DC                      ;0390D7|0390DC;
+ + LDX.W $A690                          ;0390D4|7EA690;
+   BNE +                                ;0390D7|0390DC;
    ORA.W #$0002                         ;0390D9|      ;
-CODE_0390DC:
-   TAX                                  ;0390DC|      ;
-   BEQ CODE_039104                      ;0390DD|039104;
+ + TAX                                  ;0390DC|      ;
+   BEQ +                                ;0390DD|039104;
    PHX                                  ;0390DF|      ;
    LDA.L DATA8_0391AC,X                 ;0390E0|0391AC;
    TAY                                  ;0390E4|      ;
@@ -2760,27 +2668,23 @@ CODE_0390DC:
    JSR.W Some_RAM_xfer                  ;0390EF|0399FE;
    PLX                                  ;0390F2|      ;
    CPX.W #$000A                         ;0390F3|      ;
-   BNE CODE_039104                      ;0390F6|039104;
+   BNE +                                ;0390F6|039104;
    LDA.W #$0AA0                         ;0390F8|      ;
    LDX.W #$061C                         ;0390FB|      ;
    LDY.W #$0044                         ;0390FE|      ;
    JSR.W Some_RAM_xfer                  ;039101|0399FE;
-CODE_039104:
-   LDA.W #$0000                         ;039104|      ;
+ + LDA.W #$0000                         ;039104|      ;
    LDX.W $A682                          ;039107|7EA682;
-   BNE CODE_03910F                      ;03910A|03910F;
+   BNE +                                ;03910A|03910F;
    ORA.W #$0008                         ;03910C|      ;
-CODE_03910F:
-   LDX.W $A684                          ;03910F|7EA684;
-   BNE CODE_039117                      ;039112|039117;
+ + LDX.W $A684                          ;03910F|7EA684;
+   BNE +                                ;039112|039117;
    ORA.W #$0004                         ;039114|      ;
-CODE_039117:
-   LDX.W $A686                          ;039117|7EA686;
-   BNE CODE_03911F                      ;03911A|03911F;
+ + LDX.W $A686                          ;039117|7EA686;
+   BNE +                                ;03911A|03911F;
    ORA.W #$0002                         ;03911C|      ;
-CODE_03911F:
-   TAX                                  ;03911F|      ;
-   BEQ CODE_039134                      ;039120|039134;
+ + TAX                                  ;03911F|      ;
+   BEQ +                                ;039120|039134;
    LDA.L DATA8_0391E4,X                 ;039122|0391E4;
    TAY                                  ;039126|      ;
    LDA.L DATA8_0391F2,X                 ;039127|0391F2;
@@ -2788,22 +2692,18 @@ CODE_03911F:
    LDA.L DATA8_039200,X                 ;03912C|039200;
    PLX                                  ;039130|      ;
    JSR.W Some_RAM_xfer                  ;039131|0399FE;
-CODE_039134:
-   LDA.W #$0000                         ;039134|      ;
+ + LDA.W #$0000                         ;039134|      ;
    LDX.W $A678                          ;039137|7EA678;
-   BNE CODE_03913F                      ;03913A|03913F;
+   BNE +                                ;03913A|03913F;
    ORA.W #$0008                         ;03913C|      ;
-CODE_03913F:
-   LDX.W $A67A                          ;03913F|7EA67A;
-   BNE CODE_039147                      ;039142|039147;
+ + LDX.W $A67A                          ;03913F|7EA67A;
+   BNE +                                ;039142|039147;
    ORA.W #$0004                         ;039144|      ;
-CODE_039147:
-   LDX.W $A67C                          ;039147|7EA67C;
-   BNE CODE_03914F                      ;03914A|03914F;
+ + LDX.W $A67C                          ;039147|7EA67C;
+   BNE +                                ;03914A|03914F;
    ORA.W #$0002                         ;03914C|      ;
-CODE_03914F:
-   TAX                                  ;03914F|      ;
-   BEQ CODE_039164                      ;039150|039164;
+ + TAX                                  ;03914F|      ;
+   BEQ CODE_JP_039164                   ;039150|039164;
    LDA.L DATA8_03921C,X                 ;039152|03921C;
    TAY                                  ;039156|      ;
    LDA.L DATA8_03922A,X                 ;039157|03922A;
@@ -2811,20 +2711,18 @@ CODE_03914F:
    LDA.L DATA8_039238,X                 ;03915C|039238;
    PLX                                  ;039160|      ;
    JSR.W Some_RAM_xfer                  ;039161|0399FE;
-CODE_039164:
+CODE_JP_039164:
    LDA.W #$0000                         ;039164|      ;
    LDX.W #$0000                         ;039167|      ;
    LDY.W #$0099                         ;03916A|      ;
    JSR.W Some_RAM_xfer                  ;03916D|0399FE;
    PLB                                  ;039170|      ;
    LDA.W Map_temp01                     ;039171|0016EF;
-   BEQ CODE_03917B                      ;039174|03917B;
-   JSR.W CODE_03AD73                    ;039176|03AD73;
-   BRA CODE_03917F                      ;039179|03917F;
-CODE_03917B:
-   JSL.L Some_enemy_ID_check            ;03917B|03ADE0;
-CODE_03917F:
-   LDA.W #$99EC                         ;03917F|      ;
+   BEQ +                                ;039174|03917B;
+   JSR.W CODE_FN_03AD73                 ;039176|03AD73;
+   BRA ++                               ;039179|03917F;
+ + JSL.L Some_enemy_ID_check            ;03917B|03ADE0;
+++ LDA.W #$99EC                         ;03917F|      ;
    JSL.L RAM_Decomp80                   ;039182|0084FE;
    LDA.W #$0080                         ;039186|      ;
    STA.W TownCompass                    ;039189|000FF1;
@@ -3039,7 +2937,7 @@ DATA8_039246:
    db $13                               ;039253|000020;
    db $20                               ;039254|039C13;
    db $13                               ;039255|00009C;
-CODE_039256:
+CODE_FN_039256:
    STZ.W Map_temp01                     ;039256|0016EF;
    LDX.W Map_Compass                    ;039259|0016FB;
    LDA.L Tbl_Map_AdjacentX,X            ;03925C|039941;
@@ -3051,8 +2949,7 @@ CODE_039256:
    LDA.W #$0003                         ;03926D|      ;
    STA.B $1E                            ;039270|00001E;
    LDY.W #$0016                         ;039272|      ;
-CODE_039275:
-   LDA.B [$18],Y                        ;039275|000018;
+ - LDA.B [$18],Y                        ;039275|000018;
    CLC                                  ;039277|      ;
    ADC.W Map_X                          ;039278|0016F7;
    TAX                                  ;03927B|      ;
@@ -3064,7 +2961,7 @@ CODE_039275:
    STA.L $7EA678,X                      ;039286|7EA678;
    DEY                                  ;03928A|      ;
    DEY                                  ;03928B|      ;
-   BPL CODE_039275                      ;03928C|039275;
+   BPL -                                ;03928C|039275;
    JSR.W Move_Dungeon_Ram               ;03928E|0399B1;
    LDA.W Curr_area                      ;039291|001573;
    AND.W #$00FF                         ;039294|      ;
@@ -3079,42 +2976,38 @@ CODE_039275:
    LDY.W #$E000                         ;0392A7|      ;
    JSL.L Decompression_far              ;0392AA|008762;
    LDA.W $A68A                          ;0392AE|7EA68A;
-   JSR.W CODE_03A36D                    ;0392B1|03A36D;
+   JSR.W CODE_FN_03A36D                 ;0392B1|03A36D;
    DEY                                  ;0392B4|      ;
-   BNE CODE_0392C6                      ;0392B5|0392C6;
+   BNE +                                ;0392B5|0392C6;
    LDA.W #$1320                         ;0392B7|      ;
    LDX.W #$180A                         ;0392BA|      ;
    LDY.W #$0099                         ;0392BD|      ;
    JSR.W Some_RAM_xfer                  ;0392C0|0399FE;
-   JMP.W CODE_039479                    ;0392C3|039479;
-CODE_0392C6:
-   DEY                                  ;0392C6|      ;
-   BNE CODE_0392D8                      ;0392C7|0392D8;
+   JMP.W CODE_JP_039479                 ;0392C3|039479;
+ + DEY                                  ;0392C6|      ;
+   BNE +                                ;0392C7|0392D8;
    LDA.W #$1320                         ;0392C9|      ;
    LDX.W #$1A6E                         ;0392CC|      ;
    LDY.W #$0099                         ;0392CF|      ;
    JSR.W Some_RAM_xfer                  ;0392D2|0399FE;
-   JMP.W CODE_039479                    ;0392D5|039479;
-CODE_0392D8:
-   DEY                                  ;0392D8|      ;
-   BNE CODE_0392EA                      ;0392D9|0392EA;
+   JMP.W CODE_JP_039479                 ;0392D5|039479;
+ + DEY                                  ;0392D8|      ;
+   BNE +                                ;0392D9|0392EA;
    LDA.W #$1320                         ;0392DB|      ;
    LDX.W #$1CD2                         ;0392DE|      ;
    LDY.W #$0099                         ;0392E1|      ;
    JSR.W Some_RAM_xfer                  ;0392E4|0399FE;
-   JMP.W CODE_039479                    ;0392E7|039479;
-CODE_0392EA:
-   LDA.W $A68A                          ;0392EA|7EA68A;
+   JMP.W CODE_JP_039479                 ;0392E7|039479;
+ + LDA.W $A68A                          ;0392EA|7EA68A;
    AND.W #$00F0                         ;0392ED|      ;
    CMP.W #$0060                         ;0392F0|      ;
-   BNE CODE_039329                      ;0392F3|039329;
+   BNE +                                ;0392F3|039329;
    LDA.W #$1320                         ;0392F5|      ;
    LDX.W #$0396                         ;0392F8|      ;
    LDY.W #$0011                         ;0392FB|      ;
    JSR.W Some_RAM_xfer                  ;0392FE|0399FE;
    LDX.W #$0096                         ;039301|      ;
-CODE_039304:
-   STZ.W $D6A4,X                        ;039304|7ED6A4;
+ - STZ.W $D6A4,X                        ;039304|7ED6A4;
    STZ.W $D7B4,X                        ;039307|7ED7B4;
    STZ.W $D8C4,X                        ;03930A|7ED8C4;
    STZ.W $D9D4,X                        ;03930D|7ED9D4;
@@ -3125,21 +3018,18 @@ CODE_039304:
    STZ.W $DF24,X                        ;03931C|7EDF24;
    DEX                                  ;03931F|      ;
    DEX                                  ;039320|      ;
-   BPL CODE_039304                      ;039321|039304;
+   BPL -                                ;039321|039304;
    INC.W Map_temp01                     ;039323|0016EF;
-   JMP.W CODE_039479                    ;039326|039479;
-CODE_039329:
-   LDA.W #$0000                         ;039329|      ;
+   JMP.W CODE_JP_039479                 ;039326|039479;
+ + LDA.W #$0000                         ;039329|      ;
    LDX.W $A682                          ;03932C|7EA682;
-   BNE CODE_039334                      ;03932F|039334;
+   BNE +                                ;03932F|039334;
    ORA.W #$0004                         ;039331|      ;
-CODE_039334:
-   LDX.W $A68A                          ;039334|7EA68A;
-   BNE CODE_03933C                      ;039337|03933C;
+ + LDX.W $A68A                          ;039334|7EA68A;
+   BNE +                                ;039337|03933C;
    ORA.W #$0002                         ;039339|      ;
-CODE_03933C:
-   TAX                                  ;03933C|      ;
-   BEQ CODE_03938C                      ;03933D|03938C;
+ + TAX                                  ;03933C|      ;
+   BEQ +                                ;03933D|03938C;
    PHX                                  ;03933F|      ;
    LDA.L DATA8_039699,X                 ;039340|039699;
    TAY                                  ;039344|      ;
@@ -3152,10 +3042,9 @@ CODE_03933C:
    LDA.W $A682                          ;039353|7EA682;
    AND.W #$00F0                         ;039356|      ;
    CMP.W #$0060                         ;039359|      ;
-   BNE CODE_039386                      ;03935C|039386;
+   BNE ++                               ;03935C|039386;
    LDX.W #$0096                         ;03935E|      ;
-CODE_039361:
-   STZ.W $D6A4,X                        ;039361|7ED6A4;
+ - STZ.W $D6A4,X                        ;039361|7ED6A4;
    STZ.W $D7B4,X                        ;039364|7ED7B4;
    STZ.W $D8C4,X                        ;039367|7ED8C4;
    STZ.W $D9D4,X                        ;03936A|7ED9D4;
@@ -3166,25 +3055,22 @@ CODE_039361:
    STZ.W $DF24,X                        ;039379|7EDF24;
    DEX                                  ;03937C|      ;
    DEX                                  ;03937D|      ;
-   BPL CODE_039361                      ;03937E|039361;
+   BPL -                                ;03937E|039361;
    INC.W Map_temp01                     ;039380|0016EF;
-   JMP.W CODE_039479                    ;039383|039479;
-CODE_039386:
-   TXA                                  ;039386|      ;
+   JMP.W CODE_JP_039479                 ;039383|039479;
+++ TXA                                  ;039386|      ;
    AND.W #$0002                         ;039387|      ;
-   BNE CODE_0393CB                      ;03938A|0393CB;
-CODE_03938C:
-   LDA.W $A68C                          ;03938C|7EA68C;
+   BNE ++                               ;03938A|0393CB;
+ + LDA.W $A68C                          ;03938C|7EA68C;
    AND.W #$00F0                         ;03938F|      ;
    CMP.W #$0060                         ;039392|      ;
-   BNE CODE_0393CB                      ;039395|0393CB;
+   BNE ++                               ;039395|0393CB;
    LDA.W #$1320                         ;039397|      ;
    LDX.W #$0990                         ;03939A|      ;
    LDY.W #$0066                         ;03939D|      ;
    JSR.W Some_RAM_xfer                  ;0393A0|0399FE;
    LDX.W #$005E                         ;0393A3|      ;
-CODE_0393A6:
-   STZ.W $D6C0,X                        ;0393A6|7ED6C0;
+ - STZ.W $D6C0,X                        ;0393A6|7ED6C0;
    STZ.W $D7D0,X                        ;0393A9|7ED7D0;
    STZ.W $D8E0,X                        ;0393AC|7ED8E0;
    STZ.W $D9F0,X                        ;0393AF|7ED9F0;
@@ -3195,55 +3081,47 @@ CODE_0393A6:
    STZ.W $DF40,X                        ;0393BE|7EDF40;
    DEX                                  ;0393C1|      ;
    DEX                                  ;0393C2|      ;
-   BPL CODE_0393A6                      ;0393C3|0393A6;
+   BPL -                                ;0393C3|0393A6;
    INC.W Map_temp01                     ;0393C5|0016EF;
-   JMP.W CODE_039479                    ;0393C8|039479;
-CODE_0393CB:
-   LDA.W #$0000                         ;0393CB|      ;
+   JMP.W CODE_JP_039479                 ;0393C8|039479;
+++ LDA.W #$0000                         ;0393CB|      ;
    LDX.W $A67C                          ;0393CE|7EA67C;
-   BNE CODE_0393D6                      ;0393D1|0393D6;
+   BNE +                                ;0393D1|0393D6;
    ORA.W #$0008                         ;0393D3|      ;
-CODE_0393D6:
-   LDX.W $A684                          ;0393D6|7EA684;
-   BNE CODE_0393DE                      ;0393D9|0393DE;
+ + LDX.W $A684                          ;0393D6|7EA684;
+   BNE +                                ;0393D9|0393DE;
    ORA.W #$0004                         ;0393DB|      ;
-CODE_0393DE:
-   LDX.W $A68C                          ;0393DE|7EA68C;
-   BNE CODE_0393E6                      ;0393E1|0393E6;
+ + LDX.W $A68C                          ;0393DE|7EA68C;
+   BNE +                                ;0393E1|0393E6;
    ORA.W #$0002                         ;0393E3|      ;
-CODE_0393E6:
-   TAX                                  ;0393E6|      ;
-   BEQ CODE_0393FD                      ;0393E7|0393FD;
+ + TAX                                  ;0393E6|      ;
+   BEQ +                                ;0393E7|0393FD;
    LDA.L DATA8_0396D5,X                 ;0393E9|0396D5;
-   BEQ CODE_0393FD                      ;0393ED|0393FD;
+   BEQ +                                ;0393ED|0393FD;
    TAY                                  ;0393EF|      ;
    LDA.L DATA8_0396E3,X                 ;0393F0|0396E3;
    PHA                                  ;0393F4|      ;
    LDA.L DATA8_0396F1,X                 ;0393F5|0396F1;
    PLX                                  ;0393F9|      ;
    JSR.W Some_RAM_xfer                  ;0393FA|0399FE;
-CODE_0393FD:
-   LDA.W #$0000                         ;0393FD|      ;
+ + LDA.W #$0000                         ;0393FD|      ;
    LDX.W $A678                          ;039400|7EA678;
-   BNE CODE_039408                      ;039403|039408;
+   BNE +                                ;039403|039408;
    ORA.W #$0010                         ;039405|      ;
-CODE_039408:
-   LDX.W $A67E                          ;039408|7EA67E;
-   BNE CODE_039410                      ;03940B|039410;
+ + LDX.W $A67E                          ;039408|7EA67E;
+   BNE +                                ;03940B|039410;
    ORA.W #$0008                         ;03940D|      ;
-CODE_039410:
-   LDX.W $A686                          ;039410|7EA686;
-   BNE CODE_039418                      ;039413|039418;
+ + LDX.W $A686                          ;039410|7EA686;
+   BNE +                                ;039413|039418;
    ORA.W #$0004                         ;039415|      ;
-CODE_039418:
-   LDX.W $A68E                          ;039418|7EA68E;
+ + LDX.W $A68E                          ;039418|7EA68E;
    BNE CODE_039420                      ;03941B|039420;
    ORA.W #$0002                         ;03941D|      ;
 CODE_039420:
    TAX                                  ;039420|      ;
-   BEQ CODE_03943F                      ;039421|03943F;
+   BEQ +                                ;039421|03943F;
    LDA.L DATA8_039787,X                 ;039423|039787;
-   BEQ CODE_03943F                      ;039427|03943F;
+   BEQ +                                ;039427|03943F;
    PHX                                  ;039429|      ;
    TAY                                  ;03942A|      ;
    LDA.L DATA8_0397A9,X                 ;03942B|0397A9;
@@ -3254,24 +3132,21 @@ CODE_039420:
    PLX                                  ;039438|      ;
    LDA.L DATA8_0397ED,X                 ;039439|0397ED;
    BPL CODE_039420                      ;03943D|039420;
-CODE_03943F:
-   LDA.W #$0000                         ;03943F|      ;
+ + LDA.W #$0000                         ;03943F|      ;
    LDX.W $A67A                          ;039442|7EA67A;
-   BNE CODE_03944A                      ;039445|03944A;
+   BNE +                                ;039445|03944A;
    ORA.W #$0008                         ;039447|      ;
-CODE_03944A:
-   LDX.W $A680                          ;03944A|7EA680;
-   BNE CODE_039452                      ;03944D|039452;
+ + LDX.W $A680                          ;03944A|7EA680;
+   BNE +                                ;03944D|039452;
    ORA.W #$0004                         ;03944F|      ;
-CODE_039452:
-   LDX.W $A688                          ;039452|7EA688;
+ + LDX.W $A688                          ;039452|7EA688;
    BNE CODE_03945A                      ;039455|03945A;
    ORA.W #$0002                         ;039457|      ;
 CODE_03945A:
    TAX                                  ;03945A|      ;
-   BEQ CODE_039479                      ;03945B|039479;
+   BEQ CODE_JP_039479                   ;03945B|039479;
    LDA.L DATA8_03984F,X                 ;03945D|03984F;
-   BEQ CODE_039479                      ;039461|039479;
+   BEQ CODE_JP_039479                   ;039461|039479;
    PHX                                  ;039463|      ;
    TAY                                  ;039464|      ;
    LDA.L DATA8_03985F,X                 ;039465|03985F;
@@ -3282,7 +3157,7 @@ CODE_03945A:
    PLX                                  ;039472|      ;
    LDA.L DATA8_03987F,X                 ;039473|03987F;
    BPL CODE_03945A                      ;039477|03945A;
-CODE_039479:
+CODE_JP_039479:
    LDA.W #$1320                         ;039479|      ;
    LDX.W #$0132                         ;03947C|      ;
    LDY.W #$0099                         ;03947F|      ;
@@ -3290,42 +3165,38 @@ CODE_039479:
    LDA.W #$99F5                         ;039485|      ;
    JSL.L RAM_Decomp80                   ;039488|0084FE;
    LDA.W $A682                          ;03948C|7EA682;
-   JSR.W CODE_03A36D                    ;03948F|03A36D;
+   JSR.W CODE_FN_03A36D                 ;03948F|03A36D;
    DEY                                  ;039492|      ;
-   BNE CODE_0394A4                      ;039493|0394A4;
+   BNE +                                ;039493|0394A4;
    LDA.W #$0000                         ;039495|      ;
    LDX.W #$16D8                         ;039498|      ;
    LDY.W #$0099                         ;03949B|      ;
    JSR.W Some_RAM_xfer                  ;03949E|0399FE;
-   JMP.W CODE_039657                    ;0394A1|039657;
-CODE_0394A4:
-   DEY                                  ;0394A4|      ;
-   BNE CODE_0394B6                      ;0394A5|0394B6;
+   JMP.W CODE_JP_039657                 ;0394A1|039657;
+ + DEY                                  ;0394A4|      ;
+   BNE +                                ;0394A5|0394B6;
    LDA.W #$0000                         ;0394A7|      ;
    LDX.W #$193C                         ;0394AA|      ;
    LDY.W #$0099                         ;0394AD|      ;
    JSR.W Some_RAM_xfer                  ;0394B0|0399FE;
-   JMP.W CODE_039657                    ;0394B3|039657;
-CODE_0394B6:
-   DEY                                  ;0394B6|      ;
-   BNE CODE_0394C8                      ;0394B7|0394C8;
+   JMP.W CODE_JP_039657                 ;0394B3|039657;
+ + DEY                                  ;0394B6|      ;
+   BNE +                                ;0394B7|0394C8;
    LDA.W #$0000                         ;0394B9|      ;
    LDX.W #$1BA0                         ;0394BC|      ;
    LDY.W #$0099                         ;0394BF|      ;
    JSR.W Some_RAM_xfer                  ;0394C2|0399FE;
-   JMP.W CODE_039657                    ;0394C5|039657;
-CODE_0394C8:
-   LDA.W $A682                          ;0394C8|7EA682;
+   JMP.W CODE_JP_039657                 ;0394C5|039657;
+ + LDA.W $A682                          ;0394C8|7EA682;
    AND.W #$00F0                         ;0394CB|      ;
    CMP.W #$0060                         ;0394CE|      ;
-   BNE CODE_039507                      ;0394D1|039507;
+   BNE +                                ;0394D1|039507;
    LDA.W #$1100                         ;0394D3|      ;
    LDX.W #$03B8                         ;0394D6|      ;
    LDY.W #$0011                         ;0394D9|      ;
    JSR.W Some_RAM_xfer                  ;0394DC|0399FE;
    LDX.W #$0096                         ;0394DF|      ;
-CODE_0394E2:
-   STZ.W $CD14,X                        ;0394E2|7ECD14;
+ - STZ.W $CD14,X                        ;0394E2|7ECD14;
    STZ.W $CE24,X                        ;0394E5|7ECE24;
    STZ.W $CF34,X                        ;0394E8|7ECF34;
    STZ.W $D044,X                        ;0394EB|7ED044;
@@ -3336,21 +3207,18 @@ CODE_0394E2:
    STZ.W $D594,X                        ;0394FA|7ED594;
    DEX                                  ;0394FD|      ;
    DEX                                  ;0394FE|      ;
-   BPL CODE_0394E2                      ;0394FF|0394E2;
+   BPL -                                ;0394FF|0394E2;
    INC.W Map_temp01                     ;039501|0016EF;
-   JMP.W CODE_039657                    ;039504|039657;
-CODE_039507:
-   LDA.W #$0000                         ;039507|      ;
+   JMP.W CODE_JP_039657                 ;039504|039657;
+ + LDA.W #$0000                         ;039507|      ;
    LDX.W $A682                          ;03950A|7EA682;
-   BNE CODE_039512                      ;03950D|039512;
+   BNE +                                ;03950D|039512;
    ORA.W #$0004                         ;03950F|      ;
-CODE_039512:
-   LDX.W $A68A                          ;039512|7EA68A;
-   BNE CODE_03951A                      ;039515|03951A;
+ + LDX.W $A68A                          ;039512|7EA68A;
+   BNE +                                ;039515|03951A;
    ORA.W #$0002                         ;039517|      ;
-CODE_03951A:
-   TAX                                  ;03951A|      ;
-   BEQ CODE_03956A                      ;03951B|03956A;
+ + TAX                                  ;03951A|      ;
+   BEQ +                                ;03951B|03956A;
    PHX                                  ;03951D|      ;
 Error_Read03:
    LDA.L Error_Read_3,X                 ;03951E|039687;
@@ -3364,10 +3232,9 @@ Error_Read03:
    LDA.W $A68A                          ;039531|7EA68A;
    AND.W #$00F0                         ;039534|      ;
    CMP.W #$0060                         ;039537|      ;
-   BNE CODE_039564                      ;03953A|039564;
+   BNE ++                               ;03953A|039564;
    LDX.W #$0096                         ;03953C|      ;
-CODE_03953F:
-   STZ.W $CD14,X                        ;03953F|7ECD14;
+ - STZ.W $CD14,X                        ;03953F|7ECD14;
    STZ.W $CE24,X                        ;039542|7ECE24;
    STZ.W $CF34,X                        ;039545|7ECF34;
    STZ.W $D044,X                        ;039548|7ED044;
@@ -3378,25 +3245,22 @@ CODE_03953F:
    STZ.W $D594,X                        ;039557|7ED594;
    DEX                                  ;03955A|      ;
    DEX                                  ;03955B|      ;
-   BPL CODE_03953F                      ;03955C|03953F;
+   BPL -                                ;03955C|03953F;
    INC.W Map_temp01                     ;03955E|0016EF;
-   JMP.W CODE_039657                    ;039561|039657;
-CODE_039564:
-   TXA                                  ;039564|      ;
+   JMP.W CODE_JP_039657                 ;039561|039657;
+++ TXA                                  ;039564|      ;
    AND.W #$0004                         ;039565|      ;
-   BNE CODE_0395A9                      ;039568|0395A9;
-CODE_03956A:
-   LDA.W $A67C                          ;03956A|7EA67C;
+   BNE ++                               ;039568|0395A9;
+ + LDA.W $A67C                          ;03956A|7EA67C;
    AND.W #$00F0                         ;03956D|      ;
    CMP.W #$0060                         ;039570|      ;
-   BNE CODE_0395A9                      ;039573|0395A9;
+   BNE ++                               ;039573|0395A9;
    LDA.W #$0660                         ;039575|      ;
    LDX.W #$08C4                         ;039578|      ;
    LDY.W #$0066                         ;03957B|      ;
    JSR.W Some_RAM_xfer                  ;03957E|0399FE;
    LDX.W #$005E                         ;039581|      ;
-CODE_039584:
-   STZ.W $CD30,X                        ;039584|7ECD30;
+ - STZ.W $CD30,X                        ;039584|7ECD30;
    STZ.W $CE40,X                        ;039587|7ECE40;
    STZ.W $CF50,X                        ;03958A|7ECF50;
    STZ.W $D060,X                        ;03958D|7ED060;
@@ -3407,55 +3271,47 @@ CODE_039584:
    STZ.W $D5B0,X                        ;03959C|7ED5B0;
    DEX                                  ;03959F|      ;
    DEX                                  ;0395A0|      ;
-   BPL CODE_039584                      ;0395A1|039584;
+   BPL -                                ;0395A1|039584;
    INC.W Map_temp01                     ;0395A3|0016EF;
-   JMP.W CODE_039657                    ;0395A6|039657;
-CODE_0395A9:
-   LDA.W #$0000                         ;0395A9|      ;
+   JMP.W CODE_JP_039657                 ;0395A6|039657;
+++ LDA.W #$0000                         ;0395A9|      ;
    LDX.W $A67C                          ;0395AC|7EA67C;
-   BNE CODE_0395B4                      ;0395AF|0395B4;
+   BNE +                                ;0395AF|0395B4;
    ORA.W #$0008                         ;0395B1|      ;
-CODE_0395B4:
-   LDX.W $A684                          ;0395B4|7EA684;
-   BNE CODE_0395BC                      ;0395B7|0395BC;
+ + LDX.W $A684                          ;0395B4|7EA684;
+   BNE +                                ;0395B7|0395BC;
    ORA.W #$0004                         ;0395B9|      ;
-CODE_0395BC:
-   LDX.W $A68C                          ;0395BC|7EA68C;
-   BNE CODE_0395C4                      ;0395BF|0395C4;
+ + LDX.W $A68C                          ;0395BC|7EA68C;
+   BNE +                                ;0395BF|0395C4;
    ORA.W #$0002                         ;0395C1|      ;
-CODE_0395C4:
-   TAX                                  ;0395C4|      ;
-   BEQ CODE_0395DB                      ;0395C5|0395DB;
+ + TAX                                  ;0395C4|      ;
+   BEQ +                                ;0395C5|0395DB;
    LDA.L DATA8_0396AB,X                 ;0395C7|0396AB;
-   BEQ CODE_0395DB                      ;0395CB|0395DB;
+   BEQ +                                ;0395CB|0395DB;
    TAY                                  ;0395CD|      ;
    LDA.L DATA8_0396B9,X                 ;0395CE|0396B9;
    PHA                                  ;0395D2|      ;
    LDA.L DATA8_0396C7,X                 ;0395D3|0396C7;
    PLX                                  ;0395D7|      ;
    JSR.W Some_RAM_xfer                  ;0395D8|0399FE;
-CODE_0395DB:
-   LDA.W #$0000                         ;0395DB|      ;
+ + LDA.W #$0000                         ;0395DB|      ;
    LDX.W $A678                          ;0395DE|7EA678;
-   BNE CODE_0395E6                      ;0395E1|0395E6;
+   BNE +                                ;0395E1|0395E6;
    ORA.W #$0010                         ;0395E3|      ;
-CODE_0395E6:
-   LDX.W $A67E                          ;0395E6|7EA67E;
-   BNE CODE_0395EE                      ;0395E9|0395EE;
+ + LDX.W $A67E                          ;0395E6|7EA67E;
+   BNE +                                ;0395E9|0395EE;
    ORA.W #$0008                         ;0395EB|      ;
-CODE_0395EE:
-   LDX.W $A686                          ;0395EE|7EA686;
-   BNE CODE_0395F6                      ;0395F1|0395F6;
+ + LDX.W $A686                          ;0395EE|7EA686;
+   BNE +                                ;0395F1|0395F6;
    ORA.W #$0004                         ;0395F3|      ;
-CODE_0395F6:
-   LDX.W $A68E                          ;0395F6|7EA68E;
+ + LDX.W $A68E                          ;0395F6|7EA68E;
    BNE CODE_0395FE                      ;0395F9|0395FE;
    ORA.W #$0002                         ;0395FB|      ;
 CODE_0395FE:
    TAX                                  ;0395FE|      ;
-   BEQ CODE_03961D                      ;0395FF|03961D;
+   BEQ +                                ;0395FF|03961D;
    LDA.L DATA8_0396FF,X                 ;039601|0396FF;
-   BEQ CODE_03961D                      ;039605|03961D;
+   BEQ +                                ;039605|03961D;
    PHX                                  ;039607|      ;
    TAY                                  ;039608|      ;
    LDA.L DATA8_039721,X                 ;039609|039721;
@@ -3466,24 +3322,21 @@ CODE_0395FE:
    PLX                                  ;039616|      ;
    LDA.L DATA8_039765,X                 ;039617|039765;
    BPL CODE_0395FE                      ;03961B|0395FE;
-CODE_03961D:
-   LDA.W #$0000                         ;03961D|      ;
+ + LDA.W #$0000                         ;03961D|      ;
    LDX.W $A67A                          ;039620|7EA67A;
-   BNE CODE_039628                      ;039623|039628;
+   BNE +                                ;039623|039628;
    ORA.W #$0008                         ;039625|      ;
-CODE_039628:
-   LDX.W $A680                          ;039628|7EA680;
-   BNE CODE_039630                      ;03962B|039630;
+ + LDX.W $A680                          ;039628|7EA680;
+   BNE +                                ;03962B|039630;
    ORA.W #$0004                         ;03962D|      ;
-CODE_039630:
-   LDX.W $A688                          ;039630|7EA688;
+ + LDX.W $A688                          ;039630|7EA688;
    BNE CODE_039638                      ;039633|039638;
    ORA.W #$0002                         ;039635|      ;
 CODE_039638:
    TAX                                  ;039638|      ;
-   BEQ CODE_039657                      ;039639|039657;
+   BEQ CODE_JP_039657                   ;039639|039657;
    LDA.L DATA8_03980F,X                 ;03963B|03980F;
-   BEQ CODE_039657                      ;03963F|039657;
+   BEQ CODE_JP_039657                   ;03963F|039657;
    PHX                                  ;039641|      ;
    TAY                                  ;039642|      ;
    LDA.L DATA8_03981F,X                 ;039643|03981F;
@@ -3494,20 +3347,18 @@ CODE_039638:
    PLX                                  ;039650|      ;
    LDA.L DATA8_03983F,X                 ;039651|03983F;
    BPL CODE_039638                      ;039655|039638;
-CODE_039657:
+CODE_JP_039657:
    LDA.W #$0000                         ;039657|      ;
    LDX.W #$0000                         ;03965A|      ;
    LDY.W #$0099                         ;03965D|      ;
    JSR.W Some_RAM_xfer                  ;039660|0399FE;
    PLB                                  ;039663|      ;
    LDA.W Map_temp01                     ;039664|0016EF;
-   BEQ CODE_03966E                      ;039667|03966E;
-   JSR.W CODE_03AD73                    ;039669|03AD73;
-   BRA CODE_039672                      ;03966C|039672;
-CODE_03966E:
-   JSL.L Some_enemy_ID_check            ;03966E|03ADE0;
-CODE_039672:
-   LDA.W #$99EC                         ;039672|      ;
+   BEQ +                                ;039667|03966E;
+   JSR.W CODE_FN_03AD73                 ;039669|03AD73;
+   BRA ++                               ;03966C|039672;
+ + JSL.L Some_enemy_ID_check            ;03966E|03ADE0;
+++ LDA.W #$99EC                         ;039672|      ;
    JSL.L RAM_Decomp80                   ;039675|0084FE;
    LDA.W #$0128                         ;039679|      ;
    STA.W TownCompass                    ;03967C|000FF1;
@@ -4272,10 +4123,9 @@ Move_Dungeon_Ram:
    db $FF                               ;0399FD|BD0085;
 Some_RAM_xfer:
    STA.B $00                            ;0399FE|000000;
-CODE_039A00:
-   LDA.W $E000,X                        ;039A00|7EE000;
-   BNE CODE_039A13                      ;039A03|039A13;
-CODE_039A05:
+ - LDA.W $E000,X                        ;039A00|7EE000;
+   BNE +                                ;039A03|039A13;
+CODE_JP_039A05:
    INX                                  ;039A05|      ;
    INX                                  ;039A06|      ;
    LDA.B $00                            ;039A07|000000;
@@ -4283,24 +4133,20 @@ CODE_039A05:
    ADC.W #$0020                         ;039A0A|      ;
    STA.B $00                            ;039A0D|000000;
    DEY                                  ;039A0F|      ;
-   BNE CODE_039A00                      ;039A10|039A00;
+   BNE -                                ;039A10|039A00;
    RTS                                  ;039A12|      ;
-CODE_039A13:
-   STX.B $04                            ;039A13|000004;
+ + STX.B $04                            ;039A13|000004;
    STY.B $06                            ;039A15|000006;
    BIT.W #$0001                         ;039A17|      ;
-   BNE CODE_039A24                      ;039A1A|039A24;
+   BNE +                                ;039A1A|039A24;
    BIT.W #$0002                         ;039A1C|      ;
-   BEQ CODE_039A2F                      ;039A1F|039A2F;
-   JMP.W CODE_039BBA                    ;039A21|039BBA;
-CODE_039A24:
-   BIT.W #$0002                         ;039A24|      ;
-   BNE CODE_039A2C                      ;039A27|039A2C;
-   JMP.W CODE_039D45                    ;039A29|039D45;
-CODE_039A2C:
-   JMP.W CODE_03A01F                    ;039A2C|03A01F;
-CODE_039A2F:
-   AND.W #$FFE0                         ;039A2F|      ;
+   BEQ ++                               ;039A1F|039A2F;
+   JMP.W CODE_JP_039BBA                 ;039A21|039BBA;
+ + BIT.W #$0002                         ;039A24|      ;
+   BNE +                                ;039A27|039A2C;
+   JMP.W CODE_JP_039D45                 ;039A29|039D45;
+ + JMP.W CODE_JP_03A01F                 ;039A2C|03A01F;
+++ AND.W #$FFE0                         ;039A2F|      ;
    STA.B $08                            ;039A32|000008;
    LDA.B $00                            ;039A34|000000;
    TAY                                  ;039A36|      ;
@@ -4308,7 +4154,7 @@ CODE_039A2F:
    TAX                                  ;039A38|      ;
    STX.B $02                            ;039A39|000002;
    LDA.W $CCE0,X                        ;039A3B|7ECCE0;
-   BEQ CODE_039A6A                      ;039A3E|039A6A;
+   BEQ +                                ;039A3E|039A6A;
    STA.B $0C                            ;039A40|00000C;
    LDX.B $08                            ;039A42|000008;
    AND.L $7F0000,X                      ;039A44|7F0000;
@@ -4325,9 +4171,8 @@ CODE_039A2F:
    EOR.W #$FFFF                         ;039A62|      ;
    LDX.B $02                            ;039A65|000002;
    STA.W $CCE0,X                        ;039A67|7ECCE0;
-CODE_039A6A:
-   LDA.W $CCE2,X                        ;039A6A|7ECCE2;
-   BEQ CODE_039A99                      ;039A6D|039A99;
+ + LDA.W $CCE2,X                        ;039A6A|7ECCE2;
+   BEQ +                                ;039A6D|039A99;
    STA.B $0C                            ;039A6F|00000C;
    LDX.B $08                            ;039A71|000008;
    AND.L $7F0002,X                      ;039A73|7F0002;
@@ -4344,9 +4189,8 @@ CODE_039A6A:
    EOR.W #$FFFF                         ;039A91|      ;
    LDX.B $02                            ;039A94|000002;
    STA.W $CCE2,X                        ;039A96|7ECCE2;
-CODE_039A99:
-   LDA.W $CCE4,X                        ;039A99|7ECCE4;
-   BEQ CODE_039AC8                      ;039A9C|039AC8;
+ + LDA.W $CCE4,X                        ;039A99|7ECCE4;
+   BEQ +                                ;039A9C|039AC8;
    STA.B $0C                            ;039A9E|00000C;
    LDX.B $08                            ;039AA0|000008;
    AND.L $7F0004,X                      ;039AA2|7F0004;
@@ -4363,9 +4207,8 @@ CODE_039A99:
    EOR.W #$FFFF                         ;039AC0|      ;
    LDX.B $02                            ;039AC3|000002;
    STA.W $CCE4,X                        ;039AC5|7ECCE4;
-CODE_039AC8:
-   LDA.W $CCE6,X                        ;039AC8|7ECCE6;
-   BEQ CODE_039AF7                      ;039ACB|039AF7;
+ + LDA.W $CCE6,X                        ;039AC8|7ECCE6;
+   BEQ +                                ;039ACB|039AF7;
    STA.B $0C                            ;039ACD|00000C;
    LDX.B $08                            ;039ACF|000008;
    AND.L $7F0006,X                      ;039AD1|7F0006;
@@ -4382,9 +4225,8 @@ CODE_039AC8:
    EOR.W #$FFFF                         ;039AEF|      ;
    LDX.B $02                            ;039AF2|000002;
    STA.W $CCE6,X                        ;039AF4|7ECCE6;
-CODE_039AF7:
-   LDA.W $CCE8,X                        ;039AF7|7ECCE8;
-   BEQ CODE_039B26                      ;039AFA|039B26;
+ + LDA.W $CCE8,X                        ;039AF7|7ECCE8;
+   BEQ +                                ;039AFA|039B26;
    STA.B $0C                            ;039AFC|00000C;
    LDX.B $08                            ;039AFE|000008;
    AND.L $7F0008,X                      ;039B00|7F0008;
@@ -4401,9 +4243,8 @@ CODE_039AF7:
    EOR.W #$FFFF                         ;039B1E|      ;
    LDX.B $02                            ;039B21|000002;
    STA.W $CCE8,X                        ;039B23|7ECCE8;
-CODE_039B26:
-   LDA.W $CCEA,X                        ;039B26|7ECCEA;
-   BEQ CODE_039B55                      ;039B29|039B55;
+ + LDA.W $CCEA,X                        ;039B26|7ECCEA;
+   BEQ +                                ;039B29|039B55;
    STA.B $0C                            ;039B2B|00000C;
    LDX.B $08                            ;039B2D|000008;
    AND.L $7F000A,X                      ;039B2F|7F000A;
@@ -4420,9 +4261,8 @@ CODE_039B26:
    EOR.W #$FFFF                         ;039B4D|      ;
    LDX.B $02                            ;039B50|000002;
    STA.W $CCEA,X                        ;039B52|7ECCEA;
-CODE_039B55:
-   LDA.W $CCEC,X                        ;039B55|7ECCEC;
-   BEQ CODE_039B84                      ;039B58|039B84;
+ + LDA.W $CCEC,X                        ;039B55|7ECCEC;
+   BEQ +                                ;039B58|039B84;
    STA.B $0C                            ;039B5A|00000C;
    LDX.B $08                            ;039B5C|000008;
    AND.L $7F000C,X                      ;039B5E|7F000C;
@@ -4439,9 +4279,8 @@ CODE_039B55:
    EOR.W #$FFFF                         ;039B7C|      ;
    LDX.B $02                            ;039B7F|000002;
    STA.W $CCEC,X                        ;039B81|7ECCEC;
-CODE_039B84:
-   LDA.W $CCEE,X                        ;039B84|7ECCEE;
-   BEQ CODE_039BB3                      ;039B87|039BB3;
+ + LDA.W $CCEE,X                        ;039B84|7ECCEE;
+   BEQ +                                ;039B87|039BB3;
    STA.B $0C                            ;039B89|00000C;
    LDX.B $08                            ;039B8B|000008;
    AND.L $7F000E,X                      ;039B8D|7F000E;
@@ -4458,11 +4297,10 @@ CODE_039B84:
    EOR.W #$FFFF                         ;039BAB|      ;
    LDX.B $02                            ;039BAE|000002;
    STA.W $CCEE,X                        ;039BB0|7ECCEE;
-CODE_039BB3:
-   LDX.B $04                            ;039BB3|000004;
+ + LDX.B $04                            ;039BB3|000004;
    LDY.B $06                            ;039BB5|000006;
-   JMP.W CODE_039A05                    ;039BB7|039A05;
-CODE_039BBA:
+   JMP.W CODE_JP_039A05                 ;039BB7|039A05;
+CODE_JP_039BBA:
    AND.W #$FFE0                         ;039BBA|      ;
    STA.B $08                            ;039BBD|000008;
    LDA.B $00                            ;039BBF|000000;
@@ -4471,7 +4309,7 @@ CODE_039BBA:
    TAX                                  ;039BC3|      ;
    STX.B $02                            ;039BC4|000002;
    LDA.W $CCE0,X                        ;039BC6|7ECCE0;
-   BEQ CODE_039BF5                      ;039BC9|039BF5;
+   BEQ +                                ;039BC9|039BF5;
    STA.B $0C                            ;039BCB|00000C;
    LDX.B $08                            ;039BCD|000008;
    AND.L $7F000E,X                      ;039BCF|7F000E;
@@ -4488,9 +4326,8 @@ CODE_039BBA:
    EOR.W #$FFFF                         ;039BED|      ;
    LDX.B $02                            ;039BF0|000002;
    STA.W $CCE0,X                        ;039BF2|7ECCE0;
-CODE_039BF5:
-   LDA.W $CCE2,X                        ;039BF5|7ECCE2;
-   BEQ CODE_039C24                      ;039BF8|039C24;
+ + LDA.W $CCE2,X                        ;039BF5|7ECCE2;
+   BEQ +                                ;039BF8|039C24;
    STA.B $0C                            ;039BFA|00000C;
    LDX.B $08                            ;039BFC|000008;
    AND.L $7F000C,X                      ;039BFE|7F000C;
@@ -4507,9 +4344,8 @@ CODE_039BF5:
    EOR.W #$FFFF                         ;039C1C|      ;
    LDX.B $02                            ;039C1F|000002;
    STA.W $CCE2,X                        ;039C21|7ECCE2;
-CODE_039C24:
-   LDA.W $CCE4,X                        ;039C24|7ECCE4;
-   BEQ CODE_039C53                      ;039C27|039C53;
+ + LDA.W $CCE4,X                        ;039C24|7ECCE4;
+   BEQ +                                ;039C27|039C53;
    STA.B $0C                            ;039C29|00000C;
    LDX.B $08                            ;039C2B|000008;
    AND.L $7F000A,X                      ;039C2D|7F000A;
@@ -4526,9 +4362,8 @@ CODE_039C24:
    EOR.W #$FFFF                         ;039C4B|      ;
    LDX.B $02                            ;039C4E|000002;
    STA.W $CCE4,X                        ;039C50|7ECCE4;
-CODE_039C53:
-   LDA.W $CCE6,X                        ;039C53|7ECCE6;
-   BEQ CODE_039C82                      ;039C56|039C82;
+ + LDA.W $CCE6,X                        ;039C53|7ECCE6;
+   BEQ +                                ;039C56|039C82;
    STA.B $0C                            ;039C58|00000C;
    LDX.B $08                            ;039C5A|000008;
    AND.L $7F0008,X                      ;039C5C|7F0008;
@@ -4545,9 +4380,8 @@ CODE_039C53:
    EOR.W #$FFFF                         ;039C7A|      ;
    LDX.B $02                            ;039C7D|000002;
    STA.W $CCE6,X                        ;039C7F|7ECCE6;
-CODE_039C82:
-   LDA.W $CCE8,X                        ;039C82|7ECCE8;
-   BEQ CODE_039CB1                      ;039C85|039CB1;
+ + LDA.W $CCE8,X                        ;039C82|7ECCE8;
+   BEQ +                                ;039C85|039CB1;
    STA.B $0C                            ;039C87|00000C;
    LDX.B $08                            ;039C89|000008;
    AND.L $7F0006,X                      ;039C8B|7F0006;
@@ -4564,9 +4398,8 @@ CODE_039C82:
    EOR.W #$FFFF                         ;039CA9|      ;
    LDX.B $02                            ;039CAC|000002;
    STA.W $CCE8,X                        ;039CAE|7ECCE8;
-CODE_039CB1:
-   LDA.W $CCEA,X                        ;039CB1|7ECCEA;
-   BEQ CODE_039CE0                      ;039CB4|039CE0;
+ + LDA.W $CCEA,X                        ;039CB1|7ECCEA;
+   BEQ +                                ;039CB4|039CE0;
    STA.B $0C                            ;039CB6|00000C;
    LDX.B $08                            ;039CB8|000008;
    AND.L $7F0004,X                      ;039CBA|7F0004;
@@ -4583,9 +4416,8 @@ CODE_039CB1:
    EOR.W #$FFFF                         ;039CD8|      ;
    LDX.B $02                            ;039CDB|000002;
    STA.W $CCEA,X                        ;039CDD|7ECCEA;
-CODE_039CE0:
-   LDA.W $CCEC,X                        ;039CE0|7ECCEC;
-   BEQ CODE_039D0F                      ;039CE3|039D0F;
+ + LDA.W $CCEC,X                        ;039CE0|7ECCEC;
+   BEQ +                                ;039CE3|039D0F;
    STA.B $0C                            ;039CE5|00000C;
    LDX.B $08                            ;039CE7|000008;
    AND.L $7F0002,X                      ;039CE9|7F0002;
@@ -4602,9 +4434,8 @@ CODE_039CE0:
    EOR.W #$FFFF                         ;039D07|      ;
    LDX.B $02                            ;039D0A|000002;
    STA.W $CCEC,X                        ;039D0C|7ECCEC;
-CODE_039D0F:
-   LDA.W $CCEE,X                        ;039D0F|7ECCEE;
-   BEQ CODE_039D3E                      ;039D12|039D3E;
+ + LDA.W $CCEE,X                        ;039D0F|7ECCEE;
+   BEQ +                                ;039D12|039D3E;
    STA.B $0C                            ;039D14|00000C;
    LDX.B $08                            ;039D16|000008;
    AND.L $7F0000,X                      ;039D18|7F0000;
@@ -4621,11 +4452,10 @@ CODE_039D0F:
    EOR.W #$FFFF                         ;039D36|      ;
    LDX.B $02                            ;039D39|000002;
    STA.W $CCEE,X                        ;039D3B|7ECCEE;
-CODE_039D3E:
-   LDX.B $04                            ;039D3E|000004;
+ + LDX.B $04                            ;039D3E|000004;
    LDY.B $06                            ;039D40|000006;
-   JMP.W CODE_039A05                    ;039D42|039A05;
-CODE_039D45:
+   JMP.W CODE_JP_039A05                 ;039D42|039A05;
+CODE_JP_039D45:
    AND.W #$FFE0                         ;039D45|      ;
    STA.B $08                            ;039D48|000008;
    LDA.B $00                            ;039D4A|000000;
@@ -4633,7 +4463,7 @@ CODE_039D45:
    TAX                                  ;039D4D|      ;
    STX.B $02                            ;039D4E|000002;
    LDA.W $CCE0,X                        ;039D50|7ECCE0;
-   BEQ CODE_039DA9                      ;039D53|039DA9;
+   BEQ +                                ;039D53|039DA9;
    STA.B $0C                            ;039D55|00000C;
    LDX.B $08                            ;039D57|000008;
    LDA.L $7F0000,X                      ;039D59|7F0000;
@@ -4672,9 +4502,8 @@ CODE_039D45:
    EOR.W #$FFFF                         ;039DA1|      ;
    LDX.B $02                            ;039DA4|000002;
    STA.W $CCE0,X                        ;039DA6|7ECCE0;
-CODE_039DA9:
-   LDA.W $CCE2,X                        ;039DA9|7ECCE2;
-   BEQ CODE_039E02                      ;039DAC|039E02;
+ + LDA.W $CCE2,X                        ;039DA9|7ECCE2;
+   BEQ +                                ;039DAC|039E02;
    STA.B $0C                            ;039DAE|00000C;
    LDX.B $08                            ;039DB0|000008;
    LDA.L $7F0002,X                      ;039DB2|7F0002;
@@ -4713,9 +4542,8 @@ CODE_039DA9:
    EOR.W #$FFFF                         ;039DFA|      ;
    LDX.B $02                            ;039DFD|000002;
    STA.W $CCE2,X                        ;039DFF|7ECCE2;
-CODE_039E02:
-   LDA.W $CCE4,X                        ;039E02|7ECCE4;
-   BEQ CODE_039E5B                      ;039E05|039E5B;
+ + LDA.W $CCE4,X                        ;039E02|7ECCE4;
+   BEQ +                                ;039E05|039E5B;
    STA.B $0C                            ;039E07|00000C;
    LDX.B $08                            ;039E09|000008;
    LDA.L $7F0004,X                      ;039E0B|7F0004;
@@ -4754,9 +4582,8 @@ CODE_039E02:
    EOR.W #$FFFF                         ;039E53|      ;
    LDX.B $02                            ;039E56|000002;
    STA.W $CCE4,X                        ;039E58|7ECCE4;
-CODE_039E5B:
-   LDA.W $CCE6,X                        ;039E5B|7ECCE6;
-   BEQ CODE_039EB4                      ;039E5E|039EB4;
+ + LDA.W $CCE6,X                        ;039E5B|7ECCE6;
+   BEQ +                                ;039E5E|039EB4;
    STA.B $0C                            ;039E60|00000C;
    LDX.B $08                            ;039E62|000008;
    LDA.L $7F0006,X                      ;039E64|7F0006;
@@ -4795,9 +4622,8 @@ CODE_039E5B:
    EOR.W #$FFFF                         ;039EAC|      ;
    LDX.B $02                            ;039EAF|000002;
    STA.W $CCE6,X                        ;039EB1|7ECCE6;
-CODE_039EB4:
-   LDA.W $CCE8,X                        ;039EB4|7ECCE8;
-   BEQ CODE_039F0D                      ;039EB7|039F0D;
+ + LDA.W $CCE8,X                        ;039EB4|7ECCE8;
+   BEQ +                                ;039EB7|039F0D;
    STA.B $0C                            ;039EB9|00000C;
    LDX.B $08                            ;039EBB|000008;
    LDA.L $7F0008,X                      ;039EBD|7F0008;
@@ -4836,9 +4662,8 @@ CODE_039EB4:
    EOR.W #$FFFF                         ;039F05|      ;
    LDX.B $02                            ;039F08|000002;
    STA.W $CCE8,X                        ;039F0A|7ECCE8;
-CODE_039F0D:
-   LDA.W $CCEA,X                        ;039F0D|7ECCEA;
-   BEQ CODE_039F66                      ;039F10|039F66;
+ + LDA.W $CCEA,X                        ;039F0D|7ECCEA;
+   BEQ +                                ;039F10|039F66;
    STA.B $0C                            ;039F12|00000C;
    LDX.B $08                            ;039F14|000008;
    LDA.L $7F000A,X                      ;039F16|7F000A;
@@ -4877,9 +4702,8 @@ CODE_039F0D:
    EOR.W #$FFFF                         ;039F5E|      ;
    LDX.B $02                            ;039F61|000002;
    STA.W $CCEA,X                        ;039F63|7ECCEA;
-CODE_039F66:
-   LDA.W $CCEC,X                        ;039F66|7ECCEC;
-   BEQ CODE_039FBF                      ;039F69|039FBF;
+ + LDA.W $CCEC,X                        ;039F66|7ECCEC;
+   BEQ +                                ;039F69|039FBF;
    STA.B $0C                            ;039F6B|00000C;
    LDX.B $08                            ;039F6D|000008;
    LDA.L $7F000C,X                      ;039F6F|7F000C;
@@ -4918,9 +4742,8 @@ CODE_039F66:
    EOR.W #$FFFF                         ;039FB7|      ;
    LDX.B $02                            ;039FBA|000002;
    STA.W $CCEC,X                        ;039FBC|7ECCEC;
-CODE_039FBF:
-   LDA.W $CCEE,X                        ;039FBF|7ECCEE;
-   BEQ CODE_03A018                      ;039FC2|03A018;
+ + LDA.W $CCEE,X                        ;039FBF|7ECCEE;
+   BEQ +                                ;039FC2|03A018;
    STA.B $0C                            ;039FC4|00000C;
    LDX.B $08                            ;039FC6|000008;
    LDA.L $7F000E,X                      ;039FC8|7F000E;
@@ -4959,11 +4782,10 @@ CODE_039FBF:
    EOR.W #$FFFF                         ;03A010|      ;
    LDX.B $02                            ;03A013|000002;
    STA.W $CCEE,X                        ;03A015|7ECCEE;
-CODE_03A018:
-   LDX.B $04                            ;03A018|000004;
+ + LDX.B $04                            ;03A018|000004;
    LDY.B $06                            ;03A01A|000006;
-   JMP.W CODE_039A05                    ;03A01C|039A05;
-CODE_03A01F:
+   JMP.W CODE_JP_039A05                 ;03A01C|039A05;
+CODE_JP_03A01F:
    AND.W #$FFE0                         ;03A01F|      ;
    STA.B $08                            ;03A022|000008;
    LDA.B $00                            ;03A024|000000;
@@ -4972,7 +4794,7 @@ CODE_03A01F:
    TAX                                  ;03A028|      ;
    STX.B $02                            ;03A029|000002;
    LDA.W $CCE0,X                        ;03A02B|7ECCE0;
-   BEQ CODE_03A084                      ;03A02E|03A084;
+   BEQ +                                ;03A02E|03A084;
    STA.B $0C                            ;03A030|00000C;
    LDX.B $08                            ;03A032|000008;
    LDA.L $7F000E,X                      ;03A034|7F000E;
@@ -5011,9 +4833,8 @@ CODE_03A01F:
    EOR.W #$FFFF                         ;03A07C|      ;
    LDX.B $02                            ;03A07F|000002;
    STA.W $CCE0,X                        ;03A081|7ECCE0;
-CODE_03A084:
-   LDA.W $CCE2,X                        ;03A084|7ECCE2;
-   BEQ CODE_03A0DD                      ;03A087|03A0DD;
+ + LDA.W $CCE2,X                        ;03A084|7ECCE2;
+   BEQ +                                ;03A087|03A0DD;
    STA.B $0C                            ;03A089|00000C;
    LDX.B $08                            ;03A08B|000008;
    LDA.L $7F000C,X                      ;03A08D|7F000C;
@@ -5052,9 +4873,8 @@ CODE_03A084:
    EOR.W #$FFFF                         ;03A0D5|      ;
    LDX.B $02                            ;03A0D8|000002;
    STA.W $CCE2,X                        ;03A0DA|7ECCE2;
-CODE_03A0DD:
-   LDA.W $CCE4,X                        ;03A0DD|7ECCE4;
-   BEQ CODE_03A136                      ;03A0E0|03A136;
+ + LDA.W $CCE4,X                        ;03A0DD|7ECCE4;
+   BEQ +                                ;03A0E0|03A136;
    STA.B $0C                            ;03A0E2|00000C;
    LDX.B $08                            ;03A0E4|000008;
    LDA.L $7F000A,X                      ;03A0E6|7F000A;
@@ -5093,9 +4913,8 @@ CODE_03A0DD:
    EOR.W #$FFFF                         ;03A12E|      ;
    LDX.B $02                            ;03A131|000002;
    STA.W $CCE4,X                        ;03A133|7ECCE4;
-CODE_03A136:
-   LDA.W $CCE6,X                        ;03A136|7ECCE6;
-   BEQ CODE_03A18F                      ;03A139|03A18F;
+ + LDA.W $CCE6,X                        ;03A136|7ECCE6;
+   BEQ +                                ;03A139|03A18F;
    STA.B $0C                            ;03A13B|00000C;
    LDX.B $08                            ;03A13D|000008;
    LDA.L $7F0008,X                      ;03A13F|7F0008;
@@ -5134,9 +4953,8 @@ CODE_03A136:
    EOR.W #$FFFF                         ;03A187|      ;
    LDX.B $02                            ;03A18A|000002;
    STA.W $CCE6,X                        ;03A18C|7ECCE6;
-CODE_03A18F:
-   LDA.W $CCE8,X                        ;03A18F|7ECCE8;
-   BEQ CODE_03A1E8                      ;03A192|03A1E8;
+ + LDA.W $CCE8,X                        ;03A18F|7ECCE8;
+   BEQ +                                ;03A192|03A1E8;
    STA.B $0C                            ;03A194|00000C;
    LDX.B $08                            ;03A196|000008;
    LDA.L $7F0006,X                      ;03A198|7F0006;
@@ -5175,9 +4993,8 @@ CODE_03A18F:
    EOR.W #$FFFF                         ;03A1E0|      ;
    LDX.B $02                            ;03A1E3|000002;
    STA.W $CCE8,X                        ;03A1E5|7ECCE8;
-CODE_03A1E8:
-   LDA.W $CCEA,X                        ;03A1E8|7ECCEA;
-   BEQ CODE_03A241                      ;03A1EB|03A241;
+ + LDA.W $CCEA,X                        ;03A1E8|7ECCEA;
+   BEQ +                                ;03A1EB|03A241;
    STA.B $0C                            ;03A1ED|00000C;
    LDX.B $08                            ;03A1EF|000008;
    LDA.L $7F0004,X                      ;03A1F1|7F0004;
@@ -5216,9 +5033,8 @@ CODE_03A1E8:
    EOR.W #$FFFF                         ;03A239|      ;
    LDX.B $02                            ;03A23C|000002;
    STA.W $CCEA,X                        ;03A23E|7ECCEA;
-CODE_03A241:
-   LDA.W $CCEC,X                        ;03A241|7ECCEC;
-   BEQ CODE_03A29A                      ;03A244|03A29A;
+ + LDA.W $CCEC,X                        ;03A241|7ECCEC;
+   BEQ +                                ;03A244|03A29A;
    STA.B $0C                            ;03A246|00000C;
    LDX.B $08                            ;03A248|000008;
    LDA.L $7F0002,X                      ;03A24A|7F0002;
@@ -5257,9 +5073,8 @@ CODE_03A241:
    EOR.W #$FFFF                         ;03A292|      ;
    LDX.B $02                            ;03A295|000002;
    STA.W $CCEC,X                        ;03A297|7ECCEC;
-CODE_03A29A:
-   LDA.W $CCEE,X                        ;03A29A|7ECCEE;
-   BEQ CODE_03A2F3                      ;03A29D|03A2F3;
+ + LDA.W $CCEE,X                        ;03A29A|7ECCEE;
+   BEQ +                                ;03A29D|03A2F3;
    STA.B $0C                            ;03A29F|00000C;
    LDX.B $08                            ;03A2A1|000008;
    LDA.L $7F0000,X                      ;03A2A3|7F0000;
@@ -5298,10 +5113,9 @@ CODE_03A29A:
    EOR.W #$FFFF                         ;03A2EB|      ;
    LDX.B $02                            ;03A2EE|000002;
    STA.W $CCEE,X                        ;03A2F0|7ECCEE;
-CODE_03A2F3:
-   LDX.B $04                            ;03A2F3|000004;
+ + LDX.B $04                            ;03A2F3|000004;
    LDY.B $06                            ;03A2F5|000006;
-   JMP.W CODE_039A05                    ;03A2F7|039A05;
+   JMP.W CODE_JP_039A05                 ;03A2F7|039A05;
 Update_position:
    LDA.L X_delta,X                      ;03A2FA|03A479;
    CLC                                  ;03A2FE|      ;
@@ -5345,63 +5159,54 @@ Tile_Event_match:
    BNE Tile_event_4_check               ;03A347|03A34E;
 Tile_event_1:
    LDA.W #$002D                         ;03A349|      ; Load door SFX
-   BRA CODE_03A363                      ;03A34C|03A363;
+   BRA +                                ;03A34C|03A363;
 Tile_event_4_check:
    CMP.W #$0004                         ;03A34E|      ;
-   BNE CODE_03A360                      ;03A351|03A360;
+   BNE ++                               ;03A351|03A360;
 Tile_event_3_default:
    LDY.W Story_Progress                 ;03A353|0018FF;
    CPY.W #$0012                         ;03A356|      ; Event 12: Took Salah to Stavery door
    BCC Returns_val_in_Y                 ;03A359|03A36A;
    LDA.W #$002D                         ;03A35B|      ; Load door SFX
-   BRA CODE_03A363                      ;03A35E|03A363;
-CODE_03A360:
-   LDA.W #$000D                         ;03A360|      ; Load stairs SFX
-CODE_03A363:
-   JSL.L Play_SFX                       ;03A363|009C47;
+   BRA +                                ;03A35E|03A363;
+++ LDA.W #$000D                         ;03A360|      ; Load stairs SFX
+ + JSL.L Play_SFX                       ;03A363|009C47;
 Tile_event_0:
    LDA.W #$0001                         ;03A367|      ; Returns 1
 Returns_val_in_Y:
    TAY                                  ;03A36A|      ;
    PLA                                  ;03A36B|      ;
    RTS                                  ;03A36C|      ;
-CODE_03A36D:
+CODE_FN_03A36D:
    LDX.W #$0028                         ;03A36D|      ;
-CODE_03A370:
-   CMP.L Event_tile_values,X            ;03A370|03A3AF;
-   BEQ CODE_03A37E                      ;03A374|03A37E;
-CODE_03A376:
-   DEX                                  ;03A376|      ;
+-- CMP.L Event_tile_values,X            ;03A370|03A3AF;
+   BEQ +                                ;03A374|03A37E;
+ - DEX                                  ;03A376|      ;
    DEX                                  ;03A377|      ;
-   BPL CODE_03A370                      ;03A378|03A370;
+   BPL --                               ;03A378|03A370;
    LDY.W #$0000                         ;03A37A|      ;
    RTS                                  ;03A37D|      ;
-CODE_03A37E:
-   PHA                                  ;03A37E|      ;
+ + PHA                                  ;03A37E|      ;
    LDA.L Event_map_locations,X          ;03A37F|03A3D9;
-   BEQ CODE_03A38D                      ;03A383|03A38D;
+   BEQ +                                ;03A383|03A38D;
    CMP.W Curr_area                      ;03A385|001573;
-   BEQ CODE_03A38D                      ;03A388|03A38D;
+   BEQ +                                ;03A388|03A38D;
    PLA                                  ;03A38A|      ;
-   BRA CODE_03A376                      ;03A38B|03A376;
-CODE_03A38D:
-   LDA.L DATA16_03A42D,X                ;03A38D|03A42D;
-   BEQ CODE_03A3AA                      ;03A391|03A3AA;
+   BRA -                                ;03A38B|03A376;
+ + LDA.L DATA16_03A42D,X                ;03A38D|03A42D;
+   BEQ +                                ;03A391|03A3AA;
    PLA                                  ;03A393|      ;
    CPX.W #$0000                         ;03A394|      ;
-   BNE CODE_03A39D                      ;03A397|03A39D;
+   BNE ++                               ;03A397|03A39D;
    LDY.W #$0001                         ;03A399|      ;
    RTS                                  ;03A39C|      ;
-CODE_03A39D:
-   CPX.W #$0002                         ;03A39D|      ;
-   BNE CODE_03A3A6                      ;03A3A0|03A3A6;
+++ CPX.W #$0002                         ;03A39D|      ;
+   BNE ++                               ;03A3A0|03A3A6;
    LDY.W #$0002                         ;03A3A2|      ;
    RTS                                  ;03A3A5|      ;
-CODE_03A3A6:
-   LDY.W #$0003                         ;03A3A6|      ;
+++ LDY.W #$0003                         ;03A3A6|      ;
    RTS                                  ;03A3A9|      ;
-CODE_03A3AA:
-   PLA                                  ;03A3AA|      ;
+ + PLA                                  ;03A3AA|      ;
    LDY.W #$0000                         ;03A3AB|      ;
    RTS                                  ;03A3AE|      ;
 Event_tile_values:
@@ -5494,11 +5299,11 @@ DATA16_03A42D:
    dw $0000                             ;03A455|      ;
 Get_map_tile_value:
    CMP.W #$0020                         ;03A457|      ;
-   BCS CODE_03A475                      ;03A45A|03A475; Load 0 if y is out of range
+   BCS +                                ;03A45A|03A475; Load 0 if y is out of range
    ORA.W #$2000                         ;03A45C|      ;
    STA.W Multiply_lo                    ;03A45F|004202; $20 times y for the row
    CPX.W #$0020                         ;03A462|      ;
-   BCS CODE_03A475                      ;03A465|03A475; Load 0 if x is out of range
+   BCS +                                ;03A465|03A475; Load 0 if x is out of range
    TXA                                  ;03A467|      ;
    CLC                                  ;03A468|      ;
    ADC.W Mult_Divide_Result             ;03A469|004216; Add x to the y result for the coordinate
@@ -5506,8 +5311,7 @@ Get_map_tile_value:
    LDA.L $7FFC00,X                      ;03A46D|7FFC00; Load the map value (1x=encounter, 80=treasure chest etc)
    AND.W #$00FF                         ;03A471|      ; Because we can't just use 8 bit mode and make this easy
    RTS                                  ;03A474|      ;
-CODE_03A475:
-   LDA.W #$0000                         ;03A475|      ;
+ + LDA.W #$0000                         ;03A475|      ;
    RTS                                  ;03A478|      ;
 X_delta:
    dw $0000                             ;03A479|      ;
@@ -5521,11 +5325,10 @@ Y_delta:
    dw $0000                             ;03A487|      ;
 Clear_map_progress:
    LDX.W #$017E                         ;03A489|      ;
-CODE_03A48C:
-   STZ.W Map1_Progress,X                ;03A48C|0016FF;
+ - STZ.W Map1_Progress,X                ;03A48C|0016FF;
    DEX                                  ;03A48F|      ;
    DEX                                  ;03A490|      ;
-   BPL CODE_03A48C                      ;03A491|03A48C;
+   BPL -                                ;03A491|03A48C;
    RTL                                  ;03A493|      ;
 Update_map_progress:
    PHA                                  ;03A494|      ; Push Y coord from A
@@ -5541,27 +5344,25 @@ Update_map_progress:
    RTS                                  ;03A4AB|      ;
 Map_OOB_Progress_Chk:
    CMP.W #$0020                         ;03A4AC|      ; Probably an out of bounds check
-   BCS CODE_03A4C3                      ;03A4AF|03A4C3;
+   BCS +                                ;03A4AF|03A4C3;
    CPX.W #$0020                         ;03A4B1|      ;
-   BCS CODE_03A4C3                      ;03A4B4|03A4C3;
+   BCS +                                ;03A4B4|03A4C3;
    PHY                                  ;03A4B6|      ;
    JSR.W Get_MapNo_Offset               ;03A4B7|03A4C7;
    LDA.W Map1_Progress,Y                ;03A4BA|0016FF;
    PLY                                  ;03A4BD|      ;
    AND.L MapProgress_OR_filters,X       ;03A4BE|008C5C;
    RTS                                  ;03A4C2|      ;
-CODE_03A4C3:
-   LDA.W #$0000                         ;03A4C3|      ;
+ + LDA.W #$0000                         ;03A4C3|      ;
    RTS                                  ;03A4C6|      ;
 Get_MapNo_Offset:
    ASL A                                ;03A4C7|      ;
    ASL A                                ;03A4C8|      ;
    CPX.W #$0010                         ;03A4C9|      ;
-   BCC CODE_03A4D0                      ;03A4CC|03A4D0;
+   BCC +                                ;03A4CC|03A4D0;
    INC A                                ;03A4CE|      ;
    INC A                                ;03A4CF|      ;
-CODE_03A4D0:
-   CLC                                  ;03A4D0|      ;
+ + CLC                                  ;03A4D0|      ;
    ADC.W Map_Num                        ;03A4D1|0016FD;
    TAY                                  ;03A4D4|      ;
    TXA                                  ;03A4D5|      ;
@@ -5645,27 +5446,25 @@ Tbl_Dungeon_BGM:
    db $4E                               ;03A54B|      ;
 Sub_Darwin_Theme:
    CMP.W #$0114                         ;03A54C|      ; If in a dungeon before Bintel Castle:
-   BCS CODE_03A571                      ;03A54F|03A571;
+   BCS +                                ;03A54F|03A571;
    LDX.W Party_slot1                    ;03A551|00155B; Check each character slot for Darwin
    CPX.W #$0007                         ;03A554|      ;
-   BEQ CODE_03A57D                      ;03A557|03A57D;
+   BEQ ++                               ;03A557|03A57D;
    LDX.W Party_slot2                    ;03A559|00155D;
    CPX.W #$0007                         ;03A55C|      ;
-   BEQ CODE_03A57D                      ;03A55F|03A57D;
+   BEQ ++                               ;03A55F|03A57D;
    LDX.W Party_slot3                    ;03A561|00155F;
    CPX.W #$0007                         ;03A564|      ;
-   BEQ CODE_03A57D                      ;03A567|03A57D;
+   BEQ ++                               ;03A567|03A57D;
    LDX.W Party_slot4                    ;03A569|001561;
    CPX.W #$0007                         ;03A56C|      ;
-   BEQ CODE_03A57D                      ;03A56F|03A57D;
-CODE_03A571:
-   AND.W #$00FF                         ;03A571|      ;
+   BEQ ++                               ;03A56F|03A57D;
+ + AND.W #$00FF                         ;03A571|      ;
    TAX                                  ;03A574|      ;
    LDA.L Tbl_Dungeon_BGM,X              ;03A575|03A52A; If Darwin's not jamming out, play the normal dungeon theme
    AND.W #$00FF                         ;03A579|      ;
    RTS                                  ;03A57C|      ;
-CODE_03A57D:
-   LDA.W #$0043                         ;03A57D|      ; Return "Darwin ~ Treasure Hunter" ID
+++ LDA.W #$0043                         ;03A57D|      ; Return "Darwin ~ Treasure Hunter" ID
    RTS                                  ;03A580|      ;
 Check_for_exit_location:
    PEA.W $0003                          ;03A581|000003; Returns 0 exit, 1 Darwin's theme, 2 no music (?)
@@ -5677,8 +5476,7 @@ Check_for_exit_location:
    LDA.W Tbl_Map_StairsLogic,X          ;03A58D|03A5EB;
    STA.B $00                            ;03A590|000000;
    LDY.W #$0000                         ;03A592|      ;
-CODE_03A595:
-   LDA.B ($00),Y                        ;03A595|000000;
+ - LDA.B ($00),Y                        ;03A595|000000;
    TAX                                  ;03A597|      ;
    INY                                  ;03A598|      ;
    INY                                  ;03A599|      ;
@@ -5692,19 +5490,18 @@ CODE_03A595:
 X_no_match:
    INY                                  ;03A5A8|      ;
    INY                                  ;03A5A9|      ;
-   BRA CODE_03A595                      ;03A5AA|03A595;
+   BRA -                                ;03A5AA|03A595;
 XY_match:
    LDA.B ($00),Y                        ;03A5AC|000000; Get the ptr to the stairs entry we're taking
    STA.B $00                            ;03A5AE|000000; Save the stairs ptr
    LDA.B ($00)                          ;03A5B0|000000; Read the stairs 1st line (dungeon floor #)
    STA.W Stairs_next_floor              ;03A5B2|0016F1; Save destination floor in 16F1
    BIT.W #$0100                         ;03A5B5|      ; Check if you're leaving the dungeon
-   BNE CODE_03A5BF                      ;03A5B8|03A5BF; Branch if we're leaving
+   BNE +                                ;03A5B8|03A5BF; Branch if we're leaving
    PLB                                  ;03A5BA|      ;
    LDA.W #$0000                         ;03A5BB|      ; Still in a dungeon, return 0
    RTL                                  ;03A5BE|      ;
-CODE_03A5BF:
-   LDY.W #$0002                         ;03A5BF|      ;
+ + LDY.W #$0002                         ;03A5BF|      ;
    LDA.B ($00),Y                        ;03A5C2|000000; Read destination floor 2nd word (target X position)
    STA.W Map_X                          ;03A5C4|0016F7; Set to current X position
    LDY.W #$0004                         ;03A5C7|      ;
@@ -6957,14 +6754,13 @@ Stairs_Ch5Stavery23:
    dw $0017                             ;03AD6D|      ;
    dw $001D                             ;03AD6F|      ;
    dw $0004                             ;03AD71|      ;
-CODE_03AD73:
+CODE_FN_03AD73:
    JSL.L The_69_check                   ;03AD73|03ADEB;
-   BEQ CODE_03AD82                      ;03AD77|03AD82;
+   BEQ +                                ;03AD77|03AD82;
    JSL.L Wait_Vblank_far                ;03AD79|0088DE;
    JSL.L Wait_Vblank_far                ;03AD7D|0088DE;
    RTS                                  ;03AD81|      ;
-CODE_03AD82:
-   PEA.W $007E                          ;03AD82|00007E;
+ + PEA.W $007E                          ;03AD82|00007E;
    PLB                                  ;03AD85|      ;
    LDA.W #$0012                         ;03AD86|      ;
    LDX.W #$E73A                         ;03AD89|      ;
@@ -6974,12 +6770,11 @@ CODE_03AD82:
    LDA.W #$ADB7                         ;03AD94|      ;
    JSL.L RAM_Decomp80                   ;03AD97|0084FE;
    LDX.W #$001E                         ;03AD9B|      ;
-CODE_03AD9E:
-   LDA.L UNREACH_03ADC0,X               ;03AD9E|03ADC0;
+ - LDA.L UNREACH_03ADC0,X               ;03AD9E|03ADC0;
    STA.W $05A0,X                        ;03ADA2|0005A0;
    DEX                                  ;03ADA5|      ;
    DEX                                  ;03ADA6|      ;
-   BPL CODE_03AD9E                      ;03ADA7|03AD9E;
+   BPL -                                ;03ADA7|03AD9E;
    LDA.W #$0069                         ;03ADA9|      ; Nice.
    LDX.W #$0008                         ;03ADAC|      ;
    JSR.W Zero_06xx_s_do_stuff           ;03ADAF|03E21F;
@@ -7029,19 +6824,17 @@ UNREACH_03ADC0:
    db $2D                               ;03ADDF|00EB22;
 Some_enemy_ID_check:
    JSL.L The_69_check                   ;03ADE0|03ADEB;
-   BEQ CODE_03ADEA                      ;03ADE4|03ADEA;
+   BEQ +                                ;03ADE4|03ADEA;
    JSL.L A_buncha_stuff_far             ;03ADE6|00995C;
-CODE_03ADEA:
-   RTL                                  ;03ADEA|      ;
+ + RTL                                  ;03ADEA|      ;
 The_69_check:
    LDX.W #$0008                         ;03ADEB|      ; Checks if the current event ID is 69.
    LDA.W Event_ID_Slot_00,X             ;03ADEE|000643;
    CMP.W #$0069                         ;03ADF1|      ; Nice.
-   BEQ CODE_03ADFA                      ;03ADF4|03ADFA;
+   BEQ +                                ;03ADF4|03ADFA;
    LDA.W #$0000                         ;03ADF6|      ;
    RTL                                  ;03ADF9|      ;
-CODE_03ADFA:
-   LDA.W #$0001                         ;03ADFA|      ;
+ + LDA.W #$0001                         ;03ADFA|      ;
    RTL                                  ;03ADFD|      ;
 Event_Main_69:
    db $38                               ;03ADFE|      ;
@@ -7063,1093 +6856,1093 @@ DATA8_03AE04:
    db $0C                               ;03AE0F|      ;
    db $1A                               ;03AE10|      ;
    dw DATA8_03AE04                      ;03AE11|03AE04;
-DATA8_03AE13:
+Tileset_Event69_00:
    db $01                               ;03AE13|      ;
    db $38                               ;03AE14|      ;
-   db $20                               ;03AE15|030848;
+   db $20                               ;03AE15|      ;
    db $48                               ;03AE16|      ;
    db $08                               ;03AE17|      ;
-   db $01                               ;03AE18|000038;
+   db $01                               ;03AE18|      ;
    db $38                               ;03AE19|      ;
-   db $10                               ;03AE1A|03AE44;
+   db $10                               ;03AE1A|      ;
    db $28                               ;03AE1B|      ;
    db $08                               ;03AE1C|      ;
-   db $01                               ;03AE1D|000038;
+   db $01                               ;03AE1D|      ;
    db $38                               ;03AE1E|      ;
    db $00                               ;03AE1F|      ;
    db $08                               ;03AE20|      ;
    db $08                               ;03AE21|      ;
-   db $01                               ;03AE22|000028;
+   db $01                               ;03AE22|      ;
    db $28                               ;03AE23|      ;
-   db $20                               ;03AE24|03084A;
+   db $20                               ;03AE24|      ;
    db $4A                               ;03AE25|      ;
    db $08                               ;03AE26|      ;
-   db $01                               ;03AE27|000018;
+   db $01                               ;03AE27|      ;
    db $18                               ;03AE28|      ;
-   db $20                               ;03AE29|030848;
+   db $20                               ;03AE29|      ;
    db $48                               ;03AE2A|      ;
    db $08                               ;03AE2B|      ;
-   db $01                               ;03AE2C|000028;
+   db $01                               ;03AE2C|      ;
    db $28                               ;03AE2D|      ;
-   db $10                               ;03AE2E|03AE5A;
+   db $10                               ;03AE2E|      ;
    db $2A                               ;03AE2F|      ;
    db $08                               ;03AE30|      ;
-   db $01                               ;03AE31|000018;
+   db $01                               ;03AE31|      ;
    db $18                               ;03AE32|      ;
-   db $10                               ;03AE33|03AE5D;
+   db $10                               ;03AE33|      ;
    db $28                               ;03AE34|      ;
    db $08                               ;03AE35|      ;
-   db $01                               ;03AE36|000028;
+   db $01                               ;03AE36|      ;
    db $28                               ;03AE37|      ;
    db $00                               ;03AE38|      ;
    db $0A                               ;03AE39|      ;
    db $08                               ;03AE3A|      ;
-   db $01                               ;03AE3B|000018;
+   db $01                               ;03AE3B|      ;
    db $18                               ;03AE3C|      ;
    db $00                               ;03AE3D|      ;
    db $08                               ;03AE3E|      ;
    db $08                               ;03AE3F|      ;
-   db $01                               ;03AE40|000008;
+   db $01                               ;03AE40|      ;
    db $08                               ;03AE41|      ;
-   db $20                               ;03AE42|03084A;
+   db $20                               ;03AE42|      ;
    db $4A                               ;03AE43|      ;
    db $08                               ;03AE44|      ;
-   db $01                               ;03AE45|0000F8;
+   db $01                               ;03AE45|      ;
    db $F8                               ;03AE46|      ;
-   db $20                               ;03AE47|030848;
+   db $20                               ;03AE47|      ;
    db $48                               ;03AE48|      ;
    db $08                               ;03AE49|      ;
-   db $01                               ;03AE4A|000008;
+   db $01                               ;03AE4A|      ;
    db $08                               ;03AE4B|      ;
-   db $10                               ;03AE4C|03AE78;
+   db $10                               ;03AE4C|      ;
    db $2A                               ;03AE4D|      ;
    db $08                               ;03AE4E|      ;
-   db $01                               ;03AE4F|0000F8;
+   db $01                               ;03AE4F|      ;
    db $F8                               ;03AE50|      ;
-   db $10                               ;03AE51|03AE7B;
+   db $10                               ;03AE51|      ;
    db $28                               ;03AE52|      ;
    db $08                               ;03AE53|      ;
-   db $01                               ;03AE54|000008;
+   db $01                               ;03AE54|      ;
    db $08                               ;03AE55|      ;
    db $00                               ;03AE56|      ;
    db $0A                               ;03AE57|      ;
    db $08                               ;03AE58|      ;
-   db $01                               ;03AE59|0000F8;
+   db $01                               ;03AE59|      ;
    db $F8                               ;03AE5A|      ;
    db $00                               ;03AE5B|      ;
    db $08                               ;03AE5C|      ;
    db $08                               ;03AE5D|      ;
-   db $01                               ;03AE5E|0000E8;
+   db $01                               ;03AE5E|      ;
    db $E8                               ;03AE5F|      ;
-   db $20                               ;03AE60|03084A;
+   db $20                               ;03AE60|      ;
    db $4A                               ;03AE61|      ;
    db $08                               ;03AE62|      ;
-   db $01                               ;03AE63|0000D8;
+   db $01                               ;03AE63|      ;
    db $D8                               ;03AE64|      ;
-   db $20                               ;03AE65|030848;
+   db $20                               ;03AE65|      ;
    db $48                               ;03AE66|      ;
    db $08                               ;03AE67|      ;
-   db $01                               ;03AE68|0000E8;
+   db $01                               ;03AE68|      ;
    db $E8                               ;03AE69|      ;
-   db $10                               ;03AE6A|03AE96;
+   db $10                               ;03AE6A|      ;
    db $2A                               ;03AE6B|      ;
    db $08                               ;03AE6C|      ;
-   db $01                               ;03AE6D|0000D8;
+   db $01                               ;03AE6D|      ;
    db $D8                               ;03AE6E|      ;
-   db $10                               ;03AE6F|03AE99;
+   db $10                               ;03AE6F|      ;
    db $28                               ;03AE70|      ;
    db $08                               ;03AE71|      ;
-   db $01                               ;03AE72|0000E8;
+   db $01                               ;03AE72|      ;
    db $E8                               ;03AE73|      ;
    db $00                               ;03AE74|      ;
    db $0A                               ;03AE75|      ;
    db $08                               ;03AE76|      ;
-   db $01                               ;03AE77|0000D8;
+   db $01                               ;03AE77|      ;
    db $D8                               ;03AE78|      ;
    db $00                               ;03AE79|      ;
    db $08                               ;03AE7A|      ;
    db $08                               ;03AE7B|      ;
-   db $01                               ;03AE7C|0000C8;
+   db $01                               ;03AE7C|      ;
    db $C8                               ;03AE7D|      ;
-   db $20                               ;03AE7E|03084A;
+   db $20                               ;03AE7E|      ;
    db $4A                               ;03AE7F|      ;
    db $08                               ;03AE80|      ;
-   db $01                               ;03AE81|0000B8;
+   db $01                               ;03AE81|      ;
    db $B8                               ;03AE82|      ;
-   db $20                               ;03AE83|030848;
+   db $20                               ;03AE83|      ;
    db $48                               ;03AE84|      ;
    db $08                               ;03AE85|      ;
-   db $01                               ;03AE86|0000C8;
+   db $01                               ;03AE86|      ;
    db $C8                               ;03AE87|      ;
-   db $10                               ;03AE88|03AEB4;
+   db $10                               ;03AE88|      ;
    db $2A                               ;03AE89|      ;
    db $08                               ;03AE8A|      ;
-   db $01                               ;03AE8B|0000B8;
+   db $01                               ;03AE8B|      ;
    db $B8                               ;03AE8C|      ;
-   db $10                               ;03AE8D|03AEB7;
+   db $10                               ;03AE8D|      ;
    db $28                               ;03AE8E|      ;
    db $08                               ;03AE8F|      ;
-   db $01                               ;03AE90|0000C8;
+   db $01                               ;03AE90|      ;
    db $C8                               ;03AE91|      ;
    db $00                               ;03AE92|      ;
    db $0A                               ;03AE93|      ;
    db $08                               ;03AE94|      ;
-   db $01                               ;03AE95|0000B8;
+   db $01                               ;03AE95|      ;
    db $B8                               ;03AE96|      ;
    db $00                               ;03AE97|      ;
    db $08                               ;03AE98|      ;
    db $08                               ;03AE99|      ;
-   db $01                               ;03AE9A|000038;
+   db $01                               ;03AE9A|      ;
    db $38                               ;03AE9B|      ;
-   db $F0                               ;03AE9C|03AEFE;
+   db $F0                               ;03AE9C|      ;
    db $60                               ;03AE9D|      ;
    db $08                               ;03AE9E|      ;
-   db $01                               ;03AE9F|000038;
+   db $01                               ;03AE9F|      ;
    db $38                               ;03AEA0|      ;
    db $E0                               ;03AEA1|      ;
    db $40                               ;03AEA2|      ;
    db $08                               ;03AEA3|      ;
-   db $01                               ;03AEA4|000038;
+   db $01                               ;03AEA4|      ;
    db $38                               ;03AEA5|      ;
-   db $D0                               ;03AEA6|03AEC8;
-   db $20                               ;03AEA7|030108;
+   db $D0                               ;03AEA6|      ;
+   db $20                               ;03AEA7|      ;
    db $08                               ;03AEA8|      ;
-   db $01                               ;03AEA9|000038;
+   db $01                               ;03AEA9|      ;
    db $38                               ;03AEAA|      ;
    db $C0                               ;03AEAB|      ;
    db $00                               ;03AEAC|      ;
    db $08                               ;03AEAD|      ;
-   db $01                               ;03AEAE|000028;
+   db $01                               ;03AEAE|      ;
    db $28                               ;03AEAF|      ;
-   db $F0                               ;03AEB0|03AF14;
-   db $62                               ;03AEB1|03AFBC;
+   db $F0                               ;03AEB0|      ;
+   db $62                               ;03AEB1|      ;
    db $08                               ;03AEB2|      ;
-   db $01                               ;03AEB3|000018;
+   db $01                               ;03AEB3|      ;
    db $18                               ;03AEB4|      ;
-   db $F0                               ;03AEB5|03AF17;
+   db $F0                               ;03AEB5|      ;
    db $60                               ;03AEB6|      ;
    db $08                               ;03AEB7|      ;
-   db $01                               ;03AEB8|000028;
+   db $01                               ;03AEB8|      ;
    db $28                               ;03AEB9|      ;
    db $E0                               ;03AEBA|      ;
    db $42                               ;03AEBB|      ;
    db $08                               ;03AEBC|      ;
-   db $01                               ;03AEBD|000018;
+   db $01                               ;03AEBD|      ;
    db $18                               ;03AEBE|      ;
    db $E0                               ;03AEBF|      ;
    db $40                               ;03AEC0|      ;
    db $08                               ;03AEC1|      ;
-   db $01                               ;03AEC2|000028;
+   db $01                               ;03AEC2|      ;
    db $28                               ;03AEC3|      ;
-   db $D0                               ;03AEC4|03AEE8;
-   db $22                               ;03AEC5|180108;
+   db $D0                               ;03AEC4|      ;
+   db $22                               ;03AEC5|      ;
    db $08                               ;03AEC6|      ;
-   db $01                               ;03AEC7|000018;
+   db $01                               ;03AEC7|      ;
    db $18                               ;03AEC8|      ;
-   db $D0                               ;03AEC9|03AEEB;
-   db $20                               ;03AECA|030108;
+   db $D0                               ;03AEC9|      ;
+   db $20                               ;03AECA|      ;
    db $08                               ;03AECB|      ;
-   db $01                               ;03AECC|000028;
+   db $01                               ;03AECC|      ;
    db $28                               ;03AECD|      ;
    db $C0                               ;03AECE|      ;
    db $02                               ;03AECF|      ;
    db $08                               ;03AED0|      ;
-   db $01                               ;03AED1|000018;
+   db $01                               ;03AED1|      ;
    db $18                               ;03AED2|      ;
    db $C0                               ;03AED3|      ;
    db $00                               ;03AED4|      ;
    db $08                               ;03AED5|      ;
-   db $01                               ;03AED6|000008;
+   db $01                               ;03AED6|      ;
    db $08                               ;03AED7|      ;
-   db $F0                               ;03AED8|03AF3C;
-   db $62                               ;03AED9|03AFE4;
+   db $F0                               ;03AED8|      ;
+   db $62                               ;03AED9|      ;
    db $08                               ;03AEDA|      ;
-   db $01                               ;03AEDB|0000F8;
+   db $01                               ;03AEDB|      ;
    db $F8                               ;03AEDC|      ;
-   db $F0                               ;03AEDD|03AF3F;
+   db $F0                               ;03AEDD|      ;
    db $60                               ;03AEDE|      ;
    db $08                               ;03AEDF|      ;
-   db $01                               ;03AEE0|000008;
+   db $01                               ;03AEE0|      ;
    db $08                               ;03AEE1|      ;
    db $E0                               ;03AEE2|      ;
    db $42                               ;03AEE3|      ;
    db $08                               ;03AEE4|      ;
-   db $01                               ;03AEE5|0000F8;
+   db $01                               ;03AEE5|      ;
    db $F8                               ;03AEE6|      ;
    db $E0                               ;03AEE7|      ;
    db $40                               ;03AEE8|      ;
    db $08                               ;03AEE9|      ;
-   db $01                               ;03AEEA|000008;
+   db $01                               ;03AEEA|      ;
    db $08                               ;03AEEB|      ;
-   db $D0                               ;03AEEC|03AF10;
-   db $22                               ;03AEED|F80108;
+   db $D0                               ;03AEEC|      ;
+   db $22                               ;03AEED|      ;
    db $08                               ;03AEEE|      ;
-   db $01                               ;03AEEF|0000F8;
+   db $01                               ;03AEEF|      ;
    db $F8                               ;03AEF0|      ;
-   db $D0                               ;03AEF1|03AF13;
-   db $20                               ;03AEF2|030108;
+   db $D0                               ;03AEF1|      ;
+   db $20                               ;03AEF2|      ;
    db $08                               ;03AEF3|      ;
-   db $01                               ;03AEF4|000008;
+   db $01                               ;03AEF4|      ;
    db $08                               ;03AEF5|      ;
    db $C0                               ;03AEF6|      ;
    db $02                               ;03AEF7|      ;
    db $08                               ;03AEF8|      ;
-   db $01                               ;03AEF9|0000F8;
+   db $01                               ;03AEF9|      ;
    db $F8                               ;03AEFA|      ;
    db $C0                               ;03AEFB|      ;
    db $00                               ;03AEFC|      ;
    db $08                               ;03AEFD|      ;
-   db $01                               ;03AEFE|0000E8;
+   db $01                               ;03AEFE|      ;
    db $E8                               ;03AEFF|      ;
-   db $F0                               ;03AF00|03AF64;
-   db $62                               ;03AF01|03B00C;
+   db $F0                               ;03AF00|      ;
+   db $62                               ;03AF01|      ;
    db $08                               ;03AF02|      ;
-   db $01                               ;03AF03|0000D8;
+   db $01                               ;03AF03|      ;
    db $D8                               ;03AF04|      ;
-   db $F0                               ;03AF05|03AF67;
+   db $F0                               ;03AF05|      ;
    db $60                               ;03AF06|      ;
    db $08                               ;03AF07|      ;
-   db $01                               ;03AF08|0000E8;
+   db $01                               ;03AF08|      ;
    db $E8                               ;03AF09|      ;
    db $E0                               ;03AF0A|      ;
    db $42                               ;03AF0B|      ;
    db $08                               ;03AF0C|      ;
-   db $01                               ;03AF0D|0000D8;
+   db $01                               ;03AF0D|      ;
    db $D8                               ;03AF0E|      ;
    db $E0                               ;03AF0F|      ;
    db $40                               ;03AF10|      ;
    db $08                               ;03AF11|      ;
-   db $01                               ;03AF12|0000E8;
+   db $01                               ;03AF12|      ;
    db $E8                               ;03AF13|      ;
-   db $D0                               ;03AF14|03AF38;
-   db $22                               ;03AF15|D80108;
+   db $D0                               ;03AF14|      ;
+   db $22                               ;03AF15|      ;
    db $08                               ;03AF16|      ;
-   db $01                               ;03AF17|0000D8;
+   db $01                               ;03AF17|      ;
    db $D8                               ;03AF18|      ;
-   db $D0                               ;03AF19|03AF3B;
-   db $20                               ;03AF1A|030108;
+   db $D0                               ;03AF19|      ;
+   db $20                               ;03AF1A|      ;
    db $08                               ;03AF1B|      ;
-   db $01                               ;03AF1C|0000E8;
+   db $01                               ;03AF1C|      ;
    db $E8                               ;03AF1D|      ;
    db $C0                               ;03AF1E|      ;
    db $02                               ;03AF1F|      ;
    db $08                               ;03AF20|      ;
-   db $01                               ;03AF21|0000D8;
+   db $01                               ;03AF21|      ;
    db $D8                               ;03AF22|      ;
    db $C0                               ;03AF23|      ;
    db $00                               ;03AF24|      ;
    db $08                               ;03AF25|      ;
-   db $01                               ;03AF26|0000C8;
+   db $01                               ;03AF26|      ;
    db $C8                               ;03AF27|      ;
-   db $F0                               ;03AF28|03AF8C;
-   db $62                               ;03AF29|03B034;
+   db $F0                               ;03AF28|      ;
+   db $62                               ;03AF29|      ;
    db $08                               ;03AF2A|      ;
-   db $01                               ;03AF2B|0000B8;
+   db $01                               ;03AF2B|      ;
    db $B8                               ;03AF2C|      ;
-   db $F0                               ;03AF2D|03AF8F;
+   db $F0                               ;03AF2D|      ;
    db $60                               ;03AF2E|      ;
    db $08                               ;03AF2F|      ;
-   db $01                               ;03AF30|0000C8;
+   db $01                               ;03AF30|      ;
    db $C8                               ;03AF31|      ;
    db $E0                               ;03AF32|      ;
    db $42                               ;03AF33|      ;
    db $08                               ;03AF34|      ;
-   db $01                               ;03AF35|0000B8;
+   db $01                               ;03AF35|      ;
    db $B8                               ;03AF36|      ;
    db $E0                               ;03AF37|      ;
    db $40                               ;03AF38|      ;
    db $08                               ;03AF39|      ;
-   db $01                               ;03AF3A|0000C8;
+   db $01                               ;03AF3A|      ;
    db $C8                               ;03AF3B|      ;
-   db $D0                               ;03AF3C|03AF60;
-   db $22                               ;03AF3D|B80108;
+   db $D0                               ;03AF3C|      ;
+   db $22                               ;03AF3D|      ;
    db $08                               ;03AF3E|      ;
-   db $01                               ;03AF3F|0000B8;
+   db $01                               ;03AF3F|      ;
    db $B8                               ;03AF40|      ;
-   db $D0                               ;03AF41|03AF63;
-   db $20                               ;03AF42|030108;
+   db $D0                               ;03AF41|      ;
+   db $20                               ;03AF42|      ;
    db $08                               ;03AF43|      ;
-   db $01                               ;03AF44|0000C8;
+   db $01                               ;03AF44|      ;
    db $C8                               ;03AF45|      ;
    db $C0                               ;03AF46|      ;
    db $02                               ;03AF47|      ;
    db $08                               ;03AF48|      ;
-   db $01                               ;03AF49|0000B8;
+   db $01                               ;03AF49|      ;
    db $B8                               ;03AF4A|      ;
    db $C0                               ;03AF4B|      ;
    db $00                               ;03AF4C|      ;
    db $08                               ;03AF4D|      ;
-   db $01                               ;03AF4E|000038;
+   db $01                               ;03AF4E|      ;
    db $38                               ;03AF4F|      ;
-   db $30                               ;03AF50|03AFBA;
+   db $30                               ;03AF50|      ;
    db $68                               ;03AF51|      ;
    db $08                               ;03AF52|      ;
-   db $01                               ;03AF53|000028;
+   db $01                               ;03AF53|      ;
    db $28                               ;03AF54|      ;
-   db $30                               ;03AF55|03AFC1;
+   db $30                               ;03AF55|      ;
    db $6A                               ;03AF56|      ;
    db $08                               ;03AF57|      ;
-   db $01                               ;03AF58|000018;
+   db $01                               ;03AF58|      ;
    db $18                               ;03AF59|      ;
-   db $30                               ;03AF5A|03AFC4;
+   db $30                               ;03AF5A|      ;
    db $68                               ;03AF5B|      ;
    db $08                               ;03AF5C|      ;
-   db $01                               ;03AF5D|000008;
+   db $01                               ;03AF5D|      ;
    db $08                               ;03AF5E|      ;
-   db $30                               ;03AF5F|03AFCB;
+   db $30                               ;03AF5F|      ;
    db $6A                               ;03AF60|      ;
    db $08                               ;03AF61|      ;
-   db $01                               ;03AF62|0000F8;
+   db $01                               ;03AF62|      ;
    db $F8                               ;03AF63|      ;
-   db $30                               ;03AF64|03AFCE;
+   db $30                               ;03AF64|      ;
    db $68                               ;03AF65|      ;
    db $08                               ;03AF66|      ;
-   db $01                               ;03AF67|0000E8;
+   db $01                               ;03AF67|      ;
    db $E8                               ;03AF68|      ;
-   db $30                               ;03AF69|03AFD5;
+   db $30                               ;03AF69|      ;
    db $6A                               ;03AF6A|      ;
    db $08                               ;03AF6B|      ;
-   db $01                               ;03AF6C|0000D8;
+   db $01                               ;03AF6C|      ;
    db $D8                               ;03AF6D|      ;
-   db $30                               ;03AF6E|03AFD8;
+   db $30                               ;03AF6E|      ;
    db $68                               ;03AF6F|      ;
    db $08                               ;03AF70|      ;
-   db $01                               ;03AF71|0000C8;
+   db $01                               ;03AF71|      ;
    db $C8                               ;03AF72|      ;
-   db $30                               ;03AF73|03AFDF;
+   db $30                               ;03AF73|      ;
    db $6A                               ;03AF74|      ;
    db $08                               ;03AF75|      ;
-   db $03                               ;03AF76|0000B8;
+   db $03                               ;03AF76|      ;
    db $B8                               ;03AF77|      ;
-   db $30                               ;03AF78|03AFE2;
+   db $30                               ;03AF78|      ;
    db $68                               ;03AF79|      ;
    db $08                               ;03AF7A|      ;
-DATA8_03AF7B:
+Tileset_Event69_01:
    db $01                               ;03AF7B|      ;
    db $B8                               ;03AF7C|      ;
-   db $20                               ;03AF7D|034848;
+   db $20                               ;03AF7D|      ;
    db $48                               ;03AF7E|      ;
    db $48                               ;03AF7F|      ;
-   db $01                               ;03AF80|0000B8;
+   db $01                               ;03AF80|      ;
    db $B8                               ;03AF81|      ;
-   db $10                               ;03AF82|03AFAC;
+   db $10                               ;03AF82|      ;
    db $28                               ;03AF83|      ;
    db $48                               ;03AF84|      ;
-   db $01                               ;03AF85|0000B8;
+   db $01                               ;03AF85|      ;
    db $B8                               ;03AF86|      ;
    db $00                               ;03AF87|      ;
    db $08                               ;03AF88|      ;
    db $48                               ;03AF89|      ;
-   db $01                               ;03AF8A|0000C8;
+   db $01                               ;03AF8A|      ;
    db $C8                               ;03AF8B|      ;
-   db $20                               ;03AF8C|03484A;
+   db $20                               ;03AF8C|      ;
    db $4A                               ;03AF8D|      ;
    db $48                               ;03AF8E|      ;
-   db $01                               ;03AF8F|0000D8;
+   db $01                               ;03AF8F|      ;
    db $D8                               ;03AF90|      ;
-   db $20                               ;03AF91|034848;
+   db $20                               ;03AF91|      ;
    db $48                               ;03AF92|      ;
    db $48                               ;03AF93|      ;
-   db $01                               ;03AF94|0000C8;
+   db $01                               ;03AF94|      ;
    db $C8                               ;03AF95|      ;
-   db $10                               ;03AF96|03AFC2;
+   db $10                               ;03AF96|      ;
    db $2A                               ;03AF97|      ;
    db $48                               ;03AF98|      ;
-   db $01                               ;03AF99|0000D8;
+   db $01                               ;03AF99|      ;
    db $D8                               ;03AF9A|      ;
-   db $10                               ;03AF9B|03AFC5;
+   db $10                               ;03AF9B|      ;
    db $28                               ;03AF9C|      ;
    db $48                               ;03AF9D|      ;
-   db $01                               ;03AF9E|0000C8;
+   db $01                               ;03AF9E|      ;
    db $C8                               ;03AF9F|      ;
    db $00                               ;03AFA0|      ;
    db $0A                               ;03AFA1|      ;
    db $48                               ;03AFA2|      ;
-   db $01                               ;03AFA3|0000D8;
+   db $01                               ;03AFA3|      ;
    db $D8                               ;03AFA4|      ;
    db $00                               ;03AFA5|      ;
    db $08                               ;03AFA6|      ;
    db $48                               ;03AFA7|      ;
-   db $01                               ;03AFA8|0000E8;
+   db $01                               ;03AFA8|      ;
    db $E8                               ;03AFA9|      ;
-   db $20                               ;03AFAA|03484A;
+   db $20                               ;03AFAA|      ;
    db $4A                               ;03AFAB|      ;
    db $48                               ;03AFAC|      ;
-   db $01                               ;03AFAD|0000F8;
+   db $01                               ;03AFAD|      ;
    db $F8                               ;03AFAE|      ;
-   db $20                               ;03AFAF|034848;
+   db $20                               ;03AFAF|      ;
    db $48                               ;03AFB0|      ;
    db $48                               ;03AFB1|      ;
-   db $01                               ;03AFB2|0000E8;
+   db $01                               ;03AFB2|      ;
    db $E8                               ;03AFB3|      ;
-   db $10                               ;03AFB4|03AFE0;
+   db $10                               ;03AFB4|      ;
    db $2A                               ;03AFB5|      ;
    db $48                               ;03AFB6|      ;
-   db $01                               ;03AFB7|0000F8;
+   db $01                               ;03AFB7|      ;
    db $F8                               ;03AFB8|      ;
-   db $10                               ;03AFB9|03AFE3;
+   db $10                               ;03AFB9|      ;
    db $28                               ;03AFBA|      ;
    db $48                               ;03AFBB|      ;
-   db $01                               ;03AFBC|0000E8;
+   db $01                               ;03AFBC|      ;
    db $E8                               ;03AFBD|      ;
    db $00                               ;03AFBE|      ;
    db $0A                               ;03AFBF|      ;
    db $48                               ;03AFC0|      ;
-   db $01                               ;03AFC1|0000F8;
+   db $01                               ;03AFC1|      ;
    db $F8                               ;03AFC2|      ;
    db $00                               ;03AFC3|      ;
    db $08                               ;03AFC4|      ;
    db $48                               ;03AFC5|      ;
-   db $01                               ;03AFC6|000008;
+   db $01                               ;03AFC6|      ;
    db $08                               ;03AFC7|      ;
-   db $20                               ;03AFC8|03484A;
+   db $20                               ;03AFC8|      ;
    db $4A                               ;03AFC9|      ;
    db $48                               ;03AFCA|      ;
-   db $01                               ;03AFCB|000018;
+   db $01                               ;03AFCB|      ;
    db $18                               ;03AFCC|      ;
-   db $20                               ;03AFCD|034848;
+   db $20                               ;03AFCD|      ;
    db $48                               ;03AFCE|      ;
    db $48                               ;03AFCF|      ;
-   db $01                               ;03AFD0|000008;
+   db $01                               ;03AFD0|      ;
    db $08                               ;03AFD1|      ;
-   db $10                               ;03AFD2|03AFFE;
+   db $10                               ;03AFD2|      ;
    db $2A                               ;03AFD3|      ;
    db $48                               ;03AFD4|      ;
-   db $01                               ;03AFD5|000018;
+   db $01                               ;03AFD5|      ;
    db $18                               ;03AFD6|      ;
-   db $10                               ;03AFD7|03B001;
+   db $10                               ;03AFD7|      ;
    db $28                               ;03AFD8|      ;
    db $48                               ;03AFD9|      ;
-   db $01                               ;03AFDA|000008;
+   db $01                               ;03AFDA|      ;
    db $08                               ;03AFDB|      ;
    db $00                               ;03AFDC|      ;
    db $0A                               ;03AFDD|      ;
    db $48                               ;03AFDE|      ;
-   db $01                               ;03AFDF|000018;
+   db $01                               ;03AFDF|      ;
    db $18                               ;03AFE0|      ;
    db $00                               ;03AFE1|      ;
    db $08                               ;03AFE2|      ;
    db $48                               ;03AFE3|      ;
-   db $01                               ;03AFE4|000028;
+   db $01                               ;03AFE4|      ;
    db $28                               ;03AFE5|      ;
-   db $20                               ;03AFE6|03484A;
+   db $20                               ;03AFE6|      ;
    db $4A                               ;03AFE7|      ;
    db $48                               ;03AFE8|      ;
-   db $01                               ;03AFE9|000038;
+   db $01                               ;03AFE9|      ;
    db $38                               ;03AFEA|      ;
-   db $20                               ;03AFEB|034848;
+   db $20                               ;03AFEB|      ;
    db $48                               ;03AFEC|      ;
    db $48                               ;03AFED|      ;
-   db $01                               ;03AFEE|000028;
+   db $01                               ;03AFEE|      ;
    db $28                               ;03AFEF|      ;
-   db $10                               ;03AFF0|03B01C;
+   db $10                               ;03AFF0|      ;
    db $2A                               ;03AFF1|      ;
    db $48                               ;03AFF2|      ;
-   db $01                               ;03AFF3|000038;
+   db $01                               ;03AFF3|      ;
    db $38                               ;03AFF4|      ;
-   db $10                               ;03AFF5|03B01F;
+   db $10                               ;03AFF5|      ;
    db $28                               ;03AFF6|      ;
    db $48                               ;03AFF7|      ;
-   db $01                               ;03AFF8|000028;
+   db $01                               ;03AFF8|      ;
    db $28                               ;03AFF9|      ;
    db $00                               ;03AFFA|      ;
    db $0A                               ;03AFFB|      ;
    db $48                               ;03AFFC|      ;
-   db $01                               ;03AFFD|000038;
+   db $01                               ;03AFFD|      ;
    db $38                               ;03AFFE|      ;
    db $00                               ;03AFFF|      ;
    db $08                               ;03B000|      ;
    db $48                               ;03B001|      ;
-   db $01                               ;03B002|000038;
+   db $01                               ;03B002|      ;
    db $38                               ;03B003|      ;
-   db $F0                               ;03B004|03B068;
-   db $62                               ;03B005|03B150;
+   db $F0                               ;03B004|      ;
+   db $62                               ;03B005|      ;
    db $48                               ;03B006|      ;
-   db $01                               ;03B007|000038;
+   db $01                               ;03B007|      ;
    db $38                               ;03B008|      ;
    db $E0                               ;03B009|      ;
    db $42                               ;03B00A|      ;
    db $48                               ;03B00B|      ;
-   db $01                               ;03B00C|000038;
+   db $01                               ;03B00C|      ;
    db $38                               ;03B00D|      ;
-   db $D0                               ;03B00E|03B032;
-   db $22                               ;03B00F|380148;
+   db $D0                               ;03B00E|      ;
+   db $22                               ;03B00F|      ;
    db $48                               ;03B010|      ;
-   db $01                               ;03B011|000038;
+   db $01                               ;03B011|      ;
    db $38                               ;03B012|      ;
    db $C0                               ;03B013|      ;
    db $02                               ;03B014|      ;
    db $48                               ;03B015|      ;
-   db $01                               ;03B016|000028;
+   db $01                               ;03B016|      ;
    db $28                               ;03B017|      ;
-   db $F0                               ;03B018|03B07A;
+   db $F0                               ;03B018|      ;
    db $60                               ;03B019|      ;
    db $48                               ;03B01A|      ;
-   db $01                               ;03B01B|000028;
+   db $01                               ;03B01B|      ;
    db $28                               ;03B01C|      ;
    db $E0                               ;03B01D|      ;
    db $40                               ;03B01E|      ;
    db $48                               ;03B01F|      ;
-   db $01                               ;03B020|000028;
+   db $01                               ;03B020|      ;
    db $28                               ;03B021|      ;
-   db $D0                               ;03B022|03B044;
-   db $20                               ;03B023|030148;
+   db $D0                               ;03B022|      ;
+   db $20                               ;03B023|      ;
    db $48                               ;03B024|      ;
-   db $01                               ;03B025|000028;
+   db $01                               ;03B025|      ;
    db $28                               ;03B026|      ;
    db $C0                               ;03B027|      ;
    db $00                               ;03B028|      ;
    db $48                               ;03B029|      ;
-   db $01                               ;03B02A|000018;
+   db $01                               ;03B02A|      ;
    db $18                               ;03B02B|      ;
-   db $F0                               ;03B02C|03B090;
-   db $62                               ;03B02D|03B178;
+   db $F0                               ;03B02C|      ;
+   db $62                               ;03B02D|      ;
    db $48                               ;03B02E|      ;
-   db $01                               ;03B02F|000018;
+   db $01                               ;03B02F|      ;
    db $18                               ;03B030|      ;
    db $E0                               ;03B031|      ;
    db $42                               ;03B032|      ;
    db $48                               ;03B033|      ;
-   db $01                               ;03B034|000018;
+   db $01                               ;03B034|      ;
    db $18                               ;03B035|      ;
-   db $D0                               ;03B036|03B05A;
-   db $22                               ;03B037|180148;
+   db $D0                               ;03B036|      ;
+   db $22                               ;03B037|      ;
    db $48                               ;03B038|      ;
-   db $01                               ;03B039|000018;
+   db $01                               ;03B039|      ;
    db $18                               ;03B03A|      ;
    db $C0                               ;03B03B|      ;
    db $02                               ;03B03C|      ;
    db $48                               ;03B03D|      ;
-   db $01                               ;03B03E|000008;
+   db $01                               ;03B03E|      ;
    db $08                               ;03B03F|      ;
-   db $F0                               ;03B040|03B0A2;
+   db $F0                               ;03B040|      ;
    db $60                               ;03B041|      ;
    db $48                               ;03B042|      ;
-   db $01                               ;03B043|000008;
+   db $01                               ;03B043|      ;
    db $08                               ;03B044|      ;
    db $E0                               ;03B045|      ;
    db $40                               ;03B046|      ;
    db $48                               ;03B047|      ;
-   db $01                               ;03B048|000008;
+   db $01                               ;03B048|      ;
    db $08                               ;03B049|      ;
-   db $D0                               ;03B04A|03B06C;
-   db $20                               ;03B04B|030148;
+   db $D0                               ;03B04A|      ;
+   db $20                               ;03B04B|      ;
    db $48                               ;03B04C|      ;
-   db $01                               ;03B04D|000008;
+   db $01                               ;03B04D|      ;
    db $08                               ;03B04E|      ;
    db $C0                               ;03B04F|      ;
    db $00                               ;03B050|      ;
    db $48                               ;03B051|      ;
-   db $01                               ;03B052|0000F8;
+   db $01                               ;03B052|      ;
    db $F8                               ;03B053|      ;
-   db $F0                               ;03B054|03B0B8;
-   db $62                               ;03B055|03B1A0;
+   db $F0                               ;03B054|      ;
+   db $62                               ;03B055|      ;
    db $48                               ;03B056|      ;
-   db $01                               ;03B057|0000F8;
+   db $01                               ;03B057|      ;
    db $F8                               ;03B058|      ;
    db $E0                               ;03B059|      ;
    db $42                               ;03B05A|      ;
    db $48                               ;03B05B|      ;
-   db $01                               ;03B05C|0000F8;
+   db $01                               ;03B05C|      ;
    db $F8                               ;03B05D|      ;
-   db $D0                               ;03B05E|03B082;
-   db $22                               ;03B05F|F80148;
+   db $D0                               ;03B05E|      ;
+   db $22                               ;03B05F|      ;
    db $48                               ;03B060|      ;
-   db $01                               ;03B061|0000F8;
+   db $01                               ;03B061|      ;
    db $F8                               ;03B062|      ;
    db $C0                               ;03B063|      ;
    db $02                               ;03B064|      ;
    db $48                               ;03B065|      ;
-   db $01                               ;03B066|0000E8;
+   db $01                               ;03B066|      ;
    db $E8                               ;03B067|      ;
-   db $F0                               ;03B068|03B0CA;
+   db $F0                               ;03B068|      ;
    db $60                               ;03B069|      ;
    db $48                               ;03B06A|      ;
-   db $01                               ;03B06B|0000E8;
+   db $01                               ;03B06B|      ;
    db $E8                               ;03B06C|      ;
    db $E0                               ;03B06D|      ;
    db $40                               ;03B06E|      ;
    db $48                               ;03B06F|      ;
-   db $01                               ;03B070|0000E8;
+   db $01                               ;03B070|      ;
    db $E8                               ;03B071|      ;
-   db $D0                               ;03B072|03B094;
-   db $20                               ;03B073|030148;
+   db $D0                               ;03B072|      ;
+   db $20                               ;03B073|      ;
    db $48                               ;03B074|      ;
-   db $01                               ;03B075|0000E8;
+   db $01                               ;03B075|      ;
    db $E8                               ;03B076|      ;
    db $C0                               ;03B077|      ;
    db $00                               ;03B078|      ;
    db $48                               ;03B079|      ;
-   db $01                               ;03B07A|0000D8;
+   db $01                               ;03B07A|      ;
    db $D8                               ;03B07B|      ;
-   db $F0                               ;03B07C|03B0E0;
-   db $62                               ;03B07D|03B1C8;
+   db $F0                               ;03B07C|      ;
+   db $62                               ;03B07D|      ;
    db $48                               ;03B07E|      ;
-   db $01                               ;03B07F|0000D8;
+   db $01                               ;03B07F|      ;
    db $D8                               ;03B080|      ;
    db $E0                               ;03B081|      ;
    db $42                               ;03B082|      ;
    db $48                               ;03B083|      ;
-   db $01                               ;03B084|0000D8;
+   db $01                               ;03B084|      ;
    db $D8                               ;03B085|      ;
-   db $D0                               ;03B086|03B0AA;
-   db $22                               ;03B087|D80148;
+   db $D0                               ;03B086|      ;
+   db $22                               ;03B087|      ;
    db $48                               ;03B088|      ;
-   db $01                               ;03B089|0000D8;
+   db $01                               ;03B089|      ;
    db $D8                               ;03B08A|      ;
    db $C0                               ;03B08B|      ;
    db $02                               ;03B08C|      ;
    db $48                               ;03B08D|      ;
-   db $01                               ;03B08E|0000C8;
+   db $01                               ;03B08E|      ;
    db $C8                               ;03B08F|      ;
-   db $F0                               ;03B090|03B0F2;
+   db $F0                               ;03B090|      ;
    db $60                               ;03B091|      ;
    db $48                               ;03B092|      ;
-   db $01                               ;03B093|0000C8;
+   db $01                               ;03B093|      ;
    db $C8                               ;03B094|      ;
    db $E0                               ;03B095|      ;
    db $40                               ;03B096|      ;
    db $48                               ;03B097|      ;
-   db $01                               ;03B098|0000C8;
+   db $01                               ;03B098|      ;
    db $C8                               ;03B099|      ;
-   db $D0                               ;03B09A|03B0BC;
-   db $20                               ;03B09B|030148;
+   db $D0                               ;03B09A|      ;
+   db $20                               ;03B09B|      ;
    db $48                               ;03B09C|      ;
-   db $01                               ;03B09D|0000C8;
+   db $01                               ;03B09D|      ;
    db $C8                               ;03B09E|      ;
    db $C0                               ;03B09F|      ;
    db $00                               ;03B0A0|      ;
    db $48                               ;03B0A1|      ;
-   db $01                               ;03B0A2|0000B8;
+   db $01                               ;03B0A2|      ;
    db $B8                               ;03B0A3|      ;
-   db $F0                               ;03B0A4|03B108;
-   db $62                               ;03B0A5|03B1F0;
+   db $F0                               ;03B0A4|      ;
+   db $62                               ;03B0A5|      ;
    db $48                               ;03B0A6|      ;
-   db $01                               ;03B0A7|0000B8;
+   db $01                               ;03B0A7|      ;
    db $B8                               ;03B0A8|      ;
    db $E0                               ;03B0A9|      ;
    db $42                               ;03B0AA|      ;
    db $48                               ;03B0AB|      ;
-   db $01                               ;03B0AC|0000B8;
+   db $01                               ;03B0AC|      ;
    db $B8                               ;03B0AD|      ;
-   db $D0                               ;03B0AE|03B0D2;
-   db $22                               ;03B0AF|B80148;
+   db $D0                               ;03B0AE|      ;
+   db $22                               ;03B0AF|      ;
    db $48                               ;03B0B0|      ;
-   db $01                               ;03B0B1|0000B8;
+   db $01                               ;03B0B1|      ;
    db $B8                               ;03B0B2|      ;
    db $C0                               ;03B0B3|      ;
    db $02                               ;03B0B4|      ;
    db $48                               ;03B0B5|      ;
-   db $01                               ;03B0B6|0000B8;
+   db $01                               ;03B0B6|      ;
    db $B8                               ;03B0B7|      ;
-   db $30                               ;03B0B8|03B122;
+   db $30                               ;03B0B8|      ;
    db $68                               ;03B0B9|      ;
    db $48                               ;03B0BA|      ;
-   db $01                               ;03B0BB|0000C8;
+   db $01                               ;03B0BB|      ;
    db $C8                               ;03B0BC|      ;
-   db $30                               ;03B0BD|03B129;
+   db $30                               ;03B0BD|      ;
    db $6A                               ;03B0BE|      ;
    db $48                               ;03B0BF|      ;
-   db $01                               ;03B0C0|0000D8;
+   db $01                               ;03B0C0|      ;
    db $D8                               ;03B0C1|      ;
-   db $30                               ;03B0C2|03B12C;
+   db $30                               ;03B0C2|      ;
    db $68                               ;03B0C3|      ;
    db $48                               ;03B0C4|      ;
-   db $01                               ;03B0C5|0000E8;
+   db $01                               ;03B0C5|      ;
    db $E8                               ;03B0C6|      ;
-   db $30                               ;03B0C7|03B133;
+   db $30                               ;03B0C7|      ;
    db $6A                               ;03B0C8|      ;
    db $48                               ;03B0C9|      ;
-   db $01                               ;03B0CA|0000F8;
+   db $01                               ;03B0CA|      ;
    db $F8                               ;03B0CB|      ;
-   db $30                               ;03B0CC|03B136;
+   db $30                               ;03B0CC|      ;
    db $68                               ;03B0CD|      ;
    db $48                               ;03B0CE|      ;
-   db $01                               ;03B0CF|000008;
+   db $01                               ;03B0CF|      ;
    db $08                               ;03B0D0|      ;
-   db $30                               ;03B0D1|03B13D;
+   db $30                               ;03B0D1|      ;
    db $6A                               ;03B0D2|      ;
    db $48                               ;03B0D3|      ;
-   db $01                               ;03B0D4|000018;
+   db $01                               ;03B0D4|      ;
    db $18                               ;03B0D5|      ;
-   db $30                               ;03B0D6|03B140;
+   db $30                               ;03B0D6|      ;
    db $68                               ;03B0D7|      ;
    db $48                               ;03B0D8|      ;
-   db $01                               ;03B0D9|000028;
+   db $01                               ;03B0D9|      ;
    db $28                               ;03B0DA|      ;
-   db $30                               ;03B0DB|03B147;
+   db $30                               ;03B0DB|      ;
    db $6A                               ;03B0DC|      ;
    db $48                               ;03B0DD|      ;
-   db $03                               ;03B0DE|000038;
+   db $03                               ;03B0DE|      ;
    db $38                               ;03B0DF|      ;
-   db $30                               ;03B0E0|03B14A;
+   db $30                               ;03B0E0|      ;
    db $68                               ;03B0E1|      ;
    db $48                               ;03B0E2|      ;
-DATA8_03B0E3:
+Tileset_Event69_02:
    db $01                               ;03B0E3|      ;
    db $38                               ;03B0E4|      ;
-   db $20                               ;03B0E5|030848;
+   db $20                               ;03B0E5|      ;
    db $48                               ;03B0E6|      ;
    db $08                               ;03B0E7|      ;
-   db $01                               ;03B0E8|000038;
+   db $01                               ;03B0E8|      ;
    db $38                               ;03B0E9|      ;
-   db $10                               ;03B0EA|03B114;
+   db $10                               ;03B0EA|      ;
    db $28                               ;03B0EB|      ;
    db $08                               ;03B0EC|      ;
-   db $01                               ;03B0ED|000038;
+   db $01                               ;03B0ED|      ;
    db $38                               ;03B0EE|      ;
    db $00                               ;03B0EF|      ;
    db $08                               ;03B0F0|      ;
    db $08                               ;03B0F1|      ;
-   db $01                               ;03B0F2|000028;
+   db $01                               ;03B0F2|      ;
    db $28                               ;03B0F3|      ;
-   db $20                               ;03B0F4|03084E;
-   db $4E                               ;03B0F5|000108;
+   db $20                               ;03B0F4|      ;
+   db $4E                               ;03B0F5|      ;
    db $08                               ;03B0F6|      ;
-   db $01                               ;03B0F7|000018;
+   db $01                               ;03B0F7|      ;
    db $18                               ;03B0F8|      ;
-   db $20                               ;03B0F9|03084C;
-   db $4C                               ;03B0FA|030108;
+   db $20                               ;03B0F9|      ;
+   db $4C                               ;03B0FA|      ;
    db $08                               ;03B0FB|      ;
-   db $01                               ;03B0FC|000028;
+   db $01                               ;03B0FC|      ;
    db $28                               ;03B0FD|      ;
-   db $10                               ;03B0FE|03B12E;
-   db $2E                               ;03B0FF|000108;
+   db $10                               ;03B0FE|      ;
+   db $2E                               ;03B0FF|      ;
    db $08                               ;03B100|      ;
-   db $01                               ;03B101|000018;
+   db $01                               ;03B101|      ;
    db $18                               ;03B102|      ;
-   db $10                               ;03B103|03B131;
-   db $2C                               ;03B104|000108;
+   db $10                               ;03B103|      ;
+   db $2C                               ;03B104|      ;
    db $08                               ;03B105|      ;
-   db $01                               ;03B106|000028;
+   db $01                               ;03B106|      ;
    db $28                               ;03B107|      ;
    db $00                               ;03B108|      ;
-   db $0E                               ;03B109|000108;
+   db $0E                               ;03B109|      ;
    db $08                               ;03B10A|      ;
-   db $01                               ;03B10B|000018;
+   db $01                               ;03B10B|      ;
    db $18                               ;03B10C|      ;
    db $00                               ;03B10D|      ;
-   db $0C                               ;03B10E|000108;
+   db $0C                               ;03B10E|      ;
    db $08                               ;03B10F|      ;
-   db $01                               ;03B110|000008;
+   db $01                               ;03B110|      ;
    db $08                               ;03B111|      ;
-   db $20                               ;03B112|03084E;
-   db $4E                               ;03B113|000108;
+   db $20                               ;03B112|      ;
+   db $4E                               ;03B113|      ;
    db $08                               ;03B114|      ;
-   db $01                               ;03B115|0000F8;
+   db $01                               ;03B115|      ;
    db $F8                               ;03B116|      ;
-   db $20                               ;03B117|03084C;
-   db $4C                               ;03B118|030108;
+   db $20                               ;03B117|      ;
+   db $4C                               ;03B118|      ;
    db $08                               ;03B119|      ;
-   db $01                               ;03B11A|000008;
+   db $01                               ;03B11A|      ;
    db $08                               ;03B11B|      ;
-   db $10                               ;03B11C|03B14C;
-   db $2E                               ;03B11D|000108;
+   db $10                               ;03B11C|      ;
+   db $2E                               ;03B11D|      ;
    db $08                               ;03B11E|      ;
-   db $01                               ;03B11F|0000F8;
+   db $01                               ;03B11F|      ;
    db $F8                               ;03B120|      ;
-   db $10                               ;03B121|03B14F;
-   db $2C                               ;03B122|000108;
+   db $10                               ;03B121|      ;
+   db $2C                               ;03B122|      ;
    db $08                               ;03B123|      ;
-   db $01                               ;03B124|000008;
+   db $01                               ;03B124|      ;
    db $08                               ;03B125|      ;
    db $00                               ;03B126|      ;
-   db $0E                               ;03B127|000108;
+   db $0E                               ;03B127|      ;
    db $08                               ;03B128|      ;
-   db $01                               ;03B129|0000F8;
+   db $01                               ;03B129|      ;
    db $F8                               ;03B12A|      ;
    db $00                               ;03B12B|      ;
-   db $0C                               ;03B12C|000108;
+   db $0C                               ;03B12C|      ;
    db $08                               ;03B12D|      ;
-   db $01                               ;03B12E|0000E8;
+   db $01                               ;03B12E|      ;
    db $E8                               ;03B12F|      ;
-   db $20                               ;03B130|03084E;
-   db $4E                               ;03B131|000108;
+   db $20                               ;03B130|      ;
+   db $4E                               ;03B131|      ;
    db $08                               ;03B132|      ;
-   db $01                               ;03B133|0000D8;
+   db $01                               ;03B133|      ;
    db $D8                               ;03B134|      ;
-   db $20                               ;03B135|03084C;
-   db $4C                               ;03B136|030108;
+   db $20                               ;03B135|      ;
+   db $4C                               ;03B136|      ;
    db $08                               ;03B137|      ;
-   db $01                               ;03B138|0000E8;
+   db $01                               ;03B138|      ;
    db $E8                               ;03B139|      ;
-   db $10                               ;03B13A|03B16A;
-   db $2E                               ;03B13B|000108;
+   db $10                               ;03B13A|      ;
+   db $2E                               ;03B13B|      ;
    db $08                               ;03B13C|      ;
-   db $01                               ;03B13D|0000D8;
+   db $01                               ;03B13D|      ;
    db $D8                               ;03B13E|      ;
-   db $10                               ;03B13F|03B16D;
-   db $2C                               ;03B140|000108;
+   db $10                               ;03B13F|      ;
+   db $2C                               ;03B140|      ;
    db $08                               ;03B141|      ;
-   db $01                               ;03B142|0000E8;
+   db $01                               ;03B142|      ;
    db $E8                               ;03B143|      ;
    db $00                               ;03B144|      ;
-   db $0E                               ;03B145|000108;
+   db $0E                               ;03B145|      ;
    db $08                               ;03B146|      ;
-   db $01                               ;03B147|0000D8;
+   db $01                               ;03B147|      ;
    db $D8                               ;03B148|      ;
    db $00                               ;03B149|      ;
-   db $0C                               ;03B14A|000108;
+   db $0C                               ;03B14A|      ;
    db $08                               ;03B14B|      ;
-   db $01                               ;03B14C|0000C8;
+   db $01                               ;03B14C|      ;
    db $C8                               ;03B14D|      ;
-   db $20                               ;03B14E|03084E;
-   db $4E                               ;03B14F|000108;
+   db $20                               ;03B14E|      ;
+   db $4E                               ;03B14F|      ;
    db $08                               ;03B150|      ;
-   db $01                               ;03B151|0000B8;
+   db $01                               ;03B151|      ;
    db $B8                               ;03B152|      ;
-   db $20                               ;03B153|03084C;
-   db $4C                               ;03B154|030108;
+   db $20                               ;03B153|      ;
+   db $4C                               ;03B154|      ;
    db $08                               ;03B155|      ;
-   db $01                               ;03B156|0000C8;
+   db $01                               ;03B156|      ;
    db $C8                               ;03B157|      ;
-   db $10                               ;03B158|03B188;
-   db $2E                               ;03B159|000108;
+   db $10                               ;03B158|      ;
+   db $2E                               ;03B159|      ;
    db $08                               ;03B15A|      ;
-   db $01                               ;03B15B|0000B8;
+   db $01                               ;03B15B|      ;
    db $B8                               ;03B15C|      ;
-   db $10                               ;03B15D|03B18B;
-   db $2C                               ;03B15E|000108;
+   db $10                               ;03B15D|      ;
+   db $2C                               ;03B15E|      ;
    db $08                               ;03B15F|      ;
-   db $01                               ;03B160|0000C8;
+   db $01                               ;03B160|      ;
    db $C8                               ;03B161|      ;
    db $00                               ;03B162|      ;
-   db $0E                               ;03B163|000108;
+   db $0E                               ;03B163|      ;
    db $08                               ;03B164|      ;
-   db $01                               ;03B165|0000B8;
+   db $01                               ;03B165|      ;
    db $B8                               ;03B166|      ;
    db $00                               ;03B167|      ;
-   db $0C                               ;03B168|000108;
+   db $0C                               ;03B168|      ;
    db $08                               ;03B169|      ;
-   db $01                               ;03B16A|000038;
+   db $01                               ;03B16A|      ;
    db $38                               ;03B16B|      ;
-   db $F0                               ;03B16C|03B1D2;
-   db $64                               ;03B16D|000008;
+   db $F0                               ;03B16C|      ;
+   db $64                               ;03B16D|      ;
    db $08                               ;03B16E|      ;
-   db $01                               ;03B16F|000038;
+   db $01                               ;03B16F|      ;
    db $38                               ;03B170|      ;
    db $E0                               ;03B171|      ;
    db $44                               ;03B172|      ;
    db $08                               ;03B173|      ;
-   db $01                               ;03B174|000038;
+   db $01                               ;03B174|      ;
    db $38                               ;03B175|      ;
-   db $D0                               ;03B176|03B19C;
-   db $24                               ;03B177|000008;
+   db $D0                               ;03B176|      ;
+   db $24                               ;03B177|      ;
    db $08                               ;03B178|      ;
-   db $01                               ;03B179|000038;
+   db $01                               ;03B179|      ;
    db $38                               ;03B17A|      ;
    db $C0                               ;03B17B|      ;
-   db $04                               ;03B17C|000008;
+   db $04                               ;03B17C|      ;
    db $08                               ;03B17D|      ;
-   db $01                               ;03B17E|000028;
+   db $01                               ;03B17E|      ;
    db $28                               ;03B17F|      ;
-   db $F0                               ;03B180|03B1E8;
-   db $66                               ;03B181|000008;
+   db $F0                               ;03B180|      ;
+   db $66                               ;03B181|      ;
    db $08                               ;03B182|      ;
-   db $01                               ;03B183|000018;
+   db $01                               ;03B183|      ;
    db $18                               ;03B184|      ;
-   db $F0                               ;03B185|03B1EB;
-   db $64                               ;03B186|000008;
+   db $F0                               ;03B185|      ;
+   db $64                               ;03B186|      ;
    db $08                               ;03B187|      ;
-   db $01                               ;03B188|000028;
+   db $01                               ;03B188|      ;
    db $28                               ;03B189|      ;
    db $E0                               ;03B18A|      ;
-   db $46                               ;03B18B|000008;
+   db $46                               ;03B18B|      ;
    db $08                               ;03B18C|      ;
-   db $01                               ;03B18D|000018;
+   db $01                               ;03B18D|      ;
    db $18                               ;03B18E|      ;
    db $E0                               ;03B18F|      ;
    db $44                               ;03B190|      ;
    db $08                               ;03B191|      ;
-   db $01                               ;03B192|000028;
+   db $01                               ;03B192|      ;
    db $28                               ;03B193|      ;
-   db $D0                               ;03B194|03B1BC;
-   db $26                               ;03B195|000008;
+   db $D0                               ;03B194|      ;
+   db $26                               ;03B195|      ;
    db $08                               ;03B196|      ;
-   db $01                               ;03B197|000018;
+   db $01                               ;03B197|      ;
    db $18                               ;03B198|      ;
-   db $D0                               ;03B199|03B1BF;
-   db $24                               ;03B19A|000008;
+   db $D0                               ;03B199|      ;
+   db $24                               ;03B19A|      ;
    db $08                               ;03B19B|      ;
-   db $01                               ;03B19C|000028;
+   db $01                               ;03B19C|      ;
    db $28                               ;03B19D|      ;
    db $C0                               ;03B19E|      ;
-   db $06                               ;03B19F|000008;
+   db $06                               ;03B19F|      ;
    db $08                               ;03B1A0|      ;
-   db $01                               ;03B1A1|000018;
+   db $01                               ;03B1A1|      ;
    db $18                               ;03B1A2|      ;
    db $C0                               ;03B1A3|      ;
-   db $04                               ;03B1A4|000008;
+   db $04                               ;03B1A4|      ;
    db $08                               ;03B1A5|      ;
-   db $01                               ;03B1A6|000008;
+   db $01                               ;03B1A6|      ;
    db $08                               ;03B1A7|      ;
-   db $F0                               ;03B1A8|03B210;
-   db $66                               ;03B1A9|000008;
+   db $F0                               ;03B1A8|      ;
+   db $66                               ;03B1A9|      ;
    db $08                               ;03B1AA|      ;
-   db $01                               ;03B1AB|0000F8;
+   db $01                               ;03B1AB|      ;
    db $F8                               ;03B1AC|      ;
-   db $F0                               ;03B1AD|03B213;
-   db $64                               ;03B1AE|000008;
+   db $F0                               ;03B1AD|      ;
+   db $64                               ;03B1AE|      ;
    db $08                               ;03B1AF|      ;
-   db $01                               ;03B1B0|000008;
+   db $01                               ;03B1B0|      ;
    db $08                               ;03B1B1|      ;
    db $E0                               ;03B1B2|      ;
-   db $46                               ;03B1B3|000008;
+   db $46                               ;03B1B3|      ;
    db $08                               ;03B1B4|      ;
-   db $01                               ;03B1B5|0000F8;
+   db $01                               ;03B1B5|      ;
    db $F8                               ;03B1B6|      ;
    db $E0                               ;03B1B7|      ;
    db $44                               ;03B1B8|      ;
    db $08                               ;03B1B9|      ;
-   db $01                               ;03B1BA|000008;
+   db $01                               ;03B1BA|      ;
    db $08                               ;03B1BB|      ;
-   db $D0                               ;03B1BC|03B1E4;
-   db $26                               ;03B1BD|000008;
+   db $D0                               ;03B1BC|      ;
+   db $26                               ;03B1BD|      ;
    db $08                               ;03B1BE|      ;
-   db $01                               ;03B1BF|0000F8;
+   db $01                               ;03B1BF|      ;
    db $F8                               ;03B1C0|      ;
-   db $D0                               ;03B1C1|03B1E7;
-   db $24                               ;03B1C2|000008;
+   db $D0                               ;03B1C1|      ;
+   db $24                               ;03B1C2|      ;
    db $08                               ;03B1C3|      ;
-   db $01                               ;03B1C4|000008;
+   db $01                               ;03B1C4|      ;
    db $08                               ;03B1C5|      ;
    db $C0                               ;03B1C6|      ;
-   db $06                               ;03B1C7|000008;
+   db $06                               ;03B1C7|      ;
    db $08                               ;03B1C8|      ;
-   db $01                               ;03B1C9|0000F8;
+   db $01                               ;03B1C9|      ;
    db $F8                               ;03B1CA|      ;
    db $C0                               ;03B1CB|      ;
-   db $04                               ;03B1CC|000008;
+   db $04                               ;03B1CC|      ;
    db $08                               ;03B1CD|      ;
-   db $01                               ;03B1CE|0000E8;
+   db $01                               ;03B1CE|      ;
    db $E8                               ;03B1CF|      ;
-   db $F0                               ;03B1D0|03B238;
-   db $66                               ;03B1D1|000008;
+   db $F0                               ;03B1D0|      ;
+   db $66                               ;03B1D1|      ;
    db $08                               ;03B1D2|      ;
-   db $01                               ;03B1D3|0000D8;
+   db $01                               ;03B1D3|      ;
    db $D8                               ;03B1D4|      ;
-   db $F0                               ;03B1D5|03B23B;
-   db $64                               ;03B1D6|000008;
+   db $F0                               ;03B1D5|      ;
+   db $64                               ;03B1D6|      ;
    db $08                               ;03B1D7|      ;
-   db $01                               ;03B1D8|0000E8;
+   db $01                               ;03B1D8|      ;
    db $E8                               ;03B1D9|      ;
    db $E0                               ;03B1DA|      ;
-   db $46                               ;03B1DB|000008;
+   db $46                               ;03B1DB|      ;
    db $08                               ;03B1DC|      ;
-   db $01                               ;03B1DD|0000D8;
+   db $01                               ;03B1DD|      ;
    db $D8                               ;03B1DE|      ;
    db $E0                               ;03B1DF|      ;
    db $44                               ;03B1E0|      ;
    db $08                               ;03B1E1|      ;
-   db $01                               ;03B1E2|0000E8;
+   db $01                               ;03B1E2|      ;
    db $E8                               ;03B1E3|      ;
-   db $D0                               ;03B1E4|03B20C;
-   db $26                               ;03B1E5|000008;
+   db $D0                               ;03B1E4|      ;
+   db $26                               ;03B1E5|      ;
    db $08                               ;03B1E6|      ;
-   db $01                               ;03B1E7|0000D8;
+   db $01                               ;03B1E7|      ;
    db $D8                               ;03B1E8|      ;
-   db $D0                               ;03B1E9|03B20F;
-   db $24                               ;03B1EA|000008;
+   db $D0                               ;03B1E9|      ;
+   db $24                               ;03B1EA|      ;
    db $08                               ;03B1EB|      ;
-   db $01                               ;03B1EC|0000E8;
+   db $01                               ;03B1EC|      ;
    db $E8                               ;03B1ED|      ;
    db $C0                               ;03B1EE|      ;
-   db $06                               ;03B1EF|000008;
+   db $06                               ;03B1EF|      ;
    db $08                               ;03B1F0|      ;
-   db $01                               ;03B1F1|0000D8;
+   db $01                               ;03B1F1|      ;
    db $D8                               ;03B1F2|      ;
    db $C0                               ;03B1F3|      ;
-   db $04                               ;03B1F4|000008;
+   db $04                               ;03B1F4|      ;
    db $08                               ;03B1F5|      ;
-   db $01                               ;03B1F6|0000C8;
+   db $01                               ;03B1F6|      ;
    db $C8                               ;03B1F7|      ;
-   db $F0                               ;03B1F8|03B260;
-   db $66                               ;03B1F9|000008;
+   db $F0                               ;03B1F8|      ;
+   db $66                               ;03B1F9|      ;
    db $08                               ;03B1FA|      ;
-   db $01                               ;03B1FB|0000B8;
+   db $01                               ;03B1FB|      ;
    db $B8                               ;03B1FC|      ;
-   db $F0                               ;03B1FD|03B263;
-   db $64                               ;03B1FE|000008;
+   db $F0                               ;03B1FD|      ;
+   db $64                               ;03B1FE|      ;
    db $08                               ;03B1FF|      ;
-   db $01                               ;03B200|0000C8;
+   db $01                               ;03B200|      ;
    db $C8                               ;03B201|      ;
    db $E0                               ;03B202|      ;
-   db $46                               ;03B203|000008;
+   db $46                               ;03B203|      ;
    db $08                               ;03B204|      ;
-   db $01                               ;03B205|0000B8;
+   db $01                               ;03B205|      ;
    db $B8                               ;03B206|      ;
    db $E0                               ;03B207|      ;
    db $44                               ;03B208|      ;
    db $08                               ;03B209|      ;
-   db $01                               ;03B20A|0000C8;
+   db $01                               ;03B20A|      ;
    db $C8                               ;03B20B|      ;
-   db $D0                               ;03B20C|03B234;
-   db $26                               ;03B20D|000008;
+   db $D0                               ;03B20C|      ;
+   db $26                               ;03B20D|      ;
    db $08                               ;03B20E|      ;
-   db $01                               ;03B20F|0000B8;
+   db $01                               ;03B20F|      ;
    db $B8                               ;03B210|      ;
-   db $D0                               ;03B211|03B237;
-   db $24                               ;03B212|000008;
+   db $D0                               ;03B211|      ;
+   db $24                               ;03B212|      ;
    db $08                               ;03B213|      ;
-   db $01                               ;03B214|0000C8;
+   db $01                               ;03B214|      ;
    db $C8                               ;03B215|      ;
    db $C0                               ;03B216|      ;
-   db $06                               ;03B217|000008;
+   db $06                               ;03B217|      ;
    db $08                               ;03B218|      ;
-   db $01                               ;03B219|0000B8;
+   db $01                               ;03B219|      ;
    db $B8                               ;03B21A|      ;
    db $C0                               ;03B21B|      ;
-   db $04                               ;03B21C|000008;
+   db $04                               ;03B21C|      ;
    db $08                               ;03B21D|      ;
-   db $01                               ;03B21E|000038;
+   db $01                               ;03B21E|      ;
    db $38                               ;03B21F|      ;
-   db $30                               ;03B220|03B28E;
-   db $6C                               ;03B221|000108;
+   db $30                               ;03B220|      ;
+   db $6C                               ;03B221|      ;
    db $08                               ;03B222|      ;
-   db $01                               ;03B223|000028;
+   db $01                               ;03B223|      ;
    db $28                               ;03B224|      ;
-   db $30                               ;03B225|03B295;
-   db $6E                               ;03B226|000108;
+   db $30                               ;03B225|      ;
+   db $6E                               ;03B226|      ;
    db $08                               ;03B227|      ;
-   db $01                               ;03B228|000018;
+   db $01                               ;03B228|      ;
    db $18                               ;03B229|      ;
-   db $30                               ;03B22A|03B298;
-   db $6C                               ;03B22B|000108;
+   db $30                               ;03B22A|      ;
+   db $6C                               ;03B22B|      ;
    db $08                               ;03B22C|      ;
-   db $01                               ;03B22D|000008;
+   db $01                               ;03B22D|      ;
    db $08                               ;03B22E|      ;
-   db $30                               ;03B22F|03B29F;
-   db $6E                               ;03B230|000108;
+   db $30                               ;03B22F|      ;
+   db $6E                               ;03B230|      ;
    db $08                               ;03B231|      ;
-   db $01                               ;03B232|0000F8;
+   db $01                               ;03B232|      ;
    db $F8                               ;03B233|      ;
-   db $30                               ;03B234|03B2A2;
-   db $6C                               ;03B235|000108;
+   db $30                               ;03B234|      ;
+   db $6C                               ;03B235|      ;
    db $08                               ;03B236|      ;
-   db $01                               ;03B237|0000E8;
+   db $01                               ;03B237|      ;
    db $E8                               ;03B238|      ;
-   db $30                               ;03B239|03B2A9;
-   db $6E                               ;03B23A|000108;
+   db $30                               ;03B239|      ;
+   db $6E                               ;03B23A|      ;
    db $08                               ;03B23B|      ;
-   db $01                               ;03B23C|0000D8;
+   db $01                               ;03B23C|      ;
    db $D8                               ;03B23D|      ;
-   db $30                               ;03B23E|03B2AC;
-   db $6C                               ;03B23F|000108;
+   db $30                               ;03B23E|      ;
+   db $6C                               ;03B23F|      ;
    db $08                               ;03B240|      ;
-   db $01                               ;03B241|0000C8;
+   db $01                               ;03B241|      ;
    db $C8                               ;03B242|      ;
-   db $30                               ;03B243|03B2B3;
-   db $6E                               ;03B244|000308;
+   db $30                               ;03B243|      ;
+   db $6E                               ;03B244|      ;
    db $08                               ;03B245|      ;
-   db $03                               ;03B246|0000B8;
+   db $03                               ;03B246|      ;
    db $B8                               ;03B247|      ;
-   db $30                               ;03B248|03B2B6;
-   db $6C                               ;03B249|001308;
+   db $30                               ;03B248|      ;
+   db $6C                               ;03B249|      ;
    db $08                               ;03B24A|      ;
-Tbl_03B24B:
-   dw DATA8_03AE13                      ;03B24B|03AE13;
-   dw DATA8_03AF7B                      ;03B24D|03AF7B;
-   dw DATA8_03B0E3                      ;03B24F|03B0E3;
+Tbl_Tileset_Event69:
+   dw Tileset_Event69_00                ;03B24B|03AE13;
+   dw Tileset_Event69_01                ;03B24D|03AF7B;
+   dw Tileset_Event69_02                ;03B24F|03B0E3;
 TileData:
    db $00                               ;03B251|      ;
    db $80                               ;03B252|      ;
@@ -8421,7 +8214,7 @@ Entering_Town:
    LDY.W #$0004                         ;03B365|      ;
    LDA.B ($00),Y                        ;03B368|000000;
    STA.W Town_Direction                 ;03B36A|00187F;
-   JSR.W CODE_03B762                    ;03B36D|03B762;
+   JSR.W CODE_FN_03B762                 ;03B36D|03B762;
    INY                                  ;03B370|      ;
    INY                                  ;03B371|      ;
    LDA.B ($00),Y                        ;03B372|000000;
@@ -8461,15 +8254,13 @@ Town_loading:
    LSR A                                ;03B3B7|      ;
    LSR A                                ;03B3B8|      ;
    LDY.W #$001F                         ;03B3B9|      ;
-CODE_03B3BC:
-   JSR.W CODE_03B7A5                    ;03B3BC|03B7A5;
+ - JSR.W CODE_FN_03B7A5                 ;03B3BC|03B7A5;
    INC A                                ;03B3BF|      ;
    CMP.B $00                            ;03B3C0|000000;
-   BCC CODE_03B3C7                      ;03B3C2|03B3C7;
+   BCC +                                ;03B3C2|03B3C7;
    LDA.W #$0000                         ;03B3C4|      ;
-CODE_03B3C7:
-   DEY                                  ;03B3C7|      ;
-   BPL CODE_03B3BC                      ;03B3C8|03B3BC;
+ + DEY                                  ;03B3C7|      ;
+   BPL -                                ;03B3C8|03B3BC;
    LDA.W #$0000                         ;03B3CA|      ;
    LDX.W #$3000                         ;03B3CD|      ;
    LDY.W #$0400                         ;03B3D0|      ;
@@ -8478,7 +8269,7 @@ CODE_03B3C7:
    LDA.W #$B7DE                         ;03B3DB|      ;
    JSL.L RAM_Decomp80                   ;03B3DE|0084FE;
    LDA.W Town_Direction                 ;03B3E2|00187F; What is $187F?
-   JSR.W CODE_03B762                    ;03B3E5|03B762;
+   JSR.W CODE_FN_03B762                 ;03B3E5|03B762;
    RTL                                  ;03B3E8|      ;
 Chapter_decomp_data1:
    dw RLE_Town_Galia1                   ;03B3E9|04AC14;
@@ -8487,11 +8278,11 @@ Chapter_decomp_data1:
    dw RLE_Town_ElfVillage1              ;03B3EF|04D383;
    dw RLE_Town_Castle1                  ;03B3F1|04B7E4;
 Chapter_decomp_bank1:
-   dw $0004                             ;03B3F3|000004;
-   dw $0004                             ;03B3F5|000004;
-   dw $0004                             ;03B3F7|000004;
-   dw $0004                             ;03B3F9|000004;
-   dw $0004                             ;03B3FB|000004;
+   dw $0004                             ;03B3F3|030004;
+   dw $0004                             ;03B3F5|030004;
+   dw $0004                             ;03B3F7|030004;
+   dw $0004                             ;03B3F9|030004;
+   dw $0004                             ;03B3FB|030004;
 More_Town_Loading:
    LDA.W Curr_area                      ;03B3FD|001573;
    ASL A                                ;03B400|      ;
@@ -8523,12 +8314,11 @@ More_Town_Loading:
    LDA.L UNREACH_03B4B0,X               ;03B43F|03B4B0;
    STA.B $02                            ;03B443|000002;
    LDY.W #$0076                         ;03B445|      ;
-CODE_03B448:
-   LDA.B [$02],Y                        ;03B448|000002;
+ - LDA.B [$02],Y                        ;03B448|000002;
    STA.W $0428,Y                        ;03B44A|000428;
    DEY                                  ;03B44D|      ;
    DEY                                  ;03B44E|      ;
-   BPL CODE_03B448                      ;03B44F|03B448;
+   BPL -                                ;03B44F|03B448;
    LDA.W #$B806                         ;03B451|      ;
    JSL.L RAM_Decomp80                   ;03B454|0084FE;
    SEP #$20                             ;03B458|      ;
@@ -8538,13 +8328,11 @@ CODE_03B448:
    REP #$20                             ;03B462|      ;
    LDA.W Curr_area                      ;03B464|001573;
    CMP.W #$0003                         ;03B467|      ;
-   BNE CODE_03B471                      ;03B46A|03B471;
+   BNE +                                ;03B46A|03B471;
    LDA.W #$B6B5                         ;03B46C|      ;
-   BRA CODE_03B474                      ;03B46F|03B474;
-CODE_03B471:
-   LDA.W #$B6A2                         ;03B471|      ;
-CODE_03B474:
-   STA.W DMA2_Source_lo                 ;03B474|004322;
+   BRA ++                               ;03B46F|03B474;
+ + LDA.W #$B6A2                         ;03B471|      ;
+++ STA.W DMA2_Source_lo                 ;03B474|004322;
    LDA.W #$0001                         ;03B477|      ;
    STA.W $1187                          ;03B47A|001187;
    RTL                                  ;03B47D|      ;
@@ -8555,11 +8343,11 @@ Chapter_Decomp_data2:
    dw RLE_Town_ElfVillage2              ;03B484|04D9BF;
    dw RLE_Town_Castle2                  ;03B486|04C1D4;
 Chapter_Decomp_bank2:
-   dw $0004                             ;03B488|000004;
-   dw $0004                             ;03B48A|000004;
-   dw $0004                             ;03B48C|000004;
-   dw $0004                             ;03B48E|000004;
-   dw $0004                             ;03B490|000004;
+   dw $0004                             ;03B488|030004;
+   dw $0004                             ;03B48A|030004;
+   dw $0004                             ;03B48C|030004;
+   dw $0004                             ;03B48E|030004;
+   dw $0004                             ;03B490|030004;
 Chapter_Decomp_data3:
    dw RLE_Town_Galia3                   ;03B492|04B6E4;
    dw RLE_Town_Doraf3                   ;03B494|04D292;
@@ -8567,11 +8355,11 @@ Chapter_Decomp_data3:
    dw RLE_Town_ElfVillage3              ;03B498|04DEB4;
    dw RLE_Town_Castle3                  ;03B49A|04C583;
 Chapter_Decomp_bank3:
-   dw $0004                             ;03B49C|000004;
-   dw $0004                             ;03B49E|000004;
-   dw $0004                             ;03B4A0|000004;
-   dw $0004                             ;03B4A2|000004;
-   dw $0004                             ;03B4A4|000004;
+   dw $0004                             ;03B49C|030004;
+   dw $0004                             ;03B49E|030004;
+   dw $0004                             ;03B4A0|030004;
+   dw $0004                             ;03B4A2|030004;
+   dw $0004                             ;03B4A4|030004;
 UNREACH_03B4A6:
    db $BA                               ;03B4A6|      ;
    db $B4                               ;03B4A7|000034;
@@ -9112,10 +8900,9 @@ CODE_03B6BC:
    LDA.W $0FF3                          ;03B6BC|000FF3;
    LDX.W Curr_area                      ;03B6BF|001573;
    CPX.W #$0003                         ;03B6C2|      ;
-   BNE CODE_03B6C8                      ;03B6C5|03B6C8;
+   BNE +                                ;03B6C5|03B6C8;
    INC A                                ;03B6C7|      ;
-CODE_03B6C8:
-   INC A                                ;03B6C8|      ;
+ + INC A                                ;03B6C8|      ;
    INC A                                ;03B6C9|      ;
    STA.W $0FF3                          ;03B6CA|000FF3;
    PHD                                  ;03B6CD|      ;
@@ -9136,23 +8923,21 @@ CODE_03B6C8:
    CLC                                  ;03B6E7|      ;
    ADC.W #$0004                         ;03B6E8|      ;
    CMP.B ($00)                          ;03B6EB|000000;
-   BCC CODE_03B6F2                      ;03B6ED|03B6F2;
+   BCC +                                ;03B6ED|03B6F2;
    LDA.W #$0000                         ;03B6EF|      ;
-CODE_03B6F2:
-   PHA                                  ;03B6F2|      ;
+ + PHA                                  ;03B6F2|      ;
    ADC.W #$00F8                         ;03B6F3|      ;
    CMP.B ($00)                          ;03B6F6|000000;
-   BCC CODE_03B732                      ;03B6F8|03B732;
+   BCC +                                ;03B6F8|03B732;
    SBC.B ($00)                          ;03B6FA|000000;
-   BRA CODE_03B732                      ;03B6FC|03B732;
+   BRA +                                ;03B6FC|03B732;
 Town_turning1:
    LDA.W $0FF3                          ;03B6FE|000FF3;
    LDX.W Curr_area                      ;03B701|001573;
    CPX.W #$0003                         ;03B704|      ;
-   BNE CODE_03B70A                      ;03B707|03B70A;
+   BNE ++                               ;03B707|03B70A;
    DEC A                                ;03B709|      ;
-CODE_03B70A:
-   DEC A                                ;03B70A|      ;
+++ DEC A                                ;03B70A|      ;
    DEC A                                ;03B70B|      ;
    STA.W $0FF3                          ;03B70C|000FF3;
    PHD                                  ;03B70F|      ;
@@ -9172,49 +8957,44 @@ CODE_03B70A:
    LDA.W Town_Direction                 ;03B726|00187F;
    SEC                                  ;03B729|      ;
    SBC.W #$0004                         ;03B72A|      ;
-   BCS CODE_03B731                      ;03B72D|03B731;
+   BCS ++                               ;03B72D|03B731;
    ADC.B ($00)                          ;03B72F|000000;
-CODE_03B731:
-   PHA                                  ;03B731|      ;
-CODE_03B732:
-   LSR A                                ;03B732|      ;
+++ PHA                                  ;03B731|      ;
+ + LSR A                                ;03B732|      ;
    LSR A                                ;03B733|      ;
    LSR A                                ;03B734|      ;
-   JSR.W CODE_03B7A5                    ;03B735|03B7A5;
+   JSR.W CODE_FN_03B7A5                 ;03B735|03B7A5;
    LDY.W #$0002                         ;03B738|      ;
    LDA.B ($00),Y                        ;03B73B|000000;
    TAX                                  ;03B73D|      ;
    PLA                                  ;03B73E|      ;
    STA.W Town_Direction                 ;03B73F|00187F;
    STA.W TownCompass                    ;03B742|000FF1;
-CODE_03B745:
-   INY                                  ;03B745|      ;
+ - INY                                  ;03B745|      ;
    INY                                  ;03B746|      ;
    CMP.B ($00),Y                        ;03B747|000000;
-   BEQ CODE_03B755                      ;03B749|03B755;
+   BEQ +                                ;03B749|03B755;
    INY                                  ;03B74B|      ;
    INY                                  ;03B74C|      ;
    DEX                                  ;03B74D|      ;
-   BPL CODE_03B745                      ;03B74E|03B745;
+   BPL -                                ;03B74E|03B745;
    LDA.W #$0000                         ;03B750|      ;
-   BRA CODE_03B75F                      ;03B753|03B75F;
-CODE_03B755:
-   INY                                  ;03B755|      ;
+   BRA ++                               ;03B753|03B75F;
+ + INY                                  ;03B755|      ;
    INY                                  ;03B756|      ;
    LDA.B ($00),Y                        ;03B757|000000;
    STA.W Town_Selection                 ;03B759|001881;
    LDA.W #$0001                         ;03B75C|      ;
-CODE_03B75F:
-   PLB                                  ;03B75F|      ;
+++ PLB                                  ;03B75F|      ;
    PLD                                  ;03B760|      ;
    RTL                                  ;03B761|      ;
-CODE_03B762:
+CODE_FN_03B762:
    STZ.W $0FF9                          ;03B762|000FF9;
    STZ.W $0FFB                          ;03B765|000FFB;
    STA.W TownCompass                    ;03B768|000FF1;
    LDX.W Curr_area                      ;03B76B|001573;
    CPX.W #$0003                         ;03B76E|      ;
-   BNE CODE_03B7A0                      ;03B771|03B7A0;
+   BNE +                                ;03B771|03B7A0;
    AND.W #$00FF                         ;03B773|      ;
    ORA.W #$C000                         ;03B776|      ;
    STA.W Multiply_lo                    ;03B779|004202;
@@ -9234,11 +9014,10 @@ CODE_03B762:
    ADC.W $0FF3                          ;03B799|000FF3;
    STA.W $0FF3                          ;03B79C|000FF3;
    RTS                                  ;03B79F|      ;
-CODE_03B7A0:
-   LSR A                                ;03B7A0|      ;
+ + LSR A                                ;03B7A0|      ;
    STA.W $0FF3                          ;03B7A1|000FF3;
    RTS                                  ;03B7A4|      ;
-CODE_03B7A5:
+CODE_FN_03B7A5:
    PHD                                  ;03B7A5|      ;
    PHA                                  ;03B7A6|      ;
    TDC                                  ;03B7A7|      ;
@@ -9485,8 +9264,8 @@ Some_section:
    db $07                               ;03B8CB|      ;
    dl CODE_03D045                       ;03B8CC|03D045;
    db $07                               ;03B8CF|      ;
-   dl Transfer_Data_3b_1b_2b            ;03B8D0|00A140;
-   dl _189AD2_2_bytes                   ;03B8D3|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03B8D0|00A140;
+   dl Text_Color_Yellow                 ;03B8D3|0D958E;
    db $02                               ;03B8D6|      ;
    dw $0002                             ;03B8D7|      ;
    db $07                               ;03B8D9|      ;
@@ -9573,8 +9352,8 @@ DATA8_03B93F:
    db $07                               ;03B960|      ;
    dl CODE_03D045                       ;03B961|03D045;
    db $07                               ;03B964|      ;
-   dl Transfer_Data_3b_1b_2b            ;03B965|00A140;
-   dl _189AD2_2_bytes                   ;03B968|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03B965|00A140;
+   dl Text_Color_Yellow                 ;03B968|0D958E;
    db $02                               ;03B96B|      ;
    dw $0002                             ;03B96C|      ;
    db $07                               ;03B96E|      ;
@@ -9649,7 +9428,7 @@ Icorina_house_events:
 DATA8_03B9E1:
    db $07                               ;03B9E1|      ;
    dl Loop_til_RAM_is_val_2b_2b         ;03B9E2|00A051;
-   dw $189F                             ;03B9E5|00189F;
+   dw $189F                             ;03B9E5|03189F;
    dw $0005                             ;03B9E7|      ;
    db $06                               ;03B9E9|      ;
    db $1E                               ;03B9EA|      ;
@@ -9691,7 +9470,7 @@ Entrust_the_princess1:
    dw $0002                             ;03BA23|      ;
    db $07                               ;03BA25|      ;
    dl Loop_til_RAM_is_val_2b_2b         ;03BA26|00A051;
-   dw $189F                             ;03BA29|00189F;
+   dw $189F                             ;03BA29|03189F;
    dw $0006                             ;03BA2B|      ;
    db $07                               ;03BA2D|      ;
    dl Zero_Winmask                      ;03BA2E|03D03D;
@@ -9700,7 +9479,7 @@ Entrust_the_princess1:
 DATA8_03BA34:
    db $07                               ;03BA34|      ;
    dl Loop_til_RAM_is_val_2b_2b         ;03BA35|00A051;
-   dw $189F                             ;03BA38|00189F;
+   dw $189F                             ;03BA38|03189F;
    dw $0005                             ;03BA3A|      ;
    db $07                               ;03BA3C|      ;
    dl Setup_Text_Parser_3b              ;03BA3D|00A0AC;
@@ -9711,7 +9490,7 @@ DATA8_03BA34:
 DATA8_03BA47:
    db $07                               ;03BA47|      ;
    dl Loop_til_RAM_is_val_2b_2b         ;03BA48|00A051;
-   dw $189F                             ;03BA4B|00189F;
+   dw $189F                             ;03BA4B|03189F;
    dw $0005                             ;03BA4D|      ;
    db $07                               ;03BA4F|      ;
    dl Setup_Text_Parser_3b              ;03BA50|00A0AC;
@@ -9722,7 +9501,7 @@ DATA8_03BA47:
 DATA8_03BA5A:
    db $07                               ;03BA5A|      ;
    dl Loop_til_RAM_is_val_2b_2b         ;03BA5B|00A051;
-   dw $189F                             ;03BA5E|00189F;
+   dw $189F                             ;03BA5E|03189F;
    dw $0005                             ;03BA60|      ;
    db $07                               ;03BA62|      ;
    dl Setup_Text_Parser_3b              ;03BA63|00A0AC;
@@ -9740,15 +9519,13 @@ DATA8_03BA6A:
    dw Exiting_a_shop                    ;03BA77|03CA2D;
 Check_some_events:
    LDX.W #$0000                         ;03BA79|      ; Stores 1,2,3,4 in $189F, returns 1 less than that
-CODE_03BA7C:
-   LDA.W Story_Progress                 ;03BA7C|0018FF;
+ - LDA.W Story_Progress                 ;03BA7C|0018FF;
    CMP.L Tbl_Event_bytes,X              ;03BA7F|03BA91;
-   BCC CODE_03BA89                      ;03BA83|03BA89;
+   BCC +                                ;03BA83|03BA89;
    INX                                  ;03BA85|      ;
    INX                                  ;03BA86|      ;
-   BRA CODE_03BA7C                      ;03BA87|03BA7C;
-CODE_03BA89:
-   TXA                                  ;03BA89|      ;
+   BRA -                                ;03BA87|03BA7C;
+ + TXA                                  ;03BA89|      ;
    LSR A                                ;03BA8A|      ;
    INC A                                ;03BA8B|      ;
    STA.W $189F                          ;03BA8C|00189F;
@@ -9809,7 +9586,7 @@ Icorina1:
    db $07                               ;03BAE5|      ;
    dl _1095_AND_2                       ;03BAE6|03D000;
    db $1B                               ;03BAE9|      ;
-   dw PTR24_00CFD4                      ;03BAEA|00CFD4;
+   dw Pause_Loop                        ;03BAEA|03CFD4;
    db $07                               ;03BAEC|      ;
    dl GetSet_SFX                        ;03BAED|009C44;
    db $11                               ;03BAF0|      ;
@@ -9852,10 +9629,9 @@ Check_Salah:
    LDA.W #$0000                         ;03BB28|      ; Returns 1 if event is 11 or higher
    LDX.W Story_Progress                 ;03BB2B|0018FF;
    CPX.W #$0011                         ;03BB2E|      ; Event 11: Checked on Salah
-   BCC CODE_03BB34                      ;03BB31|03BB34;
+   BCC +                                ;03BB31|03BB34;
    INC A                                ;03BB33|      ;
-CODE_03BB34:
-   RTL                                  ;03BB34|      ;
+ + RTL                                  ;03BB34|      ;
 Event_Alchemist_Start:
    db $07                               ;03BB35|      ;
    dl Setup_Text_Parser_3b              ;03BB36|00A0AC;
@@ -10550,7 +10326,7 @@ Revive_spirit:
    dl Healer_Revive                     ;03BF78|08D064;
    db $00                               ;03BF7B|      ;
    db $1B                               ;03BF7C|      ;
-   dw PTR24_00CFDF                      ;03BF7D|00CFDF;
+   dw Inn_Wait_for_input                ;03BF7D|03CFDF;
 DATA8_03BF7F:
    db $07                               ;03BF7F|      ;
    dl CODE_03E15E                       ;03BF80|03E15E;
@@ -10598,7 +10374,7 @@ DATA8_03BFB3:
    dw DATA8_03BFB3                      ;03BFC5|03BFB3;
 DATA8_03BFC7:
    db $1F                               ;03BFC7|      ;
-   dw $1885                             ;03BFC8|001885;
+   dw $1885                             ;03BFC8|031885;
    db $0C                               ;03BFCA|      ;
    dw $C000                             ;03BFCB|      ;
    db $07                               ;03BFCD|      ;
@@ -10805,7 +10581,7 @@ Card_No_Money:
    dl Healer_Cant_Buy_Card              ;03C0FA|08CFBF;
    db $00                               ;03C0FD|      ;
    db $1B                               ;03C0FE|      ;
-   dw PTR24_00CFD4                      ;03C0FF|00CFD4;
+   dw Pause_Loop                        ;03C0FF|03CFD4;
    db $07                               ;03C101|      ;
    dl Menu_Stuffs_1b                    ;03C102|009CC9;
    db $02                               ;03C105|      ;
@@ -10828,7 +10604,7 @@ Card_No_Room:
    dl Healer_Full_Cards                 ;03C11C|08CFF2;
    db $00                               ;03C11F|      ;
    db $1B                               ;03C120|      ;
-   dw PTR24_00CFD4                      ;03C121|00CFD4;
+   dw Pause_Loop                        ;03C121|03CFD4;
    db $07                               ;03C123|      ;
    dl Menu_Stuffs_1b                    ;03C124|009CC9;
    db $02                               ;03C127|      ;
@@ -10900,10 +10676,10 @@ DATA8_03C17B:
    dw Exiting_a_shop                    ;03C18E|03CA2D;
 DATA8_03C190:
    db $07                               ;03C190|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C191|00A140;
-   dl Weapons_Menu                      ;03C194|0D9590;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C191|00A140;
+   dl Text_Color_Gray                   ;03C194|0D9590;
    db $02                               ;03C197|      ;
-   dw $0002                             ;03C198|000002;
+   dw $0002                             ;03C198|030002;
    db $07                               ;03C19A|      ;
    dl Shop_cursor_setup_3b              ;03C19B|03E2A8;
    dl Outfitter_main_menu               ;03C19E|03E6CD;
@@ -11300,8 +11076,8 @@ DATA8_03C3F4:
    dl GetSet_SFX                        ;03C415|009C44;
    db $05                               ;03C418|      ;
    db $07                               ;03C419|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C41A|00A140;
-   dl _189AD2_2_bytes                   ;03C41D|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C41A|00A140;
+   dl Text_Color_Yellow                 ;03C41D|0D958E;
    db $02                               ;03C420|      ;
    dw $0002                             ;03C421|      ;
    db $07                               ;03C423|      ;
@@ -11711,8 +11487,8 @@ DATA8_03C696:
    dl GetSet_SFX                        ;03C6B2|009C44;
    db $05                               ;03C6B5|      ;
    db $07                               ;03C6B6|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C6B7|00A140;
-   dl _189AD2_2_bytes                   ;03C6BA|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C6B7|00A140;
+   dl Text_Color_Yellow                 ;03C6BA|0D958E;
    db $02                               ;03C6BD|      ;
    dw $0002                             ;03C6BE|      ;
    db $07                               ;03C6C0|      ;
@@ -11782,8 +11558,8 @@ DATA8_03C71C:
    db $0B                               ;03C727|      ;
    dw DATA8_03C89B                      ;03C728|03C89B;
    db $07                               ;03C72A|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C72B|00A140;
-   dl Weapons_Menu                      ;03C72E|0D9590;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C72B|00A140;
+   dl Text_Color_Gray                   ;03C72E|0D9590;
    db $02                               ;03C731|      ;
    dw $0002                             ;03C732|      ;
    db $07                               ;03C734|      ;
@@ -11859,8 +11635,8 @@ DATA8_03C783:
    dl _8698_setup_3b                    ;03C79D|009D07;
    dl DATA8_03E767                      ;03C7A0|03E767;
    db $07                               ;03C7A3|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C7A4|00A140;
-   dl _189AD2_2_bytes                   ;03C7A7|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C7A4|00A140;
+   dl Text_Color_Yellow                 ;03C7A7|0D958E;
    db $02                               ;03C7AA|      ;
    dw $0002                             ;03C7AB|      ;
    db $07                               ;03C7AD|      ;
@@ -11912,8 +11688,8 @@ DATA8_03C7D3:
    dw DATA8_03C13C                      ;03C7F9|03C13C;
 DATA8_03C7FB:
    db $07                               ;03C7FB|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C7FC|00A140;
-   dl _189AD2_2_bytes                   ;03C7FF|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C7FC|00A140;
+   dl Text_Color_Yellow                 ;03C7FF|0D958E;
    db $02                               ;03C802|      ;
    dw $0002                             ;03C803|      ;
    db $07                               ;03C805|      ;
@@ -12021,7 +11797,7 @@ DATA8_03C8A9:
    dl Shop_cursor_setup_3b              ;03C8AA|03E2A8;
    dl UNREACH_03E70C                    ;03C8AD|03E70C;
    db $07                               ;03C8B0|      ;
-   dl CODE_03DB19                       ;03C8B1|03DB19;
+   dl CODE_FL_03DB19                    ;03C8B1|03DB19;
    db $0B                               ;03C8B4|      ;
    dw DATA8_03C9FA                      ;03C8B5|03C9FA;
    db $07                               ;03C8B7|      ;
@@ -12084,8 +11860,8 @@ DATA8_03C8F4:
    dl _8698_setup_3b                    ;03C90E|009D07;
    dl DATA8_03E767                      ;03C911|03E767;
    db $07                               ;03C914|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C915|00A140;
-   dl _189AD2_2_bytes                   ;03C918|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C915|00A140;
+   dl Text_Color_Yellow                 ;03C918|0D958E;
    db $02                               ;03C91B|      ;
    dw $0002                             ;03C91C|      ;
    db $07                               ;03C91E|      ;
@@ -12137,8 +11913,8 @@ DATA8_03C944:
    dw DATA8_03C13C                      ;03C96A|03C13C;
 DATA8_03C96C:
    db $07                               ;03C96C|      ;
-   dl Transfer_Data_3b_1b_2b            ;03C96D|00A140;
-   dl _189AD2_2_bytes                   ;03C970|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;03C96D|00A140;
+   dl Text_Color_Yellow                 ;03C970|0D958E;
    db $02                               ;03C973|      ;
    dw $0002                             ;03C974|      ;
    db $07                               ;03C976|      ;
@@ -12188,7 +11964,7 @@ DATA8_03C9BB:
    db $0C                               ;03C9BF|      ;
    dw $03E7                             ;03C9C0|0303E7;
    db $07                               ;03C9C2|      ;
-   dl CODE_03DB19                       ;03C9C3|03DB19;
+   dl CODE_FL_03DB19                    ;03C9C3|03DB19;
    db $1A                               ;03C9C6|      ;
    dw DATA8_03C8D2                      ;03C9C7|03C8D2;
 DATA8_03C9C9:
@@ -12340,7 +12116,7 @@ Call_Travel_ASM:
    db $1E                               ;03CAA9|      ;
    dw $0001                             ;03CAAA|      ;
    db $05                               ;03CAAC|      ; 05: RTL
-Event_Main_68:
+Event_Main_68_SHOPS:
    db $21                               ;03CAAD|      ;
    db $01                               ;03CAAE|      ;
    db $38                               ;03CAAF|      ;
@@ -12348,7 +12124,7 @@ Event_Main_68:
    db $40                               ;03CAB2|      ;
    dw $0048                             ;03CAB3|      ;
    db $07                               ;03CAB5|      ;
-   dl DATA8_03CD8B                      ;03CAB6|03CD8B;
+   dl CODE_03CD8B                       ;03CAB6|03CD8B;
    db $11                               ;03CAB9|      ;
    db $0C                               ;03CABA|      ;
    dw DATA8_03CAD3                      ;03CABB|03CAD3;
@@ -12365,7 +12141,7 @@ Event_Main_68:
    dw UNREACH_03CBE1                    ;03CAD1|03CBE1;
 DATA8_03CAD3:
    db $07                               ;03CAD3|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CAD4|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CAD4|00A140;
    dl DATA8_03CC4B                      ;03CAD7|03CC4B;
    db $C0                               ;03CADA|      ;
    dw $0020                             ;03CADB|      ;
@@ -12374,7 +12150,7 @@ DATA8_03CAD3:
    db $0A                               ;03CADF|      ;
 DATA8_03CAE0:
    db $07                               ;03CAE0|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CAE1|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CAE1|00A140;
    dl DATA8_03CC6B                      ;03CAE4|03CC6B;
    db $C0                               ;03CAE7|      ;
    dw $0020                             ;03CAE8|      ;
@@ -12383,7 +12159,7 @@ DATA8_03CAE0:
    db $0A                               ;03CAEC|      ;
 DATA8_03CAED:
    db $07                               ;03CAED|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CAEE|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CAEE|00A140;
    dl DATA8_03CC8B                      ;03CAF1|03CC8B;
    db $C0                               ;03CAF4|      ;
    dw $0020                             ;03CAF5|      ;
@@ -12392,7 +12168,7 @@ DATA8_03CAED:
    db $0A                               ;03CAF9|      ;
 DATA8_03CAFA:
    db $07                               ;03CAFA|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CAFB|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CAFB|00A140;
    dl DATA8_03CCAB                      ;03CAFE|03CCAB;
    db $C0                               ;03CB01|      ;
    dw $0020                             ;03CB02|      ;
@@ -12401,7 +12177,7 @@ DATA8_03CAFA:
    db $0A                               ;03CB06|      ;
 DATA8_03CB07:
    db $07                               ;03CB07|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CB08|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CB08|00A140;
    dl DATA8_03CCCB                      ;03CB0B|03CCCB;
    db $C0                               ;03CB0E|      ;
    dw $0020                             ;03CB0F|      ;
@@ -12410,7 +12186,7 @@ DATA8_03CB07:
    db $0A                               ;03CB13|      ;
 DATA8_03CB14:
    db $07                               ;03CB14|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CB15|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CB15|00A140;
    dl DATA8_03CCEB                      ;03CB18|03CCEB;
    db $C0                               ;03CB1B|      ;
    dw $0020                             ;03CB1C|      ;
@@ -12419,7 +12195,7 @@ DATA8_03CB14:
    db $0A                               ;03CB20|      ;
 DATA8_03CB21:
    db $07                               ;03CB21|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CB22|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CB22|00A140;
    dl DATA8_03CD0B                      ;03CB25|03CD0B;
    db $C0                               ;03CB28|      ;
    dw $0040                             ;03CB29|      ;
@@ -12428,7 +12204,7 @@ DATA8_03CB21:
    db $0A                               ;03CB2D|      ;
 DATA8_03CB2E:
    db $07                               ;03CB2E|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CB2F|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CB2F|00A140;
    dl DATA8_03CC6B                      ;03CB32|03CC6B;
    db $C0                               ;03CB35|      ;
    dw $0020                             ;03CB36|      ;
@@ -12437,7 +12213,7 @@ DATA8_03CB2E:
    db $0A                               ;03CB3A|      ;
 DATA8_03CB3B:
    db $07                               ;03CB3B|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CB3C|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CB3C|00A140;
    dl DATA8_03CD6B                      ;03CB3F|03CD6B;
    db $C0                               ;03CB42|      ;
    dw $0020                             ;03CB43|      ;
@@ -12448,7 +12224,7 @@ DATA8_03CB3B:
    db $0A                               ;03CB4A|      ;
 DATA8_03CB4B:
    db $07                               ;03CB4B|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CB4C|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CB4C|00A140;
    dl DATA8_03CC6B                      ;03CB4F|03CC6B;
    db $C0                               ;03CB52|      ;
    dw $0020                             ;03CB53|      ;
@@ -13020,42 +12796,24 @@ DATA8_03CD6B:
    db $18                               ;03CD88|      ;
    db $00                               ;03CD89|      ;
    db $00                               ;03CD8A|      ;
-DATA8_03CD8B:
-   db $AD                               ;03CD8B|      ;
-   db $81                               ;03CD8C|      ;
-   db $18                               ;03CD8D|      ;
-   db $C9                               ;03CD8E|      ;
-   db $04                               ;03CD8F|      ;
-   db $00                               ;03CD90|      ;
-   db $B0                               ;03CD91|      ;
-   db $11                               ;03CD92|      ;
-   db $AD                               ;03CD93|      ;
-   db $73                               ;03CD94|      ;
-   db $15                               ;03CD95|      ;
-   db $0A                               ;03CD96|      ;
-   db $0A                               ;03CD97|      ;
-   db $0D                               ;03CD98|      ;
-   db $81                               ;03CD99|      ;
-   db $18                               ;03CD9A|      ;
-   db $AA                               ;03CD9B|      ;
-   db $BF                               ;03CD9C|      ;
-   db $AE                               ;03CD9D|      ;
-   db $CD                               ;03CD9E|      ;
-   db $03                               ;03CD9F|      ;
-   db $29                               ;03CDA0|      ;
-   db $FF                               ;03CDA1|      ;
-   db $00                               ;03CDA2|      ;
-   db $6B                               ;03CDA3|      ;
-   db $D0                               ;03CDA4|      ;
-   db $04                               ;03CDA5|      ;
-   db $A9                               ;03CDA6|      ;
-   db $0A                               ;03CDA7|      ;
-   db $00                               ;03CDA8|      ;
-   db $6B                               ;03CDA9|      ;
-   db $A9                               ;03CDAA|      ;
-   db $0B                               ;03CDAB|      ;
-   db $00                               ;03CDAC|      ;
-   db $6B                               ;03CDAD|      ;
+CODE_03CD8B:
+   LDA.W Town_Selection                 ;03CD8B|001881;
+   CMP.W #$0004                         ;03CD8E|      ;
+   BCS +                                ;03CD91|03CDA4;
+   LDA.W Curr_area                      ;03CD93|001573;
+   ASL A                                ;03CD96|      ;
+   ASL A                                ;03CD97|      ;
+   ORA.W Town_Selection                 ;03CD98|001881;
+   TAX                                  ;03CD9B|      ;
+   LDA.L DATA8_03CDAE,X                 ;03CD9C|03CDAE;
+   AND.W #$00FF                         ;03CDA0|      ;
+   RTL                                  ;03CDA3|      ;
+ + BNE +                                ;03CDA4|03CDAA;
+   LDA.W #$000A                         ;03CDA6|      ;
+   RTL                                  ;03CDA9|      ;
+ + LDA.W #$000B                         ;03CDAA|      ;
+   RTL                                  ;03CDAD|      ;
+DATA8_03CDAE:
    db $07                               ;03CDAE|      ;
    db $03                               ;03CDAF|      ;
    db $06                               ;03CDB0|      ;
@@ -13085,7 +12843,7 @@ Setup_Draw_Field_Sprites:
    dl Decomp80_setup_3b                 ;03CDCB|009CF9;
    dl RLE_Loc_0D833F                    ;03CDCE|0D8001;
    db $04                               ;03CDD1|      ;
-   dl Xfer_1577_stuff                   ;03CDD2|018A06;
+   dl Xfer_Window_Color                 ;03CDD2|018A06;
    db $1B                               ;03CDD5|      ;
    dw Sub_Load_Gfx_Rooks                ;03CDD6|03CE75;
 Case_Slot2_Member:
@@ -13124,14 +12882,14 @@ Case_Slot4_Member:
    db $02                               ;03CE0D|      ;
    dw $0000                             ;03CE0E|      ;
    db $1B                               ;03CE10|      ;
-   dw Sub_Load_Data_03CF4A              ;03CE11|03CF4A;
+   dw Sub_Load_Palette_03CF4A           ;03CE11|03CF4A;
    db $07                               ;03CE13|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CE14|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CE14|00A140;
    dl RLE_0D_91F0                       ;03CE17|0D91F0;
    db $70                               ;03CE1A|      ;
    dw $0012                             ;03CE1B|      ;
    db $04                               ;03CE1D|      ;
-   dl Xfer_1577_stuff                   ;03CE1E|018A06;
+   dl Xfer_Window_Color                 ;03CE1E|018A06;
 Case_Slot2_GetData:
    db $07                               ;03CE21|      ;
    dl Get_Slot2_WeirdOffset             ;03CE22|07ABBA;
@@ -13141,7 +12899,7 @@ Case_Slot2_GetData:
    dw DATA8_03CF5E                      ;03CE29|03CF5E;
    dw DATA8_03CF63                      ;03CE2B|03CF63;
    dw DATA8_03CF68                      ;03CE2D|03CF68;
-   dw Xfer_03CF6D                       ;03CE2F|03CF6D;
+   dw GetPalette_03CF6D                 ;03CE2F|03CF6D;
    db $0F                               ;03CE31|      ;
    db $02                               ;03CE32|      ;
    dw $0002                             ;03CE33|      ;
@@ -13150,9 +12908,9 @@ Case_Slot3_GetData:
    dl Get_Slot3_WeirdOffset             ;03CE36|07ABCB;
    db $12                               ;03CE39|      ;
    db $03                               ;03CE3A|      ;
-   dw Xfer_03CF82                       ;03CE3B|03CF82;
-   dw Xfer_03CF91                       ;03CE3D|03CF91;
-   dw Xfer_03CFA0                       ;03CE3F|03CFA0;
+   dw GetPalette_03CF82                 ;03CE3B|03CF82;
+   dw GetPalette_03CF91                 ;03CE3D|03CF91;
+   dw GetPalette_03CFA0                 ;03CE3F|03CFA0;
    db $0F                               ;03CE41|      ;
    db $02                               ;03CE42|      ;
    dw $0003                             ;03CE43|      ;
@@ -13161,9 +12919,9 @@ Case_Slot4_GetData:
    dl Get_Slot4_WeirdOffset             ;03CE46|07ABDC;
    db $12                               ;03CE49|      ;
    db $03                               ;03CE4A|      ;
-   dw Xfer_03CFAB                       ;03CE4B|03CFAB;
-   dw Xfer_03CFBA                       ;03CE4D|03CFBA;
-   dw Xfer_03CFC9                       ;03CE4F|03CFC9;
+   dw GetPalette_03CFAB                 ;03CE4B|03CFAB;
+   dw GetPalette_03CFBA                 ;03CE4D|03CFBA;
+   dw GetPalette_03CFC9                 ;03CE4F|03CFC9;
 Similar_things:
    db $04                               ;03CE51|      ;
    dl Sub_Battle_setup                  ;03CE52|058164;
@@ -13307,14 +13065,14 @@ Sub_Load_Gfx_Skull_Card2:
    dl Sprite_Skull_Card                 ;03CF43|0E92F9;
    dl $7E8F00                           ;03CF46|7E8F00;
    db $1C                               ;03CF49|      ; RTS
-Sub_Load_Data_03CF4A:
+Sub_Load_Palette_03CF4A:
    db $07                               ;03CF4A|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CF4B|00A140;
-   dl Data_3CF4A                        ;03CF4E|0D922A;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CF4B|00A140;
+   dl Gfx_Palette_03CF4A                ;03CF4E|0D922A;
    db $40                               ;03CF51|      ;
    dw $000A                             ;03CF52|      ;
    db $04                               ;03CF54|      ;
-   dl Case_Condition_058463             ;03CF55|058463;
+   dl Event_Select_Death_Palette        ;03CF55|058463;
    db $1C                               ;03CF58|      ; RTS
 DATA8_03CF59:
    db $04                               ;03CF59|      ;
@@ -13332,69 +13090,69 @@ DATA8_03CF68:
    db $04                               ;03CF68|      ;
    dl Xfer_0584C0                       ;03CF69|0584C0;
    db $1C                               ;03CF6C|      ; RTS
-Xfer_03CF6D:
+GetPalette_03CF6D:
    db $07                               ;03CF6D|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CF6E|00A140;
-   dl Palette_05_9507                   ;03CF71|0D920A;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CF6E|00A140;
+   dl Palette_059503                    ;03CF71|0D920A;
    db $70                               ;03CF74|      ;
    dw $0020                             ;03CF75|      ;
-Xfer_03CF77:
+GetPalette_03CF77:
    db $07                               ;03CF77|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CF78|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CF78|00A140;
    dl $001577                           ;03CF7B|001577;
    db $73                               ;03CF7E|      ;
    dw $0002                             ;03CF7F|      ;
    db $1C                               ;03CF81|      ; RTS
-Xfer_03CF82:
+GetPalette_03CF82:
    db $07                               ;03CF82|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CF83|00A140;
-   dl Data_3CF82                        ;03CF86|0D92A2;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CF83|00A140;
+   dl Palette_058D70                    ;03CF86|0D92A2;
    db $50                               ;03CF89|      ;
    dw $000A                             ;03CF8A|      ;
    db $04                               ;03CF8C|      ;
    dl Case_Condition_0584CB             ;03CF8D|0584CB;
    db $1C                               ;03CF90|      ; RTS
-Xfer_03CF91:
+GetPalette_03CF91:
    db $07                               ;03CF91|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CF92|00A140;
-   dl DATA8_0D92C2                      ;03CF95|0D92C2;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CF92|00A140;
+   dl Palette_058FA2                    ;03CF95|0D92C2;
    db $50                               ;03CF98|      ;
    dw $000A                             ;03CF99|      ;
    db $04                               ;03CF9B|      ;
    dl Case_Condition_058507             ;03CF9C|058507;
    db $1C                               ;03CF9F|      ; RTS
-Xfer_03CFA0:
+GetPalette_03CFA0:
    db $07                               ;03CFA0|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CFA1|00A140;
-   dl Palette_05_9507                   ;03CFA4|0D920A;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CFA1|00A140;
+   dl Palette_059503                    ;03CFA4|0D920A;
    db $50                               ;03CFA7|      ;
    dw $0020                             ;03CFA8|      ;
    db $1C                               ;03CFAA|      ; RTS
-Xfer_03CFAB:
+GetPalette_03CFAB:
    db $07                               ;03CFAB|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CFAC|00A140;
-   dl DATA8_0D92E2                      ;03CFAF|0D92E2;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CFAC|00A140;
+   dl Palette_059155                    ;03CFAF|0D92E2;
    db $50                               ;03CFB2|      ;
    dw $000A                             ;03CFB3|      ;
    db $04                               ;03CFB5|      ;
    dl Case_Condition_058543             ;03CFB6|058543;
    db $1C                               ;03CFB9|      ; RTS
-Xfer_03CFBA:
+GetPalette_03CFBA:
    db $07                               ;03CFBA|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CFBB|00A140;
-   dl DATA8_0D9302                      ;03CFBE|0D9302;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CFBB|00A140;
+   dl Palette_059363                    ;03CFBE|0D9302;
    db $50                               ;03CFC1|      ;
    dw $000A                             ;03CFC2|      ;
    db $04                               ;03CFC4|      ;
    dl Case_Condition_05857F             ;03CFC5|05857F;
-   db $1C                               ;03CFC8|      ;
-Xfer_03CFC9:
+   db $1C                               ;03CFC8|      ; RTS
+GetPalette_03CFC9:
    db $07                               ;03CFC9|      ;
-   dl Transfer_Data_3b_1b_2b            ;03CFCA|00A140;
-   dl Palette_05_9507                   ;03CFCD|0D920A;
+   dl Gfx_GetPalette_3b_1b_2b           ;03CFCA|00A140;
+   dl Palette_059503                    ;03CFCD|0D920A;
    db $60                               ;03CFD0|      ;
    dw $0020                             ;03CFD1|      ;
-   db $1C                               ;03CFD3|      ;
+   db $1C                               ;03CFD3|      ; RTS
 Pause_Loop:
    db $06                               ;03CFD4|      ;
    db $01                               ;03CFD5|      ;
@@ -13419,15 +13177,14 @@ _1095_odd_loop:
    db $07                               ;03CFEC|      ;
    dl _1095_odd                         ;03CFED|03CFF4;
    db $0B                               ;03CFF0|      ;
-   dw PTR24_00CFEA                      ;03CFF1|00CFEA;
+   dw _1095_odd_loop                    ;03CFF1|03CFEA;
    db $1C                               ;03CFF3|      ; Return
 _1095_odd:
    LDA.W Pause_status                   ;03CFF4|001095;
    AND.W #$0001                         ;03CFF7|      ;
-   BNE CODE_03CFFF                      ;03CFFA|03CFFF;
+   BNE +                                ;03CFFA|03CFFF;
    LDA.W #$0000                         ;03CFFC|      ;
-CODE_03CFFF:
-   RTL                                  ;03CFFF|      ;
+ + RTL                                  ;03CFFF|      ;
 _1095_AND_2:
    LDA.W Pause_status                   ;03D000|001095;
    AND.W #$0002                         ;03D003|      ;
@@ -13439,7 +13196,7 @@ Loop_til_A_or_B:
    db $07                               ;03D00C|      ;
    dl A_or_B_pressed                    ;03D00D|03D014;
    db $0B                               ;03D010|      ;
-   dw DATA8_00D00A                      ;03D011|00D00A;
+   dw Loop_til_A_or_B                   ;03D011|03D00A;
    db $1C                               ;03D013|      ;
 A_or_B_pressed:
    LDA.W Input_0031                     ;03D014|000031;
@@ -13448,10 +13205,9 @@ A_or_B_pressed:
 Town_Facing_Exit:
    LDA.W #$0000                         ;03D01B|      ; 1 if facing exit ($1881=8000), 0 otherwise
    LDX.W Town_Selection                 ;03D01E|001881;
-   BPL CODE_03D024                      ;03D021|03D024;
+   BPL +                                ;03D021|03D024;
    INC A                                ;03D023|      ;
-CODE_03D024:
-   RTL                                  ;03D024|      ;
+ + RTL                                  ;03D024|      ;
 Icorina_Setup:
    LDA.W #$C434                         ;03D025|      ;
    STA.W Win1_left                      ;03D028|002126;
@@ -13473,11 +13229,11 @@ CODE_03D045:
    STZ.W $18A1                          ;03D048|0018A1;
    LDA.W Town_Selection                 ;03D04B|001881;
    CMP.W #$0004                         ;03D04E|      ;
-   BNE CODE_03D0AA                      ;03D051|03D0AA;
+   BNE +                                ;03D051|03D0AA;
    LDA.W #$8077                         ;03D053|      ;
    LDX.W #$0014                         ;03D056|      ;
    LDY.W #$0400                         ;03D059|      ;
-   JSR.W CODE_03E241                    ;03D05C|03E241;
+   JSR.W CODE_FN_03E241                 ;03D05C|03E241;
    PEA.W $0003                          ;03D05F|000003;
    PLB                                  ;03D062|      ;
    LDA.W #$0003                         ;03D063|      ;
@@ -13507,13 +13263,12 @@ CODE_03D045:
    STA.W $0FF3                          ;03D0A3|000FF3;
    STZ.W $0FFB                          ;03D0A6|000FFB;
    RTL                                  ;03D0A9|      ;
-CODE_03D0AA:
-   CMP.W #$0005                         ;03D0AA|      ;
+ + CMP.W #$0005                         ;03D0AA|      ;
    BNE Decomp_a_bunch                   ;03D0AD|03D0F4;
    LDA.W #$81E3                         ;03D0AF|      ;
    LDX.W #$0014                         ;03D0B2|      ;
    LDY.W #$0400                         ;03D0B5|      ;
-   JSR.W CODE_03E241                    ;03D0B8|03E241;
+   JSR.W CODE_FN_03E241                 ;03D0B8|03E241;
    LDX.W #$EA9D                         ;03D0BB|      ;
    LDY.W #$0440                         ;03D0BE|      ;
    LDA.W #$005F                         ;03D0C1|      ;
@@ -13769,8 +13524,7 @@ Get_Shop_Weapons:
    ADC.W Tbl_Weapon_Shops,X             ;03D25F|03D2DB;
    STA.B $00                            ;03D262|000000;
    LDY.W #$0000                         ;03D264|      ;
-CODE_03D267:
-   TYA                                  ;03D267|      ;
+ - TYA                                  ;03D267|      ;
    ASL A                                ;03D268|      ;
    TAX                                  ;03D269|      ;
    LDA.B ($00),Y                        ;03D26A|000000;
@@ -13790,7 +13544,7 @@ CODE_03D267:
    INY                                  ;03D28D|      ;
    INY                                  ;03D28E|      ;
    CPY.W #$0008                         ;03D28F|      ;
-   BCC CODE_03D267                      ;03D292|03D267;
+   BCC -                                ;03D292|03D267;
    PLB                                  ;03D294|      ;
 Draw_Sale_Items:
    LDA.W #$DF61                         ;03D295|      ;
@@ -13954,8 +13708,7 @@ Shop_input_related:
    LDA.W Tbl_Ch_Item_Prices,Y           ;03D3D4|03D49F;
    STA.B $02                            ;03D3D7|000002;
    LDY.W #$0006                         ;03D3D9|      ;
-CODE_03D3DC:
-   TYA                                  ;03D3DC|      ;
+ - TYA                                  ;03D3DC|      ;
    ASL A                                ;03D3DD|      ;
    TAX                                  ;03D3DE|      ;
    LDA.B ($00),Y                        ;03D3DF|000000;
@@ -13976,7 +13729,7 @@ CODE_03D3DC:
    STA.W $16DB,Y                        ;03D3FF|0016DB;
    DEY                                  ;03D402|      ;
    DEY                                  ;03D403|      ;
-   BPL CODE_03D3DC                      ;03D404|03D3DC;
+   BPL -                                ;03D404|03D3DC;
    PLB                                  ;03D406|      ;
    LDX.W Selection_offset               ;03D407|00103F;
    LDA.W Shop_Max_Entries               ;03D40A|001883;
@@ -13985,10 +13738,9 @@ CODE_03D3DC:
    SEC                                  ;03D40F|      ;
    SBC.W Object_var0_Menu_Cursor,X      ;03D410|0009A3;
    CMP.W #$0008                         ;03D413|      ;
-   BCC CODE_03D41B                      ;03D416|03D41B;
+   BCC +                                ;03D416|03D41B;
    LDA.W #$0006                         ;03D418|      ;
-CODE_03D41B:
-   TAX                                  ;03D41B|      ;
+ + TAX                                  ;03D41B|      ;
    LDA.L Tbl_Disp_Num_Items_For_Sale,X  ;03D41C|03D42E;
    STA.B $00                            ;03D420|000000;
    LDA.W #$0008                         ;03D422|      ;
@@ -14152,24 +13904,21 @@ Purchase_item:
    LDA.W Curr_GP                        ;03D54C|001559;
    SEC                                  ;03D54F|      ;
    SBC.L Prices_Weapons,X               ;03D550|05DE86;
-   BCS CODE_03D55A                      ;03D554|03D55A;
+   BCS +                                ;03D554|03D55A;
    LDA.W #$0001                         ;03D556|      ;
    RTL                                  ;03D559|      ;
-CODE_03D55A:
-   STA.B $02                            ;03D55A|000002;
+ + STA.B $02                            ;03D55A|000002;
    LDX.W #$0000                         ;03D55C|      ;
-CODE_03D55F:
-   LDA.L Inventory_Eqp,X                ;03D55F|001419;
+ - LDA.L Inventory_Eqp,X                ;03D55F|001419;
    AND.W #$00FF                         ;03D563|      ;
-   BEQ CODE_03D573                      ;03D566|03D573;
+   BEQ +                                ;03D566|03D573;
    INX                                  ;03D568|      ;
    INX                                  ;03D569|      ;
    CPX.W #$0040                         ;03D56A|      ;
-   BCC CODE_03D55F                      ;03D56D|03D55F;
+   BCC -                                ;03D56D|03D55F;
    LDA.W #$0002                         ;03D56F|      ;
    RTL                                  ;03D572|      ;
-CODE_03D573:
-   LDA.B $02                            ;03D573|000002;
+ + LDA.B $02                            ;03D573|000002;
    STA.W Curr_GP                        ;03D575|001559;
    LDA.B $00                            ;03D578|000000;
    ORA.W #$FF00                         ;03D57A|      ;
@@ -14196,51 +13945,45 @@ CODE_03D585:
    LDA.W Curr_GP                        ;03D5A3|001559;
    SEC                                  ;03D5A6|      ;
    SBC.B ($02),Y                        ;03D5A7|000002;
-   BCS CODE_03D5B0                      ;03D5A9|03D5B0;
+   BCS +                                ;03D5A9|03D5B0;
    PLB                                  ;03D5AB|      ;
    LDA.W #$0001                         ;03D5AC|      ;
    RTL                                  ;03D5AF|      ;
-CODE_03D5B0:
-   PLB                                  ;03D5B0|      ;
+ + PLB                                  ;03D5B0|      ;
    STA.B $02                            ;03D5B1|000002;
    LDX.W #$0000                         ;03D5B3|      ;
-CODE_03D5B6:
-   LDA.L Inventory_Items,X              ;03D5B6|0013B9;
-   BEQ CODE_03D5C7                      ;03D5BA|03D5C7;
+ - LDA.L Inventory_Items,X              ;03D5B6|0013B9;
+   BEQ +                                ;03D5BA|03D5C7;
    INX                                  ;03D5BC|      ;
    INX                                  ;03D5BD|      ;
    CPX.W #$0060                         ;03D5BE|      ;
-   BCC CODE_03D5B6                      ;03D5C1|03D5B6;
+   BCC -                                ;03D5C1|03D5B6;
    LDA.W #$0002                         ;03D5C3|      ;
    RTL                                  ;03D5C6|      ;
-CODE_03D5C7:
-   LDA.B $02                            ;03D5C7|000002;
+ + LDA.B $02                            ;03D5C7|000002;
    STA.W Curr_GP                        ;03D5C9|001559;
    LDA.B $00                            ;03D5CC|000000;
    STA.L Inventory_Items,X              ;03D5CE|0013B9;
    LDA.W #$0000                         ;03D5D2|      ;
    RTL                                  ;03D5D5|      ;
-CODE_03D5D6:
+CODE_FN_03D5D6:
    SEP #$20                             ;03D5D6|      ;
    LDY.W #$0000                         ;03D5D8|      ;
-CODE_03D5DB:
-   LDA.B [$18],Y                        ;03D5DB|000018;
-   BEQ CODE_03D5F6                      ;03D5DD|03D5F6;
+ - LDA.B [$18],Y                        ;03D5DB|000018;
+   BEQ +                                ;03D5DD|03D5F6;
    CMP.B #$20                           ;03D5DF|      ;
-   BNE CODE_03D5ED                      ;03D5E1|03D5ED;
+   BNE ++                               ;03D5E1|03D5ED;
    INY                                  ;03D5E3|      ;
    LDA.B [$18],Y                        ;03D5E4|000018;
    DEY                                  ;03D5E6|      ;
    CMP.B #$20                           ;03D5E7|      ;
-   BEQ CODE_03D5F6                      ;03D5E9|03D5F6;
+   BEQ +                                ;03D5E9|03D5F6;
    LDA.B #$20                           ;03D5EB|      ;
-CODE_03D5ED:
-   STA.W DisplayText,Y                  ;03D5ED|0015AF;
+++ STA.W DisplayText,Y                  ;03D5ED|0015AF;
    INY                                  ;03D5F0|      ;
    CPY.W #$001D                         ;03D5F1|      ;
-   BCC CODE_03D5DB                      ;03D5F4|03D5DB;
-CODE_03D5F6:
-   LDA.B #$00                           ;03D5F6|      ;
+   BCC -                                ;03D5F4|03D5DB;
+ + LDA.B #$00                           ;03D5F6|      ;
    STA.W DisplayText,Y                  ;03D5F8|0015AF;
    REP #$20                             ;03D5FB|      ;
    RTS                                  ;03D5FD|      ;
@@ -14271,14 +14014,12 @@ CODE_03D5FE:
    AND.W #$00FF                         ;03D62D|      ;
    STA.B $08                            ;03D630|000008;
    CMP.W #$000D                         ;03D632|      ;
-   BEQ CODE_03D63C                      ;03D635|03D63C;
+   BEQ +                                ;03D635|03D63C;
    CMP.W #$000E                         ;03D637|      ;
-   BNE CODE_03D640                      ;03D63A|03D640;
-CODE_03D63C:
-   LDA.W #$0002                         ;03D63C|      ;
+   BNE ++                               ;03D63A|03D640;
+ + LDA.W #$0002                         ;03D63C|      ;
    RTL                                  ;03D63F|      ;
-CODE_03D640:
-   LDA.B $08                            ;03D640|000008;
+++ LDA.B $08                            ;03D640|000008;
    ASL A                                ;03D642|      ;
    TAX                                  ;03D643|      ;
    LDY.W #$0000                         ;03D644|      ;
@@ -14286,23 +14027,20 @@ CODE_03D640:
    LSR A                                ;03D64B|      ;
    CLC                                  ;03D64C|      ;
    ADC.W Curr_GP                        ;03D64D|001559;
-   BCC CODE_03D653                      ;03D650|03D653;
+   BCC +                                ;03D650|03D653;
    INY                                  ;03D652|      ;
-CODE_03D653:
-   LDX.B $02                            ;03D653|000002;
+ + LDX.B $02                            ;03D653|000002;
    SEC                                  ;03D655|      ;
    SBC.L Prices_Weapons,X               ;03D656|05DE86;
-   BCS CODE_03D663                      ;03D65A|03D663;
+   BCS +                                ;03D65A|03D663;
    DEY                                  ;03D65C|      ;
-   BPL CODE_03D663                      ;03D65D|03D663;
+   BPL +                                ;03D65D|03D663;
    LDA.W #$0001                         ;03D65F|      ;
    RTL                                  ;03D662|      ;
-CODE_03D663:
-   CPY.W #$0000                         ;03D663|      ;
-   BEQ CODE_03D66B                      ;03D666|03D66B;
+ + CPY.W #$0000                         ;03D663|      ;
+   BEQ +                                ;03D666|03D66B;
    LDA.W #$FFFF                         ;03D668|      ;
-CODE_03D66B:
-   STA.W Curr_GP                        ;03D66B|001559;
+ + STA.W Curr_GP                        ;03D66B|001559;
    LDA.B $08                            ;03D66E|000008;
    ORA.W #$1100                         ;03D670|      ;
    STA.W Multiply_lo                    ;03D673|004202;
@@ -14312,39 +14050,33 @@ CODE_03D66B:
    CLC                                  ;03D67E|      ;
    ADC.W #$D67D                         ;03D67F|      ;
    STA.B $18                            ;03D682|000018;
-   JSR.W CODE_03D5D6                    ;03D684|03D5D6;
+   JSR.W CODE_FN_03D5D6                 ;03D684|03D5D6;
    LDA.B $06                            ;03D687|000006;
    CMP.W #$00FF                         ;03D689|      ;
-   BEQ CODE_03D6C2                      ;03D68C|03D6C2;
+   BEQ +                                ;03D68C|03D6C2;
    LDY.W #$0006                         ;03D68E|      ;
-CODE_03D691:
-   CMP.W Party_slot1,Y                  ;03D691|00155B;
-   BEQ CODE_03D69C                      ;03D694|03D69C;
+ - CMP.W Party_slot1,Y                  ;03D691|00155B;
+   BEQ ++                               ;03D694|03D69C;
    DEY                                  ;03D696|      ;
    DEY                                  ;03D697|      ;
-   BPL CODE_03D691                      ;03D698|03D691;
-   BRA CODE_03D6C2                      ;03D69A|03D6C2;
-CODE_03D69C:
-   LDA.W #$0000                         ;03D69C|      ;
+   BPL -                                ;03D698|03D691;
+   BRA +                                ;03D69A|03D6C2;
+++ LDA.W #$0000                         ;03D69C|      ;
    LDX.B $08                            ;03D69F|000008;
    CPX.W #$0029                         ;03D6A1|      ;
-   BCS CODE_03D6AB                      ;03D6A4|03D6AB;
+   BCS ++                               ;03D6A4|03D6AB;
    STA.W EqWeapon,Y                     ;03D6A6|001283;
-   BRA CODE_03D6C2                      ;03D6A9|03D6C2;
-CODE_03D6AB:
-   CPX.W #$0051                         ;03D6AB|      ;
-   BCS CODE_03D6B5                      ;03D6AE|03D6B5;
+   BRA +                                ;03D6A9|03D6C2;
+++ CPX.W #$0051                         ;03D6AB|      ;
+   BCS ++                               ;03D6AE|03D6B5;
    STA.W EqArmor,Y                      ;03D6B0|00129B;
-   BRA CODE_03D6C2                      ;03D6B3|03D6C2;
-CODE_03D6B5:
-   CPX.W #$0065                         ;03D6B5|      ;
-   BCS CODE_03D6BF                      ;03D6B8|03D6BF;
+   BRA +                                ;03D6B3|03D6C2;
+++ CPX.W #$0065                         ;03D6B5|      ;
+   BCS ++                               ;03D6B8|03D6BF;
    STA.W EqAmulet,Y                     ;03D6BA|0012B3;
-   BRA CODE_03D6C2                      ;03D6BD|03D6C2;
-CODE_03D6BF:
-   STA.W EqRing,Y                       ;03D6BF|0012CB;
-CODE_03D6C2:
-   LDX.B $04                            ;03D6C2|000004;
+   BRA +                                ;03D6BD|03D6C2;
+++ STA.W EqRing,Y                       ;03D6BF|0012CB;
+ + LDX.B $04                            ;03D6C2|000004;
    LDA.B $00                            ;03D6C4|000000;
    ORA.W #$FF00                         ;03D6C6|      ;
    STA.W Inventory_Eqp,X                ;03D6C9|001419;
@@ -14374,12 +14106,11 @@ CODE_03D6D0:
    LDA.L Inventory_Items,X              ;03D6F6|0013B9;
    STA.B $06                            ;03D6FA|000006;
    CMP.W #$0011                         ;03D6FC|      ;
-   BNE CODE_03D706                      ;03D6FF|03D706;
+   BNE +                                ;03D6FF|03D706;
    PLB                                  ;03D701|      ;
    LDA.W #$0002                         ;03D702|      ;
    RTL                                  ;03D705|      ;
-CODE_03D706:
-   LDA.B $06                            ;03D706|000006;
+ + LDA.B $06                            ;03D706|000006;
    ASL A                                ;03D708|      ;
    TAY                                  ;03D709|      ;
    LDX.W #$0000                         ;03D70A|      ;
@@ -14387,24 +14118,21 @@ CODE_03D706:
    LSR A                                ;03D70F|      ;
    CLC                                  ;03D710|      ;
    ADC.W Curr_GP                        ;03D711|001559;
-   BCC CODE_03D717                      ;03D714|03D717;
+   BCC +                                ;03D714|03D717;
    INX                                  ;03D716|      ;
-CODE_03D717:
-   LDY.B $02                            ;03D717|000002;
+ + LDY.B $02                            ;03D717|000002;
    SEC                                  ;03D719|      ;
    SBC.B ($08),Y                        ;03D71A|000008;
-   BCS CODE_03D726                      ;03D71C|03D726;
+   BCS +                                ;03D71C|03D726;
    DEX                                  ;03D71E|      ;
-   BPL CODE_03D726                      ;03D71F|03D726;
+   BPL +                                ;03D71F|03D726;
    PLB                                  ;03D721|      ;
    LDA.W #$0001                         ;03D722|      ;
    RTL                                  ;03D725|      ;
-CODE_03D726:
-   CPX.W #$0000                         ;03D726|      ;
-   BEQ CODE_03D72E                      ;03D729|03D72E;
+ + CPX.W #$0000                         ;03D726|      ;
+   BEQ +                                ;03D729|03D72E;
    LDA.W #$FFFF                         ;03D72B|      ;
-CODE_03D72E:
-   STA.W Curr_GP                        ;03D72E|001559;
+ + STA.W Curr_GP                        ;03D72E|001559;
    PLB                                  ;03D731|      ;
    LDA.B $06                            ;03D732|000006;
    ORA.W #$1400                         ;03D734|      ;
@@ -14415,7 +14143,7 @@ CODE_03D72E:
    CLC                                  ;03D742|      ;
    ADC.W Mult_Divide_Result             ;03D743|004216;
    STA.B $18                            ;03D746|000018;
-   JSR.W CODE_03D5D6                    ;03D748|03D5D6;
+   JSR.W CODE_FN_03D5D6                 ;03D748|03D5D6;
    LDX.B $04                            ;03D74B|000004;
    LDA.B $00                            ;03D74D|000000;
    STA.W Inventory_Items,X              ;03D74F|0013B9;
@@ -14444,32 +14172,27 @@ CODE_03D781:
    LDA.W #$0012                         ;03D784|      ;
    STA.W $0039                          ;03D787|000039;
    LDX.W #$003E                         ;03D78A|      ;
-CODE_03D78D:
-   LDA.L Inventory_Eqp,X                ;03D78D|001419;
+ - LDA.L Inventory_Eqp,X                ;03D78D|001419;
    AND.W #$00FF                         ;03D791|      ;
-   BNE CODE_03D79A                      ;03D794|03D79A;
+   BNE +                                ;03D794|03D79A;
    DEX                                  ;03D796|      ;
    DEX                                  ;03D797|      ;
-   BPL CODE_03D78D                      ;03D798|03D78D;
-CODE_03D79A:
-   TXA                                  ;03D79A|      ;
+   BPL -                                ;03D798|03D78D;
+ + TXA                                  ;03D79A|      ;
    LSR A                                ;03D79B|      ;
    INC A                                ;03D79C|      ;
    STA.W Shop_Max_Entries               ;03D79D|001883;
    LDY.W Selection_offset               ;03D7A0|00103F;
    LDX.W Object_var0_Menu_Cursor,Y      ;03D7A3|0009A3;
    LDY.W #$0000                         ;03D7A6|      ;
-CODE_03D7A9:
-   CPX.W #$0040                         ;03D7A9|      ;
-   BCC CODE_03D7B3                      ;03D7AC|03D7B3;
+ - CPX.W #$0040                         ;03D7A9|      ;
+   BCC +                                ;03D7AC|03D7B3;
    LDA.W #$0000                         ;03D7AE|      ;
-   BRA CODE_03D7BD                      ;03D7B1|03D7BD;
-CODE_03D7B3:
-   LDA.L Inventory_Eqp,X                ;03D7B3|001419;
+   BRA ++                               ;03D7B1|03D7BD;
+ + LDA.L Inventory_Eqp,X                ;03D7B3|001419;
    AND.W #$00FF                         ;03D7B7|      ;
    ORA.W #$1100                         ;03D7BA|      ;
-CODE_03D7BD:
-   STA.W Multiply_lo                    ;03D7BD|004202;
+++ STA.W Multiply_lo                    ;03D7BD|004202;
    LDA.W #$0005                         ;03D7C0|      ;
    STA.W $15F1,Y                        ;03D7C3|0015F1;
    LDA.W Mult_Divide_Result             ;03D7C6|004216;
@@ -14477,19 +14200,16 @@ CODE_03D7BD:
    ADC.W #$D67D                         ;03D7CA|      ;
    STA.W $15EF,Y                        ;03D7CD|0015EF;
    CPX.W #$0040                         ;03D7D0|      ;
-   BCS CODE_03D7E1                      ;03D7D3|03D7E1;
+   BCS +                                ;03D7D3|03D7E1;
    LDA.L Inventory_Eqp,X                ;03D7D5|001419;
    AND.W #$FF00                         ;03D7D9|      ;
    CMP.W #$FF00                         ;03D7DC|      ;
-   BNE CODE_03D7E6                      ;03D7DF|03D7E6;
-CODE_03D7E1:
-   LDA.W #$0000                         ;03D7E1|      ;
-   BRA CODE_03D7E8                      ;03D7E4|03D7E8;
-CODE_03D7E6:
-   XBA                                  ;03D7E6|      ;
+   BNE ++                               ;03D7DF|03D7E6;
+ + LDA.W #$0000                         ;03D7E1|      ;
+   BRA +                                ;03D7E4|03D7E8;
+++ XBA                                  ;03D7E6|      ;
    INC A                                ;03D7E7|      ;
-CODE_03D7E8:
-   ORA.W #$0800                         ;03D7E8|      ;
+ + ORA.W #$0800                         ;03D7E8|      ;
    STA.W Multiply_lo                    ;03D7EB|004202;
    LDA.W #$0005                         ;03D7EE|      ;
    STA.W $15B1,Y                        ;03D7F1|0015B1;
@@ -14504,7 +14224,7 @@ CODE_03D7E8:
    INY                                  ;03D802|      ;
    INY                                  ;03D803|      ;
    CPY.W #$0018                         ;03D804|      ;
-   BCC CODE_03D7A9                      ;03D807|03D7A9;
+   BCC -                                ;03D807|03D7A9;
    LDA.W #$DF03                         ;03D809|      ;
    STA.B $00                            ;03D80C|000000;
    LDA.W #$0008                         ;03D80E|      ;
@@ -14534,30 +14254,25 @@ Trade_Draw_Items:
    LDA.W #$000F                         ;03D848|      ;
    STA.W $0039                          ;03D84B|000039;
    LDX.W #$005E                         ;03D84E|      ;
-CODE_03D851:
-   LDA.L Inventory_Items,X              ;03D851|0013B9;
-   BNE CODE_03D85B                      ;03D855|03D85B;
+ - LDA.L Inventory_Items,X              ;03D851|0013B9;
+   BNE +                                ;03D855|03D85B;
    DEX                                  ;03D857|      ;
    DEX                                  ;03D858|      ;
-   BPL CODE_03D851                      ;03D859|03D851;
-CODE_03D85B:
-   TXA                                  ;03D85B|      ;
+   BPL -                                ;03D859|03D851;
+ + TXA                                  ;03D85B|      ;
    LSR A                                ;03D85C|      ;
    INC A                                ;03D85D|      ;
    STA.W Shop_Max_Entries               ;03D85E|001883;
    LDY.W Selection_offset               ;03D861|00103F;
    LDX.W Object_var0_Menu_Cursor,Y      ;03D864|0009A3;
    LDY.W #$0000                         ;03D867|      ;
-CODE_03D86A:
-   CPX.W #$0060                         ;03D86A|      ;
-   BCC CODE_03D874                      ;03D86D|03D874;
+ - CPX.W #$0060                         ;03D86A|      ;
+   BCC +                                ;03D86D|03D874;
    LDA.W #$0000                         ;03D86F|      ;
-   BRA CODE_03D87B                      ;03D872|03D87B;
-CODE_03D874:
-   LDA.L Inventory_Items,X              ;03D874|0013B9; Get inventory item ID
+   BRA ++                               ;03D872|03D87B;
+ + LDA.L Inventory_Items,X              ;03D874|0013B9; Get inventory item ID
    ORA.W #$1400                         ;03D878|      ; Multiply by item name length
-CODE_03D87B:
-   STA.W Multiply_lo                    ;03D87B|004202;
+++ STA.W Multiply_lo                    ;03D87B|004202;
    LDA.W #$0005                         ;03D87E|      ;
    STA.W $15B1,Y                        ;03D881|0015B1;
    LDA.W Mult_Divide_Result             ;03D884|004216;
@@ -14571,7 +14286,7 @@ CODE_03D87B:
    INY                                  ;03D892|      ;
    INY                                  ;03D893|      ;
    CPY.W #$0018                         ;03D894|      ;
-   BCC CODE_03D86A                      ;03D897|03D86A;
+   BCC -                                ;03D897|03D86A;
    LDA.W #$E0BE                         ;03D899|      ;
    STA.B $00                            ;03D89C|000000;
    LDA.W #$0008                         ;03D89E|      ;
@@ -14613,22 +14328,19 @@ CODE_03D8AA:
    LDA.L Inventory_Eqp,X                ;03D8F6|001419;
    AND.W #$FF00                         ;03D8FA|      ;
    CMP.W #$FF00                         ;03D8FD|      ;
-   BNE CODE_03D90C                      ;03D900|03D90C;
+   BNE +                                ;03D900|03D90C;
    LDA.W #$0180                         ;03D902|      ;
    STA.W Object_YPOS_mirror,Y           ;03D905|0007AB;
    STA.W Object_YPOS,Y                  ;03D908|00071B;
    RTL                                  ;03D90B|      ;
-CODE_03D90C:
-   XBA                                  ;03D90C|      ;
+ + XBA                                  ;03D90C|      ;
    LDX.W #$0006                         ;03D90D|      ;
-CODE_03D910:
-   CMP.L Party_slot1,X                  ;03D910|00155B;
-   BEQ CODE_03D91A                      ;03D914|03D91A;
+ - CMP.L Party_slot1,X                  ;03D910|00155B;
+   BEQ +                                ;03D914|03D91A;
    DEX                                  ;03D916|      ;
    DEX                                  ;03D917|      ;
-   BPL CODE_03D910                      ;03D918|03D910;
-CODE_03D91A:
-   LDA.L Party_order,X                  ;03D91A|0011F3;
+   BPL -                                ;03D918|03D910;
+ + LDA.L Party_order,X                  ;03D91A|0011F3;
    ASL A                                ;03D91E|      ;
    TAX                                  ;03D91F|      ;
    LDA.L DATA16_03D935,X                ;03D920|03D935;
@@ -14771,7 +14483,7 @@ CODE_03DA3A:
    RTL                                  ;03DA70|      ;
 Shop_related_2b:
    LDX.W Selection_offset               ;03DA71|00103F;
-   JSL.L GetEventCode_2b_far            ;03DA74|009B07;
+   JSL.L GetASMCode_2b_far              ;03DA74|009B07;
    STA.B $18                            ;03DA78|000018;
    LDA.B ($18)                          ;03DA7A|000018;
    STA.W Shop_selection                 ;03DA7C|001885;
@@ -14787,19 +14499,16 @@ Shop_Equipment_Helper:
    LDY.W Selection_offset               ;03DA91|00103F;
    LDX.W Object_var0_Menu_Cursor,Y      ;03DA94|0009A3;
    LDY.W #$0000                         ;03DA97|      ;
-CODE_03DA9A:
-   CPX.W #$0040                         ;03DA9A|      ;
-   BCC CODE_03DAA4                      ;03DA9D|03DAA4;
+ - CPX.W #$0040                         ;03DA9A|      ;
+   BCC +                                ;03DA9D|03DAA4;
    LDA.W #$0000                         ;03DA9F|      ;
-   BRA CODE_03DAB2                      ;03DAA2|03DAB2;
-CODE_03DAA4:
-   LDA.L Inventory_Eqp,X                ;03DAA4|001419;
+   BRA ++                               ;03DAA2|03DAB2;
+ + LDA.L Inventory_Eqp,X                ;03DAA4|001419;
    AND.W #$00FF                         ;03DAA8|      ;
-   BEQ CODE_03DAB2                      ;03DAAB|03DAB2;
+   BEQ ++                               ;03DAAB|03DAB2;
    INC.B $00                            ;03DAAD|000000;
    ORA.W #$1100                         ;03DAAF|      ;
-CODE_03DAB2:
-   STA.W Multiply_lo                    ;03DAB2|004202;
+++ STA.W Multiply_lo                    ;03DAB2|004202;
    LDA.W #$0005                         ;03DAB5|      ;
    STA.W $1631,Y                        ;03DAB8|001631;
    LDA.W Mult_Divide_Result             ;03DABB|004216;
@@ -14807,19 +14516,16 @@ CODE_03DAB2:
    ADC.W #$D67D                         ;03DABF|      ;
    STA.W $162F,Y                        ;03DAC2|00162F;
    CPX.W #$0040                         ;03DAC5|      ;
-   BCS CODE_03DAD6                      ;03DAC8|03DAD6;
+   BCS +                                ;03DAC8|03DAD6;
    LDA.L Inventory_Eqp,X                ;03DACA|001419;
    AND.W #$FF00                         ;03DACE|      ;
    CMP.W #$FF00                         ;03DAD1|      ;
-   BNE CODE_03DADB                      ;03DAD4|03DADB;
-CODE_03DAD6:
-   LDA.W #$0000                         ;03DAD6|      ;
-   BRA CODE_03DADD                      ;03DAD9|03DADD;
-CODE_03DADB:
-   XBA                                  ;03DADB|      ;
+   BNE ++                               ;03DAD4|03DADB;
+ + LDA.W #$0000                         ;03DAD6|      ;
+   BRA +                                ;03DAD9|03DADD;
+++ XBA                                  ;03DADB|      ;
    INC A                                ;03DADC|      ;
-CODE_03DADD:
-   ORA.W #$0800                         ;03DADD|      ;
+ + ORA.W #$0800                         ;03DADD|      ;
    STA.W Multiply_lo                    ;03DAE0|004202;
    LDA.W #$0005                         ;03DAE3|      ;
    STA.W $15F1,Y                        ;03DAE6|0015F1;
@@ -14838,32 +14544,28 @@ CODE_03DADD:
    INY                                  ;03DB03|      ;
    INY                                  ;03DB04|      ;
    CPY.W #$0020                         ;03DB05|      ;
-   BCC CODE_03DA9A                      ;03DB08|03DA9A;
+   BCC -                                ;03DB08|03DA9A;
    LDA.W #$0001                         ;03DB0A|      ;
    STA.W Shop_selection                 ;03DB0D|001885;
    LDA.B $00                            ;03DB10|000000;
-   BEQ CODE_03DB15                      ;03DB12|03DB15;
+   BEQ +                                ;03DB12|03DB15;
    INC A                                ;03DB14|      ;
-CODE_03DB15:
-   STA.W Shop_Max_Entries               ;03DB15|001883;
+ + STA.W Shop_Max_Entries               ;03DB15|001883;
    RTL                                  ;03DB18|      ;
-CODE_03DB19:
+CODE_FL_03DB19:
    STZ.B $00                            ;03DB19|000000;
    LDY.W Selection_offset               ;03DB1B|00103F;
    LDX.W Object_var0_Menu_Cursor,Y      ;03DB1E|0009A3;
    LDY.W #$0000                         ;03DB21|      ;
-CODE_03DB24:
-   CPX.W #$0060                         ;03DB24|      ;
-   BCC CODE_03DB2E                      ;03DB27|03DB2E;
+ - CPX.W #$0060                         ;03DB24|      ;
+   BCC +                                ;03DB27|03DB2E;
    LDA.W #$0000                         ;03DB29|      ;
-   BRA CODE_03DB39                      ;03DB2C|03DB39;
-CODE_03DB2E:
-   LDA.L Inventory_Items,X              ;03DB2E|0013B9;
-   BEQ CODE_03DB39                      ;03DB32|03DB39;
+   BRA ++                               ;03DB2C|03DB39;
+ + LDA.L Inventory_Items,X              ;03DB2E|0013B9;
+   BEQ ++                               ;03DB32|03DB39;
    INC.B $00                            ;03DB34|000000;
    ORA.W #$1400                         ;03DB36|      ;
-CODE_03DB39:
-   STA.W Multiply_lo                    ;03DB39|004202;
+++ STA.W Multiply_lo                    ;03DB39|004202;
    LDA.W #$0005                         ;03DB3C|      ;
    STA.W $15F1,Y                        ;03DB3F|0015F1;
    LDA.W Mult_Divide_Result             ;03DB42|004216;
@@ -14881,15 +14583,14 @@ CODE_03DB39:
    INY                                  ;03DB5C|      ;
    INY                                  ;03DB5D|      ;
    CPY.W #$0020                         ;03DB5E|      ;
-   BCC CODE_03DB24                      ;03DB61|03DB24;
+   BCC -                                ;03DB61|03DB24;
    LDA.W #$0002                         ;03DB63|      ;
    STA.W Shop_selection                 ;03DB66|001885;
    LDA.B $00                            ;03DB69|000000;
-   BEQ CODE_03DB6F                      ;03DB6B|03DB6F;
+   BEQ +                                ;03DB6B|03DB6F;
    INC A                                ;03DB6D|      ;
    INC A                                ;03DB6E|      ;
-CODE_03DB6F:
-   STA.W Shop_Max_Entries               ;03DB6F|001883;
+ + STA.W Shop_Max_Entries               ;03DB6F|001883;
    RTL                                  ;03DB72|      ;
 Sell_Weapon_Desc:
    LDY.W Selection_offset               ;03DB73|00103F;
@@ -14917,22 +14618,19 @@ Sell_Weapon_Desc:
    LDA.L Inventory_Eqp,X                ;03DBA5|001419;
    AND.W #$FF00                         ;03DBA9|      ;
    CMP.W #$FF00                         ;03DBAC|      ;
-   BNE CODE_03DBBB                      ;03DBAF|03DBBB;
+   BNE +                                ;03DBAF|03DBBB;
    LDA.W #$0180                         ;03DBB1|      ;
    STA.W Object_YPOS_mirror,Y           ;03DBB4|0007AB;
    STA.W Object_YPOS,Y                  ;03DBB7|00071B;
    RTL                                  ;03DBBA|      ;
-CODE_03DBBB:
-   XBA                                  ;03DBBB|      ;
+ + XBA                                  ;03DBBB|      ;
    LDX.W #$0006                         ;03DBBC|      ;
-CODE_03DBBF:
-   CMP.L Party_slot1,X                  ;03DBBF|00155B;
-   BEQ CODE_03DBC9                      ;03DBC3|03DBC9;
+ - CMP.L Party_slot1,X                  ;03DBBF|00155B;
+   BEQ +                                ;03DBC3|03DBC9;
    DEX                                  ;03DBC5|      ;
    DEX                                  ;03DBC6|      ;
-   BPL CODE_03DBBF                      ;03DBC7|03DBBF;
-CODE_03DBC9:
-   LDA.L Party_order,X                  ;03DBC9|0011F3;
+   BPL -                                ;03DBC7|03DBBF;
+ + LDA.L Party_order,X                  ;03DBC9|0011F3;
    ASL A                                ;03DBCD|      ;
    TAX                                  ;03DBCE|      ;
    LDA.L DATA16_03D935,X                ;03DBCF|03D935;
@@ -14967,29 +14665,26 @@ CODE_03DC0D:
    LDA.W Object_var0_Menu_Cursor,Y      ;03DC10|0009A3;
    SEC                                  ;03DC13|      ;
    SBC.W #$0010                         ;03DC14|      ;
-   BCS CODE_03DC1C                      ;03DC17|03DC1C;
+   BCS +                                ;03DC17|03DC1C;
    ADC.W #$0040                         ;03DC19|      ;
-CODE_03DC1C:
-   STA.W Object_var0_Menu_Cursor,Y      ;03DC1C|0009A3;
+ + STA.W Object_var0_Menu_Cursor,Y      ;03DC1C|0009A3;
    JSL.L Shop_Equipment_Helper          ;03DC1F|03DA8F;
    CMP.W #$0000                         ;03DC23|      ;
    BEQ CODE_03DC0D                      ;03DC26|03DC0D;
-   BRA CODE_03DC48                      ;03DC28|03DC48;
+   BRA +                                ;03DC28|03DC48;
 CODE_03DC2A:
    LDY.W Selection_offset               ;03DC2A|00103F;
    LDA.W Object_var0_Menu_Cursor,Y      ;03DC2D|0009A3;
    CLC                                  ;03DC30|      ;
    ADC.W #$0010                         ;03DC31|      ;
    CMP.W #$0040                         ;03DC34|      ;
-   BCC CODE_03DC3C                      ;03DC37|03DC3C;
+   BCC ++                               ;03DC37|03DC3C;
    SBC.W #$0040                         ;03DC39|      ;
-CODE_03DC3C:
-   STA.W Object_var0_Menu_Cursor,Y      ;03DC3C|0009A3;
+++ STA.W Object_var0_Menu_Cursor,Y      ;03DC3C|0009A3;
    JSL.L Shop_Equipment_Helper          ;03DC3F|03DA8F;
    CMP.W #$0000                         ;03DC43|      ;
    BEQ CODE_03DC2A                      ;03DC46|03DC2A;
-CODE_03DC48:
-   LDA.W #$0004                         ;03DC48|      ;
+ + LDA.W #$0004                         ;03DC48|      ;
    STA.W Shop_Max_Entries               ;03DC4B|001883;
    LDA.W #$E0F2                         ;03DC4E|      ;
    STA.B $00                            ;03DC51|000000;
@@ -15002,29 +14697,26 @@ CODE_03DC5F:
    LDA.W Object_var0_Menu_Cursor,Y      ;03DC62|0009A3;
    SEC                                  ;03DC65|      ;
    SBC.W #$0010                         ;03DC66|      ;
-   BCS CODE_03DC6E                      ;03DC69|03DC6E;
+   BCS +                                ;03DC69|03DC6E;
    ADC.W #$0060                         ;03DC6B|      ;
-CODE_03DC6E:
-   STA.W Object_var0_Menu_Cursor,Y      ;03DC6E|0009A3;
-   JSL.L CODE_03DB19                    ;03DC71|03DB19;
+ + STA.W Object_var0_Menu_Cursor,Y      ;03DC6E|0009A3;
+   JSL.L CODE_FL_03DB19                 ;03DC71|03DB19;
    CMP.W #$0000                         ;03DC75|      ;
    BEQ CODE_03DC5F                      ;03DC78|03DC5F;
-   BRA CODE_03DC9A                      ;03DC7A|03DC9A;
+   BRA +                                ;03DC7A|03DC9A;
 Shop_cursor_related:
    LDY.W Selection_offset               ;03DC7C|00103F; Probably the cursor??
    LDA.W Object_var0_Menu_Cursor,Y      ;03DC7F|0009A3;
    CLC                                  ;03DC82|      ;
    ADC.W #$0010                         ;03DC83|      ;
    CMP.W #$0060                         ;03DC86|      ;
-   BCC CODE_03DC8E                      ;03DC89|03DC8E;
+   BCC ++                               ;03DC89|03DC8E;
    SBC.W #$0060                         ;03DC8B|      ;
-CODE_03DC8E:
-   STA.W Object_var0_Menu_Cursor,Y      ;03DC8E|0009A3;
-   JSL.L CODE_03DB19                    ;03DC91|03DB19;
+++ STA.W Object_var0_Menu_Cursor,Y      ;03DC8E|0009A3;
+   JSL.L CODE_FL_03DB19                 ;03DC91|03DB19;
    CMP.W #$0000                         ;03DC95|      ;
    BEQ Shop_cursor_related              ;03DC98|03DC7C;
-CODE_03DC9A:
-   LDA.W #$E190                         ;03DC9A|      ;
+ + LDA.W #$E190                         ;03DC9A|      ;
    STA.B $00                            ;03DC9D|000000;
    LDA.W #$0008                         ;03DC9F|      ;
    STA.B $02                            ;03DCA2|000002;
@@ -15050,17 +14742,15 @@ CODE_03DCAB:
    CLC                                  ;03DCD0|      ;
    ADC.W #$D67D                         ;03DCD1|      ;
    STA.B $18                            ;03DCD4|000018;
-   JSR.W CODE_03D5D6                    ;03DCD6|03D5D6;
+   JSR.W CODE_FN_03D5D6                 ;03DCD6|03D5D6;
    PLA                                  ;03DCD9|      ;
    CMP.W #$000D                         ;03DCDA|      ;
-   BEQ CODE_03DCE4                      ;03DCDD|03DCE4;
+   BEQ +                                ;03DCDD|03DCE4;
    CMP.W #$000E                         ;03DCDF|      ;
-   BNE CODE_03DCE8                      ;03DCE2|03DCE8;
-CODE_03DCE4:
-   LDA.W #$0001                         ;03DCE4|      ;
+   BNE ++                               ;03DCE2|03DCE8;
+ + LDA.W #$0001                         ;03DCE4|      ;
    RTL                                  ;03DCE7|      ;
-CODE_03DCE8:
-   ASL A                                ;03DCE8|      ;
+++ ASL A                                ;03DCE8|      ;
    TAX                                  ;03DCE9|      ;
    LDA.L Prices_Weapons,X               ;03DCEA|05DE86;
    LSR A                                ;03DCEE|      ;
@@ -15089,14 +14779,13 @@ CODE_03DCF9:
    CLC                                  ;03DD1F|      ;
    ADC.W #$EE9A                         ;03DD20|      ;
    STA.B $18                            ;03DD23|000018;
-   JSR.W CODE_03D5D6                    ;03DD25|03D5D6;
+   JSR.W CODE_FN_03D5D6                 ;03DD25|03D5D6;
    PLA                                  ;03DD28|      ;
    CMP.W #$0011                         ;03DD29|      ;
-   BNE CODE_03DD32                      ;03DD2C|03DD32;
+   BNE +                                ;03DD2C|03DD32;
    LDA.W #$0001                         ;03DD2E|      ;
    RTL                                  ;03DD31|      ;
-CODE_03DD32:
-   ASL A                                ;03DD32|      ;
+ + ASL A                                ;03DD32|      ;
    TAY                                  ;03DD33|      ;
    PEA.W $0003                          ;03DD34|000003;
    PLB                                  ;03DD37|      ;
@@ -15116,10 +14805,9 @@ CODE_03DD50:
    LDA.W Curr_GP                        ;03DD50|001559;
    CLC                                  ;03DD53|      ;
    ADC.W $18A1                          ;03DD54|0018A1;
-   BCC CODE_03DD5C                      ;03DD57|03DD5C;
+   BCC +                                ;03DD57|03DD5C;
    LDA.W #$FFFF                         ;03DD59|      ;
-CODE_03DD5C:
-   STA.W Curr_GP                        ;03DD5C|001559;
+ + STA.W Curr_GP                        ;03DD5C|001559;
    LDX.W $189F                          ;03DD5F|00189F;
    LDA.W Inventory_Eqp,X                ;03DD62|001419;
    AND.W #$FF00                         ;03DD65|      ;
@@ -15127,66 +14815,57 @@ CODE_03DD5C:
    BEQ CODE_03DDAD                      ;03DD6B|03DDAD;
    XBA                                  ;03DD6D|      ;
    LDY.W #$0006                         ;03DD6E|      ;
-CODE_03DD71:
-   CMP.W Party_slot1,Y                  ;03DD71|00155B;
-   BEQ CODE_03DD7A                      ;03DD74|03DD7A;
+ - CMP.W Party_slot1,Y                  ;03DD71|00155B;
+   BEQ +                                ;03DD74|03DD7A;
    DEY                                  ;03DD76|      ;
    DEY                                  ;03DD77|      ;
-   BPL CODE_03DD71                      ;03DD78|03DD71;
-CODE_03DD7A:
-   LDA.W Inventory_Eqp,X                ;03DD7A|001419;
+   BPL -                                ;03DD78|03DD71;
+ + LDA.W Inventory_Eqp,X                ;03DD7A|001419;
    AND.W #$00FF                         ;03DD7D|      ;
    CMP.W #$0029                         ;03DD80|      ;
-   BCS CODE_03DD8D                      ;03DD83|03DD8D;
+   BCS +                                ;03DD83|03DD8D;
    LDA.W #$0000                         ;03DD85|      ;
    STA.W EqWeapon,Y                     ;03DD88|001283;
    BRA CODE_03DDAD                      ;03DD8B|03DDAD;
-CODE_03DD8D:
-   CMP.W #$0051                         ;03DD8D|      ;
-   BCS CODE_03DD9A                      ;03DD90|03DD9A;
+ + CMP.W #$0051                         ;03DD8D|      ;
+   BCS +                                ;03DD90|03DD9A;
    LDA.W #$0000                         ;03DD92|      ;
    STA.W EqArmor,Y                      ;03DD95|00129B;
    BRA CODE_03DDAD                      ;03DD98|03DDAD;
-CODE_03DD9A:
-   CMP.W #$0065                         ;03DD9A|      ;
-   BCS CODE_03DDA7                      ;03DD9D|03DDA7;
+ + CMP.W #$0065                         ;03DD9A|      ;
+   BCS +                                ;03DD9D|03DDA7;
    LDA.W #$0000                         ;03DD9F|      ;
    STA.W EqAmulet,Y                     ;03DDA2|0012B3;
    BRA CODE_03DDAD                      ;03DDA5|03DDAD;
-CODE_03DDA7:
-   LDA.W #$0000                         ;03DDA7|      ;
+ + LDA.W #$0000                         ;03DDA7|      ;
    STA.W EqRing,Y                       ;03DDAA|0012CB;
 CODE_03DDAD:
    CPX.W #$003E                         ;03DDAD|      ;
-   BCS CODE_03DDBC                      ;03DDB0|03DDBC;
+   BCS +                                ;03DDB0|03DDBC;
    LDA.W $141B,X                        ;03DDB2|00141B;
    STA.W Inventory_Eqp,X                ;03DDB5|001419;
    INX                                  ;03DDB8|      ;
    INX                                  ;03DDB9|      ;
    BRA CODE_03DDAD                      ;03DDBA|03DDAD;
-CODE_03DDBC:
-   LDA.W #$FF00                         ;03DDBC|      ;
+ + LDA.W #$FF00                         ;03DDBC|      ;
    STA.W Inventory_Eqp,X                ;03DDBF|001419;
    RTL                                  ;03DDC2|      ;
 CODE_03DDC3:
    LDA.W Curr_GP                        ;03DDC3|001559;
    CLC                                  ;03DDC6|      ;
    ADC.W $18A1                          ;03DDC7|0018A1;
-   BCC CODE_03DDCF                      ;03DDCA|03DDCF;
+   BCC +                                ;03DDCA|03DDCF;
    LDA.W #$FFFF                         ;03DDCC|      ;
-CODE_03DDCF:
-   STA.W Curr_GP                        ;03DDCF|001559;
+ + STA.W Curr_GP                        ;03DDCF|001559;
    LDX.W $189F                          ;03DDD2|00189F;
-CODE_03DDD5:
-   CPX.W #$005E                         ;03DDD5|      ;
-   BCS CODE_03DDE4                      ;03DDD8|03DDE4;
+ - CPX.W #$005E                         ;03DDD5|      ;
+   BCS +                                ;03DDD8|03DDE4;
    LDA.W $13BB,X                        ;03DDDA|0013BB;
    STA.W Inventory_Items,X              ;03DDDD|0013B9;
    INX                                  ;03DDE0|      ;
    INX                                  ;03DDE1|      ;
-   BRA CODE_03DDD5                      ;03DDE2|03DDD5;
-CODE_03DDE4:
-   LDA.W #$0000                         ;03DDE4|      ;
+   BRA -                                ;03DDE2|03DDD5;
+ + LDA.W #$0000                         ;03DDE4|      ;
    STA.W Inventory_Items,X              ;03DDE7|0013B9;
    RTL                                  ;03DDEA|      ;
 Get_inn_price:
@@ -15207,38 +14886,34 @@ Cant_buy_thing:
    LDA.W Curr_GP                        ;03DE05|001559; Returns 1 if not enough money, 0 otherwise
    SEC                                  ;03DE08|      ;
    SBC.W $189F                          ;03DE09|00189F;
-   BCS CODE_03DE12                      ;03DE0C|03DE12;
+   BCS +                                ;03DE0C|03DE12;
    LDA.W #$0001                         ;03DE0E|      ;
    RTL                                  ;03DE11|      ;
-CODE_03DE12:
-   LDA.W #$0000                         ;03DE12|      ;
+ + LDA.W #$0000                         ;03DE12|      ;
    RTL                                  ;03DE15|      ;
 Inn_Full_heal:
    LDX.W #$0006                         ;03DE16|      ;
-CODE_03DE19:
-   LDA.W Max_HP_Rooks,X                 ;03DE19|001393;
+ - LDA.W Max_HP_Rooks,X                 ;03DE19|001393;
    STA.W Curr_HP_Rooks,X                ;03DE1C|0012F3;
    LDA.W Max_MP_Rooks,X                 ;03DE1F|00139B;
    STA.W Curr_MP_Rooks,X                ;03DE22|001323;
    LDA.W Condition,X                    ;03DE25|0011C3;
    CMP.W #$0003                         ;03DE28|      ;
-   BCC CODE_03DE33                      ;03DE2B|03DE33;
+   BCC +                                ;03DE2B|03DE33;
    LDA.W #$0000                         ;03DE2D|      ;
    STA.W Condition,X                    ;03DE30|0011C3;
-CODE_03DE33:
-   LDA.W Spirits_NotOwned               ;03DE33|0013A7;
+ + LDA.W Spirits_NotOwned               ;03DE33|0013A7;
    AND.L Bit_flags,X                    ;03DE36|008C34;
-   BNE CODE_03DE4E                      ;03DE3A|03DE4E;
+   BNE +                                ;03DE3A|03DE4E;
    LDA.W Spirits_NotOwned               ;03DE3C|0013A7;
    AND.L DATA16_008C44,X                ;03DE3F|008C44;
-   BNE CODE_03DE4E                      ;03DE43|03DE4E;
+   BNE +                                ;03DE43|03DE4E;
    LDA.W #$FFFF                         ;03DE45|      ;
    STA.W Curr_HP_Sylph,X                ;03DE48|001353;
    STA.W Curr_MP_Sylph,X                ;03DE4B|00135B;
-CODE_03DE4E:
-   DEX                                  ;03DE4E|      ;
+ + DEX                                  ;03DE4E|      ;
    DEX                                  ;03DE4F|      ;
-   BPL CODE_03DE19                      ;03DE50|03DE19;
+   BPL -                                ;03DE50|03DE19;
    LDA.W Curr_GP                        ;03DE52|001559;
    SEC                                  ;03DE55|      ;
    SBC.W $189F                          ;03DE56|00189F;
@@ -15255,14 +14930,12 @@ Alchemist_Convo_Picker:
    PLB                                  ;03DE71|      ;
    LDX.W #$0000                         ;03DE72|      ;
    LDA.W Story_Progress                 ;03DE75|0018FF;
-CODE_03DE78:
-   CMP.W Tbl_Alchemist_Events,X         ;03DE78|03DEB3; Every 3 events, load a different set of convos
-   BCC CODE_03DE81                      ;03DE7B|03DE81;
+ - CMP.W Tbl_Alchemist_Events,X         ;03DE78|03DEB3; Every 3 events, load a different set of convos
+   BCC +                                ;03DE7B|03DE81;
    INX                                  ;03DE7D|      ;
    INX                                  ;03DE7E|      ;
-   BRA CODE_03DE78                      ;03DE7F|03DE78;
-CODE_03DE81:
-   LDA.W Tbl_Alchemist_Convo_Sets,X     ;03DE81|03DEC5; Randomly pick 1 of the 3 convos for those events
+   BRA -                                ;03DE7F|03DE78;
+ + LDA.W Tbl_Alchemist_Convo_Sets,X     ;03DE81|03DEC5; Randomly pick 1 of the 3 convos for those events
    STA.B $00                            ;03DE84|000000;
    LDA.W #$0003                         ;03DE86|      ;
    JSL.L RNG                            ;03DE89|0089F1;
@@ -15280,11 +14953,10 @@ CODE_03DE81:
 Something_Strange_Chk:
    LDA.B $00                            ;03DEA4|000000; Something Strange is the only one that pauses for user input
    CMP.W #$D9BE                         ;03DEA6|      ;
-   BNE CODE_03DEAF                      ;03DEA9|03DEAF;
+   BNE +                                ;03DEA9|03DEAF;
    LDA.W #$0001                         ;03DEAB|      ;
    RTL                                  ;03DEAE|      ;
-CODE_03DEAF:
-   LDA.W #$0000                         ;03DEAF|      ;
+ + LDA.W #$0000                         ;03DEAF|      ;
    RTL                                  ;03DEB2|      ;
 Tbl_Alchemist_Events:
    dw $0004                             ;03DEB3|      ;
@@ -15349,12 +15021,11 @@ Buy_a_drink:
    LDA.W Curr_GP                        ;03DF12|001559;
    SEC                                  ;03DF15|      ;
    SBC.L Alchemist_prices,X             ;03DF16|03DF27;
-   BCC CODE_03DF23                      ;03DF1A|03DF23;
+   BCC +                                ;03DF1A|03DF23;
    STA.W Curr_GP                        ;03DF1C|001559;
    LDA.W Shop_selection                 ;03DF1F|001885;
    RTL                                  ;03DF22|      ;
-CODE_03DF23:
-   LDA.W #$0004                         ;03DF23|      ;
+ + LDA.W #$0004                         ;03DF23|      ;
    RTL                                  ;03DF26|      ;
 Alchemist_prices:
    dw $0001                             ;03DF27|      ;
@@ -15362,7 +15033,7 @@ Alchemist_prices:
    dw $000A                             ;03DF2B|      ;
    dw $0014                             ;03DF2D|      ;
 Alchemist_healing:
-   JSL.L GetEventCode_1b_far            ;03DF2F|009AF8; Returns 1 if success, 0 if not available/dead
+   JSL.L GetASMCode_1b_far              ;03DF2F|009AF8; Returns 1 if success, 0 if not available/dead
    ASL A                                ;03DF33|      ;
    TAX                                  ;03DF34|      ;
    LDY.W Selection_offset               ;03DF35|00103F;
@@ -15374,28 +15045,26 @@ Alchemist_healing:
    TAY                                  ;03DF41|      ;
    LDA.W Party_slot1,Y                  ;03DF42|00155B;
    CMP.W #$0009                         ;03DF45|      ;
-   BEQ CODE_03DF9E                      ;03DF48|03DF9E;
+   BEQ +                                ;03DF48|03DF9E;
    LDA.W Condition,Y                    ;03DF4A|0011C3;
    CMP.W #$0001                         ;03DF4D|      ;
-   BEQ CODE_03DF9E                      ;03DF50|03DF9E;
+   BEQ +                                ;03DF50|03DF9E;
    CMP.W #$0002                         ;03DF52|      ;
-   BEQ CODE_03DF9E                      ;03DF55|03DF9E;
+   BEQ +                                ;03DF55|03DF9E;
    LDA.L Alchemist_HP_heal,X            ;03DF57|03DFA2;
    CLC                                  ;03DF5B|      ;
    ADC.W Curr_HP_Rooks,Y                ;03DF5C|0012F3;
    CMP.W Max_HP_Rooks,Y                 ;03DF5F|001393;
-   BCC CODE_03DF67                      ;03DF62|03DF67;
+   BCC ++                               ;03DF62|03DF67;
    LDA.W Max_HP_Rooks,Y                 ;03DF64|001393;
-CODE_03DF67:
-   STA.W Curr_HP_Rooks,Y                ;03DF67|0012F3;
+++ STA.W Curr_HP_Rooks,Y                ;03DF67|0012F3;
    LDA.L Alchemist_MP_heal,X            ;03DF6A|03DFA8;
    CLC                                  ;03DF6E|      ;
    ADC.W Curr_MP_Rooks,Y                ;03DF6F|001323;
    CMP.W Max_MP_Rooks,Y                 ;03DF72|00139B;
-   BCC CODE_03DF7A                      ;03DF75|03DF7A;
+   BCC ++                               ;03DF75|03DF7A;
    LDA.W Max_MP_Rooks,Y                 ;03DF77|00139B;
-CODE_03DF7A:
-   STA.W Curr_MP_Rooks,Y                ;03DF7A|001323;
+++ STA.W Curr_MP_Rooks,Y                ;03DF7A|001323;
    LDA.W Party_slot1,Y                  ;03DF7D|00155B;
    AND.W #$00FF                         ;03DF80|      ;
    ORA.W #$0B00                         ;03DF83|      ;
@@ -15406,11 +15075,10 @@ CODE_03DF7A:
    STA.B $18                            ;03DF90|000018;
    LDA.W #$0005                         ;03DF92|      ;
    STA.B $1A                            ;03DF95|00001A;
-   JSR.W CODE_03D5D6                    ;03DF97|03D5D6;
+   JSR.W CODE_FN_03D5D6                 ;03DF97|03D5D6;
    LDA.W #$0001                         ;03DF9A|      ;
    RTL                                  ;03DF9D|      ;
-CODE_03DF9E:
-   LDA.W #$0000                         ;03DF9E|      ;
+ + LDA.W #$0000                         ;03DF9E|      ;
    RTL                                  ;03DFA1|      ;
 Alchemist_HP_heal:
    dw $0005                             ;03DFA2|      ;
@@ -15452,8 +15120,7 @@ CODE_03DFD9:
    ADC.W #$E044                         ;03DFF3|      ;
    STA.B $00                            ;03DFF6|000000;
    LDY.W #$0006                         ;03DFF8|      ;
-CODE_03DFFB:
-   TYA                                  ;03DFFB|      ;
+ - TYA                                  ;03DFFB|      ;
    ASL A                                ;03DFFC|      ;
    TAX                                  ;03DFFD|      ;
    LDA.B ($00),Y                        ;03DFFE|000000;
@@ -15473,7 +15140,7 @@ CODE_03DFFB:
    STA.W $16DB,Y                        ;03E01D|0016DB;
    DEY                                  ;03E020|      ;
    DEY                                  ;03E021|      ;
-   BPL CODE_03DFFB                      ;03E022|03DFFB;
+   BPL -                                ;03E022|03DFFB;
    PLB                                  ;03E024|      ;
    RTL                                  ;03E025|      ;
 Display_Card_store:
@@ -15562,47 +15229,42 @@ Add_card_to_stack:
 Sub_Heal_Spirits:
    LDA.W Party_slot2                    ;03E0D0|00155D;
    STA.W $189D                          ;03E0D3|00189D;
-   JSL.L CODE_07B98A                    ;03E0D6|07B98A;
+   JSL.L CODE_FL_07B98A                 ;03E0D6|07B98A;
    LDY.W #$0000                         ;03E0DA|      ;
    LDX.W #$0000                         ;03E0DD|      ;
-CODE_03E0E0:
-   LDA.W Spirits_NotOwned               ;03E0E0|0013A7;
+ - LDA.W Spirits_NotOwned               ;03E0E0|0013A7;
    AND.L Bit_flags,X                    ;03E0E3|008C34;
-   BNE CODE_03E0FA                      ;03E0E7|03E0FA;
+   BNE +                                ;03E0E7|03E0FA;
    LDA.W Spirits_NotOwned               ;03E0E9|0013A7;
    AND.L DATA16_008C44,X                ;03E0EC|008C44;
-   BEQ CODE_03E0FA                      ;03E0F0|03E0FA;
+   BEQ +                                ;03E0F0|03E0FA;
    TXA                                  ;03E0F2|      ;
    INC A                                ;03E0F3|      ;
    INC A                                ;03E0F4|      ;
    STA.W Torn_spirits,Y                 ;03E0F5|001895;
    INY                                  ;03E0F8|      ;
    INY                                  ;03E0F9|      ;
-CODE_03E0FA:
-   INX                                  ;03E0FA|      ;
+ + INX                                  ;03E0FA|      ;
    INX                                  ;03E0FB|      ;
    CPX.W #$0008                         ;03E0FC|      ;
-   BCC CODE_03E0E0                      ;03E0FF|03E0E0;
+   BCC -                                ;03E0FF|03E0E0;
    CPY.W #$0000                         ;03E101|      ;
-   BNE CODE_03E10A                      ;03E104|03E10A;
+   BNE +                                ;03E104|03E10A;
    LDA.W #$0000                         ;03E106|      ;
    RTL                                  ;03E109|      ;
-CODE_03E10A:
-   TYA                                  ;03E10A|      ;
+ + TYA                                  ;03E10A|      ;
    LSR A                                ;03E10B|      ;
    STA.W Shop_Max_Entries               ;03E10C|001883;
    LDA.W #$0000                         ;03E10F|      ;
-CODE_03E112:
-   CPY.W #$0008                         ;03E112|      ;
+ - CPY.W #$0008                         ;03E112|      ;
    BCS Loop_Torn_Spirits                ;03E115|03E11E;
    STA.W Torn_spirits,Y                 ;03E117|001895;
    INY                                  ;03E11A|      ;
    INY                                  ;03E11B|      ;
-   BRA CODE_03E112                      ;03E11C|03E112;
+   BRA -                                ;03E11C|03E112;
 Loop_Torn_Spirits:
    LDY.W #$0006                         ;03E11E|      ;
-CODE_03E121:
-   LDX.W Torn_spirits,Y                 ;03E121|001895;
+ - LDX.W Torn_spirits,Y                 ;03E121|001895;
    LDA.L Spirit_names,X                 ;03E124|03E14A;
    PHA                                  ;03E128|      ;
    TYA                                  ;03E129|      ;
@@ -15614,7 +15276,7 @@ CODE_03E121:
    STA.W $15B1,X                        ;03E133|0015B1; Store the bank #
    DEY                                  ;03E136|      ;
    DEY                                  ;03E137|      ;
-   BPL CODE_03E121                      ;03E138|03E121; Loop, runs 4 times
+   BPL -                                ;03E138|03E121; Loop, runs 4 times
    LDA.W Curr_area                      ;03E13A|001573; What town are we in?
    ASL A                                ;03E13D|      ;
    TAX                                  ;03E13E|      ;
@@ -15660,26 +15322,22 @@ CODE_03E18B:
    LDA.W $189D                          ;03E192|00189D;
    DEC A                                ;03E195|      ;
    CMP.W #$0004                         ;03E196|      ;
-   BCS CODE_03E1B9                      ;03E199|03E1B9;
+   BCS +                                ;03E199|03E1B9;
    ASL A                                ;03E19B|      ;
    TAX                                  ;03E19C|      ;
    LDA.W Spirits_NotOwned               ;03E19D|0013A7;
    AND.L DATA16_008C44,X                ;03E1A0|008C44;
-   BNE CODE_03E1AB                      ;03E1A4|03E1AB;
+   BNE ++                               ;03E1A4|03E1AB;
    LDA.W #$0000                         ;03E1A6|      ;
-   BRA CODE_03E1AE                      ;03E1A9|03E1AE;
-CODE_03E1AB:
-   LDA.W #$0001                         ;03E1AB|      ;
-CODE_03E1AE:
-   STA.W Temp_party_order               ;03E1AE|00062D;
+   BRA +++                              ;03E1A9|03E1AE;
+++ LDA.W #$0001                         ;03E1AB|      ;
++++ STA.W Temp_party_order               ;03E1AE|00062D;
    INX                                  ;03E1B1|      ;
    INX                                  ;03E1B2|      ;
    LDA.L _0643_list,X                   ;03E1B3|03E181;
-   BRA CODE_03E1BC                      ;03E1B7|03E1BC;
-CODE_03E1B9:
-   LDA.W #$000D                         ;03E1B9|      ;
-CODE_03E1BC:
-   LDX.W #$000E                         ;03E1BC|      ;
+   BRA ++                               ;03E1B7|03E1BC;
+ + LDA.W #$000D                         ;03E1B9|      ;
+++ LDX.W #$000E                         ;03E1BC|      ;
    JSR.W Zero_06xx_s_do_stuff           ;03E1BF|03E21F;
    RTL                                  ;03E1C2|      ;
 Buy_Revival:
@@ -15733,13 +15391,12 @@ Zero_06xx_s_do_stuff:
    LDX.W #$0000                         ;03E239|      ;
    JSL.L Setup_Code_Ptr                 ;03E23C|008D24;
    RTS                                  ;03E240|      ;
-CODE_03E241:
+CODE_FN_03E241:
    JSL.L Zero_18FD                      ;03E241|188321;
    JSL.L DC_Setup                       ;03E245|188325;
-CODE_03E249:
-   JSL.L Wait_Vblank_far                ;03E249|0088DE;
+ - JSL.L Wait_Vblank_far                ;03E249|0088DE;
    JSL.L Decomps_Animations             ;03E24D|18833E;
-   BCC CODE_03E249                      ;03E251|03E249;
+   BCC -                                ;03E251|03E249;
    RTS                                  ;03E253|      ;
 Dungeon_Enter:
    LDA.W Curr_area                      ;03E254|001573;
@@ -15753,9 +15410,9 @@ Dungeon_Enter:
    STA.W Map_Y                          ;03E26B|0016F9;
    LDA.L Tbl_Dungeon_CStart,X           ;03E26E|03E29E;
    STA.W Map_Compass                    ;03E272|0016FB;
-   JSL.L CODE_038007                    ;03E275|038007;
+   JSL.L CODE_FL_038007                 ;03E275|038007;
    JSL.L Map_stuff_and_vblank           ;03E279|03883F;
-   JMP.W CODE_03887A                    ;03E27D|03887A;
+   JMP.W CODE_JP_03887A                 ;03E27D|03887A;
 Tbl_Dungeon_Start:
    dw $0100                             ;03E280|      ; 5 entries/5 chapters
    dw $0102                             ;03E282|      ;
@@ -15781,9 +15438,9 @@ Tbl_Dungeon_CStart:
    dw $0000                             ;03E2A4|      ;
    dw $0000                             ;03E2A6|      ;
 Shop_cursor_setup_3b:
-   JSL.L GetEventCode_2b_far            ;03E2A8|009B07; Stores values to end of RAM
+   JSL.L GetASMCode_2b_far              ;03E2A8|009B07; Stores values to end of RAM
    STA.B $18                            ;03E2AC|000018;
-   JSL.L GetEventCode_1b_far            ;03E2AE|009AF8;
+   JSL.L GetASMCode_1b_far              ;03E2AE|009AF8;
    STA.B $1A                            ;03E2B2|00001A;
    LDA.B [$18]                          ;03E2B4|000018;
    STA.W Multiply_lo                    ;03E2B6|004202;
@@ -15804,8 +15461,7 @@ Shop_cursor_setup_3b:
    INC.B $18                            ;03E2DC|000018;
    LDY.W Mult_Divide_Result             ;03E2DE|004216;
    LDX.W #$0000                         ;03E2E1|      ;
-CODE_03E2E4:
-   LDA.B [$18]                          ;03E2E4|000018;
+ - LDA.B [$18]                          ;03E2E4|000018;
    AND.W #$00FF                         ;03E2E6|      ;
    STA.L $7FFFA0,X                      ;03E2E9|7FFFA0;
    INC.B $18                            ;03E2ED|000018;
@@ -15820,7 +15476,7 @@ CODE_03E2E4:
    INX                                  ;03E305|      ;
    INX                                  ;03E306|      ;
    DEY                                  ;03E307|      ;
-   BNE CODE_03E2E4                      ;03E308|03E2E4;
+   BNE -                                ;03E308|03E2E4;
    STZ.W Shop_selection                 ;03E30A|001885;
    STZ.W $188B                          ;03E30D|00188B;
    STZ.W Shop_Curr_Selection            ;03E310|00188D;
@@ -15857,22 +15513,20 @@ Shop_B_not_pressed:
    REP #$20                             ;03E357|      ;
    LDA.W $1891                          ;03E359|001891;
    BIT.W #$0005                         ;03E35C|      ;
-   BEQ CODE_03E366                      ;03E35F|03E366;
+   BEQ +                                ;03E35F|03E366;
    LDA.W $1887                          ;03E361|001887;
-   BRA CODE_03E369                      ;03E364|03E369;
-CODE_03E366:
-   LDA.W Quotient                       ;03E366|004214;
-CODE_03E369:
-   STA.B $00                            ;03E369|000000;
+   BRA ++                               ;03E364|03E369;
+ + LDA.W Quotient                       ;03E366|004214;
+++ STA.B $00                            ;03E369|000000;
    LDA.W Input_0029_New                 ;03E36B|000029;
    BIT.W #$0800                         ;03E36E|      ;
    BEQ Shop_Up_not_pressed              ;03E371|03E3C2;
 Shop_Up_press:
    LDA.W Shop_Curr_Selection            ;03E373|00188D;
-   BNE CODE_03E3AD                      ;03E376|03E3AD;
+   BNE +                                ;03E376|03E3AD;
    LDA.W $1891                          ;03E378|001891;
    BIT.W #$0002                         ;03E37B|      ;
-   BNE CODE_03E393                      ;03E37E|03E393;
+   BNE ++                               ;03E37E|03E393;
    BIT.W #$0004                         ;03E380|      ;
    BEQ CODE_03E3BC                      ;03E383|03E3BC;
    LDA.W Shop_selection                 ;03E385|001885;
@@ -15880,9 +15534,8 @@ Shop_Up_press:
    SBC.B $00                            ;03E389|000000;
    BCC CODE_03E3BC                      ;03E38B|03E3BC;
    LDA.W #$0004                         ;03E38D|      ;
-   JMP.W CODE_03E4C7                    ;03E390|03E4C7;
-CODE_03E393:
-   LDA.W $1889                          ;03E393|001889;
+   JMP.W CODE_JP_03E4C7                 ;03E390|03E4C7;
+++ LDA.W $1889                          ;03E393|001889;
    DEC A                                ;03E396|      ;
    STA.W Shop_Curr_Selection            ;03E397|00188D;
    XBA                                  ;03E39A|      ;
@@ -15893,8 +15546,7 @@ CODE_03E393:
    ADC.W Mult_Divide_Result             ;03E3A4|004216;
    STA.W Shop_selection                 ;03E3A7|001885;
    JMP.W Whats_this_owo                 ;03E3AA|03E4C4;
-CODE_03E3AD:
-   LDA.W Shop_selection                 ;03E3AD|001885;
+ + LDA.W Shop_selection                 ;03E3AD|001885;
    SEC                                  ;03E3B0|      ;
    SBC.B $00                            ;03E3B1|000000;
    STA.W Shop_selection                 ;03E3B3|001885;
@@ -15902,7 +15554,7 @@ CODE_03E3AD:
    JMP.W Whats_this_owo                 ;03E3B9|03E4C4;
 CODE_03E3BC:
    LDA.W #$0000                         ;03E3BC|      ;
-   JMP.W CODE_03E4C7                    ;03E3BF|03E4C7;
+   JMP.W CODE_JP_03E4C7                 ;03E3BF|03E4C7;
 Shop_Up_not_pressed:
    BIT.W #$0400                         ;03E3C2|      ;
    BEQ Shop_Down_not_pressed            ;03E3C5|03E411;
@@ -15911,29 +15563,26 @@ Shop_Down_press:
    CLC                                  ;03E3CA|      ;
    ADC.B $00                            ;03E3CB|000000;
    CMP.W Shop_Max_Entries               ;03E3CD|001883;
-   BCS CODE_03E3EE                      ;03E3D0|03E3EE;
+   BCS +                                ;03E3D0|03E3EE;
    LDA.W Shop_Curr_Selection            ;03E3D2|00188D;
    INC A                                ;03E3D5|      ;
    CMP.W $1889                          ;03E3D6|001889;
-   BCC CODE_03E402                      ;03E3D9|03E402;
+   BCC ++                               ;03E3D9|03E402;
    LDA.W $1891                          ;03E3DB|001891;
    BIT.W #$0002                         ;03E3DE|      ;
-   BNE CODE_03E3F6                      ;03E3E1|03E3F6;
+   BNE +++                              ;03E3E1|03E3F6;
    BIT.W #$0004                         ;03E3E3|      ;
    BEQ CODE_03E3BC                      ;03E3E6|03E3BC;
    LDA.W #$0005                         ;03E3E8|      ;
-   JMP.W CODE_03E4C7                    ;03E3EB|03E4C7;
-CODE_03E3EE:
-   LDA.W $1891                          ;03E3EE|001891;
+   JMP.W CODE_JP_03E4C7                 ;03E3EB|03E4C7;
+ + LDA.W $1891                          ;03E3EE|001891;
    BIT.W #$0002                         ;03E3F1|      ;
    BEQ Shop_left_not_pressed            ;03E3F4|03E468;
-CODE_03E3F6:
-   LDA.W $188F                          ;03E3F6|00188F;
++++ LDA.W $188F                          ;03E3F6|00188F;
    STA.W Shop_selection                 ;03E3F9|001885;
    STZ.W Shop_Curr_Selection            ;03E3FC|00188D;
    JMP.W Whats_this_owo                 ;03E3FF|03E4C4;
-CODE_03E402:
-   LDA.W Shop_selection                 ;03E402|001885;
+++ LDA.W Shop_selection                 ;03E402|001885;
    CLC                                  ;03E405|      ;
    ADC.B $00                            ;03E406|000000;
    STA.W Shop_selection                 ;03E408|001885;
@@ -15946,26 +15595,24 @@ Shop_Right_press:
    LDA.W $188F                          ;03E416|00188F;
    INC A                                ;03E419|      ;
    CMP.B $00                            ;03E41A|000000;
-   BCS CODE_03E43E                      ;03E41C|03E43E;
+   BCS +                                ;03E41C|03E43E;
    LDA.W Shop_selection                 ;03E41E|001885;
    INC A                                ;03E421|      ;
    CMP.W Shop_Max_Entries               ;03E422|001883;
-   BCS CODE_03E43E                      ;03E425|03E43E;
+   BCS +                                ;03E425|03E43E;
    LDA.W $188B                          ;03E427|00188B;
    INC A                                ;03E42A|      ;
    CMP.W $1887                          ;03E42B|001887;
-   BCC CODE_03E45D                      ;03E42E|03E45D;
+   BCC ++                               ;03E42E|03E45D;
    LDA.W $1891                          ;03E430|001891;
    BIT.W #$0001                         ;03E433|      ;
-   BNE CODE_03E446                      ;03E436|03E446;
+   BNE +++                              ;03E436|03E446;
    LDA.W #$0005                         ;03E438|      ;
-   JMP.W CODE_03E4C7                    ;03E43B|03E4C7;
-CODE_03E43E:
-   LDA.W $1891                          ;03E43E|001891;
+   JMP.W CODE_JP_03E4C7                 ;03E43B|03E4C7;
+ + LDA.W $1891                          ;03E43E|001891;
    BIT.W #$0001                         ;03E441|      ;
    BEQ Shop_left_not_pressed            ;03E444|03E468;
-CODE_03E446:
-   LDA.W Shop_Curr_Selection            ;03E446|00188D;
++++ LDA.W Shop_Curr_Selection            ;03E446|00188D;
    XBA                                  ;03E449|      ;
    ORA.B $00                            ;03E44A|000000;
    STA.W Multiply_lo                    ;03E44C|004202;
@@ -15974,33 +15621,30 @@ CODE_03E446:
    LDA.W Mult_Divide_Result             ;03E455|004216;
    STA.W Shop_selection                 ;03E458|001885;
    BRA Whats_this_owo                   ;03E45B|03E4C4;
-CODE_03E45D:
-   INC.W Shop_selection                 ;03E45D|001885;
+++ INC.W Shop_selection                 ;03E45D|001885;
    INC.W $188B                          ;03E460|00188B;
    INC.W $188F                          ;03E463|00188F;
    BRA Whats_this_owo                   ;03E466|03E4C4;
 Shop_left_not_pressed:
    LDA.W #$0000                         ;03E468|      ;
-   BRA CODE_03E4C7                      ;03E46B|03E4C7;
+   BRA CODE_JP_03E4C7                   ;03E46B|03E4C7;
 Shop_right_not_pressed:
    BIT.W #$0200                         ;03E46D|      ;
    BEQ Shop_left_not_pressed            ;03E470|03E468;
 Shop_left_press:
    LDA.W $188F                          ;03E472|00188F;
-   BEQ CODE_03E489                      ;03E475|03E489;
+   BEQ +                                ;03E475|03E489;
    LDA.W $188B                          ;03E477|00188B;
-   BNE CODE_03E4BB                      ;03E47A|03E4BB;
+   BNE ++                               ;03E47A|03E4BB;
    LDA.W $1891                          ;03E47C|001891;
    BIT.W #$0001                         ;03E47F|      ;
-   BNE CODE_03E491                      ;03E482|03E491;
+   BNE +++                              ;03E482|03E491;
    LDA.W #$0004                         ;03E484|      ;
-   BRA CODE_03E4C7                      ;03E487|03E4C7;
-CODE_03E489:
-   LDA.W $1891                          ;03E489|001891;
+   BRA CODE_JP_03E4C7                   ;03E487|03E4C7;
+ + LDA.W $1891                          ;03E489|001891;
    BIT.W #$0001                         ;03E48C|      ;
    BEQ Shop_left_not_pressed            ;03E48F|03E468;
-CODE_03E491:
-   LDA.W Shop_Curr_Selection            ;03E491|00188D;
++++ LDA.W Shop_Curr_Selection            ;03E491|00188D;
    XBA                                  ;03E494|      ;
    ORA.B $00                            ;03E495|000000;
    STA.W Multiply_lo                    ;03E497|004202;
@@ -16010,23 +15654,20 @@ CODE_03E491:
    STA.W $188F                          ;03E4A1|00188F;
    CLC                                  ;03E4A4|      ;
    ADC.W Mult_Divide_Result             ;03E4A5|004216;
-CODE_03E4A8:
-   CMP.W Shop_Max_Entries               ;03E4A8|001883;
-   BCC CODE_03E4B6                      ;03E4AB|03E4B6;
+ - CMP.W Shop_Max_Entries               ;03E4A8|001883;
+   BCC +                                ;03E4AB|03E4B6;
    DEC.W $188B                          ;03E4AD|00188B;
    DEC.W $188F                          ;03E4B0|00188F;
    DEC A                                ;03E4B3|      ;
-   BRA CODE_03E4A8                      ;03E4B4|03E4A8;
-CODE_03E4B6:
-   STA.W Shop_selection                 ;03E4B6|001885;
+   BRA -                                ;03E4B4|03E4A8;
+ + STA.W Shop_selection                 ;03E4B6|001885;
    BRA Whats_this_owo                   ;03E4B9|03E4C4;
-CODE_03E4BB:
-   DEC.W Shop_selection                 ;03E4BB|001885;
+++ DEC.W Shop_selection                 ;03E4BB|001885;
    DEC.W $188B                          ;03E4BE|00188B;
    DEC.W $188F                          ;03E4C1|00188F;
 Whats_this_owo:
    LDA.W #$0003                         ;03E4C4|      ;
-CODE_03E4C7:
+CODE_JP_03E4C7:
    PHA                                  ;03E4C7|      ;
    LDA.W $1887                          ;03E4C8|001887;
    XBA                                  ;03E4CB|      ;
@@ -16048,15 +15689,15 @@ CODE_03E4C7:
    PLA                                  ;03E4F6|      ;
    RTL                                  ;03E4F7|      ; Return 3
 Store_RAM_2b_into_2b:
-   JSL.L GetEventCode_2b_far            ;03E4F8|009B07;
+   JSL.L GetASMCode_2b_far              ;03E4F8|009B07;
    STA.B $18                            ;03E4FC|000018;
-   JSL.L GetEventCode_2b_far            ;03E4FE|009B07;
+   JSL.L GetASMCode_2b_far              ;03E4FE|009B07;
    STA.B $1C                            ;03E502|00001C;
    LDA.B ($18)                          ;03E504|000018;
    STA.B ($1C)                          ;03E506|00001C;
    RTL                                  ;03E508|      ;
 Set_Cursors_1b:
-   JSL.L GetEventCode_1b_far            ;03E509|009AF8;
+   JSL.L GetASMCode_1b_far              ;03E509|009AF8;
    TAX                                  ;03E50D|      ;
    LDA.L Tbl_Actor_Arrays,X             ;03E50E|009739;
    STA.B $18                            ;03E512|000018;
@@ -16071,13 +15712,13 @@ _063x_stuff_4b:
    LDA.W #$0024                         ;03E526|      ;
    STA.W $0639                          ;03E529|000639;
    LDX.W Selection_offset               ;03E52C|00103F;
-   JSL.L GetEventCode_2b_far            ;03E52F|009B07;
+   JSL.L GetASMCode_2b_far              ;03E52F|009B07;
    PHA                                  ;03E533|      ;
    AND.W #$8000                         ;03E534|      ;
    ORA.W Selection_offset               ;03E537|00103F;
    ORA.W #$4000                         ;03E53A|      ;
    STA.W $0635                          ;03E53D|000635;
-   JSL.L GetEventCode_2b_far            ;03E540|009B07;
+   JSL.L GetASMCode_2b_far              ;03E540|009B07;
    STA.W $062B                          ;03E544|00062B;
    STZ.W Temp_party_order               ;03E547|00062D;
    STZ.W $062F                          ;03E54A|00062F;
@@ -16093,7 +15734,7 @@ Color_stuff_2b:
    SEP #$20                             ;03E562|      ; Maybe the blinking cursor
    STZ.W Color_window                   ;03E564|002130;
    REP #$20                             ;03E567|      ;
-   JSL.L GetEventCode_2b_far            ;03E569|009B07;
+   JSL.L GetASMCode_2b_far              ;03E569|009B07;
    AND.W #$1F3F                         ;03E56D|      ;
    ORA.W #$0080                         ;03E570|      ;
    STA.W $1893                          ;03E573|001893;
@@ -16104,7 +15745,7 @@ Adjust_color_math:
    SEP #$20                             ;03E57D|      ;
    STZ.W Color_window                   ;03E57F|002130;
    REP #$20                             ;03E582|      ;
-   JSL.L GetEventCode_2b_far            ;03E584|009B07;
+   JSL.L GetASMCode_2b_far              ;03E584|009B07;
    AND.W #$1F3F                         ;03E588|      ;
    STA.W $1893                          ;03E58B|001893;
    ORA.W #$E000                         ;03E58E|      ; Enable color math on backdrop, subtract the colors
@@ -16116,70 +15757,67 @@ Zero_1893_and_E000_to_2131:
    STA.W Color_math                     ;03E59B|002131;
    RTL                                  ;03E59E|      ;
 Subtract_color_math_designation_1b:
-   JSL.L GetEventCode_1b_far            ;03E59F|009AF8;
+   JSL.L GetASMCode_1b_far              ;03E59F|009AF8;
    XBA                                  ;03E5A3|      ;
    STA.B $00                            ;03E5A4|000000;
    LDA.W $1893                          ;03E5A6|001893;
    SEC                                  ;03E5A9|      ;
    SBC.B $00                            ;03E5AA|000000;
-   BPL CODE_03E5B1                      ;03E5AC|03E5B1;
+   BPL +                                ;03E5AC|03E5B1;
    AND.W #$00FF                         ;03E5AE|      ;
-CODE_03E5B1:
-   STA.W $1893                          ;03E5B1|001893;
+ + STA.W $1893                          ;03E5B1|001893;
    ORA.W #$E000                         ;03E5B4|      ;
    STA.W Color_math                     ;03E5B7|002131;
    RTL                                  ;03E5BA|      ;
 Add_color_math_designation_1b:
-   JSL.L GetEventCode_1b_far            ;03E5BB|009AF8;
+   JSL.L GetASMCode_1b_far              ;03E5BB|009AF8;
    XBA                                  ;03E5BF|      ;
    CLC                                  ;03E5C0|      ;
    ADC.W $1893                          ;03E5C1|001893;
    CMP.W #$2000                         ;03E5C4|      ;
-   BCC CODE_03E5CF                      ;03E5C7|03E5CF;
+   BCC +                                ;03E5C7|03E5CF;
    AND.W #$00FF                         ;03E5C9|      ;
    ORA.W #$1F00                         ;03E5CC|      ;
-CODE_03E5CF:
-   STA.W $1893                          ;03E5CF|001893;
+ + STA.W $1893                          ;03E5CF|001893;
    ORA.W #$E000                         ;03E5D2|      ;
    STA.W Color_math                     ;03E5D5|002131;
    RTL                                  ;03E5D8|      ;
 Lots_of_1885:
    LDA.W Shop_selection                 ;03E5D9|001885; Saves the game?
-   JSL.L CODE_00CBD4                    ;03E5DC|00CBD4;
+   JSL.L CODE_FL_00CBD4                 ;03E5DC|00CBD4;
    LDA.W Shop_selection                 ;03E5E0|001885;
-   JSL.L CODE_00CA7D                    ;03E5E3|00CA7D;
+   JSL.L CODE_FL_00CA7D                 ;03E5E3|00CA7D;
    LDA.W Shop_selection                 ;03E5E7|001885;
-   JSL.L CODE_00CC00                    ;03E5EA|00CC00;
+   JSL.L CODE_FL_00CC00                 ;03E5EA|00CC00;
    LDA.W Shop_selection                 ;03E5EE|001885;
-   JSL.L CODE_00CC7E                    ;03E5F1|00CC7E;
-   BEQ CODE_03E63A                      ;03E5F5|03E63A;
+   JSL.L CODE_FL_00CC7E                 ;03E5F1|00CC7E;
+   BEQ +                                ;03E5F5|03E63A;
    LDA.W Shop_selection                 ;03E5F7|001885;
-   JSL.L CODE_00CCB2                    ;03E5FA|00CCB2;
-   BEQ CODE_03E63A                      ;03E5FE|03E63A;
+   JSL.L CODE_FL_00CCB2                 ;03E5FA|00CCB2;
+   BEQ +                                ;03E5FE|03E63A;
    LDA.W Shop_selection                 ;03E600|001885;
    INC A                                ;03E603|      ;
    INC A                                ;03E604|      ;
    INC A                                ;03E605|      ;
    STA.W Shop_selection                 ;03E606|001885;
-   JSL.L CODE_00CBD4                    ;03E609|00CBD4;
+   JSL.L CODE_FL_00CBD4                 ;03E609|00CBD4;
    LDA.W Shop_selection                 ;03E60D|001885;
-   JSL.L CODE_00CA7D                    ;03E610|00CA7D;
+   JSL.L CODE_FL_00CA7D                 ;03E610|00CA7D;
    LDA.W Shop_selection                 ;03E614|001885;
-   JSL.L CODE_00CC00                    ;03E617|00CC00;
+   JSL.L CODE_FL_00CC00                 ;03E617|00CC00;
    LDA.W Shop_selection                 ;03E61B|001885;
-   JSL.L CODE_00CC7E                    ;03E61E|00CC7E;
-   BEQ CODE_03E63A                      ;03E622|03E63A;
+   JSL.L CODE_FL_00CC7E                 ;03E61E|00CC7E;
+   BEQ +                                ;03E622|03E63A;
    LDA.W Shop_selection                 ;03E624|001885;
-   JSL.L CODE_00CCB2                    ;03E627|00CCB2;
-   BEQ CODE_03E63A                      ;03E62B|03E63A;
+   JSL.L CODE_FL_00CCB2                 ;03E627|00CCB2;
+   BEQ +                                ;03E62B|03E63A;
    LDA.W Shop_selection                 ;03E62D|001885;
    DEC A                                ;03E630|      ;
    DEC A                                ;03E631|      ;
    DEC A                                ;03E632|      ;
    STA.W Shop_selection                 ;03E633|001885;
-   JSL.L CODE_00CB99                    ;03E636|00CB99;
-CODE_03E63A:
-   RTL                                  ;03E63A|      ;
+   JSL.L CODE_FL_00CB99                 ;03E636|00CB99;
+ + RTL                                  ;03E63A|      ;
 CODE_03E63B:
    LDA.W Curr_area                      ;03E63B|001573;
    ASL A                                ;03E63E|      ;
@@ -16189,15 +15827,13 @@ CODE_03E63B:
    LDA.W #$0003                         ;03E646|      ;
    STA.B $1A                            ;03E649|00001A;
    LDY.W #$0006                         ;03E64B|      ;
-CODE_03E64E:
-   LDA.B [$18],Y                        ;03E64E|000018;
+ - LDA.B [$18],Y                        ;03E64E|000018;
    CMP.W #$0001                         ;03E650|      ;
-   BEQ CODE_03E659                      ;03E653|03E659;
+   BEQ +                                ;03E653|03E659;
    INY                                  ;03E655|      ;
    INY                                  ;03E656|      ;
-   BRA CODE_03E64E                      ;03E657|03E64E;
-CODE_03E659:
-   DEY                                  ;03E659|      ;
+   BRA -                                ;03E657|03E64E;
+ + DEY                                  ;03E659|      ;
    DEY                                  ;03E65A|      ;
    LDA.B [$18],Y                        ;03E65B|000018;
    STA.W Town_Direction                 ;03E65D|00187F;
@@ -16568,596 +16204,596 @@ DATA8_03E79D:
    db $E0                               ;03E7B5|      ;
    db $05                               ;03E7B6|0000FF;
    db $FF                               ;03E7B7|000801;
-DATA8_03E7B8:
+Tileset_Event68_00:
    db $01                               ;03E7B8|      ;
    db $08                               ;03E7B9|      ;
    db $00                               ;03E7BA|      ;
-   db $0C                               ;03E7BB|000138;
+   db $0C                               ;03E7BB|      ;
    db $38                               ;03E7BC|      ;
-   db $01                               ;03E7BD|0000F8;
+   db $01                               ;03E7BD|      ;
    db $F8                               ;03E7BE|      ;
    db $00                               ;03E7BF|      ;
    db $0A                               ;03E7C0|      ;
    db $38                               ;03E7C1|      ;
-   db $01                               ;03E7C2|0000E8;
+   db $01                               ;03E7C2|      ;
    db $E8                               ;03E7C3|      ;
    db $00                               ;03E7C4|      ;
    db $08                               ;03E7C5|      ;
    db $38                               ;03E7C6|      ;
-   db $01                               ;03E7C7|000010;
-   db $10                               ;03E7C8|03E7DA;
-   db $10                               ;03E7C9|03E7EF;
-   db $24                               ;03E7CA|000038;
+   db $01                               ;03E7C7|      ;
+   db $10                               ;03E7C8|      ;
+   db $10                               ;03E7C9|      ;
+   db $24                               ;03E7CA|      ;
    db $38                               ;03E7CB|      ;
-   db $01                               ;03E7CC|000000;
+   db $01                               ;03E7CC|      ;
    db $00                               ;03E7CD|      ;
-   db $10                               ;03E7CE|03E7F2;
-   db $22                               ;03E7CF|F00138;
+   db $10                               ;03E7CE|      ;
+   db $22                               ;03E7CF|      ;
    db $38                               ;03E7D0|      ;
-   db $01                               ;03E7D1|0000F0;
-   db $F0                               ;03E7D2|03E7E4;
-   db $10                               ;03E7D3|03E7F5;
-   db $20                               ;03E7D4|030138;
+   db $01                               ;03E7D1|      ;
+   db $F0                               ;03E7D2|      ;
+   db $10                               ;03E7D3|      ;
+   db $20                               ;03E7D4|      ;
    db $38                               ;03E7D5|      ;
-   db $01                               ;03E7D6|0000E0;
+   db $01                               ;03E7D6|      ;
    db $E0                               ;03E7D7|      ;
-   db $10                               ;03E7D8|03E7E8;
-   db $0E                               ;03E7D9|000138;
+   db $10                               ;03E7D8|      ;
+   db $0E                               ;03E7D9|      ;
    db $38                               ;03E7DA|      ;
-   db $01                               ;03E7DB|000000;
+   db $01                               ;03E7DB|      ;
    db $00                               ;03E7DC|      ;
-   db $F0                               ;03E7DD|03E7E5;
-   db $06                               ;03E7DE|000038;
+   db $F0                               ;03E7DD|      ;
+   db $06                               ;03E7DE|      ;
    db $38                               ;03E7DF|      ;
-   db $01                               ;03E7E0|0000F0;
-   db $F0                               ;03E7E1|03E7D3;
-   db $F0                               ;03E7E2|03E7E8;
-   db $04                               ;03E7E3|000038;
+   db $01                               ;03E7E0|      ;
+   db $F0                               ;03E7E1|      ;
+   db $F0                               ;03E7E2|      ;
+   db $04                               ;03E7E3|      ;
    db $38                               ;03E7E4|      ;
-   db $01                               ;03E7E5|000000;
+   db $01                               ;03E7E5|      ;
    db $00                               ;03E7E6|      ;
    db $E0                               ;03E7E7|      ;
    db $02                               ;03E7E8|      ;
    db $38                               ;03E7E9|      ;
-   db $03                               ;03E7EA|0000F0;
-   db $F0                               ;03E7EB|03E7CD;
+   db $03                               ;03E7EA|      ;
+   db $F0                               ;03E7EB|      ;
    db $E0                               ;03E7EC|      ;
    db $00                               ;03E7ED|      ;
    db $38                               ;03E7EE|      ;
-DATA8_03E7EF:
+Tileset_Event68_01:
    db $01                               ;03E7EF|      ;
    db $08                               ;03E7F0|      ;
    db $00                               ;03E7F1|      ;
    db $42                               ;03E7F2|      ;
    db $38                               ;03E7F3|      ;
-   db $01                               ;03E7F4|0000F8;
+   db $01                               ;03E7F4|      ;
    db $F8                               ;03E7F5|      ;
    db $00                               ;03E7F6|      ;
    db $40                               ;03E7F7|      ;
    db $38                               ;03E7F8|      ;
-   db $01                               ;03E7F9|0000E8;
+   db $01                               ;03E7F9|      ;
    db $E8                               ;03E7FA|      ;
    db $00                               ;03E7FB|      ;
-   db $2E                               ;03E7FC|000138;
+   db $2E                               ;03E7FC|      ;
    db $38                               ;03E7FD|      ;
-   db $01                               ;03E7FE|000010;
-   db $10                               ;03E7FF|03E811;
-   db $10                               ;03E800|03E84C;
+   db $01                               ;03E7FE|      ;
+   db $10                               ;03E7FF|      ;
+   db $10                               ;03E800|      ;
    db $4A                               ;03E801|      ;
    db $38                               ;03E802|      ;
-   db $01                               ;03E803|000000;
+   db $01                               ;03E803|      ;
    db $00                               ;03E804|      ;
-   db $10                               ;03E805|03E84F;
+   db $10                               ;03E805|      ;
    db $48                               ;03E806|      ;
    db $38                               ;03E807|      ;
-   db $01                               ;03E808|0000F0;
-   db $F0                               ;03E809|03E81B;
-   db $10                               ;03E80A|03E852;
-   db $46                               ;03E80B|000038;
+   db $01                               ;03E808|      ;
+   db $F0                               ;03E809|      ;
+   db $10                               ;03E80A|      ;
+   db $46                               ;03E80B|      ;
    db $38                               ;03E80C|      ;
-   db $01                               ;03E80D|0000E0;
+   db $01                               ;03E80D|      ;
    db $E0                               ;03E80E|      ;
-   db $10                               ;03E80F|03E855;
+   db $10                               ;03E80F|      ;
    db $44                               ;03E810|      ;
    db $38                               ;03E811|      ;
-   db $01                               ;03E812|000000;
+   db $01                               ;03E812|      ;
    db $00                               ;03E813|      ;
-   db $F0                               ;03E814|03E842;
-   db $2C                               ;03E815|000138;
+   db $F0                               ;03E814|      ;
+   db $2C                               ;03E815|      ;
    db $38                               ;03E816|      ;
-   db $01                               ;03E817|0000F0;
-   db $F0                               ;03E818|03E80A;
-   db $F0                               ;03E819|03E845;
+   db $01                               ;03E817|      ;
+   db $F0                               ;03E818|      ;
+   db $F0                               ;03E819|      ;
    db $2A                               ;03E81A|      ;
    db $38                               ;03E81B|      ;
-   db $01                               ;03E81C|000000;
+   db $01                               ;03E81C|      ;
    db $00                               ;03E81D|      ;
    db $E0                               ;03E81E|      ;
    db $28                               ;03E81F|      ;
    db $38                               ;03E820|      ;
-   db $03                               ;03E821|0000F0;
-   db $F0                               ;03E822|03E804;
+   db $03                               ;03E821|      ;
+   db $F0                               ;03E822|      ;
    db $E0                               ;03E823|      ;
-   db $26                               ;03E824|000038;
+   db $26                               ;03E824|      ;
    db $38                               ;03E825|      ;
-DATA8_03E826:
+Tileset_Event68_02:
    db $00                               ;03E826|      ;
    db $E0                               ;03E827|      ;
-   db $20                               ;03E828|033886;
-   db $86                               ;03E829|000038;
+   db $20                               ;03E828|      ;
+   db $86                               ;03E829|      ;
    db $38                               ;03E82A|      ;
    db $00                               ;03E82B|      ;
    db $E8                               ;03E82C|      ;
-   db $20                               ;03E82D|033887;
-   db $87                               ;03E82E|000038;
+   db $20                               ;03E82D|      ;
+   db $87                               ;03E82E|      ;
    db $38                               ;03E82F|      ;
    db $00                               ;03E830|      ;
-   db $F0                               ;03E831|03E853;
-   db $20                               ;03E832|033888;
+   db $F0                               ;03E831|      ;
+   db $20                               ;03E832|      ;
    db $88                               ;03E833|      ;
    db $38                               ;03E834|      ;
    db $00                               ;03E835|      ;
    db $08                               ;03E836|      ;
-   db $20                               ;03E837|033896;
-   db $96                               ;03E838|000038;
+   db $20                               ;03E837|      ;
+   db $96                               ;03E838|      ;
    db $38                               ;03E839|      ;
    db $00                               ;03E83A|      ;
-   db $10                               ;03E83B|03E85D;
-   db $20                               ;03E83C|033897;
-   db $97                               ;03E83D|000038;
+   db $10                               ;03E83B|      ;
+   db $20                               ;03E83C|      ;
+   db $97                               ;03E83D|      ;
    db $38                               ;03E83E|      ;
    db $00                               ;03E83F|      ;
    db $18                               ;03E840|      ;
-   db $20                               ;03E841|033898;
+   db $20                               ;03E841|      ;
    db $98                               ;03E842|      ;
    db $38                               ;03E843|      ;
-   db $01                               ;03E844|000008;
+   db $01                               ;03E844|      ;
    db $08                               ;03E845|      ;
-   db $F0                               ;03E846|03E8AC;
-   db $64                               ;03E847|000038;
+   db $F0                               ;03E846|      ;
+   db $64                               ;03E847|      ;
    db $38                               ;03E848|      ;
-   db $01                               ;03E849|0000F8;
+   db $01                               ;03E849|      ;
    db $F8                               ;03E84A|      ;
-   db $F0                               ;03E84B|03E8AF;
-   db $62                               ;03E84C|03E987;
+   db $F0                               ;03E84B|      ;
+   db $62                               ;03E84C|      ;
    db $38                               ;03E84D|      ;
-   db $01                               ;03E84E|0000E8;
+   db $01                               ;03E84E|      ;
    db $E8                               ;03E84F|      ;
-   db $F0                               ;03E850|03E8B2;
+   db $F0                               ;03E850|      ;
    db $60                               ;03E851|      ;
    db $38                               ;03E852|      ;
-   db $01                               ;03E853|000010;
-   db $10                               ;03E854|03E866;
-   db $10                               ;03E855|03E7DB;
-   db $84                               ;03E856|000038;
+   db $01                               ;03E853|      ;
+   db $10                               ;03E854|      ;
+   db $10                               ;03E855|      ;
+   db $84                               ;03E856|      ;
    db $38                               ;03E857|      ;
-   db $01                               ;03E858|000000;
+   db $01                               ;03E858|      ;
    db $00                               ;03E859|      ;
-   db $10                               ;03E85A|03E7DE;
-   db $82                               ;03E85B|03E996;
+   db $10                               ;03E85A|      ;
+   db $82                               ;03E85B|      ;
    db $38                               ;03E85C|      ;
-   db $01                               ;03E85D|0000F0;
-   db $F0                               ;03E85E|03E870;
-   db $10                               ;03E85F|03E7E1;
-   db $80                               ;03E860|03E89A;
+   db $01                               ;03E85D|      ;
+   db $F0                               ;03E85E|      ;
+   db $10                               ;03E85F|      ;
+   db $80                               ;03E860|      ;
    db $38                               ;03E861|      ;
-   db $01                               ;03E862|0000E0;
+   db $01                               ;03E862|      ;
    db $E0                               ;03E863|      ;
-   db $10                               ;03E864|03E8D4;
-   db $6E                               ;03E865|000138;
+   db $10                               ;03E864|      ;
+   db $6E                               ;03E865|      ;
    db $38                               ;03E866|      ;
-   db $01                               ;03E867|000010;
-   db $10                               ;03E868|03E86A;
+   db $01                               ;03E867|      ;
+   db $10                               ;03E868|      ;
    db $00                               ;03E869|      ;
-   db $6C                               ;03E86A|000138;
+   db $6C                               ;03E86A|      ;
    db $38                               ;03E86B|      ;
-   db $01                               ;03E86C|000000;
+   db $01                               ;03E86C|      ;
    db $00                               ;03E86D|      ;
    db $00                               ;03E86E|      ;
    db $6A                               ;03E86F|      ;
    db $38                               ;03E870|      ;
-   db $01                               ;03E871|0000F0;
-   db $F0                               ;03E872|03E874;
+   db $01                               ;03E871|      ;
+   db $F0                               ;03E872|      ;
    db $00                               ;03E873|      ;
    db $68                               ;03E874|      ;
    db $38                               ;03E875|      ;
-   db $01                               ;03E876|0000E0;
+   db $01                               ;03E876|      ;
    db $E0                               ;03E877|      ;
    db $00                               ;03E878|      ;
-   db $66                               ;03E879|000038;
+   db $66                               ;03E879|      ;
    db $38                               ;03E87A|      ;
-   db $01                               ;03E87B|000000;
+   db $01                               ;03E87B|      ;
    db $00                               ;03E87C|      ;
    db $E0                               ;03E87D|      ;
-   db $4E                               ;03E87E|000338;
+   db $4E                               ;03E87E|      ;
    db $38                               ;03E87F|      ;
-   db $03                               ;03E880|0000F0;
-   db $F0                               ;03E881|03E863;
+   db $03                               ;03E880|      ;
+   db $F0                               ;03E881|      ;
    db $E0                               ;03E882|      ;
-   db $4C                               ;03E883|030138;
+   db $4C                               ;03E883|      ;
    db $38                               ;03E884|      ;
-DATA8_03E885:
+Tileset_Event68_03:
    db $01                               ;03E885|      ;
    db $F8                               ;03E886|      ;
-   db $16                               ;03E887|0000C0;
+   db $16                               ;03E887|      ;
    db $C0                               ;03E888|      ;
    db $3A                               ;03E889|      ;
    db $00                               ;03E88A|      ;
-   db $11                               ;03E88B|000019;
-   db $19                               ;03E88C|0038D5;
-   db $D5                               ;03E88D|000038;
+   db $11                               ;03E88B|      ;
+   db $19                               ;03E88C|      ;
+   db $D5                               ;03E88D|      ;
    db $38                               ;03E88E|      ;
    db $00                               ;03E88F|      ;
-   db $11                               ;03E890|000011;
-   db $11                               ;03E891|0000D4;
-   db $D4                               ;03E892|000038;
+   db $11                               ;03E890|      ;
+   db $11                               ;03E891|      ;
+   db $D4                               ;03E892|      ;
    db $38                               ;03E893|      ;
    db $00                               ;03E894|      ;
    db $09                               ;03E895|      ;
-   db $19                               ;03E896|0038C5;
-   db $C5                               ;03E897|000038;
+   db $19                               ;03E896|      ;
+   db $C5                               ;03E897|      ;
    db $38                               ;03E898|      ;
-   db $01                               ;03E899|000001;
-   db $01                               ;03E89A|000009;
+   db $01                               ;03E899|      ;
+   db $01                               ;03E89A|      ;
    db $09                               ;03E89B|      ;
    db $C2                               ;03E89C|      ;
    db $38                               ;03E89D|      ;
    db $00                               ;03E89E|      ;
-   db $E6                               ;03E89F|000018;
+   db $E6                               ;03E89F|      ;
    db $18                               ;03E8A0|      ;
-   db $D5                               ;03E8A1|000078;
+   db $D5                               ;03E8A1|      ;
    db $78                               ;03E8A2|      ;
    db $00                               ;03E8A3|      ;
-   db $E6                               ;03E8A4|000010;
-   db $10                               ;03E8A5|03E87B;
-   db $D4                               ;03E8A6|000078;
+   db $E6                               ;03E8A4|      ;
+   db $10                               ;03E8A5|      ;
+   db $D4                               ;03E8A6|      ;
    db $78                               ;03E8A7|      ;
    db $00                               ;03E8A8|      ;
-   db $EE                               ;03E8A9|00C518;
+   db $EE                               ;03E8A9|      ;
    db $18                               ;03E8AA|      ;
-   db $C5                               ;03E8AB|000078;
+   db $C5                               ;03E8AB|      ;
    db $78                               ;03E8AC|      ;
-   db $01                               ;03E8AD|0000EE;
-   db $EE                               ;03E8AE|00C208;
+   db $01                               ;03E8AD|      ;
+   db $EE                               ;03E8AE|      ;
    db $08                               ;03E8AF|      ;
    db $C2                               ;03E8B0|      ;
    db $78                               ;03E8B1|      ;
-   db $01                               ;03E8B2|000008;
+   db $01                               ;03E8B2|      ;
    db $08                               ;03E8B3|      ;
    db $00                               ;03E8B4|      ;
-   db $A6                               ;03E8B5|000038;
+   db $A6                               ;03E8B5|      ;
    db $38                               ;03E8B6|      ;
-   db $01                               ;03E8B7|0000F8;
+   db $01                               ;03E8B7|      ;
    db $F8                               ;03E8B8|      ;
    db $00                               ;03E8B9|      ;
-   db $A4                               ;03E8BA|000038;
+   db $A4                               ;03E8BA|      ;
    db $38                               ;03E8BB|      ;
-   db $01                               ;03E8BC|0000E8;
+   db $01                               ;03E8BC|      ;
    db $E8                               ;03E8BD|      ;
    db $00                               ;03E8BE|      ;
    db $A2                               ;03E8BF|      ;
    db $38                               ;03E8C0|      ;
-   db $01                               ;03E8C1|000010;
-   db $10                               ;03E8C2|03E8D4;
-   db $10                               ;03E8C3|03E873;
-   db $AE                               ;03E8C4|000138;
+   db $01                               ;03E8C1|      ;
+   db $10                               ;03E8C2|      ;
+   db $10                               ;03E8C3|      ;
+   db $AE                               ;03E8C4|      ;
    db $38                               ;03E8C5|      ;
-   db $01                               ;03E8C6|000000;
+   db $01                               ;03E8C6|      ;
    db $00                               ;03E8C7|      ;
-   db $10                               ;03E8C8|03E876;
-   db $AC                               ;03E8C9|000138;
+   db $10                               ;03E8C8|      ;
+   db $AC                               ;03E8C9|      ;
    db $38                               ;03E8CA|      ;
-   db $01                               ;03E8CB|0000F0;
-   db $F0                               ;03E8CC|03E8DE;
-   db $10                               ;03E8CD|03E879;
+   db $01                               ;03E8CB|      ;
+   db $F0                               ;03E8CC|      ;
+   db $10                               ;03E8CD|      ;
    db $AA                               ;03E8CE|      ;
    db $38                               ;03E8CF|      ;
-   db $01                               ;03E8D0|0000E0;
+   db $01                               ;03E8D0|      ;
    db $E0                               ;03E8D1|      ;
-   db $10                               ;03E8D2|03E87C;
+   db $10                               ;03E8D2|      ;
    db $A8                               ;03E8D3|      ;
    db $38                               ;03E8D4|      ;
-   db $01                               ;03E8D5|000000;
+   db $01                               ;03E8D5|      ;
    db $00                               ;03E8D6|      ;
-   db $F0                               ;03E8D7|03E879;
+   db $F0                               ;03E8D7|      ;
    db $A0                               ;03E8D8|      ;
    db $38                               ;03E8D9|      ;
-   db $01                               ;03E8DA|0000F0;
-   db $F0                               ;03E8DB|03E8CD;
-   db $F0                               ;03E8DC|03E86C;
-   db $8E                               ;03E8DD|000138;
+   db $01                               ;03E8DA|      ;
+   db $F0                               ;03E8DB|      ;
+   db $F0                               ;03E8DC|      ;
+   db $8E                               ;03E8DD|      ;
    db $38                               ;03E8DE|      ;
-   db $01                               ;03E8DF|000000;
+   db $01                               ;03E8DF|      ;
    db $00                               ;03E8E0|      ;
    db $E0                               ;03E8E1|      ;
-   db $8C                               ;03E8E2|000338;
+   db $8C                               ;03E8E2|      ;
    db $38                               ;03E8E3|      ;
-   db $03                               ;03E8E4|0000F0;
-   db $F0                               ;03E8E5|03E8C7;
+   db $03                               ;03E8E4|      ;
+   db $F0                               ;03E8E5|      ;
    db $E0                               ;03E8E6|      ;
    db $8A                               ;03E8E7|      ;
    db $38                               ;03E8E8|      ;
-DATA8_03E8E9:
+Tileset_Event68_04:
    db $00                               ;03E8E9|      ;
    db $18                               ;03E8EA|      ;
    db $F8                               ;03E8EB|      ;
-   db $F1                               ;03E8EC|000038;
+   db $F1                               ;03E8EC|      ;
    db $38                               ;03E8ED|      ;
    db $00                               ;03E8EE|      ;
-   db $10                               ;03E8EF|03E8D9;
+   db $10                               ;03E8EF|      ;
    db $E8                               ;03E8F0|      ;
-   db $E1                               ;03E8F1|000038;
+   db $E1                               ;03E8F1|      ;
    db $38                               ;03E8F2|      ;
    db $00                               ;03E8F3|      ;
-   db $10                               ;03E8F4|03E8E6;
-   db $F0                               ;03E8F5|03E8D7;
+   db $10                               ;03E8F4|      ;
+   db $F0                               ;03E8F5|      ;
    db $E0                               ;03E8F6|      ;
    db $38                               ;03E8F7|      ;
    db $00                               ;03E8F8|      ;
-   db $10                               ;03E8F9|03E8F3;
+   db $10                               ;03E8F9|      ;
    db $F8                               ;03E8FA|      ;
-   db $F0                               ;03E8FB|03E935;
+   db $F0                               ;03E8FB|      ;
    db $38                               ;03E8FC|      ;
-   db $01                               ;03E8FD|000010;
-   db $10                               ;03E8FE|03E910;
-   db $10                               ;03E8FF|03E901;
+   db $01                               ;03E8FD|      ;
+   db $10                               ;03E8FE|      ;
+   db $10                               ;03E8FF|      ;
    db $00                               ;03E900|      ;
-   db $39                               ;03E901|000001;
-   db $01                               ;03E902|000000;
+   db $39                               ;03E901|      ;
+   db $01                               ;03E902|      ;
    db $00                               ;03E903|      ;
-   db $10                               ;03E904|03E8F4;
-   db $EE                               ;03E905|000138;
+   db $10                               ;03E904|      ;
+   db $EE                               ;03E905|      ;
    db $38                               ;03E906|      ;
-   db $01                               ;03E907|0000F0;
-   db $F0                               ;03E908|03E91A;
-   db $10                               ;03E909|03E8F7;
-   db $EC                               ;03E90A|000138;
+   db $01                               ;03E907|      ;
+   db $F0                               ;03E908|      ;
+   db $10                               ;03E909|      ;
+   db $EC                               ;03E90A|      ;
    db $38                               ;03E90B|      ;
-   db $01                               ;03E90C|0000E0;
+   db $01                               ;03E90C|      ;
    db $E0                               ;03E90D|      ;
-   db $10                               ;03E90E|03E8FA;
+   db $10                               ;03E90E|      ;
    db $EA                               ;03E90F|      ;
    db $38                               ;03E910|      ;
-   db $01                               ;03E911|000010;
-   db $10                               ;03E912|03E914;
+   db $01                               ;03E911|      ;
+   db $10                               ;03E912|      ;
    db $00                               ;03E913|      ;
    db $E8                               ;03E914|      ;
    db $38                               ;03E915|      ;
-   db $01                               ;03E916|000000;
+   db $01                               ;03E916|      ;
    db $00                               ;03E917|      ;
    db $00                               ;03E918|      ;
-   db $E6                               ;03E919|000038;
+   db $E6                               ;03E919|      ;
    db $38                               ;03E91A|      ;
-   db $01                               ;03E91B|0000F0;
-   db $F0                               ;03E91C|03E91E;
+   db $01                               ;03E91B|      ;
+   db $F0                               ;03E91C|      ;
    db $00                               ;03E91D|      ;
-   db $E4                               ;03E91E|000038;
+   db $E4                               ;03E91E|      ;
    db $38                               ;03E91F|      ;
-   db $01                               ;03E920|0000E0;
+   db $01                               ;03E920|      ;
    db $E0                               ;03E921|      ;
    db $00                               ;03E922|      ;
    db $E2                               ;03E923|      ;
    db $38                               ;03E924|      ;
-   db $01                               ;03E925|000000;
+   db $01                               ;03E925|      ;
    db $00                               ;03E926|      ;
-   db $F0                               ;03E927|03E8F7;
-   db $CE                               ;03E928|000138;
+   db $F0                               ;03E927|      ;
+   db $CE                               ;03E928|      ;
    db $38                               ;03E929|      ;
-   db $01                               ;03E92A|0000F0;
-   db $F0                               ;03E92B|03E91D;
-   db $F0                               ;03E92C|03E8FA;
-   db $CC                               ;03E92D|000138;
+   db $01                               ;03E92A|      ;
+   db $F0                               ;03E92B|      ;
+   db $F0                               ;03E92C|      ;
+   db $CC                               ;03E92D|      ;
    db $38                               ;03E92E|      ;
-   db $01                               ;03E92F|0000E0;
+   db $01                               ;03E92F|      ;
    db $E0                               ;03E930|      ;
-   db $F0                               ;03E931|03E8FD;
+   db $F0                               ;03E931|      ;
    db $CA                               ;03E932|      ;
    db $38                               ;03E933|      ;
-   db $01                               ;03E934|000000;
+   db $01                               ;03E934|      ;
    db $00                               ;03E935|      ;
    db $E0                               ;03E936|      ;
    db $C8                               ;03E937|      ;
    db $38                               ;03E938|      ;
-   db $03                               ;03E939|0000F0;
-   db $F0                               ;03E93A|03E91C;
+   db $03                               ;03E939|      ;
+   db $F0                               ;03E93A|      ;
    db $E0                               ;03E93B|      ;
-   db $C6                               ;03E93C|000038;
+   db $C6                               ;03E93C|      ;
    db $38                               ;03E93D|      ;
-DATA8_03E93E:
+Tileset_Event68_05:
    db $00                               ;03E93E|      ;
    db $08                               ;03E93F|      ;
    db $18                               ;03E940|      ;
-   db $64                               ;03E941|000039;
-   db $39                               ;03E942|000000;
+   db $64                               ;03E941|      ;
+   db $39                               ;03E942|      ;
    db $00                               ;03E943|      ;
    db $00                               ;03E944|      ;
    db $18                               ;03E945|      ;
-   db $63                               ;03E946|000039;
-   db $39                               ;03E947|00F800;
+   db $63                               ;03E946|      ;
+   db $39                               ;03E947|      ;
    db $00                               ;03E948|      ;
    db $F8                               ;03E949|      ;
    db $18                               ;03E94A|      ;
-   db $39                               ;03E94B|000039;
-   db $39                               ;03E94C|00F000;
+   db $39                               ;03E94B|      ;
+   db $39                               ;03E94C|      ;
    db $00                               ;03E94D|      ;
-   db $F0                               ;03E94E|03E968;
+   db $F0                               ;03E94E|      ;
    db $18                               ;03E94F|      ;
    db $38                               ;03E950|      ;
-   db $39                               ;03E951|00E800;
+   db $39                               ;03E951|      ;
    db $00                               ;03E952|      ;
    db $E8                               ;03E953|      ;
    db $18                               ;03E954|      ;
    db $29                               ;03E955|      ;
-   db $39                               ;03E956|00E000;
+   db $39                               ;03E956|      ;
    db $00                               ;03E957|      ;
    db $E0                               ;03E958|      ;
    db $18                               ;03E959|      ;
    db $28                               ;03E95A|      ;
-   db $39                               ;03E95B|001000;
+   db $39                               ;03E95B|      ;
    db $00                               ;03E95C|      ;
-   db $10                               ;03E95D|03E977;
+   db $10                               ;03E95D|      ;
    db $18                               ;03E95E|      ;
-   db $36                               ;03E95F|000039;
-   db $39                               ;03E960|001000;
+   db $36                               ;03E95F|      ;
+   db $39                               ;03E960|      ;
    db $00                               ;03E961|      ;
-   db $10                               ;03E962|03E974;
-   db $10                               ;03E963|03E98B;
-   db $26                               ;03E964|000039;
-   db $39                               ;03E965|001000;
+   db $10                               ;03E962|      ;
+   db $10                               ;03E963|      ;
+   db $26                               ;03E964|      ;
+   db $39                               ;03E965|      ;
    db $00                               ;03E966|      ;
-   db $10                               ;03E967|03E971;
+   db $10                               ;03E967|      ;
    db $08                               ;03E968|      ;
-   db $37                               ;03E969|000039;
-   db $39                               ;03E96A|001000;
+   db $37                               ;03E969|      ;
+   db $39                               ;03E96A|      ;
    db $00                               ;03E96B|      ;
-   db $10                               ;03E96C|03E96E;
+   db $10                               ;03E96C|      ;
    db $00                               ;03E96D|      ;
-   db $27                               ;03E96E|000039;
-   db $39                               ;03E96F|000001;
-   db $01                               ;03E970|000000;
+   db $27                               ;03E96E|      ;
+   db $39                               ;03E96F|      ;
+   db $01                               ;03E970|      ;
    db $00                               ;03E971|      ;
    db $08                               ;03E972|      ;
-   db $24                               ;03E973|000039;
-   db $39                               ;03E974|00F001;
-   db $01                               ;03E975|0000F0;
-   db $F0                               ;03E976|03E980;
+   db $24                               ;03E973|      ;
+   db $39                               ;03E974|      ;
+   db $01                               ;03E975|      ;
+   db $F0                               ;03E976|      ;
    db $08                               ;03E977|      ;
-   db $22                               ;03E978|E00139;
-   db $39                               ;03E979|00E001;
-   db $01                               ;03E97A|0000E0;
+   db $22                               ;03E978|      ;
+   db $39                               ;03E979|      ;
+   db $01                               ;03E97A|      ;
    db $E0                               ;03E97B|      ;
    db $08                               ;03E97C|      ;
-   db $20                               ;03E97D|030139;
-   db $39                               ;03E97E|000001;
-   db $01                               ;03E97F|000000;
+   db $20                               ;03E97D|      ;
+   db $39                               ;03E97E|      ;
+   db $01                               ;03E97F|      ;
    db $00                               ;03E980|      ;
    db $F8                               ;03E981|      ;
-   db $0E                               ;03E982|000139;
-   db $39                               ;03E983|00F001;
-   db $01                               ;03E984|0000F0;
-   db $F0                               ;03E985|03E97F;
+   db $0E                               ;03E982|      ;
+   db $39                               ;03E983|      ;
+   db $01                               ;03E984|      ;
+   db $F0                               ;03E985|      ;
    db $F8                               ;03E986|      ;
-   db $0C                               ;03E987|000139;
-   db $39                               ;03E988|00E001;
-   db $01                               ;03E989|0000E0;
+   db $0C                               ;03E987|      ;
+   db $39                               ;03E988|      ;
+   db $01                               ;03E989|      ;
    db $E0                               ;03E98A|      ;
    db $F8                               ;03E98B|      ;
    db $0A                               ;03E98C|      ;
-   db $39                               ;03E98D|000001;
-   db $01                               ;03E98E|000000;
+   db $39                               ;03E98D|      ;
+   db $01                               ;03E98E|      ;
    db $00                               ;03E98F|      ;
    db $E8                               ;03E990|      ;
    db $08                               ;03E991|      ;
-   db $39                               ;03E992|00F001;
-   db $01                               ;03E993|0000F0;
-   db $F0                               ;03E994|03E97E;
+   db $39                               ;03E992|      ;
+   db $01                               ;03E993|      ;
+   db $F0                               ;03E994|      ;
    db $E8                               ;03E995|      ;
-   db $06                               ;03E996|000039;
-   db $39                               ;03E997|000001;
-   db $01                               ;03E998|000000;
+   db $06                               ;03E996|      ;
+   db $39                               ;03E997|      ;
+   db $01                               ;03E998|      ;
    db $00                               ;03E999|      ;
    db $D8                               ;03E99A|      ;
-   db $04                               ;03E99B|000039;
-   db $39                               ;03E99C|00F003;
-   db $03                               ;03E99D|0000F0;
-   db $F0                               ;03E99E|03E978;
+   db $04                               ;03E99B|      ;
+   db $39                               ;03E99C|      ;
+   db $03                               ;03E99D|      ;
+   db $F0                               ;03E99E|      ;
    db $D8                               ;03E99F|      ;
    db $02                               ;03E9A0|      ;
-   db $39                               ;03E9A1|001000;
-DATA8_03E9A2:
+   db $39                               ;03E9A1|      ;
+Tileset_Event68_06:
    db $00                               ;03E9A2|      ;
-   db $10                               ;03E9A3|03E9BD;
+   db $10                               ;03E9A3|      ;
    db $18                               ;03E9A4|      ;
-   db $62                               ;03E9A5|03E9E1;
-   db $39                               ;03E9A6|000800;
+   db $62                               ;03E9A5|      ;
+   db $39                               ;03E9A6|      ;
    db $00                               ;03E9A7|      ;
    db $08                               ;03E9A8|      ;
    db $18                               ;03E9A9|      ;
-   db $61                               ;03E9AA|000039;
-   db $39                               ;03E9AB|000000;
+   db $61                               ;03E9AA|      ;
+   db $39                               ;03E9AB|      ;
    db $00                               ;03E9AC|      ;
    db $00                               ;03E9AD|      ;
    db $18                               ;03E9AE|      ;
    db $60                               ;03E9AF|      ;
-   db $39                               ;03E9B0|00F800;
+   db $39                               ;03E9B0|      ;
    db $00                               ;03E9B1|      ;
    db $F8                               ;03E9B2|      ;
    db $18                               ;03E9B3|      ;
-   db $5F                               ;03E9B4|F00039;
-   db $39                               ;03E9B5|00F000;
+   db $5F                               ;03E9B4|      ;
+   db $39                               ;03E9B5|      ;
    db $00                               ;03E9B6|      ;
-   db $F0                               ;03E9B7|03E9D1;
+   db $F0                               ;03E9B7|      ;
    db $18                               ;03E9B8|      ;
-   db $5E                               ;03E9B9|000039;
-   db $39                               ;03E9BA|00E800;
+   db $5E                               ;03E9B9|      ;
+   db $39                               ;03E9BA|      ;
    db $00                               ;03E9BB|      ;
    db $E8                               ;03E9BC|      ;
    db $18                               ;03E9BD|      ;
-   db $4F                               ;03E9BE|E00039;
-   db $39                               ;03E9BF|00E000;
+   db $4F                               ;03E9BE|      ;
+   db $39                               ;03E9BF|      ;
    db $00                               ;03E9C0|      ;
    db $E0                               ;03E9C1|      ;
    db $18                               ;03E9C2|      ;
-   db $4E                               ;03E9C3|000139;
-   db $39                               ;03E9C4|000801;
-   db $01                               ;03E9C5|000008;
+   db $4E                               ;03E9C3|      ;
+   db $39                               ;03E9C4|      ;
+   db $01                               ;03E9C5|      ;
    db $08                               ;03E9C6|      ;
    db $08                               ;03E9C7|      ;
-   db $4C                               ;03E9C8|030139;
-   db $39                               ;03E9C9|00F801;
-   db $01                               ;03E9CA|0000F8;
+   db $4C                               ;03E9C8|      ;
+   db $39                               ;03E9C9|      ;
+   db $01                               ;03E9CA|      ;
    db $F8                               ;03E9CB|      ;
    db $08                               ;03E9CC|      ;
    db $4A                               ;03E9CD|      ;
-   db $39                               ;03E9CE|00E801;
-   db $01                               ;03E9CF|0000E8;
+   db $39                               ;03E9CE|      ;
+   db $01                               ;03E9CF|      ;
    db $E8                               ;03E9D0|      ;
    db $08                               ;03E9D1|      ;
    db $48                               ;03E9D2|      ;
-   db $39                               ;03E9D3|000801;
-   db $01                               ;03E9D4|000008;
+   db $39                               ;03E9D3|      ;
+   db $01                               ;03E9D4|      ;
    db $08                               ;03E9D5|      ;
    db $F8                               ;03E9D6|      ;
-   db $46                               ;03E9D7|000039;
-   db $39                               ;03E9D8|00F801;
-   db $01                               ;03E9D9|0000F8;
+   db $46                               ;03E9D7|      ;
+   db $39                               ;03E9D8|      ;
+   db $01                               ;03E9D9|      ;
    db $F8                               ;03E9DA|      ;
    db $F8                               ;03E9DB|      ;
    db $44                               ;03E9DC|      ;
-   db $39                               ;03E9DD|00E801;
-   db $01                               ;03E9DE|0000E8;
+   db $39                               ;03E9DD|      ;
+   db $01                               ;03E9DE|      ;
    db $E8                               ;03E9DF|      ;
    db $F8                               ;03E9E0|      ;
    db $42                               ;03E9E1|      ;
-   db $39                               ;03E9E2|000001;
-   db $01                               ;03E9E3|000000;
+   db $39                               ;03E9E2|      ;
+   db $01                               ;03E9E3|      ;
    db $00                               ;03E9E4|      ;
    db $E8                               ;03E9E5|      ;
    db $40                               ;03E9E6|      ;
-   db $39                               ;03E9E7|00F001;
-   db $01                               ;03E9E8|0000F0;
-   db $F0                               ;03E9E9|03E9D3;
+   db $39                               ;03E9E7|      ;
+   db $01                               ;03E9E8|      ;
+   db $F0                               ;03E9E9|      ;
    db $E8                               ;03E9EA|      ;
-   db $2E                               ;03E9EB|000139;
-   db $39                               ;03E9EC|000001;
-   db $01                               ;03E9ED|000000;
+   db $2E                               ;03E9EB|      ;
+   db $39                               ;03E9EC|      ;
+   db $01                               ;03E9ED|      ;
    db $00                               ;03E9EE|      ;
    db $D8                               ;03E9EF|      ;
-   db $2C                               ;03E9F0|000339;
-   db $39                               ;03E9F1|00F003;
-   db $03                               ;03E9F2|0000F0;
-   db $F0                               ;03E9F3|03E9CD;
+   db $2C                               ;03E9F0|      ;
+   db $39                               ;03E9F1|      ;
+   db $03                               ;03E9F2|      ;
+   db $F0                               ;03E9F3|      ;
    db $D8                               ;03E9F4|      ;
    db $2A                               ;03E9F5|      ;
-   db $39                               ;03E9F6|00E7B8;
-Tbl_03E9F7:
-   dw DATA8_03E7B8                      ;03E9F7|03E7B8;
-   dw DATA8_03E7EF                      ;03E9F9|03E7EF;
-   dw DATA8_03E826                      ;03E9FB|03E826;
-   dw DATA8_03E885                      ;03E9FD|03E885;
-   dw DATA8_03E8E9                      ;03E9FF|03E8E9;
-   dw DATA8_03E93E                      ;03EA01|03E93E;
-   dw DATA8_03E9A2                      ;03EA03|03E9A2;
+   db $39                               ;03E9F6|      ;
+Tbl_Tileset_Event68_SHOPS:
+   dw Tileset_Event68_00                ;03E9F7|03E7B8;
+   dw Tileset_Event68_01                ;03E9F9|03E7EF;
+   dw Tileset_Event68_02                ;03E9FB|03E826;
+   dw Tileset_Event68_03                ;03E9FD|03E885;
+   dw Tileset_Event68_04                ;03E9FF|03E8E9;
+   dw Tileset_Event68_05                ;03EA01|03E93E;
+   dw Tileset_Event68_06                ;03EA03|03E9A2;
    dw $0000                             ;03EA05|      ;
    db $F1                               ;03EA07|00007F;
    db $7F                               ;03EA08|F77FFF;
@@ -17415,11 +17051,10 @@ Map_Drawing:
    PLA                                  ;03EB05|      ;
    LDX.W #$07FE                         ;03EB06|      ;
    LDA.W #$0A80                         ;03EB09|      ;
-CODE_03EB0C:
-   STA.L $7EF800,X                      ;03EB0C|7EF800; Clear the map
+ - STA.L $7EF800,X                      ;03EB0C|7EF800; Clear the map
    DEX                                  ;03EB10|      ;
    DEX                                  ;03EB11|      ;
-   BPL CODE_03EB0C                      ;03EB12|03EB0C;
+   BPL -                                ;03EB12|03EB0C;
    LDA.W Map_Y                          ;03EB14|0016F9;
    SEC                                  ;03EB17|      ;
    SBC.W #$0008                         ;03EB18|      ;
@@ -17431,8 +17066,7 @@ CODE_03EB0C:
    LDY.W #$008E                         ;03EB26|      ;
    LDA.W #$0010                         ;03EB29|      ;
    STA.B $04                            ;03EB2C|000004;
-CODE_03EB2E:
-   LDA.W #$0011                         ;03EB2E|      ;
+ - LDA.W #$0011                         ;03EB2E|      ;
    STA.B $06                            ;03EB31|000006;
 Loop_Draw_Map_Tiles:
    LDA.B $00                            ;03EB33|000000; Load Y-8
@@ -17475,7 +17109,7 @@ Increment_Loop:
    STA.B $02                            ;03EB78|000002;
    INC.B $00                            ;03EB7A|000000;
    DEC.B $04                            ;03EB7C|000004;
-   BPL CODE_03EB2E                      ;03EB7E|03EB2E;
+   BPL -                                ;03EB7E|03EB2E;
    LDA.W Map_Y                          ;03EB80|0016F9;
    SEC                                  ;03EB83|      ;
    SBC.W #$0008                         ;03EB84|      ;
@@ -17487,22 +17121,20 @@ Increment_Loop:
    LDY.W #$008E                         ;03EB92|      ;
    LDA.W #$0010                         ;03EB95|      ;
    STA.B $04                            ;03EB98|000004;
-CODE_03EB9A:
-   LDA.W #$0011                         ;03EB9A|      ;
+ - LDA.W #$0011                         ;03EB9A|      ;
    STA.B $06                            ;03EB9D|000006;
 Add_Green_Siding:
    LDA.B $00                            ;03EB9F|000000;
    LDX.B $02                            ;03EBA1|000002;
    JSR.W Get_map_tile_value             ;03EBA3|03A457;
-   BNE CODE_03EBB7                      ;03EBA6|03EBB7;
+   BNE +                                ;03EBA6|03EBB7;
    PEA.W $007E                          ;03EBA8|00007E;
    PLB                                  ;03EBAB|      ;
    JSR.W Check_Surrounding_Tiles        ;03EBAC|03ED5C;
    LDA.L Gfx_Tiles_Walls,X              ;03EBAF|03ECFB;
    STA.W EMPTY_00F800,Y                 ;03EBB3|00F800;
    PLB                                  ;03EBB6|      ;
-CODE_03EBB7:
-   INC.B $02                            ;03EBB7|000002; Inc counter $1DF8
+ + INC.B $02                            ;03EBB7|000002; Inc counter $1DF8
    INY                                  ;03EBB9|      ;
    INY                                  ;03EBBA|      ;
    DEC.B $06                            ;03EBBB|000006; Dec counter $1DFC
@@ -17517,14 +17149,14 @@ CODE_03EBB7:
    STA.B $02                            ;03EBCB|000002;
    INC.B $00                            ;03EBCD|000000; Inc counter $1DF6
    DEC.B $04                            ;03EBCF|000004; Dec counter $1DFA
-   BPL CODE_03EB9A                      ;03EBD1|03EB9A; Loop until 0
+   BPL -                                ;03EBD1|03EB9A; Loop until 0
    PEA.W $0003                          ;03EBD3|000003;
    PLB                                  ;03EBD6|      ;
    LDA.W #$0020                         ;03EBD7|      ;
    SEC                                  ;03EBDA|      ;
    SBC.W Map_Y                          ;03EBDB|0016F9;
    CMP.W #$0009                         ;03EBDE|      ;
-   BCS CODE_03EC38                      ;03EBE1|03EC38;
+   BCS +                                ;03EBE1|03EC38;
    ASL A                                ;03EBE3|      ;
    ASL A                                ;03EBE4|      ;
    ASL A                                ;03EBE5|      ;
@@ -17535,7 +17167,7 @@ CODE_03EBB7:
    LDA.W #$000F                         ;03EBEB|      ;
    SEC                                  ;03EBEE|      ;
    SBC.W Map_X                          ;03EBEF|0016F7;
-   BMI CODE_03EC10                      ;03EBF2|03EC10;
+   BMI ++                               ;03EBF2|03EC10;
    ASL A                                ;03EBF4|      ;
    CLC                                  ;03EBF5|      ;
    ADC.B $00                            ;03EBF6|000000;
@@ -17552,12 +17184,11 @@ Draw_Map_Compass:
    INY                                  ;03EC0A|      ;
    CPY.W #$0020                         ;03EC0B|      ;
    BCC Draw_Map_Compass                 ;03EC0E|03EBFC;
-CODE_03EC10:
-   LDA.W #$0020                         ;03EC10|      ;
+++ LDA.W #$0020                         ;03EC10|      ;
    SEC                                  ;03EC13|      ;
    SBC.W Map_X                          ;03EC14|0016F7;
    CMP.W #$0012                         ;03EC17|      ;
-   BCS CODE_03EC38                      ;03EC1A|03EC38;
+   BCS +                                ;03EC1A|03EC38;
    ASL A                                ;03EC1C|      ;
    CLC                                  ;03EC1D|      ;
    ADC.B $00                            ;03EC1E|000000;
@@ -17574,8 +17205,7 @@ Draw_Map_Sigil:
    INY                                  ;03EC32|      ;
    CPY.W #$0020                         ;03EC33|      ;
    BCC Draw_Map_Sigil                   ;03EC36|03EC24;
-CODE_03EC38:
-   PLB                                  ;03EC38|      ;
+ + PLB                                  ;03EC38|      ;
    PLD                                  ;03EC39|      ;
    JSL.L Wait_Vblank_far                ;03EC3A|0088DE;
    LDA.W #$ED3B                         ;03EC3E|      ; Load compressed data 3ED3B
@@ -17746,47 +17376,39 @@ Check_Surrounding_Tiles:
    LDA.W #$0000                         ;03ED5C|      ; Draws borders depending on where the hallways are
    LDX.W $F7C0,Y                        ;03ED5F|7EF7C0; Check tile above
    CPX.W #$0A8C                         ;03ED62|      ;
-   BNE CODE_03ED6A                      ;03ED65|03ED6A;
+   BNE +                                ;03ED65|03ED6A;
    ORA.W #$0002                         ;03ED67|      ;
-CODE_03ED6A:
-   LDX.W $F802,Y                        ;03ED6A|7EF802; Check tile to the right
+ + LDX.W $F802,Y                        ;03ED6A|7EF802; Check tile to the right
    CPX.W #$0A8C                         ;03ED6D|      ;
-   BNE CODE_03ED75                      ;03ED70|03ED75;
+   BNE +                                ;03ED70|03ED75;
    ORA.W #$0004                         ;03ED72|      ;
-CODE_03ED75:
-   LDX.W $F840,Y                        ;03ED75|7EF840; Check tile below
+ + LDX.W $F840,Y                        ;03ED75|7EF840; Check tile below
    CPX.W #$0A8C                         ;03ED78|      ;
-   BNE CODE_03ED80                      ;03ED7B|03ED80;
+   BNE +                                ;03ED7B|03ED80;
    ORA.W #$0008                         ;03ED7D|      ;
-CODE_03ED80:
-   LDX.W $F7FE,Y                        ;03ED80|7EF7FE; Check tile to the left
+ + LDX.W $F7FE,Y                        ;03ED80|7EF7FE; Check tile to the left
    CPX.W #$0A8C                         ;03ED83|      ;
-   BNE CODE_03ED8B                      ;03ED86|03ED8B;
+   BNE +                                ;03ED86|03ED8B;
    ORA.W #$0010                         ;03ED88|      ;
-CODE_03ED8B:
-   CMP.W #$0000                         ;03ED8B|      ; If there's a + adjacent tile, return
-   BNE CODE_03EDBC                      ;03ED8E|03EDBC;
+ + CMP.W #$0000                         ;03ED8B|      ; If there's a + adjacent tile, return
+   BNE +                                ;03ED8E|03EDBC;
    LDX.W $F7C2,Y                        ;03ED90|7EF7C2; Check tile to the up-right
    CPX.W #$0A8C                         ;03ED93|      ;
-   BNE CODE_03ED9B                      ;03ED96|03ED9B;
+   BNE ++                               ;03ED96|03ED9B;
    ORA.W #$0022                         ;03ED98|      ;
-CODE_03ED9B:
-   LDX.W $F842,Y                        ;03ED9B|7EF842; Check tile to the down-right
+++ LDX.W $F842,Y                        ;03ED9B|7EF842; Check tile to the down-right
    CPX.W #$0A8C                         ;03ED9E|      ;
-   BNE CODE_03EDA6                      ;03EDA1|03EDA6;
+   BNE ++                               ;03EDA1|03EDA6;
    ORA.W #$0024                         ;03EDA3|      ;
-CODE_03EDA6:
-   LDX.W $F83E,Y                        ;03EDA6|7EF83E; Check tile to the down-left
+++ LDX.W $F83E,Y                        ;03EDA6|7EF83E; Check tile to the down-left
    CPX.W #$0A8C                         ;03EDA9|      ;
-   BNE CODE_03EDB1                      ;03EDAC|03EDB1;
+   BNE ++                               ;03EDAC|03EDB1;
    ORA.W #$0028                         ;03EDAE|      ;
-CODE_03EDB1:
-   LDX.W $F7BE,Y                        ;03EDB1|7EF7BE; Check tile to the up-left
+++ LDX.W $F7BE,Y                        ;03EDB1|7EF7BE; Check tile to the up-left
    CPX.W #$0A8C                         ;03EDB4|      ;
-   BNE CODE_03EDBC                      ;03EDB7|03EDBC;
+   BNE +                                ;03EDB7|03EDBC;
    ORA.W #$0030                         ;03EDB9|      ;
-CODE_03EDBC:
-   TAX                                  ;03EDBC|      ;
+ + TAX                                  ;03EDBC|      ;
    RTS                                  ;03EDBD|      ;
    db $00                               ;03EDBE|      ;
    db $00                               ;03EDBF|      ;

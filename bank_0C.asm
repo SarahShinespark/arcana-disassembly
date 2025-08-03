@@ -8530,7 +8530,7 @@ SCRIPT_005:
    dl PROMPT_ROOKS                      ;0CA7AB|0CF7E3;
    db $22, "Ouch,"                      ;0CA7AE|      ;
    db $0D                               ;0CA7B4|      ;
-   db " something stung me!", $22       ;0CA7B5|      ;
+   db " something stung me", $21, $22   ;0CA7B5|      ;
    db $10                               ;0CA7CA|      ;
    dl WAIT_CLEAR                        ;0CA7CB|0CFAA5;
    db $10                               ;0CA7CE|      ;
@@ -8578,7 +8578,7 @@ SCRIPT_006:
    dl WAIT_CLEAR                        ;0CA894|0CFAA5;
    db $10                               ;0CA897|      ;
    dl PROMPT_TEEFA                      ;0CA898|0CF825;
-   db $22, "Silence!", $22              ;0CA89B|      ;
+   db $22, "Silence", $21, $22          ;0CA89B|      ;
    db $10                               ;0CA8A5|      ;
    dl WAIT_CLEAR                        ;0CA8A6|0CFAA5;
    db $1B                               ;0CA8A9|      ;
@@ -8607,7 +8607,7 @@ SCRIPT_007:
    db $05                               ;0CA8CE|      ;
    db $FF                               ;0CA8CF|      ;
    db $3C                               ;0CA8D0|      ;
-   db "Teefa attacks!"                  ;0CA8D1|      ;
+   db "Teefa attacks", $21              ;0CA8D1|      ;
    db $0D                               ;0CA8DF|      ;
    db $1C                               ;0CA8E0|      ;
    db "Uses lightning."                 ;0CA8E1|      ;
@@ -8664,7 +8664,7 @@ SCRIPT_012:
    dl MACRO_118                         ;0CA983|0CF7C2;
    db $10                               ;0CA986|      ;
    dl PROMPT_ROOKS                      ;0CA987|0CF7E3;
-   db $22, "Wait a minute!"             ;0CA98A|      ;
+   db $22, "Wait a minute", $21         ;0CA98A|      ;
    db $0D                               ;0CA999|      ;
    db " Is it true these peo"           ;0CA99A|      ;
    db "ple"                             ;0CA9AF|      ;
@@ -8819,7 +8819,7 @@ SCRIPT_013:
    db $1C                               ;0CAD40|      ;
    db $08                               ;0CAD41|      ;
    db $0A                               ;0CAD42|      ;
-   db "No!"                             ;0CAD43|      ;
+   db "No", $21                         ;0CAD43|      ;
    db $08                               ;0CAD46|      ;
    db $52                               ;0CAD47|      ;
    db "Yes"                             ;0CAD48|      ;
@@ -8831,19 +8831,19 @@ SCRIPT_014:
    db $10                               ;0CAD4F|      ;
    dl PROMPT_ROOKS                      ;0CAD50|0CF7E3;
    db $22, "You've made a mistak"       ;0CAD53|      ;
-   db "e!", $22                         ;0CAD68|      ;
+   db "e", $21, $22                     ;0CAD68|      ;
    db $10                               ;0CAD6B|      ;
    dl WAIT_CLEAR                        ;0CAD6C|0CFAA5;
    db $10                               ;0CAD6F|      ;
    dl DISPLAY_ARIEL                     ;0CAD70|0CF7F5;
-   db $22, "Oh!. . . that's too "       ;0CAD73|      ;
+   db $22, "Oh", $21, ". . . that's too ";0CAD73|      ;
    db "bad."                            ;0CAD88|      ;
    db $10                               ;0CAD8C|      ;
    dl CONTINUE_ARIEL                    ;0CAD8D|0CFA1E;
    db " You would let down a"           ;0CAD90|      ;
    db $0D                               ;0CADA5|      ;
    db " childhood friend. . "           ;0CADA6|      ;
-   db ". ?!"                            ;0CADBB|      ;
+   db ". ?", $21                        ;0CADBB|      ;
    db $0D                               ;0CADBF|      ;
    db " It's because you're"            ;0CADC0|      ;
    db $0D                               ;0CADD4|      ;
@@ -8928,7 +8928,7 @@ SCRIPT_017:
    db $05                               ;0CAF29|      ;
    db $FF                               ;0CAF2A|      ;
    db $3C                               ;0CAF2B|      ;
-   db "Rooks Attacks!"                  ;0CAF2C|      ;
+   db "Rooks Attacks", $21              ;0CAF2C|      ;
    db $0D                               ;0CAF3A|      ;
    db $1D                               ;0CAF3B|      ;
    db $0D                               ;0CAF3C|      ;
@@ -8967,7 +8967,7 @@ SCRIPT_017:
    dl WAIT_CLEAR                        ;0CAFE9|0CFAA5;
    db $10                               ;0CAFEC|      ;
    dl DISPLAY_ARIEL                     ;0CAFED|0CF7F5;
-   db $22, "Save your strength!", $22   ;0CAFF0|      ;
+   db $22, "Save your strength", $21, $22;0CAFF0|      ;
    db $10                               ;0CB005|      ;
    dl WAIT_CLEAR                        ;0CB006|0CFAA5;
    db $1B                               ;0CB009|      ;
@@ -8983,7 +8983,7 @@ SCRIPT_018:
    db $1C                               ;0CB014|      ;
    db "Ariel"                           ;0CB015|      ;
    db $0D                               ;0CB01A|      ;
-   db $22, "Give up, Rooks!", $22       ;0CB01B|      ;
+   db $22, "Give up, Rooks", $21, $22   ;0CB01B|      ;
    db $10                               ;0CB02C|      ;
    dl WAIT_NEWLINE                      ;0CB02D|0CFA1B;
    db $1B                               ;0CB030|      ;
@@ -8994,7 +8994,7 @@ SCRIPT_018:
    db $1C                               ;0CB037|      ;
    db "Sorcerer"                        ;0CB038|      ;
    db $0D                               ;0CB040|      ;
-   db $22, "It's dangerous!", $22       ;0CB041|      ;
+   db $22, "It's dangerous", $21, $22   ;0CB041|      ;
    db $10                               ;0CB052|      ;
    dl WAIT_NEWLINE                      ;0CB053|0CFA1B;
    db $1B                               ;0CB056|      ;
@@ -9104,7 +9104,7 @@ SCRIPT_021:
    db $10                               ;0CB1B5|      ;
    dl MACRO_120                         ;0CB1B6|0CF7D7;
    db $0D                               ;0CB1B9|      ;
-   db $22, "You've awakened!", $22      ;0CB1BA|      ;
+   db $22, "You've awakened", $21, $22  ;0CB1BA|      ;
    db $7F                               ;0CB1CC|      ;
    db $10                               ;0CB1CD|      ;
    dl PROMPT_ROOKS                      ;0CB1CE|0CF7E3;
@@ -9448,13 +9448,13 @@ SCRIPT_024:
    db $22, "He's being attacked "       ;0CB998|      ;
    db "by"                              ;0CB9AD|      ;
    db $0D                               ;0CB9AF|      ;
-   db " Monsters!", $22                 ;0CB9B0|      ;
+   db " Monsters", $21, $22             ;0CB9B0|      ;
    db $10                               ;0CB9BB|      ;
    dl WAIT_CLEAR                        ;0CB9BC|0CFAA5;
    db $10                               ;0CB9BF|      ;
    dl PROMPT_ROOKS                      ;0CB9C0|0CF7E3;
    db $22, "I'll give you a hand"       ;0CB9C3|      ;
-   db "!", $22                          ;0CB9D8|      ;
+   db $21, $22                          ;0CB9D8|      ;
    db $1B                               ;0CB9DA|      ;
    db $01                               ;0CB9DB|      ;
    db $01                               ;0CB9DC|      ;
@@ -9481,7 +9481,7 @@ SCRIPT_024:
    db $05                               ;0CBA1B|      ;
    db $FF                               ;0CBA1C|      ;
    db $28                               ;0CBA1D|      ;
-   db "The Man Attacks!"                ;0CBA1E|      ;
+   db "The Man Attacks", $21            ;0CBA1E|      ;
    db $0D                               ;0CBA2E|      ;
    db $05                               ;0CBA2F|      ;
    db $FF                               ;0CBA30|      ;
@@ -9519,7 +9519,7 @@ SCRIPT_024:
    db $05                               ;0CBA83|      ;
    db $FF                               ;0CBA84|      ;
    db $28                               ;0CBA85|      ;
-   db "The Man Attacks!"                ;0CBA86|      ;
+   db "The Man Attacks", $21            ;0CBA86|      ;
    db $0D                               ;0CBA96|      ;
    db $05                               ;0CBA97|      ;
    db $FF                               ;0CBA98|      ;
@@ -9636,7 +9636,7 @@ SCRIPT_026:
    db $0D                               ;0CBC3F|      ;
    db $10                               ;0CBC40|      ;
    dl DISPLAY_THE_MAN                   ;0CBC41|0CF8F0;
-   db $22, "Oh, great!", $22            ;0CBC44|      ;
+   db $22, "Oh, great", $21, $22        ;0CBC44|      ;
    db $10                               ;0CBC50|      ;
    dl WAIT_CLEAR                        ;0CBC51|0CFAA5;
    db $10                               ;0CBC54|      ;
@@ -9693,7 +9693,7 @@ SCRIPT_026:
    db "Of Course"                       ;0CBD51|      ;
    db $08                               ;0CBD5A|      ;
    db $52                               ;0CBD5B|      ;
-   db "No!"                             ;0CBD5C|      ;
+   db "No", $21                         ;0CBD5C|      ;
    db $1B                               ;0CBD5F|      ;
    db $01                               ;0CBD60|      ;
    db $FF                               ;0CBD61|      ;
@@ -9703,7 +9703,7 @@ SCRIPT_027:
    dl MACRO_118                         ;0CBD64|0CF7C2;
    db $10                               ;0CBD67|      ;
    dl PROMPT_ROOKS                      ;0CBD68|0CF7E3;
-   db $22, "Of course!"                 ;0CBD6B|      ;
+   db $22, "Of course", $21             ;0CBD6B|      ;
    db $0D                               ;0CBD76|      ;
    db " I'll go with you.", $22         ;0CBD77|      ;
    db $10                               ;0CBD8A|      ;
@@ -9786,7 +9786,7 @@ SCRIPT_031:
    db "ng"                              ;0CBEEB|      ;
    db $0D                               ;0CBEED|      ;
    db " humans? That can't b"           ;0CBEEE|      ;
-   db "e!", $22                         ;0CBF03|      ;
+   db "e", $21, $22                     ;0CBF03|      ;
    db $10                               ;0CBF06|      ;
    dl WAIT_CLEAR                        ;0CBF07|0CFAA5;
    db $10                               ;0CBF0A|      ;
@@ -9794,7 +9794,7 @@ SCRIPT_031:
    db $22, "The whole world is g"       ;0CBF0E|      ;
    db "oing"                            ;0CBF23|      ;
    db $0D                               ;0CBF27|      ;
-   db " crazy!", $22                    ;0CBF28|      ;
+   db " crazy", $21, $22                ;0CBF28|      ;
    db $10                               ;0CBF30|      ;
    dl WAIT_CLEAR                        ;0CBF31|0CFAA5;
    db $0C                               ;0CBF34|      ;
@@ -9816,7 +9816,7 @@ SCRIPT_032:
    dl WAIT_CLEAR                        ;0CBF75|0CFAA5;
    db $10                               ;0CBF78|      ;
    dl PROMPT_ROOKS                      ;0CBF79|0CF7E3;
-   db $22, "Be careful!", $22           ;0CBF7C|      ;
+   db $22, "Be careful", $21, $22       ;0CBF7C|      ;
    db $10                               ;0CBF89|      ;
    dl WAIT_CLEAR                        ;0CBF8A|0CFAA5;
    db $10                               ;0CBF8D|      ;
@@ -9859,10 +9859,10 @@ SCRIPT_033:
 SCRIPT_034:
    db $10                               ;0CC00A|      ;
    dl DISPLAY_REINOLL                   ;0CC00B|0CF936;
-   db $22, "Oh, Rooks! It's been"       ;0CC00E|      ;
+   db $22, "Oh, Rooks", $21, " It's been";0CC00E|      ;
    db " a"                              ;0CC023|      ;
    db $0D                               ;0CC025|      ;
-   db " long time!"                     ;0CC026|      ;
+   db " long time", $21                 ;0CC026|      ;
    db $10                               ;0CC031|      ;
    dl CONTINUE_REINOLL                  ;0CC032|0CFA5D;
    db " Who is this?", $22              ;0CC035|      ;
@@ -10165,12 +10165,12 @@ SCRIPT_040:
    db $10                               ;0CC6E3|      ;
    dl MACRO_119                         ;0CC6E4|0CF7CB;
    db $0D                               ;0CC6E7|      ;
-   db $22, "Whoa!", $22                 ;0CC6E8|      ;
+   db $22, "Whoa", $21, $22             ;0CC6E8|      ;
    db $10                               ;0CC6EF|      ;
    dl WAIT_BIG_REINOLL                  ;0CC6F0|0CC894;
    db $10                               ;0CC6F3|      ;
    dl PROMPT_ROOKS                      ;0CC6F4|0CF7E3;
-   db $22, "Salah!", $22                ;0CC6F7|      ;
+   db $22, "Salah", $21, $22            ;0CC6F7|      ;
    db $10                               ;0CC6FF|      ;
    dl WAIT_BIG_REINOLL                  ;0CC700|0CC894;
    db $0C                               ;0CC703|      ;
@@ -10181,7 +10181,7 @@ SCRIPT_040:
 SCRIPT_041:
    db $10                               ;0CC708|      ;
    dl PROMPT_ROOKS                      ;0CC709|0CF7E3;
-   db $22, "Ariel! You. . .", $22       ;0CC70C|      ;
+   db $22, "Ariel", $21, " You. . .", $22;0CC70C|      ;
    db $10                               ;0CC71D|      ;
    dl WAIT_CLEAR                        ;0CC71E|0CFAA5;
    db $10                               ;0CC721|      ;
@@ -10200,7 +10200,7 @@ SCRIPT_041:
    db "g."                              ;0CC779|      ;
    db $10                               ;0CC77B|      ;
    dl CONTINUE_ARIEL                    ;0CC77C|0CFA1E;
-   db " I wonder, Rooks!", $22          ;0CC77F|      ;
+   db " I wonder, Rooks", $21, $22      ;0CC77F|      ;
    db $10                               ;0CC791|      ;
    dl WAIT_CLEAR                        ;0CC792|0CFAA5;
    db $1B                               ;0CC795|      ;
@@ -10210,7 +10210,7 @@ SCRIPT_041:
 SCRIPT_042:
    db $10                               ;0CC799|      ;
    dl PROMPT_ROOKS                      ;0CC79A|0CF7E3;
-   db $22, "Wait!", $22                 ;0CC79D|      ;
+   db $22, "Wait", $21, $22             ;0CC79D|      ;
    db $10                               ;0CC7A4|      ;
    dl WAIT_CLEAR                        ;0CC7A5|0CFAA5;
    db $0C                               ;0CC7A8|      ;
@@ -10221,7 +10221,7 @@ SCRIPT_042:
 SCRIPT_043:
    db $10                               ;0CC7AD|      ;
    dl PROMPT_ROOKS                      ;0CC7AE|0CF7E3;
-   db $22, "Ariel!!", $22               ;0CC7B1|      ;
+   db $22, "Ariel", $21, $21, $22       ;0CC7B1|      ;
    db $10                               ;0CC7BA|      ;
    dl WAIT_CLEAR                        ;0CC7BB|0CFAA5;
    db $10                               ;0CC7BE|      ;
@@ -10251,14 +10251,14 @@ SCRIPT_043:
    db " I have come to defea"           ;0CC826|      ;
    db "t"                               ;0CC83B|      ;
    db $0D                               ;0CC83C|      ;
-   db " you!", $22                      ;0CC83D|      ;
+   db " you", $21, $22                  ;0CC83D|      ;
    db $10                               ;0CC843|      ;
    dl WAIT_CLEAR                        ;0CC844|0CFAA5;
    db $10                               ;0CC847|      ;
    dl DISPLAY_ZEREL                     ;0CC848|0CF950;
    db $22, "Prepare to meet"            ;0CC84B|      ;
    db $0D                               ;0CC85B|      ;
-   db " your doom!", $22                ;0CC85C|      ;
+   db " your doom", $21, $22            ;0CC85C|      ;
    db $10                               ;0CC868|      ;
    dl WAIT_CLEAR                        ;0CC869|0CFAA5;
    db $0C                               ;0CC86C|      ;
@@ -10341,10 +10341,10 @@ SCRIPT_048:
 SCRIPT_049:
    db $10                               ;0CC90D|      ;
    dl PROMPT_ROOKS                      ;0CC90E|0CF7E3;
-   db $22, "Wait! There's a lett"       ;0CC911|      ;
+   db $22, "Wait", $21, " There's a lett";0CC911|      ;
    db "er on"                           ;0CC926|      ;
    db $0D                               ;0CC92B|      ;
-   db " top of the desk!", $22          ;0CC92C|      ;
+   db " top of the desk", $21, $22      ;0CC92C|      ;
    db $10                               ;0CC93E|      ;
    dl WAIT_CLEAR                        ;0CC93F|0CFAA5;
    db $0C                               ;0CC942|      ;
@@ -10389,7 +10389,7 @@ SCRIPT_051:
    dl MACRO_118                         ;0CC9C6|0CF7C2;
    db $10                               ;0CC9C9|      ;
    dl PROMPT_ROOKS                      ;0CC9CA|0CF7E3;
-   db $22, "Axs!", $22                  ;0CC9CD|      ;
+   db $22, "Axs", $21, $22              ;0CC9CD|      ;
    db $10                               ;0CC9D3|      ;
    dl WAIT_CLEAR                        ;0CC9D4|0CFAA5;
    db $10                               ;0CC9D7|      ;
@@ -10411,7 +10411,7 @@ SCRIPT_052:
    dl WAIT_CLEAR                        ;0CCA13|0CFAA5;
    db $10                               ;0CCA16|      ;
    dl DISPLAY_AXS                       ;0CCA17|0CF867;
-   db $22, "Thank you, Rooks!", $22     ;0CCA1A|      ;
+   db $22, "Thank you, Rooks", $21, $22 ;0CCA1A|      ;
    db $10                               ;0CCA2D|      ;
    dl WAIT_CLEAR                        ;0CCA2E|0CFAA5;
    db $10                               ;0CCA31|      ;
@@ -10461,7 +10461,7 @@ SCRIPT_052:
    db " I am worried about S"           ;0CCB3B|      ;
    db "alah,"                           ;0CCB50|      ;
    db $0D                               ;0CCB55|      ;
-   db " Let's hurry!", $22              ;0CCB56|      ;
+   db " Let's hurry", $21, $22          ;0CCB56|      ;
    db $10                               ;0CCB64|      ;
    dl WAIT_CLEAR                        ;0CCB65|0CFAA5;
    db $10                               ;0CCB68|      ;
@@ -10498,7 +10498,7 @@ SCRIPT_053:
    dl WAIT_CLEAR                        ;0CCBF1|0CFAA5;
    db $10                               ;0CCBF4|      ;
    dl PROMPT_AXS                        ;0CCBF5|0CF964;
-   db $22, "Oh, of course!"             ;0CCBF8|      ;
+   db $22, "Oh, of course", $21         ;0CCBF8|      ;
    db $0D                               ;0CCC07|      ;
    db " I grant you this.", $22         ;0CCC08|      ;
    db $10                               ;0CCC1B|      ;
@@ -10547,12 +10547,12 @@ SCRIPT_054:
    db $0D                               ;0CCD08|      ;
    db " Let's hurry,"                   ;0CCD09|      ;
    db $0D                               ;0CCD16|      ;
-   db " Salah is waiting!", $22         ;0CCD17|      ;
+   db " Salah is waiting", $21, $22     ;0CCD17|      ;
    db $10                               ;0CCD2A|      ;
    dl WAIT_CLEAR                        ;0CCD2B|0CFAA5;
    db $10                               ;0CCD2E|      ;
    dl PROMPT_ROOKS                      ;0CCD2F|0CF7E3;
-   db $22, "Let's go!", $22             ;0CCD32|      ;
+   db $22, "Let's go", $21, $22         ;0CCD32|      ;
    db $10                               ;0CCD3D|      ;
    dl WAIT_CLEAR                        ;0CCD3E|0CFAA5;
    db $1B                               ;0CCD41|      ;
@@ -10590,7 +10590,7 @@ SCRIPT_055:
 SCRIPT_056:
    db $10                               ;0CCDC0|      ;
    dl PROMPT_ROOKS                      ;0CCDC1|0CF7E3;
-   db $22, "Salah!", $22                ;0CCDC4|      ;
+   db $22, "Salah", $21, $22            ;0CCDC4|      ;
    db $10                               ;0CCDCC|      ;
    dl WAIT_CLEAR                        ;0CCDCD|0CFAA5;
    db $0C                               ;0CCDD0|      ;
@@ -10601,12 +10601,12 @@ SCRIPT_056:
 SCRIPT_057:
    db $10                               ;0CCDD5|      ;
    dl DISPLAY_ARIEL                     ;0CCDD6|0CF7F5;
-   db $22, "A persistent guy!", $22     ;0CCDD9|      ;
+   db $22, "A persistent guy", $21, $22 ;0CCDD9|      ;
    db $10                               ;0CCDEC|      ;
    dl WAIT_CLEAR                        ;0CCDED|0CFAA5;
    db $10                               ;0CCDF0|      ;
    dl PROMPT_ROOKS                      ;0CCDF1|0CF7E3;
-   db $22, "You!", $22                  ;0CCDF4|      ;
+   db $22, "You", $21, $22              ;0CCDF4|      ;
    db $10                               ;0CCDFA|      ;
    dl WAIT_CLEAR                        ;0CCDFB|0CFAA5;
    db $0C                               ;0CCDFE|      ;
@@ -10712,7 +10712,7 @@ SCRIPT_060:
    db "e"                               ;0CD01E|      ;
    db $0D                               ;0CD01F|      ;
    db " with your fine words"           ;0CD020|      ;
-   db "!"                               ;0CD035|      ;
+   db $21                               ;0CD035|      ;
    db $10                               ;0CD036|      ;
    dl WAIT_NEWLINE                      ;0CD037|0CFA1B;
    db " You should abandon a"           ;0CD03A|      ;
@@ -10721,7 +10721,7 @@ SCRIPT_060:
    db " like that, and the s"           ;0CD055|      ;
    db "ooner"                           ;0CD06A|      ;
    db $0D                               ;0CD06F|      ;
-   db " the better!", $22               ;0CD070|      ;
+   db " the better", $21, $22           ;0CD070|      ;
    db $10                               ;0CD07D|      ;
    dl WAIT_CLEAR                        ;0CD07E|0CFAA5;
    db $10                               ;0CD081|      ;
@@ -10758,7 +10758,7 @@ SCRIPT_060:
    db $22, "If necessary I'll ta"       ;0CD15A|      ;
    db "ke the"                          ;0CD16F|      ;
    db $0D                               ;0CD175|      ;
-   db " Jewel by force!", $22           ;0CD176|      ;
+   db " Jewel by force", $21, $22       ;0CD176|      ;
    db $10                               ;0CD187|      ;
    dl WAIT_CLEAR                        ;0CD188|0CFAA5;
    db $0C                               ;0CD18B|      ;
@@ -10772,7 +10772,7 @@ SCRIPT_061:
    db $22, "Ariel, leave this ar"       ;0CD194|      ;
    db "ea to"                           ;0CD1A9|      ;
    db $0D                               ;0CD1AE|      ;
-   db " me and press on!", $22          ;0CD1AF|      ;
+   db " me and press on", $21, $22      ;0CD1AF|      ;
    db $10                               ;0CD1C1|      ;
    dl WAIT_CLEAR                        ;0CD1C2|0CFAA5;
    db $10                               ;0CD1C5|      ;
@@ -10793,7 +10793,7 @@ SCRIPT_061:
    db $0D                               ;0CD1FA|      ;
    db $10                               ;0CD1FB|      ;
    dl DISPLAY_SAUZA                     ;0CD1FC|0CF974;
-   db $22, "I owe you my life!", $22    ;0CD1FF|      ;
+   db $22, "I owe you my life", $21, $22;0CD1FF|      ;
    db $10                               ;0CD213|      ;
    dl WAIT_CLEAR                        ;0CD214|0CFAA5;
    db $0C                               ;0CD217|      ;
@@ -10928,7 +10928,7 @@ SCRIPT_065:
    dl WAIT_CLEAR                        ;0CD4C0|0CFAA5;
    db $10                               ;0CD4C3|      ;
    dl PROMPT_ROOKS                      ;0CD4C4|0CF7E3;
-   db $22, "Let's go, Axs!", $22        ;0CD4C7|      ;
+   db $22, "Let's go, Axs", $21, $22    ;0CD4C7|      ;
    db $10                               ;0CD4D7|      ;
    dl WAIT_CLEAR                        ;0CD4D8|0CFAA5;
    db $10                               ;0CD4DB|      ;
@@ -10956,7 +10956,7 @@ SCRIPT_065:
    db " I can't forgive them"           ;0CD571|      ;
    db ", no"                            ;0CD586|      ;
    db $0D                               ;0CD58A|      ;
-   db " matter what!", $22              ;0CD58B|      ;
+   db " matter what", $21, $22          ;0CD58B|      ;
    db $10                               ;0CD599|      ;
    dl WAIT_CLEAR                        ;0CD59A|0CFAA5;
    db $10                               ;0CD59D|      ;
@@ -10992,12 +10992,12 @@ SCRIPT_066:
    db " You are all going to"           ;0CD629|      ;
    db " meet"                           ;0CD63E|      ;
    db $0D                               ;0CD643|      ;
-   db " your end here!", $22            ;0CD644|      ;
+   db " your end here", $21, $22        ;0CD644|      ;
    db $10                               ;0CD654|      ;
    dl WAIT_CLEAR                        ;0CD655|0CFAA5;
    db $10                               ;0CD658|      ;
    dl PROMPT_ROOKS                      ;0CD659|0CF7E3;
-   db $22, "What! Who is it!", $22      ;0CD65C|      ;
+   db $22, "What", $21, " Who is it", $21, $22;0CD65C|      ;
    db $10                               ;0CD66E|      ;
    dl WAIT_CLEAR                        ;0CD66F|0CFAA5;
    db $0C                               ;0CD672|      ;
@@ -11040,9 +11040,9 @@ SCRIPT_069:
    dl MACRO_118                         ;0CD6FA|0CF7C2;
    db $10                               ;0CD6FD|      ;
    dl PROMPT_ROOKS                      ;0CD6FE|0CF7E3;
-   db $22, "It's no good!"              ;0CD701|      ;
+   db $22, "It's no good", $21          ;0CD701|      ;
    db $0D                               ;0CD70F|      ;
-   db " It won't open!", $22            ;0CD710|      ;
+   db " It won't open", $21, $22        ;0CD710|      ;
    db $10                               ;0CD720|      ;
    dl WAIT_CLEAR                        ;0CD721|0CFAA5;
    db $10                               ;0CD724|      ;
@@ -11068,7 +11068,7 @@ SCRIPT_070:
    dl MACRO_118                         ;0CD786|0CF7C2;
    db $10                               ;0CD789|      ;
    dl PROMPT_ROOKS                      ;0CD78A|0CF7E3;
-   db $22, "Salah!"                     ;0CD78D|      ;
+   db $22, "Salah", $21                 ;0CD78D|      ;
    db $0D                               ;0CD794|      ;
    db " Are you all right?", $22        ;0CD795|      ;
    db $10                               ;0CD7A9|      ;
@@ -11281,7 +11281,7 @@ SCRIPT_078:
    dl MACRO_118                         ;0CDB28|0CF7C2;
    db $10                               ;0CDB2B|      ;
    dl PROMPT_SALAH                      ;0CDB2C|0CF8DE;
-   db $22, "Wait! There is a doo"       ;0CDB2F|      ;
+   db $22, "Wait", $21, " There is a doo";0CDB2F|      ;
    db "r.", $22                         ;0CDB44|      ;
    db $10                               ;0CDB47|      ;
    dl WAIT_CLEAR                        ;0CDB48|0CFAA5;
@@ -11299,10 +11299,10 @@ SCRIPT_079:
    dl WAIT_CLEAR                        ;0CDB70|0CFAA5;
    db $10                               ;0CDB73|      ;
    dl PROMPT_AXS                        ;0CDB74|0CF964;
-   db $22, "Take care! It may be"       ;0CDB77|      ;
+   db $22, "Take care", $21, " It may be";0CDB77|      ;
    db " a"                              ;0CDB8C|      ;
    db $0D                               ;0CDB8E|      ;
-   db " trap!", $22                     ;0CDB8F|      ;
+   db " trap", $21, $22                 ;0CDB8F|      ;
    db $10                               ;0CDB96|      ;
    dl WAIT_CLEAR                        ;0CDB97|0CFAA5;
    db $10                               ;0CDB9A|      ;
@@ -11310,7 +11310,7 @@ SCRIPT_079:
    db $22, "If it is a trap, I w"       ;0CDB9E|      ;
    db "ill fall"                        ;0CDBB3|      ;
    db $0D                               ;0CDBBB|      ;
-   db " into a trap!", $22              ;0CDBBC|      ;
+   db " into a trap", $21, $22          ;0CDBBC|      ;
    db $10                               ;0CDBCA|      ;
    dl WAIT_CLEAR                        ;0CDBCB|0CFAA5;
    db $0C                               ;0CDBCE|      ;
@@ -11321,7 +11321,7 @@ SCRIPT_079:
 SCRIPT_080:
    db $10                               ;0CDBD3|      ;
    dl PROMPT_ROOKS                      ;0CDBD4|0CF7E3;
-   db $22, "Ariel!!", $22               ;0CDBD7|      ;
+   db $22, "Ariel", $21, $21, $22       ;0CDBD7|      ;
    db $10                               ;0CDBE0|      ;
    dl WAIT_CLEAR                        ;0CDBE1|0CFAA5;
    db $10                               ;0CDBE4|      ;
@@ -11373,21 +11373,21 @@ SCRIPT_080:
    dl WAIT_CLEAR                        ;0CDD0D|0CFAA5;
    db $10                               ;0CDD10|      ;
    dl PROMPT_ROOKS                      ;0CDD11|0CF7E3;
-   db $22, "What?!", $22                ;0CDD14|      ;
+   db $22, "What?", $21, $22            ;0CDD14|      ;
    db $10                               ;0CDD1C|      ;
    dl WAIT_CLEAR                        ;0CDD1D|0CFAA5;
    db $10                               ;0CDD20|      ;
    dl PROMPT_SALAH                      ;0CDD21|0CF8DE;
-   db $22, "Teefa?!"                    ;0CDD24|      ;
+   db $22, "Teefa?", $21                ;0CDD24|      ;
    db $0D                               ;0CDD2C|      ;
    db " Where is she?"                  ;0CDD2D|      ;
    db $0D                               ;0CDD3B|      ;
-   db " She is my sister!", $22         ;0CDD3C|      ;
+   db " She is my sister", $21, $22     ;0CDD3C|      ;
    db $10                               ;0CDD4F|      ;
    dl WAIT_CLEAR                        ;0CDD50|0CFAA5;
    db $10                               ;0CDD53|      ;
    dl PROMPT_ROOKS                      ;0CDD54|0CF7E3;
-   db $22, "What! Teefa is the o"       ;0CDD57|      ;
+   db $22, "What", $21, " Teefa is the o";0CDD57|      ;
    db "ther"                            ;0CDD6C|      ;
    db $0D                               ;0CDD70|      ;
    db " princess?", $22                 ;0CDD71|      ;
@@ -11468,7 +11468,7 @@ SCRIPT_080:
 SCRIPT_081:
    db $10                               ;0CDF17|      ;
    dl DISPLAY_ARIEL                     ;0CDF18|0CF7F5;
-   db $22, "Come here! Rooks!", $22     ;0CDF1B|      ;
+   db $22, "Come here", $21, " Rooks", $21, $22;0CDF1B|      ;
    db $10                               ;0CDF2E|      ;
    dl WAIT_CLEAR                        ;0CDF2F|0CFAA5;
    db $0C                               ;0CDF32|      ;
@@ -11564,7 +11564,7 @@ SCRIPT_083:
    dl WAIT_CLEAR                        ;0CE0BC|0CFAA5;
    db $10                               ;0CE0BF|      ;
    dl PROMPT_ROOKS                      ;0CE0C0|0CF7E3;
-   db $22, "Ariel!"                     ;0CE0C3|      ;
+   db $22, "Ariel", $21                 ;0CE0C3|      ;
    db $05                               ;0CE0CA|      ;
    db $01                               ;0CE0CB|      ;
    db $46                               ;0CE0CC|      ;
@@ -11573,7 +11573,7 @@ SCRIPT_083:
    db $05                               ;0CE0CF|      ;
    db $01                               ;0CE0D0|      ;
    db $01                               ;0CE0D1|      ;
-   db " Arieeeeeel!!", $22              ;0CE0D2|      ;
+   db " Arieeeeeel", $21, $21, $22      ;0CE0D2|      ;
    db $10                               ;0CE0E0|      ;
    dl WAIT_CLEAR                        ;0CE0E1|0CFAA5;
    db $0C                               ;0CE0E4|      ;
@@ -11605,7 +11605,7 @@ SCRIPT_084:
    dl PROMPT_ROOKS                      ;0CE163|0CF7E3;
    db $22, "You. . ."                   ;0CE166|      ;
    db $0D                               ;0CE16F|      ;
-   db " you are Galneon!", $22          ;0CE170|      ;
+   db " you are Galneon", $21, $22      ;0CE170|      ;
    db $10                               ;0CE182|      ;
    dl WAIT_CLEAR                        ;0CE183|0CFAA5;
    db $10                               ;0CE186|      ;
@@ -11619,13 +11619,13 @@ SCRIPT_084:
    db " you are a hindrance "           ;0CE1BB|      ;
    db "and"                             ;0CE1D0|      ;
    db $0D                               ;0CE1D3|      ;
-   db " an obstacle!"                   ;0CE1D4|      ;
+   db " an obstacle", $21               ;0CE1D4|      ;
    db $10                               ;0CE1E1|      ;
    dl CONTINUE_GALNEON                  ;0CE1E2|0CFA78;
    db " This is the beginnin"           ;0CE1E5|      ;
    db "g of"                            ;0CE1FA|      ;
    db $0D                               ;0CE1FE|      ;
-   db " the end for you!", $22          ;0CE1FF|      ;
+   db " the end for you", $21, $22      ;0CE1FF|      ;
    db $10                               ;0CE211|      ;
    dl CONTINUE_GALNEON                  ;0CE212|0CFA78;
    db " I will throw you awa"           ;0CE215|      ;
@@ -11658,7 +11658,7 @@ SCRIPT_084:
    db $0D                               ;0CE2D5|      ;
    db " parents with my own"            ;0CE2D6|      ;
    db $0D                               ;0CE2EA|      ;
-   db " hands!", $22                    ;0CE2EB|      ;
+   db " hands", $21, $22                ;0CE2EB|      ;
    db $10                               ;0CE2F3|      ;
    dl WAIT_CLEAR                        ;0CE2F4|0CFAA5;
    db $0C                               ;0CE2F7|      ;
@@ -11669,11 +11669,11 @@ SCRIPT_084:
 SCRIPT_085:
    db $10                               ;0CE2FC|      ;
    dl PROMPT_GALNEON                    ;0CE2FD|0CF9A2;
-   db $22, "We will meet again!"        ;0CE300|      ;
+   db $22, "We will meet again", $21    ;0CE300|      ;
    db $10                               ;0CE314|      ;
    dl WAIT_NEWLINE                      ;0CE315|0CFA1B;
    db " If I let you live th"           ;0CE318|      ;
-   db "at long!"                        ;0CE32D|      ;
+   db "at long", $21                    ;0CE32D|      ;
    db $0D                               ;0CE335|      ;
    db " Heh heh heh heh. . ."           ;0CE336|      ;
    db $22                               ;0CE34B|      ;
@@ -11683,7 +11683,7 @@ SCRIPT_085:
    dl PROMPT_ROOKS                      ;0CE351|0CF7E3;
    db $22, ". . . . ."                  ;0CE354|      ;
    db $0D                               ;0CE35E|      ;
-   db " That Galneon!", $22             ;0CE35F|      ;
+   db " That Galneon", $21, $22         ;0CE35F|      ;
    db $10                               ;0CE36E|      ;
    dl WAIT_CLEAR                        ;0CE36F|0CFAA5;
    db $10                               ;0CE372|      ;
@@ -11712,7 +11712,7 @@ SCRIPT_086:
    dl WAIT_CLEAR                        ;0CE3E5|0CFAA5;
    db $10                               ;0CE3E8|      ;
    dl DISPLAY_DARWIN                    ;0CE3E9|0CF90A;
-   db $22, "To give you a hand!", $22   ;0CE3EC|      ;
+   db $22, "To give you a hand", $21, $22;0CE3EC|      ;
    db $10                               ;0CE401|      ;
    dl WAIT_CLEAR                        ;0CE402|0CFAA5;
    db $10                               ;0CE405|      ;
@@ -11733,7 +11733,7 @@ SCRIPT_087:
    db $22, "You did well to get "       ;0CE42D|      ;
    db "this"                            ;0CE442|      ;
    db $0D                               ;0CE446|      ;
-   db " far, Rooks!"                    ;0CE447|      ;
+   db " far, Rooks", $21                ;0CE447|      ;
    db $10                               ;0CE453|      ;
    dl CONTINUE_GALNEON                  ;0CE454|0CFA78;
    db " Haven't I met that"             ;0CE457|      ;
@@ -11746,7 +11746,7 @@ SCRIPT_087:
    dl WAIT_CLEAR                        ;0CE48C|0CFAA5;
    db $10                               ;0CE48F|      ;
    dl PROMPT_DARWIN                     ;0CE490|0CF923;
-   db $22, "Princess Teefa!", $22       ;0CE493|      ;
+   db $22, "Princess Teefa", $21, $22   ;0CE493|      ;
    db $10                               ;0CE4A4|      ;
    dl WAIT_CLEAR                        ;0CE4A5|0CFAA5;
    db $10                               ;0CE4A8|      ;
@@ -11756,7 +11756,7 @@ SCRIPT_087:
    dl WAIT_CLEAR                        ;0CE4C1|0CFAA5;
    db $10                               ;0CE4C4|      ;
    dl PROMPT_DARWIN                     ;0CE4C5|0CF923;
-   db $22, "Teefa!", $22                ;0CE4C8|      ;
+   db $22, "Teefa", $21, $22            ;0CE4C8|      ;
    db $10                               ;0CE4D0|      ;
    dl WAIT_CLEAR                        ;0CE4D1|0CFAA5;
    db $10                               ;0CE4D4|      ;
@@ -11769,7 +11769,7 @@ SCRIPT_087:
    dl WAIT_CLEAR                        ;0CE4E7|0CFAA5;
    db $10                               ;0CE4EA|      ;
    dl DISPLAY_GALNEON                   ;0CE4EB|0CF9B6;
-   db $22, "Ah ha ha ha! Teefa d"       ;0CE4EE|      ;
+   db $22, "Ah ha ha ha", $21, " Teefa d";0CE4EE|      ;
    db "oesn't seem to"                  ;0CE503|      ;
    db $0D                               ;0CE511|      ;
    db " know anything about "           ;0CE512|      ;
@@ -11778,10 +11778,10 @@ SCRIPT_087:
    dl CONTINUE_GALNEON                  ;0CE52C|0CFA78;
    db " I don't need her any"           ;0CE52F|      ;
    db $0D                               ;0CE544|      ;
-   db " more!"                          ;0CE545|      ;
+   db " more", $21                      ;0CE545|      ;
    db $10                               ;0CE54B|      ;
    dl CONTINUE_GALNEON                  ;0CE54C|0CFA78;
-   db " I give her back!"               ;0CE54F|      ;
+   db " I give her back", $21           ;0CE54F|      ;
    db $0D                               ;0CE560|      ;
    db " I used to be very fo"           ;0CE561|      ;
    db "nd of"                           ;0CE576|      ;
@@ -11789,7 +11789,7 @@ SCRIPT_087:
    db " her."                           ;0CE57C|      ;
    db $10                               ;0CE581|      ;
    dl CONTINUE_GALNEON                  ;0CE582|0CFA78;
-   db " Ah ha ha ha!", $22              ;0CE585|      ;
+   db " Ah ha ha ha", $21, $22          ;0CE585|      ;
    db $10                               ;0CE593|      ;
    dl WAIT_CLEAR                        ;0CE594|0CFAA5;
    db $0C                               ;0CE597|      ;
@@ -11817,13 +11817,13 @@ SCRIPT_088:
    db $00                               ;0CE5E3|      ;
    db $04                               ;0CE5E4|      ;
    db " You're not making se"           ;0CE5E5|      ;
-   db "nse!"                            ;0CE5FA|      ;
+   db "nse", $21                        ;0CE5FA|      ;
    db $10                               ;0CE5FE|      ;
    dl CONTINUE_TEEFA                    ;0CE5FF|0CFA30;
    db " This will be your bu"           ;0CE602|      ;
    db "rial"                            ;0CE617|      ;
    db $0D                               ;0CE61B|      ;
-   db " place!", $22                    ;0CE61C|      ;
+   db " place", $21, $22                ;0CE61C|      ;
    db $10                               ;0CE624|      ;
    dl WAIT_CLEAR                        ;0CE625|0CFAA5;
    db $0C                               ;0CE628|      ;
@@ -11877,7 +11877,7 @@ SCRIPT_089:
    db $1B                               ;0CE6B5|      ;
    db $00                               ;0CE6B6|      ;
    db $FE                               ;0CE6B7|      ;
-   db ". . . ?!"                        ;0CE6B8|      ;
+   db ". . . ?", $21                    ;0CE6B8|      ;
    db $0D                               ;0CE6C0|      ;
    db $1B                               ;0CE6C1|      ;
    db $00                               ;0CE6C2|      ;
@@ -11935,7 +11935,7 @@ SCRIPT_091:
    dl MACRO_118                         ;0CE781|0CF7C2;
    db $10                               ;0CE784|      ;
    dl PROMPT_ROOKS                      ;0CE785|0CF7E3;
-   db $22, "Galneon, it's you!", $22    ;0CE788|      ;
+   db $22, "Galneon, it's you", $21, $22;0CE788|      ;
    db $10                               ;0CE79C|      ;
    dl WAIT_CLEAR                        ;0CE79D|0CFAA5;
    db $10                               ;0CE7A0|      ;
@@ -12011,12 +12011,12 @@ SCRIPT_092:
    db " This is where your d"           ;0CE94D|      ;
    db "ream"                            ;0CE962|      ;
    db $0D                               ;0CE966|      ;
-   db " dies!", $22                     ;0CE967|      ;
+   db " dies", $21, $22                 ;0CE967|      ;
    db $10                               ;0CE96E|      ;
    dl WAIT_CLEAR                        ;0CE96F|0CFAA5;
    db $10                               ;0CE972|      ;
    dl DISPLAY_GALNEON                   ;0CE973|0CF9B6;
-   db $22, "We'll see!", $22            ;0CE976|      ;
+   db $22, "We'll see", $21, $22        ;0CE976|      ;
    db $10                               ;0CE982|      ;
    dl WAIT_CLEAR                        ;0CE983|0CFAA5;
    db $0C                               ;0CE986|      ;
@@ -12027,9 +12027,9 @@ SCRIPT_092:
 SCRIPT_093:
    db $10                               ;0CE98B|      ;
    dl PROMPT_AXS                        ;0CE98C|0CF964;
-   db $22, "Rooks! You and Salah"       ;0CE98F|      ;
+   db $22, "Rooks", $21, " You and Salah";0CE98F|      ;
    db $0D                               ;0CE9A4|      ;
-   db " retreat!", $22                  ;0CE9A5|      ;
+   db " retreat", $21, $22              ;0CE9A5|      ;
    db $10                               ;0CE9AF|      ;
    dl WAIT_CLEAR                        ;0CE9B0|0CFAA5;
    db $0C                               ;0CE9B3|      ;
@@ -12040,7 +12040,7 @@ SCRIPT_093:
 SCRIPT_094:
    db $10                               ;0CE9B8|      ;
    dl PROMPT_ROOKS                      ;0CE9B9|0CF7E3;
-   db $22, "Axs!!!", $22                ;0CE9BC|      ;
+   db $22, "Axs", $21, $21, $21, $22    ;0CE9BC|      ;
    db $1B                               ;0CE9C4|      ;
    db $01                               ;0CE9C5|      ;
    db $FF                               ;0CE9C6|      ;
@@ -12206,7 +12206,7 @@ SCRIPT_096:
    dl WAIT_CLEAR                        ;0CED6E|0CFAA5;
    db $10                               ;0CED71|      ;
    dl PROMPT_ROOKS                      ;0CED72|0CF7E3;
-   db $22, "Let's go!", $22             ;0CED75|      ;
+   db $22, "Let's go", $21, $22         ;0CED75|      ;
    db $10                               ;0CED80|      ;
    dl WAIT_CLEAR                        ;0CED81|0CFAA5;
    db $0C                               ;0CED84|      ;
@@ -12285,7 +12285,7 @@ SCRIPT_098:
    db " please defeat Ariel'"           ;0CEEE4|      ;
    db "s"                               ;0CEEF9|      ;
    db $0D                               ;0CEEFA|      ;
-   db " enemies!", $22                  ;0CEEFB|      ;
+   db " enemies", $21, $22              ;0CEEFB|      ;
    db $10                               ;0CEF05|      ;
    dl WAIT_CLEAR                        ;0CEF06|0CFAA5;
    db $0C                               ;0CEF09|      ;
@@ -12313,7 +12313,7 @@ SCRIPT_100:
    db $10                               ;0CEF53|      ;
    dl PROMPT_TEEFA                      ;0CEF54|0CF825;
    db $22, "Don't lose your nerv"       ;0CEF57|      ;
-   db "e!"                              ;0CEF6C|      ;
+   db "e", $21                          ;0CEF6C|      ;
    db $10                               ;0CEF6E|      ;
    dl WAIT_NEWLINE                      ;0CEF6F|0CFA1B;
    db " Rooks, there is stil"           ;0CEF72|      ;
@@ -12331,7 +12331,7 @@ SCRIPT_100:
    db $0D                               ;0CEFB8|      ;
    db " So there is."                   ;0CEFB9|      ;
    db $0D                               ;0CEFC6|      ;
-   db " Let's go!", $22                 ;0CEFC7|      ;
+   db " Let's go", $21, $22             ;0CEFC7|      ;
    db $10                               ;0CEFD2|      ;
    dl WAIT_CLEAR                        ;0CEFD3|0CFAA5;
    db $0C                               ;0CEFD6|      ;
@@ -12344,7 +12344,7 @@ SCRIPT_101:
    dl MACRO_118                         ;0CEFDC|0CF7C2;
    db $10                               ;0CEFDF|      ;
    dl PROMPT_ROOKS                      ;0CEFE0|0CF7E3;
-   db $22, "Galneon!", $22              ;0CEFE3|      ;
+   db $22, "Galneon", $21, $22          ;0CEFE3|      ;
    db $10                               ;0CEFED|      ;
    dl WAIT_CLEAR                        ;0CEFEE|0CFAA5;
    db $10                               ;0CEFF1|      ;
@@ -12358,7 +12358,7 @@ SCRIPT_101:
    dl PROMPT_ROOKS                      ;0CF01B|0CF7E3;
    db $22, "Have you gone mad,"         ;0CF01E|      ;
    db $0D                               ;0CF031|      ;
-   db " Galneon!!", $22                 ;0CF032|      ;
+   db " Galneon", $21, $21, $22         ;0CF032|      ;
    db $10                               ;0CF03D|      ;
    dl WAIT_CLEAR                        ;0CF03E|0CFAA5;
    db $10                               ;0CF041|      ;
@@ -12369,20 +12369,20 @@ SCRIPT_101:
    db " ambition gets the mo"           ;0CF05C|      ;
    db "st"                              ;0CF071|      ;
    db $0D                               ;0CF073|      ;
-   db " power!"                         ;0CF074|      ;
+   db " power", $21                     ;0CF074|      ;
    db $10                               ;0CF07B|      ;
    dl CONTINUE_GALNEON2                 ;0CF07C|0CFA81;
    db " The power of the god"           ;0CF07F|      ;
-   db "s!"                              ;0CF094|      ;
+   db "s", $21                          ;0CF094|      ;
    db $0D                               ;0CF096|      ;
-   db " Ah hah hah hah!"                ;0CF097|      ;
+   db " Ah hah hah hah", $21            ;0CF097|      ;
    db $10                               ;0CF0A7|      ;
    dl CONTINUE_GALNEON2                 ;0CF0A8|0CFA81;
    db " Your opposition to m"           ;0CF0AB|      ;
    db "e"                               ;0CF0C0|      ;
    db $0D                               ;0CF0C1|      ;
    db " will bring trouble t"           ;0CF0C2|      ;
-   db "o you!", $22                     ;0CF0D7|      ;
+   db "o you", $21, $22                 ;0CF0D7|      ;
    db $10                               ;0CF0DE|      ;
    dl WAIT_CLEAR                        ;0CF0DF|0CFAA5;
    db $0C                               ;0CF0E2|      ;
@@ -12415,12 +12415,12 @@ SCRIPT_103:
    db $10                               ;0CF140|      ;
    dl MACRO_119                         ;0CF141|0CF7CB;
    db $0D                               ;0CF144|      ;
-   db $22, "Ah hah hah hah!", $22       ;0CF145|      ;
+   db $22, "Ah hah hah hah", $21, $22   ;0CF145|      ;
    db $10                               ;0CF156|      ;
    dl WAIT_CLEAR                        ;0CF157|0CFAA5;
    db $10                               ;0CF15A|      ;
    dl PROMPT_ROOKS                      ;0CF15B|0CF7E3;
-   db $22, "What!", $22                 ;0CF15E|      ;
+   db $22, "What", $21, $22             ;0CF15E|      ;
    db $10                               ;0CF165|      ;
    dl WAIT_CLEAR                        ;0CF166|0CFAA5;
    db $10                               ;0CF169|      ;
@@ -12434,7 +12434,7 @@ SCRIPT_103:
    db " I'm the one who hold"           ;0CF18F|      ;
    db "s"                               ;0CF1A4|      ;
    db $0D                               ;0CF1A5|      ;
-   db " the power!", $22                ;0CF1A6|      ;
+   db " the power", $21, $22            ;0CF1A6|      ;
    db $10                               ;0CF1B2|      ;
    dl WAIT_CLEAR                        ;0CF1B3|0CFAA5;
    db $0C                               ;0CF1B6|      ;
@@ -12483,7 +12483,7 @@ SCRIPT_106:
    db $1C                               ;0CF262|      ;
    db "Rooks"                           ;0CF263|      ;
    db $0D                               ;0CF268|      ;
-   db $22, "An enemy!", $22             ;0CF269|      ;
+   db $22, "An enemy", $21, $22         ;0CF269|      ;
    db $05                               ;0CF274|      ;
    db $FF                               ;0CF275|      ;
    db $3C                               ;0CF276|      ;
@@ -12513,12 +12513,12 @@ SCRIPT_107:
    db $22, "Leave this area to m"       ;0CF2AC|      ;
    db "e"                               ;0CF2C1|      ;
    db $0D                               ;0CF2C2|      ;
-   db " and go on ahead!", $22          ;0CF2C3|      ;
+   db " and go on ahead", $21, $22      ;0CF2C3|      ;
    db $10                               ;0CF2D5|      ;
    dl WAIT_CLEAR                        ;0CF2D6|0CFAA5;
    db $10                               ;0CF2D9|      ;
    dl PROMPT_ROOKS                      ;0CF2DA|0CF7E3;
-   db $22, "Axs, you're alive!", $22    ;0CF2DD|      ;
+   db $22, "Axs, you're alive", $21, $22;0CF2DD|      ;
    db $10                               ;0CF2F1|      ;
    dl WAIT_CLEAR                        ;0CF2F2|0CFAA5;
    db $10                               ;0CF2F5|      ;
@@ -12533,14 +12533,14 @@ SCRIPT_107:
    db " The time to defeat h"           ;0CF32F|      ;
    db "er"                              ;0CF344|      ;
    db $0D                               ;0CF346|      ;
-   db " is now!  Hurry!", $22           ;0CF347|      ;
+   db " is now", $21, "  Hurry", $21, $22;0CF347|      ;
    db $10                               ;0CF358|      ;
    dl WAIT_CLEAR                        ;0CF359|0CFAA5;
    db $10                               ;0CF35C|      ;
    dl PROMPT_ROOKS                      ;0CF35D|0CF7E3;
-   db $22, "All right!"                 ;0CF360|      ;
+   db $22, "All right", $21             ;0CF360|      ;
    db $0D                               ;0CF36B|      ;
-   db " Axs, be careful!", $22          ;0CF36C|      ;
+   db " Axs, be careful", $21, $22      ;0CF36C|      ;
    db $10                               ;0CF37E|      ;
    dl WAIT_CLEAR                        ;0CF37F|0CFAA5;
    db $0C                               ;0CF382|      ;
@@ -12554,7 +12554,7 @@ SCRIPT_108:
    db $1C                               ;0CF38B|      ;
    db "Rooks"                           ;0CF38C|      ;
    db $0D                               ;0CF391|      ;
-   db $22, "Oh no!", $22                ;0CF392|      ;
+   db $22, "Oh no", $21, $22            ;0CF392|      ;
    db $05                               ;0CF39A|      ;
    db $FF                               ;0CF39B|      ;
    db $3C                               ;0CF39C|      ;
@@ -12573,19 +12573,19 @@ SCRIPT_108:
    db $22, "It looks like we'll "       ;0CF3B5|      ;
    db "have to "                        ;0CF3CA|      ;
    db $0D                               ;0CF3D2|      ;
-   db " split up here!", $22            ;0CF3D3|      ;
+   db " split up here", $21, $22        ;0CF3D3|      ;
    db $10                               ;0CF3E3|      ;
    dl WAIT_CLEAR                        ;0CF3E4|0CFAA5;
    db $10                               ;0CF3E7|      ;
    dl PROMPT_ROOKS                      ;0CF3E8|0CF7E3;
-   db $22, "What?!?", $22               ;0CF3EB|      ;
+   db $22, "What?", $21, "?", $22       ;0CF3EB|      ;
    db $10                               ;0CF3F4|      ;
    dl WAIT_CLEAR                        ;0CF3F5|0CFAA5;
    db $10                               ;0CF3F8|      ;
    dl PROMPT_TEEFA                      ;0CF3F9|0CF825;
    db $22, "If we don't hurry"          ;0CF3FC|      ;
    db $0D                               ;0CF40E|      ;
-   db " Rimsala will awaken!"           ;0CF40F|      ;
+   db " Rimsala will awaken", $21       ;0CF40F|      ;
    db $22                               ;0CF424|      ;
    db $10                               ;0CF425|      ;
    dl WAIT_CLEAR                        ;0CF426|0CFAA5;
@@ -12594,7 +12594,7 @@ SCRIPT_108:
    db $22, "No matter what, we m"       ;0CF42D|      ;
    db "ust"                             ;0CF442|      ;
    db $0D                               ;0CF445|      ;
-   db " defeat Rimsala!", $22           ;0CF446|      ;
+   db " defeat Rimsala", $21, $22       ;0CF446|      ;
    db $10                               ;0CF457|      ;
    dl WAIT_CLEAR                        ;0CF458|0CFAA5;
    db $10                               ;0CF45B|      ;
@@ -12606,7 +12606,7 @@ SCRIPT_108:
    dl WAIT_CLEAR                        ;0CF481|0CFAA5;
    db $10                               ;0CF484|      ;
    dl PROMPT_DARWIN                     ;0CF485|0CF923;
-   db $22, "Go, Rooks!", $22            ;0CF488|      ;
+   db $22, "Go, Rooks", $21, $22        ;0CF488|      ;
    db $10                               ;0CF494|      ;
    dl WAIT_CLEAR                        ;0CF495|0CFAA5;
    db $1B                               ;0CF498|      ;
@@ -12616,7 +12616,7 @@ SCRIPT_108:
 SCRIPT_109:
    db $10                               ;0CF49C|      ;
    dl PROMPT_ROOKS                      ;0CF49D|0CF7E3;
-   db $22, "I'm sorry!", $22            ;0CF4A0|      ;
+   db $22, "I'm sorry", $21, $22        ;0CF4A0|      ;
    db $10                               ;0CF4AC|      ;
    dl WAIT_CLEAR                        ;0CF4AD|0CFAA5;
    db $0C                               ;0CF4B0|      ;
@@ -12641,9 +12641,9 @@ SCRIPT_110:
 SCRIPT_111:
    db $10                               ;0CF4DF|      ;
    dl PROMPT_ROOKS                      ;0CF4E0|0CF7E3;
-   db $22, "Oh!"                        ;0CF4E3|      ;
+   db $22, "Oh", $21                    ;0CF4E3|      ;
    db $0D                               ;0CF4E7|      ;
-   db " It hurts my head!", $22         ;0CF4E8|      ;
+   db " It hurts my head", $21, $22     ;0CF4E8|      ;
    db $10                               ;0CF4FB|      ;
    dl WAIT_CLEAR                        ;0CF4FC|0CFAA5;
    db $10                               ;0CF4FF|      ;
@@ -12666,7 +12666,7 @@ SCRIPT_111:
    dl WAIT_CLEAR                        ;0CF575|0CFAA5;
    db $10                               ;0CF578|      ;
    dl PROMPT_ROOKS                      ;0CF579|0CF7E3;
-   db $22, "No!", $22                   ;0CF57C|      ;
+   db $22, "No", $21, $22               ;0CF57C|      ;
    db $10                               ;0CF581|      ;
    dl WAIT_CLEAR                        ;0CF582|0CFAA5;
    db $10                               ;0CF585|      ;
@@ -12696,12 +12696,12 @@ SCRIPT_112:
    db " All of the Gates to "           ;0CF600|      ;
    db "the"                             ;0CF615|      ;
    db $0D                               ;0CF618|      ;
-   db " Spirit World, close!"           ;0CF619|      ;
+   db " Spirit World, close", $21       ;0CF619|      ;
    db $0D                               ;0CF62E|      ;
    db " Close, oh dark gatew"           ;0CF62F|      ;
-   db "ays!"                            ;0CF644|      ;
+   db "ays", $21                        ;0CF644|      ;
    db $0D                               ;0CF648|      ;
-   db " I seal you!", $22               ;0CF649|      ;
+   db " I seal you", $21, $22           ;0CF649|      ;
    db $10                               ;0CF656|      ;
    dl WAIT_CLEAR                        ;0CF657|0CFAA5;
    db $0C                               ;0CF65A|      ;
@@ -12712,9 +12712,9 @@ SCRIPT_112:
 SCRIPT_113:
    db $10                               ;0CF65F|      ;
    dl PROMPT_ROOKS                      ;0CF660|0CF7E3;
-   db $22, "What!"                      ;0CF663|      ;
+   db $22, "What", $21                  ;0CF663|      ;
    db $0D                               ;0CF669|      ;
-   db " No effect?!", $22               ;0CF66A|      ;
+   db " No effect?", $21, $22           ;0CF66A|      ;
    db $10                               ;0CF677|      ;
    dl WAIT_CLEAR                        ;0CF678|0CFAA5;
    db $0C                               ;0CF67B|      ;
@@ -12740,7 +12740,7 @@ SCRIPT_115:
    db $10                               ;0CF6B1|      ;
    dl MACRO_120                         ;0CF6B2|0CF7D7;
    db $1C                               ;0CF6B5|      ;
-   db "Rimsala's attack!"               ;0CF6B6|      ;
+   db "Rimsala's attack", $21           ;0CF6B6|      ;
    db $0D                               ;0CF6C7|      ;
    db $1B                               ;0CF6C8|      ;
    db $01                               ;0CF6C9|      ;

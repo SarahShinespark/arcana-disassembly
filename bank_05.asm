@@ -1,6 +1,6 @@
    ORG $058000
    db $FF                               ;058000|      ;
-Bank_05_Stat_Handling:
+Event_Main_04_GAME_START:
    db $0F                               ;058001|      ; Set var2 to 0
    db $02                               ;058002|      ;
    dw $0000                             ;058003|      ;
@@ -38,40 +38,40 @@ Initialize_Rooks:
    dl Sub_Increase_LV                   ;058031|07B256;
    db $07                               ;058034|      ; Max heal
    dl Max_heal                          ;058035|07B92F;
-   db $07                               ;058038|      ;
-   dl CODE_07B11C                       ;058039|07B11C;
-   db $02                               ;05803C|      ; 0002 -> $20
+   db $07                               ;058038|      ; 07: Set var2 (current character) condition to 0 (healthy)
+   dl Set_Condition_4b                  ;058039|07B11C;
+   db $02                               ;05803C|      ;
    db $00                               ;05803D|      ;
-   db $00                               ;05803E|      ; 0000 -> $22
+   db $00                               ;05803E|      ;
    db $00                               ;05803F|      ;
 Character_Init_2:
-   db $24                               ;058040|      ; Load current character ID
+   db $24                               ;058040|      ; Load var2
    db $02                               ;058041|      ;
    db $07                               ;058042|      ; OR their element with zero (useless?)
    dl OR_element_with_2b                ;058043|07B169;
    db $00                               ;058046|      ;
    db $00                               ;058047|      ;
-   db $07                               ;058048|      ; Transfers ROM to RAM
-   dl Transfer_Data_3b_1b_2b            ;058049|00A140;
-   dl Data_3CF4A                        ;05804C|0D922A; 0D/922A -> Source
+   db $07                               ;058048|      ; Load palette (20b) to $04A0
+   dl Gfx_GetPalette_3b_1b_2b           ;058049|00A140;
+   dl Gfx_Palette_03CF4A                ;05804C|0D922A; 0D/922A -> Source
    db $40                               ;05804F|      ; $0420+80 -> Target
    dw $0020                             ;058050|      ; 20 -> Transfer 20 bytes
-   db $24                               ;058052|      ; Load current character ID
+   db $24                               ;058052|      ; Load var02
    db $02                               ;058053|      ;
    db $07                               ;058054|      ;
-   dl Load_player_cards                 ;058055|078F92;
-   db $24                               ;058058|      ;
+   dl Load_PC_Name                      ;058055|078F92;
+   db $24                               ;058058|      ; I'm guessing these 3 ASM_CALLs are drawing Rooks' HP, MP, LV
    db $02                               ;058059|      ;
    db $07                               ;05805A|      ;
-   dl Death_Check_A_1                   ;05805B|078D46;
+   dl Sub_Draw_HP_I_think               ;05805B|078D46;
    db $24                               ;05805E|      ;
    db $02                               ;05805F|      ;
    db $07                               ;058060|      ;
-   dl Death_Check_A_2                   ;058061|078DB0;
+   dl Sub_Draw_MP_I_think               ;058061|078DB0;
    db $24                               ;058064|      ;
    db $02                               ;058065|      ;
    db $07                               ;058066|      ;
-   dl CODE_078DF0                       ;058067|078DF0;
+   dl Sub_Draw_Level                    ;058067|078DF0;
    db $07                               ;05806A|      ; Get ID in slot 0
    dl Get_ID_in_slot_2b                 ;05806B|07B0E8;
    dw $0000                             ;05806E|      ;
@@ -88,16 +88,16 @@ Character_Init_2:
    db $24                               ;058081|      ;
    db $02                               ;058082|      ;
    db $07                               ;058083|      ;
-   dl _07906F_far                       ;058084|07906B;
+   dl LoadGfx_07906F_far                ;058084|07906B;
    db $24                               ;058087|      ;
    db $02                               ;058088|      ;
    db $07                               ;058089|      ;
-   dl CODE_078DF0                       ;05808A|078DF0;
-   db $0E                               ;05808D|      ;
+   dl Sub_Draw_Level                    ;05808A|078DF0;
+   db $0E                               ;05808D|      ; 0E: BIN_OP ($11C3 AND -40)(Remove 4 from high byte)
    dw $11C3                             ;05808E|      ;
    db $00                               ;058090|      ;
    dw $FBFF                             ;058091|      ;
-   db $0E                               ;058093|      ;
+   db $0E                               ;058093|      ; 0E: BIN_OP ($11C3 AND -10)(Remove 1 from high byte)
    dw $11C3                             ;058094|      ;
    db $00                               ;058096|      ;
    dw $FEFF                             ;058097|      ;
@@ -105,7 +105,7 @@ Character_Init_2:
    dl Is_Equals_1575                    ;05809A|07AEDD;
    db $0C                               ;05809D|      ;
    dw DATA8_0580E8                      ;05809E|0580E8;
-   db $1F                               ;0580A0|      ;
+   db $1F                               ;0580A0|      ; 1F: Load $11C1
    dw $11C1                             ;0580A1|      ;
    db $11                               ;0580A3|      ;
    db $06                               ;0580A4|      ;
@@ -166,11 +166,11 @@ DATA8_0580FD:
    db $24                               ;0580FD|      ;
    db $02                               ;0580FE|      ;
    db $07                               ;0580FF|      ;
-   dl _07906F_far                       ;058100|07906B;
+   dl LoadGfx_07906F_far                ;058100|07906B;
    db $24                               ;058103|      ;
    db $02                               ;058104|      ;
    db $07                               ;058105|      ;
-   dl CODE_078DF0                       ;058106|078DF0;
+   dl Sub_Draw_Level                    ;058106|078DF0;
    db $06                               ;058109|      ;
    db $1E                               ;05810A|      ;
    db $06                               ;05810B|      ;
@@ -182,8 +182,8 @@ DATA8_0580FD:
    db $07                               ;058117|      ;
    dl RAM_Decomp_8009                   ;058118|0E8001;
    db $07                               ;05811B|      ;
-   dl Transfer_Data_3b_1b_2b            ;05811C|00A140;
-   dl Data_0D_9548                      ;05811F|0D9548;
+   dl Gfx_GetPalette_3b_1b_2b           ;05811C|00A140;
+   dl Palette_05922A                    ;05811F|0D9548;
    db $43                               ;058122|      ;
    dw $001A                             ;058123|      ;
    db $0A                               ;058125|      ; 0A
@@ -240,23 +240,23 @@ Sub_Battle_setup:
    db $24                               ;058178|      ;
    db $02                               ;058179|      ;
    db $07                               ;05817A|      ;
-   dl _07906F_far                       ;05817B|07906B;
+   dl LoadGfx_07906F_far                ;05817B|07906B;
    db $24                               ;05817E|      ;
    db $02                               ;05817F|      ;
    db $07                               ;058180|      ;
-   dl Load_player_cards                 ;058181|078F92;
+   dl Load_PC_Name                      ;058181|078F92;
    db $24                               ;058184|      ;
    db $02                               ;058185|      ;
    db $07                               ;058186|      ;
-   dl Death_Check_A_1                   ;058187|078D46;
+   dl Sub_Draw_HP_I_think               ;058187|078D46;
    db $24                               ;05818A|      ;
    db $02                               ;05818B|      ;
    db $07                               ;05818C|      ;
-   dl Death_Check_A_2                   ;05818D|078DB0;
+   dl Sub_Draw_MP_I_think               ;05818D|078DB0;
    db $24                               ;058190|      ;
    db $02                               ;058191|      ;
    db $07                               ;058192|      ;
-   dl CODE_078DF0                       ;058193|078DF0;
+   dl Sub_Draw_Level                    ;058193|078DF0;
    db $05                               ;058196|      ;
 DATA8_058197:
    db $07                               ;058197|      ;
@@ -284,69 +284,63 @@ DATA8_0581B5:
    db $1C                               ;0581BE|      ;
 CODE_0581BF:
    JSL.L Is_Equals_1575                 ;0581BF|07AEDD;
-   BNE CODE_0581D7                      ;0581C3|0581D7;
+   BNE +                                ;0581C3|0581D7;
 CODE_0581C5:
    JSR.W Error_Check_MP                 ;0581C5|058291;
-   JSR.W CODE_0582BA                    ;0581C8|0582BA;
-   BNE CODE_0581D7                      ;0581CB|0581D7;
-   JSR.W CODE_058243                    ;0581CD|058243;
-   BNE CODE_0581E5                      ;0581D0|0581E5;
-   JSR.W CODE_058216                    ;0581D2|058216;
-   BEQ CODE_0581E4                      ;0581D5|0581E4;
-CODE_0581D7:
-   LDX.W Selection_offset               ;0581D7|00103F;
+   JSR.W CODE_FN_0582BA                 ;0581C8|0582BA;
+   BNE +                                ;0581CB|0581D7;
+   JSR.W CODE_FN_058243                 ;0581CD|058243;
+   BNE ++                               ;0581D0|0581E5;
+   JSR.W CODE_FN_058216                 ;0581D2|058216;
+   BEQ +++                              ;0581D5|0581E4;
+ + LDX.W Selection_offset               ;0581D7|00103F;
    LDA.W #$807A                         ;0581DA|      ;
    LDY.W #$0005                         ;0581DD|      ;
    JML.L Sub_LoadStuff                  ;0581E0|008DB4;
-CODE_0581E4:
-   RTL                                  ;0581E4|      ;
-CODE_0581E5:
-   LDA.W Attacker                       ;0581E5|001121;
-   BEQ CODE_0581F7                      ;0581E8|0581F7;
++++ RTL                                  ;0581E4|      ;
+++ LDA.W Attacker                       ;0581E5|001121;
+   BEQ +                                ;0581E8|0581F7;
    LDX.W Selection_offset               ;0581EA|00103F;
    LDA.W #$8126                         ;0581ED|      ;
    LDY.W #$0005                         ;0581F0|      ;
    JML.L Sub_LoadStuff                  ;0581F3|008DB4;
-CODE_0581F7:
-   RTL                                  ;0581F7|      ;
-Tbl_Tileset_Event04:
+ + RTL                                  ;0581F7|      ;
+Tbl_Tileset_Event04_GAME_START:
    dw Tileset_Event04_00                ;0581F8|059D4B;
    dw Tileset_Event04_01                ;0581FA|059D50;
    dw Tileset_Event04_02                ;0581FC|059D55;
-   dw DATA8_059D5A                      ;0581FE|059D5A;
-   dw DATA8_059D5F                      ;058200|059D5F;
-   dw DATA8_059D64                      ;058202|059D64;
-   dw DATA8_059D69                      ;058204|059D69;
-   dw DATA8_059D9B                      ;058206|059D9B;
-   dw DATA8_059DC3                      ;058208|059DC3;
-   dw DATA8_059DF5                      ;05820A|059DF5;
-   dw DATA8_059E3B                      ;05820C|059E3B;
-   dw DATA8_059E6D                      ;05820E|059E6D;
-   dw DATA8_059F03                      ;058210|059F03;
-   JSR.W CODE_058216                    ;058212|058216;
+   dw Tileset_Event04_03                ;0581FE|059D5A;
+   dw Tileset_Event04_04                ;058200|059D5F;
+   dw Tileset_Event04_05                ;058202|059D64;
+   dw Tileset_Event04_06                ;058204|059D69;
+   dw Tileset_Event04_07                ;058206|059D9B;
+   dw Tileset_Event04_08                ;058208|059DC3;
+   dw Tileset_Event04_09                ;05820A|059DF5;
+   dw Tileset_Event04_0A                ;05820C|059E3B;
+   dw Tileset_Event04_0B                ;05820E|059E6D;
+   dw Tileset_Event04_0C                ;058210|059F03;
+   JSR.W CODE_FN_058216                 ;058212|058216;
    RTL                                  ;058215|      ;
-CODE_058216:
+CODE_FN_058216:
    LDX.W Selection_offset               ;058216|00103F;
    LDA.W Game_State                     ;058219|0011C1;
    CMP.W Object_var3_Target,X           ;05821C|000A0F;
-   BEQ CODE_058231                      ;05821F|058231;
+   BEQ +                                ;05821F|058231;
    LDA.W #$0002                         ;058221|      ;
    CMP.W Game_State                     ;058224|0011C1;
-   BEQ CODE_058235                      ;058227|058235;
+   BEQ ++                               ;058227|058235;
    LDA.W #$0002                         ;058229|      ;
    CMP.W Object_var3_Target,X           ;05822C|000A0F;
-   BEQ CODE_058235                      ;05822F|058235;
-CODE_058231:
-   LDA.W #$0000                         ;058231|      ;
+   BEQ ++                               ;05822F|058235;
+ + LDA.W #$0000                         ;058231|      ;
    RTS                                  ;058234|      ;
-CODE_058235:
-   LDA.W Game_State                     ;058235|0011C1;
+++ LDA.W Game_State                     ;058235|0011C1;
    STA.W Object_var3_Target,X           ;058238|000A0F;
    LDA.W #$0001                         ;05823B|      ;
    RTS                                  ;05823E|      ;
-   JSR.W CODE_058243                    ;05823F|058243;
+   JSR.W CODE_FN_058243                 ;05823F|058243;
    RTL                                  ;058242|      ;
-CODE_058243:
+CODE_FN_058243:
    LDX.W Selection_offset               ;058243|00103F;
    LDA.W Object_var2_Selection,X        ;058246|0009EB;
    ASL A                                ;058249|      ;
@@ -355,29 +349,26 @@ CODE_058243:
    STA.B $20                            ;05824E|000020;
    LDA.W Curr_HP_Rooks,X                ;058250|0012F3;
    CMP.B $20                            ;058253|000020;
-   BMI CODE_05826F                      ;058255|05826F;
-   BCC CODE_05826F                      ;058257|05826F;
-   BEQ CODE_05826B                      ;058259|05826B;
+   BMI +                                ;058255|05826F;
+   BCC +                                ;058257|05826F;
+   BEQ ++                               ;058259|05826B;
    LDA.W Curr_HP_Rooks,X                ;05825B|0012F3;
    STA.W Curr_HP_copy,X                 ;05825E|00130B;
    LDX.W Selection_offset               ;058261|00103F;
    LDA.W Object_var2_Selection,X        ;058264|0009EB;
-   JSL.L Death_Check_A_1                ;058267|078D46;
-CODE_05826B:
-   LDA.W #$0000                         ;05826B|      ;
+   JSL.L Sub_Draw_HP_I_think            ;058267|078D46;
+++ LDA.W #$0000                         ;05826B|      ;
    RTS                                  ;05826E|      ;
-CODE_05826F:
-   LDA.W Curr_HP_Rooks,X                ;05826F|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;05826F|0012F3;
    STA.W Curr_HP_copy,X                 ;058272|00130B;
    LDX.W Selection_offset               ;058275|00103F;
    LDA.W Object_var2_Selection,X        ;058278|0009EB;
-   JSL.L Death_Check_A_1                ;05827B|078D46;
-   JSL.L CODE_0783E5                    ;05827F|0783E5;
-   BEQ CODE_058289                      ;058283|058289;
+   JSL.L Sub_Draw_HP_I_think            ;05827B|078D46;
+   JSL.L CODE_FL_0783E5                 ;05827F|0783E5;
+   BEQ +                                ;058283|058289;
    LDA.W #$0000                         ;058285|      ;
    RTS                                  ;058288|      ;
-CODE_058289:
-   LDA.W #$0001                         ;058289|      ;
+ + LDA.W #$0001                         ;058289|      ;
    RTS                                  ;05828C|      ;
    JSR.W Error_Check_MP                 ;05828D|058291;
    RTL                                  ;058290|      ;
@@ -390,21 +381,20 @@ Error_Check_MP:
    STA.B $20                            ;05829C|000020;
    LDA.W Curr_MP_Rooks,X                ;05829E|001323;
    CMP.B $20                            ;0582A1|000020;
-   BEQ CODE_0582B5                      ;0582A3|0582B5;
+   BEQ +                                ;0582A3|0582B5;
    LDA.W Curr_MP_Rooks,X                ;0582A5|001323;
    STA.W Curr_MP_Rooks_copy,X           ;0582A8|00133B;
    LDX.W Selection_offset               ;0582AB|00103F;
    LDA.W Object_var2_Selection,X        ;0582AE|0009EB;
-   JSL.L Death_Check_A_2                ;0582B1|078DB0;
-CODE_0582B5:
-   RTS                                  ;0582B5|      ;
-   JSR.W CODE_0582BA                    ;0582B6|0582BA;
+   JSL.L Sub_Draw_MP_I_think            ;0582B1|078DB0;
+ + RTS                                  ;0582B5|      ;
+   JSR.W CODE_FN_0582BA                 ;0582B6|0582BA;
    RTL                                  ;0582B9|      ;
-CODE_0582BA:
+CODE_FN_0582BA:
    LDX.W Selection_offset               ;0582BA|00103F;
    LDA.W Object_var2_Selection,X        ;0582BD|0009EB;
-   JSL.L CODE_0781F9                    ;0582C0|0781F9;
-   BEQ CODE_0582F7                      ;0582C4|0582F7;
+   JSL.L CODE_FL_0781F9                 ;0582C0|0781F9;
+   BEQ +                                ;0582C4|0582F7;
    LDX.W Selection_offset               ;0582C6|00103F;
    LDA.W Object_var2_Selection,X        ;0582C9|0009EB;
    ASL A                                ;0582CC|      ;
@@ -414,18 +404,16 @@ CODE_0582BA:
    STA.W Condition_copy,X               ;0582D4|0011DB;
    LDA.W Condition,X                    ;0582D7|0011C3;
    AND.W #$00FF                         ;0582DA|      ;
-   BNE CODE_0582E9                      ;0582DD|0582E9;
+   BNE ++                               ;0582DD|0582E9;
    LDX.W Selection_offset               ;0582DF|00103F;
    LDA.W Object_var2_Selection,X        ;0582E2|0009EB;
-   JSL.L _07906F_far                    ;0582E5|07906B;
-CODE_0582E9:
-   LDX.W Selection_offset               ;0582E9|00103F;
+   JSL.L LoadGfx_07906F_far             ;0582E5|07906B;
+++ LDX.W Selection_offset               ;0582E9|00103F;
    LDA.W Object_var2_Selection,X        ;0582EC|0009EB;
-   JSL.L CODE_078DF0                    ;0582EF|078DF0;
+   JSL.L Sub_Draw_Level                 ;0582EF|078DF0;
    LDA.W #$0001                         ;0582F3|      ;
    RTS                                  ;0582F6|      ;
-CODE_0582F7:
-   LDA.W #$0000                         ;0582F7|      ;
+ + LDA.W #$0000                         ;0582F7|      ;
    RTS                                  ;0582FA|      ;
 Update_SpiritHP_far:
    JSR.W Update_SpiritHP                ;0582FB|0582FF;
@@ -458,7 +446,7 @@ Check_Condition1:
    dw DATA8_0583AE                      ;058326|0583AE;
    dw DATA8_0583B9                      ;058328|0583B9;
    dw DATA8_0583C4                      ;05832A|0583C4;
-   db $24                               ;05832C|      ; 24: Loads 1 of 4 RAM values using (1 byte) offset
+   db $24                               ;05832C|      ; 24: Load var2
    db $02                               ;05832D|      ;
    db $07                               ;05832E|      ; 07: Call 07/AA88 check element flags?
    dl Check_A_bits                      ;05832F|07AA88;
@@ -472,7 +460,7 @@ Check_Condition1:
    dw DATA8_058376                      ;05833E|058376;
 DATA8_058340:
    db $07                               ;058340|      ; 07: Call 00/A105 (832E returned 0)
-   dl Transfer_Setup2_6b                ;058341|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058341|00A105;
    dl DATA8_0D9562                      ;058344|0D9562; Store $0D/9562 in $18
    db $03                               ;058347|      ;
    db $04                               ;058348|      ;
@@ -480,7 +468,7 @@ DATA8_058340:
    db $1C                               ;05834A|      ; RTS
 DATA8_05834B:
    db $07                               ;05834B|      ; 07: Call 00/A105 (832E returned 1)
-   dl Transfer_Setup2_6b                ;05834C|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;05834C|00A105;
    dl DATA8_0D9566                      ;05834F|0D9566; Store $0D/9566 in $18
    db $03                               ;058352|      ;
    db $04                               ;058353|      ;
@@ -488,7 +476,7 @@ DATA8_05834B:
    db $1C                               ;058355|      ; RTS
 DATA8_058356:
    db $07                               ;058356|      ; 07: Call 00/A105 (832E returned 02)
-   dl Transfer_Setup2_6b                ;058357|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058357|00A105;
    dl DATA8_0D956A                      ;05835A|0D956A; Store $0D/956A in $18
    db $03                               ;05835D|      ;
    db $04                               ;05835E|      ;
@@ -496,7 +484,7 @@ DATA8_058356:
    db $1C                               ;058360|      ; RTS
 DATA8_058361:
    db $07                               ;058361|      ; 07: Call 00/A105 (832E returned 03)
-   dl Transfer_Setup2_6b                ;058362|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058362|00A105;
    dl DATA8_0D956E                      ;058365|0D956E; Store $0D/956E in $18
    db $03                               ;058368|      ;
    db $04                               ;058369|      ;
@@ -504,7 +492,7 @@ DATA8_058361:
    db $1C                               ;05836B|      ; RTS
 DATA8_05836C:
    db $07                               ;05836C|      ; 07: Call 00/A105 (832E returned 04)
-   dl Transfer_Setup2_6b                ;05836D|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;05836D|00A105;
    dl DATA8_0D9572                      ;058370|0D9572; Store $0D/9572 in $18
    db $03                               ;058373|      ;
    db $04                               ;058374|      ;
@@ -513,7 +501,7 @@ DATA8_058376:
    db $1C                               ;058376|      ; RTS
 DATA8_058377:
    db $07                               ;058377|      ; Condition 00 / Call $00/A105
-   dl Transfer_Setup2_6b                ;058378|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058378|00A105;
    dl DATA8_0D9576                      ;05837B|0D9576; Store 0D/9576 in $18
    db $01                               ;05837E|      ;
    db $02                               ;05837F|      ;
@@ -521,7 +509,7 @@ DATA8_058377:
    db $1C                               ;058381|      ; RTS
 DATA8_058382:
    db $07                               ;058382|      ; 07: Call 00/A105 (8316 returned 1)
-   dl Transfer_Setup2_6b                ;058383|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058383|00A105;
    dl DATA8_0D9578                      ;058386|0D9578; Store 0D/9578 in $18
    db $01                               ;058389|      ;
    db $02                               ;05838A|      ;
@@ -529,7 +517,7 @@ DATA8_058382:
    db $1C                               ;05838C|      ; RTS
 DATA8_05838D:
    db $07                               ;05838D|      ; 07: Call 00/A105 (8316 returned 2)
-   dl Transfer_Setup2_6b                ;05838E|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;05838E|00A105;
    dl DATA8_0D9578                      ;058391|0D9578; Store 0D/9578 in $18
    db $01                               ;058394|      ;
    db $02                               ;058395|      ;
@@ -537,7 +525,7 @@ DATA8_05838D:
    db $1C                               ;058397|      ; RTS
 DATA8_058398:
    db $07                               ;058398|      ; 07: Call 00/A105 (8316 returned 3)
-   dl Transfer_Setup2_6b                ;058399|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058399|00A105;
    dl DATA8_0D957A                      ;05839C|0D957A; Store 0D/957A in $18
    db $01                               ;05839F|      ;
    db $02                               ;0583A0|      ;
@@ -545,7 +533,7 @@ DATA8_058398:
    db $1C                               ;0583A2|      ; RTS
 DATA8_0583A3:
    db $07                               ;0583A3|      ; 07: Call 00/A105 (8316 returned 4)
-   dl Transfer_Setup2_6b                ;0583A4|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583A4|00A105;
    dl DATA8_0D957C                      ;0583A7|0D957C; Store 0D/957C in $18
    db $01                               ;0583AA|      ;
    db $02                               ;0583AB|      ;
@@ -553,7 +541,7 @@ DATA8_0583A3:
    db $1C                               ;0583AD|      ; RTS
 DATA8_0583AE:
    db $07                               ;0583AE|      ; 07: Call 00/A105 (8316 returned 5)
-   dl Transfer_Setup2_6b                ;0583AF|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583AF|00A105;
    dl DATA8_0D957E                      ;0583B2|0D957E; Store 0D/957E in $18
    db $01                               ;0583B5|      ;
    db $02                               ;0583B6|      ;
@@ -561,7 +549,7 @@ DATA8_0583AE:
    db $1C                               ;0583B8|      ; RTS
 DATA8_0583B9:
    db $07                               ;0583B9|      ; 07: Call 00/A105 (8316 returned 6)
-   dl Transfer_Setup2_6b                ;0583BA|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583BA|00A105;
    dl DATA8_0D9580                      ;0583BD|0D9580; Store 0D/9580 in $18
    db $01                               ;0583C0|      ;
    db $02                               ;0583C1|      ;
@@ -569,7 +557,7 @@ DATA8_0583B9:
    db $1C                               ;0583C3|      ; RTS
 DATA8_0583C4:
    db $07                               ;0583C4|      ; 07: Call 00/A105 (8316 returned 7)
-   dl Transfer_Setup2_6b                ;0583C5|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583C5|00A105;
    dl DATA8_0D9582                      ;0583C8|0D9582; Store 0D/9582 in $18
    db $01                               ;0583CB|      ;
    db $02                               ;0583CC|      ;
@@ -577,7 +565,7 @@ DATA8_0583C4:
    db $06                               ;0583CE|      ; Delay 07
    db $07                               ;0583CF|      ;
    db $07                               ;0583D0|      ;
-   dl Transfer_Setup2_6b                ;0583D1|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583D1|00A105;
    dl DATA8_0D9584                      ;0583D4|0D9584;
    db $01                               ;0583D7|      ;
    db $02                               ;0583D8|      ;
@@ -585,7 +573,7 @@ DATA8_0583C4:
    db $06                               ;0583DA|      ;
    db $07                               ;0583DB|      ;
    db $07                               ;0583DC|      ;
-   dl Transfer_Setup2_6b                ;0583DD|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583DD|00A105;
    dl DATA8_0D9586                      ;0583E0|0D9586;
    db $01                               ;0583E3|      ;
    db $02                               ;0583E4|      ;
@@ -593,7 +581,7 @@ DATA8_0583C4:
    db $06                               ;0583E6|      ;
    db $07                               ;0583E7|      ;
    db $07                               ;0583E8|      ;
-   dl Transfer_Setup2_6b                ;0583E9|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583E9|00A105;
    dl DATA8_0D9588                      ;0583EC|0D9588;
    db $01                               ;0583EF|      ;
    db $02                               ;0583F0|      ;
@@ -601,7 +589,7 @@ DATA8_0583C4:
    db $06                               ;0583F2|      ;
    db $07                               ;0583F3|      ;
    db $07                               ;0583F4|      ;
-   dl Transfer_Setup2_6b                ;0583F5|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;0583F5|00A105;
    dl DATA8_0D958A                      ;0583F8|0D958A;
    db $01                               ;0583FB|      ;
    db $02                               ;0583FC|      ;
@@ -609,7 +597,7 @@ DATA8_0583C4:
    db $06                               ;0583FE|      ;
    db $07                               ;0583FF|      ;
    db $07                               ;058400|      ;
-   dl Transfer_Setup2_6b                ;058401|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058401|00A105;
    dl DATA8_0D9588                      ;058404|0D9588;
    db $01                               ;058407|      ;
    db $02                               ;058408|      ;
@@ -617,7 +605,7 @@ DATA8_0583C4:
    db $06                               ;05840A|      ;
    db $07                               ;05840B|      ;
    db $07                               ;05840C|      ;
-   dl Transfer_Setup2_6b                ;05840D|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;05840D|00A105;
    dl DATA8_0D9586                      ;058410|0D9586;
    db $01                               ;058413|      ;
    db $02                               ;058414|      ;
@@ -625,7 +613,7 @@ DATA8_0583C4:
    db $06                               ;058416|      ;
    db $07                               ;058417|      ;
    db $07                               ;058418|      ;
-   dl Transfer_Setup2_6b                ;058419|00A105;
+   dl Gfx_GetPalette2_3b_1b_2b          ;058419|00A105;
    dl DATA8_0D9584                      ;05841C|0D9584;
    db $01                               ;05841F|      ;
    db $02                               ;058420|      ;
@@ -662,12 +650,12 @@ DATA8_058425:
    db $1C                               ;058448|      ; End section
 Some_Death_Check:
    db $07                               ;058449|      ;
-   dl Load_Temp_Var_2b                  ;05844A|07B4A1;
+   dl Load_Object_Var_2b                ;05844A|07B4A1;
    db $02                               ;05844D|      ;
    db $00                               ;05844E|      ;
    db $11                               ;05844F|      ; Branch on character ID
    db $09                               ;058450|      ;
-   dw Case_Condition_058463             ;058451|058463;
+   dw Event_Select_Death_Palette        ;058451|058463;
    dw Xfer_0584A0                       ;058453|05849F;
    dw Xfer_0584AA                       ;058455|0584AA;
    dw Xfer_0584B5                       ;058457|0584B5;
@@ -676,7 +664,7 @@ Some_Death_Check:
    dw Case_Condition_058507             ;05845D|058507;
    dw Case_Condition_058543             ;05845F|058543;
    dw Case_Condition_05857F             ;058461|05857F;
-Case_Condition_058463:
+Event_Select_Death_Palette:
    db $24                               ;058463|      ;
    db $02                               ;058464|      ;
    db $07                               ;058465|      ;
@@ -685,61 +673,61 @@ Case_Condition_058463:
    db $04                               ;05846A|      ;
    dw Xfer_058473                       ;05846B|058473;
    dw Xfer_05847E                       ;05846D|05847E;
-   dw Xfer_058489                       ;05846F|058489;
+   dw Gfx_GetPalette_Petrify            ;05846F|058489;
    dw Xfer_058494                       ;058471|058494;
 Xfer_058473:
    db $07                               ;058473|      ;
-   dl Transfer_Data_3b_1b_2b            ;058474|00A140;
-   dl _058477_data                      ;058477|0D9322;
+   dl Gfx_GetPalette_3b_1b_2b           ;058474|00A140;
+   dl Palette_058473                    ;058477|0D9322;
    db $45                               ;05847A|      ;
    dw $0016                             ;05847B|      ;
    db $05                               ;05847D|      ; RTL
 Xfer_05847E:
    db $07                               ;05847E|      ;
-   dl Transfer_Data_3b_1b_2b            ;05847F|00A140;
-   dl UNREACH_0D9456                    ;058482|0D9456;
+   dl Gfx_GetPalette_3b_1b_2b           ;05847F|00A140;
+   dl Palette_05847E                    ;058482|0D9456;
    db $45                               ;058485|      ;
    dw $0016                             ;058486|      ;
    db $05                               ;058488|      ; RTL
-Xfer_058489:
+Gfx_GetPalette_Petrify:
    db $07                               ;058489|      ;
-   dl Transfer_Data_3b_1b_2b            ;05848A|00A140;
-   dl UNREACH_0D93E8                    ;05848D|0D93E8;
+   dl Gfx_GetPalette_3b_1b_2b           ;05848A|00A140;
+   dl Palette_PC_Petrify                ;05848D|0D93E8;
    db $45                               ;058490|      ;
    dw $0016                             ;058491|      ;
    db $05                               ;058493|      ; RTL
 Xfer_058494:
    db $07                               ;058494|      ;
-   dl Transfer_Data_3b_1b_2b            ;058495|00A140;
-   dl UNREACH_0D94DA                    ;058498|0D94DA;
+   dl Gfx_GetPalette_3b_1b_2b           ;058495|00A140;
+   dl Palette_058494                    ;058498|0D94DA;
    db $45                               ;05849B|      ;
    dw $0016                             ;05849C|      ;
    db $05                               ;05849E|      ; RTL
 Xfer_0584A0:
    db $07                               ;05849F|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584A0|00A140;
-   dl DATA8_0D9338                      ;0584A3|0D9338;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584A0|00A140;
+   dl Palette_0586B8                    ;0584A3|0D9338;
    db $75                               ;0584A6|      ;
    dw $0016                             ;0584A7|      ;
    db $05                               ;0584A9|      ; RTL
 Xfer_0584AA:
    db $07                               ;0584AA|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584AB|00A140;
-   dl DATA8_0D934E                      ;0584AE|0D934E;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584AB|00A140;
+   dl Palette_0588A8                    ;0584AE|0D934E;
    db $75                               ;0584B1|      ;
    dw $0016                             ;0584B2|      ;
    db $05                               ;0584B4|      ; RTL
 Xfer_0584B5:
    db $07                               ;0584B5|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584B6|00A140;
-   dl DATA8_0D9364                      ;0584B9|0D9364;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584B6|00A140;
+   dl Palette_058A45                    ;0584B9|0D9364;
    db $75                               ;0584BC|      ;
    dw $0016                             ;0584BD|      ;
    db $05                               ;0584BF|      ; RTL
 Xfer_0584C0:
    db $07                               ;0584C0|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584C1|00A140;
-   dl _058BE6_data                      ;0584C4|0D937A;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584C1|00A140;
+   dl Palette_058BE2                    ;0584C4|0D937A;
    db $75                               ;0584C7|      ;
    dw $0016                             ;0584C8|      ;
    db $05                               ;0584CA|      ; RTL
@@ -756,28 +744,28 @@ Case_Condition_0584CB:
    dw DATA8_0584FC                      ;0584D9|0584FC;
 DATA8_0584DB:
    db $07                               ;0584DB|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584DC|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584DC|00A140;
    dl UNREACH_0D9390                    ;0584DF|0D9390;
    db $55                               ;0584E2|      ;
    dw $0016                             ;0584E3|      ;
    db $05                               ;0584E5|      ;
 DATA8_0584E6:
    db $07                               ;0584E6|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584E7|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584E7|00A140;
    dl UNREACH_0D9482                    ;0584EA|0D9482;
    db $55                               ;0584ED|      ;
    dw $0016                             ;0584EE|      ;
    db $05                               ;0584F0|      ;
 DATA8_0584F1:
    db $07                               ;0584F1|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584F2|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584F2|00A140;
    dl UNREACH_0D93FE                    ;0584F5|0D93FE;
    db $55                               ;0584F8|      ;
    dw $0016                             ;0584F9|      ;
    db $05                               ;0584FB|      ;
 DATA8_0584FC:
    db $07                               ;0584FC|      ;
-   dl Transfer_Data_3b_1b_2b            ;0584FD|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;0584FD|00A140;
    dl UNREACH_0D94F0                    ;058500|0D94F0;
    db $55                               ;058503|      ;
    dw $0016                             ;058504|      ;
@@ -795,28 +783,28 @@ Case_Condition_058507:
    dw DATA8_058538                      ;058515|058538;
 DATA8_058517:
    db $07                               ;058517|      ;
-   dl Transfer_Data_3b_1b_2b            ;058518|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;058518|00A140;
    dl UNREACH_0D93A6                    ;05851B|0D93A6;
    db $55                               ;05851E|      ;
    dw $0016                             ;05851F|      ;
    db $05                               ;058521|      ;
 DATA8_058522:
    db $07                               ;058522|      ;
-   dl Transfer_Data_3b_1b_2b            ;058523|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;058523|00A140;
    dl UNREACH_0D9498                    ;058526|0D9498;
    db $55                               ;058529|      ;
    dw $0016                             ;05852A|      ;
    db $05                               ;05852C|      ;
 DATA8_05852D:
    db $07                               ;05852D|      ;
-   dl Transfer_Data_3b_1b_2b            ;05852E|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;05852E|00A140;
    dl UNREACH_0D9414                    ;058531|0D9414;
    db $55                               ;058534|      ;
    dw $0016                             ;058535|      ;
    db $05                               ;058537|      ;
 DATA8_058538:
    db $07                               ;058538|      ;
-   dl Transfer_Data_3b_1b_2b            ;058539|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;058539|00A140;
    dl UNREACH_0D9506                    ;05853C|0D9506;
    db $55                               ;05853F|      ;
    dw $0016                             ;058540|      ;
@@ -834,28 +822,28 @@ Case_Condition_058543:
    dw DATA8_058574                      ;058551|058574;
 DATA8_058553:
    db $07                               ;058553|      ;
-   dl Transfer_Data_3b_1b_2b            ;058554|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;058554|00A140;
    dl UNREACH_0D93BC                    ;058557|0D93BC;
    db $65                               ;05855A|      ;
    dw $0016                             ;05855B|      ;
    db $05                               ;05855D|      ;
 DATA8_05855E:
    db $07                               ;05855E|      ;
-   dl Transfer_Data_3b_1b_2b            ;05855F|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;05855F|00A140;
    dl UNREACH_0D94AE                    ;058562|0D94AE;
    db $65                               ;058565|      ;
    dw $0016                             ;058566|      ;
    db $05                               ;058568|      ;
 DATA8_058569:
    db $07                               ;058569|      ;
-   dl Transfer_Data_3b_1b_2b            ;05856A|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;05856A|00A140;
    dl UNREACH_0D942A                    ;05856D|0D942A;
    db $65                               ;058570|      ;
    dw $0016                             ;058571|      ;
    db $05                               ;058573|      ;
 DATA8_058574:
    db $07                               ;058574|      ;
-   dl Transfer_Data_3b_1b_2b            ;058575|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;058575|00A140;
    dl UNREACH_0D951C                    ;058578|0D951C;
    db $65                               ;05857B|      ;
    dw $0016                             ;05857C|      ;
@@ -873,29 +861,29 @@ Case_Condition_05857F:
    dw Xfer_0585B0                       ;05858D|0585B0;
 Xfer_05858F:
    db $07                               ;05858F|      ;
-   dl Transfer_Data_3b_1b_2b            ;058590|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;058590|00A140;
    dl DATA8_0D93D2                      ;058593|0D93D2;
    db $65                               ;058596|      ;
    dw $0016                             ;058597|      ;
    db $05                               ;058599|      ;
 Xfer_05859A:
    db $07                               ;05859A|      ;
-   dl Transfer_Data_3b_1b_2b            ;05859B|00A140;
-   dl DATA8_0D94C4                      ;05859E|0D94C4;
+   dl Gfx_GetPalette_3b_1b_2b           ;05859B|00A140;
+   dl Palette_05859A                    ;05859E|0D94C4;
    db $65                               ;0585A1|      ;
    dw $0016                             ;0585A2|      ;
-   db $05                               ;0585A4|      ;
+   db $05                               ;0585A4|      ; RTL
 Xfer_0585A5:
    db $07                               ;0585A5|      ;
-   dl Transfer_Data_3b_1b_2b            ;0585A6|00A140;
-   dl DATA8_0D9440                      ;0585A9|0D9440;
+   dl Gfx_GetPalette_3b_1b_2b           ;0585A6|00A140;
+   dl Palette_0585A5                    ;0585A9|0D9440;
    db $65                               ;0585AC|      ;
    dw $0016                             ;0585AD|      ;
    db $05                               ;0585AF|      ;
 Xfer_0585B0:
    db $07                               ;0585B0|      ;
-   dl Transfer_Data_3b_1b_2b            ;0585B1|00A140;
-   dl DATA8_0D9532                      ;0585B4|0D9532;
+   dl Gfx_GetPalette_3b_1b_2b           ;0585B1|00A140;
+   dl Palette_0585B0                    ;0585B4|0D9532;
    db $65                               ;0585B7|      ;
    dw $0016                             ;0585B8|      ;
    db $05                               ;0585BA|      ;
@@ -938,7 +926,7 @@ DATA8_0585E9:
    db $07                               ;0585E9|      ;
    dl KillEnemy                         ;0585EA|07B94A;
    db $07                               ;0585ED|      ;
-   dl CODE_07B11C                       ;0585EE|07B11C;
+   dl Set_Condition_4b                  ;0585EE|07B11C;
    dw $0002                             ;0585F1|      ;
    dw $0001                             ;0585F3|      ;
    db $06                               ;0585F5|      ;
@@ -946,7 +934,7 @@ DATA8_0585E9:
    db $24                               ;0585F7|      ;
    db $02                               ;0585F8|      ;
    db $07                               ;0585F9|      ;
-   dl _07906F_far                       ;0585FA|07906B;
+   dl LoadGfx_07906F_far                ;0585FA|07906B;
    db $1A                               ;0585FD|      ;
    dw DATA8_05860E                      ;0585FE|05860E;
 DATA8_058600:
@@ -955,26 +943,26 @@ DATA8_058600:
    db $07                               ;058602|      ;
    dl IsNewSpirit                       ;058603|07B95F;
    db $07                               ;058606|      ;
-   dl CODE_07B11C                       ;058607|07B11C;
+   dl Set_Condition_4b                  ;058607|07B11C;
    dw $0002                             ;05860A|      ;
    dw $0000                             ;05860C|      ;
 DATA8_05860E:
    db $24                               ;05860E|      ;
    db $02                               ;05860F|      ;
    db $07                               ;058610|      ;
-   dl Load_player_cards                 ;058611|078F92;
+   dl Load_PC_Name                      ;058611|078F92;
    db $24                               ;058614|      ;
    db $02                               ;058615|      ;
    db $07                               ;058616|      ;
-   dl Death_Check_A_1                   ;058617|078D46;
+   dl Sub_Draw_HP_I_think               ;058617|078D46;
    db $24                               ;05861A|      ;
    db $02                               ;05861B|      ;
    db $07                               ;05861C|      ;
-   dl Death_Check_A_2                   ;05861D|078DB0;
+   dl Sub_Draw_MP_I_think               ;05861D|078DB0;
    db $24                               ;058620|      ;
    db $02                               ;058621|      ;
    db $07                               ;058622|      ;
-   dl CODE_078DF0                       ;058623|078DF0;
+   dl Sub_Draw_Level                    ;058623|078DF0;
    db $07                               ;058626|      ;
    dl Get_ID_in_slot_2b                 ;058627|07B0E8;
    dw $0002                             ;05862A|      ;
@@ -992,10 +980,10 @@ DATA8_058637:
    dl Condition_Check_2b                ;05863A|07B0B0;
    dw $0001                             ;05863D|      ;
    db $0B                               ;05863F|      ;
-   dw CODE_008600                       ;058640|008600;
+   dw DATA8_058600                      ;058640|058600;
    db $1A                               ;058642|      ;
    dw DATA8_0585E9                      ;058643|0585E9;
-Event_Main_05:
+Event_Main_05_SYLPH:
    db $0F                               ;058645|      ;
    db $02                               ;058646|      ;
    dw $0001                             ;058647|      ;
@@ -1018,11 +1006,11 @@ Event_Main_05:
    dw DATA8_0586FF                      ;058663|0586FF;
 DATA8_058665:
    db $08                               ;058665|      ;
-   dw CODE_008782                       ;058666|008782;
+   dw DATA8_058782                      ;058666|058782;
    db $24                               ;058668|      ;
    db $02                               ;058669|      ;
    db $07                               ;05866A|      ;
-   dl _07906F_far                       ;05866B|07906B;
+   dl LoadGfx_07906F_far                ;05866B|07906B;
    db $0E                               ;05866E|      ;
    dw $11C5                             ;05866F|      ;
    db $00                               ;058671|      ;
@@ -1034,9 +1022,9 @@ DATA8_058665:
    db $07                               ;05867A|      ;
    dl Is_Equals_1575                    ;05867B|07AEDD;
    db $0C                               ;05867E|      ;
-   dw CODE_0086D5                       ;05867F|0086D5;
+   dw DATA8_0586D5                      ;05867F|0586D5;
    db $1F                               ;058681|      ;
-   dw $11C1                             ;058682|0011C1;
+   dw $11C1                             ;058682|      ;
    db $11                               ;058684|      ;
    db $06                               ;058685|      ;
    dw DATA8_058693                      ;058686|058693;
@@ -1050,8 +1038,8 @@ DATA8_058693:
    db $09                               ;058693|      ;
    dl CODE_0587E9                       ;058694|0587E9;
    db $07                               ;058697|      ;
-   dl Transfer_Data_3b_1b_2b            ;058698|00A140;
-   dl DATA8_0D9338                      ;05869B|0D9338;
+   dl Gfx_GetPalette_3b_1b_2b           ;058698|00A140;
+   dl Palette_0586B8                    ;05869B|0D9338;
    db $75                               ;05869E|      ;
    dw $0016                             ;05869F|      ;
    db $07                               ;0586A1|      ;
@@ -1069,8 +1057,8 @@ DATA8_0586B4:
    db $09                               ;0586B4|      ;
    dl CODE_0587E3                       ;0586B5|0587E3;
    db $07                               ;0586B8|      ;
-   dl Transfer_Data_3b_1b_2b            ;0586B9|00A140;
-   dl DATA8_0D9338                      ;0586BC|0D9338;
+   dl Gfx_GetPalette_3b_1b_2b           ;0586B9|00A140;
+   dl Palette_0586B8                    ;0586BC|0D9338;
    db $75                               ;0586BF|      ;
    dw $0016                             ;0586C0|      ;
    db $07                               ;0586C2|      ;
@@ -1084,6 +1072,7 @@ DATA8_0586B4:
    db $06                               ;0586D2|      ;
    db $01                               ;0586D3|      ;
    db $0A                               ;0586D4|      ;
+DATA8_0586D5:
    db $09                               ;0586D5|      ;
    dl CODE_0587E9                       ;0586D6|0587E9;
    db $0F                               ;0586D9|      ;
@@ -1104,7 +1093,7 @@ DATA8_0586EA:
    db $24                               ;0586EF|      ;
    db $02                               ;0586F0|      ;
    db $07                               ;0586F1|      ;
-   dl _07906F_far                       ;0586F2|07906B;
+   dl LoadGfx_07906F_far                ;0586F2|07906B;
    db $07                               ;0586F5|      ;
    dl KillEnemy                         ;0586F6|07B94A;
    db $07                               ;0586F9|      ;
@@ -1113,28 +1102,28 @@ DATA8_0586EA:
    db $1E                               ;0586FE|      ;
 DATA8_0586FF:
    db $08                               ;0586FF|      ;
-   dw CODE_008782                       ;058700|008782;
+   dw DATA8_058782                      ;058700|058782;
    db $09                               ;058702|      ;
    dl CODE_058817                       ;058703|058817;
    db $24                               ;058706|      ;
    db $02                               ;058707|      ;
    db $07                               ;058708|      ;
-   dl Load_player_cards                 ;058709|078F92;
+   dl Load_PC_Name                      ;058709|078F92;
    db $24                               ;05870C|      ;
    db $02                               ;05870D|      ;
    db $07                               ;05870E|      ;
-   dl Death_Check_A_1                   ;05870F|078D46;
+   dl Sub_Draw_HP_I_think               ;05870F|078D46;
    db $24                               ;058712|      ;
    db $02                               ;058713|      ;
    db $07                               ;058714|      ;
-   dl Death_Check_A_2                   ;058715|078DB0;
+   dl Sub_Draw_MP_I_think               ;058715|078DB0;
    db $24                               ;058718|      ;
    db $02                               ;058719|      ;
    db $07                               ;05871A|      ;
-   dl CODE_078DF0                       ;05871B|078DF0;
+   dl Sub_Draw_Level                    ;05871B|078DF0;
    db $07                               ;05871E|      ;
-   dl Transfer_Data_3b_1b_2b            ;05871F|00A140;
-   dl DATA8_0D9338                      ;058722|0D9338;
+   dl Gfx_GetPalette_3b_1b_2b           ;05871F|00A140;
+   dl Palette_0586B8                    ;058722|0D9338;
    db $75                               ;058725|      ;
    dw $0016                             ;058726|      ;
    db $07                               ;058728|      ;
@@ -1149,11 +1138,11 @@ DATA8_0586FF:
    db $24                               ;05873B|      ;
    db $02                               ;05873C|      ;
    db $07                               ;05873D|      ;
-   dl Death_Check_A_1                   ;05873E|078D46;
+   dl Sub_Draw_HP_I_think               ;05873E|078D46;
    db $24                               ;058741|      ;
    db $02                               ;058742|      ;
    db $07                               ;058743|      ;
-   dl Death_Check_A_2                   ;058744|078DB0;
+   dl Sub_Draw_MP_I_think               ;058744|078DB0;
    db $1A                               ;058747|      ;
    dw DATA8_058665                      ;058748|058665;
 DATA8_05874A:
@@ -1209,23 +1198,23 @@ Sub_Another_setup:
    db $24                               ;05879C|      ;
    db $02                               ;05879D|      ;
    db $07                               ;05879E|      ;
-   dl _07906F_far                       ;05879F|07906B;
+   dl LoadGfx_07906F_far                ;05879F|07906B;
    db $24                               ;0587A2|      ;
    db $02                               ;0587A3|      ;
    db $07                               ;0587A4|      ;
-   dl Load_player_cards                 ;0587A5|078F92;
+   dl Load_PC_Name                      ;0587A5|078F92;
    db $24                               ;0587A8|      ;
    db $02                               ;0587A9|      ;
    db $07                               ;0587AA|      ;
-   dl Death_Check_A_1                   ;0587AB|078D46;
+   dl Sub_Draw_HP_I_think               ;0587AB|078D46;
    db $24                               ;0587AE|      ;
    db $02                               ;0587AF|      ;
    db $07                               ;0587B0|      ;
-   dl Death_Check_A_2                   ;0587B1|078DB0;
+   dl Sub_Draw_MP_I_think               ;0587B1|078DB0;
    db $24                               ;0587B4|      ;
    db $02                               ;0587B5|      ;
    db $07                               ;0587B6|      ;
-   dl CODE_078DF0                       ;0587B7|078DF0;
+   dl Sub_Draw_Level                    ;0587B7|078DF0;
    db $05                               ;0587BA|      ;
 DATA8_0587BB:
    db $07                               ;0587BB|      ;
@@ -1253,24 +1242,21 @@ DATA8_0587D9:
    db $1C                               ;0587E2|      ;
 CODE_0587E3:
    JSL.L Is_Equals_1575                 ;0587E3|07AEDD;
-   BNE CODE_0587FC                      ;0587E7|0587FC;
+   BNE +                                ;0587E7|0587FC;
 CODE_0587E9:
    JSR.W Update_SpiritHP                ;0587E9|0582FF;
    JSR.W Error_Check_MP                 ;0587EC|058291;
-   JSR.W CODE_0582BA                    ;0587EF|0582BA;
-   JSR.W CODE_058243                    ;0587F2|058243;
-   BNE CODE_05880A                      ;0587F5|05880A;
-   JSR.W CODE_058216                    ;0587F7|058216;
-   BEQ CODE_058809                      ;0587FA|058809;
-CODE_0587FC:
-   LDX.W Selection_offset               ;0587FC|00103F;
+   JSR.W CODE_FN_0582BA                 ;0587EF|0582BA;
+   JSR.W CODE_FN_058243                 ;0587F2|058243;
+   BNE ++                               ;0587F5|05880A;
+   JSR.W CODE_FN_058216                 ;0587F7|058216;
+   BEQ +++                              ;0587FA|058809;
+ + LDX.W Selection_offset               ;0587FC|00103F;
    LDA.W #$8665                         ;0587FF|      ;
    LDY.W #$0005                         ;058802|      ;
    JML.L Sub_LoadStuff                  ;058805|008DB4;
-CODE_058809:
-   RTL                                  ;058809|      ;
-CODE_05880A:
-   LDX.W Selection_offset               ;05880A|00103F;
++++ RTL                                  ;058809|      ;
+++ LDX.W Selection_offset               ;05880A|00103F;
    LDA.W #$876E                         ;05880D|      ;
    LDY.W #$0005                         ;058810|      ;
    JML.L Sub_LoadStuff                  ;058813|008DB4;
@@ -1279,29 +1265,28 @@ CODE_058817:
    LDX.W #$0000                         ;05881A|      ;
    JSL.L Condition_Compare_A_X          ;05881D|07B0E1;
    CMP.W #$0000                         ;058821|      ;
-   BEQ CODE_058833                      ;058824|058833;
+   BEQ +                                ;058824|058833;
    LDX.W Selection_offset               ;058826|00103F;
    LDA.W #$8737                         ;058829|      ;
    LDY.W #$0005                         ;05882C|      ;
    JML.L Sub_LoadStuff                  ;05882F|008DB4;
-CODE_058833:
-   RTL                                  ;058833|      ;
-Tbl_Tileset_Event05060708:
+ + RTL                                  ;058833|      ;
+Tbl_Tileset_Event05060708_SPIRITS:
    dw Tileset_Event04_00                ;058834|059D4B;
    dw Tileset_Event04_01                ;058836|059D50;
    dw Tileset_Event04_02                ;058838|059D55;
-   dw DATA8_059D5A                      ;05883A|059D5A;
-   dw DATA8_059D5F                      ;05883C|059D5F;
-   dw DATA8_059D64                      ;05883E|059D64;
-   dw DATA8_059D69                      ;058840|059D69;
-   dw DATA8_059D9B                      ;058842|059D9B;
-   dw DATA8_059DC3                      ;058844|059DC3;
-   dw DATA8_059DF5                      ;058846|059DF5;
-   dw DATA8_059E3B                      ;058848|059E3B;
-   dw DATA8_059E6D                      ;05884A|059E6D;
-   dw DATA8_059F03                      ;05884C|059F03;
-Event_Main_06:
-   db $0F                               ;05884E|      ;
+   dw Tileset_Event04_03                ;05883A|059D5A;
+   dw Tileset_Event04_04                ;05883C|059D5F;
+   dw Tileset_Event04_05                ;05883E|059D64;
+   dw Tileset_Event04_06                ;058840|059D69;
+   dw Tileset_Event04_07                ;058842|059D9B;
+   dw Tileset_Event04_08                ;058844|059DC3;
+   dw Tileset_Event04_09                ;058846|059DF5;
+   dw Tileset_Event04_0A                ;058848|059E3B;
+   dw Tileset_Event04_0B                ;05884A|059E6D;
+   dw Tileset_Event04_0C                ;05884C|059F03;
+Event_Main_06_DAO:
+   db $0F                               ;05884E|      ; Set var2 to 1
    db $02                               ;05884F|      ;
    db $01                               ;058850|      ;
    db $00                               ;058851|      ;
@@ -1326,13 +1311,13 @@ DATA8_05886E:
    db $08                               ;05886E|      ;
    dw DATA8_058993                      ;05886F|058993;
    db $07                               ;058871|      ;
-   dl CODE_07B11C                       ;058872|07B11C;
+   dl Set_Condition_4b                  ;058872|07B11C;
    dw $0002                             ;058875|      ;
    dw $0000                             ;058877|      ;
    db $24                               ;058879|      ;
    db $02                               ;05887A|      ;
    db $07                               ;05887B|      ;
-   dl _07906F_far                       ;05887C|07906B;
+   dl LoadGfx_07906F_far                ;05887C|07906B;
    db $0E                               ;05887F|      ;
    dw $11C5                             ;058880|      ;
    db $00                               ;058882|      ;
@@ -1360,8 +1345,8 @@ DATA8_0588A4:
    db $09                               ;0588A4|      ;
    dl CODE_05899F                       ;0588A5|05899F;
    db $07                               ;0588A8|      ;
-   dl Transfer_Data_3b_1b_2b            ;0588A9|00A140;
-   dl DATA8_0D934E                      ;0588AC|0D934E;
+   dl Gfx_GetPalette_3b_1b_2b           ;0588A9|00A140;
+   dl Palette_0588A8                    ;0588AC|0D934E;
    db $75                               ;0588AF|      ;
    dw $0016                             ;0588B0|      ;
    db $07                               ;0588B2|      ;
@@ -1377,10 +1362,10 @@ DATA8_0588A4:
    db $0A                               ;0588C4|      ;
 DATA8_0588C5:
    db $09                               ;0588C5|      ;
-   dl CODE_058999                       ;0588C6|058999;
+   dl ASM_Event_Main_06                 ;0588C6|058999;
    db $07                               ;0588C9|      ;
-   dl Transfer_Data_3b_1b_2b            ;0588CA|00A140;
-   dl DATA8_0D934E                      ;0588CD|0D934E;
+   dl Gfx_GetPalette_3b_1b_2b           ;0588CA|00A140;
+   dl Palette_0588A8                    ;0588CD|0D934E;
    db $75                               ;0588D0|      ;
    dw $0016                             ;0588D1|      ;
    db $07                               ;0588D3|      ;
@@ -1415,7 +1400,7 @@ DATA8_0588FB:
    db $24                               ;058900|      ;
    db $02                               ;058901|      ;
    db $07                               ;058902|      ;
-   dl _07906F_far                       ;058903|07906B;
+   dl LoadGfx_07906F_far                ;058903|07906B;
    db $07                               ;058906|      ;
    dl KillEnemy                         ;058907|07B94A;
    db $07                               ;05890A|      ;
@@ -1430,22 +1415,22 @@ DATA8_058910:
    db $24                               ;058917|      ;
    db $02                               ;058918|      ;
    db $07                               ;058919|      ;
-   dl Load_player_cards                 ;05891A|078F92;
+   dl Load_PC_Name                      ;05891A|078F92;
    db $24                               ;05891D|      ;
    db $02                               ;05891E|      ;
    db $07                               ;05891F|      ;
-   dl Death_Check_A_1                   ;058920|078D46;
+   dl Sub_Draw_HP_I_think               ;058920|078D46;
    db $24                               ;058923|      ;
    db $02                               ;058924|      ;
    db $07                               ;058925|      ;
-   dl Death_Check_A_2                   ;058926|078DB0;
+   dl Sub_Draw_MP_I_think               ;058926|078DB0;
    db $24                               ;058929|      ;
    db $02                               ;05892A|      ;
    db $07                               ;05892B|      ;
-   dl CODE_078DF0                       ;05892C|078DF0;
+   dl Sub_Draw_Level                    ;05892C|078DF0;
    db $07                               ;05892F|      ;
-   dl Transfer_Data_3b_1b_2b            ;058930|00A140;
-   dl DATA8_0D934E                      ;058933|0D934E;
+   dl Gfx_GetPalette_3b_1b_2b           ;058930|00A140;
+   dl Palette_0588A8                    ;058933|0D934E;
    db $75                               ;058936|      ;
    dw $0016                             ;058937|      ;
    db $07                               ;058939|      ;
@@ -1460,11 +1445,11 @@ DATA8_058910:
    db $24                               ;05894C|      ;
    db $02                               ;05894D|      ;
    db $07                               ;05894E|      ;
-   dl Death_Check_A_1                   ;05894F|078D46;
+   dl Sub_Draw_HP_I_think               ;05894F|078D46;
    db $24                               ;058952|      ;
    db $02                               ;058953|      ;
    db $07                               ;058954|      ;
-   dl Death_Check_A_2                   ;058955|078DB0;
+   dl Sub_Draw_MP_I_think               ;058955|078DB0;
    db $1A                               ;058958|      ;
    dw DATA8_05886E                      ;058959|05886E;
 DATA8_05895B:
@@ -1504,26 +1489,23 @@ DATA8_058993:
    dw DATA8_058312                      ;058994|058312;
    db $1A                               ;058996|      ;
    dw DATA8_058993                      ;058997|058993;
-CODE_058999:
+ASM_Event_Main_06:
    JSL.L Is_Equals_1575                 ;058999|07AEDD;
-   BNE CODE_0589B2                      ;05899D|0589B2;
+   BNE +                                ;05899D|0589B2;
 CODE_05899F:
    JSR.W Update_SpiritHP                ;05899F|0582FF;
    JSR.W Error_Check_MP                 ;0589A2|058291;
-   JSR.W CODE_0582BA                    ;0589A5|0582BA;
-   JSR.W CODE_058243                    ;0589A8|058243;
-   BNE CODE_0589C0                      ;0589AB|0589C0;
-   JSR.W CODE_058216                    ;0589AD|058216;
-   BEQ CODE_0589BF                      ;0589B0|0589BF;
-CODE_0589B2:
-   LDX.W Selection_offset               ;0589B2|00103F;
+   JSR.W CODE_FN_0582BA                 ;0589A5|0582BA;
+   JSR.W CODE_FN_058243                 ;0589A8|058243;
+   BNE ++                               ;0589AB|0589C0;
+   JSR.W CODE_FN_058216                 ;0589AD|058216;
+   BEQ +++                              ;0589B0|0589BF;
+ + LDX.W Selection_offset               ;0589B2|00103F;
    LDA.W #$886E                         ;0589B5|      ;
    LDY.W #$0005                         ;0589B8|      ;
    JML.L Sub_LoadStuff                  ;0589BB|008DB4;
-CODE_0589BF:
-   RTL                                  ;0589BF|      ;
-CODE_0589C0:
-   LDX.W Selection_offset               ;0589C0|00103F;
++++ RTL                                  ;0589BF|      ;
+++ LDX.W Selection_offset               ;0589C0|00103F;
    LDA.W #$897F                         ;0589C3|      ;
    LDY.W #$0005                         ;0589C6|      ;
    JML.L Sub_LoadStuff                  ;0589C9|008DB4;
@@ -1533,14 +1515,13 @@ CODE_0589CE:
    LDX.W #$0000                         ;0589D1|      ;
    JSL.L Condition_Compare_A_X          ;0589D4|07B0E1;
    CMP.W #$0000                         ;0589D8|      ;
-   BEQ CODE_0589EA                      ;0589DB|0589EA;
+   BEQ +                                ;0589DB|0589EA;
    LDX.W Selection_offset               ;0589DD|00103F;
    LDA.W #$8948                         ;0589E0|      ;
    LDY.W #$0005                         ;0589E3|      ;
    JML.L Sub_LoadStuff                  ;0589E6|008DB4;
-CODE_0589EA:
-   RTL                                  ;0589EA|      ;
-Event_Main_07:
+ + RTL                                  ;0589EA|      ;
+Event_Main_07_MARID:
    db $0F                               ;0589EB|      ;
    db $02                               ;0589EC|      ;
    dw $0001                             ;0589ED|      ;
@@ -1565,13 +1546,13 @@ DATA8_058A0B:
    db $08                               ;058A0B|      ;
    dw DATA8_058B30                      ;058A0C|058B30;
    db $07                               ;058A0E|      ;
-   dl CODE_07B11C                       ;058A0F|07B11C;
+   dl Set_Condition_4b                  ;058A0F|07B11C;
    dw $0002                             ;058A12|      ;
    dw $0000                             ;058A14|      ;
    db $24                               ;058A16|      ;
    db $02                               ;058A17|      ;
    db $07                               ;058A18|      ;
-   dl _07906F_far                       ;058A19|07906B;
+   dl LoadGfx_07906F_far                ;058A19|07906B;
    db $0E                               ;058A1C|      ;
    dw $11C5                             ;058A1D|      ;
    db $00                               ;058A1F|      ;
@@ -1585,7 +1566,7 @@ DATA8_058A0B:
    db $0C                               ;058A2C|      ;
    dw DATA8_058A83                      ;058A2D|058A83;
    db $1F                               ;058A2F|      ;
-   dw $11C1                             ;058A30|0511C1;
+   dw $11C1                             ;058A30|      ;
    db $11                               ;058A32|      ;
    db $06                               ;058A33|      ;
    dw DATA8_058A41                      ;058A34|058A41;
@@ -1599,8 +1580,8 @@ DATA8_058A41:
    db $09                               ;058A41|      ;
    dl CODE_058B3C                       ;058A42|058B3C;
    db $07                               ;058A45|      ;
-   dl Transfer_Data_3b_1b_2b            ;058A46|00A140;
-   dl DATA8_0D9364                      ;058A49|0D9364;
+   dl Gfx_GetPalette_3b_1b_2b           ;058A46|00A140;
+   dl Palette_058A45                    ;058A49|0D9364;
    db $75                               ;058A4C|      ;
    dw $0016                             ;058A4D|      ;
    db $07                               ;058A4F|      ;
@@ -1616,10 +1597,10 @@ DATA8_058A41:
    db $0A                               ;058A61|      ;
 DATA8_058A62:
    db $09                               ;058A62|      ;
-   dl CODE_058B36                       ;058A63|058B36;
+   dl ASM_Event_Main_07                 ;058A63|058B36;
    db $07                               ;058A66|      ;
-   dl Transfer_Data_3b_1b_2b            ;058A67|00A140;
-   dl UNREACH_0D946C                    ;058A6A|0D946C;
+   dl Gfx_GetPalette_3b_1b_2b           ;058A67|00A140;
+   dl Palette_058A66                    ;058A6A|0D946C;
    db $75                               ;058A6D|      ;
    dw $0016                             ;058A6E|      ;
    db $07                               ;058A70|      ;
@@ -1654,7 +1635,7 @@ DATA8_058A98:
    db $24                               ;058A9D|      ;
    db $02                               ;058A9E|      ;
    db $07                               ;058A9F|      ;
-   dl _07906F_far                       ;058AA0|07906B;
+   dl LoadGfx_07906F_far                ;058AA0|07906B;
    db $07                               ;058AA3|      ;
    dl KillEnemy                         ;058AA4|07B94A;
    db $07                               ;058AA7|      ;
@@ -1669,22 +1650,22 @@ DATA8_058AAD:
    db $24                               ;058AB4|      ;
    db $02                               ;058AB5|      ;
    db $07                               ;058AB6|      ;
-   dl Load_player_cards                 ;058AB7|078F92;
+   dl Load_PC_Name                      ;058AB7|078F92;
    db $24                               ;058ABA|      ;
    db $02                               ;058ABB|      ;
    db $07                               ;058ABC|      ;
-   dl Death_Check_A_1                   ;058ABD|078D46;
+   dl Sub_Draw_HP_I_think               ;058ABD|078D46;
    db $24                               ;058AC0|      ;
    db $02                               ;058AC1|      ;
    db $07                               ;058AC2|      ;
-   dl Death_Check_A_2                   ;058AC3|078DB0;
+   dl Sub_Draw_MP_I_think               ;058AC3|078DB0;
    db $24                               ;058AC6|      ;
    db $02                               ;058AC7|      ;
    db $07                               ;058AC8|      ;
-   dl CODE_078DF0                       ;058AC9|078DF0;
+   dl Sub_Draw_Level                    ;058AC9|078DF0;
    db $07                               ;058ACC|      ;
-   dl Transfer_Data_3b_1b_2b            ;058ACD|00A140;
-   dl DATA8_0D9364                      ;058AD0|0D9364;
+   dl Gfx_GetPalette_3b_1b_2b           ;058ACD|00A140;
+   dl Palette_058A45                    ;058AD0|0D9364;
    db $75                               ;058AD3|      ;
    dw $0016                             ;058AD4|      ;
    db $07                               ;058AD6|      ;
@@ -1699,11 +1680,11 @@ DATA8_058AAD:
    db $24                               ;058AE9|      ;
    db $02                               ;058AEA|      ;
    db $07                               ;058AEB|      ;
-   dl Death_Check_A_1                   ;058AEC|078D46;
+   dl Sub_Draw_HP_I_think               ;058AEC|078D46;
    db $24                               ;058AEF|      ;
    db $02                               ;058AF0|      ;
    db $07                               ;058AF1|      ;
-   dl Death_Check_A_2                   ;058AF2|078DB0;
+   dl Sub_Draw_MP_I_think               ;058AF2|078DB0;
    db $1A                               ;058AF5|      ;
    dw DATA8_058A0B                      ;058AF6|058A0B;
 DATA8_058AF8:
@@ -1743,26 +1724,23 @@ DATA8_058B30:
    dw DATA8_058312                      ;058B31|058312;
    db $1A                               ;058B33|      ;
    dw DATA8_058B30                      ;058B34|058B30;
-CODE_058B36:
+ASM_Event_Main_07:
    JSL.L Is_Equals_1575                 ;058B36|07AEDD;
-   BNE CODE_058B4F                      ;058B3A|058B4F;
+   BNE +                                ;058B3A|058B4F;
 CODE_058B3C:
    JSR.W Update_SpiritHP                ;058B3C|0582FF;
    JSR.W Error_Check_MP                 ;058B3F|058291;
-   JSR.W CODE_0582BA                    ;058B42|0582BA;
-   JSR.W CODE_058243                    ;058B45|058243;
-   BNE CODE_058B5D                      ;058B48|058B5D;
-   JSR.W CODE_058216                    ;058B4A|058216;
-   BEQ CODE_058B5C                      ;058B4D|058B5C;
-CODE_058B4F:
-   LDX.W Selection_offset               ;058B4F|00103F;
+   JSR.W CODE_FN_0582BA                 ;058B42|0582BA;
+   JSR.W CODE_FN_058243                 ;058B45|058243;
+   BNE ++                               ;058B48|058B5D;
+   JSR.W CODE_FN_058216                 ;058B4A|058216;
+   BEQ +++                              ;058B4D|058B5C;
+ + LDX.W Selection_offset               ;058B4F|00103F;
    LDA.W #$8A0B                         ;058B52|      ;
    LDY.W #$0005                         ;058B55|      ;
    JML.L Sub_LoadStuff                  ;058B58|008DB4;
-CODE_058B5C:
-   RTL                                  ;058B5C|      ;
-CODE_058B5D:
-   LDX.W Selection_offset               ;058B5D|00103F;
++++ RTL                                  ;058B5C|      ;
+++ LDX.W Selection_offset               ;058B5D|00103F;
    LDA.W #$8B1C                         ;058B60|      ;
    LDY.W #$0005                         ;058B63|      ;
    JML.L Sub_LoadStuff                  ;058B66|008DB4;
@@ -1772,14 +1750,13 @@ CODE_058B6B:
    LDX.W #$0000                         ;058B6E|      ;
    JSL.L Condition_Compare_A_X          ;058B71|07B0E1;
    CMP.W #$0000                         ;058B75|      ;
-   BEQ CODE_058B87                      ;058B78|058B87;
+   BEQ +                                ;058B78|058B87;
    LDX.W Selection_offset               ;058B7A|00103F;
    LDA.W #$8AE5                         ;058B7D|      ;
    LDY.W #$0005                         ;058B80|      ;
    JML.L Sub_LoadStuff                  ;058B83|008DB4;
-CODE_058B87:
-   RTL                                  ;058B87|      ;
-Event_Main_08:
+ + RTL                                  ;058B87|      ;
+Event_Main_08_EFRITE:
    db $0F                               ;058B88|      ;
    db $02                               ;058B89|      ;
    db $01                               ;058B8A|      ;
@@ -1809,7 +1786,7 @@ DATA8_058BA8:
    db $08                               ;058BA8|      ;
    dw DATA8_058CCD                      ;058BA9|058CCD;
    db $07                               ;058BAB|      ;
-   dl CODE_07B11C                       ;058BAC|07B11C;
+   dl Set_Condition_4b                  ;058BAC|07B11C;
    db $02                               ;058BAF|      ;
    db $00                               ;058BB0|      ;
    db $00                               ;058BB1|      ;
@@ -1817,14 +1794,14 @@ DATA8_058BA8:
    db $24                               ;058BB3|      ;
    db $02                               ;058BB4|      ;
    db $07                               ;058BB5|      ;
-   dl _07906F_far                       ;058BB6|07906B;
-   db $0E                               ;058BB9|      ;
+   dl LoadGfx_07906F_far                ;058BB6|07906B;
+   db $0E                               ;058BB9|      ; 0E: BIN_OP (Condition_Spirit $11C5 AND -$40)
    db $C5                               ;058BBA|      ;
    db $11                               ;058BBB|      ;
    db $00                               ;058BBC|      ;
    db $FF                               ;058BBD|      ;
    db $FB                               ;058BBE|      ;
-   db $0E                               ;058BBF|      ;
+   db $0E                               ;058BBF|      ; 0E: BIN_OP ($11C5 AND -$10)
    db $C5                               ;058BC0|      ;
    db $11                               ;058BC1|      ;
    db $00                               ;058BC2|      ;
@@ -1834,24 +1811,24 @@ DATA8_058BA8:
    dl Is_Equals_1575                    ;058BC6|07AEDD;
    db $0C                               ;058BC9|      ;
    dw DATA8_058C20                      ;058BCA|058C20;
-   db $1F                               ;058BCC|      ;
+   db $1F                               ;058BCC|      ; 1F: LDA $11C1 (Game state)
    db $C1                               ;058BCD|      ;
    db $11                               ;058BCE|      ;
-   db $11                               ;058BCF|      ;
+   db $11                               ;058BCF|      ; 11: MULTI_JMP (Game state)
    db $06                               ;058BD0|      ;
-   dw DATA8_058BDE                      ;058BD1|058BDE;
-   dw DATA8_058BDE                      ;058BD3|058BDE;
-   dw DATA8_058BFF                      ;058BD5|058BFF;
-   dw DATA8_058BDE                      ;058BD7|058BDE;
-   dw DATA8_058BDE                      ;058BD9|058BDE;
-   dw DATA8_058BDE                      ;058BDB|058BDE;
-   db $0A                               ;058BDD|      ;
-DATA8_058BDE:
-   db $09                               ;058BDE|      ;
+   dw ASM_058BDE                        ;058BD1|058BDE;
+   dw ASM_058BDE                        ;058BD3|058BDE;
+   dw ASM_058BFF_In_Battle              ;058BD5|058BFF;
+   dw ASM_058BDE                        ;058BD7|058BDE;
+   dw ASM_058BDE                        ;058BD9|058BDE;
+   dw ASM_058BDE                        ;058BDB|058BDE;
+   db $0A                               ;058BDD|      ; 0A: HALT (Game state -1/game over)
+ASM_058BDE:
+   db $09                               ;058BDE|      ; 09: ON_TICK - 058CD9
    dl CODE_058CD9                       ;058BDF|058CD9;
    db $07                               ;058BE2|      ;
-   dl Transfer_Data_3b_1b_2b            ;058BE3|00A140;
-   dl _058BE6_data                      ;058BE6|0D937A;
+   dl Gfx_GetPalette_3b_1b_2b           ;058BE3|00A140;
+   dl Palette_058BE2                    ;058BE6|0D937A;
    db $75                               ;058BE9|      ;
    db $16                               ;058BEA|      ;
    db $00                               ;058BEB|      ;
@@ -1866,12 +1843,12 @@ DATA8_058BDE:
    db $06                               ;058BFC|      ;
    db $01                               ;058BFD|      ;
    db $0A                               ;058BFE|      ;
-DATA8_058BFF:
+ASM_058BFF_In_Battle:
    db $09                               ;058BFF|      ;
-   dl CODE_058CD3                       ;058C00|058CD3;
+   dl ASM_Event_Main_08                 ;058C00|058CD3;
    db $07                               ;058C03|      ;
-   dl Transfer_Data_3b_1b_2b            ;058C04|00A140;
-   dl _058BE6_data                      ;058C07|0D937A;
+   dl Gfx_GetPalette_3b_1b_2b           ;058C04|00A140;
+   dl Palette_058BE2                    ;058C07|0D937A;
    db $75                               ;058C0A|      ;
    db $16                               ;058C0B|      ;
    db $00                               ;058C0C|      ;
@@ -1910,7 +1887,7 @@ DATA8_058C35:
    db $24                               ;058C3A|      ;
    db $02                               ;058C3B|      ;
    db $07                               ;058C3C|      ;
-   dl _07906F_far                       ;058C3D|07906B;
+   dl LoadGfx_07906F_far                ;058C3D|07906B;
    db $07                               ;058C40|      ;
    dl KillEnemy                         ;058C41|07B94A;
    db $07                               ;058C44|      ;
@@ -1925,22 +1902,22 @@ DATA8_058C4A:
    db $24                               ;058C51|      ;
    db $02                               ;058C52|      ;
    db $07                               ;058C53|      ;
-   dl Load_player_cards                 ;058C54|078F92;
+   dl Load_PC_Name                      ;058C54|078F92;
    db $24                               ;058C57|      ;
    db $02                               ;058C58|      ;
    db $07                               ;058C59|      ;
-   dl Death_Check_A_1                   ;058C5A|078D46;
+   dl Sub_Draw_HP_I_think               ;058C5A|078D46;
    db $24                               ;058C5D|      ;
    db $02                               ;058C5E|      ;
    db $07                               ;058C5F|      ;
-   dl Death_Check_A_2                   ;058C60|078DB0;
+   dl Sub_Draw_MP_I_think               ;058C60|078DB0;
    db $24                               ;058C63|      ;
    db $02                               ;058C64|      ;
    db $07                               ;058C65|      ;
-   dl CODE_078DF0                       ;058C66|078DF0;
+   dl Sub_Draw_Level                    ;058C66|078DF0;
    db $07                               ;058C69|      ;
-   dl Transfer_Data_3b_1b_2b            ;058C6A|00A140;
-   dl _058BE6_data                      ;058C6D|0D937A;
+   dl Gfx_GetPalette_3b_1b_2b           ;058C6A|00A140;
+   dl Palette_058BE2                    ;058C6D|0D937A;
    db $75                               ;058C70|      ;
    db $16                               ;058C71|      ;
    db $00                               ;058C72|      ;
@@ -1956,11 +1933,11 @@ DATA8_058C4A:
    db $24                               ;058C86|      ;
    db $02                               ;058C87|      ;
    db $07                               ;058C88|      ;
-   dl Death_Check_A_1                   ;058C89|078D46;
+   dl Sub_Draw_HP_I_think               ;058C89|078D46;
    db $24                               ;058C8C|      ;
    db $02                               ;058C8D|      ;
    db $07                               ;058C8E|      ;
-   dl Death_Check_A_2                   ;058C8F|078DB0;
+   dl Sub_Draw_MP_I_think               ;058C8F|078DB0;
    db $1A                               ;058C92|      ;
    dw DATA8_058BA8                      ;058C93|058BA8;
 DATA8_058C95:
@@ -1995,32 +1972,29 @@ DATA8_058C95:
    db $0C                               ;058CC7|      ;
    dw DATA8_058C35                      ;058CC8|058C35;
    db $1A                               ;058CCA|      ;
-   dw DATA8_058BFF                      ;058CCB|058BFF;
+   dw ASM_058BFF_In_Battle              ;058CCB|058BFF;
 DATA8_058CCD:
    db $1B                               ;058CCD|      ; 1B: JSR to 8312, save ptr in $14
    dw DATA8_058312                      ;058CCE|058312;
    db $1A                               ;058CD0|      ; 1A: Jump to 8CCD
    dw DATA8_058CCD                      ;058CD1|058CCD;
-CODE_058CD3:
+ASM_Event_Main_08:
    JSL.L Is_Equals_1575                 ;058CD3|07AEDD;
-   BNE CODE_058CEC                      ;058CD7|058CEC;
+   BNE +                                ;058CD7|058CEC;
 CODE_058CD9:
    JSR.W Update_SpiritHP                ;058CD9|0582FF;
    JSR.W Error_Check_MP                 ;058CDC|058291;
-   JSR.W CODE_0582BA                    ;058CDF|0582BA;
-   JSR.W CODE_058243                    ;058CE2|058243;
-   BNE CODE_058CFA                      ;058CE5|058CFA;
-   JSR.W CODE_058216                    ;058CE7|058216;
-   BEQ CODE_058CF9                      ;058CEA|058CF9;
-CODE_058CEC:
-   LDX.W Selection_offset               ;058CEC|00103F;
+   JSR.W CODE_FN_0582BA                 ;058CDF|0582BA;
+   JSR.W CODE_FN_058243                 ;058CE2|058243;
+   BNE ++                               ;058CE5|058CFA;
+   JSR.W CODE_FN_058216                 ;058CE7|058216;
+   BEQ +++                              ;058CEA|058CF9;
+ + LDX.W Selection_offset               ;058CEC|00103F;
    LDA.W #$8BA8                         ;058CEF|      ;
    LDY.W #$0005                         ;058CF2|      ;
    JML.L Sub_LoadStuff                  ;058CF5|008DB4;
-CODE_058CF9:
-   RTL                                  ;058CF9|      ;
-CODE_058CFA:
-   LDX.W Selection_offset               ;058CFA|00103F;
++++ RTL                                  ;058CF9|      ;
+++ LDX.W Selection_offset               ;058CFA|00103F;
    LDA.W #$8CB9                         ;058CFD|      ;
    LDY.W #$0005                         ;058D00|      ;
    JML.L Sub_LoadStuff                  ;058D03|008DB4;
@@ -2030,14 +2004,13 @@ CODE_058D08:
    LDX.W #$0000                         ;058D0B|      ;
    JSL.L Condition_Compare_A_X          ;058D0E|07B0E1;
    CMP.W #$0000                         ;058D12|      ;
-   BEQ CODE_058D24                      ;058D15|058D24;
+   BEQ +                                ;058D15|058D24;
    LDX.W Selection_offset               ;058D17|00103F;
    LDA.W #$8C82                         ;058D1A|      ;
    LDY.W #$0005                         ;058D1D|      ;
    JML.L Sub_LoadStuff                  ;058D20|008DB4;
-CODE_058D24:
-   RTL                                  ;058D24|      ;
-Event_Main_09:
+ + RTL                                  ;058D24|      ;
+Event_Main_09_TEEFA:
    db $0F                               ;058D25|      ;
    db $02                               ;058D26|      ;
    dw $0002                             ;058D27|      ;
@@ -2078,7 +2051,7 @@ Event_Main_09:
    db $07                               ;058D5C|      ;
    dl Max_heal                          ;058D5D|07B92F;
    db $07                               ;058D60|      ;
-   dl CODE_07B11C                       ;058D61|07B11C;
+   dl Set_Condition_4b                  ;058D61|07B11C;
    dw $0002                             ;058D64|      ;
    dw $0000                             ;058D66|      ;
 DATA8_058D68:
@@ -2088,26 +2061,26 @@ DATA8_058D68:
    dl OR_element_with_2b                ;058D6B|07B169;
    dw $0000                             ;058D6E|      ;
    db $07                               ;058D70|      ;
-   dl Transfer_Data_3b_1b_2b            ;058D71|00A140;
-   dl Data_3CF82                        ;058D74|0D92A2;
+   dl Gfx_GetPalette_3b_1b_2b           ;058D71|00A140;
+   dl Palette_058D70                    ;058D74|0D92A2;
    db $50                               ;058D77|      ;
    dw $0020                             ;058D78|      ;
    db $24                               ;058D7A|      ;
    db $02                               ;058D7B|      ;
    db $07                               ;058D7C|      ;
-   dl Load_player_cards                 ;058D7D|078F92;
+   dl Load_PC_Name                      ;058D7D|078F92;
    db $24                               ;058D80|      ;
    db $02                               ;058D81|      ;
    db $07                               ;058D82|      ;
-   dl Death_Check_A_1                   ;058D83|078D46;
+   dl Sub_Draw_HP_I_think               ;058D83|078D46;
    db $24                               ;058D86|      ;
    db $02                               ;058D87|      ;
    db $07                               ;058D88|      ;
-   dl Death_Check_A_2                   ;058D89|078DB0;
+   dl Sub_Draw_MP_I_think               ;058D89|078DB0;
    db $24                               ;058D8C|      ;
    db $02                               ;058D8D|      ;
    db $07                               ;058D8E|      ;
-   dl CODE_078DF0                       ;058D8F|078DF0;
+   dl Sub_Draw_Level                    ;058D8F|078DF0;
    db $07                               ;058D92|      ;
    dl Get_ID_in_slot_2b                 ;058D93|07B0E8;
    dw $0004                             ;058D96|      ;
@@ -2124,11 +2097,11 @@ DATA8_058D68:
    db $24                               ;058DA9|      ;
    db $02                               ;058DAA|      ;
    db $07                               ;058DAB|      ;
-   dl _07906F_far                       ;058DAC|07906B;
+   dl LoadGfx_07906F_far                ;058DAC|07906B;
    db $24                               ;058DAF|      ;
    db $02                               ;058DB0|      ;
    db $07                               ;058DB1|      ;
-   dl CODE_078DF0                       ;058DB2|078DF0;
+   dl Sub_Draw_Level                    ;058DB2|078DF0;
    db $0E                               ;058DB5|      ;
    dw $11C7                             ;058DB6|      ;
    db $00                               ;058DB8|      ;
@@ -2160,13 +2133,14 @@ DATA8_058DDA:
    db $07                               ;058DE2|      ;
    dl Chapter5_Check                    ;058DE3|058E09;
    db $0C                               ;058DE6|      ;
-   dw CODE_008DF6                       ;058DE7|008DF6;
+   dw DATA8_058DF6                      ;058DE7|058DF6;
    db $07                               ;058DE9|      ;
    dl Decomp_Setup2_3b_3b               ;058DEA|00A035;
    dl Sprite_Field_BadTeefa             ;058DED|0EC292;
    dl $7E8A00                           ;058DF0|7E8A00;
    db $1A                               ;058DF3|      ;
    dw DATA8_058E00                      ;058DF4|058E00;
+DATA8_058DF6:
    db $07                               ;058DF6|      ;
    dl Decomp_Setup2_3b_3b               ;058DF7|00A035;
    dl Sprite_Field_GdTeefa              ;058DFA|0EC6AB;
@@ -2182,15 +2156,14 @@ DATA8_058E00:
 Chapter5_Check:
    LDA.W Chapter_num                    ;058E09|0018CD;
    CMP.W #$0005                         ;058E0C|      ;
-   BNE CODE_058E15                      ;058E0F|058E15;
+   BNE +                                ;058E0F|058E15;
    LDA.W #$0001                         ;058E11|      ;
    RTL                                  ;058E14|      ;
-CODE_058E15:
-   LDA.W #$0000                         ;058E15|      ;
+ + LDA.W #$0000                         ;058E15|      ;
    RTL                                  ;058E18|      ;
 DATA8_058E19:
    db $09                               ;058E19|      ;
-   dl CODE_058F09                       ;058E1A|058F09;
+   dl ASM_Event_Main_09                 ;058E1A|058F09;
    db $04                               ;058E1D|      ;
    dl Some_Death_Check                  ;058E1E|058449;
    db $07                               ;058E21|      ;
@@ -2222,11 +2195,11 @@ DATA8_058E49:
    db $24                               ;058E49|      ;
    db $02                               ;058E4A|      ;
    db $07                               ;058E4B|      ;
-   dl _07906F_far                       ;058E4C|07906B;
+   dl LoadGfx_07906F_far                ;058E4C|07906B;
    db $24                               ;058E4F|      ;
    db $02                               ;058E50|      ;
    db $07                               ;058E51|      ;
-   dl CODE_078DF0                       ;058E52|078DF0;
+   dl Sub_Draw_Level                    ;058E52|078DF0;
    db $06                               ;058E55|      ;
    db $1E                               ;058E56|      ;
    db $07                               ;058E57|      ;
@@ -2236,8 +2209,8 @@ DATA8_058E49:
    db $07                               ;058E61|      ;
    dl RAM_Decomp_802B                   ;058E62|0E8023;
    db $07                               ;058E65|      ;
-   dl Transfer_Data_3b_1b_2b            ;058E66|00A140;
-   dl Data_0D_9548                      ;058E69|0D9548;
+   dl Gfx_GetPalette_3b_1b_2b           ;058E66|00A140;
+   dl Palette_05922A                    ;058E69|0D9548;
    db $53                               ;058E6C|      ;
    dw $001A                             ;058E6D|      ;
    db $0A                               ;058E6F|      ; 0A
@@ -2294,23 +2267,23 @@ Sub_More_setup:
    db $24                               ;058EC2|      ;
    db $02                               ;058EC3|      ;
    db $07                               ;058EC4|      ;
-   dl _07906F_far                       ;058EC5|07906B;
+   dl LoadGfx_07906F_far                ;058EC5|07906B;
    db $24                               ;058EC8|      ;
    db $02                               ;058EC9|      ;
    db $07                               ;058ECA|      ;
-   dl Load_player_cards                 ;058ECB|078F92;
+   dl Load_PC_Name                      ;058ECB|078F92;
    db $24                               ;058ECE|      ;
    db $02                               ;058ECF|      ;
    db $07                               ;058ED0|      ;
-   dl Death_Check_A_1                   ;058ED1|078D46;
+   dl Sub_Draw_HP_I_think               ;058ED1|078D46;
    db $24                               ;058ED4|      ;
    db $02                               ;058ED5|      ;
    db $07                               ;058ED6|      ;
-   dl Death_Check_A_2                   ;058ED7|078DB0;
+   dl Sub_Draw_MP_I_think               ;058ED7|078DB0;
    db $24                               ;058EDA|      ;
    db $02                               ;058EDB|      ;
    db $07                               ;058EDC|      ;
-   dl CODE_078DF0                       ;058EDD|078DF0;
+   dl Sub_Draw_Level                    ;058EDD|078DF0;
    db $05                               ;058EE0|      ; RTL
 DATA8_058EE1:
    db $07                               ;058EE1|      ;
@@ -2337,45 +2310,42 @@ DATA8_058EFF:
    db $1A                               ;058F06|      ;
    db $02                               ;058F07|      ;
    db $1C                               ;058F08|      ; RTS
-CODE_058F09:
+ASM_Event_Main_09:
    JSL.L Is_Equals_1575                 ;058F09|07AEDD;
-   BNE CODE_058F21                      ;058F0D|058F21;
+   BNE +                                ;058F0D|058F21;
 CODE_058F0F:
    JSR.W Error_Check_MP                 ;058F0F|058291;
-   JSR.W CODE_0582BA                    ;058F12|0582BA;
-   BNE CODE_058F21                      ;058F15|058F21;
-   JSR.W CODE_058243                    ;058F17|058243;
-   BNE CODE_058F2F                      ;058F1A|058F2F;
-   JSR.W CODE_058216                    ;058F1C|058216;
-   BEQ CODE_058F2E                      ;058F1F|058F2E;
-CODE_058F21:
-   LDX.W Selection_offset               ;058F21|00103F;
+   JSR.W CODE_FN_0582BA                 ;058F12|0582BA;
+   BNE +                                ;058F15|058F21;
+   JSR.W CODE_FN_058243                 ;058F17|058243;
+   BNE ++                               ;058F1A|058F2F;
+   JSR.W CODE_FN_058216                 ;058F1C|058216;
+   BEQ +++                              ;058F1F|058F2E;
+ + LDX.W Selection_offset               ;058F21|00103F;
    LDA.W #$8DA2                         ;058F24|      ;
    LDY.W #$0005                         ;058F27|      ;
    JML.L Sub_LoadStuff                  ;058F2A|008DB4;
-CODE_058F2E:
-   RTL                                  ;058F2E|      ;
-CODE_058F2F:
-   LDX.W Selection_offset               ;058F2F|00103F;
++++ RTL                                  ;058F2E|      ;
+++ LDX.W Selection_offset               ;058F2F|00103F;
    LDA.W #$8E94                         ;058F32|      ;
    LDY.W #$0005                         ;058F35|      ;
    JML.L Sub_LoadStuff                  ;058F38|008DB4;
    RTL                                  ;058F3C|      ;
-Tbl_Tileset_Event09:
+Tbl_Tileset_Event09_TEEFA:
    dw Tileset_Event04_00                ;058F3D|059D4B;
    dw Tileset_Event04_01                ;058F3F|059D50;
    dw Tileset_Event04_02                ;058F41|059D55;
-   dw DATA8_059D5A                      ;058F43|059D5A;
-   dw DATA8_059D5F                      ;058F45|059D5F;
-   dw DATA8_059D64                      ;058F47|059D64;
-   dw DATA8_059D69                      ;058F49|059D69;
-   dw DATA8_059D9B                      ;058F4B|059D9B;
-   dw DATA8_059DC3                      ;058F4D|059DC3;
-   dw DATA8_059DF5                      ;058F4F|059DF5;
-   dw DATA8_059E3B                      ;058F51|059E3B;
-   dw DATA8_059E6D                      ;058F53|059E6D;
-   dw DATA8_059F03                      ;058F55|059F03;
-Event_Main_0A:
+   dw Tileset_Event04_03                ;058F43|059D5A;
+   dw Tileset_Event04_04                ;058F45|059D5F;
+   dw Tileset_Event04_05                ;058F47|059D64;
+   dw Tileset_Event04_06                ;058F49|059D69;
+   dw Tileset_Event04_07                ;058F4B|059D9B;
+   dw Tileset_Event04_08                ;058F4D|059DC3;
+   dw Tileset_Event04_09                ;058F4F|059DF5;
+   dw Tileset_Event04_0A                ;058F51|059E3B;
+   dw Tileset_Event04_0B                ;058F53|059E6D;
+   dw Tileset_Event04_0C                ;058F55|059F03;
+Event_Main_0A_SALAH:
    db $0F                               ;058F57|      ;
    db $02                               ;058F58|      ;
    dw $0002                             ;058F59|      ;
@@ -2416,7 +2386,7 @@ Event_Main_0A:
    db $07                               ;058F8E|      ;
    dl Max_heal                          ;058F8F|07B92F;
    db $07                               ;058F92|      ;
-   dl CODE_07B11C                       ;058F93|07B11C;
+   dl Set_Condition_4b                  ;058F93|07B11C;
    dw $0002                             ;058F96|      ;
    dw $0000                             ;058F98|      ;
 DATA8_058F9A:
@@ -2426,26 +2396,26 @@ DATA8_058F9A:
    dl OR_element_with_2b                ;058F9D|07B169;
    dw $0000                             ;058FA0|      ;
    db $07                               ;058FA2|      ;
-   dl Transfer_Data_3b_1b_2b            ;058FA3|00A140;
-   dl DATA8_0D92C2                      ;058FA6|0D92C2;
+   dl Gfx_GetPalette_3b_1b_2b           ;058FA3|00A140;
+   dl Palette_058FA2                    ;058FA6|0D92C2;
    db $50                               ;058FA9|      ;
    dw $0020                             ;058FAA|      ;
    db $24                               ;058FAC|      ;
    db $02                               ;058FAD|      ;
    db $07                               ;058FAE|      ;
-   dl Load_player_cards                 ;058FAF|078F92;
+   dl Load_PC_Name                      ;058FAF|078F92;
    db $24                               ;058FB2|      ;
    db $02                               ;058FB3|      ;
    db $07                               ;058FB4|      ;
-   dl Death_Check_A_1                   ;058FB5|078D46;
+   dl Sub_Draw_HP_I_think               ;058FB5|078D46;
    db $24                               ;058FB8|      ;
    db $02                               ;058FB9|      ;
    db $07                               ;058FBA|      ;
-   dl Death_Check_A_2                   ;058FBB|078DB0;
+   dl Sub_Draw_MP_I_think               ;058FBB|078DB0;
    db $24                               ;058FBE|      ;
    db $02                               ;058FBF|      ;
    db $07                               ;058FC0|      ;
-   dl CODE_078DF0                       ;058FC1|078DF0;
+   dl Sub_Draw_Level                    ;058FC1|078DF0;
    db $07                               ;058FC4|      ;
    dl Get_ID_in_slot_2b                 ;058FC5|07B0E8;
    dw $0004                             ;058FC8|      ;
@@ -2462,11 +2432,11 @@ DATA8_058F9A:
    db $24                               ;058FDB|      ;
    db $02                               ;058FDC|      ;
    db $07                               ;058FDD|      ;
-   dl _07906F_far                       ;058FDE|07906B;
+   dl LoadGfx_07906F_far                ;058FDE|07906B;
    db $24                               ;058FE1|      ;
    db $02                               ;058FE2|      ;
    db $07                               ;058FE3|      ;
-   dl CODE_078DF0                       ;058FE4|078DF0;
+   dl Sub_Draw_Level                    ;058FE4|078DF0;
    db $0E                               ;058FE7|      ; 0E: $11C7 and FBFF
    dw $11C7                             ;058FE8|      ;
    db $00                               ;058FEA|      ;
@@ -2508,7 +2478,7 @@ DATA8_05900C:
    db $0A                               ;059026|      ; 0A
 DATA8_059027:
    db $09                               ;059027|      ;
-   dl CODE_0590BC                       ;059028|0590BC;
+   dl ASM_Event_Main_0A                 ;059028|0590BC;
    db $04                               ;05902B|      ;
    dl Some_Death_Check                  ;05902C|058449;
    db $07                               ;05902F|      ;
@@ -2540,11 +2510,11 @@ DATA8_059057:
    db $24                               ;059057|      ;
    db $02                               ;059058|      ;
    db $07                               ;059059|      ;
-   dl _07906F_far                       ;05905A|07906B;
+   dl LoadGfx_07906F_far                ;05905A|07906B;
    db $24                               ;05905D|      ;
    db $02                               ;05905E|      ;
    db $07                               ;05905F|      ;
-   dl CODE_078DF0                       ;059060|078DF0;
+   dl Sub_Draw_Level                    ;059060|078DF0;
    db $06                               ;059063|      ;
    db $1E                               ;059064|      ;
    db $07                               ;059065|      ;
@@ -2554,8 +2524,8 @@ DATA8_059057:
    db $07                               ;05906F|      ;
    dl RAM_Decomp_802B                   ;059070|0E8023;
    db $07                               ;059073|      ;
-   dl Transfer_Data_3b_1b_2b            ;059074|00A140;
-   dl Data_0D_9548                      ;059077|0D9548;
+   dl Gfx_GetPalette_3b_1b_2b           ;059074|00A140;
+   dl Palette_05922A                    ;059077|0D9548;
    db $53                               ;05907A|      ;
    dw $001A                             ;05907B|      ;
    db $0A                               ;05907D|      ; 0A
@@ -2596,52 +2566,49 @@ DATA8_0590B6:
    dw DATA8_058312                      ;0590B7|058312;
    db $1A                               ;0590B9|      ;
    dw DATA8_0590B6                      ;0590BA|0590B6;
-CODE_0590BC:
+ASM_Event_Main_0A:
    JSL.L Is_Equals_1575                 ;0590BC|07AEDD;
-   BNE CODE_0590D4                      ;0590C0|0590D4;
+   BNE +                                ;0590C0|0590D4;
 CODE_0590C2:
    JSR.W Error_Check_MP                 ;0590C2|058291;
-   JSR.W CODE_0582BA                    ;0590C5|0582BA;
-   BNE CODE_0590D4                      ;0590C8|0590D4;
-   JSR.W CODE_058243                    ;0590CA|058243;
-   BNE CODE_0590E2                      ;0590CD|0590E2;
-   JSR.W CODE_058216                    ;0590CF|058216;
-   BEQ CODE_0590E1                      ;0590D2|0590E1;
-CODE_0590D4:
-   LDX.W Selection_offset               ;0590D4|00103F;
+   JSR.W CODE_FN_0582BA                 ;0590C5|0582BA;
+   BNE +                                ;0590C8|0590D4;
+   JSR.W CODE_FN_058243                 ;0590CA|058243;
+   BNE ++                               ;0590CD|0590E2;
+   JSR.W CODE_FN_058216                 ;0590CF|058216;
+   BEQ +++                              ;0590D2|0590E1;
+ + LDX.W Selection_offset               ;0590D4|00103F;
    LDA.W #$8FD4                         ;0590D7|      ;
    LDY.W #$0005                         ;0590DA|      ;
    JML.L Sub_LoadStuff                  ;0590DD|008DB4;
-CODE_0590E1:
-   RTL                                  ;0590E1|      ;
-CODE_0590E2:
-   LDX.W Selection_offset               ;0590E2|00103F;
++++ RTL                                  ;0590E1|      ;
+++ LDX.W Selection_offset               ;0590E2|00103F;
    LDA.W #$90A2                         ;0590E5|      ;
    LDY.W #$0005                         ;0590E8|      ;
    JML.L Sub_LoadStuff                  ;0590EB|008DB4;
    RTL                                  ;0590EF|      ;
-Tbl_Tileset_Event0A:
+Tbl_Tileset_Event0A_SALAH:
    dw Tileset_Event04_00                ;0590F0|059D4B;
    dw Tileset_Event04_01                ;0590F2|059D50;
    dw Tileset_Event04_02                ;0590F4|059D55;
-   dw DATA8_059D5A                      ;0590F6|059D5A;
-   dw DATA8_059D5F                      ;0590F8|059D5F;
-   dw DATA8_059D64                      ;0590FA|059D64;
-   dw DATA8_059D69                      ;0590FC|059D69;
-   dw DATA8_059D9B                      ;0590FE|059D9B;
-   dw DATA8_059DC3                      ;059100|059DC3;
-   dw DATA8_059DF5                      ;059102|059DF5;
-   dw DATA8_059E3B                      ;059104|059E3B;
-   dw DATA8_059E6D                      ;059106|059E6D;
-   dw DATA8_059F03                      ;059108|059F03;
-Event_Main_0B:
+   dw Tileset_Event04_03                ;0590F6|059D5A;
+   dw Tileset_Event04_04                ;0590F8|059D5F;
+   dw Tileset_Event04_05                ;0590FA|059D64;
+   dw Tileset_Event04_06                ;0590FC|059D69;
+   dw Tileset_Event04_07                ;0590FE|059D9B;
+   dw Tileset_Event04_08                ;059100|059DC3;
+   dw Tileset_Event04_09                ;059102|059DF5;
+   dw Tileset_Event04_0A                ;059104|059E3B;
+   dw Tileset_Event04_0B                ;059106|059E6D;
+   dw Tileset_Event04_0C                ;059108|059F03;
+Event_Main_0B_DARWIN:
    db $0F                               ;05910A|      ;
    db $02                               ;05910B|      ;
    dw $0003                             ;05910C|      ;
    db $24                               ;05910E|      ;
    db $00                               ;05910F|      ;
    db $0C                               ;059110|      ;
-   dw CODE_00914D                       ;059111|00914D;
+   dw DATA8_05914D                      ;059111|05914D;
    db $0F                               ;059113|      ;
    db $00                               ;059114|      ;
    dw $0000                             ;059115|      ;
@@ -2676,35 +2643,36 @@ Set_Character_7:
    db $07                               ;059141|      ;
    dl Max_heal                          ;059142|07B92F;
    db $07                               ;059145|      ;
-   dl CODE_07B11C                       ;059146|07B11C;
+   dl Set_Condition_4b                  ;059146|07B11C;
    dw $0002                             ;059149|      ;
    dw $0000                             ;05914B|      ;
+DATA8_05914D:
    db $24                               ;05914D|      ;
    db $02                               ;05914E|      ;
    db $07                               ;05914F|      ;
    dl OR_element_with_2b                ;059150|07B169;
    dw $0000                             ;059153|      ;
    db $07                               ;059155|      ;
-   dl Transfer_Data_3b_1b_2b            ;059156|00A140;
-   dl DATA8_0D92E2                      ;059159|0D92E2;
+   dl Gfx_GetPalette_3b_1b_2b           ;059156|00A140;
+   dl Palette_059155                    ;059159|0D92E2;
    db $60                               ;05915C|      ;
    dw $0020                             ;05915D|      ;
    db $24                               ;05915F|      ;
    db $02                               ;059160|      ;
    db $07                               ;059161|      ;
-   dl Load_player_cards                 ;059162|078F92;
+   dl Load_PC_Name                      ;059162|078F92;
    db $24                               ;059165|      ;
    db $02                               ;059166|      ;
    db $07                               ;059167|      ;
-   dl Death_Check_A_1                   ;059168|078D46;
+   dl Sub_Draw_HP_I_think               ;059168|078D46;
    db $24                               ;05916B|      ;
    db $02                               ;05916C|      ;
    db $07                               ;05916D|      ;
-   dl Death_Check_A_2                   ;05916E|078DB0;
+   dl Sub_Draw_MP_I_think               ;05916E|078DB0;
    db $24                               ;059171|      ;
    db $02                               ;059172|      ;
    db $07                               ;059173|      ;
-   dl CODE_078DF0                       ;059174|078DF0;
+   dl Sub_Draw_Level                    ;059174|078DF0;
    db $07                               ;059177|      ;
    dl Get_ID_in_slot_2b                 ;059178|07B0E8;
    dw $0006                             ;05917B|      ;
@@ -2721,11 +2689,11 @@ Set_Character_7:
    db $24                               ;05918E|      ;
    db $02                               ;05918F|      ;
    db $07                               ;059190|      ;
-   dl _07906F_far                       ;059191|07906B;
+   dl LoadGfx_07906F_far                ;059191|07906B;
    db $24                               ;059194|      ;
    db $02                               ;059195|      ;
    db $07                               ;059196|      ;
-   dl CODE_078DF0                       ;059197|078DF0;
+   dl Sub_Draw_Level                    ;059197|078DF0;
    db $0E                               ;05919A|      ;
    dw $11C9                             ;05919B|      ;
    db $00                               ;05919D|      ;
@@ -2767,7 +2735,7 @@ DATA8_0591BF:
    db $0A                               ;0591D9|      ; 0A
 DATA8_0591DA:
    db $09                               ;0591DA|      ;
-   dl CODE_0592CA                       ;0591DB|0592CA;
+   dl ASM_Event_Main_0B                 ;0591DB|0592CA;
    db $04                               ;0591DE|      ;
    dl Some_Death_Check                  ;0591DF|058449;
    db $07                               ;0591E2|      ;
@@ -2799,11 +2767,11 @@ DATA8_05920A:
    db $24                               ;05920A|      ;
    db $02                               ;05920B|      ;
    db $07                               ;05920C|      ;
-   dl _07906F_far                       ;05920D|07906B;
+   dl LoadGfx_07906F_far                ;05920D|07906B;
    db $24                               ;059210|      ;
    db $02                               ;059211|      ;
    db $07                               ;059212|      ;
-   dl CODE_078DF0                       ;059213|078DF0;
+   dl Sub_Draw_Level                    ;059213|078DF0;
    db $06                               ;059216|      ;
    db $1E                               ;059217|      ;
    db $07                               ;059218|      ;
@@ -2813,8 +2781,8 @@ DATA8_05920A:
    db $07                               ;059222|      ;
    dl RAM_Decomp_803C                   ;059223|0E8034;
    db $07                               ;059226|      ;
-   dl Transfer_Data_3b_1b_2b            ;059227|00A140;
-   dl Data_0D_9548                      ;05922A|0D9548;
+   dl Gfx_GetPalette_3b_1b_2b           ;059227|00A140;
+   dl Palette_05922A                    ;05922A|0D9548;
    db $63                               ;05922D|      ;
    dw $001A                             ;05922E|      ;
    db $0A                               ;059230|      ;
@@ -2871,23 +2839,23 @@ Sub_Another_setup_again:
    db $24                               ;059283|      ;
    db $02                               ;059284|      ;
    db $07                               ;059285|      ;
-   dl _07906F_far                       ;059286|07906B;
+   dl LoadGfx_07906F_far                ;059286|07906B;
    db $24                               ;059289|      ;
    db $02                               ;05928A|      ;
    db $07                               ;05928B|      ;
-   dl Load_player_cards                 ;05928C|078F92;
+   dl Load_PC_Name                      ;05928C|078F92;
    db $24                               ;05928F|      ;
    db $02                               ;059290|      ;
    db $07                               ;059291|      ;
-   dl Death_Check_A_1                   ;059292|078D46;
+   dl Sub_Draw_HP_I_think               ;059292|078D46;
    db $24                               ;059295|      ;
    db $02                               ;059296|      ;
    db $07                               ;059297|      ;
-   dl Death_Check_A_2                   ;059298|078DB0;
+   dl Sub_Draw_MP_I_think               ;059298|078DB0;
    db $24                               ;05929B|      ;
    db $02                               ;05929C|      ;
    db $07                               ;05929D|      ;
-   dl CODE_078DF0                       ;05929E|078DF0;
+   dl Sub_Draw_Level                    ;05929E|078DF0;
    db $05                               ;0592A1|      ;
 DATA8_0592A2:
    db $07                               ;0592A2|      ;
@@ -2913,45 +2881,42 @@ DATA8_0592C0:
    dl UNREACH_0E813E                    ;0592C4|0E813E;
    dw $021A                             ;0592C7|      ;
    db $1C                               ;0592C9|      ;
-CODE_0592CA:
+ASM_Event_Main_0B:
    JSL.L Is_Equals_1575                 ;0592CA|07AEDD;
-   BNE CODE_0592E2                      ;0592CE|0592E2;
+   BNE +                                ;0592CE|0592E2;
 CODE_0592D0:
    JSR.W Error_Check_MP                 ;0592D0|058291;
-   JSR.W CODE_0582BA                    ;0592D3|0582BA;
-   BNE CODE_0592E2                      ;0592D6|0592E2;
-   JSR.W CODE_058243                    ;0592D8|058243;
-   BNE CODE_0592F0                      ;0592DB|0592F0;
-   JSR.W CODE_058216                    ;0592DD|058216;
-   BEQ CODE_0592EF                      ;0592E0|0592EF;
-CODE_0592E2:
-   LDX.W Selection_offset               ;0592E2|00103F;
+   JSR.W CODE_FN_0582BA                 ;0592D3|0582BA;
+   BNE +                                ;0592D6|0592E2;
+   JSR.W CODE_FN_058243                 ;0592D8|058243;
+   BNE ++                               ;0592DB|0592F0;
+   JSR.W CODE_FN_058216                 ;0592DD|058216;
+   BEQ +++                              ;0592E0|0592EF;
+ + LDX.W Selection_offset               ;0592E2|00103F;
    LDA.W #$9187                         ;0592E5|      ;
    LDY.W #$0005                         ;0592E8|      ;
    JML.L Sub_LoadStuff                  ;0592EB|008DB4;
-CODE_0592EF:
-   RTL                                  ;0592EF|      ;
-CODE_0592F0:
-   LDX.W Selection_offset               ;0592F0|00103F;
++++ RTL                                  ;0592EF|      ;
+++ LDX.W Selection_offset               ;0592F0|00103F;
    LDA.W #$9255                         ;0592F3|      ;
    LDY.W #$0005                         ;0592F6|      ;
    JML.L Sub_LoadStuff                  ;0592F9|008DB4;
    RTL                                  ;0592FD|      ;
-Tbl_Tileset_Event0B:
+Tbl_Tileset_Event0B_DARWIN:
    dw Tileset_Event04_00                ;0592FE|059D4B;
    dw Tileset_Event04_01                ;059300|059D50;
    dw Tileset_Event04_02                ;059302|059D55;
-   dw DATA8_059D5A                      ;059304|059D5A;
-   dw DATA8_059D5F                      ;059306|059D5F;
-   dw DATA8_059D64                      ;059308|059D64;
-   dw DATA8_059D69                      ;05930A|059D69;
-   dw DATA8_059D9B                      ;05930C|059D9B;
-   dw DATA8_059DC3                      ;05930E|059DC3;
-   dw DATA8_059DF5                      ;059310|059DF5;
-   dw DATA8_059E3B                      ;059312|059E3B;
-   dw DATA8_059E6D                      ;059314|059E6D;
-   dw DATA8_059F03                      ;059316|059F03;
-Event_Main_0C:
+   dw Tileset_Event04_03                ;059304|059D5A;
+   dw Tileset_Event04_04                ;059306|059D5F;
+   dw Tileset_Event04_05                ;059308|059D64;
+   dw Tileset_Event04_06                ;05930A|059D69;
+   dw Tileset_Event04_07                ;05930C|059D9B;
+   dw Tileset_Event04_08                ;05930E|059DC3;
+   dw Tileset_Event04_09                ;059310|059DF5;
+   dw Tileset_Event04_0A                ;059312|059E3B;
+   dw Tileset_Event04_0B                ;059314|059E6D;
+   dw Tileset_Event04_0C                ;059316|059F03;
+Event_Main_0C_AXS:
    db $0F                               ;059318|      ;
    db $02                               ;059319|      ;
    dw $0003                             ;05931A|      ;
@@ -2993,7 +2958,7 @@ Axs_recruited:
    db $07                               ;05934F|      ;
    dl Max_heal                          ;059350|07B92F;
    db $07                               ;059353|      ;
-   dl CODE_07B11C                       ;059354|07B11C;
+   dl Set_Condition_4b                  ;059354|07B11C;
    dw $0002                             ;059357|      ;
    dw $0000                             ;059359|      ;
 DATA8_05935B:
@@ -3003,26 +2968,26 @@ DATA8_05935B:
    dl OR_element_with_2b                ;05935E|07B169;
    dw $0000                             ;059361|      ;
    db $07                               ;059363|      ;
-   dl Transfer_Data_3b_1b_2b            ;059364|00A140;
-   dl DATA8_0D9302                      ;059367|0D9302;
+   dl Gfx_GetPalette_3b_1b_2b           ;059364|00A140;
+   dl Palette_059363                    ;059367|0D9302;
    db $60                               ;05936A|      ;
    dw $0020                             ;05936B|      ;
    db $24                               ;05936D|      ;
    db $02                               ;05936E|      ;
    db $07                               ;05936F|      ;
-   dl Load_player_cards                 ;059370|078F92;
+   dl Load_PC_Name                      ;059370|078F92;
    db $24                               ;059373|      ;
    db $02                               ;059374|      ;
    db $07                               ;059375|      ;
-   dl Death_Check_A_1                   ;059376|078D46;
+   dl Sub_Draw_HP_I_think               ;059376|078D46;
    db $24                               ;059379|      ;
    db $02                               ;05937A|      ;
    db $07                               ;05937B|      ;
-   dl Death_Check_A_2                   ;05937C|078DB0;
+   dl Sub_Draw_MP_I_think               ;05937C|078DB0;
    db $24                               ;05937F|      ;
    db $02                               ;059380|      ;
    db $07                               ;059381|      ;
-   dl CODE_078DF0                       ;059382|078DF0;
+   dl Sub_Draw_Level                    ;059382|078DF0;
    db $07                               ;059385|      ;
    dl Get_ID_in_slot_2b                 ;059386|07B0E8;
    dw $0006                             ;059389|      ;
@@ -3039,11 +3004,11 @@ DATA8_05935B:
    db $24                               ;05939C|      ;
    db $02                               ;05939D|      ;
    db $07                               ;05939E|      ;
-   dl _07906F_far                       ;05939F|07906B;
+   dl LoadGfx_07906F_far                ;05939F|07906B;
    db $24                               ;0593A2|      ;
    db $02                               ;0593A3|      ;
    db $07                               ;0593A4|      ;
-   dl CODE_078DF0                       ;0593A5|078DF0;
+   dl Sub_Draw_Level                    ;0593A5|078DF0;
    db $0E                               ;0593A8|      ;
    dw $11C9                             ;0593A9|      ;
    db $00                               ;0593AB|      ;
@@ -3085,7 +3050,7 @@ DATA8_0593CD:
    db $0A                               ;0593E7|      ; 0A
 DATA8_0593E8:
    db $09                               ;0593E8|      ;
-   dl CODE_05947D                       ;0593E9|05947D;
+   dl ASM_Event_Main_0C                 ;0593E9|05947D;
    db $04                               ;0593EC|      ;
    dl Some_Death_Check                  ;0593ED|058449;
    db $07                               ;0593F0|      ;
@@ -3117,11 +3082,11 @@ DATA8_059418:
    db $24                               ;059418|      ;
    db $02                               ;059419|      ;
    db $07                               ;05941A|      ;
-   dl _07906F_far                       ;05941B|07906B;
+   dl LoadGfx_07906F_far                ;05941B|07906B;
    db $24                               ;05941E|      ;
    db $02                               ;05941F|      ;
    db $07                               ;059420|      ;
-   dl CODE_078DF0                       ;059421|078DF0;
+   dl Sub_Draw_Level                    ;059421|078DF0;
    db $06                               ;059424|      ;
    db $1E                               ;059425|      ;
    db $07                               ;059426|      ;
@@ -3131,8 +3096,8 @@ DATA8_059418:
    db $07                               ;059430|      ;
    dl RAM_Decomp_803C                   ;059431|0E8034;
    db $07                               ;059434|      ;
-   dl Transfer_Data_3b_1b_2b            ;059435|00A140;
-   dl Data_0D_9548                      ;059438|0D9548;
+   dl Gfx_GetPalette_3b_1b_2b           ;059435|00A140;
+   dl Palette_05922A                    ;059438|0D9548;
    db $63                               ;05943B|      ;
    dw $001A                             ;05943C|      ;
    db $0A                               ;05943E|      ; 0A
@@ -3173,45 +3138,42 @@ DATA8_059477:
    dw DATA8_058312                      ;059478|058312;
    db $1A                               ;05947A|      ;
    dw DATA8_059477                      ;05947B|059477;
-CODE_05947D:
+ASM_Event_Main_0C:
    JSL.L Is_Equals_1575                 ;05947D|07AEDD;
-   BNE CODE_059495                      ;059481|059495;
+   BNE +                                ;059481|059495;
 CODE_059483:
    JSR.W Error_Check_MP                 ;059483|058291;
-   JSR.W CODE_0582BA                    ;059486|0582BA;
-   BNE CODE_059495                      ;059489|059495;
-   JSR.W CODE_058243                    ;05948B|058243;
-   BNE CODE_0594A3                      ;05948E|0594A3;
-   JSR.W CODE_058216                    ;059490|058216;
-   BEQ CODE_0594A2                      ;059493|0594A2;
-CODE_059495:
-   LDX.W Selection_offset               ;059495|00103F;
+   JSR.W CODE_FN_0582BA                 ;059486|0582BA;
+   BNE +                                ;059489|059495;
+   JSR.W CODE_FN_058243                 ;05948B|058243;
+   BNE ++                               ;05948E|0594A3;
+   JSR.W CODE_FN_058216                 ;059490|058216;
+   BEQ +++                              ;059493|0594A2;
+ + LDX.W Selection_offset               ;059495|00103F;
    LDA.W #$9395                         ;059498|      ;
    LDY.W #$0005                         ;05949B|      ;
    JML.L Sub_LoadStuff                  ;05949E|008DB4;
-CODE_0594A2:
-   RTL                                  ;0594A2|      ;
-CODE_0594A3:
-   LDX.W Selection_offset               ;0594A3|00103F;
++++ RTL                                  ;0594A2|      ;
+++ LDX.W Selection_offset               ;0594A3|00103F;
    LDA.W #$9463                         ;0594A6|      ;
    LDY.W #$0005                         ;0594A9|      ;
    JML.L Sub_LoadStuff                  ;0594AC|008DB4;
    RTL                                  ;0594B0|      ;
-Tbl_Tileset_Event0C:
+Tbl_Tileset_Event0C_AXS:
    dw Tileset_Event04_00                ;0594B1|059D4B;
    dw Tileset_Event04_01                ;0594B3|059D50;
    dw Tileset_Event04_02                ;0594B5|059D55;
-   dw DATA8_059D5A                      ;0594B7|059D5A;
-   dw DATA8_059D5F                      ;0594B9|059D5F;
-   dw DATA8_059D64                      ;0594BB|059D64;
-   dw DATA8_059D69                      ;0594BD|059D69;
-   dw DATA8_059D9B                      ;0594BF|059D9B;
-   dw DATA8_059DC3                      ;0594C1|059DC3;
-   dw DATA8_059DF5                      ;0594C3|059DF5;
-   dw DATA8_059E3B                      ;0594C5|059E3B;
-   dw DATA8_059E6D                      ;0594C7|059E6D;
-   dw DATA8_059F03                      ;0594C9|059F03;
-Event_Main_0D:
+   dw Tileset_Event04_03                ;0594B7|059D5A;
+   dw Tileset_Event04_04                ;0594B9|059D5F;
+   dw Tileset_Event04_05                ;0594BB|059D64;
+   dw Tileset_Event04_06                ;0594BD|059D69;
+   dw Tileset_Event04_07                ;0594BF|059D9B;
+   dw Tileset_Event04_08                ;0594C1|059DC3;
+   dw Tileset_Event04_09                ;0594C3|059DF5;
+   dw Tileset_Event04_0A                ;0594C5|059E3B;
+   dw Tileset_Event04_0B                ;0594C7|059E6D;
+   dw Tileset_Event04_0C                ;0594C9|059F03;
+Event_Main_0D_SKULL1:
    db $0F                               ;0594CB|      ;
    db $00                               ;0594CC|      ;
    dw $0000                             ;0594CD|      ;
@@ -3239,7 +3201,7 @@ Set_Character_ID09:
    db $07                               ;0594EF|      ;
    dl Max_heal                          ;0594F0|07B92F;
    db $07                               ;0594F3|      ;
-   dl CODE_07B11C                       ;0594F4|07B11C;
+   dl Set_Condition_4b                  ;0594F4|07B11C;
    dw $0002                             ;0594F7|      ;
    dw $0002                             ;0594F9|      ;
    db $24                               ;0594FB|      ;
@@ -3248,12 +3210,12 @@ Set_Character_ID09:
    dl OR_element_with_2b                ;0594FE|07B169;
    dw $0F00                             ;059501|      ;
    db $07                               ;059503|      ;
-   dl Transfer_Data_3b_1b_2b            ;059504|00A140;
-   dl Palette_05_9507                   ;059507|0D920A;
+   dl Gfx_GetPalette_3b_1b_2b           ;059504|00A140;
+   dl Palette_059503                    ;059507|0D920A;
    db $70                               ;05950A|      ;
    dw $0020                             ;05950B|      ;
    db $07                               ;05950D|      ;
-   dl Transfer_Data_3b_1b_2b            ;05950E|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;05950E|00A140;
    dl $001577                           ;059511|001577;
    db $73                               ;059514|      ;
    dw $0002                             ;059515|      ;
@@ -3269,11 +3231,11 @@ Set_Character_ID09:
    db $24                               ;059527|      ;
    db $02                               ;059528|      ;
    db $07                               ;059529|      ;
-   dl Load_player_cards                 ;05952A|078F92;
+   dl Load_PC_Name                      ;05952A|078F92;
    db $24                               ;05952D|      ;
    db $02                               ;05952E|      ;
    db $07                               ;05952F|      ;
-   dl _07906F_far                       ;059530|07906B;
+   dl LoadGfx_07906F_far                ;059530|07906B;
    db $07                               ;059533|      ;
    dl Decomp_Setup2_3b_3b               ;059534|00A035;
    dl Sprite_Skull_Card                 ;059537|0E92F9;
@@ -3281,16 +3243,16 @@ Set_Character_ID09:
    db $07                               ;05953D|      ;
    dl RAM_Decomp_801A                   ;05953E|0E8012;
    db $0A                               ;059541|      ; 0A
-Tbl_Tileset_Event0D:
+Tbl_Tileset_Event0D_SKULL1:
    dw Tileset_Event04_00                ;059542|059D4B;
    dw Tileset_Event04_01                ;059544|059D50;
    dw Tileset_Event04_02                ;059546|059D55;
-   dw DATA8_059D5A                      ;059548|059D5A;
-   dw DATA8_059D5F                      ;05954A|059D5F;
-   dw DATA8_059D64                      ;05954C|059D64;
-   dw DATA8_059D69                      ;05954E|059D69;
-   dw DATA8_059D9B                      ;059550|059D9B;
-Event_Main_0E:
+   dw Tileset_Event04_03                ;059548|059D5A;
+   dw Tileset_Event04_04                ;05954A|059D5F;
+   dw Tileset_Event04_05                ;05954C|059D64;
+   dw Tileset_Event04_06                ;05954E|059D69;
+   dw Tileset_Event04_07                ;059550|059D9B;
+Event_Main_0E_SKULL2:
    db $0F                               ;059552|      ;
    db $00                               ;059553|      ;
    dw $0000                             ;059554|      ;
@@ -3317,7 +3279,7 @@ Event_Main_0E:
    db $07                               ;059576|      ;
    dl Max_heal                          ;059577|07B92F;
    db $07                               ;05957A|      ;
-   dl CODE_07B11C                       ;05957B|07B11C;
+   dl Set_Condition_4b                  ;05957B|07B11C;
    dw $0002                             ;05957E|      ;
    dw $0002                             ;059580|      ;
    db $24                               ;059582|      ;
@@ -3326,8 +3288,8 @@ Event_Main_0E:
    dl OR_element_with_2b                ;059585|07B169;
    dw $0F00                             ;059588|      ;
    db $07                               ;05958A|      ;
-   dl Transfer_Data_3b_1b_2b            ;05958B|00A140;
-   dl Palette_05_9507                   ;05958E|0D920A;
+   dl Gfx_GetPalette_3b_1b_2b           ;05958B|00A140;
+   dl Palette_059503                    ;05958E|0D920A;
    db $50                               ;059591|      ;
    dw $0020                             ;059592|      ;
    db $06                               ;059594|      ;
@@ -3344,11 +3306,11 @@ Event_Main_0E:
    db $24                               ;0595A6|      ;
    db $02                               ;0595A7|      ;
    db $07                               ;0595A8|      ; Load player cards
-   dl Load_player_cards                 ;0595A9|078F92;
+   dl Load_PC_Name                      ;0595A9|078F92;
    db $24                               ;0595AC|      ;
    db $02                               ;0595AD|      ;
    db $07                               ;0595AE|      ;
-   dl _07906F_far                       ;0595AF|07906B;
+   dl LoadGfx_07906F_far                ;0595AF|07906B;
    db $07                               ;0595B2|      ;
    dl Decomp_Setup2_3b_3b               ;0595B3|00A035;
    dl Sprite_Skull_Card                 ;0595B6|0E92F9;
@@ -3356,16 +3318,16 @@ Event_Main_0E:
    db $07                               ;0595BC|      ;
    dl RAM_Decomp_802B                   ;0595BD|0E8023;
    db $0A                               ;0595C0|      ;
-Tbl_Tileset_Event0E:
+Tbl_Tileset_Event0E_SKULL2:
    dw Tileset_Event04_00                ;0595C1|059D4B;
    dw Tileset_Event04_01                ;0595C3|059D50;
    dw Tileset_Event04_02                ;0595C5|059D55;
-   dw DATA8_059D5A                      ;0595C7|059D5A;
-   dw DATA8_059D5F                      ;0595C9|059D5F;
-   dw DATA8_059D64                      ;0595CB|059D64;
-   dw DATA8_059D69                      ;0595CD|059D69;
-   dw DATA8_059D9B                      ;0595CF|059D9B;
-Event_Main_0F:
+   dw Tileset_Event04_03                ;0595C7|059D5A;
+   dw Tileset_Event04_04                ;0595C9|059D5F;
+   dw Tileset_Event04_05                ;0595CB|059D64;
+   dw Tileset_Event04_06                ;0595CD|059D69;
+   dw Tileset_Event04_07                ;0595CF|059D9B;
+Event_Main_0F_SKULL3:
    db $0F                               ;0595D1|      ;
    db $00                               ;0595D2|      ;
    dw $0000                             ;0595D3|      ;
@@ -3392,7 +3354,7 @@ Event_Main_0F:
    db $07                               ;0595F5|      ;
    dl Max_heal                          ;0595F6|07B92F;
    db $07                               ;0595F9|      ;
-   dl CODE_07B11C                       ;0595FA|07B11C;
+   dl Set_Condition_4b                  ;0595FA|07B11C;
    dw $0002                             ;0595FD|      ;
    dw $0002                             ;0595FF|      ;
    db $24                               ;059601|      ;
@@ -3401,8 +3363,8 @@ Event_Main_0F:
    dl OR_element_with_2b                ;059604|07B169;
    dw $0F00                             ;059607|      ;
    db $07                               ;059609|      ;
-   dl Transfer_Data_3b_1b_2b            ;05960A|00A140;
-   dl Palette_05_9507                   ;05960D|0D920A;
+   dl Gfx_GetPalette_3b_1b_2b           ;05960A|00A140;
+   dl Palette_059503                    ;05960D|0D920A;
    db $60                               ;059610|      ;
    dw $0020                             ;059611|      ;
    db $06                               ;059613|      ;
@@ -3419,11 +3381,11 @@ Event_Main_0F:
    db $24                               ;059625|      ;
    db $02                               ;059626|      ;
    db $07                               ;059627|      ;
-   dl Load_player_cards                 ;059628|078F92;
+   dl Load_PC_Name                      ;059628|078F92;
    db $24                               ;05962B|      ;
    db $02                               ;05962C|      ;
    db $07                               ;05962D|      ;
-   dl _07906F_far                       ;05962E|07906B;
+   dl LoadGfx_07906F_far                ;05962E|07906B;
    db $07                               ;059631|      ;
    dl Decomp_Setup2_3b_3b               ;059632|00A035;
    dl Sprite_Skull_Card                 ;059635|0E92F9;
@@ -3431,15 +3393,15 @@ Event_Main_0F:
    db $07                               ;05963B|      ;
    dl RAM_Decomp_803C                   ;05963C|0E8034;
    db $0A                               ;05963F|      ; 0A
-Tbl_Tileset_Event0F:
+Tbl_Tileset_Event0F_SKULL3:
    dw Tileset_Event04_00                ;059640|059D4B;
    dw Tileset_Event04_01                ;059642|059D50;
    dw Tileset_Event04_02                ;059644|059D55;
-   dw DATA8_059D5A                      ;059646|059D5A;
-   dw DATA8_059D5F                      ;059648|059D5F;
-   dw DATA8_059D64                      ;05964A|059D64;
-   dw DATA8_059D69                      ;05964C|059D69;
-   dw DATA8_059D9B                      ;05964E|059D9B;
+   dw Tileset_Event04_03                ;059646|059D5A;
+   dw Tileset_Event04_04                ;059648|059D5F;
+   dw Tileset_Event04_05                ;05964A|059D64;
+   dw Tileset_Event04_06                ;05964C|059D69;
+   dw Tileset_Event04_07                ;05964E|059D9B;
 Sub_Pixellation_Damage:
    db $07                               ;059650|      ; Is it the final boss fight?
    dl Is_FightingFinalBoss              ;059651|078001;
@@ -3503,7 +3465,7 @@ DATA8_059683:
    dl Store_A_in_11B5_x_1b              ;05969E|07AF9E;
    db $05                               ;0596A1|      ;
    db $07                               ;0596A2|      ;
-   dl Load_Temp_Var_2b                  ;0596A3|07B4A1;
+   dl Load_Object_Var_2b                ;0596A3|07B4A1;
    dw $0002                             ;0596A6|      ;
    db $07                               ;0596A8|      ;
    dl Get_PC_Name1_far                  ;0596A9|07B4DC;
@@ -3532,7 +3494,7 @@ Display_Petrified:
    dl IsPetrified                       ;0596CD|08894E;
    db $00                               ;0596D0|      ;
    db $1F                               ;0596D1|      ;
-   dw $103F                             ;0596D2|00103F;
+   dw $103F                             ;0596D2|05103F;
    db $23                               ;0596D4|      ;
    db $01                               ;0596D5|      ;
    db $07                               ;0596D6|      ;
@@ -3579,18 +3541,18 @@ Display_Asleep:
    dl IsAsleep                          ;05971A|08897D;
    db $00                               ;05971D|      ;
    db $1B                               ;05971E|      ;
-   dw CODE_009942                       ;05971F|009942;
+   dw DATA8_059942                      ;05971F|059942;
    db $07                               ;059721|      ;
    dl RNG_1b                            ;059722|00A0BD;
    db $04                               ;059725|      ;
    db $0C                               ;059726|      ;
-   dw CODE_0097D0                       ;059727|0097D0;
+   dw SaveResult                        ;059727|0597D0;
    db $07                               ;059729|      ;
    dl Setup_Text_Parser_3b              ;05972A|00A0AC;
    dl HasAwakened                       ;05972D|088992;
    db $00                               ;059730|      ;
    db $1B                               ;059731|      ;
-   dw CODE_009942                       ;059732|009942;
+   dw DATA8_059942                      ;059732|059942;
    db $1F                               ;059734|      ; Store ($11BF) in function results
    dw $11BF                             ;059735|0511BF;
    db $23                               ;059737|      ;
@@ -3599,7 +3561,7 @@ Display_Asleep:
    dl Menu_Stuffs_1b                    ;05973A|009CC9;
    db $00                               ;05973D|      ;
    db $07                               ;05973E|      ;
-   dl CODE_07B11C                       ;05973F|07B11C;
+   dl Set_Condition_4b                  ;05973F|07B11C;
    db $02                               ;059742|      ;
    db $00                               ;059743|      ;
    dw $0000                             ;059744|      ;
@@ -3715,7 +3677,7 @@ SaveResult:
    db $01                               ;0597E2|      ;
    db $00                               ;0597E3|      ;
    db $07                               ;0597E4|      ; Get party ID from offset $09EB,x
-   dl Load_Temp_Var_2b                  ;0597E5|07B4A1;
+   dl Load_Object_Var_2b                ;0597E5|07B4A1;
    db $02                               ;0597E8|      ;
    db $00                               ;0597E9|      ;
    db $11                               ;0597EA|      ;
@@ -3725,7 +3687,7 @@ Some_Battle_Flow:
    dw DATA8_0586B4                      ;0597EE|0586B4;
    dw DATA8_0588C5                      ;0597F0|0588C5;
    dw DATA8_058A62                      ;0597F2|058A62;
-   dw DATA8_058BFF                      ;0597F4|058BFF;
+   dw ASM_058BFF_In_Battle              ;0597F4|058BFF;
    dw DATA8_058E19                      ;0597F6|058E19;
    dw DATA8_059027                      ;0597F8|059027;
    dw DATA8_0591DA                      ;0597FA|0591DA;
@@ -3735,8 +3697,8 @@ Battle_Attack:
    db $01                               ;0597FF|      ;
    dw $0014                             ;059800|      ;
    db $07                               ;059802|      ; 07: Call 00/A140 (Store next 3b into $18)
-   dl Transfer_Data_3b_1b_2b            ;059803|00A140;
-   dl _189AD2_2_bytes                   ;059806|0D958E; 0D/958E -> $18
+   dl Gfx_GetPalette_3b_1b_2b           ;059803|00A140;
+   dl Text_Color_Yellow                 ;059806|0D958E; 0D/958E -> $18
    db $02                               ;059809|      ; $420+2x2 -> $1C
    dw $0002                             ;05980A|      ; Loop once (Store (0D/958E) -> $0424)
    db $07                               ;05980C|      ; 07: Call 07/8A30 (Some Targeting Prep)
@@ -3745,11 +3707,11 @@ DATA8_059810:
    db $06                               ;059810|      ; Delay 01
    db $01                               ;059811|      ;
    db $07                               ;059812|      ;
-   dl CODE_078AA0                       ;059813|078AA0;
+   dl Sub_078AA0                        ;059813|078AA0;
    db $07                               ;059816|      ;
    dl Swap_values                       ;059817|078C75;
    db $07                               ;05981A|      ;
-   dl Get_enemy_ID_from_09C7_far        ;05981B|079118;
+   dl Get_enemy_ID_far                  ;05981B|079118;
    db $07                               ;05981E|      ;
    dl Get_Enemy_AtkFrame_flag           ;05981F|07B61B;
    db $11                               ;059822|      ;
@@ -3809,7 +3771,7 @@ DATA8_059860:
    db $FF                               ;059866|      ;
 DATA8_059867:
    db $07                               ;059867|      ;
-   dl Get_enemy_ID_from_09C7_far        ;059868|079118;
+   dl Get_enemy_ID_far                  ;059868|079118;
    db $07                               ;05986B|      ;
    dl Get_enemy_name                    ;05986C|07B569;
 DATA8_05986F:
@@ -3821,7 +3783,7 @@ DATA8_05986F:
    dl Store_A_in_11B5_x_1b              ;059878|07AF9E;
    db $00                               ;05987B|      ;
    db $07                               ;05987C|      ;
-   dl Load_Temp_Var_2b                  ;05987D|07B4A1;
+   dl Load_Object_Var_2b                ;05987D|07B4A1;
    db $02                               ;059880|      ;
    db $00                               ;059881|      ;
    db $12                               ;059882|      ;
@@ -3845,7 +3807,7 @@ DATA8_05986F:
    dl Store_A_in_11B5_x_1b              ;0598A1|07AF9E;
    db $00                               ;0598A4|      ;
    db $07                               ;0598A5|      ;
-   dl CODE_0783E5                       ;0598A6|0783E5;
+   dl CODE_FL_0783E5                    ;0598A6|0783E5;
    db $0C                               ;0598A9|      ;
    dw DATA8_0598B5                      ;0598AA|0598B5;
    db $1F                               ;0598AC|      ;
@@ -3972,8 +3934,8 @@ DATA8_059942:
    db $1C                               ;05994E|      ;
 Battle_Items:
    db $07                               ;05994F|      ;
-   dl Transfer_Data_3b_1b_2b            ;059950|00A140;
-   dl Weapons_Menu                      ;059953|0D9590;
+   dl Gfx_GetPalette_3b_1b_2b           ;059950|00A140;
+   dl Text_Color_Gray                   ;059953|0D9590;
    db $02                               ;059956|      ;
    dw $0002                             ;059957|      ;
    db $0F                               ;059959|      ;
@@ -4026,7 +3988,7 @@ DATA8_059980:
    db $01                               ;0599A6|      ;
 DATA8_0599A7:
    db $07                               ;0599A7|      ;
-   dl CODE_078800                       ;0599A8|078800;
+   dl Sub_Get_BtlSpellMenu_Pos          ;0599A8|078800;
    db $1E                               ;0599AB|      ;
    dw $0000                             ;0599AC|      ;
    db $07                               ;0599AE|      ;
@@ -4141,6 +4103,7 @@ DATA8_059A3D:
    dw $0080                             ;059A46|      ;
    db $0C                               ;059A48|      ;
    dw DATA8_059AF8                      ;059A49|059AF8;
+DATA8_059A4B:
    db $07                               ;059A4B|      ;
    dl _11B1_input_stuff                 ;059A4C|07A5BA;
    db $0B                               ;059A4F|      ;
@@ -4150,9 +4113,9 @@ DATA8_059A3D:
    db $07                               ;059A55|      ;
    dl Spirit_check_far                  ;059A56|07A5F7;
    db $0C                               ;059A59|      ;
-   dw CODE_009A4B                       ;059A5A|009A4B;
+   dw DATA8_059A4B                      ;059A5A|059A4B;
    db $07                               ;059A5C|      ;
-   dl CODE_07B98A                       ;059A5D|07B98A;
+   dl CODE_FL_07B98A                    ;059A5D|07B98A;
    db $07                               ;059A60|      ;
    dl Battle_related1b                  ;059A61|009CDD;
    db $0E                               ;059A64|      ;
@@ -4311,29 +4274,29 @@ CODE_059B1E:
    STA.W Object_var1_Category,X         ;059B2A|0009C7;
    RTL                                  ;059B2D|      ;
 Battle_Magic:
-   db $1E                               ;059B2E|      ;
+   db $1E                               ;059B2E|      ; LDA var0
    db $00                               ;059B2F|      ;
    db $00                               ;059B30|      ;
-   db $07                               ;059B31|      ;
-   dl _07882E_far                       ;059B32|07882A;
-   db $0C                               ;059B35|      ;
+   db $07                               ;059B31|      ; Is their spell list empty?
+   dl IsSpellListEmpty_far              ;059B32|07882A;
+   db $0C                               ;059B35|      ; If true, return to main menu
    dw DATA8_059BDE                      ;059B36|059BDE;
-   db $07                               ;059B38|      ;
-   dl Transfer_Data_3b_1b_2b            ;059B39|00A140;
-   dl Weapons_Menu                      ;059B3C|0D9590;
+   db $07                               ;059B38|      ; Load 2nd color (gray)
+   dl Gfx_GetPalette_3b_1b_2b           ;059B39|00A140;
+   dl Text_Color_Gray                   ;059B3C|0D9590;
    db $02                               ;059B3F|      ;
    dw $0002                             ;059B40|      ;
-   db $0F                               ;059B42|      ;
+   db $0F                               ;059B42|      ; Set var1 to 0
    db $01                               ;059B43|      ;
    dw $0000                             ;059B44|      ;
    db $07                               ;059B46|      ;
-   dl CODE_07863B                       ;059B47|07863B;
+   dl Battle_SpellList_Arrows           ;059B47|07863B;
    db $12                               ;059B4A|      ;
    db $04                               ;059B4B|      ;
-   dw DATA8_059BE5                      ;059B4C|059BE5;
-   dw DATA8_059BEA                      ;059B4E|059BEA;
-   dw DATA8_059BEF                      ;059B50|059BEF;
-   dw DATA8_059BF4                      ;059B52|059BF4;
+   dw Battle_Magic_Arrow_LR             ;059B4C|059BE5;
+   dw Battle_Magic_Arrow_Right          ;059B4E|059BEA;
+   dw Battle_Magic_Arrow_Left           ;059B50|059BEF;
+   dw Battle_Magic_Arrow_None           ;059B52|059BF4;
    db $07                               ;059B54|      ;
    dl CODE_07886F                       ;059B55|07886F;
    db $07                               ;059B58|      ; "Battle Magic Menu"
@@ -4350,13 +4313,13 @@ Battle_Loop_Magic_Pick:
    db $0B                               ;059B68|      ;
    dw DATA8_059B87                      ;059B69|059B87;
    db $07                               ;059B6B|      ;
-   dl CODE_07863B                       ;059B6C|07863B;
+   dl Battle_SpellList_Arrows           ;059B6C|07863B;
    db $12                               ;059B6F|      ;
    db $04                               ;059B70|      ;
-   dw DATA8_059BE5                      ;059B71|059BE5;
-   dw DATA8_059BEA                      ;059B73|059BEA;
-   dw DATA8_059BEF                      ;059B75|059BEF;
-   dw DATA8_059BF4                      ;059B77|059BF4;
+   dw Battle_Magic_Arrow_LR             ;059B71|059BE5;
+   dw Battle_Magic_Arrow_Right          ;059B73|059BEA;
+   dw Battle_Magic_Arrow_Left           ;059B75|059BEF;
+   dw Battle_Magic_Arrow_None           ;059B77|059BF4;
    db $07                               ;059B79|      ;
    dl CODE_07886F                       ;059B7A|07886F;
    db $07                               ;059B7D|      ; "Battle Magic Menu"
@@ -4367,7 +4330,7 @@ Battle_Loop_Magic_Pick:
    db $01                               ;059B86|      ;
 DATA8_059B87:
    db $07                               ;059B87|      ;
-   dl CODE_078800                       ;059B88|078800;
+   dl Sub_Get_BtlSpellMenu_Pos          ;059B88|078800;
    db $1E                               ;059B8B|      ;
    db $00                               ;059B8C|      ;
    db $00                               ;059B8D|      ;
@@ -4408,7 +4371,7 @@ Battle_Magic_Finished:
    db $1E                               ;059BC2|      ;
    dw $0011                             ;059BC3|      ;
    db $07                               ;059BC5|      ;
-   dl Search_0643_x_for_val             ;059BC6|07AF83;
+   dl Find_Event_In_List                ;059BC6|07AF83;
    db $0B                               ;059BC9|      ;
    dw Battle_Magic_Finished             ;059BCA|059BC0;
    db $06                               ;059BCC|      ;
@@ -4419,7 +4382,7 @@ Battle_Magic_Finished:
    dw SaveResult                        ;059BD1|0597D0;
 DATA8_059BD3:
    db $1B                               ;059BD3|      ;
-   dw DATA8_059BF4                      ;059BD4|059BF4;
+   dw Battle_Magic_Arrow_None           ;059BD4|059BF4;
 DATA8_059BD6:
    db $07                               ;059BD6|      ; Play SFX 06
    dl GetSet_SFX                        ;059BD7|009C44;
@@ -4433,55 +4396,55 @@ DATA8_059BDE:
    db $14                               ;059BE1|      ;
    db $1A                               ;059BE2|      ;
    dw DATA8_059BD6                      ;059BE3|059BD6;
-DATA8_059BE5:
+Battle_Magic_Arrow_LR:
    db $04                               ;059BE5|      ;
    dl DATA8_059BF9                      ;059BE6|059BF9;
    db $1C                               ;059BE9|      ;
-DATA8_059BEA:
+Battle_Magic_Arrow_Right:
    db $04                               ;059BEA|      ;
    dl DATA8_059C08                      ;059BEB|059C08;
    db $1C                               ;059BEE|      ;
-DATA8_059BEF:
+Battle_Magic_Arrow_Left:
    db $04                               ;059BEF|      ;
    dl DATA8_059C17                      ;059BF0|059C17;
    db $1C                               ;059BF3|      ;
-DATA8_059BF4:
+Battle_Magic_Arrow_None:
    db $04                               ;059BF4|      ;
    dl DATA8_059C26                      ;059BF5|059C26;
    db $1C                               ;059BF8|      ;
 DATA8_059BF9:
    db $07                               ;059BF9|      ;
    dl _8698_setup_3b                    ;059BFA|009D07;
-   dl MenuStuff2                        ;059BFD|059C3E;
+   dl Gfx_Arrow_Left                    ;059BFD|059C3E;
    db $07                               ;059C00|      ;
    dl _8698_setup_3b                    ;059C01|009D07;
-   dl MenuStuff1                        ;059C04|059C35;
+   dl Gfx_Arrow_Right                   ;059C04|059C35;
    db $05                               ;059C07|      ;
 DATA8_059C08:
    db $07                               ;059C08|      ;
    dl _8698_setup_3b                    ;059C09|009D07;
-   dl MenuStuff4                        ;059C0C|059C50;
+   dl Gfx_NoArrow_Left                  ;059C0C|059C50;
    db $07                               ;059C0F|      ;
    dl _8698_setup_3b                    ;059C10|009D07;
-   dl MenuStuff1                        ;059C13|059C35;
+   dl Gfx_Arrow_Right                   ;059C13|059C35;
    db $05                               ;059C16|      ;
 DATA8_059C17:
    db $07                               ;059C17|      ;
    dl _8698_setup_3b                    ;059C18|009D07;
-   dl MenuStuff2                        ;059C1B|059C3E;
+   dl Gfx_Arrow_Left                    ;059C1B|059C3E;
    db $07                               ;059C1E|      ;
    dl _8698_setup_3b                    ;059C1F|009D07;
-   dl MenuStuff3                        ;059C22|059C47;
+   dl Gfx_NoArrow_Right                 ;059C22|059C47;
    db $05                               ;059C25|      ;
 DATA8_059C26:
    db $07                               ;059C26|      ; Call $00/9D07, do a bunch of shit. (Called from 04 at $05:F459)
    dl _8698_setup_3b                    ;059C27|009D07;
-   dl MenuStuff4                        ;059C2A|059C50; Store 05/9C50 in $00
+   dl Gfx_NoArrow_Left                  ;059C2A|059C50; Store 05/9C50 in $00
    db $07                               ;059C2D|      ; Call $00/9D07, do a bunch of shit.
    dl _8698_setup_3b                    ;059C2E|009D07;
-   dl MenuStuff3                        ;059C31|059C47; Store 05/9C47 in $00
+   dl Gfx_NoArrow_Right                 ;059C31|059C47; Store 05/9C47 in $00
    db $05                               ;059C34|      ; 05: RTL (instance $05/F45D)
-MenuStuff1:
+Gfx_Arrow_Right:
    db $D8                               ;059C35|      ;
    db $02                               ;059C36|      ;
    db $00                               ;059C37|      ;
@@ -4491,7 +4454,7 @@ MenuStuff1:
    db $1C                               ;059C3B|      ;
    db $D1                               ;059C3C|      ;
    db $1C                               ;059C3D|      ;
-MenuStuff2:
+Gfx_Arrow_Left:
    db $C7                               ;059C3E|      ;
    db $02                               ;059C3F|      ;
    db $00                               ;059C40|      ;
@@ -4501,7 +4464,7 @@ MenuStuff2:
    db $1C                               ;059C44|      ;
    db $D0                               ;059C45|      ;
    db $1C                               ;059C46|      ;
-MenuStuff3:
+Gfx_NoArrow_Right:
    db $D8                               ;059C47|      ;
    db $02                               ;059C48|      ;
    db $00                               ;059C49|      ;
@@ -4511,7 +4474,7 @@ MenuStuff3:
    db $1C                               ;059C4D|      ;
    db $00                               ;059C4E|      ;
    db $1C                               ;059C4F|      ;
-MenuStuff4:
+Gfx_NoArrow_Left:
    db $C7                               ;059C50|      ;
    db $02                               ;059C51|      ;
    db $00                               ;059C52|      ;
@@ -4523,8 +4486,8 @@ MenuStuff4:
    db $1C                               ;059C58|      ;
 Battle_Weapons:
    db $07                               ;059C59|      ;
-   dl Transfer_Data_3b_1b_2b            ;059C5A|00A140;
-   dl Weapons_Menu                      ;059C5D|0D9590;
+   dl Gfx_GetPalette_3b_1b_2b           ;059C5A|00A140;
+   dl Text_Color_Gray                   ;059C5D|0D9590;
    db $02                               ;059C60|      ;
    dw $0002                             ;059C61|      ;
    db $0F                               ;059C63|      ;
@@ -4605,7 +4568,7 @@ DATA8_059CCA:
    dw Display_Satisfactory              ;059CD0|059748;
 Battle_Defend:
    db $07                               ;059CD2|      ; I don't think this does anything.
-   dl CODE_07B11C                       ;059CD3|07B11C;
+   dl Set_Condition_4b                  ;059CD3|07B11C;
    dw $0002                             ;059CD6|      ;
    dw $0100                             ;059CD8|      ;
    db $31                               ;059CDA|      ;
@@ -4630,7 +4593,7 @@ Battle_Run:
    db $0B                               ;059CF5|      ;
    dw DATA8_059D09                      ;059CF6|059D09;
    db $07                               ;059CF8|      ;
-   dl CODE_07B11C                       ;059CF9|07B11C;
+   dl Set_Condition_4b                  ;059CF9|07B11C;
    dw $0002                             ;059CFC|      ;
    dw $0400                             ;059CFE|      ;
    db $04                               ;059D00|      ;
@@ -4657,7 +4620,7 @@ Running_away:
    dl GetSet_SFX                        ;059D1A|009C44;
    db $28                               ;059D1D|      ;
    db $07                               ;059D1E|      ;
-   dl Init_11CB_11D9_far                ;059D1F|018154;
+   dl Init_Kill_Enemies_far             ;059D1F|018154;
    db $07                               ;059D22|      ;
    dl Battle_related1b                  ;059D23|009CDD;
    db $14                               ;059D26|      ;
@@ -4701,25 +4664,25 @@ Tileset_Event04_02:
    db $FC                               ;059D57|      ;
    db $C6                               ;059D58|      ;
    db $31                               ;059D59|      ;
-DATA8_059D5A:
+Tileset_Event04_03:
    db $02                               ;059D5A|      ;
    db $FC                               ;059D5B|      ;
    db $FC                               ;059D5C|      ;
    db $C6                               ;059D5D|      ;
    db $31                               ;059D5E|      ;
-DATA8_059D5F:
+Tileset_Event04_04:
    db $02                               ;059D5F|      ;
    db $FC                               ;059D60|      ;
    db $FC                               ;059D61|      ;
    db $C6                               ;059D62|      ;
    db $31                               ;059D63|      ;
-DATA8_059D64:
+Tileset_Event04_05:
    db $02                               ;059D64|      ;
    db $FC                               ;059D65|      ;
    db $FC                               ;059D66|      ;
    db $C6                               ;059D67|      ;
    db $31                               ;059D68|      ;
-DATA8_059D69:
+Tileset_Event04_06:
    db $01                               ;059D69|      ;
    db $04                               ;059D6A|      ;
    db $10                               ;059D6B|      ;
@@ -4770,7 +4733,7 @@ DATA8_059D69:
    db $E0                               ;059D98|      ;
    db $C0                               ;059D99|      ;
    db $31                               ;059D9A|      ;
-DATA8_059D9B:
+Tileset_Event04_07:
    db $00                               ;059D9B|      ;
    db $08                               ;059D9C|      ;
    db $00                               ;059D9D|      ;
@@ -4811,7 +4774,7 @@ DATA8_059D9B:
    db $E8                               ;059DC0|      ;
    db $E2                               ;059DC1|      ;
    db $31                               ;059DC2|      ;
-DATA8_059DC3:
+Tileset_Event04_08:
    db $01                               ;059DC3|      ;
    db $08                               ;059DC4|      ;
    db $10                               ;059DC5|      ;
@@ -4862,7 +4825,7 @@ DATA8_059DC3:
    db $E0                               ;059DF2|      ;
    db $C0                               ;059DF3|      ;
    db $31                               ;059DF4|      ;
-DATA8_059DF5:
+Tileset_Event04_09:
    db $01                               ;059DF5|      ;
    db $F0                               ;059DF6|      ;
    db $D8                               ;059DF7|      ;
@@ -4933,7 +4896,7 @@ DATA8_059DF5:
    db $D8                               ;059E38|      ;
    db $C0                               ;059E39|      ;
    db $31                               ;059E3A|      ;
-DATA8_059E3B:
+Tileset_Event04_0A:
    db $01                               ;059E3B|      ;
    db $04                               ;059E3C|      ;
    db $10                               ;059E3D|      ;
@@ -4984,7 +4947,7 @@ DATA8_059E3B:
    db $E0                               ;059E6A|      ;
    db $C0                               ;059E6B|      ;
    db $31                               ;059E6C|      ;
-DATA8_059E6D:
+Tileset_Event04_0B:
    db $00                               ;059E6D|      ;
    db $E8                               ;059E6E|      ;
    db $E0                               ;059E6F|      ;
@@ -5135,7 +5098,7 @@ DATA8_059E6D:
    db $F0                               ;059F00|      ;
    db $8C                               ;059F01|      ;
    db $3F                               ;059F02|      ;
-DATA8_059F03:
+Tileset_Event04_0C:
    db $00                               ;059F03|      ;
    db $E8                               ;059F04|      ;
    db $18                               ;059F05|      ;
@@ -14428,7 +14391,7 @@ Tbl_Spirit_stat_1:
    db $78                               ;05F136|      ;
 Item_Handler:
    db $07                               ;05F137|      ; Called by $81:9584 Field Medicine
-   dl Get_Item_Info                     ;05F138|07BB2A; Call $07:BB2A Save Item Info
+   dl Sub_Save_Temp_Vars                ;05F138|07BB2A; Call $07:BB2A Save Item Info
    db $07                               ;05F13B|      ; Call $07:BAF8 LoadSaveItem
    dl LoadSaveItem                      ;05F13C|07BAF8;
    db $12                               ;05F13F|      ; If item returned < 11, jump using the value in a pointer table
@@ -14455,7 +14418,7 @@ Tbl_Item_Effects:
    dl Store_results_in_2b               ;05F164|07BDD9;
    dw $18C1                             ;05F167|      ;
    db $07                               ;05F169|      ;
-   dl CODE_07BB6A                       ;05F16A|07BB6A;
+   dl Sub_Load_Temp_Vars                ;05F16A|07BB6A;
    db $1F                               ;05F16D|      ;
    dw $18C1                             ;05F16E|      ;
    db $05                               ;05F170|      ;
@@ -14770,7 +14733,7 @@ DATA8_05F324:
    dl GetSet_SFX                        ;05F325|009C44;
    db $11                               ;05F328|      ; SFX 11
    db $07                               ;05F329|      ;
-   dl CODE_07BDB1                       ;05F32A|07BDB1;
+   dl CODE_FL_07BDB1                    ;05F32A|07BDB1;
    db $11                               ;05F32D|      ;
    db $03                               ;05F32E|      ;
    dw DATA8_05F30D                      ;05F32F|05F30D;
@@ -14786,14 +14749,14 @@ DATA8_05F33A:
    dl Store_results_in_2b               ;05F33B|07BDD9;
    dw $18C1                             ;05F33E|      ;
    db $07                               ;05F340|      ;
-   dl Get_Item_Info                     ;05F341|07BB2A;
+   dl Sub_Save_Temp_Vars                ;05F341|07BB2A;
    db $07                               ;05F344|      ;
    dl Get_Spell_Type                    ;05F345|07BEFA;
    db $1A                               ;05F348|      ;
    dw DATA8_05F365                      ;05F349|05F365;
 DATA8_05F34B:
    db $07                               ;05F34B|      ;
-   dl Get_Item_Info                     ;05F34C|07BB2A;
+   dl Sub_Save_Temp_Vars                ;05F34C|07BB2A;
    db $07                               ;05F34F|      ;
    dl Get_Spell_ID                      ;05F350|07BE9E;
    db $07                               ;05F353|      ;
@@ -14822,7 +14785,7 @@ DATA8_05F365:
    db $0B                               ;05F378|      ; Branch if 0 (healing, buffs etc)
    dw DATA8_05F381                      ;05F379|05F381;
    db $1B                               ;05F37B|      ; Select target subroutine
-   dw DATA8_05F41F                      ;05F37C|05F41F;
+   dw ASM_Select_Target                 ;05F37C|05F41F;
    db $1A                               ;05F37E|      ;
    dw DATA8_05F384                      ;05F37F|05F384;
 DATA8_05F381:
@@ -14838,26 +14801,26 @@ Battle_Cast_Spell:
    dw DATA8_05F392                      ;05F38C|05F392;
 DATA8_05F38E:
    db $07                               ;05F38E|      ;
-   dl CODE_07BFC0                       ;05F38F|07BFC0;
+   dl CODE_FL_07BFC0                    ;05F38F|07BFC0;
 DATA8_05F392:
    db $06                               ;05F392|      ;
    db $01                               ;05F393|      ;
    db $04                               ;05F394|      ; JSL to 05/F459 (Save return address in $14)
    dl DATA8_05F459                      ;05F395|05F459;
-   db $1E                               ;05F398|      ;
+   db $1E                               ;05F398|      ; 1E: Load var01
    dw $0001                             ;05F399|      ;
 DATA8_05F39B:
    db $07                               ;05F39B|      ; Store results in $18C1
    dl Store_results_in_2b               ;05F39C|07BDD9;
-   dw $18C1                             ;05F39F|0018C1;
+   dw $18C1                             ;05F39F|      ;
    db $07                               ;05F3A1|      ;
-   dl CODE_07BB6A                       ;05F3A2|07BB6A;
-   db $16                               ;05F3A5|      ;
+   dl Sub_Load_Temp_Vars                ;05F3A2|07BB6A;
+   db $16                               ;05F3A5|      ; 16: $1127 = -1 (temp spell ID)
    dw $1127                             ;05F3A6|      ;
    dw $FFFF                             ;05F3A8|      ;
-   db $1F                               ;05F3AA|      ;
+   db $1F                               ;05F3AA|      ; 1F: Load $18C1
    dw $18C1                             ;05F3AB|      ;
-   db $05                               ;05F3AD|      ;
+   db $05                               ;05F3AD|      ; RTL
 DATA8_05F3AE:
    db $04                               ;05F3AE|      ;
    dl DATA8_059C26                      ;05F3AF|059C26;
@@ -14894,7 +14857,7 @@ DATA8_05F3CD:
    db $30                               ;05F3DA|      ;
    db $06                               ;05F3DB|      ;
    db $1A                               ;05F3DC|      ;
-   dw EMPTY_00F3E1                      ;05F3DD|00F3E1;
+   dw DATA8_05F3E1                      ;05F3DD|05F3E1;
 DATA8_05F3DF:
    db $30                               ;05F3DF|      ;
    db $07                               ;05F3E0|      ;
@@ -14924,88 +14887,93 @@ DATA8_05F3FE:
    dl GetSet_SFX                        ;05F3FF|009C44;
    db $11                               ;05F402|      ;
    db $07                               ;05F403|      ;
-   dl CODE_07BDB1                       ;05F404|07BDB1;
+   dl CODE_FL_07BDB1                    ;05F404|07BDB1;
    db $11                               ;05F407|      ;
    db $03                               ;05F408|      ;
-   dw EMPTY_00F3E1                      ;05F409|00F3E1;
-   dw EMPTY_00F419                      ;05F40B|00F419;
-   dw EMPTY_00F412                      ;05F40D|00F412;
+   dw DATA8_05F3E1                      ;05F409|05F3E1;
+   dw DATA8_05F419                      ;05F40B|05F419;
+   dw DATA8_05F412                      ;05F40D|05F412;
    db $1A                               ;05F40F|      ;
-   dw EMPTY_00F419                      ;05F410|00F419;
+   dw DATA8_05F419                      ;05F410|05F419;
+DATA8_05F412:
    db $07                               ;05F412|      ;
    dl Get_spell_type_bool               ;05F413|07BF13;
    db $0B                               ;05F416|      ;
-   dw EMPTY_00F3E1                      ;05F417|00F3E1;
+   dw DATA8_05F3E1                      ;05F417|05F3E1;
+DATA8_05F419:
    db $06                               ;05F419|      ;
    db $01                               ;05F41A|      ;
    db $1E                               ;05F41B|      ;
    dw $0001                             ;05F41C|      ;
    db $1C                               ;05F41E|      ; RTS
-DATA8_05F41F:
-   db $0F                               ;05F41F|      ; $09C7,x = 0014
+ASM_Select_Target:
+   db $0F                               ;05F41F|      ; Set var01 to 14
    db $01                               ;05F420|      ;
    dw $0014                             ;05F421|      ;
-   db $06                               ;05F423|      ; 06 02
+   db $06                               ;05F423|      ; 06: WAIT 02
    db $02                               ;05F424|      ;
    db $07                               ;05F425|      ;
    dl Sub_Targeting_Prep                ;05F426|078A30;
+DATA8_05F429:
    db $06                               ;05F429|      ;
    db $01                               ;05F42A|      ;
    db $07                               ;05F42B|      ;
-   dl CODE_078AA0                       ;05F42C|078AA0;
+   dl Sub_078AA0                        ;05F42C|078AA0;
    db $07                               ;05F42F|      ;
    dl Swap_values                       ;05F430|078C75;
    db $07                               ;05F433|      ;
-   dl CODE_07BDE8                       ;05F434|07BDE8;
+   dl Get_Enemy_Anim_Frame              ;05F434|07BDE8;
    db $1E                               ;05F437|      ;
    dw $0000                             ;05F438|      ;
    db $07                               ;05F43A|      ; A pressed?
    dl WasBtnPressed_2b                  ;05F43B|00A00F;
    dw $0080                             ;05F43E|      ;
    db $0C                               ;05F440|      ; If true, jump to F455
-   dw EMPTY_00F455                      ;05F441|00F455;
+   dw DATA8_05F455                      ;05F441|05F455;
    db $1E                               ;05F443|      ;
    dw $0000                             ;05F444|      ;
    db $07                               ;05F446|      ; B pressed?
    dl WasBtnPressed_2b                  ;05F447|00A00F;
    dw $8000                             ;05F44A|      ;
    db $0B                               ;05F44C|      ; If false, jump to F429
-   dw EMPTY_00F429                      ;05F44D|00F429;
+   dw DATA8_05F429                      ;05F44D|05F429;
    db $06                               ;05F44F|      ;
    db $02                               ;05F450|      ;
    db $1E                               ;05F451|      ;
    dw $0000                             ;05F452|      ;
-   db $1C                               ;05F454|      ; Return 0
+   db $1C                               ;05F454|      ; Return 0 (pressed B)
+DATA8_05F455:
    db $1E                               ;05F455|      ;
    dw $0001                             ;05F456|      ;
-   db $1C                               ;05F458|      ; Return 1
+   db $1C                               ;05F458|      ; Return 1 (pressed A)
 DATA8_05F459:
    db $04                               ;05F459|      ; 04: JSL 05/9C26, save return addr in $14
    dl DATA8_059C26                      ;05F45A|059C26;
    db $07                               ;05F45D|      ; 07: Call 07/BBAA if $11C1 = 2 return 0
    dl Is_In_Battle                      ;05F45E|07BBAA;
    db $0B                               ;05F461|      ; 0B: Jump if false to F473
-   dw EMPTY_00F473                      ;05F462|00F473;
-   db $07                               ;05F464|      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-   dl Transfer_Data_3b_1b_2b            ;05F465|00A140;
-   dl _189AD2_2_bytes                   ;05F468|0D958E; $18 -> 0D/958E
-   db $02                               ;05F46B|      ; Offset for 00/A140
-   dw $0002                             ;05F46C|      ; Loop # times/2
-   db $30                               ;05F46E|      ; ??
+   dw DATA8_05F473                      ;05F462|05F473;
+   db $07                               ;05F464|      ; 07: Set text color to yellow
+   dl Gfx_GetPalette_3b_1b_2b           ;05F465|00A140;
+   dl Text_Color_Yellow                 ;05F468|0D958E;
+   db $02                               ;05F46B|      ;
+   dw $0002                             ;05F46C|      ;
+   db $30                               ;05F46E|      ; 30: SET_ANIM -1
    db $FF                               ;05F46F|      ;
    db $1A                               ;05F470|      ; 1A: Jump to F494
    dw Removing_MP_casting_spells        ;05F471|05F494;
-   db $07                               ;05F473|      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-   dl Transfer_Data_3b_1b_2b            ;05F474|00A140;
-   dl Weapons_Menu                      ;05F477|0D9590; $18 -> 0D/9590
-   db $02                               ;05F47A|      ; Offset for 00/A140
-   dw $0002                             ;05F47B|      ; Loop #times /2
+DATA8_05F473:
+   db $07                               ;05F473|      ; Set 2nd text color to gray
+   dl Gfx_GetPalette_3b_1b_2b           ;05F474|00A140;
+   dl Text_Color_Gray                   ;05F477|0D9590;
+   db $02                               ;05F47A|      ;
+   dw $0002                             ;05F47B|      ;
    db $1A                               ;05F47D|      ; 1A: Jump to F494
-   dw EMPTY_00F494                      ;05F47E|00F494;
+   dw Removing_MP_casting_spells        ;05F47E|05F494;
 DATA8_05F480:
-   db $07                               ;05F480|      ; 07: Call 00/A140 (take value from 3b pointer+offset, store in $420+offset, loop offset/2 times)
-   dl Transfer_Data_3b_1b_2b            ;05F481|00A140;
-   dl _189A85_2_bytes                   ;05F484|0D958C; $18 -> 0D/958C
+   db $07                               ;05F480|      ; Set 2nd text color to red
+   dl Gfx_GetPalette_3b_1b_2b           ;05F481|00A140;
+   dl Text_Color_Red                    ;05F484|0D958C;
    db $02                               ;05F487|      ;
    dw $0002                             ;05F488|      ;
    db $16                               ;05F48A|      ; 16: $18C1 = 0
@@ -15013,13 +14981,13 @@ DATA8_05F480:
    db $18                               ;05F48C|      ;
    db $00                               ;05F48D|      ;
    db $00                               ;05F48E|      ;
-   db $16                               ;05F48F|      ; 16: $18C9 = 0
+   db $16                               ;05F48F|      ; 16: $18C9 = 0 (temp MP)
    db $C9                               ;05F490|      ;
    db $18                               ;05F491|      ;
    db $00                               ;05F492|      ;
    db $00                               ;05F493|      ;
 Removing_MP_casting_spells:
-   db $1F                               ;05F494|      ; 1F: Store ($18C1) in $0CB3,x (Jumped from F47D)
+   db $1F                               ;05F494|      ; Load $18C1
    dw $18C1                             ;05F495|      ;
    db $0C                               ;05F497|      ; 0C: Jump if true/nonzero to F4A5
    dw DATA8_05F4A5                      ;05F498|05F4A5;
@@ -15033,7 +15001,7 @@ DATA8_05F4A5:
    db $07                               ;05F4A5|      ; 07: Call 07/C292
    dl Use_Spellcast_Gear                ;05F4A6|07C292;
 DATA8_05F4A9:
-   db $06                               ;05F4A9|      ; 06 01: Do other stuff
+   db $06                               ;05F4A9|      ; 06: WAIT 01
    db $01                               ;05F4AA|      ;
    db $07                               ;05F4AB|      ;
    dl Some_1095_check_1b                ;05F4AC|07BA4F;
@@ -15133,10 +15101,10 @@ DATA8_05F51F:
 DATA8_05F52B:
    db $06                               ;05F52B|      ; 06 01
    db $01                               ;05F52C|      ;
-   db $1E                               ;05F52D|      ;
+   db $1E                               ;05F52D|      ; Load $11
    dw $0011                             ;05F52E|      ;
-   db $07                               ;05F530|      ; Search for val
-   dl Search_0643_x_for_val             ;05F531|07AF83;
+   db $07                               ;05F530|      ; Search for event 11
+   dl Find_Event_In_List                ;05F531|07AF83;
    db $0B                               ;05F534|      ; Loop back
    dw DATA8_05F52B                      ;05F535|05F52B;
    db $06                               ;05F537|      ; 06 14
@@ -15176,28 +15144,26 @@ DATA8_05F562:
 CODE_05F566:
    LDA.W Spell_ID                       ;05F566|001127;
    CMP.W #$0018                         ;05F569|      ;
-   BEQ CODE_05F58B                      ;05F56C|05F58B;
+   BEQ +                                ;05F56C|05F58B;
    CMP.W #$0019                         ;05F56E|      ;
-   BEQ CODE_05F58B                      ;05F571|05F58B;
+   BEQ +                                ;05F571|05F58B;
    CMP.W #$001A                         ;05F573|      ;
-   BEQ CODE_05F58B                      ;05F576|05F58B;
+   BEQ +                                ;05F576|05F58B;
    CMP.W #$001B                         ;05F578|      ;
-   BEQ CODE_05F58B                      ;05F57B|05F58B;
+   BEQ +                                ;05F57B|05F58B;
    CMP.W #$0059                         ;05F57D|      ;
-   BEQ CODE_05F599                      ;05F580|05F599;
+   BEQ ++                               ;05F580|05F599;
    CMP.W #$005A                         ;05F582|      ;
-   BEQ CODE_05F599                      ;05F585|05F599;
+   BEQ ++                               ;05F585|05F599;
    LDA.W #$0000                         ;05F587|      ;
    RTL                                  ;05F58A|      ;
-CODE_05F58B:
-   STA.W Tbl_Offset                     ;05F58B|0011B5;
+ + STA.W Tbl_Offset                     ;05F58B|0011B5;
    CLC                                  ;05F58E|      ;
    ADC.W #$003A                         ;05F58F|      ;
    STA.W Spell_ID                       ;05F592|001127;
    LDA.W #$0001                         ;05F595|      ;
    RTL                                  ;05F598|      ;
-CODE_05F599:
-   STA.W Tbl_Offset                     ;05F599|0011B5;
+++ STA.W Tbl_Offset                     ;05F599|0011B5;
    CLC                                  ;05F59C|      ;
    ADC.W #$0002                         ;05F59D|      ;
    STA.W Spell_ID                       ;05F5A0|001127;
@@ -15264,14 +15230,13 @@ GetCardEffect:
    LDA.L DATA8_05F645,X                 ;05F5F5|05F645;
    AND.W #$00FF                         ;05F5F9|      ;
    CPX.W #$0005                         ;05F5FC|      ;
-   BCS CODE_05F608                      ;05F5FF|05F608;
+   BCS +                                ;05F5FF|05F608;
    CLC                                  ;05F601|      ;
    ADC.W $18A7                          ;05F602|0018A7;
    DEC A                                ;05F605|      ;
-   BRA CODE_05F628                      ;05F606|05F628;
-CODE_05F608:
-   CPX.W #$0007                         ;05F608|      ;
-   BCC CODE_05F622                      ;05F60B|05F622;
+   BRA ++                               ;05F606|05F628;
+ + CPX.W #$0007                         ;05F608|      ;
+   BCC +                                ;05F60B|05F622;
    PHA                                  ;05F60D|      ;
    JSL.L RNG                            ;05F60E|0089F1;
    LDA.W $000A                          ;05F612|00000A;
@@ -15281,11 +15246,9 @@ CODE_05F608:
    STX.B $04                            ;05F61D|000004;
    CLC                                  ;05F61F|      ;
    ADC.B $04                            ;05F620|000004;
-CODE_05F622:
-   LDY.W #$0001                         ;05F622|      ;
+ + LDY.W #$0001                         ;05F622|      ;
    STY.W $18A7                          ;05F625|0018A7;
-CODE_05F628:
-   TAX                                  ;05F628|      ;
+++ TAX                                  ;05F628|      ;
    LDA.L Tbl_CardSpells,X               ;05F629|05F64D;
    AND.W #$00FF                         ;05F62D|      ;
    STA.W Spell_ID                       ;05F630|001127;
@@ -15294,7 +15257,7 @@ CODE_05F628:
    AND.W #$00FF                         ;05F638|      ;
    STA.W Spell_type                     ;05F63B|0018C5;
    STZ.W Attacker                       ;05F63E|001121;
-   JML.L CODE_07BFC0                    ;05F641|07BFC0;
+   JML.L CODE_FL_07BFC0                 ;05F641|07BFC0;
 DATA8_05F645:
    db $00                               ;05F645|      ;
    db $01                               ;05F646|      ;
@@ -15350,33 +15313,27 @@ UseElementalCards_Text:
    RTL                                  ;05F699|      ;
 Something_loading_cards:
    LDA.W Page_Num                       ;05F69A|0011B9;
-CODE_05F69D:
-   ASL A                                ;05F69D|      ;
+ - ASL A                                ;05F69D|      ;
    ASL A                                ;05F69E|      ;
    ASL A                                ;05F69F|      ;
    TAY                                  ;05F6A0|      ;
    CPY.W #$0010                         ;05F6A1|      ;
-   BCS CODE_05F6B2                      ;05F6A4|05F6B2;
+   BCS +                                ;05F6A4|05F6B2;
    LDA.W Inventory_Cards,Y              ;05F6A6|0013A9;
-   BNE CODE_05F6B6                      ;05F6A9|05F6B6;
+   BNE ++                               ;05F6A9|05F6B6;
    DEY                                  ;05F6AB|      ;
    TXA                                  ;05F6AC|      ;
    CMP.W #$FFFF                         ;05F6AD|      ;
-   BNE CODE_05F69D                      ;05F6B0|05F69D;
-CODE_05F6B2:
-   LDA.W #$0000                         ;05F6B2|      ;
+   BNE -                                ;05F6B0|05F69D;
+ + LDA.W #$0000                         ;05F6B2|      ;
    RTL                                  ;05F6B5|      ;
-CODE_05F6B6:
-   LDX.W #$0000                         ;05F6B6|      ;
-CODE_05F6B9:
-   CPY.W #$0010                         ;05F6B9|      ;
-   BCC CODE_05F6C3                      ;05F6BC|05F6C3;
+++ LDX.W #$0000                         ;05F6B6|      ;
+ - CPY.W #$0010                         ;05F6B9|      ;
+   BCC +                                ;05F6BC|05F6C3;
    LDA.W #$0000                         ;05F6BE|      ;
-   BRA CODE_05F6C6                      ;05F6C1|05F6C6;
-CODE_05F6C3:
-   LDA.W Inventory_Cards,Y              ;05F6C3|0013A9;
-CODE_05F6C6:
-   STA.B $20                            ;05F6C6|000020;
+   BRA ++                               ;05F6C1|05F6C6;
+ + LDA.W Inventory_Cards,Y              ;05F6C3|0013A9;
+++ STA.B $20                            ;05F6C6|000020;
    AND.W #$00FF                         ;05F6C8|      ;
    PHY                                  ;05F6CB|      ;
    PHX                                  ;05F6CC|      ;
@@ -15399,7 +15356,7 @@ CODE_05F6C6:
    STA.B $04                            ;05F6F3|000004;
    LDA.B $20                            ;05F6F5|000020;
    AND.W #$00FF                         ;05F6F7|      ;
-   BEQ CODE_05F719                      ;05F6FA|05F719;
+   BEQ +                                ;05F6FA|05F719;
    LDA.L TEXT_05F758                    ;05F6FC|05F758;
    AND.W #$00FF                         ;05F700|      ;
    STA.B ($04)                          ;05F703|000004;
@@ -15412,8 +15369,7 @@ CODE_05F6C6:
    AND.W #$00FF                         ;05F712|      ;
    STA.B ($04)                          ;05F715|000004;
    INC.B $04                            ;05F717|000004;
-CODE_05F719:
-   LDA.W #$0000                         ;05F719|      ;
+ + LDA.W #$0000                         ;05F719|      ;
    STA.B ($04)                          ;05F71C|000004;
    PLX                                  ;05F71E|      ;
    PLY                                  ;05F71F|      ;
@@ -15422,7 +15378,7 @@ CODE_05F719:
    INY                                  ;05F722|      ;
    INY                                  ;05F723|      ;
    CPX.W #$0008                         ;05F724|      ;
-   BCC CODE_05F6B9                      ;05F727|05F6B9;
+   BCC -                                ;05F727|05F6B9;
    LDA.W #$FA27                         ;05F729|      ;
    STA.B $00                            ;05F72C|000000;
    LDA.W #$0005                         ;05F72E|      ;
@@ -15432,15 +15388,15 @@ CODE_05F719:
    LDA.W #$0001                         ;05F73A|      ;
    RTL                                  ;05F73D|      ;
 PTR16_05F73E:
-   dw $15AF                             ;05F73E|0015AF;
-   dw $15CC                             ;05F740|0015CC;
-   dw $15E9                             ;05F742|0015E9;
-   dw $1606                             ;05F744|001606;
+   dw $15AF                             ;05F73E|0515AF;
+   dw $15CC                             ;05F740|0515CC;
+   dw $15E9                             ;05F742|0515E9;
+   dw $1606                             ;05F744|051606;
 PTR16_05F746:
-   dw $1623                             ;05F746|001623;
-   dw $1640                             ;05F748|001640;
-   dw $165D                             ;05F74A|00165D;
-   dw $167A                             ;05F74C|00167A;
+   dw $1623                             ;05F746|051623;
+   dw $1640                             ;05F748|051640;
+   dw $165D                             ;05F74A|05165D;
+   dw $167A                             ;05F74C|05167A;
 TEXT_05F74E:
    db " 123456789"                      ;05F74E|      ;
 TEXT_05F758:
@@ -15448,25 +15404,22 @@ TEXT_05F758:
 CODE_05F759:
    LDA.W Input_0031                     ;05F759|000031;
    BIT.W #$0080                         ;05F75C|      ;
-   BEQ CODE_05F765                      ;05F75F|05F765;
+   BEQ +                                ;05F75F|05F765;
    LDA.W #$0003                         ;05F761|      ;
    RTL                                  ;05F764|      ;
-CODE_05F765:
-   BIT.W #$8000                         ;05F765|      ;
-   BEQ CODE_05F76E                      ;05F768|05F76E;
+ + BIT.W #$8000                         ;05F765|      ;
+   BEQ +                                ;05F768|05F76E;
    LDA.W #$0000                         ;05F76A|      ;
    RTL                                  ;05F76D|      ;
-CODE_05F76E:
-   LDA.W Input_0029_New                 ;05F76E|000029;
+ + LDA.W Input_0029_New                 ;05F76E|000029;
    BIT.W #$0800                         ;05F771|      ;
-   BEQ CODE_05F79E                      ;05F774|05F79E;
+   BEQ +                                ;05F774|05F79E;
    LDA.W $11B7                          ;05F776|0011B7;
    DEC A                                ;05F779|      ;
-   BPL CODE_05F797                      ;05F77A|05F797;
+   BPL ++                               ;05F77A|05F797;
    LDA.W #$0003                         ;05F77C|      ;
    STA.W $11B7                          ;05F77F|0011B7;
-CODE_05F782:
-   LDA.W Page_Num                       ;05F782|0011B9;
+ - LDA.W Page_Num                       ;05F782|0011B9;
    ASL A                                ;05F785|      ;
    ASL A                                ;05F786|      ;
    CLC                                  ;05F787|      ;
@@ -15474,16 +15427,13 @@ CODE_05F782:
    ASL A                                ;05F78B|      ;
    TAX                                  ;05F78C|      ;
    LDA.W Inventory_Cards,X              ;05F78D|0013A9;
-   BNE CODE_05F79A                      ;05F790|05F79A;
+   BNE +++                              ;05F790|05F79A;
    DEC.W $11B7                          ;05F792|0011B7;
-   BRA CODE_05F782                      ;05F795|05F782;
-CODE_05F797:
-   STA.W $11B7                          ;05F797|0011B7;
-CODE_05F79A:
-   JML.L CODE_05F815                    ;05F79A|05F815;
-CODE_05F79E:
-   BIT.W #$0400                         ;05F79E|      ;
-   BEQ CODE_05F7C7                      ;05F7A1|05F7C7;
+   BRA -                                ;05F795|05F782;
+++ STA.W $11B7                          ;05F797|0011B7;
++++ JML.L CODE_FL_05F815                 ;05F79A|05F815;
+ + BIT.W #$0400                         ;05F79E|      ;
+   BEQ +                                ;05F7A1|05F7C7;
    LDA.W Page_Num                       ;05F7A3|0011B9;
    ASL A                                ;05F7A6|      ;
    ASL A                                ;05F7A7|      ;
@@ -15493,33 +15443,28 @@ CODE_05F79E:
    ASL A                                ;05F7AD|      ;
    TAX                                  ;05F7AE|      ;
    LDA.W Inventory_Cards,X              ;05F7AF|0013A9;
-   BEQ CODE_05F7BD                      ;05F7B2|05F7BD;
+   BEQ ++                               ;05F7B2|05F7BD;
    LDA.W $11B7                          ;05F7B4|0011B7;
    INC A                                ;05F7B7|      ;
    CMP.W #$0004                         ;05F7B8|      ;
-   BCC CODE_05F7C0                      ;05F7BB|05F7C0;
-CODE_05F7BD:
-   LDA.W #$0000                         ;05F7BD|      ;
-CODE_05F7C0:
-   STA.W $11B7                          ;05F7C0|0011B7;
-   JML.L CODE_05F815                    ;05F7C3|05F815;
-CODE_05F7C7:
-   BIT.W #$0200                         ;05F7C7|      ;
-   BEQ CODE_05F7E0                      ;05F7CA|05F7E0;
+   BCC +++                              ;05F7BB|05F7C0;
+++ LDA.W #$0000                         ;05F7BD|      ;
++++ STA.W $11B7                          ;05F7C0|0011B7;
+   JML.L CODE_FL_05F815                 ;05F7C3|05F815;
+ + BIT.W #$0200                         ;05F7C7|      ;
+   BEQ +                                ;05F7CA|05F7E0;
    LDA.W Page_Num                       ;05F7CC|0011B9;
    DEC A                                ;05F7CF|      ;
    CMP.W #$FFFF                         ;05F7D0|      ;
-   BEQ CODE_05F7DC                      ;05F7D3|05F7DC;
+   BEQ ++                               ;05F7D3|05F7DC;
    DEC.W Page_Num                       ;05F7D5|0011B9;
    JSL.L Something_loading_cards        ;05F7D8|05F69A;
-CODE_05F7DC:
-   LDA.W #$0002                         ;05F7DC|      ;
+++ LDA.W #$0002                         ;05F7DC|      ;
    RTL                                  ;05F7DF|      ;
-CODE_05F7E0:
-   BIT.W #$0100                         ;05F7E0|      ;
-   BEQ CODE_05F811                      ;05F7E3|05F811;
+ + BIT.W #$0100                         ;05F7E0|      ;
+   BEQ +                                ;05F7E3|05F811;
    LDA.W $13B1                          ;05F7E5|0013B1;
-   BEQ CODE_05F80D                      ;05F7E8|05F80D;
+   BEQ ++                               ;05F7E8|05F80D;
    LDA.W #$0001                         ;05F7EA|      ;
    STA.W Page_Num                       ;05F7ED|0011B9;
    JSL.L Something_loading_cards        ;05F7F0|05F69A;
@@ -15528,22 +15473,18 @@ CODE_05F7E0:
    ADC.W $11B7                          ;05F7F8|0011B7;
    ASL A                                ;05F7FB|      ;
    TAX                                  ;05F7FC|      ;
-CODE_05F7FD:
-   LDA.W Inventory_Cards,X              ;05F7FD|0013A9;
-   BNE CODE_05F809                      ;05F800|05F809;
+ - LDA.W Inventory_Cards,X              ;05F7FD|0013A9;
+   BNE +++                              ;05F800|05F809;
    DEC.W $11B7                          ;05F802|0011B7;
    DEX                                  ;05F805|      ;
    DEX                                  ;05F806|      ;
-   BRA CODE_05F7FD                      ;05F807|05F7FD;
-CODE_05F809:
-   JSL.L CODE_05F815                    ;05F809|05F815;
-CODE_05F80D:
-   LDA.W #$0002                         ;05F80D|      ;
+   BRA -                                ;05F807|05F7FD;
++++ JSL.L CODE_FL_05F815                 ;05F809|05F815;
+++ LDA.W #$0002                         ;05F80D|      ;
    RTL                                  ;05F810|      ;
-CODE_05F811:
-   LDA.W #$0001                         ;05F811|      ;
+ + LDA.W #$0001                         ;05F811|      ;
    RTL                                  ;05F814|      ;
-CODE_05F815:
+CODE_FL_05F815:
    LDA.W $11B7                          ;05F815|0011B7;
    LDY.W Selection_offset               ;05F818|00103F;
    ASL A                                ;05F81B|      ;
@@ -15595,40 +15536,34 @@ DATA8_05F868:
 CODE_05F870:
    LDA.W Input_0031                     ;05F870|000031;
    BIT.W #$0080                         ;05F873|      ;
-   BEQ CODE_05F87C                      ;05F876|05F87C;
+   BEQ +                                ;05F876|05F87C;
    LDA.W #$0002                         ;05F878|      ;
    RTL                                  ;05F87B|      ;
-CODE_05F87C:
-   BIT.W #$8000                         ;05F87C|      ;
-   BEQ CODE_05F885                      ;05F87F|05F885;
+ + BIT.W #$8000                         ;05F87C|      ;
+   BEQ +                                ;05F87F|05F885;
    LDA.W #$0000                         ;05F881|      ;
    RTL                                  ;05F884|      ;
-CODE_05F885:
-   LDA.W Input_0029_New                 ;05F885|000029;
+ + LDA.W Input_0029_New                 ;05F885|000029;
    BIT.W #$0200                         ;05F888|      ;
-   BEQ CODE_05F89D                      ;05F88B|05F89D;
+   BEQ +                                ;05F88B|05F89D;
    LDA.W $18A7                          ;05F88D|0018A7;
    DEC A                                ;05F890|      ;
-   BNE CODE_05F896                      ;05F891|05F896;
+   BNE ++                               ;05F891|05F896;
    LDA.W #$0003                         ;05F893|      ;
-CODE_05F896:
-   STA.W $18A7                          ;05F896|0018A7;
-   JML.L CODE_05F8B9                    ;05F899|05F8B9;
-CODE_05F89D:
-   BIT.W #$0100                         ;05F89D|      ;
-   BEQ CODE_05F8B5                      ;05F8A0|05F8B5;
+++ STA.W $18A7                          ;05F896|0018A7;
+   JML.L CODE_JL_05F8B9                 ;05F899|05F8B9;
+ + BIT.W #$0100                         ;05F89D|      ;
+   BEQ +                                ;05F8A0|05F8B5;
    LDA.W $18A7                          ;05F8A2|0018A7;
    INC A                                ;05F8A5|      ;
    CMP.W #$0004                         ;05F8A6|      ;
-   BCC CODE_05F8AE                      ;05F8A9|05F8AE;
+   BCC ++                               ;05F8A9|05F8AE;
    LDA.W #$0001                         ;05F8AB|      ;
-CODE_05F8AE:
-   STA.W $18A7                          ;05F8AE|0018A7;
-   JML.L CODE_05F8B9                    ;05F8B1|05F8B9;
-CODE_05F8B5:
-   LDA.W #$0001                         ;05F8B5|      ;
+++ STA.W $18A7                          ;05F8AE|0018A7;
+   JML.L CODE_JL_05F8B9                 ;05F8B1|05F8B9;
+ + LDA.W #$0001                         ;05F8B5|      ;
    RTL                                  ;05F8B8|      ;
-CODE_05F8B9:
+CODE_JL_05F8B9:
    LDY.W Selection_offset               ;05F8B9|00103F;
    LDA.W $18A7                          ;05F8BC|0018A7;
    DEC A                                ;05F8BF|      ;
@@ -15656,7 +15591,7 @@ CheckCardCount1:
    AND.W #$00FF                         ;05F8E5|      ;
    SEC                                  ;05F8E8|      ;
    SBC.W $18A7                          ;05F8E9|0018A7;
-   BPL CODE_05F903                      ;05F8EC|05F903;
+   BPL +                                ;05F8EC|05F903;
 Not_Enough_Cards:
    LDA.W #$FAAF                         ;05F8EE|      ;
    STA.B $00                            ;05F8F1|000000;
@@ -15666,8 +15601,7 @@ Not_Enough_Cards:
    JSL.L Set_Text_Parser_long           ;05F8FB|00A688;
    LDA.W #$0001                         ;05F8FF|      ;
    RTL                                  ;05F902|      ;
-CODE_05F903:
-   LDA.W #$0000                         ;05F903|      ;
+ + LDA.W #$0000                         ;05F903|      ;
    RTL                                  ;05F906|      ;
 CODE_05F907:
    LDA.W Page_Num                       ;05F907|0011B9;
@@ -15685,42 +15619,38 @@ CODE_05F907:
    AND.W #$00FF                         ;05F91E|      ;
    SEC                                  ;05F921|      ;
    SBC.W $18A7                          ;05F922|0018A7;
-   BEQ CODE_05F92E                      ;05F925|05F92E;
+   BEQ +                                ;05F925|05F92E;
    XBA                                  ;05F927|      ;
    ORA.B $00                            ;05F928|000000;
    STA.W Inventory_Cards,X              ;05F92A|0013A9;
    RTL                                  ;05F92D|      ;
-CODE_05F92E:
-   STZ.W Inventory_Cards,X              ;05F92E|0013A9;
+ + STZ.W Inventory_Cards,X              ;05F92E|0013A9;
    TXY                                  ;05F931|      ;
-CODE_05F932:
-   INY                                  ;05F932|      ;
+ - INY                                  ;05F932|      ;
    INY                                  ;05F933|      ;
    CPY.W #$0010                         ;05F934|      ;
-   BCS CODE_05F943                      ;05F937|05F943;
+   BCS +                                ;05F937|05F943;
    LDA.W Inventory_Cards,Y              ;05F939|0013A9;
    STA.W Inventory_Cards,X              ;05F93C|0013A9;
    INX                                  ;05F93F|      ;
    INX                                  ;05F940|      ;
-   BRA CODE_05F932                      ;05F941|05F932;
-CODE_05F943:
-   STZ.W $13B7                          ;05F943|0013B7;
+   BRA -                                ;05F941|05F932;
+ + STZ.W $13B7                          ;05F943|0013B7;
    RTL                                  ;05F946|      ;
 CODE_05F947:
    LDX.W #$0002                         ;05F947|      ;
    LDA.W $13B1                          ;05F94A|0013B1;
-   BEQ CODE_05F95A                      ;05F94D|05F95A;
+   BEQ +                                ;05F94D|05F95A;
    LDX.W #$0000                         ;05F94F|      ;
    LDA.W Page_Num                       ;05F952|0011B9;
-   BEQ CODE_05F95A                      ;05F955|05F95A;
+   BEQ +                                ;05F955|05F95A;
    LDX.W #$0001                         ;05F957|      ;
-CODE_05F95A:
-   STX.B $00                            ;05F95A|000000;
+ + STX.B $00                            ;05F95A|000000;
    LDA.B $00                            ;05F95C|000000;
    RTL                                  ;05F95E|      ;
 Battle_Cards_Open:
    db $07                               ;05F95F|      ;
-   dl Get_Item_Info                     ;05F960|07BB2A;
+   dl Sub_Save_Temp_Vars                ;05F960|07BB2A;
    db $06                               ;05F963|      ;
    db $01                               ;05F964|      ;
    db $16                               ;05F965|      ;
@@ -15737,7 +15667,7 @@ DATA8_05F96F:
    db $0B                               ;05F975|      ;
    dw DATA8_05FA05                      ;05F976|05FA05;
    db $07                               ;05F978|      ;
-   dl CODE_05F815                       ;05F979|05F815;
+   dl CODE_FL_05F815                    ;05F979|05F815;
    db $30                               ;05F97C|      ;
    db $04                               ;05F97D|      ;
 DATA8_05F97E:
@@ -15824,8 +15754,8 @@ DATA8_05F9E4:
    db $06                               ;05F9EE|      ;
    db $0A                               ;05F9EF|      ;
    db $07                               ;05F9F0|      ;
-   dl Transfer_Data_3b_1b_2b            ;05F9F1|00A140;
-   dl _189AD2_2_bytes                   ;05F9F4|0D958E;
+   dl Gfx_GetPalette_3b_1b_2b           ;05F9F1|00A140;
+   dl Text_Color_Yellow                 ;05F9F4|0D958E;
    db $02                               ;05F9F7|      ;
    dw $0002                             ;05F9F8|      ;
    db $04                               ;05F9FA|      ;
@@ -15844,7 +15774,7 @@ DATA8_05FA05:
    db $1B                               ;05FA0D|      ;
    dw DATA8_05FA22                      ;05FA0E|05FA22;
    db $07                               ;05FA10|      ;
-   dl CODE_07BB6A                       ;05FA11|07BB6A;
+   dl Sub_Load_Temp_Vars                ;05FA11|07BB6A;
    db $1F                               ;05FA14|      ;
    dw $18C1                             ;05FA15|      ;
    db $05                               ;05FA17|      ;

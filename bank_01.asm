@@ -2,17 +2,15 @@
    db $FF                               ;018000|      ;
 Bank_01_Game_start:
    LDA.W #$0000                         ;018001|      ;
-CODE_018004:
-   PHA                                  ;018004|      ;
+ - PHA                                  ;018004|      ;
    JSR.W Init_all_the_things            ;018005|018053;
    PLA                                  ;018008|      ;
    JSL.L Bank_17_init                   ;018009|178001;
    JSL.L Init_Loops                     ;01800D|008C84;
    LDA.W #$0000                         ;018011|      ;
-   JSL.L CODE_008D0A                    ;018014|008D0A;
-CODE_018018:
-   JSL.L Wait_Vblank_far                ;018018|0088DE;
-   JSL.L CODE_008E29                    ;01801C|008E29;
+   JSL.L CODE_FL_008D0A                 ;018014|008D0A;
+-- JSL.L Wait_Vblank_far                ;018018|0088DE;
+   JSL.L CODE_FL_008E29                 ;01801C|008E29;
    JSL.L _00A764_far                    ;018020|00A760;
    LDA.W #$804A                         ;018024|      ;
    JSL.L RAM_Decomp80                   ;018027|0084FE;
@@ -21,13 +19,12 @@ CODE_018018:
    LDA.W #$8000                         ;018031|      ;
    STA.W $0008                          ;018034|000008;
    LDA.W $063B                          ;018037|00063B;
-   BPL CODE_018018                      ;01803A|018018;
+   BPL --                               ;01803A|018018;
    LDA.W Game_State                     ;01803C|0011C1;
-   BMI CODE_018045                      ;01803F|018045;
-   JML.L CODE_01B7D9                    ;018041|01B7D9;
-CODE_018045:
-   LDA.W #$0001                         ;018045|      ;
-   BRA CODE_018004                      ;018048|018004;
+   BMI +                                ;01803F|018045;
+   JML.L CODE_JL_01B7D9                 ;018041|01B7D9;
+ + LDA.W #$0001                         ;018045|      ;
+   BRA -                                ;018048|018004;
 Compressed_data_1804A:
    db $15                               ;01804A|      ;
    db $00                               ;01804B|      ;
@@ -62,8 +59,8 @@ Init_all_the_things:
    STA.W Curr_GP                        ;01808D|001559;
    JSR.W Zero_All_Stats                 ;018090|0180F8;
    JSR.W Init_Condition                 ;018093|018143;
-   JSR.W Init_11CB_11D9                 ;018096|018158;
-   JSR.W Init_11FB_1209                 ;018099|018178;
+   JSR.W Init_Kill_Enemies              ;018096|018158;
+   JSR.W Init_Battle_order              ;018099|018178;
    JSR.W Zero_LVLs                      ;01809C|0181CA;
    JSR.W Zero_party_currHP              ;01809F|0181DB;
    JSR.W Zero_party_currMP              ;0180A2|0181EC;
@@ -98,8 +95,7 @@ Zero_All_Stats_far:
    RTL                                  ;0180F7|      ;
 Zero_All_Stats:
    LDX.W #$0000                         ;0180F8|      ; Sets stats to 0 for all 9 character slots
-CODE_0180FB:
-   STZ.W Condition,X                    ;0180FB|0011C3;
+ - STZ.W Condition,X                    ;0180FB|0011C3;
    STZ.W Party_order,X                  ;0180FE|0011F3;
    STZ.W Strength,X                     ;018101|001223;
    STZ.W Intelligence,X                 ;018104|00123B;
@@ -109,7 +105,7 @@ CODE_0180FB:
    INX                                  ;018110|      ;
    INX                                  ;018111|      ;
    CPX.W #$0018                         ;018112|      ;
-   BCC CODE_0180FB                      ;018115|0180FB;
+   BCC -                                ;018115|0180FB;
    RTS                                  ;018117|      ;
 Zero_enemy_stats_far:
    JSR.W Zero_enemy_stats               ;018118|01811C;
@@ -117,8 +113,7 @@ Zero_enemy_stats_far:
 Zero_enemy_stats:
    LDX.W #$0000                         ;01811C|      ;
    LDA.W #$0001                         ;01811F|      ;
-CODE_018122:
-   STA.W Condition_Enemy1,X             ;018122|0011CB; Set enemies to Deceased
+ - STA.W Condition_Enemy1,X             ;018122|0011CB; Set enemies to Deceased
    STZ.W Enemy_order,X                  ;018125|0011FB; And zero their stats
    STZ.W Enemy_STR,X                    ;018128|00122B;
    STZ.W Enemy_INT,X                    ;01812B|001243;
@@ -128,7 +123,7 @@ CODE_018122:
    INX                                  ;018137|      ;
    INX                                  ;018138|      ;
    CPX.W #$0010                         ;018139|      ;
-   BCC CODE_018122                      ;01813C|018122;
+   BCC -                                ;01813C|018122;
    RTS                                  ;01813E|      ;
 Init_Condition_far:
    JSR.W Init_Condition                 ;01813F|018143;
@@ -136,48 +131,47 @@ Init_Condition_far:
 Init_Condition:
    LDX.W #$0000                         ;018143|      ;
    LDA.W #$0001                         ;018146|      ;
-CODE_018149:
-   STA.W Condition_copy,X               ;018149|0011DB;
+ - STA.W Condition_copy,X               ;018149|0011DB;
    INX                                  ;01814C|      ;
    INX                                  ;01814D|      ;
    CPX.W #$0008                         ;01814E|      ;
-   BCC CODE_018149                      ;018151|018149;
+   BCC -                                ;018151|018149;
    RTS                                  ;018153|      ;
-Init_11CB_11D9_far:
-   JSR.W Init_11CB_11D9                 ;018154|018158;
+Init_Kill_Enemies_far:
+   JSR.W Init_Kill_Enemies              ;018154|018158;
    RTL                                  ;018157|      ;
-Init_11CB_11D9:
-   LDA.W #$0001                         ;018158|      ; Sets a range of RAM to 0001
+Init_Kill_Enemies:
+   LDA.W #$0001                         ;018158|      ; Sets enemy conditions to 1 (deceased)
    STA.W Condition_Enemy1               ;01815B|0011CB;
-   STA.W $11CD                          ;01815E|0011CD;
-   STA.W $11CF                          ;018161|0011CF;
-   STA.W $11D1                          ;018164|0011D1;
-   STA.W $11D3                          ;018167|0011D3;
-   STA.W $11D5                          ;01816A|0011D5;
-   STA.W $11D7                          ;01816D|0011D7;
+   STA.W Condition_Enemy2               ;01815E|0011CD;
+   STA.W Condition_Enemy3               ;018161|0011CF;
+   STA.W Condition_Enemy4               ;018164|0011D1;
+   STA.W Condition_Enemy5               ;018167|0011D3;
+   STA.W Condition_Enemy6               ;01816A|0011D5;
+   STA.W Condition_Enemy7               ;01816D|0011D7;
    STA.W Condition_Enemy8               ;018170|0011D9;
    RTS                                  ;018173|      ;
-Init_11FB_1209_far:
-   JSR.W Init_11FB_1209                 ;018174|018178;
+Init_Battle_order_far:
+   JSR.W Init_Battle_order              ;018174|018178;
    RTL                                  ;018177|      ;
-Init_11FB_1209:
-   LDA.W #$0000                         ;018178|      ; Also sets 0,1,2,3 to 11F3-11F9
+Init_Battle_order:
+   LDA.W #$0000                         ;018178|      ; Sets 0,1,2,3 to party order, -1 to all enemies
    STA.W Party_order                    ;01817B|0011F3;
    INC A                                ;01817E|      ;
-   STA.W $11F5                          ;01817F|0011F5;
+   STA.W Party_order_slot2              ;01817F|0011F5;
    INC A                                ;018182|      ;
-   STA.W $11F7                          ;018183|0011F7;
+   STA.W Party_order_slot3              ;018183|0011F7;
    INC A                                ;018186|      ;
-   STA.W $11F9                          ;018187|0011F9;
+   STA.W Party_order_slot4              ;018187|0011F9;
    LDA.W #$FFFF                         ;01818A|      ;
    STA.W Enemy_order                    ;01818D|0011FB;
-   STA.W $11FD                          ;018190|0011FD;
-   STA.W $11FF                          ;018193|0011FF;
-   STA.W $1201                          ;018196|001201;
-   STA.W $1203                          ;018199|001203;
-   STA.W $1205                          ;01819C|001205;
-   STA.W $1207                          ;01819F|001207;
-   STA.W $1209                          ;0181A2|001209;
+   STA.W Enemy_order_slot2              ;018190|0011FD;
+   STA.W Enemy_order_slot3              ;018193|0011FF;
+   STA.W Enemy_order_slot4              ;018196|001201;
+   STA.W Enemy_order_slot5              ;018199|001203;
+   STA.W Enemy_order_slot6              ;01819C|001205;
+   STA.W Enemy_order_slot7              ;01819F|001207;
+   STA.W Enemy_order_slot8              ;0181A2|001209;
    RTS                                  ;0181A5|      ;
 Erase_enemy_order_far:
    JSR.W Erase_enemy_order              ;0181A6|0181AA;
@@ -185,13 +179,13 @@ Erase_enemy_order_far:
 Erase_enemy_order:
    LDA.W #$FFFF                         ;0181AA|      ;
    STA.W Enemy_order                    ;0181AD|0011FB; 8 enemies = 8 variables
-   STA.W $11FD                          ;0181B0|0011FD;
-   STA.W $11FF                          ;0181B3|0011FF;
-   STA.W $1201                          ;0181B6|001201;
-   STA.W $1203                          ;0181B9|001203;
-   STA.W $1205                          ;0181BC|001205;
-   STA.W $1207                          ;0181BF|001207;
-   STA.W $1209                          ;0181C2|001209;
+   STA.W Enemy_order_slot2              ;0181B0|0011FD;
+   STA.W Enemy_order_slot3              ;0181B3|0011FF;
+   STA.W Enemy_order_slot4              ;0181B6|001201;
+   STA.W Enemy_order_slot5              ;0181B9|001203;
+   STA.W Enemy_order_slot6              ;0181BC|001205;
+   STA.W Enemy_order_slot7              ;0181BF|001207;
+   STA.W Enemy_order_slot8              ;0181C2|001209;
    RTS                                  ;0181C5|      ;
 Zero_LVLs_far:
    JSR.W Zero_LVLs                      ;0181C6|0181CA;
@@ -208,8 +202,8 @@ Zero_party_currHP_far:
 Zero_party_currHP:
    STZ.W Curr_HP_Rooks                  ;0181DB|0012F3;
    STZ.W Curr_HP_Spirit                 ;0181DE|0012F5;
-   STZ.W $12F7                          ;0181E1|0012F7;
-   STZ.W $12F9                          ;0181E4|0012F9;
+   STZ.W Curr_HP_Guest1                 ;0181E1|0012F7;
+   STZ.W Curr_HP_Guest2                 ;0181E4|0012F9;
    RTS                                  ;0181E7|      ;
 Zero_party_currMP_far:
    JSR.W Zero_party_currMP              ;0181E8|0181EC;
@@ -225,9 +219,9 @@ Zero_copy_currHP_far:
    RTL                                  ;0181FC|      ;
 Zero_copy_currHP:
    STZ.W Curr_HP_copy                   ;0181FD|00130B;
-   STZ.W $130D                          ;018200|00130D;
-   STZ.W $130F                          ;018203|00130F;
-   STZ.W $1311                          ;018206|001311;
+   STZ.W Curr_HP_Spirit_copy            ;018200|00130D;
+   STZ.W Curr_HP_Guest1_copy            ;018203|00130F;
+   STZ.W Curr_HP_Guest2_copy            ;018206|001311;
    RTS                                  ;018209|      ;
 Zero_copy_currMP_far:
    JSR.W Zero_copy_currMP               ;01820A|01820E;
@@ -281,38 +275,35 @@ Zero_card_inventory_far:
    RTL                                  ;018268|      ;
 Zero_card_inventory:
    LDX.W #$0010                         ;018269|      ;
-CODE_01826C:
-   STZ.W Inventory_Cards,X              ;01826C|0013A9;
+ - STZ.W Inventory_Cards,X              ;01826C|0013A9;
    DEX                                  ;01826F|      ;
    DEX                                  ;018270|      ;
-   BPL CODE_01826C                      ;018271|01826C;
+   BPL -                                ;018271|01826C;
    RTS                                  ;018273|      ;
 Zero_item_inventory_far:
    JSR.W Zero_item_inventory            ;018274|018278;
    RTL                                  ;018277|      ;
 Zero_item_inventory:
    LDX.W #$0000                         ;018278|      ;
-CODE_01827B:
-   STZ.W Inventory_Items,X              ;01827B|0013B9;
+ - STZ.W Inventory_Items,X              ;01827B|0013B9;
    INX                                  ;01827E|      ;
    INX                                  ;01827F|      ;
    CPX.W #$0060                         ;018280|      ;
-   BNE CODE_01827B                      ;018283|01827B;
+   BNE -                                ;018283|01827B;
    RTS                                  ;018285|      ;
 Zero_spell_lists_far:
    JSR.W Zero_spell_lists               ;018286|01828A;
    RTL                                  ;018289|      ;
 Zero_spell_lists:
    LDX.W #$0000                         ;01828A|      ;
-CODE_01828D:
-   STZ.W Spell_list,X                   ;01828D|001459;
-   STZ.W $1499,X                        ;018290|001499;
-   STZ.W $14D9,X                        ;018293|0014D9;
-   STZ.W $1519,X                        ;018296|001519;
+ - STZ.W Spell_list,X                   ;01828D|001459;
+   STZ.W Spell_list_Spirit,X            ;018290|001499;
+   STZ.W Spell_list_Guest1,X            ;018293|0014D9;
+   STZ.W Spell_list_Guest2,X            ;018296|001519;
    INX                                  ;018299|      ;
    INX                                  ;01829A|      ;
    CPX.W #$0040                         ;01829B|      ;
-   BCC CODE_01828D                      ;01829E|01828D;
+   BCC -                                ;01829E|01828D;
    RTS                                  ;0182A0|      ;
 Zero_Equip_inventory_far:
    JSR.W Zero_Equip_inventory           ;0182A1|0182A5;
@@ -320,12 +311,11 @@ Zero_Equip_inventory_far:
 Zero_Equip_inventory:
    LDX.W #$0000                         ;0182A5|      ;
    LDA.W #$FF00                         ;0182A8|      ;
-CODE_0182AB:
-   STA.W Inventory_Eqp,X                ;0182AB|001419;
+ - STA.W Inventory_Eqp,X                ;0182AB|001419;
    INX                                  ;0182AE|      ;
    INX                                  ;0182AF|      ;
    CPX.W #$0040                         ;0182B0|      ;
-   BNE CODE_0182AB                      ;0182B3|0182AB;
+   BNE -                                ;0182B3|0182AB;
    RTS                                  ;0182B5|      ;
 Zero_stat_modifiers_far:
    JSR.W Zero_stat_modifiers            ;0182B6|0182BA;
@@ -345,88 +335,85 @@ Zero_Equipped_items_far:
    RTL                                  ;0182D6|      ;
 Zero_Equipped_items:
    LDX.W #$0000                         ;0182D7|      ;
-CODE_0182DA:
-   STZ.W EqWeapon,X                     ;0182DA|001283;
+ - STZ.W EqWeapon,X                     ;0182DA|001283;
    STZ.W EqArmor,X                      ;0182DD|00129B;
    STZ.W EqAmulet,X                     ;0182E0|0012B3;
    STZ.W EqRing,X                       ;0182E3|0012CB;
    INX                                  ;0182E6|      ;
    INX                                  ;0182E7|      ;
    CPX.W #$0018                         ;0182E8|      ;
-   BCC CODE_0182DA                      ;0182EB|0182DA;
+   BCC -                                ;0182EB|0182DA;
    RTS                                  ;0182ED|      ;
 Zero_enemy_equips_far:
    JSR.W Zero_enemy_equips              ;0182EE|0182F2;
    RTL                                  ;0182F1|      ;
 Zero_enemy_equips:
    LDX.W #$0000                         ;0182F2|      ;
-CODE_0182F5:
-   STZ.W Enemy_Weapon,X                 ;0182F5|00128B;
+ - STZ.W Enemy_Weapon,X                 ;0182F5|00128B;
    STZ.W Enemy_Armor,X                  ;0182F8|0012A3;
    STZ.W Enemy_Amulet,X                 ;0182FB|0012BB;
    STZ.W Enemy_Ring,X                   ;0182FE|0012D3;
    INX                                  ;018301|      ;
    INX                                  ;018302|      ;
    CPX.W #$0010                         ;018303|      ;
-   BCC CODE_0182F5                      ;018306|0182F5;
+   BCC -                                ;018306|0182F5;
    RTS                                  ;018308|      ;
 Zero_Attribute_bits_far:
    JSR.W Zero_Attribute_bits            ;018309|01830D;
    RTL                                  ;01830C|      ;
 Zero_Attribute_bits:
    LDX.W #$0000                         ;01830D|      ;
-CODE_018310:
-   LDA.W Affinity,X                     ;018310|00120B;
+ - LDA.W Affinity,X                     ;018310|00120B;
    AND.W #$0FFF                         ;018313|      ;
    STA.W Affinity,X                     ;018316|00120B;
    INX                                  ;018319|      ;
    INX                                  ;01831A|      ;
    CPX.W #$0008                         ;01831B|      ;
-   BCC CODE_018310                      ;01831E|018310;
+   BCC -                                ;01831E|018310;
    RTS                                  ;018320|      ;
-Event_Main_00:
+Event_Main_00_GAME_INIT:
    db $07                               ;018321|      ;
    dl Decomp80_setup_3b                 ;018322|009CF9;
    dl Compressed_data_7                 ;018325|018A4F;
    db $16                               ;018328|      ; 16 104F A492 (Set Ptr_Animation_Loop2)
    dw $104F                             ;018329|      ;
-   dw $A492                             ;01832B|      ;
+   dw DATA8_01A492                      ;01832B|01A492;
    db $1F                               ;01832D|      ; 1F 18CB (Load $18CB (?))
    dw $18CB                             ;01832E|      ;
    db $0C                               ;018330|      ; 0C: Jump if true
    dw Init_more_things                  ;018331|0183BD;
 Init_Chapter_1:
-   db $16                               ;018333|      ; 16 18FF 0000
+   db $16                               ;018333|      ; 16: 18FF=0 (Story progress)
    dw $18FF                             ;018334|      ;
    dw $0000                             ;018336|      ;
-   db $16                               ;018338|      ; 16 1901 0000
+   db $16                               ;018338|      ; 16: 1901=0 (?)
    dw $1901                             ;018339|      ;
    dw $0000                             ;01833B|      ;
-   db $16                               ;01833D|      ; 16 11C1 0000
+   db $16                               ;01833D|      ; 16: 11C1=0 (Game state)
    dw $11C1                             ;01833E|      ;
    dw $0000                             ;018340|      ;
-   db $16                               ;018342|      ; 16 1575 FFFF
+   db $16                               ;018342|      ; 16: 1575=-1 (Current turn?)
    dw $1575                             ;018343|      ;
    dw $FFFF                             ;018345|      ;
-   db $16                               ;018347|      ; 16 13A3 0000
+   db $16                               ;018347|      ; 16: 13A3=0 (Temp exp)
    dw $13A3                             ;018348|      ;
    dw $0000                             ;01834A|      ;
-   db $16                               ;01834C|      ; 16 13A5 0000
+   db $16                               ;01834C|      ; 16: 13A5=0 (Temp gp)
    dw $13A5                             ;01834D|      ;
    dw $0000                             ;01834F|      ;
-   db $16                               ;018351|      ; 16 1559 01F4
+   db $16                               ;018351|      ; 16: 1559=500 (Current gold)
    dw $1559                             ;018352|      ;
    dw $01F4                             ;018354|      ;
-   db $16                               ;018356|      ; 16 1095 0000
+   db $16                               ;018356|      ; 16: 1095=0 (Text unpaused)
    dw $1095                             ;018357|      ;
    dw $0000                             ;018359|      ;
-   db $16                               ;01835B|      ; 16 157B 0001
+   db $16                               ;01835B|      ; 16: 157B=1 (Show compass)
    dw $157B                             ;01835C|      ;
    dw $0001                             ;01835E|      ;
-   db $16                               ;018360|      ; 16 157D 0000
+   db $16                               ;018360|      ; 16: 157D=0 (Compass subdirection 0)
    dw $157D                             ;018361|      ;
    dw $0000                             ;018363|      ;
-   db $16                               ;018365|      ; 16 1127 FFFF
+   db $16                               ;018365|      ; 16: 1127=-1 (Last spell ID -1)
    dw $1127                             ;018366|      ;
    dw $FFFF                             ;018368|      ;
 Init_all_the_things_2:
@@ -435,9 +422,9 @@ Init_all_the_things_2:
    db $07                               ;01836E|      ;
    dl Init_Condition_far                ;01836F|01813F; Initialize Condition
    db $07                               ;018372|      ;
-   dl Init_11CB_11D9_far                ;018373|018154; Set some RAM to 1
+   dl Init_Kill_Enemies_far             ;018373|018154; Set some RAM to 1
    db $07                               ;018376|      ;
-   dl Init_11FB_1209_far                ;018377|018174;
+   dl Init_Battle_order_far             ;018377|018174;
    db $07                               ;01837A|      ;
    dl Zero_LVLs_far                     ;01837B|0181C6;
    db $07                               ;01837E|      ;
@@ -469,7 +456,7 @@ Init_all_the_things_2:
    db $07                               ;0183B2|      ;
    dl Zero_stat_modifiers_far           ;0183B3|0182B6;
    db $04                               ;0183B6|      ; Sub: Transfer some data
-   dl Xfer_1577_stuff                   ;0183B7|018A06;
+   dl Xfer_Window_Color                 ;0183B7|018A06;
    db $1A                               ;0183BA|      ;
    dw DATA8_018561                      ;0183BB|018561;
 Init_more_things:
@@ -508,7 +495,7 @@ Wipe_enemy_stats:
    db $07                               ;0183F2|      ;
    dl Zero_enemy_equips_far             ;0183F3|0182EE;
    db $04                               ;0183F6|      ;
-   dl Xfer_1577_stuff                   ;0183F7|018A06;
+   dl Xfer_Window_Color                 ;0183F7|018A06;
    db $07                               ;0183FA|      ;
    dl Zero_stat_modifiers_far           ;0183FB|0182B6;
    db $04                               ;0183FE|      ;
@@ -519,7 +506,7 @@ Wipe_enemy_stats:
    dl Decomp80_setup_3b                 ;018407|009CF9;
    dl RLE_Loc_0D833F                    ;01840A|0D8001;
    db $04                               ;01840D|      ;
-   dl Xfer_1577_stuff                   ;01840E|018A06;
+   dl Xfer_Window_Color                 ;01840E|018A06;
    db $04                               ;018411|      ;
    dl Sub_Do_stuff                      ;018412|0189B8;
    db $1B                               ;018415|      ;
@@ -593,7 +580,7 @@ Load_Guest2_Gfx:
    db $09                               ;018471|      ;
    dl Get_Event                         ;018472|1895EE;
    db $1F                               ;018475|      ; Get $18CD
-   dw $18CD                             ;018476|0018CD;
+   dw $18CD                             ;018476|0118CD;
    db $11                               ;018478|      ; Jump on $18CD value
    db $06                               ;018479|      ;
    dw Init_Chapter_1                    ;01847A|018333;
@@ -756,7 +743,7 @@ Decomp_0D8001:
    dl Decomp80_setup_3b                 ;01857B|009CF9;
    dl RLE_Loc_0D833F                    ;01857E|0D8001;
    db $04                               ;018581|      ;
-   dl Xfer_1577_stuff                   ;018582|018A06;
+   dl Xfer_Window_Color                 ;018582|018A06;
 Clear_Map_Progress:
    db $07                               ;018585|      ;
    dl Clear_map_progress                ;018586|03A489;
@@ -812,7 +799,7 @@ Clear_Map_Progress:
    db $07                               ;0185E6|      ;
    dl Treasure_Tracker_Clear            ;0185E7|188416;
    dw $7316                             ;0185EA|      ; Set current map = Galia Ch1
-   dw $0015                             ;0185EC|000015;
+   dw $0015                             ;0185EC|010015;
    dw $0700                             ;0185EE|      ;
    dl Entering_Town                     ;0185F0|03B357;
    db $07                               ;0185F3|      ;
@@ -894,7 +881,7 @@ Event_Start_Chapter2:
    dl Decomp80_setup_3b                 ;018662|009CF9;
    dl RLE_Loc_0D833F                    ;018665|0D8001;
    db $04                               ;018668|      ;
-   dl Xfer_1577_stuff                   ;018669|018A06;
+   dl Xfer_Window_Color                 ;018669|018A06;
    db $07                               ;01866C|      ;
    dl Clear_map_progress                ;01866D|03A489;
    db $04                               ;018670|      ;
@@ -1009,7 +996,7 @@ Event_Start_Chapter3:
    dl Decomp80_setup_3b                 ;01870C|009CF9;
    dl RLE_Loc_0D833F                    ;01870F|0D8001;
    db $04                               ;018712|      ;
-   dl Xfer_1577_stuff                   ;018713|018A06;
+   dl Xfer_Window_Color                 ;018713|018A06;
    db $07                               ;018716|      ;
    dl Clear_map_progress                ;018717|03A489;
    db $04                               ;01871A|      ;
@@ -1119,7 +1106,7 @@ DATA8_018772:
    dl Decomp80_setup_3b                 ;0187B6|009CF9;
    dl RLE_Loc_0D833F                    ;0187B9|0D8001;
    db $04                               ;0187BC|      ;
-   dl Xfer_1577_stuff                   ;0187BD|018A06;
+   dl Xfer_Window_Color                 ;0187BD|018A06;
    db $07                               ;0187C0|      ;
    dl Clear_map_progress                ;0187C1|03A489;
    db $04                               ;0187C4|      ;
@@ -1229,7 +1216,7 @@ DATA8_01881C:
    dl Decomp80_setup_3b                 ;018860|009CF9;
    dl RLE_Loc_0D833F                    ;018863|0D8001;
    db $04                               ;018866|      ;
-   dl Xfer_1577_stuff                   ;018867|018A06;
+   dl Xfer_Window_Color                 ;018867|018A06;
    db $07                               ;01886A|      ;
    dl Clear_map_progress                ;01886B|03A489;
    db $04                               ;01886E|      ;
@@ -1333,10 +1320,10 @@ Game_over_check:
    db $07                               ;0188F8|      ; 07: Call 01/8A38 is $11C1 negative
    dl Is_BattleState_Negative           ;0188F9|018A38;
    db $0C                               ;0188FC|      ; 0C: Jump if true to 8902
-   dw DATA8_018902                      ;0188FD|018902;
+   dw Game_over                         ;0188FD|018902;
    db $1A                               ;0188FF|      ; 1A: Jump to 88F6
    dw DATA8_0188F6                      ;018900|0188F6;
-DATA8_018902:
+Game_over:
    db $07                               ;018902|      ; 07: Call 00/A0AC
    dl Setup_Text_Parser_3b              ;018903|00A0AC;
    dl Text_06_0C_0C                     ;018906|088001;
@@ -1348,16 +1335,15 @@ DATA8_018902:
    db $06                               ;018910|      ; 06 03
    db $03                               ;018911|      ;
    db $02                               ;018912|      ; 02
-Game_over__man:
    db $07                               ;018913|      ; Play "Death of a Loved One"
    dl GetSet_Music                      ;018914|009C3C;
    db $37                               ;018917|      ;
-   db $06                               ;018918|      ;
+   db $06                               ;018918|      ; 06: WAIT 78
    db $78                               ;018919|      ;
 DATA8_01891A:
-   db $06                               ;01891A|      ;
+   db $06                               ;01891A|      ; 06: WAIT 01 (just in case)
    db $01                               ;01891B|      ;
-   db $1E                               ;01891C|      ;
+   db $1E                               ;01891C|      ; 1E: Load 0
    dw $0000                             ;01891D|      ;
    db $07                               ;01891F|      ; Check for B/A press
    dl WasBtnPressedX_2b                 ;018920|00A022;
@@ -1370,7 +1356,7 @@ DATA8_01891A:
    db $07                               ;01892D|      ;
    dl Mosaic_BGEnable_1b                ;01892E|009E79;
    db $0F                               ;018931|      ;
-   db $01                               ;018932|      ;
+   db $01                               ;018932|      ; 01: START_LOOP 10
    db $10                               ;018933|      ;
    db $07                               ;018934|      ;
    dl Fade                              ;018935|00A0DB;
@@ -1379,23 +1365,23 @@ DATA8_01891A:
    db $07                               ;01893C|      ;
    dl Sound_stuff_1b                    ;01893D|009C19;
    db $F0                               ;018940|      ;
-   db $06                               ;018941|      ;
+   db $06                               ;018941|      ; 06: WAIT 03
    db $03                               ;018942|      ;
-   db $02                               ;018943|      ;
-   db $07                               ;018944|      ;
+   db $02                               ;018943|      ; 02: END_LOOP
+   db $07                               ;018944|      ; 07: Disable music
    dl GetSet_Music                      ;018945|009C3C;
    db $00                               ;018948|      ;
-   db $07                               ;018949|      ;
+   db $07                               ;018949|      ; 07: Turn off main screen
    dl MainScr_Remove_1b                 ;01894A|009DB6;
    db $1F                               ;01894D|      ;
-   db $10                               ;01894E|018957;
+   db $10                               ;01894E|      ; 10: ON_TICK NOP
    db $07                               ;01894F|      ;
    dl CODE_009CE5                       ;018950|009CE5;
    db $04                               ;018953|      ;
    dl Sub_Disable_HDMA                  ;018954|0189F1;
-   db $06                               ;018957|      ;
+   db $06                               ;018957|      ; 06: WAIT 01
    db $01                               ;018958|      ;
-   db $00                               ;018959|      ; Exit game over
+   db $00                               ;018959|      ; 00: END
 Sub_Setup_Field_Sprites1:
    db $07                               ;01895A|      ;
    dl MainScr_Remove_1b                 ;01895B|009DB6;
@@ -1469,7 +1455,7 @@ Sub_Do_stuff:
    dl Do_Stuff_far                      ;0189C9|00A0A8;
    db $05                               ;0189CC|      ; RTL
 Sub_Transfer_stuff:
-   db $07                               ;0189CD|      ;
+   db $07                               ;0189CD|      ; HDMA ($2111): Edit BG3_HScroll
    dl HDMA_xfer_6b                      ;0189CE|009EE0;
    db $02                               ;0189D1|      ;
    db $42                               ;0189D2|      ;
@@ -1504,58 +1490,56 @@ Sub_Disable_HDMA:
    dl Rem_HDMA_ch_1b                    ;0189FC|009F1F;
    db $04                               ;0189FF|      ;
    db $16                               ;018A00|      ; Set $0048 to 0 (no button pressed??)
-   dw $0048                             ;018A01|000048;
+   dw $0048                             ;018A01|010048;
    dw $0000                             ;018A03|      ;
    db $05                               ;018A05|      ; RTL
-Xfer_1577_stuff:
+Xfer_Window_Color:
    db $07                               ;018A06|      ;
-   dl Transfer_Data_3b_1b_2b            ;018A07|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;018A07|00A140;
    dl $001577                           ;018A0A|001577;
    db $03                               ;018A0D|      ;
    db $02                               ;018A0E|      ;
    db $00                               ;018A0F|      ;
    db $07                               ;018A10|      ;
-   dl Transfer_Data_3b_1b_2b            ;018A11|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;018A11|00A140;
    dl $001577                           ;018A14|001577;
    db $07                               ;018A17|      ;
    db $02                               ;018A18|      ;
    db $00                               ;018A19|      ;
    db $07                               ;018A1A|      ;
-   dl Transfer_Data_3b_1b_2b            ;018A1B|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;018A1B|00A140;
    dl $001577                           ;018A1E|001577;
    db $73                               ;018A21|      ;
    db $02                               ;018A22|      ;
    db $00                               ;018A23|      ;
    db $05                               ;018A24|      ; RTL
 Is_Curr_Event_1b:
-   JSL.L GetEventCode_1b_far            ;018A25|009AF8; Read the next byte at [$10]
+   JSL.L GetASMCode_1b_far              ;018A25|009AF8; Read the next byte at [$10]
    STA.B $20                            ;018A29|000020;
    CMP.W Story_Progress                 ;018A2B|0018FF; If it matches the event byte, return 1
-   BEQ CODE_018A34                      ;018A2E|018A34;
+   BEQ +                                ;018A2E|018A34;
    LDA.W #$0000                         ;018A30|      ; Otherwise, return 0
    RTL                                  ;018A33|      ;
-CODE_018A34:
-   LDA.W #$0001                         ;018A34|      ;
+ + LDA.W #$0001                         ;018A34|      ;
    RTL                                  ;018A37|      ;
 Is_BattleState_Negative:
    LDA.W Game_State                     ;018A38|0011C1;
-   BMI CODE_018A41                      ;018A3B|018A41;
+   BMI +                                ;018A3B|018A41;
    LDA.W #$0000                         ;018A3D|      ;
    RTL                                  ;018A40|      ;
-CODE_018A41:
-   LDA.W #$0001                         ;018A41|      ;
+ + LDA.W #$0001                         ;018A41|      ;
    RTL                                  ;018A44|      ;
 DATA8_018A45:
    db $07                               ;018A45|      ;
-   db $13                               ;018A46|000012;
-   db $12                               ;018A47|000008;
+   db $13                               ;018A46|      ;
+   db $12                               ;018A47|      ;
    db $08                               ;018A48|      ;
    db $09                               ;018A49|      ;
 DATA8_018A4A:
    db $07                               ;018A4A|      ;
    db $02                               ;018A4B|      ;
-   db $12                               ;018A4C|000011;
-   db $11                               ;018A4D|000009;
+   db $12                               ;018A4C|      ;
+   db $11                               ;018A4D|      ;
    db $09                               ;018A4E|      ;
 Compressed_data_7:
    db $00                               ;018A4F|      ;
@@ -1709,7 +1693,7 @@ DATA8_018AE9:
    dw DATA8_018AE9                      ;018B26|018AE9;
 Any_direction_pressed:
    db $16                               ;018B28|      ;
-   dw $11C1                             ;018B29|0011C1;
+   dw $11C1                             ;018B29|0111C1;
    dw $0003                             ;018B2B|      ;
    db $1B                               ;018B2D|      ;
    dw Loop_Draw_next_step               ;018B2E|018C85;
@@ -1836,7 +1820,7 @@ Tileset_Event01_03:
    db $FF                               ;018BB9|      ;
    db $C2                               ;018BBA|      ;
    db $31                               ;018BBB|      ;
-DATA8_018BBC:
+Tileset_Event01_04:
    db $00                               ;018BBC|      ;
    db $13                               ;018BBD|      ;
    db $FF                               ;018BBE|      ;
@@ -1857,7 +1841,7 @@ DATA8_018BBC:
    db $FF                               ;018BCD|      ;
    db $C2                               ;018BCE|      ;
    db $31                               ;018BCF|      ;
-DATA8_018BD0:
+Tileset_Event01_05:
    db $01                               ;018BD0|      ;
    db $28                               ;018BD1|      ;
    db $FF                               ;018BD2|      ;
@@ -1893,7 +1877,7 @@ DATA8_018BD0:
    db $FF                               ;018BF0|      ;
    db $C2                               ;018BF1|      ;
    db $31                               ;018BF2|      ;
-DATA8_018BF3:
+Tileset_Event01_06:
    db $00                               ;018BF3|      ;
    db $1C                               ;018BF4|      ;
    db $FF                               ;018BF5|      ;
@@ -1919,7 +1903,7 @@ DATA8_018BF3:
    db $FF                               ;018C09|      ;
    db $C2                               ;018C0A|      ;
    db $31                               ;018C0B|      ;
-DATA8_018C0C:
+Tileset_Event01_07:
    db $01                               ;018C0C|      ;
    db $04                               ;018C0D|      ;
    db $10                               ;018C0E|      ;
@@ -1970,31 +1954,31 @@ DATA8_018C0C:
    db $E0                               ;018C3B|      ;
    db $C0                               ;018C3C|      ;
    db $31                               ;018C3D|      ;
-DATA8_018C3E:
+Tileset_Event01_08:
    db $02                               ;018C3E|      ;
    db $00                               ;018C3F|      ;
    db $00                               ;018C40|      ;
    db $C6                               ;018C41|      ;
    db $31                               ;018C42|      ;
-DATA8_018C43:
+Tileset_Event01_09:
    db $02                               ;018C43|      ;
    db $00                               ;018C44|      ;
    db $00                               ;018C45|      ;
    db $C7                               ;018C46|      ;
    db $31                               ;018C47|      ;
-DATA8_018C48:
+Tileset_Event01_0A:
    db $02                               ;018C48|      ;
    db $00                               ;018C49|      ;
    db $00                               ;018C4A|      ;
    db $C6                               ;018C4B|      ;
    db $B1                               ;018C4C|      ;
-DATA8_018C4D:
+Tileset_Event01_0B:
    db $02                               ;018C4D|      ;
    db $00                               ;018C4E|      ;
    db $00                               ;018C4F|      ;
    db $C7                               ;018C50|      ;
    db $71                               ;018C51|      ;
-DATA8_018C52:
+Tileset_Event01_0C:
    db $01                               ;018C52|      ;
    db $30                               ;018C53|      ;
    db $F8                               ;018C54|      ;
@@ -2025,15 +2009,15 @@ Tbl_Tileset_Event01:
    dw Tileset_Event01_01                ;018C6D|018B7B;
    dw Tileset_Event01_02                ;018C6F|018BA8;
    dw Tileset_Event01_03                ;018C71|018BAD;
-   dw DATA8_018BBC                      ;018C73|018BBC;
-   dw DATA8_018BD0                      ;018C75|018BD0;
-   dw DATA8_018BF3                      ;018C77|018BF3;
-   dw DATA8_018C0C                      ;018C79|018C0C;
-   dw DATA8_018C3E                      ;018C7B|018C3E;
-   dw DATA8_018C43                      ;018C7D|018C43;
-   dw DATA8_018C48                      ;018C7F|018C48;
-   dw DATA8_018C4D                      ;018C81|018C4D;
-   dw DATA8_018C52                      ;018C83|018C52;
+   dw Tileset_Event01_04                ;018C73|018BBC;
+   dw Tileset_Event01_05                ;018C75|018BD0;
+   dw Tileset_Event01_06                ;018C77|018BF3;
+   dw Tileset_Event01_07                ;018C79|018C0C;
+   dw Tileset_Event01_08                ;018C7B|018C3E;
+   dw Tileset_Event01_09                ;018C7D|018C43;
+   dw Tileset_Event01_0A                ;018C7F|018C48;
+   dw Tileset_Event01_0B                ;018C81|018C4D;
+   dw Tileset_Event01_0C                ;018C83|018C52;
 Loop_Draw_next_step:
    db $06                               ;018C85|      ;
    db $01                               ;018C86|      ;
@@ -2041,7 +2025,7 @@ Loop_Draw_next_step:
    dl RNG_1b                            ;018C88|00A0BD;
    db $FA                               ;018C8B|      ;
    db $1F                               ;018C8C|      ; Store $1901 in result
-   dw $1901                             ;018C8D|001901;
+   dw $1901                             ;018C8D|011901;
    db $0C                               ;018C8F|      ; While nonzero, loop back
    dw Loop_Draw_next_step               ;018C90|018C85;
    db $1E                               ;018C92|      ;
@@ -2152,7 +2136,7 @@ Check_for_map_exit:
    dw No_Darwin_theme                   ;018D2E|018D77;
 Exit_map:
    db $16                               ;018D30|      ;
-   dw $157B                             ;018D31|00157B;
+   dw $157B                             ;018D31|01157B;
    dw $0000                             ;018D33|      ;
    db $07                               ;018D35|      ;
    dl Some_enemy_ID_check               ;018D36|03ADE0;
@@ -2195,7 +2179,7 @@ Darwin_theme:
    db $07                               ;018D6C|      ;
    dl Map_stuff_and_vblank              ;018D6D|03883F;
    db $07                               ;018D70|      ;
-   dl CODE_03887A                       ;018D71|03887A;
+   dl CODE_JP_03887A                    ;018D71|03887A;
    db $1A                               ;018D74|      ;
    dw DATA8_018D96                      ;018D75|018D96;
 No_Darwin_theme:
@@ -2215,7 +2199,7 @@ No_Darwin_theme:
    db $07                               ;018D8A|      ;
    dl Map_stuff_and_vblank              ;018D8B|03883F;
    db $07                               ;018D8E|      ; Load decomp gfx?
-   dl CODE_03887A                       ;018D8F|03887A;
+   dl CODE_JP_03887A                    ;018D8F|03887A;
 Set_BGM:
    db $07                               ;018D92|      ;
    dl Sub_Default_BGM                   ;018D93|03A520;
@@ -2359,8 +2343,8 @@ Load_fight_music:
    dw DATA8_018E61                      ;018E55|018E61;
 DATA8_018E57:
    db $07                               ;018E57|      ;
-   dl Transfer_Data_3b_1b_2b            ;018E58|00A140;
-   dl _189A85_2_bytes                   ;018E5B|0D958C;
+   dl Gfx_GetPalette_3b_1b_2b           ;018E58|00A140;
+   dl Text_Color_Red                    ;018E5B|0D958C;
    db $02                               ;018E5E|      ;
    dw $0002                             ;018E5F|      ;
 DATA8_018E61:
@@ -2736,7 +2720,7 @@ DATA8_019016:
    dl _8698_setup_3b                    ;019070|009D07;
    dl _9D07_data2                       ;019073|01B674;
    db $07                               ;019076|      ;
-   dl CODE_038007                       ;019077|038007;
+   dl CODE_FL_038007                    ;019077|038007;
 DATA8_01907A:
    db $07                               ;01907A|      ;
    dl Sub_Default_BGM                   ;01907B|03A520;
@@ -2768,7 +2752,7 @@ Post_battle_stuff:
    db $0C                               ;01909D|      ; Return if true
    dw DATA8_019129                      ;01909E|019129;
    db $07                               ;0190A0|      ;
-   dl Load_Temp_Var_2b                  ;0190A1|07B4A1;
+   dl Load_Object_Var_2b                ;0190A1|07B4A1;
    db $02                               ;0190A4|      ;
    db $00                               ;0190A5|      ;
    db $07                               ;0190A6|      ;
@@ -2787,7 +2771,7 @@ LevelUp1:
    db $24                               ;0190BD|      ;
    db $02                               ;0190BE|      ;
    db $07                               ;0190BF|      ;
-   dl CODE_078DF0                       ;0190C0|078DF0;
+   dl Sub_Draw_Level                    ;0190C0|078DF0;
    db $06                               ;0190C3|      ;
    db $0A                               ;0190C4|      ;
 Text_LevelUp:
@@ -2968,8 +2952,8 @@ DATA8_0191A2:
    db $1C                               ;0191B5|      ;
 DATA8_0191B6:
    db $07                               ;0191B6|      ;
-   dl Transfer_Data_3b_1b_2b            ;0191B7|00A140;
-   dl Weapons_Menu                      ;0191BA|0D9590;
+   dl Gfx_GetPalette_3b_1b_2b           ;0191B7|00A140;
+   dl Text_Color_Gray                   ;0191BA|0D9590;
    db $02                               ;0191BD|      ;
    db $02                               ;0191BE|      ;
    db $00                               ;0191BF|      ;
@@ -3264,7 +3248,7 @@ DATA8_019357:
    db $36                               ;019368|      ;
    db $1F                               ;019369|      ;
    db $07                               ;01936A|      ;
-   dl CODE_03887A                       ;01936B|03887A;
+   dl CODE_JP_03887A                    ;01936B|03887A;
    db $07                               ;01936E|      ;
    dl MainScr_Add_1b                    ;01936F|009DA8;
    db $02                               ;019372|      ;
@@ -3618,7 +3602,7 @@ DATA8_01955E:
    db $0B                               ;01956F|      ;
    dw DATA8_0196C7                      ;019570|0196C7;
    db $07                               ;019572|      ;
-   dl CODE_07B05D                       ;019573|07B05D;
+   dl Compare_11B5_2b                   ;019573|07B05D;
    db $02                               ;019576|      ;
    db $03                               ;019577|      ;
    db $0C                               ;019578|      ;
@@ -3639,7 +3623,7 @@ Event_Field_Medicine:
    db $0C                               ;01958F|      ; If true move to 9725
    dw DATA8_019725                      ;019590|019725;
    db $07                               ;019592|      ; Run #07A0AA Load selected item
-   dl CODE_07A0AA                       ;019593|07A0AA;
+   dl CODE_FL_07A0AA                    ;019593|07A0AA;
    db $07                               ;019596|      ; Run #07A0C7 Is Item A Return Ring
    dl CODE_07A0C7                       ;019597|07A0C7;
    db $0C                               ;01959A|      ; If true move to 95C2
@@ -3800,7 +3784,7 @@ DATA8_019680:
    db $0B                               ;019682|      ;
    dw DATA8_0196C7                      ;019683|0196C7;
    db $07                               ;019685|      ;
-   dl CODE_07B05D                       ;019686|07B05D;
+   dl Compare_11B5_2b                   ;019686|07B05D;
    db $02                               ;019689|      ;
    db $03                               ;01968A|      ;
    db $0C                               ;01968B|      ;
@@ -4036,17 +4020,17 @@ Draw_RGB:
    db $07                               ;0197D4|      ;
    dl CODE_0792A2                       ;0197D5|0792A2;
    db $07                               ;0197D8|      ;
-   dl Transfer_Data_3b_1b_2b            ;0197D9|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;0197D9|00A140;
    dl $001577                           ;0197DC|001577;
    db $03                               ;0197DF|      ;
    dw $0002                             ;0197E0|      ;
    db $07                               ;0197E2|      ;
-   dl Transfer_Data_3b_1b_2b            ;0197E3|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;0197E3|00A140;
    dl $001577                           ;0197E6|001577;
    db $07                               ;0197E9|      ;
    dw $0002                             ;0197EA|      ;
    db $07                               ;0197EC|      ;
-   dl Transfer_Data_3b_1b_2b            ;0197ED|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;0197ED|00A140;
    dl $001577                           ;0197F0|001577;
    db $73                               ;0197F3|      ;
    dw $0002                             ;0197F4|      ;
@@ -4234,7 +4218,7 @@ DATA8_0198EB:
    dl Color_stuff_2b                    ;0198F9|03E562;
    dw $1F36                             ;0198FC|      ;
    db $07                               ;0198FE|      ;
-   dl CODE_03887A                       ;0198FF|03887A;
+   dl CODE_JP_03887A                    ;0198FF|03887A;
    db $07                               ;019902|      ;
    dl MainScr_Add_1b                    ;019903|009DA8;
    db $02                               ;019906|      ;
@@ -4341,7 +4325,7 @@ DATA8_01998B:
    db $0B                               ;01999A|      ;
    dw DATA8_019A5F                      ;01999B|019A5F;
    db $07                               ;01999D|      ;
-   dl CODE_07B05D                       ;01999E|07B05D;
+   dl Compare_11B5_2b                   ;01999E|07B05D;
    db $02                               ;0199A1|      ;
    db $03                               ;0199A2|      ;
    db $0C                               ;0199A3|      ;
@@ -4711,7 +4695,7 @@ DATA8_019BB2:
    dl Color_stuff_2b                    ;019BB8|03E562;
    dw $1F36                             ;019BBB|      ;
    db $07                               ;019BBD|      ;
-   dl CODE_03887A                       ;019BBE|03887A;
+   dl CODE_JP_03887A                    ;019BBE|03887A;
    db $07                               ;019BC1|      ;
    dl MainScr_Add_1b                    ;019BC2|009DA8;
    db $02                               ;019BC5|      ;
@@ -4729,11 +4713,10 @@ DATA8_019BB2:
    dw DATA8_0191E1                      ;019BD6|0191E1;
 Is_Spirit_Selected:
    CMP.W #$0002                         ;019BD8|      ; Returns 1 if the cursor is on a spirit (ID=2)
-   BEQ CODE_019BE1                      ;019BDB|019BE1;
+   BEQ +                                ;019BDB|019BE1;
    LDA.W #$0000                         ;019BDD|      ;
    RTL                                  ;019BE0|      ;
-CODE_019BE1:
-   LDA.W #$0001                         ;019BE1|      ;
+ + LDA.W #$0001                         ;019BE1|      ;
    RTL                                  ;019BE4|      ;
 Map_menu:
    db $1B                               ;019BE5|      ;
@@ -4818,7 +4801,7 @@ Loop_til_B_press:
    db $07                               ;019C5B|      ;
    dl Map_stuff_and_vblank              ;019C5C|03883F;
    db $07                               ;019C5F|      ;
-   dl CODE_03887A                       ;019C60|03887A;
+   dl CODE_JP_03887A                    ;019C60|03887A;
    db $07                               ;019C63|      ;
    dl Color_stuff_2b                    ;019C64|03E562;
    dw $1F36                             ;019C67|      ;
@@ -4972,7 +4955,7 @@ DATA8_019D36:
    dl Color_stuff_2b                    ;019D3E|03E562;
    dw $1F36                             ;019D41|      ;
    db $07                               ;019D43|      ;
-   dl CODE_03887A                       ;019D44|03887A;
+   dl CODE_JP_03887A                    ;019D44|03887A;
    db $07                               ;019D47|      ;
    dl MainScr_Add_1b                    ;019D48|009DA8;
    db $02                               ;019D4B|      ;
@@ -5076,7 +5059,7 @@ DATA8_019DC9:
    db $0B                               ;019DDC|      ;
    dw DATA8_019EAE                      ;019DDD|019EAE;
    db $07                               ;019DDF|      ;
-   dl CODE_07B05D                       ;019DE0|07B05D;
+   dl Compare_11B5_2b                   ;019DE0|07B05D;
    db $02                               ;019DE3|      ;
    db $03                               ;019DE4|      ;
    db $0C                               ;019DE5|      ;
@@ -5132,7 +5115,7 @@ DATA8_019E30:
    db $0B                               ;019E32|      ;
    dw DATA8_019EAE                      ;019E33|019EAE;
    db $07                               ;019E35|      ;
-   dl CODE_07B05D                       ;019E36|07B05D;
+   dl Compare_11B5_2b                   ;019E36|07B05D;
    db $02                               ;019E39|      ;
    db $03                               ;019E3A|      ;
    db $0C                               ;019E3B|      ;
@@ -5180,7 +5163,7 @@ DATA8_019E7A:
    db $0B                               ;019E7C|      ;
    dw DATA8_019EAE                      ;019E7D|019EAE;
    db $07                               ;019E7F|      ;
-   dl CODE_07B05D                       ;019E80|07B05D;
+   dl Compare_11B5_2b                   ;019E80|07B05D;
    db $02                               ;019E83|      ;
    db $03                               ;019E84|      ;
    db $0C                               ;019E85|      ;
@@ -5495,7 +5478,7 @@ DATA8_01A021:
    db $0C                               ;01A02E|      ;
    dw DATA8_01A021                      ;01A02F|01A021;
    db $07                               ;01A031|      ;
-   dl CODE_07B98A                       ;01A032|07B98A;
+   dl CODE_FL_07B98A                    ;01A032|07B98A;
    db $07                               ;01A035|      ;
    dl Battle_related1b                  ;01A036|009CDD;
    db $0E                               ;01A039|      ;
@@ -5641,7 +5624,7 @@ Event_Main_13:
    db $08                               ;01A0DD|      ;
    dw Event_Load_Area_Name              ;01A0DE|01A196;
    db $1B                               ;01A0E0|      ;
-   dw DATA8_01A14A                      ;01A0E1|01A14A;
+   dw Event_GetPalettes_01A14A          ;01A0E1|01A14A;
    db $09                               ;01A0E3|      ;
    dl CODE_01A1A3                       ;01A0E4|01A1A3;
    db $38                               ;01A0E7|      ;
@@ -5714,10 +5697,10 @@ DATA8_01A13B:
    db $1B                               ;01A146|      ;
    dw DATA8_01A16B                      ;01A147|01A16B;
    db $0A                               ;01A149|      ; 0A: Clear animation loop
-DATA8_01A14A:
+Event_GetPalettes_01A14A:
    db $07                               ;01A14A|      ; Transfer data (near Weapon stuff?)
-   dl Transfer_Data_3b_1b_2b            ;01A14B|00A140;
-   dl DATA8_0D9592                      ;01A14E|0D9592;
+   dl Gfx_GetPalette_3b_1b_2b           ;01A14B|00A140;
+   dl Gfx_Palette_01A14A                ;01A14E|0D9592;
    db $80                               ;01A151|      ;
    dw $0020                             ;01A152|      ;
    db $07                               ;01A154|      ;
@@ -5734,14 +5717,13 @@ DATA8_01A14A:
    db $1C                               ;01A16A|      ; 1C: RTS
 DATA8_01A16B:
    db $07                               ;01A16B|      ;
-   dl Transfer_Data_3b_1b_2b            ;01A16C|00A140;
-   dl DATA8_0D95B2                      ;01A16F|0D95B2;
+   dl Gfx_GetPalette_3b_1b_2b           ;01A16C|00A140;
+   dl Gfx_Palette_01A16B                ;01A16F|0D95B2;
    db $80                               ;01A172|      ;
    dw $0020                             ;01A173|      ;
-Some_decompression:
    db $07                               ;01A175|      ;
-   dl Transfer_Data_3b_1b_2b            ;01A176|00A140;
-   dl DATA8_0D95D2                      ;01A179|0D95D2;
+   dl Gfx_GetPalette_3b_1b_2b           ;01A176|00A140;
+   dl Gfx_Palette_01A175                ;01A179|0D95D2;
    db $F0                               ;01A17C|      ;
    dw $0020                             ;01A17D|      ;
    db $07                               ;01A17F|      ;
@@ -5753,6 +5735,7 @@ Some_decompression:
    db $07                               ;01A189|      ;
    dl Setup_Display_stuff_8b            ;01A18A|009D34;
    db $00                               ;01A18D|      ;
+GetPalette:
    dw $0800                             ;01A18E|      ;
    dw $9400                             ;01A190|      ;
    db $7E                               ;01A192|      ;
@@ -5767,27 +5750,24 @@ Event_Load_Area_Name:
    db $00                               ;01A1A1|      ;
    db $0D                               ;01A1A2|      ; 0D: Some kinda return
 CODE_01A1A3:
-   JSL.L CODE_07B916                    ;01A1A3|07B916;
-   BNE CODE_01A1C1                      ;01A1A7|01A1C1;
+   JSL.L CODE_FL_07B916                 ;01A1A3|07B916;
+   BNE +                                ;01A1A7|01A1C1;
    LDA.W ShowCompass                    ;01A1A9|00157B;
-   BNE CODE_01A1BB                      ;01A1AC|01A1BB;
+   BNE ++                               ;01A1AC|01A1BB;
    LDX.W Selection_offset               ;01A1AE|00103F;
    LDA.W #$A142                         ;01A1B1|      ;
    LDY.W #$0001                         ;01A1B4|      ;
    JML.L Sub_LoadStuff                  ;01A1B7|008DB4;
-CODE_01A1BB:
-   RTL                                  ;01A1BB|      ;
+++ RTL                                  ;01A1BB|      ;
 CODE_01A1BC:
    LDA.W ShowCompass                    ;01A1BC|00157B;
-   BEQ CODE_01A1CE                      ;01A1BF|01A1CE;
-CODE_01A1C1:
-   LDX.W Selection_offset               ;01A1C1|00103F;
+   BEQ ++                               ;01A1BF|01A1CE;
+ + LDX.W Selection_offset               ;01A1C1|00103F;
    LDA.W #$A0DD                         ;01A1C4|      ;
    LDY.W #$0001                         ;01A1C7|      ;
    JML.L Sub_LoadStuff                  ;01A1CA|008DB4;
-CODE_01A1CE:
-   RTL                                  ;01A1CE|      ;
-TileData_01A1CF:
+++ RTL                                  ;01A1CE|      ;
+Tileset_Event13_00:
    db $00                               ;01A1CF|      ;
    db $FC                               ;01A1D0|      ;
    db $04                               ;01A1D1|      ;
@@ -5803,7 +5783,7 @@ TileData_01A1CF:
    db $F4                               ;01A1DB|      ;
    db $D0                               ;01A1DC|      ;
    db $31                               ;01A1DD|      ;
-DATA8_01A1DE:
+Tileset_Event13_01:
    db $00                               ;01A1DE|      ;
    db $FC                               ;01A1DF|      ;
    db $04                               ;01A1E0|      ;
@@ -5819,7 +5799,7 @@ DATA8_01A1DE:
    db $F4                               ;01A1EA|      ;
    db $D1                               ;01A1EB|      ;
    db $31                               ;01A1EC|      ;
-DATA8_01A1ED:
+Tileset_Event13_02:
    db $00                               ;01A1ED|      ;
    db $04                               ;01A1EE|      ;
    db $FC                               ;01A1EF|      ;
@@ -5855,7 +5835,7 @@ DATA8_01A1ED:
    db $FC                               ;01A20D|      ;
    db $D2                               ;01A20E|      ;
    db $31                               ;01A20F|      ;
-DATA8_01A210:
+Tileset_Event13_03:
    db $00                               ;01A210|      ;
    db $04                               ;01A211|      ;
    db $FC                               ;01A212|      ;
@@ -5871,7 +5851,7 @@ DATA8_01A210:
    db $FC                               ;01A21C|      ;
    db $C0                               ;01A21D|      ;
    db $31                               ;01A21E|      ;
-DATA8_01A21F:
+Tileset_Event13_04:
    db $00                               ;01A21F|      ;
    db $04                               ;01A220|      ;
    db $FC                               ;01A221|      ;
@@ -5887,7 +5867,7 @@ DATA8_01A21F:
    db $FC                               ;01A22B|      ;
    db $F2                               ;01A22C|      ;
    db $31                               ;01A22D|      ;
-DATA8_01A22E:
+Tileset_Event13_05:
    db $00                               ;01A22E|      ;
    db $04                               ;01A22F|      ;
    db $FC                               ;01A230|      ;
@@ -5903,7 +5883,7 @@ DATA8_01A22E:
    db $FC                               ;01A23A|      ;
    db $C0                               ;01A23B|      ;
    db $B1                               ;01A23C|      ;
-DATA8_01A23D:
+Tileset_Event13_06:
    db $00                               ;01A23D|      ;
    db $04                               ;01A23E|      ;
    db $FC                               ;01A23F|      ;
@@ -5939,7 +5919,7 @@ DATA8_01A23D:
    db $04                               ;01A25D|      ;
    db $C4                               ;01A25E|      ;
    db $B1                               ;01A25F|      ;
-DATA8_01A260:
+Tileset_Event13_07:
    db $00                               ;01A260|      ;
    db $FC                               ;01A261|      ;
    db $F4                               ;01A262|      ;
@@ -5955,7 +5935,7 @@ DATA8_01A260:
    db $FC                               ;01A26C|      ;
    db $E1                               ;01A26D|      ;
    db $B1                               ;01A26E|      ;
-DATA8_01A26F:
+Tileset_Event13_08:
    db $00                               ;01A26F|      ;
    db $FC                               ;01A270|      ;
    db $F4                               ;01A271|      ;
@@ -5971,7 +5951,7 @@ DATA8_01A26F:
    db $04                               ;01A27B|      ;
    db $D0                               ;01A27C|      ;
    db $B1                               ;01A27D|      ;
-DATA8_01A27E:
+Tileset_Event13_09:
    db $00                               ;01A27E|      ;
    db $FC                               ;01A27F|      ;
    db $F4                               ;01A280|      ;
@@ -5987,7 +5967,7 @@ DATA8_01A27E:
    db $04                               ;01A28A|      ;
    db $D1                               ;01A28B|      ;
    db $F1                               ;01A28C|      ;
-DATA8_01A28D:
+Tileset_Event13_0A:
    db $00                               ;01A28D|      ;
    db $FC                               ;01A28E|      ;
    db $F4                               ;01A28F|      ;
@@ -6023,7 +6003,7 @@ DATA8_01A28D:
    db $FC                               ;01A2AD|      ;
    db $D3                               ;01A2AE|      ;
    db $F1                               ;01A2AF|      ;
-DATA8_01A2B0:
+Tileset_Event13_0B:
    db $00                               ;01A2B0|      ;
    db $F4                               ;01A2B1|      ;
    db $FC                               ;01A2B2|      ;
@@ -6039,7 +6019,7 @@ DATA8_01A2B0:
    db $FC                               ;01A2BC|      ;
    db $C0                               ;01A2BD|      ;
    db $F1                               ;01A2BE|      ;
-DATA8_01A2BF:
+Tileset_Event13_0C:
    db $00                               ;01A2BF|      ;
    db $F4                               ;01A2C0|      ;
    db $FC                               ;01A2C1|      ;
@@ -6055,7 +6035,7 @@ DATA8_01A2BF:
    db $FC                               ;01A2CB|      ;
    db $F2                               ;01A2CC|      ;
    db $71                               ;01A2CD|      ;
-DATA8_01A2CE:
+Tileset_Event13_0D:
    db $00                               ;01A2CE|      ;
    db $04                               ;01A2CF|      ;
    db $FC                               ;01A2D0|      ;
@@ -6071,7 +6051,7 @@ DATA8_01A2CE:
    db $FC                               ;01A2DA|      ;
    db $C2                               ;01A2DB|      ;
    db $71                               ;01A2DC|      ;
-DATA8_01A2DD:
+Tileset_Event13_0E:
    db $00                               ;01A2DD|      ;
    db $FC                               ;01A2DE|      ;
    db $04                               ;01A2DF|      ;
@@ -6107,7 +6087,7 @@ DATA8_01A2DD:
    db $FC                               ;01A2FD|      ;
    db $D3                               ;01A2FE|      ;
    db $71                               ;01A2FF|      ;
-DATA8_01A300:
+Tileset_Event13_0F:
    db $00                               ;01A300|      ;
    db $FC                               ;01A301|      ;
    db $04                               ;01A302|      ;
@@ -6123,27 +6103,27 @@ DATA8_01A300:
    db $F4                               ;01A30C|      ;
    db $D1                               ;01A30D|      ;
    db $71                               ;01A30E|      ;
-Tbl_01A30F:
-   dw TileData_01A1CF                   ;01A30F|01A1CF;
-   dw DATA8_01A1DE                      ;01A311|01A1DE;
-   dw DATA8_01A1ED                      ;01A313|01A1ED;
-   dw DATA8_01A210                      ;01A315|01A210;
-   dw DATA8_01A21F                      ;01A317|01A21F;
-   dw DATA8_01A22E                      ;01A319|01A22E;
-   dw DATA8_01A23D                      ;01A31B|01A23D;
-   dw DATA8_01A260                      ;01A31D|01A260;
-   dw DATA8_01A26F                      ;01A31F|01A26F;
-   dw DATA8_01A27E                      ;01A321|01A27E;
-   dw DATA8_01A28D                      ;01A323|01A28D;
-   dw DATA8_01A2B0                      ;01A325|01A2B0;
-   dw DATA8_01A2BF                      ;01A327|01A2BF;
-   dw DATA8_01A2CE                      ;01A329|01A2CE;
-   dw DATA8_01A2DD                      ;01A32B|01A2DD;
-   dw DATA8_01A300                      ;01A32D|01A300;
+Tbl_Tileset_Event13:
+   dw Tileset_Event13_00                ;01A30F|01A1CF;
+   dw Tileset_Event13_01                ;01A311|01A1DE;
+   dw Tileset_Event13_02                ;01A313|01A1ED;
+   dw Tileset_Event13_03                ;01A315|01A210;
+   dw Tileset_Event13_04                ;01A317|01A21F;
+   dw Tileset_Event13_05                ;01A319|01A22E;
+   dw Tileset_Event13_06                ;01A31B|01A23D;
+   dw Tileset_Event13_07                ;01A31D|01A260;
+   dw Tileset_Event13_08                ;01A31F|01A26F;
+   dw Tileset_Event13_09                ;01A321|01A27E;
+   dw Tileset_Event13_0A                ;01A323|01A28D;
+   dw Tileset_Event13_0B                ;01A325|01A2B0;
+   dw Tileset_Event13_0C                ;01A327|01A2BF;
+   dw Tileset_Event13_0D                ;01A329|01A2CE;
+   dw Tileset_Event13_0E                ;01A32B|01A2DD;
+   dw Tileset_Event13_0F                ;01A32D|01A300;
 Event_Main_02:
-   db $24                               ;01A32F|      ;
+   db $24                               ;01A32F|      ; 24: LDA var0
    db $00                               ;01A330|      ;
-   db $11                               ;01A331|      ;
+   db $11                               ;01A331|      ; 11: MULTI_JMP (ten entries)
    db $0A                               ;01A332|      ;
    dw DATA8_01A345                      ;01A333|01A345;
    dw DATA8_01A34C                      ;01A335|01A34C;
@@ -6155,25 +6135,25 @@ Event_Main_02:
    dw DATA8_01A376                      ;01A341|01A376;
    dw DATA8_01A37D                      ;01A343|01A37D;
 DATA8_01A345:
-   db $37                               ;01A345|      ;
+   db $37                               ;01A345|      ; 30: SET_ANIM 00 wait 7
    db $00                               ;01A346|      ;
-   db $37                               ;01A347|      ;
+   db $37                               ;01A347|      ; 30: SET_ANIM -1 wait 7
    db $FF                               ;01A348|      ;
-   db $1A                               ;01A349|      ;
+   db $1A                               ;01A349|      ; 1A: JMP A345
    dw DATA8_01A345                      ;01A34A|01A345;
 DATA8_01A34C:
-   db $37                               ;01A34C|      ; 30-37: Save next byte to 0A7B,x if not FF
-   db $01                               ;01A34D|      ; (For some reason, 30+ go somewhere else afterwards)
-   db $37                               ;01A34E|      ;
+   db $37                               ;01A34C|      ; 30: SET_ANIM 01 wait 7
+   db $01                               ;01A34D|      ;
+   db $37                               ;01A34E|      ; 30: SET_ANIM -1 wait 7
    db $FF                               ;01A34F|      ;
-   db $1A                               ;01A350|      ; 1A: Jump to A34C
+   db $1A                               ;01A350|      ; 1A: JMP A34C
    dw DATA8_01A34C                      ;01A351|01A34C;
 DATA8_01A353:
-   db $37                               ;01A353|      ;
+   db $37                               ;01A353|      ; 30: SET_ANIM 02 wait 7
    db $02                               ;01A354|      ;
-   db $37                               ;01A355|      ;
+   db $37                               ;01A355|      ; 30: SET_ANIM -1 wait 7
    db $FF                               ;01A356|      ;
-   db $1A                               ;01A357|      ;
+   db $1A                               ;01A357|      ; 1A: JMP A353
    dw DATA8_01A353                      ;01A358|01A353;
 DATA8_01A35A:
    db $37                               ;01A35A|      ;
@@ -6211,33 +6191,33 @@ DATA8_01A376:
    db $1A                               ;01A37A|      ;
    dw DATA8_01A376                      ;01A37B|01A376;
 DATA8_01A37D:
-   db $08                               ;01A37D|      ;
+   db $08                               ;01A37D|      ; 08: TASK A34C
    dw DATA8_01A34C                      ;01A37E|01A34C;
 DATA8_01A380:
-   db $06                               ;01A380|      ; 06 01: Bye Felicia!
+   db $06                               ;01A380|      ; 06: WAIT 01
    db $01                               ;01A381|      ;
-   db $07                               ;01A382|      ; 07: Call 07/B05D (Compares two offsets of $11B5)
-   dl CODE_07B05D                       ;01A383|07B05D;
+   db $07                               ;01A382|      ; 07: ASM_CALL - Compare_11B5 (02, 03)
+   dl Compare_11B5_2b                   ;01A383|07B05D;
    db $02                               ;01A386|      ;
    db $03                               ;01A387|      ;
-   db $0B                               ;01A388|      ; 0B: Jump if false/zero to A380
+   db $0B                               ;01A388|      ; 0B: JUMP_EQ to A380
    dw DATA8_01A380                      ;01A389|01A380;
-   db $14                               ;01A38B|      ;
+   db $14                               ;01A38B|      ; 14 01: UNK END TASK
    db $01                               ;01A38C|      ;
-   db $31                               ;01A38D|      ;
+   db $31                               ;01A38D|      ; 31: SET_ANIM -1
    db $FF                               ;01A38E|      ;
 DATA8_01A38F:
-   db $06                               ;01A38F|      ;
+   db $06                               ;01A38F|      ; 06: WAIT 01
    db $01                               ;01A390|      ;
-   db $07                               ;01A391|      ;
-   dl CODE_07B05D                       ;01A392|07B05D;
+   db $07                               ;01A391|      ; 07: ASM_CALL - Compare_11B5 (02, 03)
+   dl Compare_11B5_2b                   ;01A392|07B05D;
    db $02                               ;01A395|      ;
    db $03                               ;01A396|      ;
-   db $0C                               ;01A397|      ;
+   db $0C                               ;01A397|      ; 0C: JUMP_NE to A38F
    dw DATA8_01A38F                      ;01A398|01A38F;
-   db $06                               ;01A39A|      ;
+   db $06                               ;01A39A|      ; 06: WAIT 03
    db $03                               ;01A39B|      ;
-   db $1A                               ;01A39C|      ;
+   db $1A                               ;01A39C|      ; 1A: JMP A37D
    dw DATA8_01A37D                      ;01A39D|01A37D;
 Tileset_Event02_00:
    db $02                               ;01A39F|      ;
@@ -6245,7 +6225,7 @@ Tileset_Event02_00:
    db $FC                               ;01A3A1|      ;
    db $C6                               ;01A3A2|      ;
    db $31                               ;01A3A3|      ;
-DATA8_01A3A4:
+Tileset_Event02_01:
    db $01                               ;01A3A4|      ;
    db $33                               ;01A3A5|      ;
    db $F8                               ;01A3A6|      ;
@@ -6291,13 +6271,13 @@ DATA8_01A3A4:
    db $F8                               ;01A3CE|      ;
    db $D5                               ;01A3CF|      ;
    db $31                               ;01A3D0|      ;
-DATA8_01A3D1:
+Tileset_Event02_02:
    db $02                               ;01A3D1|      ;
    db $FC                               ;01A3D2|      ;
    db $FF                               ;01A3D3|      ;
    db $C2                               ;01A3D4|      ;
    db $31                               ;01A3D5|      ;
-DATA8_01A3D6:
+Tileset_Event02_03:
    db $01                               ;01A3D6|      ;
    db $07                               ;01A3D7|      ;
    db $FF                               ;01A3D8|      ;
@@ -6313,7 +6293,7 @@ DATA8_01A3D6:
    db $FF                               ;01A3E2|      ;
    db $C2                               ;01A3E3|      ;
    db $31                               ;01A3E4|      ;
-DATA8_01A3E5:
+Tileset_Event02_04:
    db $00                               ;01A3E5|      ;
    db $13                               ;01A3E6|      ;
    db $FF                               ;01A3E7|      ;
@@ -6334,7 +6314,7 @@ DATA8_01A3E5:
    db $FF                               ;01A3F6|      ;
    db $C2                               ;01A3F7|      ;
    db $31                               ;01A3F8|      ;
-DATA8_01A3F9:
+Tileset_Event02_05:
    db $01                               ;01A3F9|      ;
    db $04                               ;01A3FA|      ;
    db $10                               ;01A3FB|      ;
@@ -6385,7 +6365,7 @@ DATA8_01A3F9:
    db $E0                               ;01A428|      ;
    db $C0                               ;01A429|      ;
    db $31                               ;01A42A|      ;
-DATA8_01A42B:
+Tileset_Event02_06:
    db $01                               ;01A42B|      ;
    db $28                               ;01A42C|      ;
    db $FF                               ;01A42D|      ;
@@ -6421,7 +6401,7 @@ DATA8_01A42B:
    db $FF                               ;01A44B|      ;
    db $C2                               ;01A44C|      ;
    db $31                               ;01A44D|      ;
-DATA8_01A44E:
+Tileset_Event02_07:
    db $00                               ;01A44E|      ;
    db $1C                               ;01A44F|      ;
    db $FF                               ;01A450|      ;
@@ -6449,80 +6429,79 @@ DATA8_01A44E:
    db $31                               ;01A466|      ;
 Tbl_Tileset_Event02:
    dw Tileset_Event02_00                ;01A467|01A39F;
-   dw DATA8_01A3A4                      ;01A469|01A3A4;
-   dw DATA8_01A3D1                      ;01A46B|01A3D1;
-   dw DATA8_01A3D6                      ;01A46D|01A3D6;
-   dw DATA8_01A3E5                      ;01A46F|01A3E5;
-   dw DATA8_01A3F9                      ;01A471|01A3F9;
-   dw DATA8_01A42B                      ;01A473|01A42B;
-   dw DATA8_01A44E                      ;01A475|01A44E;
+   dw Tileset_Event02_01                ;01A469|01A3A4;
+   dw Tileset_Event02_02                ;01A46B|01A3D1;
+   dw Tileset_Event02_03                ;01A46D|01A3D6;
+   dw Tileset_Event02_04                ;01A46F|01A3E5;
+   dw Tileset_Event02_05                ;01A471|01A3F9;
+   dw Tileset_Event02_06                ;01A473|01A42B;
+   dw Tileset_Event02_07                ;01A475|01A44E;
 Event_Main_03:
-   db $24                               ;01A477|      ;
+   db $24                               ;01A477|      ; 24: LDA var0
    db $00                               ;01A478|      ;
-   db $11                               ;01A479|      ;
+   db $11                               ;01A479|      ; 11: MULTI_JMP (3 entries)
    db $03                               ;01A47A|      ;
    dw DATA8_01A481                      ;01A47B|01A481;
    dw DATA8_01A48C                      ;01A47D|01A48C;
    dw DATA8_01A497                      ;01A47F|01A497;
 DATA8_01A481:
-   db $38                               ;01A481|      ;
+   db $38                               ;01A481|      ; 38: SET_XPOS 007A wait 0
    db $7A                               ;01A482|      ;
    db $00                               ;01A483|      ;
-   db $40                               ;01A484|      ;
+   db $40                               ;01A484|      ; 40: SET_YPOS 00AC wait 0
    db $AC                               ;01A485|      ;
    db $00                               ;01A486|      ;
-   db $09                               ;01A487|      ;
-   dl CODE_01A4A2                       ;01A488|01A4A2;
-   db $0A                               ;01A48B|      ;
+   db $09                               ;01A487|      ; 09: ON_TICK call 01A4A2
+   dl SetAnimFrame_with_11B5            ;01A488|01A4A2;
+   db $0A                               ;01A48B|      ; 0A: HALT
 DATA8_01A48C:
-   db $38                               ;01A48C|      ;
+   db $38                               ;01A48C|      ; 38: SET_XPOS 007A wait 0
    db $7A                               ;01A48D|      ;
    db $00                               ;01A48E|      ;
-   db $40                               ;01A48F|      ;
+   db $40                               ;01A48F|      ; 40: SET_YPOS 00BA wait 0
    db $BA                               ;01A490|      ;
    db $00                               ;01A491|      ;
-   db $09                               ;01A492|      ;
-   dl CODE_01A4AE                       ;01A493|01A4AE;
-   db $0A                               ;01A496|      ;
+DATA8_01A492:
+   db $09                               ;01A492|      ; 09: ON_TICK call 01A4AE
+   dl SetAnimFrame_with_11B7            ;01A493|01A4AE;
+   db $0A                               ;01A496|      ; 0A: HALT
 DATA8_01A497:
-   db $38                               ;01A497|      ;
+   db $38                               ;01A497|      ; 38: SET_XPOS 007A wait 0
    db $7A                               ;01A498|      ;
    db $00                               ;01A499|      ;
-   db $40                               ;01A49A|      ;
+   db $40                               ;01A49A|      ; 40: SET_YPOS 00C8 wait 0
    db $C8                               ;01A49B|      ;
    db $00                               ;01A49C|      ;
-   db $09                               ;01A49D|      ;
-   dl CODE_01A4C4                       ;01A49E|01A4C4;
-   db $0A                               ;01A4A1|      ;
-CODE_01A4A2:
+   db $09                               ;01A49D|      ; 09: ON_TICK call 01A4C4
+   dl SetAnimFrame_with_11B9            ;01A49E|01A4C4;
+   db $0A                               ;01A4A1|      ; 0A: HALT
+SetAnimFrame_with_11B5:
    LDX.W Selection_offset               ;01A4A2|00103F;
    LDA.W Tbl_Offset                     ;01A4A5|0011B5;
    LSR A                                ;01A4A8|      ;
    DEC A                                ;01A4A9|      ;
    STA.W Object_Anim_Frame,X            ;01A4AA|000A7B;
    RTL                                  ;01A4AD|      ;
-CODE_01A4AE:
+SetAnimFrame_with_11B7:
    LDX.W Selection_offset               ;01A4AE|00103F;
    LDA.W $11B7                          ;01A4B1|0011B7;
-   BNE CODE_01A4BB                      ;01A4B4|01A4BB;
+   BNE +                                ;01A4B4|01A4BB;
    DEC A                                ;01A4B6|      ;
    STA.W Object_Anim_Frame,X            ;01A4B7|000A7B;
    RTL                                  ;01A4BA|      ;
-CODE_01A4BB:
-   LSR A                                ;01A4BB|      ;
+ + LSR A                                ;01A4BB|      ;
    CLC                                  ;01A4BC|      ;
    ADC.W #$000F                         ;01A4BD|      ;
    STA.W Object_Anim_Frame,X            ;01A4C0|000A7B;
    RTL                                  ;01A4C3|      ;
-CODE_01A4C4:
+SetAnimFrame_with_11B9:
    LDX.W Selection_offset               ;01A4C4|00103F;
    LDA.W Page_Num                       ;01A4C7|0011B9;
-   BNE CODE_01A4D1                      ;01A4CA|01A4D1;
+   BNE +                                ;01A4CA|01A4D1;
    DEC A                                ;01A4CC|      ;
    STA.W Object_Anim_Frame,X            ;01A4CD|000A7B;
    RTL                                  ;01A4D0|      ;
-CODE_01A4D1:
-   LSR A                                ;01A4D1|      ;
+ + LSR A                                ;01A4D1|      ;
    CLC                                  ;01A4D2|      ;
    ADC.W #$001F                         ;01A4D3|      ;
    STA.W Object_Anim_Frame,X            ;01A4D6|000A7B;
@@ -6538,7 +6517,7 @@ Tileset_Event03_00:
    db $00                               ;01A4E1|      ;
    db $CD                               ;01A4E2|      ;
    db $3F                               ;01A4E3|      ;
-DATA8_01A4E4:
+Tileset_Event03_01:
    db $00                               ;01A4E4|      ;
    db $06                               ;01A4E5|      ;
    db $08                               ;01A4E6|      ;
@@ -6559,7 +6538,7 @@ DATA8_01A4E4:
    db $00                               ;01A4F5|      ;
    db $CD                               ;01A4F6|      ;
    db $3F                               ;01A4F7|      ;
-DATA8_01A4F8:
+Tileset_Event03_02:
    db $00                               ;01A4F8|      ;
    db $0C                               ;01A4F9|      ;
    db $08                               ;01A4FA|      ;
@@ -6590,7 +6569,7 @@ DATA8_01A4F8:
    db $00                               ;01A513|      ;
    db $CD                               ;01A514|      ;
    db $3F                               ;01A515|      ;
-DATA8_01A516:
+Tileset_Event03_03:
    db $00                               ;01A516|      ;
    db $12                               ;01A517|      ;
    db $08                               ;01A518|      ;
@@ -6631,7 +6610,7 @@ DATA8_01A516:
    db $00                               ;01A53B|      ;
    db $CD                               ;01A53C|      ;
    db $3F                               ;01A53D|      ;
-DATA8_01A53E:
+Tileset_Event03_04:
    db $00                               ;01A53E|      ;
    db $18                               ;01A53F|      ;
    db $08                               ;01A540|      ;
@@ -6682,7 +6661,7 @@ DATA8_01A53E:
    db $00                               ;01A56D|      ;
    db $CD                               ;01A56E|      ;
    db $3F                               ;01A56F|      ;
-DATA8_01A570:
+Tileset_Event03_05:
    db $00                               ;01A570|      ;
    db $1E                               ;01A571|      ;
    db $08                               ;01A572|      ;
@@ -6743,7 +6722,7 @@ DATA8_01A570:
    db $00                               ;01A5A9|      ;
    db $CD                               ;01A5AA|      ;
    db $3F                               ;01A5AB|      ;
-DATA8_01A5AC:
+Tileset_Event03_06:
    db $00                               ;01A5AC|      ;
    db $24                               ;01A5AD|      ;
    db $08                               ;01A5AE|      ;
@@ -6814,7 +6793,7 @@ DATA8_01A5AC:
    db $00                               ;01A5EF|      ;
    db $CD                               ;01A5F0|      ;
    db $3F                               ;01A5F1|      ;
-DATA8_01A5F2:
+Tileset_Event03_07:
    db $00                               ;01A5F2|      ;
    db $2A                               ;01A5F3|      ;
    db $08                               ;01A5F4|      ;
@@ -6895,7 +6874,7 @@ DATA8_01A5F2:
    db $00                               ;01A63F|      ;
    db $CD                               ;01A640|      ;
    db $3F                               ;01A641|      ;
-DATA8_01A642:
+Tileset_Event03_08:
    db $00                               ;01A642|      ;
    db $30                               ;01A643|      ;
    db $08                               ;01A644|      ;
@@ -6986,7 +6965,7 @@ DATA8_01A642:
    db $00                               ;01A699|      ;
    db $CD                               ;01A69A|      ;
    db $3F                               ;01A69B|      ;
-DATA8_01A69C:
+Tileset_Event03_09:
    db $00                               ;01A69C|      ;
    db $36                               ;01A69D|      ;
    db $08                               ;01A69E|      ;
@@ -7087,7 +7066,7 @@ DATA8_01A69C:
    db $00                               ;01A6FD|      ;
    db $CD                               ;01A6FE|      ;
    db $3F                               ;01A6FF|      ;
-DATA8_01A700:
+Tileset_Event03_0A:
    db $00                               ;01A700|      ;
    db $3C                               ;01A701|      ;
    db $08                               ;01A702|      ;
@@ -7198,7 +7177,7 @@ DATA8_01A700:
    db $00                               ;01A76B|      ;
    db $CD                               ;01A76C|      ;
    db $3F                               ;01A76D|      ;
-DATA8_01A76E:
+Tileset_Event03_0B:
    db $00                               ;01A76E|      ;
    db $42                               ;01A76F|      ;
    db $08                               ;01A770|      ;
@@ -7319,7 +7298,7 @@ DATA8_01A76E:
    db $00                               ;01A7E3|      ;
    db $CD                               ;01A7E4|      ;
    db $3F                               ;01A7E5|      ;
-DATA8_01A7E6:
+Tileset_Event03_0C:
    db $00                               ;01A7E6|      ;
    db $48                               ;01A7E7|      ;
    db $08                               ;01A7E8|      ;
@@ -7450,7 +7429,7 @@ DATA8_01A7E6:
    db $00                               ;01A865|      ;
    db $CD                               ;01A866|      ;
    db $3F                               ;01A867|      ;
-DATA8_01A868:
+Tileset_Event03_0D:
    db $00                               ;01A868|      ;
    db $4E                               ;01A869|      ;
    db $08                               ;01A86A|      ;
@@ -7591,7 +7570,7 @@ DATA8_01A868:
    db $00                               ;01A8F1|      ;
    db $CD                               ;01A8F2|      ;
    db $3F                               ;01A8F3|      ;
-DATA8_01A8F4:
+Tileset_Event03_0E:
    db $00                               ;01A8F4|      ;
    db $54                               ;01A8F5|      ;
    db $08                               ;01A8F6|      ;
@@ -7742,7 +7721,7 @@ DATA8_01A8F4:
    db $00                               ;01A987|      ;
    db $CD                               ;01A988|      ;
    db $3F                               ;01A989|      ;
-DATA8_01A98A:
+Tileset_Event03_0F:
    db $00                               ;01A98A|      ;
    db $5A                               ;01A98B|      ;
    db $08                               ;01A98C|      ;
@@ -7903,7 +7882,7 @@ DATA8_01A98A:
    db $00                               ;01AA27|      ;
    db $CD                               ;01AA28|      ;
    db $3F                               ;01AA29|      ;
-DATA8_01AA2A:
+Tileset_Event03_10:
    db $00                               ;01AA2A|      ;
    db $00                               ;01AA2B|      ;
    db $08                               ;01AA2C|      ;
@@ -7914,7 +7893,7 @@ DATA8_01AA2A:
    db $00                               ;01AA31|      ;
    db $CC                               ;01AA32|      ;
    db $3F                               ;01AA33|      ;
-DATA8_01AA34:
+Tileset_Event03_11:
    db $00                               ;01AA34|      ;
    db $06                               ;01AA35|      ;
    db $08                               ;01AA36|      ;
@@ -7935,7 +7914,7 @@ DATA8_01AA34:
    db $00                               ;01AA45|      ;
    db $CC                               ;01AA46|      ;
    db $3F                               ;01AA47|      ;
-DATA8_01AA48:
+Tileset_Event03_12:
    db $00                               ;01AA48|      ;
    db $0C                               ;01AA49|      ;
    db $08                               ;01AA4A|      ;
@@ -7966,7 +7945,7 @@ DATA8_01AA48:
    db $00                               ;01AA63|      ;
    db $CC                               ;01AA64|      ;
    db $3F                               ;01AA65|      ;
-DATA8_01AA66:
+Tileset_Event03_13:
    db $00                               ;01AA66|      ;
    db $12                               ;01AA67|      ;
    db $08                               ;01AA68|      ;
@@ -8007,7 +7986,7 @@ DATA8_01AA66:
    db $00                               ;01AA8B|      ;
    db $CC                               ;01AA8C|      ;
    db $3F                               ;01AA8D|      ;
-DATA8_01AA8E:
+Tileset_Event03_14:
    db $00                               ;01AA8E|      ;
    db $18                               ;01AA8F|      ;
    db $08                               ;01AA90|      ;
@@ -8058,7 +8037,7 @@ DATA8_01AA8E:
    db $00                               ;01AABD|      ;
    db $CC                               ;01AABE|      ;
    db $3F                               ;01AABF|      ;
-DATA8_01AAC0:
+Tileset_Event03_15:
    db $00                               ;01AAC0|      ;
    db $1E                               ;01AAC1|      ;
    db $08                               ;01AAC2|      ;
@@ -8119,7 +8098,7 @@ DATA8_01AAC0:
    db $00                               ;01AAF9|      ;
    db $CC                               ;01AAFA|      ;
    db $3F                               ;01AAFB|      ;
-DATA8_01AAFC:
+Tileset_Event03_16:
    db $00                               ;01AAFC|      ;
    db $24                               ;01AAFD|      ;
    db $08                               ;01AAFE|      ;
@@ -8190,7 +8169,7 @@ DATA8_01AAFC:
    db $00                               ;01AB3F|      ;
    db $CC                               ;01AB40|      ;
    db $3F                               ;01AB41|      ;
-DATA8_01AB42:
+Tileset_Event03_17:
    db $00                               ;01AB42|      ;
    db $2A                               ;01AB43|      ;
    db $08                               ;01AB44|      ;
@@ -8271,7 +8250,7 @@ DATA8_01AB42:
    db $00                               ;01AB8F|      ;
    db $CC                               ;01AB90|      ;
    db $3F                               ;01AB91|      ;
-DATA8_01AB92:
+Tileset_Event03_18:
    db $00                               ;01AB92|      ;
    db $30                               ;01AB93|      ;
    db $08                               ;01AB94|      ;
@@ -8362,7 +8341,7 @@ DATA8_01AB92:
    db $00                               ;01ABE9|      ;
    db $CC                               ;01ABEA|      ;
    db $3F                               ;01ABEB|      ;
-DATA8_01ABEC:
+Tileset_Event03_19:
    db $00                               ;01ABEC|      ;
    db $36                               ;01ABED|      ;
    db $08                               ;01ABEE|      ;
@@ -8463,7 +8442,7 @@ DATA8_01ABEC:
    db $00                               ;01AC4D|      ;
    db $CC                               ;01AC4E|      ;
    db $3F                               ;01AC4F|      ;
-DATA8_01AC50:
+Tileset_Event03_1A:
    db $00                               ;01AC50|      ;
    db $3C                               ;01AC51|      ;
    db $08                               ;01AC52|      ;
@@ -8574,7 +8553,7 @@ DATA8_01AC50:
    db $00                               ;01ACBB|      ;
    db $CC                               ;01ACBC|      ;
    db $3F                               ;01ACBD|      ;
-DATA8_01ACBE:
+Tileset_Event03_1B:
    db $00                               ;01ACBE|      ;
    db $42                               ;01ACBF|      ;
    db $08                               ;01ACC0|      ;
@@ -8695,7 +8674,7 @@ DATA8_01ACBE:
    db $00                               ;01AD33|      ;
    db $CC                               ;01AD34|      ;
    db $3F                               ;01AD35|      ;
-DATA8_01AD36:
+Tileset_Event03_1C:
    db $00                               ;01AD36|      ;
    db $48                               ;01AD37|      ;
    db $08                               ;01AD38|      ;
@@ -8826,7 +8805,7 @@ DATA8_01AD36:
    db $00                               ;01ADB5|      ;
    db $CC                               ;01ADB6|      ;
    db $3F                               ;01ADB7|      ;
-DATA8_01ADB8:
+Tileset_Event03_1D:
    db $00                               ;01ADB8|      ;
    db $4E                               ;01ADB9|      ;
    db $08                               ;01ADBA|      ;
@@ -8967,7 +8946,7 @@ DATA8_01ADB8:
    db $00                               ;01AE41|      ;
    db $CC                               ;01AE42|      ;
    db $3F                               ;01AE43|      ;
-DATA8_01AE44:
+Tileset_Event03_1E:
    db $00                               ;01AE44|      ;
    db $54                               ;01AE45|      ;
    db $08                               ;01AE46|      ;
@@ -9118,7 +9097,7 @@ DATA8_01AE44:
    db $00                               ;01AED7|      ;
    db $CC                               ;01AED8|      ;
    db $3F                               ;01AED9|      ;
-DATA8_01AEDA:
+Tileset_Event03_1F:
    db $00                               ;01AEDA|      ;
    db $5A                               ;01AEDB|      ;
    db $00                               ;01AEDC|      ;
@@ -9279,7 +9258,7 @@ DATA8_01AEDA:
    db $00                               ;01AF77|      ;
    db $CC                               ;01AF78|      ;
    db $3F                               ;01AF79|      ;
-DATA8_01AF7A:
+Tileset_Event03_20:
    db $00                               ;01AF7A|      ;
    db $00                               ;01AF7B|      ;
    db $08                               ;01AF7C|      ;
@@ -9290,7 +9269,7 @@ DATA8_01AF7A:
    db $00                               ;01AF81|      ;
    db $ED                               ;01AF82|      ;
    db $3F                               ;01AF83|      ;
-DATA8_01AF84:
+Tileset_Event03_21:
    db $00                               ;01AF84|      ;
    db $06                               ;01AF85|      ;
    db $08                               ;01AF86|      ;
@@ -9311,7 +9290,7 @@ DATA8_01AF84:
    db $00                               ;01AF95|      ;
    db $ED                               ;01AF96|      ;
    db $3F                               ;01AF97|      ;
-DATA8_01AF98:
+Tileset_Event03_22:
    db $00                               ;01AF98|      ;
    db $0C                               ;01AF99|      ;
    db $08                               ;01AF9A|      ;
@@ -9342,7 +9321,7 @@ DATA8_01AF98:
    db $00                               ;01AFB3|      ;
    db $ED                               ;01AFB4|      ;
    db $3F                               ;01AFB5|      ;
-DATA8_01AFB6:
+Tileset_Event03_23:
    db $00                               ;01AFB6|      ;
    db $12                               ;01AFB7|      ;
    db $08                               ;01AFB8|      ;
@@ -9383,7 +9362,7 @@ DATA8_01AFB6:
    db $00                               ;01AFDB|      ;
    db $ED                               ;01AFDC|      ;
    db $3F                               ;01AFDD|      ;
-DATA8_01AFDE:
+Tileset_Event03_24:
    db $00                               ;01AFDE|      ;
    db $18                               ;01AFDF|      ;
    db $08                               ;01AFE0|      ;
@@ -9434,7 +9413,7 @@ DATA8_01AFDE:
    db $00                               ;01B00D|      ;
    db $ED                               ;01B00E|      ;
    db $3F                               ;01B00F|      ;
-DATA8_01B010:
+Tileset_Event03_25:
    db $00                               ;01B010|      ;
    db $1E                               ;01B011|      ;
    db $08                               ;01B012|      ;
@@ -9495,7 +9474,7 @@ DATA8_01B010:
    db $00                               ;01B049|      ;
    db $ED                               ;01B04A|      ;
    db $3F                               ;01B04B|      ;
-DATA8_01B04C:
+Tileset_Event03_26:
    db $00                               ;01B04C|      ;
    db $24                               ;01B04D|      ;
    db $08                               ;01B04E|      ;
@@ -9566,7 +9545,7 @@ DATA8_01B04C:
    db $00                               ;01B08F|      ;
    db $ED                               ;01B090|      ;
    db $3F                               ;01B091|      ;
-DATA8_01B092:
+Tileset_Event03_27:
    db $00                               ;01B092|      ;
    db $2A                               ;01B093|      ;
    db $08                               ;01B094|      ;
@@ -9647,7 +9626,7 @@ DATA8_01B092:
    db $00                               ;01B0DF|      ;
    db $ED                               ;01B0E0|      ;
    db $3F                               ;01B0E1|      ;
-DATA8_01B0E2:
+Tileset_Event03_28:
    db $00                               ;01B0E2|      ;
    db $30                               ;01B0E3|      ;
    db $08                               ;01B0E4|      ;
@@ -9738,7 +9717,7 @@ DATA8_01B0E2:
    db $00                               ;01B139|      ;
    db $ED                               ;01B13A|      ;
    db $3F                               ;01B13B|      ;
-DATA8_01B13C:
+Tileset_Event03_29:
    db $00                               ;01B13C|      ;
    db $36                               ;01B13D|      ;
    db $08                               ;01B13E|      ;
@@ -9839,7 +9818,7 @@ DATA8_01B13C:
    db $00                               ;01B19D|      ;
    db $ED                               ;01B19E|      ;
    db $3F                               ;01B19F|      ;
-DATA8_01B1A0:
+Tileset_Event03_2A:
    db $00                               ;01B1A0|      ;
    db $3C                               ;01B1A1|      ;
    db $08                               ;01B1A2|      ;
@@ -9950,7 +9929,7 @@ DATA8_01B1A0:
    db $00                               ;01B20B|      ;
    db $ED                               ;01B20C|      ;
    db $3F                               ;01B20D|      ;
-DATA8_01B20E:
+Tileset_Event03_2B:
    db $00                               ;01B20E|      ;
    db $42                               ;01B20F|      ;
    db $08                               ;01B210|      ;
@@ -10071,7 +10050,7 @@ DATA8_01B20E:
    db $00                               ;01B283|      ;
    db $ED                               ;01B284|      ;
    db $3F                               ;01B285|      ;
-DATA8_01B286:
+Tileset_Event03_2C:
    db $00                               ;01B286|      ;
    db $48                               ;01B287|      ;
    db $08                               ;01B288|      ;
@@ -10202,7 +10181,7 @@ DATA8_01B286:
    db $00                               ;01B305|      ;
    db $ED                               ;01B306|      ;
    db $3F                               ;01B307|      ;
-DATA8_01B308:
+Tileset_Event03_2D:
    db $00                               ;01B308|      ;
    db $4E                               ;01B309|      ;
    db $08                               ;01B30A|      ;
@@ -10343,7 +10322,7 @@ DATA8_01B308:
    db $00                               ;01B391|      ;
    db $ED                               ;01B392|      ;
    db $3F                               ;01B393|      ;
-DATA8_01B394:
+Tileset_Event03_2E:
    db $00                               ;01B394|      ;
    db $54                               ;01B395|      ;
    db $08                               ;01B396|      ;
@@ -10494,7 +10473,7 @@ DATA8_01B394:
    db $00                               ;01B427|      ;
    db $ED                               ;01B428|      ;
    db $3F                               ;01B429|      ;
-DATA8_01B42A:
+Tileset_Event03_2F:
    db $00                               ;01B42A|      ;
    db $5A                               ;01B42B|      ;
    db $08                               ;01B42C|      ;
@@ -10657,53 +10636,53 @@ DATA8_01B42A:
    db $3F                               ;01B4C9|      ;
 Tbl_Tileset_Event03:
    dw Tileset_Event03_00                ;01B4CA|01A4DA;
-   dw DATA8_01A4E4                      ;01B4CC|01A4E4;
-   dw DATA8_01A4F8                      ;01B4CE|01A4F8;
-   dw DATA8_01A516                      ;01B4D0|01A516;
-   dw DATA8_01A53E                      ;01B4D2|01A53E;
-   dw DATA8_01A570                      ;01B4D4|01A570;
-   dw DATA8_01A5AC                      ;01B4D6|01A5AC;
-   dw DATA8_01A5F2                      ;01B4D8|01A5F2;
-   dw DATA8_01A642                      ;01B4DA|01A642;
-   dw DATA8_01A69C                      ;01B4DC|01A69C;
-   dw DATA8_01A700                      ;01B4DE|01A700;
-   dw DATA8_01A76E                      ;01B4E0|01A76E;
-   dw DATA8_01A7E6                      ;01B4E2|01A7E6;
-   dw DATA8_01A868                      ;01B4E4|01A868;
-   dw DATA8_01A8F4                      ;01B4E6|01A8F4;
-   dw DATA8_01A98A                      ;01B4E8|01A98A;
-   dw DATA8_01AA2A                      ;01B4EA|01AA2A;
-   dw DATA8_01AA34                      ;01B4EC|01AA34;
-   dw DATA8_01AA48                      ;01B4EE|01AA48;
-   dw DATA8_01AA66                      ;01B4F0|01AA66;
-   dw DATA8_01AA8E                      ;01B4F2|01AA8E;
-   dw DATA8_01AAC0                      ;01B4F4|01AAC0;
-   dw DATA8_01AAFC                      ;01B4F6|01AAFC;
-   dw DATA8_01AB42                      ;01B4F8|01AB42;
-   dw DATA8_01AB92                      ;01B4FA|01AB92;
-   dw DATA8_01ABEC                      ;01B4FC|01ABEC;
-   dw DATA8_01AC50                      ;01B4FE|01AC50;
-   dw DATA8_01ACBE                      ;01B500|01ACBE;
-   dw DATA8_01AD36                      ;01B502|01AD36;
-   dw DATA8_01ADB8                      ;01B504|01ADB8;
-   dw DATA8_01AE44                      ;01B506|01AE44;
-   dw DATA8_01AEDA                      ;01B508|01AEDA;
-   dw DATA8_01AF7A                      ;01B50A|01AF7A;
-   dw DATA8_01AF84                      ;01B50C|01AF84;
-   dw DATA8_01AF98                      ;01B50E|01AF98;
-   dw DATA8_01AFB6                      ;01B510|01AFB6;
-   dw DATA8_01AFDE                      ;01B512|01AFDE;
-   dw DATA8_01B010                      ;01B514|01B010;
-   dw DATA8_01B04C                      ;01B516|01B04C;
-   dw DATA8_01B092                      ;01B518|01B092;
-   dw DATA8_01B0E2                      ;01B51A|01B0E2;
-   dw DATA8_01B13C                      ;01B51C|01B13C;
-   dw DATA8_01B1A0                      ;01B51E|01B1A0;
-   dw DATA8_01B20E                      ;01B520|01B20E;
-   dw DATA8_01B286                      ;01B522|01B286;
-   dw DATA8_01B308                      ;01B524|01B308;
-   dw DATA8_01B394                      ;01B526|01B394;
-   dw DATA8_01B42A                      ;01B528|01B42A;
+   dw Tileset_Event03_01                ;01B4CC|01A4E4;
+   dw Tileset_Event03_02                ;01B4CE|01A4F8;
+   dw Tileset_Event03_03                ;01B4D0|01A516;
+   dw Tileset_Event03_04                ;01B4D2|01A53E;
+   dw Tileset_Event03_05                ;01B4D4|01A570;
+   dw Tileset_Event03_06                ;01B4D6|01A5AC;
+   dw Tileset_Event03_07                ;01B4D8|01A5F2;
+   dw Tileset_Event03_08                ;01B4DA|01A642;
+   dw Tileset_Event03_09                ;01B4DC|01A69C;
+   dw Tileset_Event03_0A                ;01B4DE|01A700;
+   dw Tileset_Event03_0B                ;01B4E0|01A76E;
+   dw Tileset_Event03_0C                ;01B4E2|01A7E6;
+   dw Tileset_Event03_0D                ;01B4E4|01A868;
+   dw Tileset_Event03_0E                ;01B4E6|01A8F4;
+   dw Tileset_Event03_0F                ;01B4E8|01A98A;
+   dw Tileset_Event03_10                ;01B4EA|01AA2A;
+   dw Tileset_Event03_11                ;01B4EC|01AA34;
+   dw Tileset_Event03_12                ;01B4EE|01AA48;
+   dw Tileset_Event03_13                ;01B4F0|01AA66;
+   dw Tileset_Event03_14                ;01B4F2|01AA8E;
+   dw Tileset_Event03_15                ;01B4F4|01AAC0;
+   dw Tileset_Event03_16                ;01B4F6|01AAFC;
+   dw Tileset_Event03_17                ;01B4F8|01AB42;
+   dw Tileset_Event03_18                ;01B4FA|01AB92;
+   dw Tileset_Event03_19                ;01B4FC|01ABEC;
+   dw Tileset_Event03_1A                ;01B4FE|01AC50;
+   dw Tileset_Event03_1B                ;01B500|01ACBE;
+   dw Tileset_Event03_1C                ;01B502|01AD36;
+   dw Tileset_Event03_1D                ;01B504|01ADB8;
+   dw Tileset_Event03_1E                ;01B506|01AE44;
+   dw Tileset_Event03_1F                ;01B508|01AEDA;
+   dw Tileset_Event03_20                ;01B50A|01AF7A;
+   dw Tileset_Event03_21                ;01B50C|01AF84;
+   dw Tileset_Event03_22                ;01B50E|01AF98;
+   dw Tileset_Event03_23                ;01B510|01AFB6;
+   dw Tileset_Event03_24                ;01B512|01AFDE;
+   dw Tileset_Event03_25                ;01B514|01B010;
+   dw Tileset_Event03_26                ;01B516|01B04C;
+   dw Tileset_Event03_27                ;01B518|01B092;
+   dw Tileset_Event03_28                ;01B51A|01B0E2;
+   dw Tileset_Event03_29                ;01B51C|01B13C;
+   dw Tileset_Event03_2A                ;01B51E|01B1A0;
+   dw Tileset_Event03_2B                ;01B520|01B20E;
+   dw Tileset_Event03_2C                ;01B522|01B286;
+   dw Tileset_Event03_2D                ;01B524|01B308;
+   dw Tileset_Event03_2E                ;01B526|01B394;
+   dw Tileset_Event03_2F                ;01B528|01B42A;
    db $67                               ;01B52A|00000E;
    db $0E                               ;01B52B|001200;
    db $00                               ;01B52C|      ;
@@ -11363,51 +11342,41 @@ _9D07_data2:
    db $1C                               ;01B7B8|00F364;
 DMA_189D3:
    db $64                               ;01B7B9|      ;
-   db $F3                               ;01B7BA|      ;
-   db $0F                               ;01B7BB|      ;
+   dw $0FF3                             ;01B7BA|      ;
    db $33                               ;01B7BC|      ;
-   db $F3                               ;01B7BD|      ;
-   db $0F                               ;01B7BE|      ;
+   dw $0FF3                             ;01B7BD|      ;
    db $01                               ;01B7BF|      ;
-   db $EF                               ;01B7C0|      ;
-   db $0F                               ;01B7C1|      ;
+   dw $0FEF                             ;01B7C0|      ;
    db $00                               ;01B7C2|      ;
 DMA_189DE:
    db $64                               ;01B7C3|      ;
-   db $93                               ;01B7C4|      ;
-   db $18                               ;01B7C5|      ;
+   dw $1893                             ;01B7C4|      ;
    db $33                               ;01B7C6|      ;
-   db $93                               ;01B7C7|      ;
-   db $18                               ;01B7C8|      ;
+   dw $1893                             ;01B7C7|      ;
    db $01                               ;01B7C9|      ;
-   db $D7                               ;01B7CA|      ;
-   db $B7                               ;01B7CB|      ;
+   dw $B7D7                             ;01B7CA|      ;
    db $00                               ;01B7CC|      ;
 DMA_189E8:
    db $64                               ;01B7CD|      ;
-   db $57                               ;01B7CE|      ;
-   db $10                               ;01B7CF|      ;
+   dw $1057                             ;01B7CE|      ;
    db $33                               ;01B7D0|      ;
-   db $57                               ;01B7D1|      ;
-   db $10                               ;01B7D2|      ;
+   dw $1057                             ;01B7D1|      ;
    db $01                               ;01B7D3|      ;
-   db $D8                               ;01B7D4|      ;
-   db $B7                               ;01B7D5|      ;
+   dw $B7D8                             ;01B7D4|      ;
    db $00                               ;01B7D6|      ;
    db $00                               ;01B7D7|      ;
-   db $15                               ;01B7D8|000022;
-CODE_01B7D9:
+   db $15                               ;01B7D8|      ;
+CODE_JL_01B7D9:
    JSL.L NMI_enable_far                 ;01B7D9|008163;
    JSL.L Init_Loops                     ;01B7DD|008C84;
    LDA.W #$006A                         ;01B7E1|      ;
-   JSL.L CODE_008D0A                    ;01B7E4|008D0A;
-CODE_01B7E8:
-   JSL.L Wait_Vblank_far                ;01B7E8|0088DE;
-   JSL.L CODE_008E29                    ;01B7EC|008E29;
+   JSL.L CODE_FL_008D0A                 ;01B7E4|008D0A;
+ - JSL.L Wait_Vblank_far                ;01B7E8|0088DE;
+   JSL.L CODE_FL_008E29                 ;01B7EC|008E29;
    LDA.W #$B7FE                         ;01B7F0|      ;
    JSL.L RAM_Decomp80                   ;01B7F3|0084FE;
    LDA.W $063B                          ;01B7F7|00063B;
-   BPL CODE_01B7E8                      ;01B7FA|01B7E8;
+   BPL -                                ;01B7FA|01B7E8;
 CODE_01B7FC:
    BRA CODE_01B7FC                      ;01B7FC|01B7FC; Infinite loop?
    db $15                               ;01B7FE|000000;
@@ -11455,7 +11424,7 @@ Event_Main_6A:
    db $0A                               ;01B83E|      ;
 Something_with_displays:
    db $07                               ;01B83F|      ;
-   dl Transfer_Data_3b_1b_2b            ;01B840|00A140;
+   dl Gfx_GetPalette_3b_1b_2b           ;01B840|00A140;
    dl DATA8_01E65F                      ;01B843|01E65F;
    db $00                               ;01B846|      ;
    dw $0040                             ;01B847|      ;
@@ -11486,10 +11455,10 @@ Part_of_mountain_scene:
    dw $BBBB                             ;01B86D|      ;
    db $01                               ;01B86F|      ;
    db $13                               ;01B870|      ;
-   dw $2130                             ;01B871|002130;
+   dw $2130                             ;01B871|012130;
    db $00                               ;01B873|      ;
    db $13                               ;01B874|      ;
-   dw $2131                             ;01B875|002131;
+   dw $2131                             ;01B875|012131;
    db $A7                               ;01B877|      ;
    db $07                               ;01B878|      ;
    dl Set_RGB_3b                        ;01B879|009F83;
@@ -11610,7 +11579,7 @@ Load_after_mtn_fadeout:
    dl MainScr_Add_1b                    ;01B919|009DA8;
    db $11                               ;01B91C|      ;
    db $13                               ;01B91D|      ;
-   dw $211A                             ;01B91E|00211A;
+   dw $211A                             ;01B91E|01211A;
    db $80                               ;01B920|      ;
    db $06                               ;01B921|      ;
    db $B4                               ;01B922|      ;
@@ -11741,7 +11710,7 @@ CODE_01B9B4:
    ASL A                                ;01B9CC|      ;
    TAX                                  ;01B9CD|      ;
    LDA.L Tbl_Decrement_Amt,X            ;01B9CE|01BA58;
-   JML.L CODE_01BA44                    ;01B9D2|01BA44;
+   JML.L CODE_JL_01BA44                 ;01B9D2|01BA44;
 CODE_01B9D6:
    LDX.W Selection_offset               ;01B9D6|00103F;
    LDY.W Fn_results                     ;01B9D9|001041;
@@ -11755,7 +11724,7 @@ CODE_01B9D6:
    ASL A                                ;01B9EE|      ;
    TAX                                  ;01B9EF|      ;
    LDA.L Tbl_Decrement_Amt,X            ;01B9F0|01BA58;
-   JML.L CODE_01BA44                    ;01B9F4|01BA44;
+   JML.L CODE_JL_01BA44                 ;01B9F4|01BA44;
 CODE_01B9F8:
    LDX.W Selection_offset               ;01B9F8|00103F;
    LDY.W Fn_results                     ;01B9FB|001041;
@@ -11771,7 +11740,7 @@ CODE_01B9F8:
    LDA.L Tbl_Decrement_Amt,X            ;01BA12|01BA58;
    EOR.W #$FFFF                         ;01BA16|      ;
    INC A                                ;01BA19|      ;
-   JML.L CODE_01BA44                    ;01BA1A|01BA44;
+   JML.L CODE_JL_01BA44                 ;01BA1A|01BA44;
 CODE_01BA1E:
    LDX.W Selection_offset               ;01BA1E|00103F;
    LDY.W Fn_results                     ;01BA21|001041;
@@ -11787,15 +11756,15 @@ CODE_01BA1E:
    LDA.L Tbl_Decrement_Amt,X            ;01BA38|01BA58;
    EOR.W #$FFFF                         ;01BA3C|      ;
    INC A                                ;01BA3F|      ;
-   JML.L CODE_01BA44                    ;01BA40|01BA44; Why is this here??
-CODE_01BA44:
+   JML.L CODE_JL_01BA44                 ;01BA40|01BA44; Why is this here??
+CODE_JL_01BA44:
    CLC                                  ;01BA44|      ;
    ADC.W Graphics_106A                  ;01BA45|00106A;
    STA.W Graphics_106A                  ;01BA48|00106A;
    LDA.W Graphics_1068                  ;01BA4B|001068;
    LDX.W Graphics_106A                  ;01BA4E|00106A;
    LDY.W Graphics_106C                  ;01BA51|00106C;
-   JML.L CODE_008A84                    ;01BA54|008A84;
+   JML.L CODE_JL_008A84                 ;01BA54|008A84;
 Tbl_Decrement_Amt:
    dw $0001                             ;01BA58|      ;
    dw $0001                             ;01BA5A|      ;
@@ -11941,14 +11910,14 @@ CODE_01BB1A:
    LDA.W Object_var2_Selection,X        ;01BB20|0009EB;
    INC.W Object_var2_Selection,X        ;01BB23|0009EB;
    TAX                                  ;01BB26|      ;
-   JML.L CODE_01BB38                    ;01BB27|01BB38;
+   JML.L CODE_JL_01BB38                 ;01BB27|01BB38;
 CODE_01BB2B:
    LDX.W Selection_offset               ;01BB2B|00103F;
    LDY.W Fn_results                     ;01BB2E|001041;
    LDA.W Object_var2_Selection,X        ;01BB31|0009EB;
    DEC.W Object_var2_Selection,X        ;01BB34|0009EB;
    TAX                                  ;01BB37|      ;
-CODE_01BB38:
+CODE_JL_01BB38:
    LDA.L Some_table,X                   ;01BB38|01BB43;
    AND.W #$00FF                         ;01BB3C|      ;
    STA.W Object_SCR_Wait_Timer,Y        ;01BB3F|000B9F;
@@ -11995,18 +11964,16 @@ CODE_01BB65:
    LDY.W #$0400                         ;01BB74|      ;
    JSL.L DC_Setup                       ;01BB77|188325;
    LDA.W #$0000                         ;01BB7B|      ;
-   BCC CODE_01BB81                      ;01BB7E|01BB81;
+   BCC +                                ;01BB7E|01BB81;
    INC A                                ;01BB80|      ;
-CODE_01BB81:
-   PHA                                  ;01BB81|      ;
+ + PHA                                  ;01BB81|      ;
    LDY.W Selection_offset               ;01BB82|00103F;
    LDA.W Object_var0_Menu_Cursor,Y      ;01BB85|0009A3;
    INC A                                ;01BB88|      ;
    CMP.W #$002B                         ;01BB89|      ;
-   BCC CODE_01BB91                      ;01BB8C|01BB91;
+   BCC +                                ;01BB8C|01BB91;
    LDA.W #$0000                         ;01BB8E|      ;
-CODE_01BB91:
-   STA.W Object_var0_Menu_Cursor,Y      ;01BB91|0009A3;
+ + STA.W Object_var0_Menu_Cursor,Y      ;01BB91|0009A3;
    PLA                                  ;01BB94|      ;
    RTL                                  ;01BB95|      ;
 CODE_01BB96:

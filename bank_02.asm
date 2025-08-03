@@ -1,17 +1,17 @@
    ORG $028000
    db $FF                               ;028000|      ;
-LoadData_Enemy00:
-   db $04                               ;028001|      ; Load enemy stats into RAM etc
-   dl Battle_Prep                       ;028002|029124;
-DATA8_028005:
-   db $09                               ;028005|      ;
-   dl CODE_0280EF                       ;028006|0280EF;
-   db $1A                               ;028009|      ;
-   dw DATA8_02802F                      ;02800A|02802F;
-   db $08                               ;02800C|      ;
-   dw DATA8_02802F                      ;02800D|02802F;
+LoadData_Enemy00_SLIME:
+   db $04                               ;028001|      ; 04: JSL Battle_Prep
+   dl ASM_Battle_Prep                   ;028002|029124;
+Enemy00_Main_Loop:
+   db $09                               ;028005|      ; 09: ON_TICK - Sub_Enemy00_Death_Check
+   dl Sub_Enemy00_Death_Check           ;028006|0280EF;
+   db $1A                               ;028009|      ; 1A: JMP (if var2 doesn't match $1575)
+   dw Enemy00_Animation_Idle            ;02800A|02802F;
+   db $08                               ;02800C|      ; 08: TASK (if var2 does match $1575)
+   dw Enemy00_Animation_Idle            ;02800D|02802F;
    db $04                               ;02800F|      ;
-   dl DATA8_029111                      ;028010|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028010|029111;
    db $0B                               ;028013|      ;
    dw DATA8_028021                      ;028014|028021;
    db $14                               ;028016|      ;
@@ -19,32 +19,32 @@ DATA8_028005:
    db $14                               ;028018|      ;
    db $01                               ;028019|      ;
    db $1A                               ;02801A|      ;
-   dw DATA8_028005                      ;02801B|028005;
+   dw Enemy00_Main_Loop                 ;02801B|028005;
    db $04                               ;02801D|      ;
    dl Sub_Enemy_death_anim              ;02801E|028F24;
 DATA8_028021:
-   db $24                               ;028021|      ;
+   db $24                               ;028021|      ; 24: LDA var02
    db $02                               ;028022|      ;
-   db $07                               ;028023|      ;
+   db $07                               ;028023|      ; 07: Check if enemy is dead
    dl Condition_Check_2b                ;028024|07B0B0;
    db $01                               ;028027|      ;
    db $00                               ;028028|      ;
-   db $0B                               ;028029|      ;
-   dw DATA8_028005                      ;02802A|028005;
+   db $0B                               ;028029|      ; Jump to start if false
+   dw Enemy00_Main_Loop                 ;02802A|028005;
    db $1A                               ;02802C|      ;
    dw SFX_Dies_Enemy                    ;02802D|0290F1;
-DATA8_02802F:
+Enemy00_Animation_Idle:
    db $24                               ;02802F|      ;
    db $02                               ;028030|      ;
    db $07                               ;028031|      ;
-   dl Zeros_11DB                        ;028032|0781F0;
+   dl Clear_Condition_mirror            ;028032|0781F0;
    db $08                               ;028035|      ;
-   dw DATA8_0280C9                      ;028036|0280C9;
+   dw Enemy00_SLIME_SATISFACTORY        ;028036|0280C9;
 DATA8_028038:
-   db $24                               ;028038|      ;
+   db $24                               ;028038|      ; 24 02: LDA var02
    db $02                               ;028039|      ;
-   db $07                               ;02803A|      ;
-   dl CODE_078219                       ;02803B|078219;
+   db $07                               ;02803A|      ; 07: Check if (var02)'s condition has changed
+   dl Sub_Get_Condition_Change          ;02803B|078219;
    db $12                               ;02803E|      ;
    db $05                               ;02803F|      ;
    dw DATA8_02804F                      ;028040|02804F;
@@ -52,175 +52,175 @@ DATA8_028038:
    dw DATA8_02805B                      ;028044|02805B;
    dw DATA8_028061                      ;028046|028061;
    dw DATA8_028067                      ;028048|028067;
-   db $06                               ;02804A|      ;
+   db $06                               ;02804A|      ; 06: WAIT 1
    db $01                               ;02804B|      ;
-   db $1A                               ;02804C|      ;
+   db $1A                               ;02804C|      ; 1A: JMP to 8038 (condition check)
    dw DATA8_028038                      ;02804D|028038;
 DATA8_02804F:
-   db $14                               ;02804F|      ;
+   db $14                               ;02804F|      ; 14 01: UNK_TASK 01
    db $01                               ;028050|      ;
-   db $08                               ;028051|      ;
-   dw DATA8_02806D                      ;028052|02806D;
-   db $1C                               ;028054|      ;
+   db $08                               ;028051|      ; 08: TASK paralyzed anim
+   dw Enemy00_SLIME_PARALYZED           ;028052|02806D;
+   db $1C                               ;028054|      ; RTS
 DATA8_028055:
-   db $14                               ;028055|      ;
+   db $14                               ;028055|      ; 14 01: UNK_TASK 01
    db $01                               ;028056|      ;
-   db $08                               ;028057|      ;
-   dw DATA8_028070                      ;028058|028070;
-   db $1C                               ;02805A|      ;
+   db $08                               ;028057|      ; 08: TASK petrified anim
+   dw Enemy00_SLIME_PETRIFIED           ;028058|028070;
+   db $1C                               ;02805A|      ; RTS
 DATA8_02805B:
-   db $14                               ;02805B|      ;
+   db $14                               ;02805B|      ; 14 01: UNK_TASK 01
    db $01                               ;02805C|      ;
-   db $08                               ;02805D|      ;
-   dw DATA8_028073                      ;02805E|028073;
-   db $1C                               ;028060|      ;
+   db $08                               ;02805D|      ; 08: TASK confused anmim
+   dw Enemy00_SLIME_CONFUSED            ;02805E|028073;
+   db $1C                               ;028060|      ; RTS
 DATA8_028061:
-   db $14                               ;028061|      ;
+   db $14                               ;028061|      ; 14 01: UNK_TASK 01
    db $01                               ;028062|      ;
-   db $08                               ;028063|      ;
-   dw DATA8_028097                      ;028064|028097;
-   db $1C                               ;028066|      ;
+   db $08                               ;028063|      ; 08: TASK sleep anim
+   dw Enemy00_SLIME_SLEEP               ;028064|028097;
+   db $1C                               ;028066|      ; RTS
 DATA8_028067:
-   db $14                               ;028067|      ;
+   db $14                               ;028067|      ; 14 01: UNK_TASK 01
    db $01                               ;028068|      ;
-   db $08                               ;028069|      ;
-   dw DATA8_0280C9                      ;02806A|0280C9;
-   db $1C                               ;02806C|      ;
-DATA8_02806D:
-   db $31                               ;02806D|      ; Animation 04
+   db $08                               ;028069|      ; 08: TASK satisfactory anim
+   dw Enemy00_SLIME_SATISFACTORY        ;02806A|0280C9;
+   db $1C                               ;02806C|      ; RTS
+Enemy00_SLIME_PARALYZED:
+   db $31                               ;02806D|      ; 31: SETANIM 04 wait 1
    db $04                               ;02806E|      ;
-   db $0A                               ;02806F|      ; Clear animation loop
-DATA8_028070:
-   db $31                               ;028070|      ; Animation 03
+   db $0A                               ;02806F|      ; 0A: HALT
+Enemy00_SLIME_PETRIFIED:
+   db $31                               ;028070|      ; 31: SETANIM 03 wait 1
    db $03                               ;028071|      ;
-   db $0A                               ;028072|      ; Clear animation loop
-DATA8_028073:
-   db $31                               ;028073|      ; Animation 04
+   db $0A                               ;028072|      ; 0A: HALT
+Enemy00_SLIME_CONFUSED:
+   db $31                               ;028073|      ; 31: SETANIM 04 wait 1
    db $04                               ;028074|      ;
-   db $31                               ;028075|      ; Animation 06
+   db $31                               ;028075|      ; 31: SETANIM 06 wait 1
    db $06                               ;028076|      ;
-   db $A9                               ;028077|      ; Set speed to 9
-   db $31                               ;028078|      ; Animation 05
+   db $A9                               ;028077|      ; A9: INCANIM wait 1
+   db $31                               ;028078|      ; 31: SETANIM wait 1
    db $05                               ;028079|      ;
-   db $B1                               ;02807A|      ; Decrement animation ID
-   db $31                               ;02807B|      ; Animation 09
+   db $B1                               ;02807A|      ; B1: DECANIM wait 1
+   db $31                               ;02807B|      ; 31: SETANIM wait 1
    db $09                               ;02807C|      ;
-   db $A9                               ;02807D|      ; Set speed to 9
-   db $31                               ;02807E|      ; Animation 08
+   db $A9                               ;02807D|      ; A9: INCANIM wait 1
+   db $31                               ;02807E|      ; 31: SETANIM 08 wait 1
    db $08                               ;02807F|      ;
-   db $31                               ;028080|      ; Animation 04
+   db $31                               ;028080|      ; 31: SETANIM 04 wait 1
    db $04                               ;028081|      ;
-   db $31                               ;028082|      ; Animation 06
+   db $31                               ;028082|      ; 31: SETANIM 06 wait 1
    db $06                               ;028083|      ;
-   db $A9                               ;028084|      ; Set speed to 9
-   db $31                               ;028085|      ; Animation 05
+   db $A9                               ;028084|      ; A9: INCANIM wait 1
+   db $31                               ;028085|      ; 31: SETANIM 05 wait 1
    db $05                               ;028086|      ;
-   db $B1                               ;028087|      ; Decrement animation ID
-   db $31                               ;028088|      ; Animation 09
+   db $B1                               ;028087|      ; B1: DECANIM wait 1
+   db $31                               ;028088|      ; 31: SETANIM 09 wait 1
    db $09                               ;028089|      ;
-   db $A9                               ;02808A|      ; Set speed to 9
-   db $31                               ;02808B|      ; Animation 08
+   db $A9                               ;02808A|      ; A9: INCANIM wait 1
+   db $31                               ;02808B|      ; 31: SETANIM 08 wait 1
    db $08                               ;02808C|      ;
-   db $31                               ;02808D|      ; Animation 04
+   db $31                               ;02808D|      ; 31: SETANIM 04 wait 1
    db $04                               ;02808E|      ;
-   db $31                               ;02808F|      ; Animation 06
+   db $31                               ;02808F|      ; 31: SETANIM 06 wait 1
    db $06                               ;028090|      ;
-   db $A9                               ;028091|      ; Set speed to 9
-   db $31                               ;028092|      ; Animation 05
+   db $A9                               ;028091|      ; A9: INCANIM wait 1
+   db $31                               ;028092|      ; 31: SETANIM 05 wait 1
    db $05                               ;028093|      ;
-   db $1A                               ;028094|      ; Loop back
-   dw DATA8_028073                      ;028095|028073;
-DATA8_028097:
-   db $34                               ;028097|      ;
+   db $1A                               ;028094|      ; 1A: JMP to start
+   dw Enemy00_SLIME_CONFUSED            ;028095|028073;
+Enemy00_SLIME_SLEEP:
+   db $34                               ;028097|      ; 34: SET_ANIM 04 wait 4
    db $04                               ;028098|      ;
-   db $32                               ;028099|      ;
+   db $32                               ;028099|      ; 32: SET_ANIM 06 wait 2
    db $06                               ;02809A|      ;
-   db $A8                               ;02809B|      ;
-   db $06                               ;02809C|      ;
+   db $A8                               ;02809B|      ; A8: INC_ANIM wait 0
+   db $06                               ;02809C|      ; 06: WAIT 0C
    db $0C                               ;02809D|      ;
-   db $30                               ;02809E|      ;
+   db $30                               ;02809E|      ; 30: SET_ANIM 05 wait 0
    db $05                               ;02809F|      ;
-   db $06                               ;0280A0|      ;
+   db $06                               ;0280A0|      ; 06: WAIT 08
    db $08                               ;0280A1|      ;
-   db $B0                               ;0280A2|      ;
-   db $06                               ;0280A3|      ;
+   db $B0                               ;0280A2|      ; B0: DEC_ANIM wait 0
+   db $06                               ;0280A3|      ; 06: WAIT 08
    db $08                               ;0280A4|      ;
-   db $32                               ;0280A5|      ;
+   db $32                               ;0280A5|      ; 32: SET_ANIM 09 wait 2
    db $09                               ;0280A6|      ;
-   db $A8                               ;0280A7|      ;
-   db $06                               ;0280A8|      ;
+   db $A8                               ;0280A7|      ; A8: INC_ANIM wait 0
+   db $06                               ;0280A8|      ; 06: WAIT 0C
    db $0C                               ;0280A9|      ;
-   db $30                               ;0280AA|      ;
+   db $30                               ;0280AA|      ; 30: SET_ANIM 08 wait 0
    db $08                               ;0280AB|      ;
-   db $06                               ;0280AC|      ;
+   db $06                               ;0280AC|      ; 06: WAIT 08
    db $08                               ;0280AD|      ;
-   db $30                               ;0280AE|      ;
+   db $30                               ;0280AE|      ; 30: SET_ANIM 04 wait 0
    db $04                               ;0280AF|      ;
-   db $06                               ;0280B0|      ;
+   db $06                               ;0280B0|      ; 06: WAIT 08
    db $08                               ;0280B1|      ;
-   db $34                               ;0280B2|      ;
+   db $34                               ;0280B2|      ; 34: SET_ANIM 06 wait 4
    db $06                               ;0280B3|      ;
-   db $A8                               ;0280B4|      ;
-   db $06                               ;0280B5|      ;
+   db $A8                               ;0280B4|      ; A8: INC_ANIM wait 0
+   db $06                               ;0280B5|      ; 06: WAIT 08
    db $08                               ;0280B6|      ;
-   db $34                               ;0280B7|      ;
+   db $34                               ;0280B7|      ; 34: SET_ANIM 05 wait 4
    db $05                               ;0280B8|      ;
-   db $B4                               ;0280B9|      ;
-   db $34                               ;0280BA|      ;
+   db $B4                               ;0280B9|      ; B4: DEC_ANIM wait 4
+   db $34                               ;0280BA|      ; 34: SET_ANIM 09 wait 4
    db $09                               ;0280BB|      ;
-   db $AC                               ;0280BC|      ;
-   db $34                               ;0280BD|      ;
+   db $AC                               ;0280BC|      ; AC: INC_ANIM wait 4
+   db $34                               ;0280BD|      ; 34: SET_ANIM 08 wait 4
    db $08                               ;0280BE|      ;
-   db $34                               ;0280BF|      ;
+   db $34                               ;0280BF|      ; 34: SET_ANIM 04 wait 4
    db $04                               ;0280C0|      ;
-   db $34                               ;0280C1|      ;
+   db $34                               ;0280C1|      ; 34: SET_ANIM 06 wait 4
    db $06                               ;0280C2|      ;
-   db $AC                               ;0280C3|      ;
-   db $34                               ;0280C4|      ;
+   db $AC                               ;0280C3|      ; AC: INC_ANIM wait 4
+   db $34                               ;0280C4|      ; 34: SET_ANIM 05 wait 4
    db $05                               ;0280C5|      ;
-   db $1A                               ;0280C6|      ;
-   dw DATA8_028097                      ;0280C7|028097;
-DATA8_0280C9:
-   db $30                               ;0280C9|      ;
+   db $1A                               ;0280C6|      ; 1A: JMP to start
+   dw Enemy00_SLIME_SLEEP               ;0280C7|028097;
+Enemy00_SLIME_SATISFACTORY:
+   db $30                               ;0280C9|      ; 30: SET_ANIM 04 wait 0
    db $04                               ;0280CA|      ;
-   db $06                               ;0280CB|      ;
+   db $06                               ;0280CB|      ; 06: WAIT 2E
    db $2E                               ;0280CC|      ;
-   db $32                               ;0280CD|      ;
+   db $32                               ;0280CD|      ; 32: SET_ANIM 06 wait 2
    db $06                               ;0280CE|      ;
-   db $AB                               ;0280CF|      ;
-   db $32                               ;0280D0|      ;
+   db $AB                               ;0280CF|      ; AB: INC_ANIM wait 3
+   db $32                               ;0280D0|      ; 32: SET_ANIM 05 wait 2
    db $05                               ;0280D1|      ;
-   db $B2                               ;0280D2|      ;
-   db $32                               ;0280D3|      ;
+   db $B2                               ;0280D2|      ; B2: DEC_ANIM wait 2
+   db $32                               ;0280D3|      ; 32: SET_ANIM 09 wait 2
    db $09                               ;0280D4|      ;
-   db $AB                               ;0280D5|      ;
-   db $32                               ;0280D6|      ;
+   db $AB                               ;0280D5|      ; AB: INC_ANIM wait 3
+   db $32                               ;0280D6|      ; 32: SET_ANIM 08 wait 2
    db $08                               ;0280D7|      ;
-   db $32                               ;0280D8|      ;
+   db $32                               ;0280D8|      ; 32: SET_ANIM 04 wait 2
    db $04                               ;0280D9|      ;
-   db $31                               ;0280DA|      ;
+   db $31                               ;0280DA|      ; 31: SET_ANIM 06 wait 1
    db $06                               ;0280DB|      ;
-   db $AA                               ;0280DC|      ;
-   db $31                               ;0280DD|      ;
+   db $AA                               ;0280DC|      ; AA: INC_ANIM wait 2
+   db $31                               ;0280DD|      ; 31: SET_ANIM 05 wait 1
    db $05                               ;0280DE|      ;
-   db $B1                               ;0280DF|      ;
-   db $31                               ;0280E0|      ;
+   db $B1                               ;0280DF|      ; B1: DEC_ANIM wait 1
+   db $31                               ;0280E0|      ; 31: SET_ANIM 09 wait 1
    db $09                               ;0280E1|      ;
-   db $A9                               ;0280E2|      ;
-   db $31                               ;0280E3|      ;
+   db $A9                               ;0280E2|      ; A9: INC_ANIM wait 1
+   db $31                               ;0280E3|      ; 31: SET_ANIM 08 wait 1
    db $08                               ;0280E4|      ;
-   db $31                               ;0280E5|      ;
+   db $31                               ;0280E5|      ; 31: SET_ANIM 04 wait 1
    db $04                               ;0280E6|      ;
-   db $31                               ;0280E7|      ;
+   db $31                               ;0280E7|      ; 31: SET_ANIM 06 wait 1
    db $06                               ;0280E8|      ;
-   db $A9                               ;0280E9|      ;
-   db $31                               ;0280EA|      ;
-   db $05                               ;0280EB|      ; RTL
-   db $1A                               ;0280EC|      ;
-   dw DATA8_0280C9                      ;0280ED|0280C9;
-CODE_0280EF:
+   db $A9                               ;0280E9|      ; A9: INC_ANIM wait 1
+   db $31                               ;0280EA|      ; 31: SET_ANIM 05 wait 1
+   db $05                               ;0280EB|      ;
+   db $1A                               ;0280EC|      ; 1A: JMP to start
+   dw Enemy00_SLIME_SATISFACTORY        ;0280ED|0280C9;
+Sub_Enemy00_Death_Check:
    JSL.L Is_Equals_1575                 ;0280EF|07AEDD;
-   BNE CODE_02811F                      ;0280F3|02811F;
+   BNE +                                ;0280F3|02811F;
    LDX.W Selection_offset               ;0280F5|00103F;
    LDA.W Object_var1_Category,X         ;0280F8|0009C7;
    STA.B $20                            ;0280FB|000020;
@@ -229,30 +229,27 @@ CODE_0280EF:
    TAX                                  ;028101|      ;
    LDA.W Curr_HP_Rooks,X                ;028102|0012F3;
    CMP.B $20                            ;028105|000020;
-   BMI CODE_02810B                      ;028107|02810B;
-   BCS CODE_02812D                      ;028109|02812D;
-CODE_02810B:
-   LDA.W Curr_HP_Rooks,X                ;02810B|0012F3;
+   BMI ++                               ;028107|02810B;
+   BCS +++                              ;028109|02812D;
+++ LDA.W Curr_HP_Rooks,X                ;02810B|0012F3;
    LDX.W Selection_offset               ;02810E|00103F;
    STA.W Object_var1_Category,X         ;028111|0009C7;
    LDA.W #$801D                         ;028114|      ;
    LDY.W #$0002                         ;028117|      ;
    JML.L Sub_LoadStuff                  ;02811A|008DB4;
    RTL                                  ;02811E|      ;
-CODE_02811F:
-   LDX.W Selection_offset               ;02811F|00103F;
+ + LDX.W Selection_offset               ;02811F|00103F;
    LDA.W #$800C                         ;028122|      ;
    LDY.W #$0002                         ;028125|      ;
    JML.L Sub_LoadStuff                  ;028128|008DB4;
    RTL                                  ;02812C|      ;
-CODE_02812D:
-   LDA.W Curr_HP_Rooks,X                ;02812D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02812D|0012F3;
    LDX.W Selection_offset               ;028130|00103F;
    STA.W Object_var1_Category,X         ;028133|0009C7;
    RTL                                  ;028136|      ;
 LoadData_Enemy01:
    db $04                               ;028137|      ;
-   dl Battle_Prep                       ;028138|029124;
+   dl ASM_Battle_Prep                   ;028138|029124;
 DATA8_02813B:
    db $09                               ;02813B|      ;
    dl CODE_02820D                       ;02813C|02820D;
@@ -261,7 +258,7 @@ DATA8_02813B:
    db $08                               ;028142|      ;
    dw DATA8_028165                      ;028143|028165;
    db $04                               ;028145|      ;
-   dl DATA8_029111                      ;028146|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028146|029111;
    db $0B                               ;028149|      ;
    dw DATA8_028157                      ;02814A|028157;
    db $14                               ;02814C|      ;
@@ -287,14 +284,14 @@ DATA8_028165:
    db $24                               ;028165|      ;
    db $02                               ;028166|      ;
    db $07                               ;028167|      ;
-   dl Zeros_11DB                        ;028168|0781F0;
+   dl Clear_Condition_mirror            ;028168|0781F0;
    db $08                               ;02816B|      ;
    dw DATA8_0281E9                      ;02816C|0281E9;
 DATA8_02816E:
    db $24                               ;02816E|      ;
    db $02                               ;02816F|      ;
    db $07                               ;028170|      ;
-   dl CODE_078219                       ;028171|078219;
+   dl Sub_Get_Condition_Change          ;028171|078219;
    db $12                               ;028174|      ;
    db $05                               ;028175|      ;
    dw DATA8_028185                      ;028176|028185;
@@ -446,7 +443,7 @@ DATA8_0281E9:
    dw DATA8_0281E9                      ;02820B|0281E9;
 CODE_02820D:
    JSL.L Is_Equals_1575                 ;02820D|07AEDD;
-   BNE CODE_02823D                      ;028211|02823D;
+   BNE +                                ;028211|02823D;
    LDX.W Selection_offset               ;028213|00103F;
    LDA.W Object_var1_Category,X         ;028216|0009C7;
    STA.B $20                            ;028219|000020;
@@ -455,30 +452,27 @@ CODE_02820D:
    TAX                                  ;02821F|      ;
    LDA.W Curr_HP_Rooks,X                ;028220|0012F3;
    CMP.B $20                            ;028223|000020;
-   BMI CODE_028229                      ;028225|028229;
-   BCS CODE_02824B                      ;028227|02824B;
-CODE_028229:
-   LDA.W Curr_HP_Rooks,X                ;028229|0012F3;
+   BMI ++                               ;028225|028229;
+   BCS +++                              ;028227|02824B;
+++ LDA.W Curr_HP_Rooks,X                ;028229|0012F3;
    LDX.W Selection_offset               ;02822C|00103F;
    STA.W Object_var1_Category,X         ;02822F|0009C7;
    LDA.W #$8153                         ;028232|      ;
    LDY.W #$0002                         ;028235|      ;
    JML.L Sub_LoadStuff                  ;028238|008DB4;
    RTL                                  ;02823C|      ;
-CODE_02823D:
-   LDX.W Selection_offset               ;02823D|00103F;
+ + LDX.W Selection_offset               ;02823D|00103F;
    LDA.W #$8142                         ;028240|      ;
    LDY.W #$0002                         ;028243|      ;
    JML.L Sub_LoadStuff                  ;028246|008DB4;
    RTL                                  ;02824A|      ;
-CODE_02824B:
-   LDA.W Curr_HP_Rooks,X                ;02824B|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02824B|0012F3;
    LDX.W Selection_offset               ;02824E|00103F;
    STA.W Object_var1_Category,X         ;028251|0009C7;
    RTL                                  ;028254|      ;
 LoadData_Enemy02:
    db $04                               ;028255|      ;
-   dl Battle_Prep                       ;028256|029124;
+   dl ASM_Battle_Prep                   ;028256|029124;
 DATA8_028259:
    db $09                               ;028259|      ;
    dl CODE_02832B                       ;02825A|02832B;
@@ -487,7 +481,7 @@ DATA8_028259:
    db $08                               ;028260|      ;
    dw DATA8_028283                      ;028261|028283;
    db $04                               ;028263|      ;
-   dl DATA8_029111                      ;028264|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028264|029111;
    db $0B                               ;028267|      ;
    dw DATA8_028275                      ;028268|028275;
    db $14                               ;02826A|      ;
@@ -513,14 +507,14 @@ DATA8_028283:
    db $24                               ;028283|      ;
    db $02                               ;028284|      ;
    db $07                               ;028285|      ;
-   dl Zeros_11DB                        ;028286|0781F0;
+   dl Clear_Condition_mirror            ;028286|0781F0;
    db $08                               ;028289|      ;
    dw DATA8_028307                      ;02828A|028307;
 DATA8_02828C:
    db $24                               ;02828C|      ;
    db $02                               ;02828D|      ;
    db $07                               ;02828E|      ;
-   dl CODE_078219                       ;02828F|078219;
+   dl Sub_Get_Condition_Change          ;02828F|078219;
    db $12                               ;028292|      ;
    db $05                               ;028293|      ;
    dw DATA8_0282A3                      ;028294|0282A3;
@@ -672,7 +666,7 @@ DATA8_028307:
    dw DATA8_028307                      ;028329|028307;
 CODE_02832B:
    JSL.L Is_Equals_1575                 ;02832B|07AEDD;
-   BNE CODE_02835B                      ;02832F|02835B;
+   BNE +                                ;02832F|02835B;
    LDX.W Selection_offset               ;028331|00103F;
    LDA.W Object_var1_Category,X         ;028334|0009C7;
    STA.B $20                            ;028337|000020;
@@ -681,30 +675,27 @@ CODE_02832B:
    TAX                                  ;02833D|      ;
    LDA.W Curr_HP_Rooks,X                ;02833E|0012F3;
    CMP.B $20                            ;028341|000020;
-   BMI CODE_028347                      ;028343|028347;
-   BCS CODE_028369                      ;028345|028369;
-CODE_028347:
-   LDA.W Curr_HP_Rooks,X                ;028347|0012F3;
+   BMI ++                               ;028343|028347;
+   BCS +++                              ;028345|028369;
+++ LDA.W Curr_HP_Rooks,X                ;028347|0012F3;
    LDX.W Selection_offset               ;02834A|00103F;
    STA.W Object_var1_Category,X         ;02834D|0009C7;
    LDA.W #$8271                         ;028350|      ;
    LDY.W #$0002                         ;028353|      ;
    JML.L Sub_LoadStuff                  ;028356|008DB4;
    RTL                                  ;02835A|      ;
-CODE_02835B:
-   LDX.W Selection_offset               ;02835B|00103F;
+ + LDX.W Selection_offset               ;02835B|00103F;
    LDA.W #$8260                         ;02835E|      ;
    LDY.W #$0002                         ;028361|      ;
    JML.L Sub_LoadStuff                  ;028364|008DB4;
    RTL                                  ;028368|      ;
-CODE_028369:
-   LDA.W Curr_HP_Rooks,X                ;028369|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028369|0012F3;
    LDX.W Selection_offset               ;02836C|00103F;
    STA.W Object_var1_Category,X         ;02836F|0009C7;
    RTL                                  ;028372|      ;
 LoadData_Enemy03:
    db $04                               ;028373|      ;
-   dl Battle_Prep                       ;028374|029124;
+   dl ASM_Battle_Prep                   ;028374|029124;
 DATA8_028377:
    db $09                               ;028377|      ;
    dl CODE_028409                       ;028378|028409;
@@ -713,7 +704,7 @@ DATA8_028377:
    db $08                               ;02837E|      ;
    dw DATA8_0283A1                      ;02837F|0283A1;
    db $04                               ;028381|      ;
-   dl DATA8_029111                      ;028382|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028382|029111;
    db $0B                               ;028385|      ;
    dw DATA8_028393                      ;028386|028393;
    db $14                               ;028388|      ;
@@ -739,14 +730,14 @@ DATA8_0283A1:
    db $24                               ;0283A1|      ;
    db $02                               ;0283A2|      ;
    db $07                               ;0283A3|      ;
-   dl Zeros_11DB                        ;0283A4|0781F0;
+   dl Clear_Condition_mirror            ;0283A4|0781F0;
    db $08                               ;0283A7|      ;
    dw DATA8_0283FB                      ;0283A8|0283FB;
 DATA8_0283AA:
    db $24                               ;0283AA|      ;
    db $02                               ;0283AB|      ;
    db $07                               ;0283AC|      ;
-   dl CODE_078219                       ;0283AD|078219;
+   dl Sub_Get_Condition_Change          ;0283AD|078219;
    db $12                               ;0283B0|      ;
    db $05                               ;0283B1|      ;
    dw DATA8_0283C1                      ;0283B2|0283C1;
@@ -834,7 +825,7 @@ DATA8_0283FB:
    dw DATA8_0283FB                      ;028407|0283FB;
 CODE_028409:
    JSL.L Is_Equals_1575                 ;028409|07AEDD;
-   BNE CODE_028439                      ;02840D|028439;
+   BNE +                                ;02840D|028439;
    LDX.W Selection_offset               ;02840F|00103F;
    LDA.W Object_var1_Category,X         ;028412|0009C7;
    STA.B $20                            ;028415|000020;
@@ -843,30 +834,27 @@ CODE_028409:
    TAX                                  ;02841B|      ;
    LDA.W Curr_HP_Rooks,X                ;02841C|0012F3;
    CMP.B $20                            ;02841F|000020;
-   BMI CODE_028425                      ;028421|028425;
-   BCS CODE_028447                      ;028423|028447;
-CODE_028425:
-   LDA.W Curr_HP_Rooks,X                ;028425|0012F3;
+   BMI ++                               ;028421|028425;
+   BCS +++                              ;028423|028447;
+++ LDA.W Curr_HP_Rooks,X                ;028425|0012F3;
    LDX.W Selection_offset               ;028428|00103F;
    STA.W Object_var1_Category,X         ;02842B|0009C7;
    LDA.W #$838F                         ;02842E|      ;
    LDY.W #$0002                         ;028431|      ;
    JML.L Sub_LoadStuff                  ;028434|008DB4;
    RTL                                  ;028438|      ;
-CODE_028439:
-   LDX.W Selection_offset               ;028439|00103F;
+ + LDX.W Selection_offset               ;028439|00103F;
    LDA.W #$837E                         ;02843C|      ;
    LDY.W #$0002                         ;02843F|      ;
    JML.L Sub_LoadStuff                  ;028442|008DB4;
    RTL                                  ;028446|      ;
-CODE_028447:
-   LDA.W Curr_HP_Rooks,X                ;028447|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028447|0012F3;
    LDX.W Selection_offset               ;02844A|00103F;
    STA.W Object_var1_Category,X         ;02844D|0009C7;
    RTL                                  ;028450|      ;
 LoadData_Enemy04:
    db $04                               ;028451|      ;
-   dl Battle_Prep                       ;028452|029124;
+   dl ASM_Battle_Prep                   ;028452|029124;
 DATA8_028455:
    db $09                               ;028455|      ;
    dl CODE_0284E7                       ;028456|0284E7;
@@ -875,7 +863,7 @@ DATA8_028455:
    db $08                               ;02845C|      ;
    dw DATA8_02847F                      ;02845D|02847F;
    db $04                               ;02845F|      ;
-   dl DATA8_029111                      ;028460|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028460|029111;
    db $0B                               ;028463|      ;
    dw DATA8_028471                      ;028464|028471;
    db $14                               ;028466|      ;
@@ -901,14 +889,14 @@ DATA8_02847F:
    db $24                               ;02847F|      ;
    db $02                               ;028480|      ;
    db $07                               ;028481|      ;
-   dl Zeros_11DB                        ;028482|0781F0;
+   dl Clear_Condition_mirror            ;028482|0781F0;
    db $08                               ;028485|      ;
    dw DATA8_0284D9                      ;028486|0284D9;
 DATA8_028488:
    db $24                               ;028488|      ;
    db $02                               ;028489|      ;
    db $07                               ;02848A|      ;
-   dl CODE_078219                       ;02848B|078219;
+   dl Sub_Get_Condition_Change          ;02848B|078219;
    db $12                               ;02848E|      ;
    db $05                               ;02848F|      ;
    dw DATA8_02849F                      ;028490|02849F;
@@ -996,7 +984,7 @@ DATA8_0284D9:
    dw DATA8_0284D9                      ;0284E5|0284D9;
 CODE_0284E7:
    JSL.L Is_Equals_1575                 ;0284E7|07AEDD;
-   BNE CODE_028517                      ;0284EB|028517;
+   BNE +                                ;0284EB|028517;
    LDX.W Selection_offset               ;0284ED|00103F;
    LDA.W Object_var1_Category,X         ;0284F0|0009C7;
    STA.B $20                            ;0284F3|000020;
@@ -1005,30 +993,27 @@ CODE_0284E7:
    TAX                                  ;0284F9|      ;
    LDA.W Curr_HP_Rooks,X                ;0284FA|0012F3;
    CMP.B $20                            ;0284FD|000020;
-   BMI CODE_028503                      ;0284FF|028503;
-   BCS CODE_028525                      ;028501|028525;
-CODE_028503:
-   LDA.W Curr_HP_Rooks,X                ;028503|0012F3;
+   BMI ++                               ;0284FF|028503;
+   BCS +++                              ;028501|028525;
+++ LDA.W Curr_HP_Rooks,X                ;028503|0012F3;
    LDX.W Selection_offset               ;028506|00103F;
    STA.W Object_var1_Category,X         ;028509|0009C7;
    LDA.W #$846D                         ;02850C|      ;
    LDY.W #$0002                         ;02850F|      ;
    JML.L Sub_LoadStuff                  ;028512|008DB4;
    RTL                                  ;028516|      ;
-CODE_028517:
-   LDX.W Selection_offset               ;028517|00103F;
+ + LDX.W Selection_offset               ;028517|00103F;
    LDA.W #$845C                         ;02851A|      ;
    LDY.W #$0002                         ;02851D|      ;
    JML.L Sub_LoadStuff                  ;028520|008DB4;
    RTL                                  ;028524|      ;
-CODE_028525:
-   LDA.W Curr_HP_Rooks,X                ;028525|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028525|0012F3;
    LDX.W Selection_offset               ;028528|00103F;
    STA.W Object_var1_Category,X         ;02852B|0009C7;
    RTL                                  ;02852E|      ;
 LoadData_Enemy05:
    db $04                               ;02852F|      ;
-   dl Battle_Prep                       ;028530|029124;
+   dl ASM_Battle_Prep                   ;028530|029124;
 DATA8_028533:
    db $09                               ;028533|      ;
    dl CODE_02861E                       ;028534|02861E;
@@ -1037,7 +1022,7 @@ DATA8_028533:
    db $08                               ;02853A|      ;
    dw DATA8_02855D                      ;02853B|02855D;
    db $04                               ;02853D|      ;
-   dl DATA8_029111                      ;02853E|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02853E|029111;
    db $0B                               ;028541|      ;
    dw DATA8_02854F                      ;028542|02854F;
    db $14                               ;028544|      ;
@@ -1063,14 +1048,14 @@ DATA8_02855D:
    db $24                               ;02855D|      ;
    db $02                               ;02855E|      ;
    db $07                               ;02855F|      ;
-   dl Zeros_11DB                        ;028560|0781F0;
+   dl Clear_Condition_mirror            ;028560|0781F0;
    db $08                               ;028563|      ;
    dw DATA8_0285EB                      ;028564|0285EB;
 DATA8_028566:
    db $24                               ;028566|      ;
    db $02                               ;028567|      ;
    db $07                               ;028568|      ;
-   dl CODE_078219                       ;028569|078219;
+   dl Sub_Get_Condition_Change          ;028569|078219;
    db $12                               ;02856C|      ;
    db $05                               ;02856D|      ;
    dw DATA8_02857D                      ;02856E|02857D;
@@ -1248,7 +1233,7 @@ Play_attack_anim:
    dw DATA8_0285EB                      ;02861C|0285EB;
 CODE_02861E:
    JSL.L Is_Equals_1575                 ;02861E|07AEDD;
-   BNE CODE_02864E                      ;028622|02864E;
+   BNE +                                ;028622|02864E;
    LDX.W Selection_offset               ;028624|00103F;
    LDA.W Object_var1_Category,X         ;028627|0009C7;
    STA.B $20                            ;02862A|000020;
@@ -1257,30 +1242,27 @@ CODE_02861E:
    TAX                                  ;028630|      ;
    LDA.W Curr_HP_Rooks,X                ;028631|0012F3;
    CMP.B $20                            ;028634|000020;
-   BMI CODE_02863A                      ;028636|02863A;
-   BCS CODE_02865C                      ;028638|02865C;
-CODE_02863A:
-   LDA.W Curr_HP_Rooks,X                ;02863A|0012F3;
+   BMI ++                               ;028636|02863A;
+   BCS +++                              ;028638|02865C;
+++ LDA.W Curr_HP_Rooks,X                ;02863A|0012F3;
    LDX.W Selection_offset               ;02863D|00103F;
    STA.W Object_var1_Category,X         ;028640|0009C7;
    LDA.W #$854B                         ;028643|      ;
    LDY.W #$0002                         ;028646|      ;
    JML.L Sub_LoadStuff                  ;028649|008DB4;
    RTL                                  ;02864D|      ;
-CODE_02864E:
-   LDX.W Selection_offset               ;02864E|00103F;
+ + LDX.W Selection_offset               ;02864E|00103F;
    LDA.W #$853A                         ;028651|      ;
    LDY.W #$0002                         ;028654|      ;
    JML.L Sub_LoadStuff                  ;028657|008DB4;
    RTL                                  ;02865B|      ;
-CODE_02865C:
-   LDA.W Curr_HP_Rooks,X                ;02865C|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02865C|0012F3;
    LDX.W Selection_offset               ;02865F|00103F;
    STA.W Object_var1_Category,X         ;028662|0009C7;
    RTL                                  ;028665|      ;
 LoadData_Enemy06:
    db $04                               ;028666|      ;
-   dl Battle_Prep                       ;028667|029124;
+   dl ASM_Battle_Prep                   ;028667|029124;
 DATA8_02866A:
    db $09                               ;02866A|      ;
    dl CODE_028755                       ;02866B|028755;
@@ -1289,7 +1271,7 @@ DATA8_02866A:
    db $08                               ;028671|      ;
    dw DATA8_028694                      ;028672|028694;
    db $04                               ;028674|      ;
-   dl DATA8_029111                      ;028675|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028675|029111;
    db $0B                               ;028678|      ;
    dw DATA8_028686                      ;028679|028686;
    db $14                               ;02867B|      ;
@@ -1315,14 +1297,14 @@ DATA8_028694:
    db $24                               ;028694|      ;
    db $02                               ;028695|      ;
    db $07                               ;028696|      ;
-   dl Zeros_11DB                        ;028697|0781F0;
+   dl Clear_Condition_mirror            ;028697|0781F0;
    db $08                               ;02869A|      ;
    dw DATA8_028722                      ;02869B|028722;
 DATA8_02869D:
    db $24                               ;02869D|      ;
    db $02                               ;02869E|      ;
    db $07                               ;02869F|      ;
-   dl CODE_078219                       ;0286A0|078219;
+   dl Sub_Get_Condition_Change          ;0286A0|078219;
    db $12                               ;0286A3|      ;
    db $05                               ;0286A4|      ;
    dw DATA8_0286B4                      ;0286A5|0286B4;
@@ -1499,7 +1481,7 @@ DATA8_028722:
    dw DATA8_028722                      ;028753|028722;
 CODE_028755:
    JSL.L Is_Equals_1575                 ;028755|07AEDD;
-   BNE CODE_028785                      ;028759|028785;
+   BNE +                                ;028759|028785;
    LDX.W Selection_offset               ;02875B|00103F;
    LDA.W Object_var1_Category,X         ;02875E|0009C7;
    STA.B $20                            ;028761|000020;
@@ -1508,30 +1490,27 @@ CODE_028755:
    TAX                                  ;028767|      ;
    LDA.W Curr_HP_Rooks,X                ;028768|0012F3;
    CMP.B $20                            ;02876B|000020;
-   BMI CODE_028771                      ;02876D|028771;
-   BCS CODE_028793                      ;02876F|028793;
-CODE_028771:
-   LDA.W Curr_HP_Rooks,X                ;028771|0012F3;
+   BMI ++                               ;02876D|028771;
+   BCS +++                              ;02876F|028793;
+++ LDA.W Curr_HP_Rooks,X                ;028771|0012F3;
    LDX.W Selection_offset               ;028774|00103F;
    STA.W Object_var1_Category,X         ;028777|0009C7;
    LDA.W #$8682                         ;02877A|      ;
    LDY.W #$0002                         ;02877D|      ;
    JML.L Sub_LoadStuff                  ;028780|008DB4;
    RTL                                  ;028784|      ;
-CODE_028785:
-   LDX.W Selection_offset               ;028785|00103F;
+ + LDX.W Selection_offset               ;028785|00103F;
    LDA.W #$8671                         ;028788|      ;
    LDY.W #$0002                         ;02878B|      ;
    JML.L Sub_LoadStuff                  ;02878E|008DB4;
    RTL                                  ;028792|      ;
-CODE_028793:
-   LDA.W Curr_HP_Rooks,X                ;028793|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028793|0012F3;
    LDX.W Selection_offset               ;028796|00103F;
    STA.W Object_var1_Category,X         ;028799|0009C7;
    RTL                                  ;02879C|      ;
 LoadData_Enemy07:
    db $04                               ;02879D|      ;
-   dl Battle_Prep                       ;02879E|029124;
+   dl ASM_Battle_Prep                   ;02879E|029124;
 DATA8_0287A1:
    db $09                               ;0287A1|      ;
    dl CODE_02888F                       ;0287A2|02888F;
@@ -1540,7 +1519,7 @@ DATA8_0287A1:
    db $08                               ;0287A8|      ;
    dw DATA8_0287CB                      ;0287A9|0287CB;
    db $04                               ;0287AB|      ;
-   dl DATA8_029111                      ;0287AC|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;0287AC|029111;
    db $0B                               ;0287AF|      ;
    dw DATA8_0287BD                      ;0287B0|0287BD;
    db $14                               ;0287B2|      ;
@@ -1566,14 +1545,14 @@ DATA8_0287CB:
    db $24                               ;0287CB|      ;
    db $02                               ;0287CC|      ;
    db $07                               ;0287CD|      ;
-   dl Zeros_11DB                        ;0287CE|0781F0;
+   dl Clear_Condition_mirror            ;0287CE|0781F0;
    db $08                               ;0287D1|      ;
    dw DATA8_028867                      ;0287D2|028867;
 DATA8_0287D4:
    db $24                               ;0287D4|      ;
    db $02                               ;0287D5|      ;
    db $07                               ;0287D6|      ;
-   dl CODE_078219                       ;0287D7|078219;
+   dl Sub_Get_Condition_Change          ;0287D7|078219;
    db $12                               ;0287DA|      ;
    db $05                               ;0287DB|      ;
    dw DATA8_0287EB                      ;0287DC|0287EB;
@@ -1753,7 +1732,7 @@ DATA8_028867:
    dw DATA8_028867                      ;02888D|028867;
 CODE_02888F:
    JSL.L Is_Equals_1575                 ;02888F|07AEDD;
-   BNE CODE_0288BF                      ;028893|0288BF;
+   BNE +                                ;028893|0288BF;
    LDX.W Selection_offset               ;028895|00103F;
    LDA.W Object_var1_Category,X         ;028898|0009C7;
    STA.B $20                            ;02889B|000020;
@@ -1762,30 +1741,27 @@ CODE_02888F:
    TAX                                  ;0288A1|      ;
    LDA.W Curr_HP_Rooks,X                ;0288A2|0012F3;
    CMP.B $20                            ;0288A5|000020;
-   BMI CODE_0288AB                      ;0288A7|0288AB;
-   BCS CODE_0288CD                      ;0288A9|0288CD;
-CODE_0288AB:
-   LDA.W Curr_HP_Rooks,X                ;0288AB|0012F3;
+   BMI ++                               ;0288A7|0288AB;
+   BCS +++                              ;0288A9|0288CD;
+++ LDA.W Curr_HP_Rooks,X                ;0288AB|0012F3;
    LDX.W Selection_offset               ;0288AE|00103F;
    STA.W Object_var1_Category,X         ;0288B1|0009C7;
    LDA.W #$87B9                         ;0288B4|      ;
    LDY.W #$0002                         ;0288B7|      ;
    JML.L Sub_LoadStuff                  ;0288BA|008DB4;
    RTL                                  ;0288BE|      ;
-CODE_0288BF:
-   LDX.W Selection_offset               ;0288BF|00103F;
+ + LDX.W Selection_offset               ;0288BF|00103F;
    LDA.W #$87A8                         ;0288C2|      ;
    LDY.W #$0002                         ;0288C5|      ;
    JML.L Sub_LoadStuff                  ;0288C8|008DB4;
    RTL                                  ;0288CC|      ;
-CODE_0288CD:
-   LDA.W Curr_HP_Rooks,X                ;0288CD|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;0288CD|0012F3;
    LDX.W Selection_offset               ;0288D0|00103F;
    STA.W Object_var1_Category,X         ;0288D3|0009C7;
    RTL                                  ;0288D6|      ;
 LoadData_Enemy08:
    db $04                               ;0288D7|      ;
-   dl Battle_Prep                       ;0288D8|029124;
+   dl ASM_Battle_Prep                   ;0288D8|029124;
 DATA8_0288DB:
    db $09                               ;0288DB|      ;
    dl CODE_028971                       ;0288DC|028971;
@@ -1794,7 +1770,7 @@ DATA8_0288DB:
    db $08                               ;0288E2|      ;
    dw DATA8_028905                      ;0288E3|028905;
    db $04                               ;0288E5|      ;
-   dl DATA8_029111                      ;0288E6|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;0288E6|029111;
    db $0B                               ;0288E9|      ;
    dw DATA8_0288F7                      ;0288EA|0288F7;
    db $14                               ;0288EC|      ;
@@ -1820,14 +1796,14 @@ DATA8_028905:
    db $24                               ;028905|      ;
    db $02                               ;028906|      ;
    db $07                               ;028907|      ;
-   dl Zeros_11DB                        ;028908|0781F0;
+   dl Clear_Condition_mirror            ;028908|0781F0;
    db $08                               ;02890B|      ;
    dw DATA8_028961                      ;02890C|028961;
 DATA8_02890E:
    db $24                               ;02890E|      ;
    db $02                               ;02890F|      ;
    db $07                               ;028910|      ;
-   dl CODE_078219                       ;028911|078219;
+   dl Sub_Get_Condition_Change          ;028911|078219;
    db $12                               ;028914|      ;
    db $05                               ;028915|      ;
    dw DATA8_028925                      ;028916|028925;
@@ -1919,7 +1895,7 @@ DATA8_028961:
    dw DATA8_028961                      ;02896F|028961;
 CODE_028971:
    JSL.L Is_Equals_1575                 ;028971|07AEDD;
-   BNE CODE_0289A1                      ;028975|0289A1;
+   BNE +                                ;028975|0289A1;
    LDX.W Selection_offset               ;028977|00103F;
    LDA.W Object_var1_Category,X         ;02897A|0009C7;
    STA.B $20                            ;02897D|000020;
@@ -1928,30 +1904,27 @@ CODE_028971:
    TAX                                  ;028983|      ;
    LDA.W Curr_HP_Rooks,X                ;028984|0012F3;
    CMP.B $20                            ;028987|000020;
-   BMI CODE_02898D                      ;028989|02898D;
-   BCS CODE_0289AF                      ;02898B|0289AF;
-CODE_02898D:
-   LDA.W Curr_HP_Rooks,X                ;02898D|0012F3;
+   BMI ++                               ;028989|02898D;
+   BCS +++                              ;02898B|0289AF;
+++ LDA.W Curr_HP_Rooks,X                ;02898D|0012F3;
    LDX.W Selection_offset               ;028990|00103F;
    STA.W Object_var1_Category,X         ;028993|0009C7;
    LDA.W #$88F3                         ;028996|      ;
    LDY.W #$0002                         ;028999|      ;
    JML.L Sub_LoadStuff                  ;02899C|008DB4;
    RTL                                  ;0289A0|      ;
-CODE_0289A1:
-   LDX.W Selection_offset               ;0289A1|00103F;
+ + LDX.W Selection_offset               ;0289A1|00103F;
    LDA.W #$88E2                         ;0289A4|      ;
    LDY.W #$0002                         ;0289A7|      ;
    JML.L Sub_LoadStuff                  ;0289AA|008DB4;
    RTL                                  ;0289AE|      ;
-CODE_0289AF:
-   LDA.W Curr_HP_Rooks,X                ;0289AF|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;0289AF|0012F3;
    LDX.W Selection_offset               ;0289B2|00103F;
    STA.W Object_var1_Category,X         ;0289B5|0009C7;
    RTL                                  ;0289B8|      ;
 LoadData_Enemy09:
    db $04                               ;0289B9|      ;
-   dl Battle_Prep                       ;0289BA|029124;
+   dl ASM_Battle_Prep                   ;0289BA|029124;
 DATA8_0289BD:
    db $09                               ;0289BD|      ;
    dl CODE_028A4F                       ;0289BE|028A4F;
@@ -1960,7 +1933,7 @@ DATA8_0289BD:
    db $08                               ;0289C4|      ;
    dw DATA8_0289E7                      ;0289C5|0289E7;
    db $04                               ;0289C7|      ;
-   dl DATA8_029111                      ;0289C8|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;0289C8|029111;
    db $0B                               ;0289CB|      ;
    dw DATA8_0289D9                      ;0289CC|0289D9;
    db $14                               ;0289CE|      ;
@@ -1986,14 +1959,14 @@ DATA8_0289E7:
    db $24                               ;0289E7|      ;
    db $02                               ;0289E8|      ;
    db $07                               ;0289E9|      ;
-   dl Zeros_11DB                        ;0289EA|0781F0;
+   dl Clear_Condition_mirror            ;0289EA|0781F0;
    db $08                               ;0289ED|      ;
    dw DATA8_028A41                      ;0289EE|028A41;
 DATA8_0289F0:
    db $24                               ;0289F0|      ;
    db $02                               ;0289F1|      ;
    db $07                               ;0289F2|      ;
-   dl CODE_078219                       ;0289F3|078219;
+   dl Sub_Get_Condition_Change          ;0289F3|078219;
    db $12                               ;0289F6|      ;
    db $05                               ;0289F7|      ;
    dw DATA8_028A07                      ;0289F8|028A07;
@@ -2081,7 +2054,7 @@ DATA8_028A41:
    dw DATA8_028A41                      ;028A4D|028A41;
 CODE_028A4F:
    JSL.L Is_Equals_1575                 ;028A4F|07AEDD;
-   BNE CODE_028A7F                      ;028A53|028A7F;
+   BNE +                                ;028A53|028A7F;
    LDX.W Selection_offset               ;028A55|00103F;
    LDA.W Object_var1_Category,X         ;028A58|0009C7;
    STA.B $20                            ;028A5B|000020;
@@ -2090,30 +2063,27 @@ CODE_028A4F:
    TAX                                  ;028A61|      ;
    LDA.W Curr_HP_Rooks,X                ;028A62|0012F3;
    CMP.B $20                            ;028A65|000020;
-   BMI CODE_028A6B                      ;028A67|028A6B;
-   BCS CODE_028A8D                      ;028A69|028A8D;
-CODE_028A6B:
-   LDA.W Curr_HP_Rooks,X                ;028A6B|0012F3;
+   BMI ++                               ;028A67|028A6B;
+   BCS +++                              ;028A69|028A8D;
+++ LDA.W Curr_HP_Rooks,X                ;028A6B|0012F3;
    LDX.W Selection_offset               ;028A6E|00103F;
    STA.W Object_var1_Category,X         ;028A71|0009C7;
    LDA.W #$89D5                         ;028A74|      ;
    LDY.W #$0002                         ;028A77|      ;
    JML.L Sub_LoadStuff                  ;028A7A|008DB4;
    RTL                                  ;028A7E|      ;
-CODE_028A7F:
-   LDX.W Selection_offset               ;028A7F|00103F;
+ + LDX.W Selection_offset               ;028A7F|00103F;
    LDA.W #$89C4                         ;028A82|      ;
    LDY.W #$0002                         ;028A85|      ;
    JML.L Sub_LoadStuff                  ;028A88|008DB4;
    RTL                                  ;028A8C|      ;
-CODE_028A8D:
-   LDA.W Curr_HP_Rooks,X                ;028A8D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028A8D|0012F3;
    LDX.W Selection_offset               ;028A90|00103F;
    STA.W Object_var1_Category,X         ;028A93|0009C7;
    RTL                                  ;028A96|      ;
 LoadData_Enemy0A:
    db $04                               ;028A97|      ;
-   dl Battle_Prep                       ;028A98|029124;
+   dl ASM_Battle_Prep                   ;028A98|029124;
 DATA8_028A9B:
    db $09                               ;028A9B|      ;
    dl CODE_028B8B                       ;028A9C|028B8B;
@@ -2122,7 +2092,7 @@ DATA8_028A9B:
    db $08                               ;028AA2|      ;
    dw DATA8_028AC5                      ;028AA3|028AC5;
    db $04                               ;028AA5|      ;
-   dl DATA8_029111                      ;028AA6|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028AA6|029111;
    db $0B                               ;028AA9|      ;
    dw DATA8_028AB7                      ;028AAA|028AB7;
    db $14                               ;028AAC|      ;
@@ -2148,14 +2118,14 @@ DATA8_028AC5:
    db $24                               ;028AC5|      ;
    db $02                               ;028AC6|      ;
    db $07                               ;028AC7|      ;
-   dl Zeros_11DB                        ;028AC8|0781F0;
+   dl Clear_Condition_mirror            ;028AC8|0781F0;
    db $08                               ;028ACB|      ;
    dw DATA8_028B65                      ;028ACC|028B65;
 DATA8_028ACE:
    db $24                               ;028ACE|      ;
    db $02                               ;028ACF|      ;
    db $07                               ;028AD0|      ;
-   dl CODE_078219                       ;028AD1|078219;
+   dl Sub_Get_Condition_Change          ;028AD1|078219;
    db $12                               ;028AD4|      ;
    db $05                               ;028AD5|      ;
    dw DATA8_028AE5                      ;028AD6|028AE5;
@@ -2337,7 +2307,7 @@ DATA8_028B65:
    dw DATA8_028B65                      ;028B89|028B65;
 CODE_028B8B:
    JSL.L Is_Equals_1575                 ;028B8B|07AEDD;
-   BNE CODE_028BBB                      ;028B8F|028BBB;
+   BNE +                                ;028B8F|028BBB;
    LDX.W Selection_offset               ;028B91|00103F;
    LDA.W Object_var1_Category,X         ;028B94|0009C7;
    STA.B $20                            ;028B97|000020;
@@ -2346,30 +2316,27 @@ CODE_028B8B:
    TAX                                  ;028B9D|      ;
    LDA.W Curr_HP_Rooks,X                ;028B9E|0012F3;
    CMP.B $20                            ;028BA1|000020;
-   BMI CODE_028BA7                      ;028BA3|028BA7;
-   BCS CODE_028BC9                      ;028BA5|028BC9;
-CODE_028BA7:
-   LDA.W Curr_HP_Rooks,X                ;028BA7|0012F3;
+   BMI ++                               ;028BA3|028BA7;
+   BCS +++                              ;028BA5|028BC9;
+++ LDA.W Curr_HP_Rooks,X                ;028BA7|0012F3;
    LDX.W Selection_offset               ;028BAA|00103F;
    STA.W Object_var1_Category,X         ;028BAD|0009C7;
    LDA.W #$8AB3                         ;028BB0|      ;
    LDY.W #$0002                         ;028BB3|      ;
    JML.L Sub_LoadStuff                  ;028BB6|008DB4;
    RTL                                  ;028BBA|      ;
-CODE_028BBB:
-   LDX.W Selection_offset               ;028BBB|00103F;
+ + LDX.W Selection_offset               ;028BBB|00103F;
    LDA.W #$8AA2                         ;028BBE|      ;
    LDY.W #$0002                         ;028BC1|      ;
    JML.L Sub_LoadStuff                  ;028BC4|008DB4;
    RTL                                  ;028BC8|      ;
-CODE_028BC9:
-   LDA.W Curr_HP_Rooks,X                ;028BC9|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028BC9|0012F3;
    LDX.W Selection_offset               ;028BCC|00103F;
    STA.W Object_var1_Category,X         ;028BCF|0009C7;
    RTL                                  ;028BD2|      ;
 LoadData_Enemy0B:
    db $04                               ;028BD3|      ;
-   dl Battle_Prep                       ;028BD4|029124;
+   dl ASM_Battle_Prep                   ;028BD4|029124;
 DATA8_028BD7:
    db $09                               ;028BD7|      ;
    dl CODE_028C11                       ;028BD8|028C11;
@@ -2378,7 +2345,7 @@ DATA8_028BD7:
    db $08                               ;028BDE|      ;
    dw DATA8_028C03                      ;028BDF|028C03;
    db $04                               ;028BE1|      ;
-   dl DATA8_029111                      ;028BE2|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028BE2|029111;
    db $1A                               ;028BE5|      ;
    dw DATA8_028BD7                      ;028BE6|028BD7;
    db $07                               ;028BE8|      ; 07: Load SFX
@@ -2417,7 +2384,7 @@ DATA8_028C03:
    dw DATA8_028C03                      ;028C0F|028C03;
 CODE_028C11:
    JSL.L Is_Equals_1575                 ;028C11|07AEDD;
-   BNE CODE_028C41                      ;028C15|028C41;
+   BNE +                                ;028C15|028C41;
    LDX.W Selection_offset               ;028C17|00103F;
    LDA.W Object_var1_Category,X         ;028C1A|0009C7;
    STA.B $20                            ;028C1D|000020;
@@ -2426,30 +2393,27 @@ CODE_028C11:
    TAX                                  ;028C23|      ;
    LDA.W Curr_HP_Rooks,X                ;028C24|0012F3;
    CMP.B $20                            ;028C27|000020;
-   BMI CODE_028C2D                      ;028C29|028C2D;
-   BCS CODE_028C4F                      ;028C2B|028C4F;
-CODE_028C2D:
-   LDA.W Curr_HP_Rooks,X                ;028C2D|0012F3;
+   BMI ++                               ;028C29|028C2D;
+   BCS +++                              ;028C2B|028C4F;
+++ LDA.W Curr_HP_Rooks,X                ;028C2D|0012F3;
    LDX.W Selection_offset               ;028C30|00103F;
    STA.W Object_var1_Category,X         ;028C33|0009C7;
    LDA.W #$8BE8                         ;028C36|      ;
    LDY.W #$0002                         ;028C39|      ;
    JML.L Sub_LoadStuff                  ;028C3C|008DB4;
    RTL                                  ;028C40|      ;
-CODE_028C41:
-   LDX.W Selection_offset               ;028C41|00103F;
+ + LDX.W Selection_offset               ;028C41|00103F;
    LDA.W #$8BDE                         ;028C44|      ;
    LDY.W #$0002                         ;028C47|      ;
    JML.L Sub_LoadStuff                  ;028C4A|008DB4;
    RTL                                  ;028C4E|      ;
-CODE_028C4F:
-   LDA.W Curr_HP_Rooks,X                ;028C4F|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028C4F|0012F3;
    LDX.W Selection_offset               ;028C52|00103F;
    STA.W Object_var1_Category,X         ;028C55|0009C7;
    RTL                                  ;028C58|      ;
 LoadData_Enemy0C:
    db $04                               ;028C59|      ;
-   dl Battle_Prep                       ;028C5A|029124;
+   dl ASM_Battle_Prep                   ;028C5A|029124;
 DATA8_028C5D:
    db $09                               ;028C5D|      ;
    dl CODE_028C97                       ;028C5E|028C97;
@@ -2458,7 +2422,7 @@ DATA8_028C5D:
    db $08                               ;028C64|      ;
    dw DATA8_028C89                      ;028C65|028C89;
    db $04                               ;028C67|      ;
-   dl DATA8_029111                      ;028C68|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;028C68|029111;
    db $1A                               ;028C6B|      ;
    dw DATA8_028C5D                      ;028C6C|028C5D;
    db $07                               ;028C6E|      ; 07: 00/9C44 Load SFX
@@ -2497,7 +2461,7 @@ DATA8_028C89:
    dw DATA8_028C89                      ;028C95|028C89;
 CODE_028C97:
    JSL.L Is_Equals_1575                 ;028C97|07AEDD;
-   BNE CODE_028CC7                      ;028C9B|028CC7;
+   BNE +                                ;028C9B|028CC7;
    LDX.W Selection_offset               ;028C9D|00103F;
    LDA.W Object_var1_Category,X         ;028CA0|0009C7;
    STA.B $20                            ;028CA3|000020;
@@ -2506,41 +2470,38 @@ CODE_028C97:
    TAX                                  ;028CA9|      ;
    LDA.W Curr_HP_Rooks,X                ;028CAA|0012F3;
    CMP.B $20                            ;028CAD|000020;
-   BMI CODE_028CB3                      ;028CAF|028CB3;
-   BCS CODE_028CD5                      ;028CB1|028CD5;
-CODE_028CB3:
-   LDA.W Curr_HP_Rooks,X                ;028CB3|0012F3;
+   BMI ++                               ;028CAF|028CB3;
+   BCS +++                              ;028CB1|028CD5;
+++ LDA.W Curr_HP_Rooks,X                ;028CB3|0012F3;
    LDX.W Selection_offset               ;028CB6|00103F;
    STA.W Object_var1_Category,X         ;028CB9|0009C7;
    LDA.W #$8C6E                         ;028CBC|      ;
    LDY.W #$0002                         ;028CBF|      ;
    JML.L Sub_LoadStuff                  ;028CC2|008DB4;
    RTL                                  ;028CC6|      ;
-CODE_028CC7:
-   LDX.W Selection_offset               ;028CC7|00103F;
+ + LDX.W Selection_offset               ;028CC7|00103F;
    LDA.W #$8C64                         ;028CCA|      ;
    LDY.W #$0002                         ;028CCD|      ;
    JML.L Sub_LoadStuff                  ;028CD0|008DB4;
    RTL                                  ;028CD4|      ;
-CODE_028CD5:
-   LDA.W Curr_HP_Rooks,X                ;028CD5|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;028CD5|0012F3;
    LDX.W Selection_offset               ;028CD8|00103F;
    STA.W Object_var1_Category,X         ;028CDB|0009C7;
    RTL                                  ;028CDE|      ;
-DATA8_028CDF:
+ASM_Enemy_Turn:
    db $07                               ;028CDF|      ;
    dl Get_enemy_ID_from_103F_far        ;028CE0|07912A;
    db $07                               ;028CE3|      ; Get Enemy X name
    dl Get_EnemyX_Name                   ;028CE4|07B51C;
    db $07                               ;028CE7|      ; 07: ROM transfer from 0D/958C
-   dl Transfer_Data_3b_1b_2b            ;028CE8|00A140;
-   dl _189A85_2_bytes                   ;028CEB|0D958C;
+   dl Gfx_GetPalette_3b_1b_2b           ;028CE8|00A140;
+   dl Text_Color_Red                    ;028CEB|0D958C;
    db $02                               ;028CEE|      ;
    db $02                               ;028CEF|      ;
    db $00                               ;028CF0|      ;
-   db $24                               ;028CF1|      ; Load $09EB,x
+   db $24                               ;028CF1|      ; 24: LDA var02
    db $02                               ;028CF2|      ;
-   db $07                               ;028CF3|      ; Get Condition?
+   db $07                               ;028CF3|      ; Get var02 Condition
    dl Get_Condition1                    ;028CF4|078229;
    db $11                               ;028CF7|      ; Switch-case on Condition
    db $05                               ;028CF8|      ;
@@ -2555,21 +2516,21 @@ X_paralyzed:
    dl IsParalyzed                       ;028D07|088936; 08/8936
    db $00                               ;028D0A|      ;
    db $1A                               ;028D0B|      ;
-   dw Sub_8F65                          ;028D0C|028F65;
+   dw Sub_Battle_Pause_End              ;028D0C|028F65;
 X_petrified:
    db $07                               ;028D0E|      ;
    dl Setup_Text_Parser_3b              ;028D0F|00A0AC;
    dl IsPetrified                       ;028D12|08894E; 08/894E
    db $00                               ;028D15|      ;
    db $1A                               ;028D16|      ;
-   dw Sub_8F65                          ;028D17|028F65;
+   dw Sub_Battle_Pause_End              ;028D17|028F65;
 X_confused:
    db $07                               ;028D19|      ;
    dl Setup_Text_Parser_3b              ;028D1A|00A0AC;
    dl IsConfused                        ;028D1D|088966; 08/8966
    db $00                               ;028D20|      ;
    db $1B                               ;028D21|      ;
-   dw Sub_8F65                          ;028D22|028F65;
+   dw Sub_Battle_Pause_End              ;028D22|028F65;
    db $1A                               ;028D24|      ;
    dw Confusion_Targeting               ;028D25|028D65;
 X_asleep:
@@ -2578,7 +2539,7 @@ X_asleep:
    dl IsAsleep                          ;028D2B|08897D; 08/897D
    db $00                               ;028D2E|      ;
    db $1B                               ;028D2F|      ;
-   dw Sub_8F65                          ;028D30|028F65;
+   dw Sub_Battle_Pause_End              ;028D30|028F65;
    db $07                               ;028D32|      ; Call RNG (1/4 chance to wake up)
    dl RNG_1b                            ;028D33|00A0BD;
    db $04                               ;028D36|      ;
@@ -2590,10 +2551,10 @@ X_awakened:
    dl Setup_Text_Parser_3b              ;028D3C|00A0AC;
    dl HasAwakened                       ;028D3F|088992;
    db $00                               ;028D42|      ;
-   db $1B                               ;028D43|      ; If false(?) call sub 8F65
-   dw Sub_8F65                          ;028D44|028F65;
-   db $07                               ;028D46|      ;
-   dl CODE_07B11C                       ;028D47|07B11C;
+   db $1B                               ;028D43|      ; Pause for input
+   dw Sub_Battle_Pause_End              ;028D44|028F65;
+   db $07                               ;028D46|      ; Clear status effect
+   dl Set_Condition_4b                  ;028D47|07B11C;
    db $02                               ;028D4A|      ;
    db $00                               ;028D4B|      ;
    db $00                               ;028D4C|      ;
@@ -2661,7 +2622,7 @@ Rooks_Targetable:
    db $00                               ;028DA4|      ;
    db $00                               ;028DA5|      ;
    db $07                               ;028DA6|      ;
-   dl Load_Temp_Var_2b                  ;028DA7|07B4A1;
+   dl Load_Object_Var_2b                ;028DA7|07B4A1;
    db $03                               ;028DAA|      ;
    db $00                               ;028DAB|      ;
    db $07                               ;028DAC|      ;
@@ -2687,7 +2648,7 @@ Spirit_Targetable:
    db $03                               ;028DCC|      ;
    dw $0001                             ;028DCD|      ;
    db $07                               ;028DCF|      ;
-   dl Load_Temp_Var_2b                  ;028DD0|07B4A1;
+   dl Load_Object_Var_2b                ;028DD0|07B4A1;
    dw $0003                             ;028DD3|      ;
    db $07                               ;028DD5|      ; Get the Spirit's name
    dl Get_PC_name2                      ;028DD6|07B4FE;
@@ -2713,7 +2674,7 @@ Guest1_Targetable:
    db $02                               ;028DF6|      ;
    db $00                               ;028DF7|      ;
    db $07                               ;028DF8|      ; Load attack target
-   dl Load_Temp_Var_2b                  ;028DF9|07B4A1;
+   dl Load_Object_Var_2b                ;028DF9|07B4A1;
    dw $0003                             ;028DFC|      ;
    db $07                               ;028DFE|      ; Load Guest1 name
    dl Get_PC_name2                      ;028DFF|07B4FE;
@@ -2734,12 +2695,12 @@ Guest2_Targetable:
    dw $0001                             ;028E18|      ;
    db $0C                               ;028E1A|      ;
    dw Invalid_Target                    ;028E1B|028E7B;
-   db $0F                               ;028E1D|      ; Set target (var3) to Guest2
+   db $0F                               ;028E1D|      ; Set target (var3) to Guest2 (0003)
    db $03                               ;028E1E|      ;
    db $03                               ;028E1F|      ;
    db $00                               ;028E20|      ;
-   db $07                               ;028E21|      ;
-   dl Load_Temp_Var_2b                  ;028E22|07B4A1;
+   db $07                               ;028E21|      ; Load var3
+   dl Load_Object_Var_2b                ;028E22|07B4A1;
    dw $0003                             ;028E25|      ;
    db $07                               ;028E27|      ; Load Guest2 name
    dl Get_PC_name2                      ;028E28|07B4FE;
@@ -2802,24 +2763,24 @@ Enemy_Dead_Check:
    db $24                               ;028E6E|      ;
    db $03                               ;028E6F|      ;
    db $07                               ;028E70|      ;
-   dl CODE_079139                       ;028E71|079139;
+   dl CODE_FL_079139                    ;028E71|079139;
    db $07                               ;028E74|      ; Get enemy name
    dl Get_Enemy_Name                    ;028E75|07B5BA;
    db $1A                               ;028E78|      ; Return valid target
    dw Valid_Target                      ;028E79|028E7F;
 Invalid_Target:
-   db $1E                               ;028E7B|      ; Store 0 in $0CB3,x
+   db $1E                               ;028E7B|      ; Load 0
    db $00                               ;028E7C|      ;
    db $00                               ;028E7D|      ;
-   db $1C                               ;028E7E|      ; End section
+   db $1C                               ;028E7E|      ; RTS
 Valid_Target:
-   db $1E                               ;028E7F|      ; Store 1 in $0CB3,x
+   db $1E                               ;028E7F|      ; Load 1
    db $01                               ;028E80|      ;
    db $00                               ;028E81|      ;
-   db $1C                               ;028E82|      ; End section
+   db $1C                               ;028E82|      ; RTS
 Enemy_Action:
    db $07                               ;028E83|      ; Enemy spellcast
-   dl Enemy_spellcast                   ;028E84|078272;
+   dl Enemy_spellcast_check             ;028E84|078272;
    db $0B                               ;028E87|      ; If false, roll enemy physical attack
    dw Enemy_Physical_Attack             ;028E88|028EB6;
 Enemy_Spell_Attack:
@@ -2837,7 +2798,7 @@ Enemy_Spell_Attack:
    db $07                               ;028E9C|      ;
    dl Set_attacker_target_using_0A0F    ;028E9D|07916B;
    db $07                               ;028EA0|      ;
-   dl CODE_07BFAC                       ;028EA1|07BFAC;
+   dl Cast_Spell                        ;028EA1|07BFAC;
    db $04                               ;028EA4|      ;
    dl DATA8_05F480                      ;028EA5|05F480;
    db $07                               ;028EA8|      ;
@@ -2856,7 +2817,7 @@ Enemy_Physical_Attack:
    dl X_Attacks                         ;028EBA|088492;
    db $00                               ;028EBD|      ;
    db $1B                               ;028EBE|      ; Wait for A press?
-   dw Sub_8F65                          ;028EBF|028F65;
+   dw Sub_Battle_Pause_End              ;028EBF|028F65;
    db $1B                               ;028EC1|      ; JSR 8F79 (Attack animation)
    dw Sub_Attack_Animation              ;028EC2|028F79;
    db $06                               ;028EC4|      ; Delay 02
@@ -2870,20 +2831,20 @@ Enemy_Physical_Attack:
    db $07                               ;028ED1|      ; Roll hit/damage
    dl Call_Roll_to_hit                  ;028ED2|07918D;
    db $0B                               ;028ED5|      ; If zero, jump to 8F61
-   dw DATA8_028F61                      ;028ED6|028F61;
+   dw Ally_Dodge                        ;028ED6|028F61;
    db $07                               ;028ED8|      ; Fatal damage?
-   dl Fatal_damage                      ;028ED9|078CB8;
-   db $0B                               ;028EDC|      ; If false, jump to 8F37
-   dw Nonfatal_damage                   ;028EDD|028F37;
-   db $1A                               ;028EDF|      ; Jump always to 8F4C (Ouch!)
-   dw DATA8_028F4C                      ;028EE0|028F4C;
+   dl Is_Fatal_damage                   ;028ED9|078CB8;
+   db $0B                               ;028EDC|      ; If false, jump to Nonfatal_damage
+   dw Ally_Nonfatal_damage              ;028EDD|028F37;
+   db $1A                               ;028EDF|      ; Jump to Fatal_damage
+   dw Ally_Fatal_damage                 ;028EE0|028F4C;
 Confusion_damage:
    db $07                               ;028EE2|      ; Hit check
    dl Call_Roll_to_hit                  ;028EE3|07918D;
    db $0B                               ;028EE6|      ; If missed, jump to Surprised by his wounds
    dw Enemy_Surprised_by_his_wounds     ;028EE7|028F14;
    db $07                               ;028EE9|      ; Fatal damage?
-   dl Fatal_damage                      ;028EEA|078CB8;
+   dl Is_Fatal_damage                   ;028EEA|078CB8;
    db $0B                               ;028EED|      ; Jump if false to Enemy despises himself
    dw Enemy_despises_himself            ;028EEE|028F04;
 Enemy_lost_his_mind:
@@ -2892,7 +2853,7 @@ Enemy_lost_his_mind:
    dl Lost_His_Mind                     ;028EF4|0885AF;
    db $00                               ;028EF7|      ;
    db $1B                               ;028EF8|      ; JSR 8F65
-   dw Sub_8F65                          ;028EF9|028F65;
+   dw Sub_Battle_Pause_End              ;028EF9|028F65;
    db $14                               ;028EFB|      ;
    db $01                               ;028EFC|      ;
    db $14                               ;028EFD|      ;
@@ -2906,7 +2867,7 @@ Enemy_despises_himself:
    dl Despises_Himself                  ;028F08|0885C8;
    db $00                               ;028F0B|      ;
    db $1B                               ;028F0C|      ; JSR 8F65
-   dw Sub_8F65                          ;028F0D|028F65;
+   dw Sub_Battle_Pause_End              ;028F0D|028F65;
    db $14                               ;028F0F|      ;
    db $01                               ;028F10|      ;
    db $14                               ;028F11|      ;
@@ -2918,7 +2879,7 @@ Enemy_Surprised_by_his_wounds:
    dl Surprised_by_wounds               ;028F18|0885DF;
    db $00                               ;028F1B|      ;
    db $1B                               ;028F1C|      ; JSR 8F65
-   dw Sub_8F65                          ;028F1D|028F65;
+   dw Sub_Battle_Pause_End              ;028F1D|028F65;
    db $14                               ;028F1F|      ;
    db $01                               ;028F20|      ;
    db $14                               ;028F21|      ;
@@ -2939,54 +2900,54 @@ Sub_Enemy_death_anim:
    db $34                               ;028F34|      ; Animation 02
    db $02                               ;028F35|      ;
    db $05                               ;028F36|      ; RTL
-Nonfatal_damage:
+Ally_Nonfatal_damage:
    db $07                               ;028F37|      ;
-   dl CODE_07B755                       ;028F38|07B755;
-   db $0B                               ;028F3B|      ; If false, jump to X has taken X damage
+   dl Sub_Battle_Say_Ouch               ;028F38|07B755;
+   db $0B                               ;028F3B|      ; If false (not a crit), jump to normal damage statement
    dw DATA8_028F41                      ;028F3C|028F41;
    db $1B                               ;028F3E|      ; Sub 8F65
-   dw Sub_8F65                          ;028F3F|028F65;
+   dw Sub_Battle_Pause_End              ;028F3F|028F65;
 DATA8_028F41:
    db $07                               ;028F41|      ; X has taken X damage
    dl Setup_Text_Parser_3b              ;028F42|00A0AC;
    dl X_taken_damage                    ;028F45|088586;
    db $00                               ;028F48|      ;
    db $1A                               ;028F49|      ; Jump to 8F65
-   dw Sub_8F65                          ;028F4A|028F65;
-DATA8_028F4C:
+   dw Sub_Battle_Pause_End              ;028F4A|028F65;
+Ally_Fatal_damage:
    db $07                               ;028F4C|      ; Ouch! (Party member gets crit)
-   dl CODE_07B755                       ;028F4D|07B755;
+   dl Sub_Battle_Say_Ouch               ;028F4D|07B755;
    db $0B                               ;028F50|      ; Jump if false to 8F56 (X has taken X damage)
    dw DATA8_028F56                      ;028F51|028F56;
    db $1B                               ;028F53|      ; JSR 8F65
-   dw Sub_8F65                          ;028F54|028F65;
+   dw Sub_Battle_Pause_End              ;028F54|028F65;
 DATA8_028F56:
    db $07                               ;028F56|      ; X has taken X damage
    dl Setup_Text_Parser_3b              ;028F57|00A0AC;
    dl X_damaged_perished                ;028F5A|08853E;
    db $00                               ;028F5D|      ;
    db $1A                               ;028F5E|      ;
-   dw Sub_8F65                          ;028F5F|028F65;
-DATA8_028F61:
+   dw Sub_Battle_Pause_End              ;028F5F|028F65;
+Ally_Dodge:
    db $07                               ;028F61|      ; Show dodge message
    dl Show_Dodge_text                   ;028F62|07B7A6;
-Sub_8F65:
+Sub_Battle_Pause_End:
    db $06                               ;028F65|      ;
    db $01                               ;028F66|      ;
    db $07                               ;028F67|      ; Wait for user input
    dl Some_1095_check_1b                ;028F68|07BA4F;
    db $00                               ;028F6B|      ;
    db $0B                               ;028F6C|      ; Loop if no input
-   dw Sub_8F65                          ;028F6D|028F65;
-   db $1F                               ;028F6F|      ;
+   dw Sub_Battle_Pause_End              ;028F6D|028F65;
+   db $1F                               ;028F6F|      ; 1F: LDA $1097 Line Speed
    dw $1097                             ;028F70|      ;
-   db $23                               ;028F72|      ;
+   db $23                               ;028F72|      ; 23: STA var0
    db $00                               ;028F73|      ;
-   db $25                               ;028F74|      ;
+   db $25                               ;028F74|      ; 25: WAIT var0
    db $00                               ;028F75|      ;
-   db $06                               ;028F76|      ; Delay 0A
+   db $06                               ;028F76|      ; 06: WAIT 0A
    db $0A                               ;028F77|      ;
-   db $1C                               ;028F78|      ; 1C: Return
+   db $1C                               ;028F78|      ; 1C: RTS
 Sub_Attack_Animation:
    db $07                               ;028F79|      ; Get enemy ID
    dl Get_enemy_ID_from_103F_far        ;028F7A|07912A;
@@ -3342,35 +3303,35 @@ Add_enemy_loot_to_total:
    db $07                               ;029102|      ; 07: 07/B45F (Add GP to total won)
    dl Add_GP_to_total_won               ;029103|07B45F;
    db $07                               ;029106|      ; 07: 07/B11C (After enemy loot)
-   dl CODE_07B11C                       ;029107|07B11C;
+   dl Set_Condition_4b                  ;029107|07B11C;
    dw $0002                             ;02910A|      ;
    dw $0001                             ;02910C|      ;
-   db $30                               ;02910E|      ; 30 FF
+   db $30                               ;02910E|      ; 30: SET_ANIM -1
    db $FF                               ;02910F|      ;
-   db $00                               ;029110|      ; 00 (End)
-DATA8_029111:
-   db $1B                               ;029111|      ;
-   dw DATA8_028CDF                      ;029112|028CDF;
-   db $1E                               ;029114|      ; 1E FFFF
+   db $00                               ;029110|      ; 00: END
+ASM_Wrapper_Enemy_Turn:
+   db $1B                               ;029111|      ; JSR 8CDF
+   dw ASM_Enemy_Turn                    ;029112|028CDF;
+   db $1E                               ;029114|      ; 1E: LDA #$FFFF
    dw $FFFF                             ;029115|      ;
-   db $23                               ;029117|      ; 23 03
+   db $23                               ;029117|      ; 23 03: STA var03
    db $03                               ;029118|      ;
-   db $07                               ;029119|      ; Store target in $1575
+   db $07                               ;029119|      ; 07: Store var(03) in $1575
    dl Set_1575_from_2b                  ;02911A|07AF39;
    dw $0003                             ;02911D|      ;
    db $07                               ;02911F|      ;
    dl Is_Targeting_another              ;029120|07917D;
    db $05                               ;029123|      ; RTL
-Battle_Prep:
-   db $24                               ;029124|      ; 24 01
+ASM_Battle_Prep:
+   db $24                               ;029124|      ; 24 01: LDA var01
    db $01                               ;029125|      ;
-   db $23                               ;029126|      ; 23 02
+   db $23                               ;029126|      ; 23 02: STA var02
    db $02                               ;029127|      ;
-   db $0F                               ;029128|      ; 0F 01 0000
+   db $0F                               ;029128|      ; 0F 01 0000: Set var01 to 0
    db $01                               ;029129|      ;
    dw $0000                             ;02912A|      ;
    db $07                               ;02912C|      ;
-   dl CODE_07B11C                       ;02912D|07B11C;
+   dl Set_Condition_4b                  ;02912D|07B11C;
    db $02                               ;029130|      ;
    db $00                               ;029131|      ;
    db $00                               ;029132|      ;
@@ -3414,7 +3375,7 @@ Get_EnemyBattleStats:
    RTL                                  ;02919A|      ;
 LoadData_Enemy0D:
    db $04                               ;02919B|      ;
-   dl Battle_Prep                       ;02919C|029124;
+   dl ASM_Battle_Prep                   ;02919C|029124;
 DATA8_02919F:
    db $09                               ;02919F|      ;
    dl CODE_029226                       ;0291A0|029226;
@@ -3423,7 +3384,7 @@ DATA8_02919F:
    db $08                               ;0291A6|      ;
    dw DATA8_0291C9                      ;0291A7|0291C9;
    db $04                               ;0291A9|      ;
-   dl DATA8_029111                      ;0291AA|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;0291AA|029111;
    db $0B                               ;0291AD|      ;
    dw DATA8_0291BB                      ;0291AE|0291BB;
    db $14                               ;0291B0|      ;
@@ -3449,14 +3410,14 @@ DATA8_0291C9:
    db $24                               ;0291C9|      ; 24 02: Load $09EB,x
    db $02                               ;0291CA|      ;
    db $07                               ;0291CB|      ;
-   dl Zeros_11DB                        ;0291CC|0781F0;
+   dl Clear_Condition_mirror            ;0291CC|0781F0;
    db $08                               ;0291CF|      ;
    dw DATA8_02921F                      ;0291D0|02921F;
 DATA8_0291D2:
    db $24                               ;0291D2|      ;
    db $02                               ;0291D3|      ;
    db $07                               ;0291D4|      ;
-   dl CODE_078219                       ;0291D5|078219;
+   dl Sub_Get_Condition_Change          ;0291D5|078219;
    db $12                               ;0291D8|      ;
    db $05                               ;0291D9|      ;
    dw DATA8_0291E9                      ;0291DA|0291E9;
@@ -3533,7 +3494,7 @@ DATA8_02921F:
    dw DATA8_02921F                      ;029224|02921F;
 CODE_029226:
    JSL.L Is_Equals_1575                 ;029226|07AEDD;
-   BNE CODE_029256                      ;02922A|029256;
+   BNE +                                ;02922A|029256;
    LDX.W Selection_offset               ;02922C|00103F;
    LDA.W Object_var1_Category,X         ;02922F|0009C7;
    STA.B $20                            ;029232|000020;
@@ -3542,30 +3503,27 @@ CODE_029226:
    TAX                                  ;029238|      ;
    LDA.W Curr_HP_Rooks,X                ;029239|0012F3;
    CMP.B $20                            ;02923C|000020;
-   BMI CODE_029242                      ;02923E|029242;
-   BCS CODE_029264                      ;029240|029264;
-CODE_029242:
-   LDA.W Curr_HP_Rooks,X                ;029242|0012F3;
+   BMI ++                               ;02923E|029242;
+   BCS +++                              ;029240|029264;
+++ LDA.W Curr_HP_Rooks,X                ;029242|0012F3;
    LDX.W Selection_offset               ;029245|00103F;
    STA.W Object_var1_Category,X         ;029248|0009C7;
    LDA.W #$91B7                         ;02924B|      ;
    LDY.W #$0002                         ;02924E|      ;
    JML.L Sub_LoadStuff                  ;029251|008DB4;
    RTL                                  ;029255|      ;
-CODE_029256:
-   LDX.W Selection_offset               ;029256|00103F;
+ + LDX.W Selection_offset               ;029256|00103F;
    LDA.W #$91A6                         ;029259|      ;
    LDY.W #$0002                         ;02925C|      ;
    JML.L Sub_LoadStuff                  ;02925F|008DB4;
    RTL                                  ;029263|      ;
-CODE_029264:
-   LDA.W Curr_HP_Rooks,X                ;029264|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029264|0012F3;
    LDX.W Selection_offset               ;029267|00103F;
    STA.W Object_var1_Category,X         ;02926A|0009C7;
    RTL                                  ;02926D|      ;
 LoadData_Enemy0E:
    db $04                               ;02926E|      ;
-   dl Battle_Prep                       ;02926F|029124;
+   dl ASM_Battle_Prep                   ;02926F|029124;
 DATA8_029272:
    db $09                               ;029272|      ;
    dl CODE_0292FF                       ;029273|0292FF;
@@ -3574,7 +3532,7 @@ DATA8_029272:
    db $08                               ;029279|      ;
    dw DATA8_02929C                      ;02927A|02929C;
    db $04                               ;02927C|      ;
-   dl DATA8_029111                      ;02927D|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02927D|029111;
    db $0B                               ;029280|      ;
    dw DATA8_02928E                      ;029281|02928E;
    db $14                               ;029283|      ;
@@ -3600,14 +3558,14 @@ DATA8_02929C:
    db $24                               ;02929C|      ;
    db $02                               ;02929D|      ;
    db $07                               ;02929E|      ;
-   dl Zeros_11DB                        ;02929F|0781F0;
+   dl Clear_Condition_mirror            ;02929F|0781F0;
    db $08                               ;0292A2|      ;
    dw DATA8_0292F4                      ;0292A3|0292F4;
 DATA8_0292A5:
    db $24                               ;0292A5|      ;
    db $02                               ;0292A6|      ;
    db $07                               ;0292A7|      ;
-   dl CODE_078219                       ;0292A8|078219;
+   dl Sub_Get_Condition_Change          ;0292A8|078219;
    db $12                               ;0292AB|      ;
    db $05                               ;0292AC|      ;
    dw DATA8_0292BC                      ;0292AD|0292BC;
@@ -3690,7 +3648,7 @@ DATA8_0292F4:
    dw DATA8_0292F4                      ;0292FD|0292F4;
 CODE_0292FF:
    JSL.L Is_Equals_1575                 ;0292FF|07AEDD;
-   BNE CODE_02932F                      ;029303|02932F;
+   BNE +                                ;029303|02932F;
    LDX.W Selection_offset               ;029305|00103F;
    LDA.W Object_var1_Category,X         ;029308|0009C7;
    STA.B $20                            ;02930B|000020;
@@ -3699,30 +3657,27 @@ CODE_0292FF:
    TAX                                  ;029311|      ;
    LDA.W Curr_HP_Rooks,X                ;029312|0012F3;
    CMP.B $20                            ;029315|000020;
-   BMI CODE_02931B                      ;029317|02931B;
-   BCS CODE_02933D                      ;029319|02933D;
-CODE_02931B:
-   LDA.W Curr_HP_Rooks,X                ;02931B|0012F3;
+   BMI ++                               ;029317|02931B;
+   BCS +++                              ;029319|02933D;
+++ LDA.W Curr_HP_Rooks,X                ;02931B|0012F3;
    LDX.W Selection_offset               ;02931E|00103F;
    STA.W Object_var1_Category,X         ;029321|0009C7;
    LDA.W #$928A                         ;029324|      ;
    LDY.W #$0002                         ;029327|      ;
    JML.L Sub_LoadStuff                  ;02932A|008DB4;
    RTL                                  ;02932E|      ;
-CODE_02932F:
-   LDX.W Selection_offset               ;02932F|00103F;
+ + LDX.W Selection_offset               ;02932F|00103F;
    LDA.W #$9279                         ;029332|      ;
    LDY.W #$0002                         ;029335|      ;
    JML.L Sub_LoadStuff                  ;029338|008DB4;
    RTL                                  ;02933C|      ;
-CODE_02933D:
-   LDA.W Curr_HP_Rooks,X                ;02933D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02933D|0012F3;
    LDX.W Selection_offset               ;029340|00103F;
    STA.W Object_var1_Category,X         ;029343|0009C7;
    RTL                                  ;029346|      ;
 LoadData_Enemy0F:
    db $04                               ;029347|      ;
-   dl Battle_Prep                       ;029348|029124;
+   dl ASM_Battle_Prep                   ;029348|029124;
 DATA8_02934B:
    db $09                               ;02934B|      ;
    dl CODE_0293D8                       ;02934C|0293D8;
@@ -3731,7 +3686,7 @@ DATA8_02934B:
    db $08                               ;029352|      ;
    dw DATA8_029375                      ;029353|029375;
    db $04                               ;029355|      ;
-   dl DATA8_029111                      ;029356|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029356|029111;
    db $0B                               ;029359|      ;
    dw DATA8_029367                      ;02935A|029367;
    db $14                               ;02935C|      ;
@@ -3757,14 +3712,14 @@ DATA8_029375:
    db $24                               ;029375|      ;
    db $02                               ;029376|      ;
    db $07                               ;029377|      ;
-   dl Zeros_11DB                        ;029378|0781F0;
+   dl Clear_Condition_mirror            ;029378|0781F0;
    db $08                               ;02937B|      ;
    dw DATA8_0293CD                      ;02937C|0293CD;
 DATA8_02937E:
    db $24                               ;02937E|      ;
    db $02                               ;02937F|      ;
    db $07                               ;029380|      ;
-   dl CODE_078219                       ;029381|078219;
+   dl Sub_Get_Condition_Change          ;029381|078219;
    db $12                               ;029384|      ;
    db $05                               ;029385|      ;
    dw DATA8_029395                      ;029386|029395;
@@ -3847,7 +3802,7 @@ DATA8_0293CD:
    dw DATA8_0293CD                      ;0293D6|0293CD;
 CODE_0293D8:
    JSL.L Is_Equals_1575                 ;0293D8|07AEDD;
-   BNE CODE_029408                      ;0293DC|029408;
+   BNE +                                ;0293DC|029408;
    LDX.W Selection_offset               ;0293DE|00103F;
    LDA.W Object_var1_Category,X         ;0293E1|0009C7;
    STA.B $20                            ;0293E4|000020;
@@ -3856,30 +3811,27 @@ CODE_0293D8:
    TAX                                  ;0293EA|      ;
    LDA.W Curr_HP_Rooks,X                ;0293EB|0012F3;
    CMP.B $20                            ;0293EE|000020;
-   BMI CODE_0293F4                      ;0293F0|0293F4;
-   BCS CODE_029416                      ;0293F2|029416;
-CODE_0293F4:
-   LDA.W Curr_HP_Rooks,X                ;0293F4|0012F3;
+   BMI ++                               ;0293F0|0293F4;
+   BCS +++                              ;0293F2|029416;
+++ LDA.W Curr_HP_Rooks,X                ;0293F4|0012F3;
    LDX.W Selection_offset               ;0293F7|00103F;
    STA.W Object_var1_Category,X         ;0293FA|0009C7;
    LDA.W #$9363                         ;0293FD|      ;
    LDY.W #$0002                         ;029400|      ;
    JML.L Sub_LoadStuff                  ;029403|008DB4;
    RTL                                  ;029407|      ;
-CODE_029408:
-   LDX.W Selection_offset               ;029408|00103F;
+ + LDX.W Selection_offset               ;029408|00103F;
    LDA.W #$9352                         ;02940B|      ;
    LDY.W #$0002                         ;02940E|      ;
    JML.L Sub_LoadStuff                  ;029411|008DB4;
    RTL                                  ;029415|      ;
-CODE_029416:
-   LDA.W Curr_HP_Rooks,X                ;029416|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029416|0012F3;
    LDX.W Selection_offset               ;029419|00103F;
    STA.W Object_var1_Category,X         ;02941C|0009C7;
    RTL                                  ;02941F|      ;
 LoadData_Enemy10:
    db $04                               ;029420|      ;
-   dl Battle_Prep                       ;029421|029124;
+   dl ASM_Battle_Prep                   ;029421|029124;
 DATA8_029424:
    db $09                               ;029424|      ;
    dl CODE_0294FE                       ;029425|0294FE;
@@ -3888,7 +3840,7 @@ DATA8_029424:
    db $08                               ;02942B|      ;
    dw DATA8_02944E                      ;02942C|02944E;
    db $04                               ;02942E|      ;
-   dl DATA8_029111                      ;02942F|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02942F|029111;
    db $0B                               ;029432|      ;
    dw DATA8_029440                      ;029433|029440;
    db $14                               ;029435|      ;
@@ -3914,14 +3866,14 @@ DATA8_02944E:
    db $24                               ;02944E|      ;
    db $02                               ;02944F|      ;
    db $07                               ;029450|      ;
-   dl Zeros_11DB                        ;029451|0781F0;
+   dl Clear_Condition_mirror            ;029451|0781F0;
    db $08                               ;029454|      ;
    dw DATA8_0294D6                      ;029455|0294D6;
 DATA8_029457:
    db $24                               ;029457|      ;
    db $02                               ;029458|      ;
    db $07                               ;029459|      ;
-   dl CODE_078219                       ;02945A|078219;
+   dl Sub_Get_Condition_Change          ;02945A|078219;
    db $12                               ;02945D|      ;
    db $05                               ;02945E|      ;
    dw DATA8_02946E                      ;02945F|02946E;
@@ -4081,7 +4033,7 @@ DATA8_0294D6:
    dw DATA8_0294D6                      ;0294FC|0294D6;
 CODE_0294FE:
    JSL.L Is_Equals_1575                 ;0294FE|07AEDD;
-   BNE CODE_02952E                      ;029502|02952E;
+   BNE +                                ;029502|02952E;
    LDX.W Selection_offset               ;029504|00103F;
    LDA.W Object_var1_Category,X         ;029507|0009C7;
    STA.B $20                            ;02950A|000020;
@@ -4090,30 +4042,27 @@ CODE_0294FE:
    TAX                                  ;029510|      ;
    LDA.W Curr_HP_Rooks,X                ;029511|0012F3;
    CMP.B $20                            ;029514|000020;
-   BMI CODE_02951A                      ;029516|02951A;
-   BCS CODE_02953C                      ;029518|02953C;
-CODE_02951A:
-   LDA.W Curr_HP_Rooks,X                ;02951A|0012F3;
+   BMI ++                               ;029516|02951A;
+   BCS +++                              ;029518|02953C;
+++ LDA.W Curr_HP_Rooks,X                ;02951A|0012F3;
    LDX.W Selection_offset               ;02951D|00103F;
    STA.W Object_var1_Category,X         ;029520|0009C7;
    LDA.W #$943C                         ;029523|      ;
    LDY.W #$0002                         ;029526|      ;
    JML.L Sub_LoadStuff                  ;029529|008DB4;
    RTL                                  ;02952D|      ;
-CODE_02952E:
-   LDX.W Selection_offset               ;02952E|00103F;
+ + LDX.W Selection_offset               ;02952E|00103F;
    LDA.W #$942B                         ;029531|      ;
    LDY.W #$0002                         ;029534|      ;
    JML.L Sub_LoadStuff                  ;029537|008DB4;
    RTL                                  ;02953B|      ;
-CODE_02953C:
-   LDA.W Curr_HP_Rooks,X                ;02953C|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02953C|0012F3;
    LDX.W Selection_offset               ;02953F|00103F;
    STA.W Object_var1_Category,X         ;029542|0009C7;
    RTL                                  ;029545|      ;
 LoadData_Enemy11:
    db $04                               ;029546|      ;
-   dl Battle_Prep                       ;029547|029124;
+   dl ASM_Battle_Prep                   ;029547|029124;
 DATA8_02954A:
    db $09                               ;02954A|      ;
    dl CODE_029624                       ;02954B|029624;
@@ -4122,7 +4071,7 @@ DATA8_02954A:
    db $08                               ;029551|      ;
    dw DATA8_029574                      ;029552|029574;
    db $04                               ;029554|      ;
-   dl DATA8_029111                      ;029555|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029555|029111;
    db $0B                               ;029558|      ;
    dw DATA8_029566                      ;029559|029566;
    db $14                               ;02955B|      ;
@@ -4148,14 +4097,14 @@ DATA8_029574:
    db $24                               ;029574|      ;
    db $02                               ;029575|      ;
    db $07                               ;029576|      ;
-   dl Zeros_11DB                        ;029577|0781F0;
+   dl Clear_Condition_mirror            ;029577|0781F0;
    db $08                               ;02957A|      ;
    dw DATA8_0295FC                      ;02957B|0295FC;
 DATA8_02957D:
    db $24                               ;02957D|      ;
    db $02                               ;02957E|      ;
    db $07                               ;02957F|      ;
-   dl CODE_078219                       ;029580|078219;
+   dl Sub_Get_Condition_Change          ;029580|078219;
    db $12                               ;029583|      ;
    db $05                               ;029584|      ;
    dw DATA8_029594                      ;029585|029594;
@@ -4315,7 +4264,7 @@ DATA8_0295FC:
    dw DATA8_0295FC                      ;029622|0295FC;
 CODE_029624:
    JSL.L Is_Equals_1575                 ;029624|07AEDD;
-   BNE CODE_029654                      ;029628|029654;
+   BNE +                                ;029628|029654;
    LDX.W Selection_offset               ;02962A|00103F;
    LDA.W Object_var1_Category,X         ;02962D|0009C7;
    STA.B $20                            ;029630|000020;
@@ -4324,30 +4273,27 @@ CODE_029624:
    TAX                                  ;029636|      ;
    LDA.W Curr_HP_Rooks,X                ;029637|0012F3;
    CMP.B $20                            ;02963A|000020;
-   BMI CODE_029640                      ;02963C|029640;
-   BCS CODE_029662                      ;02963E|029662;
-CODE_029640:
-   LDA.W Curr_HP_Rooks,X                ;029640|0012F3;
+   BMI ++                               ;02963C|029640;
+   BCS +++                              ;02963E|029662;
+++ LDA.W Curr_HP_Rooks,X                ;029640|0012F3;
    LDX.W Selection_offset               ;029643|00103F;
    STA.W Object_var1_Category,X         ;029646|0009C7;
    LDA.W #$9562                         ;029649|      ;
    LDY.W #$0002                         ;02964C|      ;
    JML.L Sub_LoadStuff                  ;02964F|008DB4;
    RTL                                  ;029653|      ;
-CODE_029654:
-   LDX.W Selection_offset               ;029654|00103F;
+ + LDX.W Selection_offset               ;029654|00103F;
    LDA.W #$9551                         ;029657|      ;
    LDY.W #$0002                         ;02965A|      ;
    JML.L Sub_LoadStuff                  ;02965D|008DB4;
    RTL                                  ;029661|      ;
-CODE_029662:
-   LDA.W Curr_HP_Rooks,X                ;029662|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029662|0012F3;
    LDX.W Selection_offset               ;029665|00103F;
    STA.W Object_var1_Category,X         ;029668|0009C7;
    RTL                                  ;02966B|      ;
 LoadData_Enemy12:
    db $04                               ;02966C|      ;
-   dl Battle_Prep                       ;02966D|029124;
+   dl ASM_Battle_Prep                   ;02966D|029124;
 DATA8_029670:
    db $09                               ;029670|      ;
    dl CODE_029744                       ;029671|029744;
@@ -4356,7 +4302,7 @@ DATA8_029670:
    db $08                               ;029677|      ;
    dw DATA8_02969A                      ;029678|02969A;
    db $04                               ;02967A|      ;
-   dl DATA8_029111                      ;02967B|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02967B|029111;
    db $0B                               ;02967E|      ;
    dw DATA8_02968C                      ;02967F|02968C;
    db $14                               ;029681|      ;
@@ -4382,14 +4328,14 @@ DATA8_02969A:
    db $24                               ;02969A|      ;
    db $02                               ;02969B|      ;
    db $07                               ;02969C|      ;
-   dl Zeros_11DB                        ;02969D|0781F0;
+   dl Clear_Condition_mirror            ;02969D|0781F0;
    db $08                               ;0296A0|      ;
    dw DATA8_02969A                      ;0296A1|02969A;
 DATA8_0296A3:
    db $24                               ;0296A3|      ;
    db $02                               ;0296A4|      ;
    db $07                               ;0296A5|      ;
-   dl CODE_078219                       ;0296A6|078219;
+   dl Sub_Get_Condition_Change          ;0296A6|078219;
    db $12                               ;0296A9|      ;
    db $05                               ;0296AA|      ;
    dw DATA8_0296BA                      ;0296AB|0296BA;
@@ -4543,7 +4489,7 @@ DATA8_029722:
    dw DATA8_029722                      ;029742|029722;
 CODE_029744:
    JSL.L Is_Equals_1575                 ;029744|07AEDD;
-   BNE CODE_029774                      ;029748|029774;
+   BNE +                                ;029748|029774;
    LDX.W Selection_offset               ;02974A|00103F;
    LDA.W Object_var1_Category,X         ;02974D|0009C7;
    STA.B $20                            ;029750|000020;
@@ -4552,30 +4498,27 @@ CODE_029744:
    TAX                                  ;029756|      ;
    LDA.W Curr_HP_Rooks,X                ;029757|0012F3;
    CMP.B $20                            ;02975A|000020;
-   BMI CODE_029760                      ;02975C|029760;
-   BCS CODE_029782                      ;02975E|029782;
-CODE_029760:
-   LDA.W Curr_HP_Rooks,X                ;029760|0012F3;
+   BMI ++                               ;02975C|029760;
+   BCS +++                              ;02975E|029782;
+++ LDA.W Curr_HP_Rooks,X                ;029760|0012F3;
    LDX.W Selection_offset               ;029763|00103F;
    STA.W Object_var1_Category,X         ;029766|0009C7;
    LDA.W #$9688                         ;029769|      ;
    LDY.W #$0002                         ;02976C|      ;
    JML.L Sub_LoadStuff                  ;02976F|008DB4;
    RTL                                  ;029773|      ;
-CODE_029774:
-   LDX.W Selection_offset               ;029774|00103F;
+ + LDX.W Selection_offset               ;029774|00103F;
    LDA.W #$9677                         ;029777|      ;
    LDY.W #$0002                         ;02977A|      ;
    JML.L Sub_LoadStuff                  ;02977D|008DB4;
    RTL                                  ;029781|      ;
-CODE_029782:
-   LDA.W Curr_HP_Rooks,X                ;029782|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029782|0012F3;
    LDX.W Selection_offset               ;029785|00103F;
    STA.W Object_var1_Category,X         ;029788|0009C7;
    RTL                                  ;02978B|      ;
 LoadData_Enemy13:
    db $04                               ;02978C|      ;
-   dl Battle_Prep                       ;02978D|029124;
+   dl ASM_Battle_Prep                   ;02978D|029124;
 DATA8_029790:
    db $09                               ;029790|      ;
    dl CODE_029862                       ;029791|029862;
@@ -4584,7 +4527,7 @@ DATA8_029790:
    db $08                               ;029797|      ;
    dw DATA8_0297BA                      ;029798|0297BA;
    db $04                               ;02979A|      ;
-   dl DATA8_029111                      ;02979B|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02979B|029111;
    db $0B                               ;02979E|      ;
    dw DATA8_0297AC                      ;02979F|0297AC;
    db $14                               ;0297A1|      ;
@@ -4610,14 +4553,14 @@ DATA8_0297BA:
    db $24                               ;0297BA|      ;
    db $02                               ;0297BB|      ;
    db $07                               ;0297BC|      ;
-   dl Zeros_11DB                        ;0297BD|0781F0;
+   dl Clear_Condition_mirror            ;0297BD|0781F0;
    db $08                               ;0297C0|      ;
    dw DATA8_02983E                      ;0297C1|02983E;
 DATA8_0297C3:
    db $24                               ;0297C3|      ;
    db $02                               ;0297C4|      ;
    db $07                               ;0297C5|      ;
-   dl CODE_078219                       ;0297C6|078219;
+   dl Sub_Get_Condition_Change          ;0297C6|078219;
    db $12                               ;0297C9|      ;
    db $05                               ;0297CA|      ;
    dw DATA8_0297DA                      ;0297CB|0297DA;
@@ -4769,7 +4712,7 @@ DATA8_02983E:
    dw DATA8_02983E                      ;029860|02983E;
 CODE_029862:
    JSL.L Is_Equals_1575                 ;029862|07AEDD;
-   BNE CODE_029892                      ;029866|029892;
+   BNE +                                ;029866|029892;
    LDX.W Selection_offset               ;029868|00103F;
    LDA.W Object_var1_Category,X         ;02986B|0009C7;
    STA.B $20                            ;02986E|000020;
@@ -4778,30 +4721,27 @@ CODE_029862:
    TAX                                  ;029874|      ;
    LDA.W Curr_HP_Rooks,X                ;029875|0012F3;
    CMP.B $20                            ;029878|000020;
-   BMI CODE_02987E                      ;02987A|02987E;
-   BCS CODE_0298A0                      ;02987C|0298A0;
-CODE_02987E:
-   LDA.W Curr_HP_Rooks,X                ;02987E|0012F3;
+   BMI ++                               ;02987A|02987E;
+   BCS +++                              ;02987C|0298A0;
+++ LDA.W Curr_HP_Rooks,X                ;02987E|0012F3;
    LDX.W Selection_offset               ;029881|00103F;
    STA.W Object_var1_Category,X         ;029884|0009C7;
    LDA.W #$97A8                         ;029887|      ;
    LDY.W #$0002                         ;02988A|      ;
    JML.L Sub_LoadStuff                  ;02988D|008DB4;
    RTL                                  ;029891|      ;
-CODE_029892:
-   LDX.W Selection_offset               ;029892|00103F;
+ + LDX.W Selection_offset               ;029892|00103F;
    LDA.W #$9797                         ;029895|      ;
    LDY.W #$0002                         ;029898|      ;
    JML.L Sub_LoadStuff                  ;02989B|008DB4;
    RTL                                  ;02989F|      ;
-CODE_0298A0:
-   LDA.W Curr_HP_Rooks,X                ;0298A0|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;0298A0|0012F3;
    LDX.W Selection_offset               ;0298A3|00103F;
    STA.W Object_var1_Category,X         ;0298A6|0009C7;
    RTL                                  ;0298A9|      ;
 LoadData_Enemy14:
    db $04                               ;0298AA|      ;
-   dl Battle_Prep                       ;0298AB|029124;
+   dl ASM_Battle_Prep                   ;0298AB|029124;
 DATA8_0298AE:
    db $09                               ;0298AE|      ;
    dl CODE_0298D6                       ;0298AF|0298D6;
@@ -4810,7 +4750,7 @@ DATA8_0298AE:
    db $08                               ;0298B5|      ;
    dw DATA8_0298D1                      ;0298B6|0298D1;
    db $04                               ;0298B8|      ;
-   dl DATA8_029111                      ;0298B9|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;0298B9|029111;
    db $1A                               ;0298BC|      ;
    dw DATA8_0298AE                      ;0298BD|0298AE;
    db $04                               ;0298BF|      ;
@@ -4832,7 +4772,7 @@ DATA8_0298D1:
    dw DATA8_0298D1                      ;0298D4|0298D1;
 CODE_0298D6:
    JSL.L Is_Equals_1575                 ;0298D6|07AEDD;
-   BNE CODE_029906                      ;0298DA|029906;
+   BNE +                                ;0298DA|029906;
    LDX.W Selection_offset               ;0298DC|00103F;
    LDA.W Object_var1_Category,X         ;0298DF|0009C7;
    STA.B $20                            ;0298E2|000020;
@@ -4841,30 +4781,27 @@ CODE_0298D6:
    TAX                                  ;0298E8|      ;
    LDA.W Curr_HP_Rooks,X                ;0298E9|0012F3;
    CMP.B $20                            ;0298EC|000020;
-   BMI CODE_0298F2                      ;0298EE|0298F2;
-   BCS CODE_029914                      ;0298F0|029914;
-CODE_0298F2:
-   LDA.W Curr_HP_Rooks,X                ;0298F2|0012F3;
+   BMI ++                               ;0298EE|0298F2;
+   BCS +++                              ;0298F0|029914;
+++ LDA.W Curr_HP_Rooks,X                ;0298F2|0012F3;
    LDX.W Selection_offset               ;0298F5|00103F;
    STA.W Object_var1_Category,X         ;0298F8|0009C7;
    LDA.W #$98BF                         ;0298FB|      ;
    LDY.W #$0002                         ;0298FE|      ;
    JML.L Sub_LoadStuff                  ;029901|008DB4;
    RTL                                  ;029905|      ;
-CODE_029906:
-   LDX.W Selection_offset               ;029906|00103F;
+ + LDX.W Selection_offset               ;029906|00103F;
    LDA.W #$98B5                         ;029909|      ;
    LDY.W #$0002                         ;02990C|      ;
    JML.L Sub_LoadStuff                  ;02990F|008DB4;
    RTL                                  ;029913|      ;
-CODE_029914:
-   LDA.W Curr_HP_Rooks,X                ;029914|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029914|0012F3;
    LDX.W Selection_offset               ;029917|00103F;
    STA.W Object_var1_Category,X         ;02991A|0009C7;
    RTL                                  ;02991D|      ;
 LoadData_Enemy15:
    db $04                               ;02991E|      ;
-   dl Battle_Prep                       ;02991F|029124;
+   dl ASM_Battle_Prep                   ;02991F|029124;
 DATA8_029922:
    db $09                               ;029922|      ;
    dl CODE_02996B                       ;029923|02996B;
@@ -4873,7 +4810,7 @@ DATA8_029922:
    db $08                               ;029929|      ;
    dw DATA8_029952                      ;02992A|029952;
    db $04                               ;02992C|      ;
-   dl DATA8_029111                      ;02992D|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02992D|029111;
    db $1A                               ;029930|      ;
    dw DATA8_029922                      ;029931|029922;
    db $07                               ;029933|      ;
@@ -4928,7 +4865,7 @@ DATA8_029952:
    dw DATA8_029952                      ;029969|029952;
 CODE_02996B:
    JSL.L Is_Equals_1575                 ;02996B|07AEDD;
-   BNE CODE_02999B                      ;02996F|02999B;
+   BNE +                                ;02996F|02999B;
    LDX.W Selection_offset               ;029971|00103F;
    LDA.W Object_var1_Category,X         ;029974|0009C7;
    STA.B $20                            ;029977|000020;
@@ -4937,30 +4874,27 @@ CODE_02996B:
    TAX                                  ;02997D|      ;
    LDA.W Curr_HP_Rooks,X                ;02997E|0012F3;
    CMP.B $20                            ;029981|000020;
-   BMI CODE_029987                      ;029983|029987;
-   BCS CODE_0299A9                      ;029985|0299A9;
-CODE_029987:
-   LDA.W Curr_HP_Rooks,X                ;029987|0012F3;
+   BMI ++                               ;029983|029987;
+   BCS +++                              ;029985|0299A9;
+++ LDA.W Curr_HP_Rooks,X                ;029987|0012F3;
    LDX.W Selection_offset               ;02998A|00103F;
    STA.W Object_var1_Category,X         ;02998D|0009C7;
    LDA.W #$9933                         ;029990|      ;
    LDY.W #$0002                         ;029993|      ;
    JML.L Sub_LoadStuff                  ;029996|008DB4;
    RTL                                  ;02999A|      ;
-CODE_02999B:
-   LDX.W Selection_offset               ;02999B|00103F;
+ + LDX.W Selection_offset               ;02999B|00103F;
    LDA.W #$9929                         ;02999E|      ;
    LDY.W #$0002                         ;0299A1|      ;
    JML.L Sub_LoadStuff                  ;0299A4|008DB4;
    RTL                                  ;0299A8|      ;
-CODE_0299A9:
-   LDA.W Curr_HP_Rooks,X                ;0299A9|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;0299A9|0012F3;
    LDX.W Selection_offset               ;0299AC|00103F;
    STA.W Object_var1_Category,X         ;0299AF|0009C7;
    RTL                                  ;0299B2|      ;
 LoadData_Enemy16:
    db $04                               ;0299B3|      ;
-   dl Battle_Prep                       ;0299B4|029124;
+   dl ASM_Battle_Prep                   ;0299B4|029124;
 DATA8_0299B7:
    db $09                               ;0299B7|      ;
    dl CODE_0299DF                       ;0299B8|0299DF;
@@ -4969,7 +4903,7 @@ DATA8_0299B7:
    db $08                               ;0299BE|      ;
    dw DATA8_0299DA                      ;0299BF|0299DA;
    db $04                               ;0299C1|      ;
-   dl DATA8_029111                      ;0299C2|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;0299C2|029111;
    db $1A                               ;0299C5|      ;
    dw DATA8_0299B7                      ;0299C6|0299B7;
    db $04                               ;0299C8|      ;
@@ -4991,7 +4925,7 @@ DATA8_0299DA:
    dw DATA8_0299DA                      ;0299DD|0299DA;
 CODE_0299DF:
    JSL.L Is_Equals_1575                 ;0299DF|07AEDD;
-   BNE CODE_029A0F                      ;0299E3|029A0F;
+   BNE +                                ;0299E3|029A0F;
    LDX.W Selection_offset               ;0299E5|00103F;
    LDA.W Object_var1_Category,X         ;0299E8|0009C7;
    STA.B $20                            ;0299EB|000020;
@@ -5000,30 +4934,27 @@ CODE_0299DF:
    TAX                                  ;0299F1|      ;
    LDA.W Curr_HP_Rooks,X                ;0299F2|0012F3;
    CMP.B $20                            ;0299F5|000020;
-   BMI CODE_0299FB                      ;0299F7|0299FB;
-   BCS CODE_029A1D                      ;0299F9|029A1D;
-CODE_0299FB:
-   LDA.W Curr_HP_Rooks,X                ;0299FB|0012F3;
+   BMI ++                               ;0299F7|0299FB;
+   BCS +++                              ;0299F9|029A1D;
+++ LDA.W Curr_HP_Rooks,X                ;0299FB|0012F3;
    LDX.W Selection_offset               ;0299FE|00103F;
    STA.W Object_var1_Category,X         ;029A01|0009C7;
    LDA.W #$99C8                         ;029A04|      ;
    LDY.W #$0002                         ;029A07|      ;
    JML.L Sub_LoadStuff                  ;029A0A|008DB4;
    RTL                                  ;029A0E|      ;
-CODE_029A0F:
-   LDX.W Selection_offset               ;029A0F|00103F;
+ + LDX.W Selection_offset               ;029A0F|00103F;
    LDA.W #$99BE                         ;029A12|      ;
    LDY.W #$0002                         ;029A15|      ;
    JML.L Sub_LoadStuff                  ;029A18|008DB4;
    RTL                                  ;029A1C|      ;
-CODE_029A1D:
-   LDA.W Curr_HP_Rooks,X                ;029A1D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029A1D|0012F3;
    LDX.W Selection_offset               ;029A20|00103F;
    STA.W Object_var1_Category,X         ;029A23|0009C7;
    RTL                                  ;029A26|      ;
 LoadData_Enemy17:
    db $04                               ;029A27|      ;
-   dl Battle_Prep                       ;029A28|029124;
+   dl ASM_Battle_Prep                   ;029A28|029124;
 DATA8_029A2B:
    db $09                               ;029A2B|      ;
    dl CODE_029B1B                       ;029A2C|029B1B;
@@ -5032,7 +4963,7 @@ DATA8_029A2B:
    db $08                               ;029A32|      ;
    dw DATA8_029A55                      ;029A33|029A55;
    db $04                               ;029A35|      ;
-   dl DATA8_029111                      ;029A36|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029A36|029111;
    db $0B                               ;029A39|      ;
    dw DATA8_029A47                      ;029A3A|029A47;
    db $14                               ;029A3C|      ;
@@ -5058,14 +4989,14 @@ DATA8_029A55:
    db $24                               ;029A55|      ;
    db $02                               ;029A56|      ;
    db $07                               ;029A57|      ;
-   dl Zeros_11DB                        ;029A58|0781F0;
+   dl Clear_Condition_mirror            ;029A58|0781F0;
    db $08                               ;029A5B|      ;
    dw DATA8_029AF5                      ;029A5C|029AF5;
 DATA8_029A5E:
    db $24                               ;029A5E|      ;
    db $02                               ;029A5F|      ;
    db $07                               ;029A60|      ;
-   dl CODE_078219                       ;029A61|078219;
+   dl Sub_Get_Condition_Change          ;029A61|078219;
    db $12                               ;029A64|      ;
    db $05                               ;029A65|      ;
    dw DATA8_029A75                      ;029A66|029A75;
@@ -5247,7 +5178,7 @@ DATA8_029AF5:
    dw DATA8_029AF5                      ;029B19|029AF5;
 CODE_029B1B:
    JSL.L Is_Equals_1575                 ;029B1B|07AEDD;
-   BNE CODE_029B4B                      ;029B1F|029B4B;
+   BNE +                                ;029B1F|029B4B;
    LDX.W Selection_offset               ;029B21|00103F;
    LDA.W Object_var1_Category,X         ;029B24|0009C7;
    STA.B $20                            ;029B27|000020;
@@ -5256,30 +5187,27 @@ CODE_029B1B:
    TAX                                  ;029B2D|      ;
    LDA.W Curr_HP_Rooks,X                ;029B2E|0012F3;
    CMP.B $20                            ;029B31|000020;
-   BMI CODE_029B37                      ;029B33|029B37;
-   BCS CODE_029B59                      ;029B35|029B59;
-CODE_029B37:
-   LDA.W Curr_HP_Rooks,X                ;029B37|0012F3;
+   BMI ++                               ;029B33|029B37;
+   BCS +++                              ;029B35|029B59;
+++ LDA.W Curr_HP_Rooks,X                ;029B37|0012F3;
    LDX.W Selection_offset               ;029B3A|00103F;
    STA.W Object_var1_Category,X         ;029B3D|0009C7;
    LDA.W #$9A43                         ;029B40|      ;
    LDY.W #$0002                         ;029B43|      ;
    JML.L Sub_LoadStuff                  ;029B46|008DB4;
    RTL                                  ;029B4A|      ;
-CODE_029B4B:
-   LDX.W Selection_offset               ;029B4B|00103F;
+ + LDX.W Selection_offset               ;029B4B|00103F;
    LDA.W #$9A32                         ;029B4E|      ;
    LDY.W #$0002                         ;029B51|      ;
    JML.L Sub_LoadStuff                  ;029B54|008DB4;
    RTL                                  ;029B58|      ;
-CODE_029B59:
-   LDA.W Curr_HP_Rooks,X                ;029B59|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029B59|0012F3;
    LDX.W Selection_offset               ;029B5C|00103F;
    STA.W Object_var1_Category,X         ;029B5F|0009C7;
    RTL                                  ;029B62|      ;
 LoadData_Enemy18:
    db $04                               ;029B63|      ;
-   dl Battle_Prep                       ;029B64|029124;
+   dl ASM_Battle_Prep                   ;029B64|029124;
 DATA8_029B67:
    db $09                               ;029B67|      ;
    dl CODE_029BF9                       ;029B68|029BF9;
@@ -5288,7 +5216,7 @@ DATA8_029B67:
    db $08                               ;029B6E|      ;
    dw DATA8_029B91                      ;029B6F|029B91;
    db $04                               ;029B71|      ;
-   dl DATA8_029111                      ;029B72|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029B72|029111;
    db $0B                               ;029B75|      ;
    dw DATA8_029B83                      ;029B76|029B83;
    db $14                               ;029B78|      ;
@@ -5314,14 +5242,14 @@ DATA8_029B91:
    db $24                               ;029B91|      ;
    db $02                               ;029B92|      ;
    db $07                               ;029B93|      ;
-   dl Zeros_11DB                        ;029B94|0781F0;
+   dl Clear_Condition_mirror            ;029B94|0781F0;
    db $08                               ;029B97|      ;
    dw DATA8_029BEB                      ;029B98|029BEB;
 DATA8_029B9A:
    db $24                               ;029B9A|      ;
    db $02                               ;029B9B|      ;
    db $07                               ;029B9C|      ;
-   dl CODE_078219                       ;029B9D|078219;
+   dl Sub_Get_Condition_Change          ;029B9D|078219;
    db $12                               ;029BA0|      ;
    db $05                               ;029BA1|      ;
    dw DATA8_029BB1                      ;029BA2|029BB1;
@@ -5409,7 +5337,7 @@ DATA8_029BEB:
    dw DATA8_029BEB                      ;029BF7|029BEB;
 CODE_029BF9:
    JSL.L Is_Equals_1575                 ;029BF9|07AEDD;
-   BNE CODE_029C29                      ;029BFD|029C29;
+   BNE +                                ;029BFD|029C29;
    LDX.W Selection_offset               ;029BFF|00103F;
    LDA.W Object_var1_Category,X         ;029C02|0009C7;
    STA.B $20                            ;029C05|000020;
@@ -5418,30 +5346,27 @@ CODE_029BF9:
    TAX                                  ;029C0B|      ;
    LDA.W Curr_HP_Rooks,X                ;029C0C|0012F3;
    CMP.B $20                            ;029C0F|000020;
-   BMI CODE_029C15                      ;029C11|029C15;
-   BCS CODE_029C37                      ;029C13|029C37;
-CODE_029C15:
-   LDA.W Curr_HP_Rooks,X                ;029C15|0012F3;
+   BMI ++                               ;029C11|029C15;
+   BCS +++                              ;029C13|029C37;
+++ LDA.W Curr_HP_Rooks,X                ;029C15|0012F3;
    LDX.W Selection_offset               ;029C18|00103F;
    STA.W Object_var1_Category,X         ;029C1B|0009C7;
    LDA.W #$9B7F                         ;029C1E|      ;
    LDY.W #$0002                         ;029C21|      ;
    JML.L Sub_LoadStuff                  ;029C24|008DB4;
    RTL                                  ;029C28|      ;
-CODE_029C29:
-   LDX.W Selection_offset               ;029C29|00103F;
+ + LDX.W Selection_offset               ;029C29|00103F;
    LDA.W #$9B6E                         ;029C2C|      ;
    LDY.W #$0002                         ;029C2F|      ;
    JML.L Sub_LoadStuff                  ;029C32|008DB4;
    RTL                                  ;029C36|      ;
-CODE_029C37:
-   LDA.W Curr_HP_Rooks,X                ;029C37|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029C37|0012F3;
    LDX.W Selection_offset               ;029C3A|00103F;
    STA.W Object_var1_Category,X         ;029C3D|0009C7;
    RTL                                  ;029C40|      ;
 LoadData_Enemy19:
    db $04                               ;029C41|      ;
-   dl Battle_Prep                       ;029C42|029124;
+   dl ASM_Battle_Prep                   ;029C42|029124;
 DATA8_029C45:
    db $09                               ;029C45|      ;
    dl CODE_029CCD                       ;029C46|029CCD;
@@ -5450,7 +5375,7 @@ DATA8_029C45:
    db $08                               ;029C4C|      ;
    dw DATA8_029C6F                      ;029C4D|029C6F;
    db $04                               ;029C4F|      ;
-   dl DATA8_029111                      ;029C50|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029C50|029111;
    db $0B                               ;029C53|      ;
    dw DATA8_029C61                      ;029C54|029C61;
    db $14                               ;029C56|      ;
@@ -5476,14 +5401,14 @@ DATA8_029C6F:
    db $24                               ;029C6F|      ;
    db $02                               ;029C70|      ;
    db $07                               ;029C71|      ;
-   dl Zeros_11DB                        ;029C72|0781F0;
+   dl Clear_Condition_mirror            ;029C72|0781F0;
    db $08                               ;029C75|      ;
    dw DATA8_029CC3                      ;029C76|029CC3;
 DATA8_029C78:
    db $24                               ;029C78|      ;
    db $02                               ;029C79|      ;
    db $07                               ;029C7A|      ;
-   dl CODE_078219                       ;029C7B|078219;
+   dl Sub_Get_Condition_Change          ;029C7B|078219;
    db $12                               ;029C7E|      ;
    db $05                               ;029C7F|      ;
    dw DATA8_029C8F                      ;029C80|029C8F;
@@ -5561,7 +5486,7 @@ DATA8_029CC3:
    dw DATA8_029CC3                      ;029CCB|029CC3;
 CODE_029CCD:
    JSL.L Is_Equals_1575                 ;029CCD|07AEDD;
-   BNE CODE_029CFD                      ;029CD1|029CFD;
+   BNE +                                ;029CD1|029CFD;
    LDX.W Selection_offset               ;029CD3|00103F;
    LDA.W Object_var1_Category,X         ;029CD6|0009C7;
    STA.B $20                            ;029CD9|000020;
@@ -5570,30 +5495,27 @@ CODE_029CCD:
    TAX                                  ;029CDF|      ;
    LDA.W Curr_HP_Rooks,X                ;029CE0|0012F3;
    CMP.B $20                            ;029CE3|000020;
-   BMI CODE_029CE9                      ;029CE5|029CE9;
-   BCS CODE_029D0B                      ;029CE7|029D0B;
-CODE_029CE9:
-   LDA.W Curr_HP_Rooks,X                ;029CE9|0012F3;
+   BMI ++                               ;029CE5|029CE9;
+   BCS +++                              ;029CE7|029D0B;
+++ LDA.W Curr_HP_Rooks,X                ;029CE9|0012F3;
    LDX.W Selection_offset               ;029CEC|00103F;
    STA.W Object_var1_Category,X         ;029CEF|0009C7;
    LDA.W #$9C5D                         ;029CF2|      ;
    LDY.W #$0002                         ;029CF5|      ;
    JML.L Sub_LoadStuff                  ;029CF8|008DB4;
    RTL                                  ;029CFC|      ;
-CODE_029CFD:
-   LDX.W Selection_offset               ;029CFD|00103F;
+ + LDX.W Selection_offset               ;029CFD|00103F;
    LDA.W #$9C4C                         ;029D00|      ;
    LDY.W #$0002                         ;029D03|      ;
    JML.L Sub_LoadStuff                  ;029D06|008DB4;
    RTL                                  ;029D0A|      ;
-CODE_029D0B:
-   LDA.W Curr_HP_Rooks,X                ;029D0B|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029D0B|0012F3;
    LDX.W Selection_offset               ;029D0E|00103F;
    STA.W Object_var1_Category,X         ;029D11|0009C7;
    RTL                                  ;029D14|      ;
 LoadData_Enemy1A:
    db $04                               ;029D15|      ;
-   dl Battle_Prep                       ;029D16|029124;
+   dl ASM_Battle_Prep                   ;029D16|029124;
 DATA8_029D19:
    db $09                               ;029D19|      ;
    dl CODE_029DAF                       ;029D1A|029DAF;
@@ -5602,7 +5524,7 @@ DATA8_029D19:
    db $08                               ;029D20|      ;
    dw DATA8_029D43                      ;029D21|029D43;
    db $04                               ;029D23|      ;
-   dl DATA8_029111                      ;029D24|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029D24|029111;
    db $0B                               ;029D27|      ;
    dw DATA8_029D35                      ;029D28|029D35;
    db $14                               ;029D2A|      ;
@@ -5628,14 +5550,14 @@ DATA8_029D43:
    db $24                               ;029D43|      ;
    db $02                               ;029D44|      ;
    db $07                               ;029D45|      ;
-   dl Zeros_11DB                        ;029D46|0781F0;
+   dl Clear_Condition_mirror            ;029D46|0781F0;
    db $08                               ;029D49|      ;
    dw DATA8_029D9F                      ;029D4A|029D9F;
 DATA8_029D4C:
    db $24                               ;029D4C|      ;
    db $02                               ;029D4D|      ;
    db $07                               ;029D4E|      ;
-   dl CODE_078219                       ;029D4F|078219;
+   dl Sub_Get_Condition_Change          ;029D4F|078219;
    db $12                               ;029D52|      ;
    db $05                               ;029D53|      ;
    dw DATA8_029D63                      ;029D54|029D63;
@@ -5727,7 +5649,7 @@ DATA8_029D9F:
    dw DATA8_029D9F                      ;029DAD|029D9F;
 CODE_029DAF:
    JSL.L Is_Equals_1575                 ;029DAF|07AEDD;
-   BNE CODE_029DDF                      ;029DB3|029DDF;
+   BNE +                                ;029DB3|029DDF;
    LDX.W Selection_offset               ;029DB5|00103F;
    LDA.W Object_var1_Category,X         ;029DB8|0009C7;
    STA.B $20                            ;029DBB|000020;
@@ -5736,30 +5658,27 @@ CODE_029DAF:
    TAX                                  ;029DC1|      ;
    LDA.W Curr_HP_Rooks,X                ;029DC2|0012F3;
    CMP.B $20                            ;029DC5|000020;
-   BMI CODE_029DCB                      ;029DC7|029DCB;
-   BCS CODE_029DED                      ;029DC9|029DED;
-CODE_029DCB:
-   LDA.W Curr_HP_Rooks,X                ;029DCB|0012F3;
+   BMI ++                               ;029DC7|029DCB;
+   BCS +++                              ;029DC9|029DED;
+++ LDA.W Curr_HP_Rooks,X                ;029DCB|0012F3;
    LDX.W Selection_offset               ;029DCE|00103F;
    STA.W Object_var1_Category,X         ;029DD1|0009C7;
    LDA.W #$9D31                         ;029DD4|      ;
    LDY.W #$0002                         ;029DD7|      ;
    JML.L Sub_LoadStuff                  ;029DDA|008DB4;
    RTL                                  ;029DDE|      ;
-CODE_029DDF:
-   LDX.W Selection_offset               ;029DDF|00103F;
+ + LDX.W Selection_offset               ;029DDF|00103F;
    LDA.W #$9D20                         ;029DE2|      ;
    LDY.W #$0002                         ;029DE5|      ;
    JML.L Sub_LoadStuff                  ;029DE8|008DB4;
    RTL                                  ;029DEC|      ;
-CODE_029DED:
-   LDA.W Curr_HP_Rooks,X                ;029DED|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029DED|0012F3;
    LDX.W Selection_offset               ;029DF0|00103F;
    STA.W Object_var1_Category,X         ;029DF3|0009C7;
    RTL                                  ;029DF6|      ;
 LoadData_Enemy1B:
    db $04                               ;029DF7|      ;
-   dl Battle_Prep                       ;029DF8|029124;
+   dl ASM_Battle_Prep                   ;029DF8|029124;
 DATA8_029DFB:
    db $09                               ;029DFB|      ;
    dl CODE_029EB0                       ;029DFC|029EB0;
@@ -5768,7 +5687,7 @@ DATA8_029DFB:
    db $08                               ;029E02|      ;
    dw DATA8_029E25                      ;029E03|029E25;
    db $04                               ;029E05|      ;
-   dl DATA8_029111                      ;029E06|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029E06|029111;
    db $0B                               ;029E09|      ;
    dw DATA8_029E17                      ;029E0A|029E17;
    db $14                               ;029E0C|      ;
@@ -5794,14 +5713,14 @@ DATA8_029E25:
    db $24                               ;029E25|      ;
    db $02                               ;029E26|      ;
    db $07                               ;029E27|      ;
-   dl Zeros_11DB                        ;029E28|0781F0;
+   dl Clear_Condition_mirror            ;029E28|0781F0;
    db $08                               ;029E2B|      ;
    dw DATA8_029E9D                      ;029E2C|029E9D;
 DATA8_029E2E:
    db $24                               ;029E2E|      ;
    db $02                               ;029E2F|      ;
    db $07                               ;029E30|      ;
-   dl CODE_078219                       ;029E31|078219;
+   dl Sub_Get_Condition_Change          ;029E31|078219;
    db $12                               ;029E34|      ;
    db $05                               ;029E35|      ;
    dw DATA8_029E45                      ;029E36|029E45;
@@ -5924,7 +5843,7 @@ DATA8_029E9D:
    dw DATA8_029E9D                      ;029EAE|029E9D;
 CODE_029EB0:
    JSL.L Is_Equals_1575                 ;029EB0|07AEDD;
-   BNE CODE_029EE0                      ;029EB4|029EE0;
+   BNE +                                ;029EB4|029EE0;
    LDX.W Selection_offset               ;029EB6|00103F;
    LDA.W Object_var1_Category,X         ;029EB9|0009C7;
    STA.B $20                            ;029EBC|000020;
@@ -5933,30 +5852,27 @@ CODE_029EB0:
    TAX                                  ;029EC2|      ;
    LDA.W Curr_HP_Rooks,X                ;029EC3|0012F3;
    CMP.B $20                            ;029EC6|000020;
-   BMI CODE_029ECC                      ;029EC8|029ECC;
-   BCS CODE_029EEE                      ;029ECA|029EEE;
-CODE_029ECC:
-   LDA.W Curr_HP_Rooks,X                ;029ECC|0012F3;
+   BMI ++                               ;029EC8|029ECC;
+   BCS +++                              ;029ECA|029EEE;
+++ LDA.W Curr_HP_Rooks,X                ;029ECC|0012F3;
    LDX.W Selection_offset               ;029ECF|00103F;
    STA.W Object_var1_Category,X         ;029ED2|0009C7;
    LDA.W #$9E13                         ;029ED5|      ;
    LDY.W #$0002                         ;029ED8|      ;
    JML.L Sub_LoadStuff                  ;029EDB|008DB4;
    RTL                                  ;029EDF|      ;
-CODE_029EE0:
-   LDX.W Selection_offset               ;029EE0|00103F;
+ + LDX.W Selection_offset               ;029EE0|00103F;
    LDA.W #$9E02                         ;029EE3|      ;
    LDY.W #$0002                         ;029EE6|      ;
    JML.L Sub_LoadStuff                  ;029EE9|008DB4;
    RTL                                  ;029EED|      ;
-CODE_029EEE:
-   LDA.W Curr_HP_Rooks,X                ;029EEE|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029EEE|0012F3;
    LDX.W Selection_offset               ;029EF1|00103F;
    STA.W Object_var1_Category,X         ;029EF4|0009C7;
    RTL                                  ;029EF7|      ;
 LoadData_Enemy1C:
    db $04                               ;029EF8|      ;
-   dl Battle_Prep                       ;029EF9|029124;
+   dl ASM_Battle_Prep                   ;029EF9|029124;
 DATA8_029EFC:
    db $09                               ;029EFC|      ;
    dl CODE_029F92                       ;029EFD|029F92;
@@ -5965,7 +5881,7 @@ DATA8_029EFC:
    db $08                               ;029F03|      ;
    dw DATA8_029F26                      ;029F04|029F26;
    db $04                               ;029F06|      ;
-   dl DATA8_029111                      ;029F07|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029F07|029111;
    db $0B                               ;029F0A|      ;
    dw DATA8_029F18                      ;029F0B|029F18;
    db $14                               ;029F0D|      ;
@@ -5991,14 +5907,14 @@ DATA8_029F26:
    db $24                               ;029F26|      ;
    db $02                               ;029F27|      ;
    db $07                               ;029F28|      ;
-   dl Zeros_11DB                        ;029F29|0781F0;
+   dl Clear_Condition_mirror            ;029F29|0781F0;
    db $08                               ;029F2C|      ;
    dw DATA8_029F82                      ;029F2D|029F82;
 DATA8_029F2F:
    db $24                               ;029F2F|      ;
    db $02                               ;029F30|      ;
    db $07                               ;029F31|      ;
-   dl CODE_078219                       ;029F32|078219;
+   dl Sub_Get_Condition_Change          ;029F32|078219;
    db $12                               ;029F35|      ;
    db $05                               ;029F36|      ;
    dw DATA8_029F46                      ;029F37|029F46;
@@ -6090,7 +6006,7 @@ DATA8_029F82:
    dw DATA8_029F82                      ;029F90|029F82;
 CODE_029F92:
    JSL.L Is_Equals_1575                 ;029F92|07AEDD;
-   BNE CODE_029FC2                      ;029F96|029FC2;
+   BNE +                                ;029F96|029FC2;
    LDX.W Selection_offset               ;029F98|00103F;
    LDA.W Object_var1_Category,X         ;029F9B|0009C7;
    STA.B $20                            ;029F9E|000020;
@@ -6099,30 +6015,27 @@ CODE_029F92:
    TAX                                  ;029FA4|      ;
    LDA.W Curr_HP_Rooks,X                ;029FA5|0012F3;
    CMP.B $20                            ;029FA8|000020;
-   BMI CODE_029FAE                      ;029FAA|029FAE;
-   BCS CODE_029FD0                      ;029FAC|029FD0;
-CODE_029FAE:
-   LDA.W Curr_HP_Rooks,X                ;029FAE|0012F3;
+   BMI ++                               ;029FAA|029FAE;
+   BCS +++                              ;029FAC|029FD0;
+++ LDA.W Curr_HP_Rooks,X                ;029FAE|0012F3;
    LDX.W Selection_offset               ;029FB1|00103F;
    STA.W Object_var1_Category,X         ;029FB4|0009C7;
    LDA.W #$9F14                         ;029FB7|      ;
    LDY.W #$0002                         ;029FBA|      ;
    JML.L Sub_LoadStuff                  ;029FBD|008DB4;
    RTL                                  ;029FC1|      ;
-CODE_029FC2:
-   LDX.W Selection_offset               ;029FC2|00103F;
+ + LDX.W Selection_offset               ;029FC2|00103F;
    LDA.W #$9F03                         ;029FC5|      ;
    LDY.W #$0002                         ;029FC8|      ;
    JML.L Sub_LoadStuff                  ;029FCB|008DB4;
    RTL                                  ;029FCF|      ;
-CODE_029FD0:
-   LDA.W Curr_HP_Rooks,X                ;029FD0|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;029FD0|0012F3;
    LDX.W Selection_offset               ;029FD3|00103F;
    STA.W Object_var1_Category,X         ;029FD6|0009C7;
    RTL                                  ;029FD9|      ;
 LoadData_Enemy1D:
    db $04                               ;029FDA|      ;
-   dl Battle_Prep                       ;029FDB|029124;
+   dl ASM_Battle_Prep                   ;029FDB|029124;
 DATA8_029FDE:
    db $09                               ;029FDE|      ;
    dl CODE_02A074                       ;029FDF|02A074;
@@ -6131,7 +6044,7 @@ DATA8_029FDE:
    db $08                               ;029FE5|      ;
    dw DATA8_02A008                      ;029FE6|02A008;
    db $04                               ;029FE8|      ;
-   dl DATA8_029111                      ;029FE9|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;029FE9|029111;
    db $0B                               ;029FEC|      ;
    dw DATA8_029FFA                      ;029FED|029FFA;
    db $14                               ;029FEF|      ;
@@ -6157,14 +6070,14 @@ DATA8_02A008:
    db $24                               ;02A008|      ;
    db $02                               ;02A009|      ;
    db $07                               ;02A00A|      ;
-   dl Zeros_11DB                        ;02A00B|0781F0;
+   dl Clear_Condition_mirror            ;02A00B|0781F0;
    db $08                               ;02A00E|      ;
    dw DATA8_02A064                      ;02A00F|02A064;
 DATA8_02A011:
    db $24                               ;02A011|      ;
    db $02                               ;02A012|      ;
    db $07                               ;02A013|      ;
-   dl CODE_078219                       ;02A014|078219;
+   dl Sub_Get_Condition_Change          ;02A014|078219;
    db $12                               ;02A017|      ;
    db $05                               ;02A018|      ;
    dw DATA8_02A028                      ;02A019|02A028;
@@ -6256,7 +6169,7 @@ DATA8_02A064:
    dw DATA8_02A064                      ;02A072|02A064;
 CODE_02A074:
    JSL.L Is_Equals_1575                 ;02A074|07AEDD;
-   BNE CODE_02A0A4                      ;02A078|02A0A4;
+   BNE +                                ;02A078|02A0A4;
    LDX.W Selection_offset               ;02A07A|00103F;
    LDA.W Object_var1_Category,X         ;02A07D|0009C7;
    STA.B $20                            ;02A080|000020;
@@ -6265,30 +6178,27 @@ CODE_02A074:
    TAX                                  ;02A086|      ;
    LDA.W Curr_HP_Rooks,X                ;02A087|0012F3;
    CMP.B $20                            ;02A08A|000020;
-   BMI CODE_02A090                      ;02A08C|02A090;
-   BCS CODE_02A0B2                      ;02A08E|02A0B2;
-CODE_02A090:
-   LDA.W Curr_HP_Rooks,X                ;02A090|0012F3;
+   BMI ++                               ;02A08C|02A090;
+   BCS +++                              ;02A08E|02A0B2;
+++ LDA.W Curr_HP_Rooks,X                ;02A090|0012F3;
    LDX.W Selection_offset               ;02A093|00103F;
    STA.W Object_var1_Category,X         ;02A096|0009C7;
    LDA.W #$9FF6                         ;02A099|      ;
    LDY.W #$0002                         ;02A09C|      ;
    JML.L Sub_LoadStuff                  ;02A09F|008DB4;
    RTL                                  ;02A0A3|      ;
-CODE_02A0A4:
-   LDX.W Selection_offset               ;02A0A4|00103F;
+ + LDX.W Selection_offset               ;02A0A4|00103F;
    LDA.W #$9FE5                         ;02A0A7|      ;
    LDY.W #$0002                         ;02A0AA|      ;
    JML.L Sub_LoadStuff                  ;02A0AD|008DB4;
    RTL                                  ;02A0B1|      ;
-CODE_02A0B2:
-   LDA.W Curr_HP_Rooks,X                ;02A0B2|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02A0B2|0012F3;
    LDX.W Selection_offset               ;02A0B5|00103F;
    STA.W Object_var1_Category,X         ;02A0B8|0009C7;
    RTL                                  ;02A0BB|      ;
 LoadData_Enemy1E:
    db $04                               ;02A0BC|      ;
-   dl Battle_Prep                       ;02A0BD|029124;
+   dl ASM_Battle_Prep                   ;02A0BD|029124;
 DATA8_02A0C0:
    db $09                               ;02A0C0|      ;
    dl CODE_02A156                       ;02A0C1|02A156;
@@ -6297,7 +6207,7 @@ DATA8_02A0C0:
    db $08                               ;02A0C7|      ;
    dw DATA8_02A0EA                      ;02A0C8|02A0EA;
    db $04                               ;02A0CA|      ;
-   dl DATA8_029111                      ;02A0CB|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A0CB|029111;
    db $0B                               ;02A0CE|      ;
    dw DATA8_02A0DC                      ;02A0CF|02A0DC;
    db $14                               ;02A0D1|      ;
@@ -6323,14 +6233,14 @@ DATA8_02A0EA:
    db $24                               ;02A0EA|      ;
    db $02                               ;02A0EB|      ;
    db $07                               ;02A0EC|      ;
-   dl Zeros_11DB                        ;02A0ED|0781F0;
+   dl Clear_Condition_mirror            ;02A0ED|0781F0;
    db $08                               ;02A0F0|      ;
    dw DATA8_02A146                      ;02A0F1|02A146;
 DATA8_02A0F3:
    db $24                               ;02A0F3|      ;
    db $02                               ;02A0F4|      ;
    db $07                               ;02A0F5|      ;
-   dl CODE_078219                       ;02A0F6|078219;
+   dl Sub_Get_Condition_Change          ;02A0F6|078219;
    db $12                               ;02A0F9|      ;
    db $05                               ;02A0FA|      ;
    dw DATA8_02A10A                      ;02A0FB|02A10A;
@@ -6422,7 +6332,7 @@ DATA8_02A146:
    dw DATA8_02A146                      ;02A154|02A146;
 CODE_02A156:
    JSL.L Is_Equals_1575                 ;02A156|07AEDD;
-   BNE CODE_02A186                      ;02A15A|02A186;
+   BNE +                                ;02A15A|02A186;
    LDX.W Selection_offset               ;02A15C|00103F;
    LDA.W Object_var1_Category,X         ;02A15F|0009C7;
    STA.B $20                            ;02A162|000020;
@@ -6431,30 +6341,27 @@ CODE_02A156:
    TAX                                  ;02A168|      ;
    LDA.W Curr_HP_Rooks,X                ;02A169|0012F3;
    CMP.B $20                            ;02A16C|000020;
-   BMI CODE_02A172                      ;02A16E|02A172;
-   BCS CODE_02A194                      ;02A170|02A194;
-CODE_02A172:
-   LDA.W Curr_HP_Rooks,X                ;02A172|0012F3;
+   BMI ++                               ;02A16E|02A172;
+   BCS +++                              ;02A170|02A194;
+++ LDA.W Curr_HP_Rooks,X                ;02A172|0012F3;
    LDX.W Selection_offset               ;02A175|00103F;
    STA.W Object_var1_Category,X         ;02A178|0009C7;
    LDA.W #$A0D8                         ;02A17B|      ;
    LDY.W #$0002                         ;02A17E|      ;
    JML.L Sub_LoadStuff                  ;02A181|008DB4;
    RTL                                  ;02A185|      ;
-CODE_02A186:
-   LDX.W Selection_offset               ;02A186|00103F;
+ + LDX.W Selection_offset               ;02A186|00103F;
    LDA.W #$A0C7                         ;02A189|      ;
    LDY.W #$0002                         ;02A18C|      ;
    JML.L Sub_LoadStuff                  ;02A18F|008DB4;
    RTL                                  ;02A193|      ;
-CODE_02A194:
-   LDA.W Curr_HP_Rooks,X                ;02A194|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02A194|0012F3;
    LDX.W Selection_offset               ;02A197|00103F;
    STA.W Object_var1_Category,X         ;02A19A|0009C7;
    RTL                                  ;02A19D|      ;
 LoadData_Enemy1F:
    db $04                               ;02A19E|      ;
-   dl Battle_Prep                       ;02A19F|029124;
+   dl ASM_Battle_Prep                   ;02A19F|029124;
 DATA8_02A1A2:
    db $09                               ;02A1A2|      ;
    dl CODE_02A28B                       ;02A1A3|02A28B;
@@ -6463,7 +6370,7 @@ DATA8_02A1A2:
    db $08                               ;02A1A9|      ;
    dw DATA8_02A1CC                      ;02A1AA|02A1CC;
    db $04                               ;02A1AC|      ;
-   dl DATA8_029111                      ;02A1AD|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A1AD|029111;
    db $0B                               ;02A1B0|      ;
    dw DATA8_02A1BE                      ;02A1B1|02A1BE;
    db $14                               ;02A1B3|      ;
@@ -6489,14 +6396,14 @@ DATA8_02A1CC:
    db $24                               ;02A1CC|      ;
    db $02                               ;02A1CD|      ;
    db $07                               ;02A1CE|      ;
-   dl Zeros_11DB                        ;02A1CF|0781F0;
+   dl Clear_Condition_mirror            ;02A1CF|0781F0;
    db $08                               ;02A1D2|      ;
    dw DATA8_02A266                      ;02A1D3|02A266;
 DATA8_02A1D5:
    db $24                               ;02A1D5|      ;
    db $02                               ;02A1D6|      ;
    db $07                               ;02A1D7|      ;
-   dl CODE_078219                       ;02A1D8|078219;
+   dl Sub_Get_Condition_Change          ;02A1D8|078219;
    db $12                               ;02A1DB|      ;
    db $05                               ;02A1DC|      ;
    dw DATA8_02A1EC                      ;02A1DD|02A1EC;
@@ -6671,7 +6578,7 @@ DATA8_02A266:
    dw DATA8_02A266                      ;02A289|02A266;
 CODE_02A28B:
    JSL.L Is_Equals_1575                 ;02A28B|07AEDD;
-   BNE CODE_02A2BB                      ;02A28F|02A2BB;
+   BNE +                                ;02A28F|02A2BB;
    LDX.W Selection_offset               ;02A291|00103F;
    LDA.W Object_var1_Category,X         ;02A294|0009C7;
    STA.B $20                            ;02A297|000020;
@@ -6680,30 +6587,27 @@ CODE_02A28B:
    TAX                                  ;02A29D|      ;
    LDA.W Curr_HP_Rooks,X                ;02A29E|0012F3;
    CMP.B $20                            ;02A2A1|000020;
-   BMI CODE_02A2A7                      ;02A2A3|02A2A7;
-   BCS CODE_02A2C9                      ;02A2A5|02A2C9;
-CODE_02A2A7:
-   LDA.W Curr_HP_Rooks,X                ;02A2A7|0012F3;
+   BMI ++                               ;02A2A3|02A2A7;
+   BCS +++                              ;02A2A5|02A2C9;
+++ LDA.W Curr_HP_Rooks,X                ;02A2A7|0012F3;
    LDX.W Selection_offset               ;02A2AA|00103F;
    STA.W Object_var1_Category,X         ;02A2AD|0009C7;
    LDA.W #$A1BA                         ;02A2B0|      ;
    LDY.W #$0002                         ;02A2B3|      ;
    JML.L Sub_LoadStuff                  ;02A2B6|008DB4;
    RTL                                  ;02A2BA|      ;
-CODE_02A2BB:
-   LDX.W Selection_offset               ;02A2BB|00103F;
+ + LDX.W Selection_offset               ;02A2BB|00103F;
    LDA.W #$A1A9                         ;02A2BE|      ;
    LDY.W #$0002                         ;02A2C1|      ;
    JML.L Sub_LoadStuff                  ;02A2C4|008DB4;
    RTL                                  ;02A2C8|      ;
-CODE_02A2C9:
-   LDA.W Curr_HP_Rooks,X                ;02A2C9|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02A2C9|0012F3;
    LDX.W Selection_offset               ;02A2CC|00103F;
    STA.W Object_var1_Category,X         ;02A2CF|0009C7;
    RTL                                  ;02A2D2|      ;
 LoadData_Enemy20:
    db $04                               ;02A2D3|      ;
-   dl Battle_Prep                       ;02A2D4|029124;
+   dl ASM_Battle_Prep                   ;02A2D4|029124;
 DATA8_02A2D7:
    db $09                               ;02A2D7|      ;
    dl CODE_02A369                       ;02A2D8|02A369;
@@ -6712,7 +6616,7 @@ DATA8_02A2D7:
    db $08                               ;02A2DE|      ;
    dw DATA8_02A301                      ;02A2DF|02A301;
    db $04                               ;02A2E1|      ;
-   dl DATA8_029111                      ;02A2E2|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A2E2|029111;
    db $0B                               ;02A2E5|      ;
    dw DATA8_02A2F3                      ;02A2E6|02A2F3;
    db $14                               ;02A2E8|      ;
@@ -6738,14 +6642,14 @@ DATA8_02A301:
    db $24                               ;02A301|      ;
    db $02                               ;02A302|      ;
    db $07                               ;02A303|      ;
-   dl Zeros_11DB                        ;02A304|0781F0;
+   dl Clear_Condition_mirror            ;02A304|0781F0;
    db $08                               ;02A307|      ;
    dw DATA8_02A35B                      ;02A308|02A35B;
 DATA8_02A30A:
    db $24                               ;02A30A|      ;
    db $02                               ;02A30B|      ;
    db $07                               ;02A30C|      ;
-   dl CODE_078219                       ;02A30D|078219;
+   dl Sub_Get_Condition_Change          ;02A30D|078219;
    db $12                               ;02A310|      ;
    db $05                               ;02A311|      ;
    dw DATA8_02A321                      ;02A312|02A321;
@@ -6843,7 +6747,7 @@ CODE_02A369:
    LDA.W Curr_HP_Rooks,X                ;02A37C|0012F3;
    CMP.B $20                            ;02A37F|000020;
    BMI Load_Stuff_A2EF                  ;02A381|02A385;
-   BCS CODE_02A3A7                      ;02A383|02A3A7;
+   BCS +                                ;02A383|02A3A7;
 Load_Stuff_A2EF:
    LDA.W Curr_HP_Rooks,X                ;02A385|0012F3;
    LDX.W Selection_offset               ;02A388|00103F;
@@ -6858,14 +6762,13 @@ Load_Stuff_A2DE:
    LDY.W #$0002                         ;02A39F|      ;
    JML.L Sub_LoadStuff                  ;02A3A2|008DB4;
    RTL                                  ;02A3A6|      ;
-CODE_02A3A7:
-   LDA.W Curr_HP_Rooks,X                ;02A3A7|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A3A7|0012F3;
    LDX.W Selection_offset               ;02A3AA|00103F;
    STA.W Object_var1_Category,X         ;02A3AD|0009C7;
    RTL                                  ;02A3B0|      ;
 LoadData_Enemy21:
    db $04                               ;02A3B1|      ;
-   dl Battle_Prep                       ;02A3B2|029124;
+   dl ASM_Battle_Prep                   ;02A3B2|029124;
 DATA8_02A3B5:
    db $09                               ;02A3B5|      ;
    dl CODE_02A44B                       ;02A3B6|02A44B;
@@ -6874,7 +6777,7 @@ DATA8_02A3B5:
    db $08                               ;02A3BC|      ;
    dw DATA8_02A3DF                      ;02A3BD|02A3DF;
    db $04                               ;02A3BF|      ;
-   dl DATA8_029111                      ;02A3C0|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A3C0|029111;
    db $0B                               ;02A3C3|      ;
    dw DATA8_02A3D1                      ;02A3C4|02A3D1;
    db $14                               ;02A3C6|      ;
@@ -6900,14 +6803,14 @@ DATA8_02A3DF:
    db $24                               ;02A3DF|      ;
    db $02                               ;02A3E0|      ;
    db $07                               ;02A3E1|      ;
-   dl Zeros_11DB                        ;02A3E2|0781F0;
+   dl Clear_Condition_mirror            ;02A3E2|0781F0;
    db $08                               ;02A3E5|      ;
    dw DATA8_02A43B                      ;02A3E6|02A43B;
 DATA8_02A3E8:
    db $24                               ;02A3E8|      ;
    db $02                               ;02A3E9|      ;
    db $07                               ;02A3EA|      ;
-   dl CODE_078219                       ;02A3EB|078219;
+   dl Sub_Get_Condition_Change          ;02A3EB|078219;
    db $12                               ;02A3EE|      ;
    db $05                               ;02A3EF|      ;
    dw DATA8_02A3FF                      ;02A3F0|02A3FF;
@@ -7009,7 +6912,7 @@ CODE_02A44B:
    LDA.W Curr_HP_Rooks,X                ;02A45E|0012F3;
    CMP.B $20                            ;02A461|000020;
    BMI Load_Stuff_A3CD                  ;02A463|02A467;
-   BCS CODE_02A489                      ;02A465|02A489;
+   BCS +                                ;02A465|02A489;
 Load_Stuff_A3CD:
    LDA.W Curr_HP_Rooks,X                ;02A467|0012F3;
    LDX.W Selection_offset               ;02A46A|00103F;
@@ -7024,14 +6927,13 @@ Load_Stuff_A3BC:
    LDY.W #$0002                         ;02A481|      ;
    JML.L Sub_LoadStuff                  ;02A484|008DB4;
    RTL                                  ;02A488|      ;
-CODE_02A489:
-   LDA.W Curr_HP_Rooks,X                ;02A489|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A489|0012F3;
    LDX.W Selection_offset               ;02A48C|00103F;
    STA.W Object_var1_Category,X         ;02A48F|0009C7;
    RTL                                  ;02A492|      ;
 LoadData_Enemy22:
    db $04                               ;02A493|      ;
-   dl Battle_Prep                       ;02A494|029124;
+   dl ASM_Battle_Prep                   ;02A494|029124;
 DATA8_02A497:
    db $09                               ;02A497|      ;
    dl CODE_02A52D                       ;02A498|02A52D;
@@ -7040,7 +6942,7 @@ DATA8_02A497:
    db $08                               ;02A49E|      ;
    dw DATA8_02A4C1                      ;02A49F|02A4C1;
    db $04                               ;02A4A1|      ;
-   dl DATA8_029111                      ;02A4A2|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A4A2|029111;
    db $0B                               ;02A4A5|      ;
    dw DATA8_02A4B3                      ;02A4A6|02A4B3;
    db $14                               ;02A4A8|      ;
@@ -7066,14 +6968,14 @@ DATA8_02A4C1:
    db $24                               ;02A4C1|      ;
    db $02                               ;02A4C2|      ;
    db $07                               ;02A4C3|      ;
-   dl Zeros_11DB                        ;02A4C4|0781F0;
+   dl Clear_Condition_mirror            ;02A4C4|0781F0;
    db $08                               ;02A4C7|      ;
    dw DATA8_02A51D                      ;02A4C8|02A51D;
 DATA8_02A4CA:
    db $24                               ;02A4CA|      ;
    db $02                               ;02A4CB|      ;
    db $07                               ;02A4CC|      ;
-   dl CODE_078219                       ;02A4CD|078219;
+   dl Sub_Get_Condition_Change          ;02A4CD|078219;
    db $12                               ;02A4D0|      ;
    db $05                               ;02A4D1|      ;
    dw DATA8_02A4E1                      ;02A4D2|02A4E1;
@@ -7175,7 +7077,7 @@ CODE_02A52D:
    LDA.W Curr_HP_Rooks,X                ;02A540|0012F3;
    CMP.B $20                            ;02A543|000020;
    BMI Load_Stuff_A4AF                  ;02A545|02A549;
-   BCS CODE_02A56B                      ;02A547|02A56B;
+   BCS +                                ;02A547|02A56B;
 Load_Stuff_A4AF:
    LDA.W Curr_HP_Rooks,X                ;02A549|0012F3;
    LDX.W Selection_offset               ;02A54C|00103F;
@@ -7190,14 +7092,13 @@ Load_Stuff_A39E:
    LDY.W #$0002                         ;02A563|      ;
    JML.L Sub_LoadStuff                  ;02A566|008DB4;
    RTL                                  ;02A56A|      ;
-CODE_02A56B:
-   LDA.W Curr_HP_Rooks,X                ;02A56B|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A56B|0012F3;
    LDX.W Selection_offset               ;02A56E|00103F;
    STA.W Object_var1_Category,X         ;02A571|0009C7;
    RTL                                  ;02A574|      ;
 LoadData_Enemy23:
    db $04                               ;02A575|      ;
-   dl Battle_Prep                       ;02A576|029124;
+   dl ASM_Battle_Prep                   ;02A576|029124;
 DATA8_02A579:
    db $09                               ;02A579|      ;
    dl CODE_02A60F                       ;02A57A|02A60F;
@@ -7206,7 +7107,7 @@ DATA8_02A579:
    db $08                               ;02A580|      ;
    dw DATA8_02A5A3                      ;02A581|02A5A3;
    db $04                               ;02A583|      ;
-   dl DATA8_029111                      ;02A584|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A584|029111;
    db $0B                               ;02A587|      ;
    dw DATA8_02A595                      ;02A588|02A595;
    db $14                               ;02A58A|      ;
@@ -7232,14 +7133,14 @@ DATA8_02A5A3:
    db $24                               ;02A5A3|      ;
    db $02                               ;02A5A4|      ;
    db $07                               ;02A5A5|      ;
-   dl Zeros_11DB                        ;02A5A6|0781F0;
+   dl Clear_Condition_mirror            ;02A5A6|0781F0;
    db $08                               ;02A5A9|      ;
    dw DATA8_02A5FF                      ;02A5AA|02A5FF;
 DATA8_02A5AC:
    db $24                               ;02A5AC|      ;
    db $02                               ;02A5AD|      ;
    db $07                               ;02A5AE|      ;
-   dl CODE_078219                       ;02A5AF|078219;
+   dl Sub_Get_Condition_Change          ;02A5AF|078219;
    db $12                               ;02A5B2|      ;
    db $05                               ;02A5B3|      ;
    dw DATA8_02A5C3                      ;02A5B4|02A5C3;
@@ -7341,7 +7242,7 @@ CODE_02A60F:
    LDA.W Curr_HP_Rooks,X                ;02A622|0012F3;
    CMP.B $20                            ;02A625|000020;
    BMI Load_Stuff_A591                  ;02A627|02A62B;
-   BCS CODE_02A64D                      ;02A629|02A64D;
+   BCS +                                ;02A629|02A64D;
 Load_Stuff_A591:
    LDA.W Curr_HP_Rooks,X                ;02A62B|0012F3;
    LDX.W Selection_offset               ;02A62E|00103F;
@@ -7356,14 +7257,13 @@ Load_Stuff_A580:
    LDY.W #$0002                         ;02A645|      ;
    JML.L Sub_LoadStuff                  ;02A648|008DB4;
    RTL                                  ;02A64C|      ;
-CODE_02A64D:
-   LDA.W Curr_HP_Rooks,X                ;02A64D|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A64D|0012F3;
    LDX.W Selection_offset               ;02A650|00103F;
    STA.W Object_var1_Category,X         ;02A653|0009C7;
    RTL                                  ;02A656|      ;
 LoadData_Enemy24:
    db $04                               ;02A657|      ;
-   dl Battle_Prep                       ;02A658|029124;
+   dl ASM_Battle_Prep                   ;02A658|029124;
 DATA8_02A65B:
    db $09                               ;02A65B|      ;
    dl CODE_02A710                       ;02A65C|02A710;
@@ -7372,7 +7272,7 @@ DATA8_02A65B:
    db $08                               ;02A662|      ;
    dw DATA8_02A685                      ;02A663|02A685;
    db $04                               ;02A665|      ;
-   dl DATA8_029111                      ;02A666|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A666|029111;
    db $0B                               ;02A669|      ;
    dw DATA8_02A677                      ;02A66A|02A677;
    db $14                               ;02A66C|      ;
@@ -7398,14 +7298,14 @@ DATA8_02A685:
    db $24                               ;02A685|      ;
    db $02                               ;02A686|      ;
    db $07                               ;02A687|      ;
-   dl Zeros_11DB                        ;02A688|0781F0;
+   dl Clear_Condition_mirror            ;02A688|0781F0;
    db $08                               ;02A68B|      ;
    dw DATA8_02A6FD                      ;02A68C|02A6FD;
 DATA8_02A68E:
    db $24                               ;02A68E|      ;
    db $02                               ;02A68F|      ;
    db $07                               ;02A690|      ;
-   dl CODE_078219                       ;02A691|078219;
+   dl Sub_Get_Condition_Change          ;02A691|078219;
    db $12                               ;02A694|      ;
    db $05                               ;02A695|      ;
    dw DATA8_02A6A5                      ;02A696|02A6A5;
@@ -7538,7 +7438,7 @@ CODE_02A710:
    LDA.W Curr_HP_Rooks,X                ;02A723|0012F3;
    CMP.B $20                            ;02A726|000020;
    BMI Load_Stuff_A673                  ;02A728|02A72C;
-   BCS CODE_02A74E                      ;02A72A|02A74E;
+   BCS +                                ;02A72A|02A74E;
 Load_Stuff_A673:
    LDA.W Curr_HP_Rooks,X                ;02A72C|0012F3;
    LDX.W Selection_offset               ;02A72F|00103F;
@@ -7553,14 +7453,13 @@ Load_Stuff_A662:
    LDY.W #$0002                         ;02A746|      ;
    JML.L Sub_LoadStuff                  ;02A749|008DB4;
    RTL                                  ;02A74D|      ;
-CODE_02A74E:
-   LDA.W Curr_HP_Rooks,X                ;02A74E|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A74E|0012F3;
    LDX.W Selection_offset               ;02A751|00103F;
    STA.W Object_var1_Category,X         ;02A754|0009C7;
    RTL                                  ;02A757|      ;
 LoadData_Enemy25:
    db $04                               ;02A758|      ;
-   dl Battle_Prep                       ;02A759|029124;
+   dl ASM_Battle_Prep                   ;02A759|029124;
 DATA8_02A75C:
    db $09                               ;02A75C|      ;
    dl CODE_02A7EE                       ;02A75D|02A7EE;
@@ -7569,7 +7468,7 @@ DATA8_02A75C:
    db $08                               ;02A763|      ;
    dw DATA8_02A786                      ;02A764|02A786;
    db $04                               ;02A766|      ;
-   dl DATA8_029111                      ;02A767|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A767|029111;
    db $0B                               ;02A76A|      ;
    dw DATA8_02A778                      ;02A76B|02A778;
    db $14                               ;02A76D|      ;
@@ -7595,14 +7494,14 @@ DATA8_02A786:
    db $24                               ;02A786|      ;
    db $02                               ;02A787|      ;
    db $07                               ;02A788|      ;
-   dl Zeros_11DB                        ;02A789|0781F0;
+   dl Clear_Condition_mirror            ;02A789|0781F0;
    db $08                               ;02A78C|      ;
    dw DATA8_02A7E2                      ;02A78D|02A7E2;
 DATA8_02A78F:
    db $24                               ;02A78F|      ;
    db $02                               ;02A790|      ;
    db $07                               ;02A791|      ;
-   dl CODE_078219                       ;02A792|078219;
+   dl Sub_Get_Condition_Change          ;02A792|078219;
    db $12                               ;02A795|      ;
    db $05                               ;02A796|      ;
    dw DATA8_02A7A6                      ;02A797|02A7A6;
@@ -7700,7 +7599,7 @@ CODE_02A7EE:
    LDA.W Curr_HP_Rooks,X                ;02A801|0012F3;
    CMP.B $20                            ;02A804|000020;
    BMI Load_Stuff_A774                  ;02A806|02A80A;
-   BCS CODE_02A82C                      ;02A808|02A82C;
+   BCS +                                ;02A808|02A82C;
 Load_Stuff_A774:
    LDA.W Curr_HP_Rooks,X                ;02A80A|0012F3;
    LDX.W Selection_offset               ;02A80D|00103F;
@@ -7715,14 +7614,13 @@ Load_Stuff_A763:
    LDY.W #$0002                         ;02A824|      ;
    JML.L Sub_LoadStuff                  ;02A827|008DB4;
    RTL                                  ;02A82B|      ;
-CODE_02A82C:
-   LDA.W Curr_HP_Rooks,X                ;02A82C|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A82C|0012F3;
    LDX.W Selection_offset               ;02A82F|00103F;
    STA.W Object_var1_Category,X         ;02A832|0009C7;
    RTL                                  ;02A835|      ;
 LoadData_Enemy26:
    db $04                               ;02A836|      ;
-   dl Battle_Prep                       ;02A837|029124;
+   dl ASM_Battle_Prep                   ;02A837|029124;
 DATA8_02A83A:
    db $09                               ;02A83A|      ;
    dl CODE_02A915                       ;02A83B|02A915;
@@ -7731,7 +7629,7 @@ DATA8_02A83A:
    db $08                               ;02A841|      ;
    dw DATA8_02A864                      ;02A842|02A864;
    db $04                               ;02A844|      ;
-   dl DATA8_029111                      ;02A845|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A845|029111;
    db $0B                               ;02A848|      ;
    dw DATA8_02A856                      ;02A849|02A856;
    db $14                               ;02A84B|      ;
@@ -7757,14 +7655,14 @@ DATA8_02A864:
    db $24                               ;02A864|      ;
    db $02                               ;02A865|      ;
    db $07                               ;02A866|      ;
-   dl Zeros_11DB                        ;02A867|0781F0;
+   dl Clear_Condition_mirror            ;02A867|0781F0;
    db $08                               ;02A86A|      ;
    dw DATA8_02A8EA                      ;02A86B|02A8EA;
 DATA8_02A86D:
    db $24                               ;02A86D|      ;
    db $02                               ;02A86E|      ;
    db $07                               ;02A86F|      ;
-   dl CODE_078219                       ;02A870|078219;
+   dl Sub_Get_Condition_Change          ;02A870|078219;
    db $12                               ;02A873|      ;
    db $05                               ;02A874|      ;
    dw DATA8_02A884                      ;02A875|02A884;
@@ -7935,7 +7833,7 @@ CODE_02A915:
    LDA.W Curr_HP_Rooks,X                ;02A928|0012F3;
    CMP.B $20                            ;02A92B|000020;
    BMI Load_Stuff_A852                  ;02A92D|02A931;
-   BCS CODE_02A953                      ;02A92F|02A953;
+   BCS +                                ;02A92F|02A953;
 Load_Stuff_A852:
    LDA.W Curr_HP_Rooks,X                ;02A931|0012F3;
    LDX.W Selection_offset               ;02A934|00103F;
@@ -7950,14 +7848,13 @@ Load_Stuff_A841:
    LDY.W #$0002                         ;02A94B|      ;
    JML.L Sub_LoadStuff                  ;02A94E|008DB4;
    RTL                                  ;02A952|      ;
-CODE_02A953:
-   LDA.W Curr_HP_Rooks,X                ;02A953|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A953|0012F3;
    LDX.W Selection_offset               ;02A956|00103F;
    STA.W Object_var1_Category,X         ;02A959|0009C7;
    RTL                                  ;02A95C|      ;
 LoadData_Enemy27:
    db $04                               ;02A95D|      ;
-   dl Battle_Prep                       ;02A95E|029124;
+   dl ASM_Battle_Prep                   ;02A95E|029124;
 DATA8_02A961:
    db $09                               ;02A961|      ;
    dl CODE_02A991                       ;02A962|02A991;
@@ -7966,7 +7863,7 @@ DATA8_02A961:
    db $08                               ;02A968|      ;
    dw DATA8_02A984                      ;02A969|02A984;
    db $04                               ;02A96B|      ;
-   dl DATA8_029111                      ;02A96C|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A96C|029111;
    db $1A                               ;02A96F|      ;
    dw DATA8_02A961                      ;02A970|02A961;
    db $04                               ;02A972|      ;
@@ -8006,7 +7903,7 @@ CODE_02A991:
    LDA.W Curr_HP_Rooks,X                ;02A9A4|0012F3;
    CMP.B $20                            ;02A9A7|000020;
    BMI Load_Stuff_A972                  ;02A9A9|02A9AD;
-   BCS CODE_02A9CF                      ;02A9AB|02A9CF;
+   BCS +                                ;02A9AB|02A9CF;
 Load_Stuff_A972:
    LDA.W Curr_HP_Rooks,X                ;02A9AD|0012F3;
    LDX.W Selection_offset               ;02A9B0|00103F;
@@ -8021,14 +7918,13 @@ Load_Stuff_A968:
    LDY.W #$0002                         ;02A9C7|      ;
    JML.L Sub_LoadStuff                  ;02A9CA|008DB4;
    RTL                                  ;02A9CE|      ;
-CODE_02A9CF:
-   LDA.W Curr_HP_Rooks,X                ;02A9CF|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02A9CF|0012F3;
    LDX.W Selection_offset               ;02A9D2|00103F;
    STA.W Object_var1_Category,X         ;02A9D5|0009C7;
    RTL                                  ;02A9D8|      ;
 LoadData_Enemy28:
    db $04                               ;02A9D9|      ;
-   dl Battle_Prep                       ;02A9DA|029124;
+   dl ASM_Battle_Prep                   ;02A9DA|029124;
 DATA8_02A9DD:
    db $09                               ;02A9DD|      ;
    dl CODE_02AA05                       ;02A9DE|02AA05;
@@ -8037,7 +7933,7 @@ DATA8_02A9DD:
    db $08                               ;02A9E4|      ;
    dw DATA8_02AA00                      ;02A9E5|02AA00;
    db $04                               ;02A9E7|      ;
-   dl DATA8_029111                      ;02A9E8|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02A9E8|029111;
    db $1A                               ;02A9EB|      ;
    dw DATA8_02A9DD                      ;02A9EC|02A9DD;
    db $04                               ;02A9EE|      ;
@@ -8059,7 +7955,7 @@ DATA8_02AA00:
    dw DATA8_02AA00                      ;02AA03|02AA00;
 CODE_02AA05:
    JSL.L Is_Equals_1575                 ;02AA05|07AEDD;
-   BNE CODE_02AA35                      ;02AA09|02AA35;
+   BNE +                                ;02AA09|02AA35;
    LDX.W Selection_offset               ;02AA0B|00103F;
    LDA.W Object_var1_Category,X         ;02AA0E|0009C7;
    STA.B $20                            ;02AA11|000020;
@@ -8068,30 +7964,27 @@ CODE_02AA05:
    TAX                                  ;02AA17|      ;
    LDA.W Curr_HP_Rooks,X                ;02AA18|0012F3;
    CMP.B $20                            ;02AA1B|000020;
-   BMI CODE_02AA21                      ;02AA1D|02AA21;
-   BCS CODE_02AA43                      ;02AA1F|02AA43;
-CODE_02AA21:
-   LDA.W Curr_HP_Rooks,X                ;02AA21|0012F3;
+   BMI ++                               ;02AA1D|02AA21;
+   BCS +++                              ;02AA1F|02AA43;
+++ LDA.W Curr_HP_Rooks,X                ;02AA21|0012F3;
    LDX.W Selection_offset               ;02AA24|00103F;
    STA.W Object_var1_Category,X         ;02AA27|0009C7;
    LDA.W #$A9EE                         ;02AA2A|      ;
    LDY.W #$0002                         ;02AA2D|      ;
    JML.L Sub_LoadStuff                  ;02AA30|008DB4;
    RTL                                  ;02AA34|      ;
-CODE_02AA35:
-   LDX.W Selection_offset               ;02AA35|00103F;
+ + LDX.W Selection_offset               ;02AA35|00103F;
    LDA.W #$A9E4                         ;02AA38|      ;
    LDY.W #$0002                         ;02AA3B|      ;
    JML.L Sub_LoadStuff                  ;02AA3E|008DB4;
    RTL                                  ;02AA42|      ;
-CODE_02AA43:
-   LDA.W Curr_HP_Rooks,X                ;02AA43|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02AA43|0012F3;
    LDX.W Selection_offset               ;02AA46|00103F;
    STA.W Object_var1_Category,X         ;02AA49|0009C7;
    RTL                                  ;02AA4C|      ;
 LoadData_Enemy29:
    db $04                               ;02AA4D|      ;
-   dl Battle_Prep                       ;02AA4E|029124;
+   dl ASM_Battle_Prep                   ;02AA4E|029124;
 DATA8_02AA51:
    db $09                               ;02AA51|      ;
    dl CODE_02AAE7                       ;02AA52|02AAE7;
@@ -8100,7 +7993,7 @@ DATA8_02AA51:
    db $08                               ;02AA58|      ;
    dw DATA8_02AA7B                      ;02AA59|02AA7B;
    db $04                               ;02AA5B|      ;
-   dl DATA8_029111                      ;02AA5C|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02AA5C|029111;
    db $0B                               ;02AA5F|      ;
    dw DATA8_02AA6D                      ;02AA60|02AA6D;
    db $14                               ;02AA62|      ;
@@ -8126,14 +8019,14 @@ DATA8_02AA7B:
    db $24                               ;02AA7B|      ;
    db $02                               ;02AA7C|      ;
    db $07                               ;02AA7D|      ;
-   dl Zeros_11DB                        ;02AA7E|0781F0;
+   dl Clear_Condition_mirror            ;02AA7E|0781F0;
    db $08                               ;02AA81|      ;
    dw DATA8_02AAD7                      ;02AA82|02AAD7;
 DATA8_02AA84:
    db $24                               ;02AA84|      ;
    db $02                               ;02AA85|      ;
    db $07                               ;02AA86|      ;
-   dl CODE_078219                       ;02AA87|078219;
+   dl Sub_Get_Condition_Change          ;02AA87|078219;
    db $12                               ;02AA8A|      ;
    db $05                               ;02AA8B|      ;
    dw DATA8_02AA9B                      ;02AA8C|02AA9B;
@@ -8235,7 +8128,7 @@ CODE_02AAE7:
    LDA.W Curr_HP_Rooks,X                ;02AAFA|0012F3;
    CMP.B $20                            ;02AAFD|000020;
    BMI Load_Stuff_AA69                  ;02AAFF|02AB03;
-   BCS CODE_02AB25                      ;02AB01|02AB25;
+   BCS +                                ;02AB01|02AB25;
 Load_Stuff_AA69:
    LDA.W Curr_HP_Rooks,X                ;02AB03|0012F3;
    LDX.W Selection_offset               ;02AB06|00103F;
@@ -8250,14 +8143,13 @@ Load_Stuff_AA58:
    LDY.W #$0002                         ;02AB1D|      ;
    JML.L Sub_LoadStuff                  ;02AB20|008DB4;
    RTL                                  ;02AB24|      ;
-CODE_02AB25:
-   LDA.W Curr_HP_Rooks,X                ;02AB25|0012F3;
+ + LDA.W Curr_HP_Rooks,X                ;02AB25|0012F3;
    LDX.W Selection_offset               ;02AB28|00103F;
    STA.W Object_var1_Category,X         ;02AB2B|0009C7;
    RTL                                  ;02AB2E|      ;
 LoadData_Enemy2A:
    db $04                               ;02AB2F|      ;
-   dl Battle_Prep                       ;02AB30|029124;
+   dl ASM_Battle_Prep                   ;02AB30|029124;
 DATA8_02AB33:
    db $09                               ;02AB33|      ;
    dl CODE_02ABC5                       ;02AB34|02ABC5;
@@ -8266,7 +8158,7 @@ DATA8_02AB33:
    db $08                               ;02AB3A|      ;
    dw DATA8_02AB5D                      ;02AB3B|02AB5D;
    db $04                               ;02AB3D|      ;
-   dl DATA8_029111                      ;02AB3E|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02AB3E|029111;
    db $0B                               ;02AB41|      ;
    dw DATA8_02AB4F                      ;02AB42|02AB4F;
    db $14                               ;02AB44|      ;
@@ -8292,14 +8184,14 @@ DATA8_02AB5D:
    db $24                               ;02AB5D|      ;
    db $02                               ;02AB5E|      ;
    db $07                               ;02AB5F|      ;
-   dl Zeros_11DB                        ;02AB60|0781F0;
+   dl Clear_Condition_mirror            ;02AB60|0781F0;
    db $08                               ;02AB63|      ;
    dw DATA8_02ABB7                      ;02AB64|02ABB7;
 DATA8_02AB66:
    db $24                               ;02AB66|      ;
    db $02                               ;02AB67|      ;
    db $07                               ;02AB68|      ;
-   dl CODE_078219                       ;02AB69|078219;
+   dl Sub_Get_Condition_Change          ;02AB69|078219;
    db $12                               ;02AB6C|      ;
    db $05                               ;02AB6D|      ;
    dw DATA8_02AB7D                      ;02AB6E|02AB7D;
@@ -8387,7 +8279,7 @@ DATA8_02ABB7:
    dw DATA8_02ABB7                      ;02ABC3|02ABB7;
 CODE_02ABC5:
    JSL.L Is_Equals_1575                 ;02ABC5|07AEDD;
-   BNE CODE_02ABF5                      ;02ABC9|02ABF5;
+   BNE +                                ;02ABC9|02ABF5;
    LDX.W Selection_offset               ;02ABCB|00103F;
    LDA.W Object_var1_Category,X         ;02ABCE|0009C7;
    STA.B $20                            ;02ABD1|000020;
@@ -8396,30 +8288,27 @@ CODE_02ABC5:
    TAX                                  ;02ABD7|      ;
    LDA.W Curr_HP_Rooks,X                ;02ABD8|0012F3;
    CMP.B $20                            ;02ABDB|000020;
-   BMI CODE_02ABE1                      ;02ABDD|02ABE1;
-   BCS CODE_02AC03                      ;02ABDF|02AC03;
-CODE_02ABE1:
-   LDA.W Curr_HP_Rooks,X                ;02ABE1|0012F3;
+   BMI ++                               ;02ABDD|02ABE1;
+   BCS +++                              ;02ABDF|02AC03;
+++ LDA.W Curr_HP_Rooks,X                ;02ABE1|0012F3;
    LDX.W Selection_offset               ;02ABE4|00103F;
    STA.W Object_var1_Category,X         ;02ABE7|0009C7;
    LDA.W #$AB4B                         ;02ABEA|      ;
    LDY.W #$0002                         ;02ABED|      ;
    JML.L Sub_LoadStuff                  ;02ABF0|008DB4;
    RTL                                  ;02ABF4|      ;
-CODE_02ABF5:
-   LDX.W Selection_offset               ;02ABF5|00103F;
+ + LDX.W Selection_offset               ;02ABF5|00103F;
    LDA.W #$AB3A                         ;02ABF8|      ;
    LDY.W #$0002                         ;02ABFB|      ;
    JML.L Sub_LoadStuff                  ;02ABFE|008DB4;
    RTL                                  ;02AC02|      ;
-CODE_02AC03:
-   LDA.W Curr_HP_Rooks,X                ;02AC03|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02AC03|0012F3;
    LDX.W Selection_offset               ;02AC06|00103F;
    STA.W Object_var1_Category,X         ;02AC09|0009C7;
    RTL                                  ;02AC0C|      ;
 LoadData_Enemy2B:
    db $04                               ;02AC0D|      ;
-   dl Battle_Prep                       ;02AC0E|029124;
+   dl ASM_Battle_Prep                   ;02AC0E|029124;
 DATA8_02AC11:
    db $09                               ;02AC11|      ;
    dl CODE_02AC99                       ;02AC12|02AC99;
@@ -8428,7 +8317,7 @@ DATA8_02AC11:
    db $08                               ;02AC18|      ;
    dw DATA8_02AC3B                      ;02AC19|02AC3B;
    db $04                               ;02AC1B|      ;
-   dl DATA8_029111                      ;02AC1C|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02AC1C|029111;
    db $0B                               ;02AC1F|      ;
    dw DATA8_02AC2D                      ;02AC20|02AC2D;
    db $14                               ;02AC22|      ;
@@ -8454,14 +8343,14 @@ DATA8_02AC3B:
    db $24                               ;02AC3B|      ;
    db $02                               ;02AC3C|      ;
    db $07                               ;02AC3D|      ;
-   dl Zeros_11DB                        ;02AC3E|0781F0;
+   dl Clear_Condition_mirror            ;02AC3E|0781F0;
    db $08                               ;02AC41|      ;
    dw DATA8_02AC8F                      ;02AC42|02AC8F;
 DATA8_02AC44:
    db $24                               ;02AC44|      ;
    db $02                               ;02AC45|      ;
    db $07                               ;02AC46|      ;
-   dl CODE_078219                       ;02AC47|078219;
+   dl Sub_Get_Condition_Change          ;02AC47|078219;
    db $12                               ;02AC4A|      ;
    db $05                               ;02AC4B|      ;
    dw DATA8_02AC5B                      ;02AC4C|02AC5B;
@@ -8539,7 +8428,7 @@ DATA8_02AC8F:
    dw DATA8_02AC8F                      ;02AC97|02AC8F;
 CODE_02AC99:
    JSL.L Is_Equals_1575                 ;02AC99|07AEDD;
-   BNE CODE_02ACC9                      ;02AC9D|02ACC9;
+   BNE +                                ;02AC9D|02ACC9;
    LDX.W Selection_offset               ;02AC9F|00103F;
    LDA.W Object_var1_Category,X         ;02ACA2|0009C7;
    STA.B $20                            ;02ACA5|000020;
@@ -8548,30 +8437,27 @@ CODE_02AC99:
    TAX                                  ;02ACAB|      ;
    LDA.W Curr_HP_Rooks,X                ;02ACAC|0012F3;
    CMP.B $20                            ;02ACAF|000020;
-   BMI CODE_02ACB5                      ;02ACB1|02ACB5;
-   BCS CODE_02ACD7                      ;02ACB3|02ACD7;
-CODE_02ACB5:
-   LDA.W Curr_HP_Rooks,X                ;02ACB5|0012F3;
+   BMI ++                               ;02ACB1|02ACB5;
+   BCS +++                              ;02ACB3|02ACD7;
+++ LDA.W Curr_HP_Rooks,X                ;02ACB5|0012F3;
    LDX.W Selection_offset               ;02ACB8|00103F;
    STA.W Object_var1_Category,X         ;02ACBB|0009C7;
    LDA.W #$AC29                         ;02ACBE|      ;
    LDY.W #$0002                         ;02ACC1|      ;
    JML.L Sub_LoadStuff                  ;02ACC4|008DB4;
    RTL                                  ;02ACC8|      ;
-CODE_02ACC9:
-   LDX.W Selection_offset               ;02ACC9|00103F;
+ + LDX.W Selection_offset               ;02ACC9|00103F;
    LDA.W #$AC18                         ;02ACCC|      ;
    LDY.W #$0002                         ;02ACCF|      ;
    JML.L Sub_LoadStuff                  ;02ACD2|008DB4;
    RTL                                  ;02ACD6|      ;
-CODE_02ACD7:
-   LDA.W Curr_HP_Rooks,X                ;02ACD7|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02ACD7|0012F3;
    LDX.W Selection_offset               ;02ACDA|00103F;
    STA.W Object_var1_Category,X         ;02ACDD|0009C7;
    RTL                                  ;02ACE0|      ;
 LoadData_Enemy2C:
    db $04                               ;02ACE1|      ;
-   dl Battle_Prep                       ;02ACE2|029124;
+   dl ASM_Battle_Prep                   ;02ACE2|029124;
 DATA8_02ACE5:
    db $09                               ;02ACE5|      ;
    dl CODE_02AD6C                       ;02ACE6|02AD6C;
@@ -8580,7 +8466,7 @@ DATA8_02ACE5:
    db $08                               ;02ACEC|      ;
    dw DATA8_02AD0F                      ;02ACED|02AD0F;
    db $04                               ;02ACEF|      ;
-   dl DATA8_029111                      ;02ACF0|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02ACF0|029111;
    db $0B                               ;02ACF3|      ;
    dw DATA8_02AD01                      ;02ACF4|02AD01;
    db $14                               ;02ACF6|      ;
@@ -8606,14 +8492,14 @@ DATA8_02AD0F:
    db $24                               ;02AD0F|      ;
    db $02                               ;02AD10|      ;
    db $07                               ;02AD11|      ;
-   dl Zeros_11DB                        ;02AD12|0781F0;
+   dl Clear_Condition_mirror            ;02AD12|0781F0;
    db $08                               ;02AD15|      ;
    dw DATA8_02AD65                      ;02AD16|02AD65;
 DATA8_02AD18:
    db $24                               ;02AD18|      ;
    db $02                               ;02AD19|      ;
    db $07                               ;02AD1A|      ;
-   dl CODE_078219                       ;02AD1B|078219;
+   dl Sub_Get_Condition_Change          ;02AD1B|078219;
    db $12                               ;02AD1E|      ;
    db $05                               ;02AD1F|      ;
    dw DATA8_02AD2F                      ;02AD20|02AD2F;
@@ -8690,7 +8576,7 @@ DATA8_02AD65:
    dw DATA8_02AD65                      ;02AD6A|02AD65;
 CODE_02AD6C:
    JSL.L Is_Equals_1575                 ;02AD6C|07AEDD;
-   BNE CODE_02AD9C                      ;02AD70|02AD9C;
+   BNE +                                ;02AD70|02AD9C;
    LDX.W Selection_offset               ;02AD72|00103F;
    LDA.W Object_var1_Category,X         ;02AD75|0009C7;
    STA.B $20                            ;02AD78|000020;
@@ -8699,30 +8585,27 @@ CODE_02AD6C:
    TAX                                  ;02AD7E|      ;
    LDA.W Curr_HP_Rooks,X                ;02AD7F|0012F3;
    CMP.B $20                            ;02AD82|000020;
-   BMI CODE_02AD88                      ;02AD84|02AD88;
-   BCS CODE_02ADAA                      ;02AD86|02ADAA;
-CODE_02AD88:
-   LDA.W Curr_HP_Rooks,X                ;02AD88|0012F3;
+   BMI ++                               ;02AD84|02AD88;
+   BCS +++                              ;02AD86|02ADAA;
+++ LDA.W Curr_HP_Rooks,X                ;02AD88|0012F3;
    LDX.W Selection_offset               ;02AD8B|00103F;
    STA.W Object_var1_Category,X         ;02AD8E|0009C7;
    LDA.W #$ACFD                         ;02AD91|      ;
    LDY.W #$0002                         ;02AD94|      ;
    JML.L Sub_LoadStuff                  ;02AD97|008DB4;
    RTL                                  ;02AD9B|      ;
-CODE_02AD9C:
-   LDX.W Selection_offset               ;02AD9C|00103F;
+ + LDX.W Selection_offset               ;02AD9C|00103F;
    LDA.W #$ACEC                         ;02AD9F|      ;
    LDY.W #$0002                         ;02ADA2|      ;
    JML.L Sub_LoadStuff                  ;02ADA5|008DB4;
    RTL                                  ;02ADA9|      ;
-CODE_02ADAA:
-   LDA.W Curr_HP_Rooks,X                ;02ADAA|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02ADAA|0012F3;
    LDX.W Selection_offset               ;02ADAD|00103F;
    STA.W Object_var1_Category,X         ;02ADB0|0009C7;
    RTL                                  ;02ADB3|      ;
 LoadData_Enemy2D:
    db $04                               ;02ADB4|      ;
-   dl Battle_Prep                       ;02ADB5|029124;
+   dl ASM_Battle_Prep                   ;02ADB5|029124;
 DATA8_02ADB8:
    db $09                               ;02ADB8|      ;
    dl CODE_02AE49                       ;02ADB9|02AE49;
@@ -8731,7 +8614,7 @@ DATA8_02ADB8:
    db $08                               ;02ADBF|      ;
    dw DATA8_02ADE2                      ;02ADC0|02ADE2;
    db $04                               ;02ADC2|      ;
-   dl DATA8_029111                      ;02ADC3|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02ADC3|029111;
    db $0B                               ;02ADC6|      ;
    dw DATA8_02ADD4                      ;02ADC7|02ADD4;
    db $14                               ;02ADC9|      ;
@@ -8757,14 +8640,14 @@ DATA8_02ADE2:
    db $24                               ;02ADE2|      ;
    db $02                               ;02ADE3|      ;
    db $07                               ;02ADE4|      ;
-   dl Zeros_11DB                        ;02ADE5|0781F0;
+   dl Clear_Condition_mirror            ;02ADE5|0781F0;
    db $08                               ;02ADE8|      ;
    dw DATA8_02AE3C                      ;02ADE9|02AE3C;
 DATA8_02ADEB:
    db $24                               ;02ADEB|      ;
    db $02                               ;02ADEC|      ;
    db $07                               ;02ADED|      ;
-   dl CODE_078219                       ;02ADEE|078219;
+   dl Sub_Get_Condition_Change          ;02ADEE|078219;
    db $12                               ;02ADF1|      ;
    db $05                               ;02ADF2|      ;
    dw DATA8_02AE02                      ;02ADF3|02AE02;
@@ -8851,7 +8734,7 @@ DATA8_02AE3C:
    dw DATA8_02AE3C                      ;02AE47|02AE3C;
 CODE_02AE49:
    JSL.L Is_Equals_1575                 ;02AE49|07AEDD;
-   BNE CODE_02AE79                      ;02AE4D|02AE79;
+   BNE +                                ;02AE4D|02AE79;
    LDX.W Selection_offset               ;02AE4F|00103F;
    LDA.W Object_var1_Category,X         ;02AE52|0009C7;
    STA.B $20                            ;02AE55|000020;
@@ -8860,30 +8743,27 @@ CODE_02AE49:
    TAX                                  ;02AE5B|      ;
    LDA.W Curr_HP_Rooks,X                ;02AE5C|0012F3;
    CMP.B $20                            ;02AE5F|000020;
-   BMI CODE_02AE65                      ;02AE61|02AE65;
-   BCS CODE_02AE87                      ;02AE63|02AE87;
-CODE_02AE65:
-   LDA.W Curr_HP_Rooks,X                ;02AE65|0012F3;
+   BMI ++                               ;02AE61|02AE65;
+   BCS +++                              ;02AE63|02AE87;
+++ LDA.W Curr_HP_Rooks,X                ;02AE65|0012F3;
    LDX.W Selection_offset               ;02AE68|00103F;
    STA.W Object_var1_Category,X         ;02AE6B|0009C7;
    LDA.W #$ADD0                         ;02AE6E|      ;
    LDY.W #$0002                         ;02AE71|      ;
    JML.L Sub_LoadStuff                  ;02AE74|008DB4;
    RTL                                  ;02AE78|      ;
-CODE_02AE79:
-   LDX.W Selection_offset               ;02AE79|00103F;
+ + LDX.W Selection_offset               ;02AE79|00103F;
    LDA.W #$ADBF                         ;02AE7C|      ;
    LDY.W #$0002                         ;02AE7F|      ;
    JML.L Sub_LoadStuff                  ;02AE82|008DB4;
    RTL                                  ;02AE86|      ;
-CODE_02AE87:
-   LDA.W Curr_HP_Rooks,X                ;02AE87|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02AE87|0012F3;
    LDX.W Selection_offset               ;02AE8A|00103F;
    STA.W Object_var1_Category,X         ;02AE8D|0009C7;
    RTL                                  ;02AE90|      ;
 LoadData_Enemy2E:
    db $04                               ;02AE91|      ;
-   dl Battle_Prep                       ;02AE92|029124;
+   dl ASM_Battle_Prep                   ;02AE92|029124;
 DATA8_02AE95:
    db $09                               ;02AE95|      ;
    dl CODE_02AF2B                       ;02AE96|02AF2B;
@@ -8892,7 +8772,7 @@ DATA8_02AE95:
    db $08                               ;02AE9C|      ;
    dw DATA8_02AEBF                      ;02AE9D|02AEBF;
    db $04                               ;02AE9F|      ;
-   dl DATA8_029111                      ;02AEA0|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02AEA0|029111;
    db $0B                               ;02AEA3|      ;
    dw DATA8_02AEB1                      ;02AEA4|02AEB1;
    db $14                               ;02AEA6|      ;
@@ -8918,14 +8798,14 @@ DATA8_02AEBF:
    db $24                               ;02AEBF|      ;
    db $02                               ;02AEC0|      ;
    db $07                               ;02AEC1|      ;
-   dl Zeros_11DB                        ;02AEC2|0781F0;
+   dl Clear_Condition_mirror            ;02AEC2|0781F0;
    db $08                               ;02AEC5|      ;
    dw DATA8_02AF1B                      ;02AEC6|02AF1B;
 DATA8_02AEC8:
    db $24                               ;02AEC8|      ;
    db $02                               ;02AEC9|      ;
    db $07                               ;02AECA|      ;
-   dl CODE_078219                       ;02AECB|078219;
+   dl Sub_Get_Condition_Change          ;02AECB|078219;
    db $12                               ;02AECE|      ;
    db $05                               ;02AECF|      ;
    dw DATA8_02AEDF                      ;02AED0|02AEDF;
@@ -9017,7 +8897,7 @@ DATA8_02AF1B:
    dw DATA8_02AF1B                      ;02AF29|02AF1B;
 CODE_02AF2B:
    JSL.L Is_Equals_1575                 ;02AF2B|07AEDD;
-   BNE CODE_02AF5B                      ;02AF2F|02AF5B;
+   BNE +                                ;02AF2F|02AF5B;
    LDX.W Selection_offset               ;02AF31|00103F;
    LDA.W Object_var1_Category,X         ;02AF34|0009C7;
    STA.B $20                            ;02AF37|000020;
@@ -9026,30 +8906,27 @@ CODE_02AF2B:
    TAX                                  ;02AF3D|      ;
    LDA.W Curr_HP_Rooks,X                ;02AF3E|0012F3;
    CMP.B $20                            ;02AF41|000020;
-   BMI CODE_02AF47                      ;02AF43|02AF47;
-   BCS CODE_02AF69                      ;02AF45|02AF69;
-CODE_02AF47:
-   LDA.W Curr_HP_Rooks,X                ;02AF47|0012F3;
+   BMI ++                               ;02AF43|02AF47;
+   BCS +++                              ;02AF45|02AF69;
+++ LDA.W Curr_HP_Rooks,X                ;02AF47|0012F3;
    LDX.W Selection_offset               ;02AF4A|00103F;
    STA.W Object_var1_Category,X         ;02AF4D|0009C7;
    LDA.W #$AEAD                         ;02AF50|      ;
    LDY.W #$0002                         ;02AF53|      ;
    JML.L Sub_LoadStuff                  ;02AF56|008DB4;
    RTL                                  ;02AF5A|      ;
-CODE_02AF5B:
-   LDX.W Selection_offset               ;02AF5B|00103F;
+ + LDX.W Selection_offset               ;02AF5B|00103F;
    LDA.W #$AE9C                         ;02AF5E|      ;
    LDY.W #$0002                         ;02AF61|      ;
    JML.L Sub_LoadStuff                  ;02AF64|008DB4;
    RTL                                  ;02AF68|      ;
-CODE_02AF69:
-   LDA.W Curr_HP_Rooks,X                ;02AF69|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02AF69|0012F3;
    LDX.W Selection_offset               ;02AF6C|00103F;
    STA.W Object_var1_Category,X         ;02AF6F|0009C7;
    RTL                                  ;02AF72|      ;
 LoadData_Enemy2F:
    db $04                               ;02AF73|      ;
-   dl Battle_Prep                       ;02AF74|029124;
+   dl ASM_Battle_Prep                   ;02AF74|029124;
 DATA8_02AF77:
    db $09                               ;02AF77|      ;
    dl CODE_02B00D                       ;02AF78|02B00D;
@@ -9058,7 +8935,7 @@ DATA8_02AF77:
    db $08                               ;02AF7E|      ;
    dw DATA8_02AFA1                      ;02AF7F|02AFA1;
    db $04                               ;02AF81|      ;
-   dl DATA8_029111                      ;02AF82|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02AF82|029111;
    db $0B                               ;02AF85|      ;
    dw DATA8_02AF93                      ;02AF86|02AF93;
    db $14                               ;02AF88|      ;
@@ -9084,14 +8961,14 @@ DATA8_02AFA1:
    db $24                               ;02AFA1|      ;
    db $02                               ;02AFA2|      ;
    db $07                               ;02AFA3|      ;
-   dl Zeros_11DB                        ;02AFA4|0781F0;
+   dl Clear_Condition_mirror            ;02AFA4|0781F0;
    db $08                               ;02AFA7|      ;
    dw DATA8_02AFFD                      ;02AFA8|02AFFD;
 DATA8_02AFAA:
    db $24                               ;02AFAA|      ;
    db $02                               ;02AFAB|      ;
    db $07                               ;02AFAC|      ;
-   dl CODE_078219                       ;02AFAD|078219;
+   dl Sub_Get_Condition_Change          ;02AFAD|078219;
    db $12                               ;02AFB0|      ;
    db $05                               ;02AFB1|      ;
    dw DATA8_02AFC1                      ;02AFB2|02AFC1;
@@ -9183,7 +9060,7 @@ DATA8_02AFFD:
    dw DATA8_02AFFD                      ;02B00B|02AFFD;
 CODE_02B00D:
    JSL.L Is_Equals_1575                 ;02B00D|07AEDD;
-   BNE CODE_02B03D                      ;02B011|02B03D;
+   BNE +                                ;02B011|02B03D;
    LDX.W Selection_offset               ;02B013|00103F;
    LDA.W Object_var1_Category,X         ;02B016|0009C7;
    STA.B $20                            ;02B019|000020;
@@ -9192,30 +9069,27 @@ CODE_02B00D:
    TAX                                  ;02B01F|      ;
    LDA.W Curr_HP_Rooks,X                ;02B020|0012F3;
    CMP.B $20                            ;02B023|000020;
-   BMI CODE_02B029                      ;02B025|02B029;
-   BCS CODE_02B04B                      ;02B027|02B04B;
-CODE_02B029:
-   LDA.W Curr_HP_Rooks,X                ;02B029|0012F3;
+   BMI ++                               ;02B025|02B029;
+   BCS +++                              ;02B027|02B04B;
+++ LDA.W Curr_HP_Rooks,X                ;02B029|0012F3;
    LDX.W Selection_offset               ;02B02C|00103F;
    STA.W Object_var1_Category,X         ;02B02F|0009C7;
    LDA.W #$AF8F                         ;02B032|      ;
    LDY.W #$0002                         ;02B035|      ;
    JML.L Sub_LoadStuff                  ;02B038|008DB4;
    RTL                                  ;02B03C|      ;
-CODE_02B03D:
-   LDX.W Selection_offset               ;02B03D|00103F;
+ + LDX.W Selection_offset               ;02B03D|00103F;
    LDA.W #$AF7E                         ;02B040|      ;
    LDY.W #$0002                         ;02B043|      ;
    JML.L Sub_LoadStuff                  ;02B046|008DB4;
    RTL                                  ;02B04A|      ;
-CODE_02B04B:
-   LDA.W Curr_HP_Rooks,X                ;02B04B|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B04B|0012F3;
    LDX.W Selection_offset               ;02B04E|00103F;
    STA.W Object_var1_Category,X         ;02B051|0009C7;
    RTL                                  ;02B054|      ;
 LoadData_Enemy30:
    db $04                               ;02B055|      ;
-   dl Battle_Prep                       ;02B056|029124;
+   dl ASM_Battle_Prep                   ;02B056|029124;
 DATA8_02B059:
    db $09                               ;02B059|      ;
    dl CODE_02B0EA                       ;02B05A|02B0EA;
@@ -9224,7 +9098,7 @@ DATA8_02B059:
    db $08                               ;02B060|      ;
    dw DATA8_02B083                      ;02B061|02B083;
    db $04                               ;02B063|      ;
-   dl DATA8_029111                      ;02B064|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B064|029111;
    db $0B                               ;02B067|      ;
    dw DATA8_02B075                      ;02B068|02B075;
    db $14                               ;02B06A|      ;
@@ -9250,14 +9124,14 @@ DATA8_02B083:
    db $24                               ;02B083|      ;
    db $02                               ;02B084|      ;
    db $07                               ;02B085|      ;
-   dl Zeros_11DB                        ;02B086|0781F0;
+   dl Clear_Condition_mirror            ;02B086|0781F0;
    db $08                               ;02B089|      ;
    dw DATA8_02B0DD                      ;02B08A|02B0DD;
 DATA8_02B08C:
    db $24                               ;02B08C|      ;
    db $02                               ;02B08D|      ;
    db $07                               ;02B08E|      ;
-   dl CODE_078219                       ;02B08F|078219;
+   dl Sub_Get_Condition_Change          ;02B08F|078219;
    db $12                               ;02B092|      ;
    db $05                               ;02B093|      ;
    dw DATA8_02B0A3                      ;02B094|02B0A3;
@@ -9344,7 +9218,7 @@ DATA8_02B0DD:
    dw DATA8_02B0DD                      ;02B0E8|02B0DD;
 CODE_02B0EA:
    JSL.L Is_Equals_1575                 ;02B0EA|07AEDD;
-   BNE CODE_02B11A                      ;02B0EE|02B11A;
+   BNE +                                ;02B0EE|02B11A;
    LDX.W Selection_offset               ;02B0F0|00103F;
    LDA.W Object_var1_Category,X         ;02B0F3|0009C7;
    STA.B $20                            ;02B0F6|000020;
@@ -9353,30 +9227,27 @@ CODE_02B0EA:
    TAX                                  ;02B0FC|      ;
    LDA.W Curr_HP_Rooks,X                ;02B0FD|0012F3;
    CMP.B $20                            ;02B100|000020;
-   BMI CODE_02B106                      ;02B102|02B106;
-   BCS CODE_02B128                      ;02B104|02B128;
-CODE_02B106:
-   LDA.W Curr_HP_Rooks,X                ;02B106|0012F3;
+   BMI ++                               ;02B102|02B106;
+   BCS +++                              ;02B104|02B128;
+++ LDA.W Curr_HP_Rooks,X                ;02B106|0012F3;
    LDX.W Selection_offset               ;02B109|00103F;
    STA.W Object_var1_Category,X         ;02B10C|0009C7;
    LDA.W #$B071                         ;02B10F|      ;
    LDY.W #$0002                         ;02B112|      ;
    JML.L Sub_LoadStuff                  ;02B115|008DB4;
    RTL                                  ;02B119|      ;
-CODE_02B11A:
-   LDX.W Selection_offset               ;02B11A|00103F;
+ + LDX.W Selection_offset               ;02B11A|00103F;
    LDA.W #$B060                         ;02B11D|      ;
    LDY.W #$0002                         ;02B120|      ;
    JML.L Sub_LoadStuff                  ;02B123|008DB4;
    RTL                                  ;02B127|      ;
-CODE_02B128:
-   LDA.W Curr_HP_Rooks,X                ;02B128|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B128|0012F3;
    LDX.W Selection_offset               ;02B12B|00103F;
    STA.W Object_var1_Category,X         ;02B12E|0009C7;
    RTL                                  ;02B131|      ;
 LoadData_Enemy31:
    db $04                               ;02B132|      ;
-   dl Battle_Prep                       ;02B133|029124;
+   dl ASM_Battle_Prep                   ;02B133|029124;
 DATA8_02B136:
    db $09                               ;02B136|      ;
    dl CODE_02B1CC                       ;02B137|02B1CC;
@@ -9385,7 +9256,7 @@ DATA8_02B136:
    db $08                               ;02B13D|      ;
    dw DATA8_02B160                      ;02B13E|02B160;
    db $04                               ;02B140|      ;
-   dl DATA8_029111                      ;02B141|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B141|029111;
    db $0B                               ;02B144|      ;
    dw DATA8_02B152                      ;02B145|02B152;
    db $14                               ;02B147|      ;
@@ -9411,14 +9282,14 @@ DATA8_02B160:
    db $24                               ;02B160|      ;
    db $02                               ;02B161|      ;
    db $07                               ;02B162|      ;
-   dl Zeros_11DB                        ;02B163|0781F0;
+   dl Clear_Condition_mirror            ;02B163|0781F0;
    db $08                               ;02B166|      ;
    dw DATA8_02B1BC                      ;02B167|02B1BC;
 DATA8_02B169:
    db $24                               ;02B169|      ;
    db $02                               ;02B16A|      ;
    db $07                               ;02B16B|      ;
-   dl CODE_078219                       ;02B16C|078219;
+   dl Sub_Get_Condition_Change          ;02B16C|078219;
    db $12                               ;02B16F|      ;
    db $05                               ;02B170|      ;
    dw DATA8_02B180                      ;02B171|02B180;
@@ -9510,7 +9381,7 @@ DATA8_02B1BC:
    dw DATA8_02B1BC                      ;02B1CA|02B1BC;
 CODE_02B1CC:
    JSL.L Is_Equals_1575                 ;02B1CC|07AEDD;
-   BNE CODE_02B1FC                      ;02B1D0|02B1FC;
+   BNE +                                ;02B1D0|02B1FC;
    LDX.W Selection_offset               ;02B1D2|00103F;
    LDA.W Object_var1_Category,X         ;02B1D5|0009C7;
    STA.B $20                            ;02B1D8|000020;
@@ -9519,30 +9390,27 @@ CODE_02B1CC:
    TAX                                  ;02B1DE|      ;
    LDA.W Curr_HP_Rooks,X                ;02B1DF|0012F3;
    CMP.B $20                            ;02B1E2|000020;
-   BMI CODE_02B1E8                      ;02B1E4|02B1E8;
-   BCS CODE_02B20A                      ;02B1E6|02B20A;
-CODE_02B1E8:
-   LDA.W Curr_HP_Rooks,X                ;02B1E8|0012F3;
+   BMI ++                               ;02B1E4|02B1E8;
+   BCS +++                              ;02B1E6|02B20A;
+++ LDA.W Curr_HP_Rooks,X                ;02B1E8|0012F3;
    LDX.W Selection_offset               ;02B1EB|00103F;
    STA.W Object_var1_Category,X         ;02B1EE|0009C7;
    LDA.W #$B14E                         ;02B1F1|      ;
    LDY.W #$0002                         ;02B1F4|      ;
    JML.L Sub_LoadStuff                  ;02B1F7|008DB4;
    RTL                                  ;02B1FB|      ;
-CODE_02B1FC:
-   LDX.W Selection_offset               ;02B1FC|00103F;
+ + LDX.W Selection_offset               ;02B1FC|00103F;
    LDA.W #$B13D                         ;02B1FF|      ;
    LDY.W #$0002                         ;02B202|      ;
    JML.L Sub_LoadStuff                  ;02B205|008DB4;
    RTL                                  ;02B209|      ;
-CODE_02B20A:
-   LDA.W Curr_HP_Rooks,X                ;02B20A|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B20A|0012F3;
    LDX.W Selection_offset               ;02B20D|00103F;
    STA.W Object_var1_Category,X         ;02B210|0009C7;
    RTL                                  ;02B213|      ;
 LoadData_Enemy32:
    db $04                               ;02B214|      ;
-   dl Battle_Prep                       ;02B215|029124;
+   dl ASM_Battle_Prep                   ;02B215|029124;
 DATA8_02B218:
    db $09                               ;02B218|      ;
    dl CODE_02B2C3                       ;02B219|02B2C3;
@@ -9551,7 +9419,7 @@ DATA8_02B218:
    db $08                               ;02B21F|      ;
    dw DATA8_02B242                      ;02B220|02B242;
    db $04                               ;02B222|      ;
-   dl DATA8_029111                      ;02B223|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B223|029111;
    db $0B                               ;02B226|      ;
    dw DATA8_02B234                      ;02B227|02B234;
    db $14                               ;02B229|      ;
@@ -9576,14 +9444,14 @@ DATA8_02B242:
    db $24                               ;02B242|      ;
    db $02                               ;02B243|      ;
    db $07                               ;02B244|      ;
-   dl Zeros_11DB                        ;02B245|0781F0;
+   dl Clear_Condition_mirror            ;02B245|0781F0;
    db $08                               ;02B248|      ;
    dw DATA8_02B2AC                      ;02B249|02B2AC;
 DATA8_02B24B:
    db $24                               ;02B24B|      ;
    db $02                               ;02B24C|      ;
    db $07                               ;02B24D|      ;
-   dl CODE_078219                       ;02B24E|078219;
+   dl Sub_Get_Condition_Change          ;02B24E|078219;
    db $12                               ;02B251|      ;
    db $05                               ;02B252|      ;
    dw DATA8_02B262                      ;02B253|02B262;
@@ -9696,7 +9564,7 @@ DATA8_02B2AC:
    dw DATA8_02B2AC                      ;02B2C1|02B2AC;
 CODE_02B2C3:
    JSL.L Is_Equals_1575                 ;02B2C3|07AEDD;
-   BNE CODE_02B2F3                      ;02B2C7|02B2F3;
+   BNE +                                ;02B2C7|02B2F3;
    LDX.W Selection_offset               ;02B2C9|00103F;
    LDA.W Object_var1_Category,X         ;02B2CC|0009C7;
    STA.B $20                            ;02B2CF|000020;
@@ -9705,30 +9573,27 @@ CODE_02B2C3:
    TAX                                  ;02B2D5|      ;
    LDA.W Curr_HP_Rooks,X                ;02B2D6|0012F3;
    CMP.B $20                            ;02B2D9|000020;
-   BMI CODE_02B2DF                      ;02B2DB|02B2DF;
-   BCS CODE_02B301                      ;02B2DD|02B301;
-CODE_02B2DF:
-   LDA.W Curr_HP_Rooks,X                ;02B2DF|0012F3;
+   BMI ++                               ;02B2DB|02B2DF;
+   BCS +++                              ;02B2DD|02B301;
+++ LDA.W Curr_HP_Rooks,X                ;02B2DF|0012F3;
    LDX.W Selection_offset               ;02B2E2|00103F;
    STA.W Object_var1_Category,X         ;02B2E5|0009C7;
    LDA.W #$B230                         ;02B2E8|      ;
    LDY.W #$0002                         ;02B2EB|      ;
    JML.L Sub_LoadStuff                  ;02B2EE|008DB4;
    RTL                                  ;02B2F2|      ;
-CODE_02B2F3:
-   LDX.W Selection_offset               ;02B2F3|00103F;
+ + LDX.W Selection_offset               ;02B2F3|00103F;
    LDA.W #$B21F                         ;02B2F6|      ;
    LDY.W #$0002                         ;02B2F9|      ;
    JML.L Sub_LoadStuff                  ;02B2FC|008DB4;
    RTL                                  ;02B300|      ;
-CODE_02B301:
-   LDA.W Curr_HP_Rooks,X                ;02B301|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B301|0012F3;
    LDX.W Selection_offset               ;02B304|00103F;
    STA.W Object_var1_Category,X         ;02B307|0009C7;
    RTL                                  ;02B30A|      ;
 LoadData_Enemy33:
    db $04                               ;02B30B|      ;
-   dl Battle_Prep                       ;02B30C|029124;
+   dl ASM_Battle_Prep                   ;02B30C|029124;
 DATA8_02B30F:
    db $09                               ;02B30F|      ;
    dl CODE_02B3C4                       ;02B310|02B3C4;
@@ -9737,7 +9602,7 @@ DATA8_02B30F:
    db $08                               ;02B316|      ;
    dw DATA8_02B339                      ;02B317|02B339;
    db $04                               ;02B319|      ;
-   dl DATA8_029111                      ;02B31A|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B31A|029111;
    db $0B                               ;02B31D|      ;
    dw DATA8_02B32B                      ;02B31E|02B32B;
    db $14                               ;02B320|      ;
@@ -9762,14 +9627,14 @@ DATA8_02B339:
    db $24                               ;02B339|      ;
    db $02                               ;02B33A|      ;
    db $07                               ;02B33B|      ;
-   dl Zeros_11DB                        ;02B33C|0781F0;
+   dl Clear_Condition_mirror            ;02B33C|0781F0;
    db $08                               ;02B33F|      ;
    dw DATA8_02B3B1                      ;02B340|02B3B1;
 DATA8_02B342:
    db $24                               ;02B342|      ;
    db $02                               ;02B343|      ;
    db $07                               ;02B344|      ;
-   dl CODE_078219                       ;02B345|078219;
+   dl Sub_Get_Condition_Change          ;02B345|078219;
    db $12                               ;02B348|      ;
    db $05                               ;02B349|      ;
    dw DATA8_02B359                      ;02B34A|02B359;
@@ -9892,7 +9757,7 @@ DATA8_02B3B1:
    dw DATA8_02B3B1                      ;02B3C2|02B3B1;
 CODE_02B3C4:
    JSL.L Is_Equals_1575                 ;02B3C4|07AEDD;
-   BNE CODE_02B3F4                      ;02B3C8|02B3F4;
+   BNE +                                ;02B3C8|02B3F4;
    LDX.W Selection_offset               ;02B3CA|00103F;
    LDA.W Object_var1_Category,X         ;02B3CD|0009C7;
    STA.B $20                            ;02B3D0|000020;
@@ -9901,30 +9766,27 @@ CODE_02B3C4:
    TAX                                  ;02B3D6|      ;
    LDA.W Curr_HP_Rooks,X                ;02B3D7|0012F3;
    CMP.B $20                            ;02B3DA|000020;
-   BMI CODE_02B3E0                      ;02B3DC|02B3E0;
-   BCS CODE_02B402                      ;02B3DE|02B402;
-CODE_02B3E0:
-   LDA.W Curr_HP_Rooks,X                ;02B3E0|0012F3;
+   BMI ++                               ;02B3DC|02B3E0;
+   BCS +++                              ;02B3DE|02B402;
+++ LDA.W Curr_HP_Rooks,X                ;02B3E0|0012F3;
    LDX.W Selection_offset               ;02B3E3|00103F;
    STA.W Object_var1_Category,X         ;02B3E6|0009C7;
    LDA.W #$B327                         ;02B3E9|      ;
    LDY.W #$0002                         ;02B3EC|      ;
    JML.L Sub_LoadStuff                  ;02B3EF|008DB4;
    RTL                                  ;02B3F3|      ;
-CODE_02B3F4:
-   LDX.W Selection_offset               ;02B3F4|00103F;
+ + LDX.W Selection_offset               ;02B3F4|00103F;
    LDA.W #$B316                         ;02B3F7|      ;
    LDY.W #$0002                         ;02B3FA|      ;
    JML.L Sub_LoadStuff                  ;02B3FD|008DB4;
    RTL                                  ;02B401|      ;
-CODE_02B402:
-   LDA.W Curr_HP_Rooks,X                ;02B402|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B402|0012F3;
    LDX.W Selection_offset               ;02B405|00103F;
    STA.W Object_var1_Category,X         ;02B408|0009C7;
    RTL                                  ;02B40B|      ;
 LoadData_Enemy34:
    db $04                               ;02B40C|      ;
-   dl Battle_Prep                       ;02B40D|029124;
+   dl ASM_Battle_Prep                   ;02B40D|029124;
 DATA8_02B410:
    db $09                               ;02B410|      ;
    dl CODE_02B4A6                       ;02B411|02B4A6;
@@ -9933,7 +9795,7 @@ DATA8_02B410:
    db $08                               ;02B417|      ;
    dw DATA8_02B43A                      ;02B418|02B43A;
    db $04                               ;02B41A|      ;
-   dl DATA8_029111                      ;02B41B|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B41B|029111;
    db $0B                               ;02B41E|      ;
    dw DATA8_02B42C                      ;02B41F|02B42C;
    db $14                               ;02B421|      ;
@@ -9958,14 +9820,14 @@ DATA8_02B43A:
    db $24                               ;02B43A|      ;
    db $02                               ;02B43B|      ;
    db $07                               ;02B43C|      ;
-   dl Zeros_11DB                        ;02B43D|0781F0;
+   dl Clear_Condition_mirror            ;02B43D|0781F0;
    db $08                               ;02B440|      ;
    dw DATA8_02B496                      ;02B441|02B496;
 DATA8_02B443:
    db $24                               ;02B443|      ;
    db $02                               ;02B444|      ;
    db $07                               ;02B445|      ;
-   dl CODE_078219                       ;02B446|078219;
+   dl Sub_Get_Condition_Change          ;02B446|078219;
    db $12                               ;02B449|      ;
    db $05                               ;02B44A|      ;
    dw DATA8_02B45A                      ;02B44B|02B45A;
@@ -10057,7 +9919,7 @@ DATA8_02B496:
    dw DATA8_02B496                      ;02B4A4|02B496;
 CODE_02B4A6:
    JSL.L Is_Equals_1575                 ;02B4A6|07AEDD;
-   BNE CODE_02B4D6                      ;02B4AA|02B4D6;
+   BNE +                                ;02B4AA|02B4D6;
    LDX.W Selection_offset               ;02B4AC|00103F;
    LDA.W Object_var1_Category,X         ;02B4AF|0009C7;
    STA.B $20                            ;02B4B2|000020;
@@ -10066,30 +9928,27 @@ CODE_02B4A6:
    TAX                                  ;02B4B8|      ;
    LDA.W Curr_HP_Rooks,X                ;02B4B9|0012F3;
    CMP.B $20                            ;02B4BC|000020;
-   BMI CODE_02B4C2                      ;02B4BE|02B4C2;
-   BCS CODE_02B4E4                      ;02B4C0|02B4E4;
-CODE_02B4C2:
-   LDA.W Curr_HP_Rooks,X                ;02B4C2|0012F3;
+   BMI ++                               ;02B4BE|02B4C2;
+   BCS +++                              ;02B4C0|02B4E4;
+++ LDA.W Curr_HP_Rooks,X                ;02B4C2|0012F3;
    LDX.W Selection_offset               ;02B4C5|00103F;
    STA.W Object_var1_Category,X         ;02B4C8|0009C7;
    LDA.W #$B428                         ;02B4CB|      ;
    LDY.W #$0002                         ;02B4CE|      ;
    JML.L Sub_LoadStuff                  ;02B4D1|008DB4;
    RTL                                  ;02B4D5|      ;
-CODE_02B4D6:
-   LDX.W Selection_offset               ;02B4D6|00103F;
+ + LDX.W Selection_offset               ;02B4D6|00103F;
    LDA.W #$B417                         ;02B4D9|      ;
    LDY.W #$0002                         ;02B4DC|      ;
    JML.L Sub_LoadStuff                  ;02B4DF|008DB4;
    RTL                                  ;02B4E3|      ;
-CODE_02B4E4:
-   LDA.W Curr_HP_Rooks,X                ;02B4E4|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B4E4|0012F3;
    LDX.W Selection_offset               ;02B4E7|00103F;
    STA.W Object_var1_Category,X         ;02B4EA|0009C7;
    RTL                                  ;02B4ED|      ;
 LoadData_Enemy35:
    db $04                               ;02B4EE|      ;
-   dl Battle_Prep                       ;02B4EF|029124;
+   dl ASM_Battle_Prep                   ;02B4EF|029124;
 DATA8_02B4F2:
    db $09                               ;02B4F2|      ;
    dl CODE_02B584                       ;02B4F3|02B584;
@@ -10098,7 +9957,7 @@ DATA8_02B4F2:
    db $08                               ;02B4F9|      ;
    dw DATA8_02B51C                      ;02B4FA|02B51C;
    db $04                               ;02B4FC|      ;
-   dl DATA8_029111                      ;02B4FD|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B4FD|029111;
    db $0B                               ;02B500|      ;
    dw DATA8_02B50E                      ;02B501|02B50E;
    db $14                               ;02B503|      ;
@@ -10123,14 +9982,14 @@ DATA8_02B51C:
    db $24                               ;02B51C|      ;
    db $02                               ;02B51D|      ;
    db $07                               ;02B51E|      ;
-   dl Zeros_11DB                        ;02B51F|0781F0;
+   dl Clear_Condition_mirror            ;02B51F|0781F0;
    db $08                               ;02B522|      ;
    dw DATA8_02B578                      ;02B523|02B578;
 DATA8_02B525:
    db $24                               ;02B525|      ;
    db $02                               ;02B526|      ;
    db $07                               ;02B527|      ;
-   dl CODE_078219                       ;02B528|078219;
+   dl Sub_Get_Condition_Change          ;02B528|078219;
    db $12                               ;02B52B|      ;
    db $05                               ;02B52C|      ;
    dw DATA8_02B53C                      ;02B52D|02B53C;
@@ -10218,7 +10077,7 @@ DATA8_02B578:
    dw DATA8_02B578                      ;02B582|02B578;
 CODE_02B584:
    JSL.L Is_Equals_1575                 ;02B584|07AEDD;
-   BNE CODE_02B5B4                      ;02B588|02B5B4;
+   BNE +                                ;02B588|02B5B4;
    LDX.W Selection_offset               ;02B58A|00103F;
    LDA.W Object_var1_Category,X         ;02B58D|0009C7;
    STA.B $20                            ;02B590|000020;
@@ -10227,30 +10086,27 @@ CODE_02B584:
    TAX                                  ;02B596|      ;
    LDA.W Curr_HP_Rooks,X                ;02B597|0012F3;
    CMP.B $20                            ;02B59A|000020;
-   BMI CODE_02B5A0                      ;02B59C|02B5A0;
-   BCS CODE_02B5C2                      ;02B59E|02B5C2;
-CODE_02B5A0:
-   LDA.W Curr_HP_Rooks,X                ;02B5A0|0012F3;
+   BMI ++                               ;02B59C|02B5A0;
+   BCS +++                              ;02B59E|02B5C2;
+++ LDA.W Curr_HP_Rooks,X                ;02B5A0|0012F3;
    LDX.W Selection_offset               ;02B5A3|00103F;
    STA.W Object_var1_Category,X         ;02B5A6|0009C7;
    LDA.W #$B50A                         ;02B5A9|      ;
    LDY.W #$0002                         ;02B5AC|      ;
    JML.L Sub_LoadStuff                  ;02B5AF|008DB4;
    RTL                                  ;02B5B3|      ;
-CODE_02B5B4:
-   LDX.W Selection_offset               ;02B5B4|00103F;
+ + LDX.W Selection_offset               ;02B5B4|00103F;
    LDA.W #$B4F9                         ;02B5B7|      ;
    LDY.W #$0002                         ;02B5BA|      ;
    JML.L Sub_LoadStuff                  ;02B5BD|008DB4;
    RTL                                  ;02B5C1|      ;
-CODE_02B5C2:
-   LDA.W Curr_HP_Rooks,X                ;02B5C2|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B5C2|0012F3;
    LDX.W Selection_offset               ;02B5C5|00103F;
    STA.W Object_var1_Category,X         ;02B5C8|0009C7;
    RTL                                  ;02B5CB|      ;
 LoadData_Enemy36:
    db $04                               ;02B5CC|      ;
-   dl Battle_Prep                       ;02B5CD|029124;
+   dl ASM_Battle_Prep                   ;02B5CD|029124;
 DATA8_02B5D0:
    db $09                               ;02B5D0|      ;
    dl CODE_02B65F                       ;02B5D1|02B65F;
@@ -10259,7 +10115,7 @@ DATA8_02B5D0:
    db $08                               ;02B5D7|      ;
    dw DATA8_02B5FA                      ;02B5D8|02B5FA;
    db $04                               ;02B5DA|      ;
-   dl DATA8_029111                      ;02B5DB|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B5DB|029111;
    db $0B                               ;02B5DE|      ;
    dw DATA8_02B5EC                      ;02B5DF|02B5EC;
    db $14                               ;02B5E1|      ;
@@ -10285,14 +10141,14 @@ DATA8_02B5FA:
    db $24                               ;02B5FA|      ;
    db $02                               ;02B5FB|      ;
    db $07                               ;02B5FC|      ;
-   dl Zeros_11DB                        ;02B5FD|0781F0;
+   dl Clear_Condition_mirror            ;02B5FD|0781F0;
    db $08                               ;02B600|      ;
    dw DATA8_02B652                      ;02B601|02B652;
 DATA8_02B603:
    db $24                               ;02B603|      ;
    db $02                               ;02B604|      ;
    db $07                               ;02B605|      ;
-   dl CODE_078219                       ;02B606|078219;
+   dl Sub_Get_Condition_Change          ;02B606|078219;
    db $12                               ;02B609|      ;
    db $05                               ;02B60A|      ;
    dw DATA8_02B61A                      ;02B60B|02B61A;
@@ -10377,7 +10233,7 @@ DATA8_02B652:
    dw DATA8_02B652                      ;02B65D|02B652;
 CODE_02B65F:
    JSL.L Is_Equals_1575                 ;02B65F|07AEDD;
-   BNE CODE_02B68F                      ;02B663|02B68F;
+   BNE +                                ;02B663|02B68F;
    LDX.W Selection_offset               ;02B665|00103F;
    LDA.W Object_var1_Category,X         ;02B668|0009C7;
    STA.B $20                            ;02B66B|000020;
@@ -10386,30 +10242,27 @@ CODE_02B65F:
    TAX                                  ;02B671|      ;
    LDA.W Curr_HP_Rooks,X                ;02B672|0012F3;
    CMP.B $20                            ;02B675|000020;
-   BMI CODE_02B67B                      ;02B677|02B67B;
-   BCS CODE_02B69D                      ;02B679|02B69D;
-CODE_02B67B:
-   LDA.W Curr_HP_Rooks,X                ;02B67B|0012F3;
+   BMI ++                               ;02B677|02B67B;
+   BCS +++                              ;02B679|02B69D;
+++ LDA.W Curr_HP_Rooks,X                ;02B67B|0012F3;
    LDX.W Selection_offset               ;02B67E|00103F;
    STA.W Object_var1_Category,X         ;02B681|0009C7;
    LDA.W #$B5E8                         ;02B684|      ;
    LDY.W #$0002                         ;02B687|      ;
    JML.L Sub_LoadStuff                  ;02B68A|008DB4;
    RTL                                  ;02B68E|      ;
-CODE_02B68F:
-   LDX.W Selection_offset               ;02B68F|00103F;
+ + LDX.W Selection_offset               ;02B68F|00103F;
    LDA.W #$B5D7                         ;02B692|      ;
    LDY.W #$0002                         ;02B695|      ;
    JML.L Sub_LoadStuff                  ;02B698|008DB4;
    RTL                                  ;02B69C|      ;
-CODE_02B69D:
-   LDA.W Curr_HP_Rooks,X                ;02B69D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B69D|0012F3;
    LDX.W Selection_offset               ;02B6A0|00103F;
    STA.W Object_var1_Category,X         ;02B6A3|0009C7;
    RTL                                  ;02B6A6|      ;
 LoadData_Enemy37:
    db $04                               ;02B6A7|      ;
-   dl Battle_Prep                       ;02B6A8|029124;
+   dl ASM_Battle_Prep                   ;02B6A8|029124;
 DATA8_02B6AB:
    db $09                               ;02B6AB|      ;
    dl CODE_02B73A                       ;02B6AC|02B73A;
@@ -10418,7 +10271,7 @@ DATA8_02B6AB:
    db $08                               ;02B6B2|      ;
    dw $B6D5                             ;02B6B3|      ;
    db $04                               ;02B6B5|      ;
-   dl DATA8_029111                      ;02B6B6|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B6B6|029111;
    db $0B                               ;02B6B9|      ;
    dw DATA8_02B6C7                      ;02B6BA|02B6C7;
    db $14                               ;02B6BC|      ;
@@ -10443,14 +10296,14 @@ DATA8_02B6D5:
    db $24                               ;02B6D5|      ;
    db $02                               ;02B6D6|      ;
    db $07                               ;02B6D7|      ;
-   dl Zeros_11DB                        ;02B6D8|0781F0;
+   dl Clear_Condition_mirror            ;02B6D8|0781F0;
    db $08                               ;02B6DB|      ;
    dw DATA8_02B72D                      ;02B6DC|02B72D;
 DATA8_02B6DE:
    db $24                               ;02B6DE|      ;
    db $02                               ;02B6DF|      ;
    db $07                               ;02B6E0|      ;
-   dl CODE_078219                       ;02B6E1|078219;
+   dl Sub_Get_Condition_Change          ;02B6E1|078219;
    db $12                               ;02B6E4|      ;
    db $05                               ;02B6E5|      ;
    dw DATA8_02B6F5                      ;02B6E6|02B6F5;
@@ -10535,7 +10388,7 @@ DATA8_02B72D:
    dw DATA8_02B72D                      ;02B738|02B72D;
 CODE_02B73A:
    JSL.L Is_Equals_1575                 ;02B73A|07AEDD;
-   BNE CODE_02B76A                      ;02B73E|02B76A;
+   BNE +                                ;02B73E|02B76A;
    LDX.W Selection_offset               ;02B740|00103F;
    LDA.W Object_var1_Category,X         ;02B743|0009C7;
    STA.B $20                            ;02B746|000020;
@@ -10544,30 +10397,27 @@ CODE_02B73A:
    TAX                                  ;02B74C|      ;
    LDA.W Curr_HP_Rooks,X                ;02B74D|0012F3;
    CMP.B $20                            ;02B750|000020;
-   BMI CODE_02B756                      ;02B752|02B756;
-   BCS CODE_02B778                      ;02B754|02B778;
-CODE_02B756:
-   LDA.W Curr_HP_Rooks,X                ;02B756|0012F3;
+   BMI ++                               ;02B752|02B756;
+   BCS +++                              ;02B754|02B778;
+++ LDA.W Curr_HP_Rooks,X                ;02B756|0012F3;
    LDX.W Selection_offset               ;02B759|00103F;
    STA.W Object_var1_Category,X         ;02B75C|0009C7;
    LDA.W #$B6C3                         ;02B75F|      ;
    LDY.W #$0002                         ;02B762|      ;
    JML.L Sub_LoadStuff                  ;02B765|008DB4;
    RTL                                  ;02B769|      ;
-CODE_02B76A:
-   LDX.W Selection_offset               ;02B76A|00103F;
+ + LDX.W Selection_offset               ;02B76A|00103F;
    LDA.W #$B6B2                         ;02B76D|      ;
    LDY.W #$0002                         ;02B770|      ;
    JML.L Sub_LoadStuff                  ;02B773|008DB4;
    RTL                                  ;02B777|      ;
-CODE_02B778:
-   LDA.W Curr_HP_Rooks,X                ;02B778|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B778|0012F3;
    LDX.W Selection_offset               ;02B77B|00103F;
    STA.W Object_var1_Category,X         ;02B77E|0009C7;
    RTL                                  ;02B781|      ;
 LoadData_Enemy38:
    db $04                               ;02B782|      ;
-   dl Battle_Prep                       ;02B783|029124;
+   dl ASM_Battle_Prep                   ;02B783|029124;
 DATA8_02B786:
    db $09                               ;02B786|      ;
    dl CODE_02B7B3                       ;02B787|02B7B3;
@@ -10576,7 +10426,7 @@ DATA8_02B786:
    db $08                               ;02B78D|      ;
    dw DATA8_02B7A9                      ;02B78E|02B7A9;
    db $04                               ;02B790|      ;
-   dl DATA8_029111                      ;02B791|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B791|029111;
    db $1A                               ;02B794|      ;
    dw DATA8_02B786                      ;02B795|02B786;
    db $04                               ;02B797|      ;
@@ -10602,7 +10452,7 @@ DATA8_02B7A9:
    dw DATA8_02B7A9                      ;02B7B1|02B7A9;
 CODE_02B7B3:
    JSL.L Is_Equals_1575                 ;02B7B3|07AEDD;
-   BNE CODE_02B7E3                      ;02B7B7|02B7E3;
+   BNE +                                ;02B7B7|02B7E3;
    LDX.W Selection_offset               ;02B7B9|00103F;
    LDA.W Object_var1_Category,X         ;02B7BC|0009C7;
    STA.B $20                            ;02B7BF|000020;
@@ -10611,30 +10461,27 @@ CODE_02B7B3:
    TAX                                  ;02B7C5|      ;
    LDA.W Curr_HP_Rooks,X                ;02B7C6|0012F3;
    CMP.B $20                            ;02B7C9|000020;
-   BMI CODE_02B7CF                      ;02B7CB|02B7CF;
-   BCS CODE_02B7F1                      ;02B7CD|02B7F1;
-CODE_02B7CF:
-   LDA.W Curr_HP_Rooks,X                ;02B7CF|0012F3;
+   BMI ++                               ;02B7CB|02B7CF;
+   BCS +++                              ;02B7CD|02B7F1;
+++ LDA.W Curr_HP_Rooks,X                ;02B7CF|0012F3;
    LDX.W Selection_offset               ;02B7D2|00103F;
    STA.W Object_var1_Category,X         ;02B7D5|0009C7;
    LDA.W #$B797                         ;02B7D8|      ;
    LDY.W #$0002                         ;02B7DB|      ;
    JML.L Sub_LoadStuff                  ;02B7DE|008DB4;
    RTL                                  ;02B7E2|      ;
-CODE_02B7E3:
-   LDX.W Selection_offset               ;02B7E3|00103F;
+ + LDX.W Selection_offset               ;02B7E3|00103F;
    LDA.W #$B78D                         ;02B7E6|      ;
    LDY.W #$0002                         ;02B7E9|      ;
    JML.L Sub_LoadStuff                  ;02B7EC|008DB4;
    RTL                                  ;02B7F0|      ;
-CODE_02B7F1:
-   LDA.W Curr_HP_Rooks,X                ;02B7F1|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B7F1|0012F3;
    LDX.W Selection_offset               ;02B7F4|00103F;
    STA.W Object_var1_Category,X         ;02B7F7|0009C7;
    RTL                                  ;02B7FA|      ;
 LoadData_Enemy39:
    db $04                               ;02B7FB|      ;
-   dl Battle_Prep                       ;02B7FC|029124;
+   dl ASM_Battle_Prep                   ;02B7FC|029124;
 DATA8_02B7FF:
    db $09                               ;02B7FF|      ;
    dl CODE_02B82C                       ;02B800|02B82C;
@@ -10643,7 +10490,7 @@ DATA8_02B7FF:
    db $08                               ;02B806|      ;
    dw DATA8_02B822                      ;02B807|02B822;
    db $04                               ;02B809|      ;
-   dl DATA8_029111                      ;02B80A|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B80A|029111;
    db $1A                               ;02B80D|      ;
    dw DATA8_02B7FF                      ;02B80E|02B7FF;
    db $04                               ;02B810|      ;
@@ -10669,7 +10516,7 @@ DATA8_02B822:
    dw DATA8_02B822                      ;02B82A|02B822;
 CODE_02B82C:
    JSL.L Is_Equals_1575                 ;02B82C|07AEDD;
-   BNE CODE_02B85C                      ;02B830|02B85C;
+   BNE +                                ;02B830|02B85C;
    LDX.W Selection_offset               ;02B832|00103F;
    LDA.W Object_var1_Category,X         ;02B835|0009C7;
    STA.B $20                            ;02B838|000020;
@@ -10678,30 +10525,27 @@ CODE_02B82C:
    TAX                                  ;02B83E|      ;
    LDA.W Curr_HP_Rooks,X                ;02B83F|0012F3;
    CMP.B $20                            ;02B842|000020;
-   BMI CODE_02B848                      ;02B844|02B848;
-   BCS CODE_02B86A                      ;02B846|02B86A;
-CODE_02B848:
-   LDA.W Curr_HP_Rooks,X                ;02B848|0012F3;
+   BMI ++                               ;02B844|02B848;
+   BCS +++                              ;02B846|02B86A;
+++ LDA.W Curr_HP_Rooks,X                ;02B848|0012F3;
    LDX.W Selection_offset               ;02B84B|00103F;
    STA.W Object_var1_Category,X         ;02B84E|0009C7;
    LDA.W #$B810                         ;02B851|      ;
    LDY.W #$0002                         ;02B854|      ;
    JML.L Sub_LoadStuff                  ;02B857|008DB4;
    RTL                                  ;02B85B|      ;
-CODE_02B85C:
-   LDX.W Selection_offset               ;02B85C|00103F;
+ + LDX.W Selection_offset               ;02B85C|00103F;
    LDA.W #$B806                         ;02B85F|      ;
    LDY.W #$0002                         ;02B862|      ;
    JML.L Sub_LoadStuff                  ;02B865|008DB4;
    RTL                                  ;02B869|      ;
-CODE_02B86A:
-   LDA.W Curr_HP_Rooks,X                ;02B86A|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B86A|0012F3;
    LDX.W Selection_offset               ;02B86D|00103F;
    STA.W Object_var1_Category,X         ;02B870|0009C7;
    RTL                                  ;02B873|      ;
 LoadData_Enemy3A:
    db $04                               ;02B874|      ;
-   dl Battle_Prep                       ;02B875|029124;
+   dl ASM_Battle_Prep                   ;02B875|029124;
 DATA8_02B878:
    db $09                               ;02B878|      ;
    dl CODE_02B8A0                       ;02B879|02B8A0;
@@ -10710,7 +10554,7 @@ DATA8_02B878:
    db $08                               ;02B87F|      ;
    dw DATA8_02B89B                      ;02B880|02B89B;
    db $04                               ;02B882|      ;
-   dl DATA8_029111                      ;02B883|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B883|029111;
    db $1A                               ;02B886|      ;
    dw DATA8_02B878                      ;02B887|02B878;
    db $04                               ;02B889|      ;
@@ -10731,7 +10575,7 @@ DATA8_02B89B:
    dw DATA8_02B89B                      ;02B89E|02B89B;
 CODE_02B8A0:
    JSL.L Is_Equals_1575                 ;02B8A0|07AEDD;
-   BNE CODE_02B8D0                      ;02B8A4|02B8D0;
+   BNE +                                ;02B8A4|02B8D0;
    LDX.W Selection_offset               ;02B8A6|00103F;
    LDA.W Object_var1_Category,X         ;02B8A9|0009C7;
    STA.B $20                            ;02B8AC|000020;
@@ -10740,30 +10584,27 @@ CODE_02B8A0:
    TAX                                  ;02B8B2|      ;
    LDA.W Curr_HP_Rooks,X                ;02B8B3|0012F3;
    CMP.B $20                            ;02B8B6|000020;
-   BMI CODE_02B8BC                      ;02B8B8|02B8BC;
-   BCS CODE_02B8DE                      ;02B8BA|02B8DE;
-CODE_02B8BC:
-   LDA.W Curr_HP_Rooks,X                ;02B8BC|0012F3;
+   BMI ++                               ;02B8B8|02B8BC;
+   BCS +++                              ;02B8BA|02B8DE;
+++ LDA.W Curr_HP_Rooks,X                ;02B8BC|0012F3;
    LDX.W Selection_offset               ;02B8BF|00103F;
    STA.W Object_var1_Category,X         ;02B8C2|0009C7;
    LDA.W #$B889                         ;02B8C5|      ;
    LDY.W #$0002                         ;02B8C8|      ;
    JML.L Sub_LoadStuff                  ;02B8CB|008DB4;
    RTL                                  ;02B8CF|      ;
-CODE_02B8D0:
-   LDX.W Selection_offset               ;02B8D0|00103F;
+ + LDX.W Selection_offset               ;02B8D0|00103F;
    LDA.W #$B87F                         ;02B8D3|      ;
    LDY.W #$0002                         ;02B8D6|      ;
    JML.L Sub_LoadStuff                  ;02B8D9|008DB4;
    RTL                                  ;02B8DD|      ;
-CODE_02B8DE:
-   LDA.W Curr_HP_Rooks,X                ;02B8DE|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B8DE|0012F3;
    LDX.W Selection_offset               ;02B8E1|00103F;
    STA.W Object_var1_Category,X         ;02B8E4|0009C7;
    RTL                                  ;02B8E7|      ;
 LoadData_Enemy3B:
    db $04                               ;02B8E8|      ;
-   dl Battle_Prep                       ;02B8E9|029124;
+   dl ASM_Battle_Prep                   ;02B8E9|029124;
 DATA8_02B8EC:
    db $09                               ;02B8EC|      ;
    dl CODE_02B914                       ;02B8ED|02B914;
@@ -10772,7 +10613,7 @@ DATA8_02B8EC:
    db $08                               ;02B8F3|      ;
    dw DATA8_02B90F                      ;02B8F4|02B90F;
    db $04                               ;02B8F6|      ;
-   dl DATA8_029111                      ;02B8F7|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B8F7|029111;
    db $1A                               ;02B8FA|      ;
    dw DATA8_02B8EC                      ;02B8FB|02B8EC;
    db $04                               ;02B8FD|      ;
@@ -10794,7 +10635,7 @@ DATA8_02B90F:
    dw DATA8_02B90F                      ;02B912|02B90F;
 CODE_02B914:
    JSL.L Is_Equals_1575                 ;02B914|07AEDD;
-   BNE CODE_02B944                      ;02B918|02B944;
+   BNE +                                ;02B918|02B944;
    LDX.W Selection_offset               ;02B91A|00103F;
    LDA.W Object_var1_Category,X         ;02B91D|0009C7;
    STA.B $20                            ;02B920|000020;
@@ -10803,30 +10644,27 @@ CODE_02B914:
    TAX                                  ;02B926|      ;
    LDA.W Curr_HP_Rooks,X                ;02B927|0012F3;
    CMP.B $20                            ;02B92A|000020;
-   BMI CODE_02B930                      ;02B92C|02B930;
-   BCS CODE_02B952                      ;02B92E|02B952;
-CODE_02B930:
-   LDA.W Curr_HP_Rooks,X                ;02B930|0012F3;
+   BMI ++                               ;02B92C|02B930;
+   BCS +++                              ;02B92E|02B952;
+++ LDA.W Curr_HP_Rooks,X                ;02B930|0012F3;
    LDX.W Selection_offset               ;02B933|00103F;
    STA.W Object_var1_Category,X         ;02B936|0009C7;
    LDA.W #$B8FD                         ;02B939|      ;
    LDY.W #$0002                         ;02B93C|      ;
    JML.L Sub_LoadStuff                  ;02B93F|008DB4;
    RTL                                  ;02B943|      ;
-CODE_02B944:
-   LDX.W Selection_offset               ;02B944|00103F;
+ + LDX.W Selection_offset               ;02B944|00103F;
    LDA.W #$B8F3                         ;02B947|      ;
    LDY.W #$0002                         ;02B94A|      ;
    JML.L Sub_LoadStuff                  ;02B94D|008DB4;
    RTL                                  ;02B951|      ;
-CODE_02B952:
-   LDA.W Curr_HP_Rooks,X                ;02B952|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02B952|0012F3;
    LDX.W Selection_offset               ;02B955|00103F;
    STA.W Object_var1_Category,X         ;02B958|0009C7;
    RTL                                  ;02B95B|      ;
 LoadData_Enemy3C:
    db $04                               ;02B95C|      ;
-   dl Battle_Prep                       ;02B95D|029124;
+   dl ASM_Battle_Prep                   ;02B95D|029124;
 DATA8_02B960:
    db $09                               ;02B960|      ;
    dl CODE_02B9F0                       ;02B961|02B9F0;
@@ -10835,7 +10673,7 @@ DATA8_02B960:
    db $08                               ;02B967|      ;
    dw DATA8_02B98B                      ;02B968|02B98B;
    db $04                               ;02B96A|      ;
-   dl DATA8_029111                      ;02B96B|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02B96B|029111;
    db $0B                               ;02B96E|      ;
    dw DATA8_02B97C                      ;02B96F|02B97C;
    db $14                               ;02B971|      ;
@@ -10860,14 +10698,14 @@ DATA8_02B98B:
    db $24                               ;02B98B|      ;
    db $02                               ;02B98C|      ;
    db $07                               ;02B98D|      ;
-   dl Zeros_11DB                        ;02B98E|0781F0;
+   dl Clear_Condition_mirror            ;02B98E|0781F0;
    db $08                               ;02B991|      ;
    dw DATA8_02B9E3                      ;02B992|02B9E3;
 DATA8_02B994:
    db $24                               ;02B994|      ;
    db $02                               ;02B995|      ;
    db $07                               ;02B996|      ;
-   dl CODE_078219                       ;02B997|078219;
+   dl Sub_Get_Condition_Change          ;02B997|078219;
    db $12                               ;02B99A|      ;
    db $05                               ;02B99B|      ;
    dw DATA8_02B9AB                      ;02B99C|02B9AB;
@@ -10952,7 +10790,7 @@ DATA8_02B9E3:
    dw DATA8_02B9E3                      ;02B9EE|02B9E3;
 CODE_02B9F0:
    JSL.L Is_Equals_1575                 ;02B9F0|07AEDD;
-   BNE CODE_02BA20                      ;02B9F4|02BA20;
+   BNE +                                ;02B9F4|02BA20;
    LDX.W Selection_offset               ;02B9F6|00103F;
    LDA.W Object_var1_Category,X         ;02B9F9|0009C7;
    STA.B $20                            ;02B9FC|000020;
@@ -10961,30 +10799,27 @@ CODE_02B9F0:
    TAX                                  ;02BA02|      ;
    LDA.W Curr_HP_Rooks,X                ;02BA03|0012F3;
    CMP.B $20                            ;02BA06|000020;
-   BMI CODE_02BA0C                      ;02BA08|02BA0C;
-   BCS CODE_02BA2E                      ;02BA0A|02BA2E;
-CODE_02BA0C:
-   LDA.W Curr_HP_Rooks,X                ;02BA0C|0012F3;
+   BMI ++                               ;02BA08|02BA0C;
+   BCS +++                              ;02BA0A|02BA2E;
+++ LDA.W Curr_HP_Rooks,X                ;02BA0C|0012F3;
    LDX.W Selection_offset               ;02BA0F|00103F;
    STA.W Object_var1_Category,X         ;02BA12|0009C7;
    LDA.W #$B978                         ;02BA15|      ;
    LDY.W #$0002                         ;02BA18|      ;
    JML.L Sub_LoadStuff                  ;02BA1B|008DB4;
    RTL                                  ;02BA1F|      ;
-CODE_02BA20:
-   LDX.W Selection_offset               ;02BA20|00103F;
+ + LDX.W Selection_offset               ;02BA20|00103F;
    LDA.W #$B967                         ;02BA23|      ;
    LDY.W #$0002                         ;02BA26|      ;
    JML.L Sub_LoadStuff                  ;02BA29|008DB4;
    RTL                                  ;02BA2D|      ;
-CODE_02BA2E:
-   LDA.W Curr_HP_Rooks,X                ;02BA2E|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02BA2E|0012F3;
    LDX.W Selection_offset               ;02BA31|00103F;
    STA.W Object_var1_Category,X         ;02BA34|0009C7;
    RTL                                  ;02BA37|      ;
 LoadData_Enemy3D:
    db $04                               ;02BA38|      ;
-   dl Battle_Prep                       ;02BA39|029124;
+   dl ASM_Battle_Prep                   ;02BA39|029124;
 DATA8_02BA3C:
    db $09                               ;02BA3C|      ;
    dl CODE_02BACC                       ;02BA3D|02BACC;
@@ -10993,7 +10828,7 @@ DATA8_02BA3C:
    db $08                               ;02BA43|      ;
    dw DATA8_02BA67                      ;02BA44|02BA67;
    db $04                               ;02BA46|      ;
-   dl DATA8_029111                      ;02BA47|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02BA47|029111;
    db $0B                               ;02BA4A|      ;
    dw DATA8_02BA58                      ;02BA4B|02BA58;
    db $14                               ;02BA4D|      ;
@@ -11018,14 +10853,14 @@ DATA8_02BA67:
    db $24                               ;02BA67|      ;
    db $02                               ;02BA68|      ;
    db $07                               ;02BA69|      ;
-   dl Zeros_11DB                        ;02BA6A|0781F0;
+   dl Clear_Condition_mirror            ;02BA6A|0781F0;
    db $08                               ;02BA6D|      ;
    dw DATA8_02BABF                      ;02BA6E|02BABF;
 DATA8_02BA70:
    db $24                               ;02BA70|      ;
    db $02                               ;02BA71|      ;
    db $07                               ;02BA72|      ;
-   dl CODE_078219                       ;02BA73|078219;
+   dl Sub_Get_Condition_Change          ;02BA73|078219;
    db $12                               ;02BA76|      ;
    db $05                               ;02BA77|      ;
    dw DATA8_02BA87                      ;02BA78|02BA87;
@@ -11110,7 +10945,7 @@ DATA8_02BABF:
    dw DATA8_02BABF                      ;02BACA|02BABF;
 CODE_02BACC:
    JSL.L Is_Equals_1575                 ;02BACC|07AEDD;
-   BNE CODE_02BAFC                      ;02BAD0|02BAFC;
+   BNE +                                ;02BAD0|02BAFC;
    LDX.W Selection_offset               ;02BAD2|00103F;
    LDA.W Object_var1_Category,X         ;02BAD5|0009C7;
    STA.B $20                            ;02BAD8|000020;
@@ -11119,30 +10954,27 @@ CODE_02BACC:
    TAX                                  ;02BADE|      ;
    LDA.W Curr_HP_Rooks,X                ;02BADF|0012F3;
    CMP.B $20                            ;02BAE2|000020;
-   BMI CODE_02BAE8                      ;02BAE4|02BAE8;
-   BCS CODE_02BB0A                      ;02BAE6|02BB0A;
-CODE_02BAE8:
-   LDA.W Curr_HP_Rooks,X                ;02BAE8|0012F3;
+   BMI ++                               ;02BAE4|02BAE8;
+   BCS +++                              ;02BAE6|02BB0A;
+++ LDA.W Curr_HP_Rooks,X                ;02BAE8|0012F3;
    LDX.W Selection_offset               ;02BAEB|00103F;
    STA.W Object_var1_Category,X         ;02BAEE|0009C7;
    LDA.W #$BA54                         ;02BAF1|      ;
    LDY.W #$0002                         ;02BAF4|      ;
    JML.L Sub_LoadStuff                  ;02BAF7|008DB4;
    RTL                                  ;02BAFB|      ;
-CODE_02BAFC:
-   LDX.W Selection_offset               ;02BAFC|00103F;
+ + LDX.W Selection_offset               ;02BAFC|00103F;
    LDA.W #$BA43                         ;02BAFF|      ;
    LDY.W #$0002                         ;02BB02|      ;
    JML.L Sub_LoadStuff                  ;02BB05|008DB4;
    RTL                                  ;02BB09|      ;
-CODE_02BB0A:
-   LDA.W Curr_HP_Rooks,X                ;02BB0A|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02BB0A|0012F3;
    LDX.W Selection_offset               ;02BB0D|00103F;
    STA.W Object_var1_Category,X         ;02BB10|0009C7;
    RTL                                  ;02BB13|      ;
 LoadData_Enemy3E:
    db $04                               ;02BB14|      ;
-   dl Battle_Prep                       ;02BB15|029124;
+   dl ASM_Battle_Prep                   ;02BB15|029124;
 DATA8_02BB18:
    db $09                               ;02BB18|      ;
    dl CODE_02BBAB                       ;02BB19|02BBAB;
@@ -11151,7 +10983,7 @@ DATA8_02BB18:
    db $08                               ;02BB1F|      ;
    dw DATA8_02BB43                      ;02BB20|02BB43;
    db $04                               ;02BB22|      ;
-   dl DATA8_029111                      ;02BB23|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02BB23|029111;
    db $0B                               ;02BB26|      ;
    dw DATA8_02BB34                      ;02BB27|02BB34;
    db $14                               ;02BB29|      ;
@@ -11176,14 +11008,14 @@ DATA8_02BB43:
    db $24                               ;02BB43|      ;
    db $02                               ;02BB44|      ;
    db $07                               ;02BB45|      ;
-   dl Zeros_11DB                        ;02BB46|0781F0;
+   dl Clear_Condition_mirror            ;02BB46|0781F0;
    db $08                               ;02BB49|      ;
    dw DATA8_02BB9F                      ;02BB4A|02BB9F;
 DATA8_02BB4C:
    db $24                               ;02BB4C|      ;
    db $02                               ;02BB4D|      ;
    db $07                               ;02BB4E|      ;
-   dl CODE_078219                       ;02BB4F|078219;
+   dl Sub_Get_Condition_Change          ;02BB4F|078219;
    db $12                               ;02BB52|      ;
    db $05                               ;02BB53|      ;
    dw DATA8_02BB63                      ;02BB54|02BB63;
@@ -11271,7 +11103,7 @@ DATA8_02BB9F:
    dw DATA8_02BB9F                      ;02BBA9|02BB9F;
 CODE_02BBAB:
    JSL.L Is_Equals_1575                 ;02BBAB|07AEDD;
-   BNE CODE_02BBDB                      ;02BBAF|02BBDB;
+   BNE +                                ;02BBAF|02BBDB;
    LDX.W Selection_offset               ;02BBB1|00103F;
    LDA.W Object_var1_Category,X         ;02BBB4|0009C7;
    STA.B $20                            ;02BBB7|000020;
@@ -11280,30 +11112,27 @@ CODE_02BBAB:
    TAX                                  ;02BBBD|      ;
    LDA.W Curr_HP_Rooks,X                ;02BBBE|0012F3;
    CMP.B $20                            ;02BBC1|000020;
-   BMI CODE_02BBC7                      ;02BBC3|02BBC7;
-   BCS CODE_02BBE9                      ;02BBC5|02BBE9;
-CODE_02BBC7:
-   LDA.W Curr_HP_Rooks,X                ;02BBC7|0012F3;
+   BMI ++                               ;02BBC3|02BBC7;
+   BCS +++                              ;02BBC5|02BBE9;
+++ LDA.W Curr_HP_Rooks,X                ;02BBC7|0012F3;
    LDX.W Selection_offset               ;02BBCA|00103F;
    STA.W Object_var1_Category,X         ;02BBCD|0009C7;
    LDA.W #$BB30                         ;02BBD0|      ;
    LDY.W #$0002                         ;02BBD3|      ;
    JML.L Sub_LoadStuff                  ;02BBD6|008DB4;
    RTL                                  ;02BBDA|      ;
-CODE_02BBDB:
-   LDX.W Selection_offset               ;02BBDB|00103F;
+ + LDX.W Selection_offset               ;02BBDB|00103F;
    LDA.W #$BB1F                         ;02BBDE|      ;
    LDY.W #$0002                         ;02BBE1|      ;
    JML.L Sub_LoadStuff                  ;02BBE4|008DB4;
    RTL                                  ;02BBE8|      ;
-CODE_02BBE9:
-   LDA.W Curr_HP_Rooks,X                ;02BBE9|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02BBE9|0012F3;
    LDX.W Selection_offset               ;02BBEC|00103F;
    STA.W Object_var1_Category,X         ;02BBEF|0009C7;
    RTL                                  ;02BBF2|      ;
 LoadData_Enemy3F:
    db $04                               ;02BBF3|      ;
-   dl Battle_Prep                       ;02BBF4|029124;
+   dl ASM_Battle_Prep                   ;02BBF4|029124;
 DATA8_02BBF7:
    db $09                               ;02BBF7|      ;
    dl CODE_02BC8A                       ;02BBF8|02BC8A;
@@ -11312,7 +11141,7 @@ DATA8_02BBF7:
    db $08                               ;02BBFE|      ;
    dw DATA8_02BC22                      ;02BBFF|02BC22;
    db $04                               ;02BC01|      ;
-   dl DATA8_029111                      ;02BC02|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02BC02|029111;
    db $0B                               ;02BC05|      ;
    dw DATA8_02BC13                      ;02BC06|02BC13;
    db $14                               ;02BC08|      ;
@@ -11337,14 +11166,14 @@ DATA8_02BC22:
    db $24                               ;02BC22|      ;
    db $02                               ;02BC23|      ;
    db $07                               ;02BC24|      ;
-   dl Zeros_11DB                        ;02BC25|0781F0;
+   dl Clear_Condition_mirror            ;02BC25|0781F0;
    db $08                               ;02BC28|      ;
    dw DATA8_02BC7E                      ;02BC29|02BC7E;
 DATA8_02BC2B:
    db $24                               ;02BC2B|      ; 24: Loads a RAM value ($09FF) -> 0CC1
    db $02                               ;02BC2C|      ;
    db $07                               ;02BC2D|      ; 07: Call 07/8219
-   dl CODE_078219                       ;02BC2E|078219;
+   dl Sub_Get_Condition_Change          ;02BC2E|078219;
    db $12                               ;02BC31|      ; 12: Jump based on result 0CB3,x; skip table if 05 is less than 0CB3,x
    db $05                               ;02BC32|      ; (5 entries)
    dw DATA8_02BC42                      ;02BC33|02BC42;
@@ -11432,7 +11261,7 @@ DATA8_02BC7E:
    dw DATA8_02BC7E                      ;02BC88|02BC7E;
 CODE_02BC8A:
    JSL.L Is_Equals_1575                 ;02BC8A|07AEDD;
-   BNE CODE_02BCBA                      ;02BC8E|02BCBA;
+   BNE +                                ;02BC8E|02BCBA;
    LDX.W Selection_offset               ;02BC90|00103F;
    LDA.W Object_var1_Category,X         ;02BC93|0009C7;
    STA.B $20                            ;02BC96|000020;
@@ -11441,30 +11270,27 @@ CODE_02BC8A:
    TAX                                  ;02BC9C|      ;
    LDA.W Curr_HP_Rooks,X                ;02BC9D|0012F3;
    CMP.B $20                            ;02BCA0|000020;
-   BMI CODE_02BCA6                      ;02BCA2|02BCA6;
-   BCS CODE_02BCC8                      ;02BCA4|02BCC8;
-CODE_02BCA6:
-   LDA.W Curr_HP_Rooks,X                ;02BCA6|0012F3;
+   BMI ++                               ;02BCA2|02BCA6;
+   BCS +++                              ;02BCA4|02BCC8;
+++ LDA.W Curr_HP_Rooks,X                ;02BCA6|0012F3;
    LDX.W Selection_offset               ;02BCA9|00103F;
    STA.W Object_var1_Category,X         ;02BCAC|0009C7;
    LDA.W #$BC0F                         ;02BCAF|      ;
    LDY.W #$0002                         ;02BCB2|      ;
    JML.L Sub_LoadStuff                  ;02BCB5|008DB4;
    RTL                                  ;02BCB9|      ;
-CODE_02BCBA:
-   LDX.W Selection_offset               ;02BCBA|00103F;
+ + LDX.W Selection_offset               ;02BCBA|00103F;
    LDA.W #$BBFE                         ;02BCBD|      ;
    LDY.W #$0002                         ;02BCC0|      ;
    JML.L Sub_LoadStuff                  ;02BCC3|008DB4;
    RTL                                  ;02BCC7|      ;
-CODE_02BCC8:
-   LDA.W Curr_HP_Rooks,X                ;02BCC8|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02BCC8|0012F3;
    LDX.W Selection_offset               ;02BCCB|00103F;
    STA.W Object_var1_Category,X         ;02BCCE|0009C7;
    RTL                                  ;02BCD1|      ;
 LoadData_Enemy40:
    db $04                               ;02BCD2|      ;
-   dl Battle_Prep                       ;02BCD3|029124;
+   dl ASM_Battle_Prep                   ;02BCD3|029124;
 DATA8_02BCD6:
    db $09                               ;02BCD6|      ;
    dl CODE_02BD5F                       ;02BCD7|02BD5F;
@@ -11473,7 +11299,7 @@ DATA8_02BCD6:
    db $08                               ;02BCDD|      ;
    dw DATA8_02BD01                      ;02BCDE|02BD01;
    db $04                               ;02BCE0|      ;
-   dl DATA8_029111                      ;02BCE1|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02BCE1|029111;
    db $0B                               ;02BCE4|      ;
    dw DATA8_02BCF2                      ;02BCE5|02BCF2;
    db $14                               ;02BCE7|      ;
@@ -11498,14 +11324,14 @@ DATA8_02BD01:
    db $24                               ;02BD01|      ;
    db $02                               ;02BD02|      ;
    db $07                               ;02BD03|      ;
-   dl Zeros_11DB                        ;02BD04|0781F0;
+   dl Clear_Condition_mirror            ;02BD04|0781F0;
    db $08                               ;02BD07|      ;
    dw DATA8_02BD55                      ;02BD08|02BD55;
 DATA8_02BD0A:
    db $24                               ;02BD0A|      ;
    db $02                               ;02BD0B|      ;
    db $07                               ;02BD0C|      ;
-   dl CODE_078219                       ;02BD0D|078219;
+   dl Sub_Get_Condition_Change          ;02BD0D|078219;
    db $12                               ;02BD10|      ;
    db $05                               ;02BD11|      ;
    dw DATA8_02BD21                      ;02BD12|02BD21;
@@ -11583,7 +11409,7 @@ DATA8_02BD55:
    dw DATA8_02BD55                      ;02BD5D|02BD55;
 CODE_02BD5F:
    JSL.L Is_Equals_1575                 ;02BD5F|07AEDD;
-   BNE CODE_02BD8F                      ;02BD63|02BD8F;
+   BNE +                                ;02BD63|02BD8F;
    LDX.W Selection_offset               ;02BD65|00103F;
    LDA.W Object_var1_Category,X         ;02BD68|0009C7;
    STA.B $20                            ;02BD6B|000020;
@@ -11592,30 +11418,27 @@ CODE_02BD5F:
    TAX                                  ;02BD71|      ;
    LDA.W Curr_HP_Rooks,X                ;02BD72|0012F3;
    CMP.B $20                            ;02BD75|000020;
-   BMI CODE_02BD7B                      ;02BD77|02BD7B;
-   BCS CODE_02BD9D                      ;02BD79|02BD9D;
-CODE_02BD7B:
-   LDA.W Curr_HP_Rooks,X                ;02BD7B|0012F3;
+   BMI ++                               ;02BD77|02BD7B;
+   BCS +++                              ;02BD79|02BD9D;
+++ LDA.W Curr_HP_Rooks,X                ;02BD7B|0012F3;
    LDX.W Selection_offset               ;02BD7E|00103F;
    STA.W Object_var1_Category,X         ;02BD81|0009C7;
    LDA.W #$BCEE                         ;02BD84|      ;
    LDY.W #$0002                         ;02BD87|      ;
    JML.L Sub_LoadStuff                  ;02BD8A|008DB4;
    RTL                                  ;02BD8E|      ;
-CODE_02BD8F:
-   LDX.W Selection_offset               ;02BD8F|00103F;
+ + LDX.W Selection_offset               ;02BD8F|00103F;
    LDA.W #$BCDD                         ;02BD92|      ;
    LDY.W #$0002                         ;02BD95|      ;
    JML.L Sub_LoadStuff                  ;02BD98|008DB4;
    RTL                                  ;02BD9C|      ;
-CODE_02BD9D:
-   LDA.W Curr_HP_Rooks,X                ;02BD9D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02BD9D|0012F3;
    LDX.W Selection_offset               ;02BDA0|00103F;
    STA.W Object_var1_Category,X         ;02BDA3|0009C7;
    RTL                                  ;02BDA6|      ;
 LoadData_Enemy41:
    db $04                               ;02BDA7|      ;
-   dl Battle_Prep                       ;02BDA8|029124;
+   dl ASM_Battle_Prep                   ;02BDA8|029124;
 DATA8_02BDAB:
    db $09                               ;02BDAB|      ;
    dl CODE_02BE5F                       ;02BDAC|02BE5F;
@@ -11624,7 +11447,7 @@ DATA8_02BDAB:
    db $08                               ;02BDB2|      ;
    dw DATA8_02BDD6                      ;02BDB3|02BDD6;
    db $04                               ;02BDB5|      ;
-   dl DATA8_029111                      ;02BDB6|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02BDB6|029111;
    db $0B                               ;02BDB9|      ;
    dw DATA8_02BDC7                      ;02BDBA|02BDC7;
    db $14                               ;02BDBC|      ;
@@ -11649,14 +11472,14 @@ DATA8_02BDD6:
    db $24                               ;02BDD6|      ;
    db $02                               ;02BDD7|      ;
    db $07                               ;02BDD8|      ;
-   dl Zeros_11DB                        ;02BDD9|0781F0;
+   dl Clear_Condition_mirror            ;02BDD9|0781F0;
    db $08                               ;02BDDC|      ;
    dw DATA8_02BE4C                      ;02BDDD|02BE4C;
 DATA8_02BDDF:
    db $24                               ;02BDDF|      ;
    db $02                               ;02BDE0|      ;
    db $07                               ;02BDE1|      ;
-   dl CODE_078219                       ;02BDE2|078219;
+   dl Sub_Get_Condition_Change          ;02BDE2|078219;
    db $12                               ;02BDE5|      ;
    db $05                               ;02BDE6|      ;
    dw DATA8_02BDF6                      ;02BDE7|02BDF6;
@@ -11777,7 +11600,7 @@ DATA8_02BE4C:
    dw DATA8_02BE4C                      ;02BE5D|02BE4C;
 CODE_02BE5F:
    JSL.L Is_Equals_1575                 ;02BE5F|07AEDD;
-   BNE CODE_02BE8F                      ;02BE63|02BE8F;
+   BNE +                                ;02BE63|02BE8F;
    LDX.W Selection_offset               ;02BE65|00103F;
    LDA.W Object_var1_Category,X         ;02BE68|0009C7;
    STA.B $20                            ;02BE6B|000020;
@@ -11786,30 +11609,27 @@ CODE_02BE5F:
    TAX                                  ;02BE71|      ;
    LDA.W Curr_HP_Rooks,X                ;02BE72|0012F3;
    CMP.B $20                            ;02BE75|000020;
-   BMI CODE_02BE7B                      ;02BE77|02BE7B;
-   BCS CODE_02BE9D                      ;02BE79|02BE9D;
-CODE_02BE7B:
-   LDA.W Curr_HP_Rooks,X                ;02BE7B|0012F3;
+   BMI ++                               ;02BE77|02BE7B;
+   BCS +++                              ;02BE79|02BE9D;
+++ LDA.W Curr_HP_Rooks,X                ;02BE7B|0012F3;
    LDX.W Selection_offset               ;02BE7E|00103F;
    STA.W Object_var1_Category,X         ;02BE81|0009C7;
    LDA.W #$BDC3                         ;02BE84|      ;
    LDY.W #$0002                         ;02BE87|      ;
    JML.L Sub_LoadStuff                  ;02BE8A|008DB4;
    RTL                                  ;02BE8E|      ;
-CODE_02BE8F:
-   LDX.W Selection_offset               ;02BE8F|00103F;
+ + LDX.W Selection_offset               ;02BE8F|00103F;
    LDA.W #$BDB2                         ;02BE92|      ;
    LDY.W #$0002                         ;02BE95|      ;
    JML.L Sub_LoadStuff                  ;02BE98|008DB4;
    RTL                                  ;02BE9C|      ;
-CODE_02BE9D:
-   LDA.W Curr_HP_Rooks,X                ;02BE9D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02BE9D|0012F3;
    LDX.W Selection_offset               ;02BEA0|00103F;
    STA.W Object_var1_Category,X         ;02BEA3|0009C7;
    RTL                                  ;02BEA6|      ;
 LoadData_Enemy42:
    db $04                               ;02BEA7|      ;
-   dl Battle_Prep                       ;02BEA8|029124;
+   dl ASM_Battle_Prep                   ;02BEA8|029124;
 DATA8_02BEAB:
    db $09                               ;02BEAB|      ;
    dl CODE_02BF41                       ;02BEAC|02BF41;
@@ -11818,7 +11638,7 @@ DATA8_02BEAB:
    db $08                               ;02BEB2|      ;
    dw DATA8_02BED6                      ;02BEB3|02BED6;
    db $04                               ;02BEB5|      ;
-   dl DATA8_029111                      ;02BEB6|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02BEB6|029111;
    db $0B                               ;02BEB9|      ;
    dw DATA8_02BEC7                      ;02BEBA|02BEC7;
    db $14                               ;02BEBC|      ;
@@ -11843,14 +11663,14 @@ DATA8_02BED6:
    db $24                               ;02BED6|      ;
    db $02                               ;02BED7|      ;
    db $07                               ;02BED8|      ;
-   dl Zeros_11DB                        ;02BED9|0781F0;
+   dl Clear_Condition_mirror            ;02BED9|0781F0;
    db $08                               ;02BEDC|      ;
    dw DATA8_02BF31                      ;02BEDD|02BF31;
 DATA8_02BEDF:
    db $24                               ;02BEDF|      ;
    db $02                               ;02BEE0|      ;
    db $07                               ;02BEE1|      ;
-   dl CODE_078219                       ;02BEE2|078219;
+   dl Sub_Get_Condition_Change          ;02BEE2|078219;
    db $12                               ;02BEE5|      ;
    db $05                               ;02BEE6|      ;
    dw DATA8_02BEF6                      ;02BEE7|02BEF6;
@@ -11941,7 +11761,7 @@ DATA8_02BF31:
    dw DATA8_02BF31                      ;02BF3F|02BF31;
 CODE_02BF41:
    JSL.L Is_Equals_1575                 ;02BF41|07AEDD;
-   BNE CODE_02BF71                      ;02BF45|02BF71;
+   BNE +                                ;02BF45|02BF71;
    LDX.W Selection_offset               ;02BF47|00103F;
    LDA.W Object_var1_Category,X         ;02BF4A|0009C7;
    STA.B $20                            ;02BF4D|000020;
@@ -11950,30 +11770,27 @@ CODE_02BF41:
    TAX                                  ;02BF53|      ;
    LDA.W Curr_HP_Rooks,X                ;02BF54|0012F3;
    CMP.B $20                            ;02BF57|000020;
-   BMI CODE_02BF5D                      ;02BF59|02BF5D;
-   BCS CODE_02BF7F                      ;02BF5B|02BF7F;
-CODE_02BF5D:
-   LDA.W Curr_HP_Rooks,X                ;02BF5D|0012F3;
+   BMI ++                               ;02BF59|02BF5D;
+   BCS +++                              ;02BF5B|02BF7F;
+++ LDA.W Curr_HP_Rooks,X                ;02BF5D|0012F3;
    LDX.W Selection_offset               ;02BF60|00103F;
    STA.W Object_var1_Category,X         ;02BF63|0009C7;
    LDA.W #$BEC3                         ;02BF66|      ;
    LDY.W #$0002                         ;02BF69|      ;
    JML.L Sub_LoadStuff                  ;02BF6C|008DB4;
    RTL                                  ;02BF70|      ;
-CODE_02BF71:
-   LDX.W Selection_offset               ;02BF71|00103F;
+ + LDX.W Selection_offset               ;02BF71|00103F;
    LDA.W #$BEB2                         ;02BF74|      ;
    LDY.W #$0002                         ;02BF77|      ;
    JML.L Sub_LoadStuff                  ;02BF7A|008DB4;
    RTL                                  ;02BF7E|      ;
-CODE_02BF7F:
-   LDA.W Curr_HP_Rooks,X                ;02BF7F|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02BF7F|0012F3;
    LDX.W Selection_offset               ;02BF82|00103F;
    STA.W Object_var1_Category,X         ;02BF85|0009C7;
    RTL                                  ;02BF88|      ;
 LoadData_Enemy43:
    db $04                               ;02BF89|      ;
-   dl Battle_Prep                       ;02BF8A|029124;
+   dl ASM_Battle_Prep                   ;02BF8A|029124;
 DATA8_02BF8D:
    db $09                               ;02BF8D|      ;
    dl CODE_02C039                       ;02BF8E|02C039;
@@ -11982,7 +11799,7 @@ DATA8_02BF8D:
    db $08                               ;02BF94|      ;
    dw DATA8_02BFB8                      ;02BF95|02BFB8;
    db $04                               ;02BF97|      ;
-   dl DATA8_029111                      ;02BF98|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02BF98|029111;
    db $0B                               ;02BF9B|      ;
    dw DATA8_02BFA9                      ;02BF9C|02BFA9;
    db $14                               ;02BF9E|      ;
@@ -12007,14 +11824,14 @@ DATA8_02BFB8:
    db $24                               ;02BFB8|      ;
    db $02                               ;02BFB9|      ;
    db $07                               ;02BFBA|      ;
-   dl Zeros_11DB                        ;02BFBB|0781F0;
+   dl Clear_Condition_mirror            ;02BFBB|0781F0;
    db $08                               ;02BFBE|      ;
    dw DATA8_02C022                      ;02BFBF|02C022;
 DATA8_02BFC1:
    db $24                               ;02BFC1|      ;
    db $02                               ;02BFC2|      ;
    db $07                               ;02BFC3|      ;
-   dl CODE_078219                       ;02BFC4|078219;
+   dl Sub_Get_Condition_Change          ;02BFC4|078219;
    db $12                               ;02BFC7|      ;
    db $05                               ;02BFC8|      ;
    dw DATA8_02BFD8                      ;02BFC9|02BFD8;
@@ -12127,7 +11944,7 @@ DATA8_02C022:
    dw DATA8_02C022                      ;02C037|02C022;
 CODE_02C039:
    JSL.L Is_Equals_1575                 ;02C039|07AEDD;
-   BNE CODE_02C069                      ;02C03D|02C069;
+   BNE +                                ;02C03D|02C069;
    LDX.W Selection_offset               ;02C03F|00103F;
    LDA.W Object_var1_Category,X         ;02C042|0009C7;
    STA.B $20                            ;02C045|000020;
@@ -12136,30 +11953,27 @@ CODE_02C039:
    TAX                                  ;02C04B|      ;
    LDA.W Curr_HP_Rooks,X                ;02C04C|0012F3;
    CMP.B $20                            ;02C04F|000020;
-   BMI CODE_02C055                      ;02C051|02C055;
-   BCS CODE_02C077                      ;02C053|02C077;
-CODE_02C055:
-   LDA.W Curr_HP_Rooks,X                ;02C055|0012F3;
+   BMI ++                               ;02C051|02C055;
+   BCS +++                              ;02C053|02C077;
+++ LDA.W Curr_HP_Rooks,X                ;02C055|0012F3;
    LDX.W Selection_offset               ;02C058|00103F;
    STA.W Object_var1_Category,X         ;02C05B|0009C7;
    LDA.W #$BFA5                         ;02C05E|      ;
    LDY.W #$0002                         ;02C061|      ;
    JML.L Sub_LoadStuff                  ;02C064|008DB4;
    RTL                                  ;02C068|      ;
-CODE_02C069:
-   LDX.W Selection_offset               ;02C069|00103F;
+ + LDX.W Selection_offset               ;02C069|00103F;
    LDA.W #$BF94                         ;02C06C|      ;
    LDY.W #$0002                         ;02C06F|      ;
    JML.L Sub_LoadStuff                  ;02C072|008DB4;
    RTL                                  ;02C076|      ;
-CODE_02C077:
-   LDA.W Curr_HP_Rooks,X                ;02C077|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C077|0012F3;
    LDX.W Selection_offset               ;02C07A|00103F;
    STA.W Object_var1_Category,X         ;02C07D|0009C7;
    RTL                                  ;02C080|      ;
 LoadData_Enemy44:
    db $04                               ;02C081|      ;
-   dl Battle_Prep                       ;02C082|029124;
+   dl ASM_Battle_Prep                   ;02C082|029124;
 DATA8_02C085:
    db $09                               ;02C085|      ;
    dl CODE_02C118                       ;02C086|02C118;
@@ -12168,7 +11982,7 @@ DATA8_02C085:
    db $08                               ;02C08C|      ;
    dw DATA8_02C0B0                      ;02C08D|02C0B0;
    db $04                               ;02C08F|      ;
-   dl DATA8_029111                      ;02C090|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C090|029111;
    db $0B                               ;02C093|      ;
    dw DATA8_02C0A1                      ;02C094|02C0A1;
    db $14                               ;02C096|      ;
@@ -12193,14 +12007,14 @@ DATA8_02C0B0:
    db $24                               ;02C0B0|      ;
    db $02                               ;02C0B1|      ;
    db $07                               ;02C0B2|      ;
-   dl Zeros_11DB                        ;02C0B3|0781F0;
+   dl Clear_Condition_mirror            ;02C0B3|0781F0;
    db $08                               ;02C0B6|      ;
    dw DATA8_02C10A                      ;02C0B7|02C10A;
 DATA8_02C0B9:
    db $24                               ;02C0B9|      ;
    db $02                               ;02C0BA|      ;
    db $07                               ;02C0BB|      ;
-   dl CODE_078219                       ;02C0BC|078219;
+   dl Sub_Get_Condition_Change          ;02C0BC|078219;
    db $12                               ;02C0BF|      ;
    db $05                               ;02C0C0|      ;
    dw DATA8_02C0D0                      ;02C0C1|02C0D0;
@@ -12288,7 +12102,7 @@ DATA8_02C10A:
    dw DATA8_02C10A                      ;02C116|02C10A;
 CODE_02C118:
    JSL.L Is_Equals_1575                 ;02C118|07AEDD;
-   BNE CODE_02C148                      ;02C11C|02C148;
+   BNE +                                ;02C11C|02C148;
    LDX.W Selection_offset               ;02C11E|00103F;
    LDA.W Object_var1_Category,X         ;02C121|0009C7;
    STA.B $20                            ;02C124|000020;
@@ -12297,30 +12111,27 @@ CODE_02C118:
    TAX                                  ;02C12A|      ;
    LDA.W Curr_HP_Rooks,X                ;02C12B|0012F3;
    CMP.B $20                            ;02C12E|000020;
-   BMI CODE_02C134                      ;02C130|02C134;
-   BCS CODE_02C156                      ;02C132|02C156;
-CODE_02C134:
-   LDA.W Curr_HP_Rooks,X                ;02C134|0012F3;
+   BMI ++                               ;02C130|02C134;
+   BCS +++                              ;02C132|02C156;
+++ LDA.W Curr_HP_Rooks,X                ;02C134|0012F3;
    LDX.W Selection_offset               ;02C137|00103F;
    STA.W Object_var1_Category,X         ;02C13A|0009C7;
    LDA.W #$C09D                         ;02C13D|      ;
    LDY.W #$0002                         ;02C140|      ;
    JML.L Sub_LoadStuff                  ;02C143|008DB4;
    RTL                                  ;02C147|      ;
-CODE_02C148:
-   LDX.W Selection_offset               ;02C148|00103F;
+ + LDX.W Selection_offset               ;02C148|00103F;
    LDA.W #$C08C                         ;02C14B|      ;
    LDY.W #$0002                         ;02C14E|      ;
    JML.L Sub_LoadStuff                  ;02C151|008DB4;
    RTL                                  ;02C155|      ;
-CODE_02C156:
-   LDA.W Curr_HP_Rooks,X                ;02C156|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C156|0012F3;
    LDX.W Selection_offset               ;02C159|00103F;
    STA.W Object_var1_Category,X         ;02C15C|0009C7;
    RTL                                  ;02C15F|      ;
 LoadData_Enemy45:
    db $04                               ;02C160|      ;
-   dl Battle_Prep                       ;02C161|029124;
+   dl ASM_Battle_Prep                   ;02C161|029124;
 DATA8_02C164:
    db $09                               ;02C164|      ;
    dl CODE_02C1F7                       ;02C165|02C1F7;
@@ -12329,7 +12140,7 @@ DATA8_02C164:
    db $08                               ;02C16B|      ;
    dw DATA8_02C18F                      ;02C16C|02C18F;
    db $04                               ;02C16E|      ;
-   dl DATA8_029111                      ;02C16F|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C16F|029111;
    db $0B                               ;02C172|      ;
    dw DATA8_02C180                      ;02C173|02C180;
    db $14                               ;02C175|      ;
@@ -12354,14 +12165,14 @@ DATA8_02C18F:
    db $24                               ;02C18F|      ;
    db $02                               ;02C190|      ;
    db $07                               ;02C191|      ;
-   dl Zeros_11DB                        ;02C192|0781F0;
+   dl Clear_Condition_mirror            ;02C192|0781F0;
    db $08                               ;02C195|      ;
    dw DATA8_02C1E9                      ;02C196|02C1E9;
 DATA8_02C198:
    db $24                               ;02C198|      ; 24: Store (ex) 09FF -> 0CC1
    db $02                               ;02C199|      ;
    db $07                               ;02C19A|      ; 07: Call 07/8219
-   dl CODE_078219                       ;02C19B|078219;
+   dl Sub_Get_Condition_Change          ;02C19B|078219;
    db $12                               ;02C19E|      ; 12:
    db $05                               ;02C19F|      ;
    dw DATA8_02C1AF                      ;02C1A0|02C1AF;
@@ -12449,7 +12260,7 @@ DATA8_02C1E9:
    dw DATA8_02C1E9                      ;02C1F5|02C1E9;
 CODE_02C1F7:
    JSL.L Is_Equals_1575                 ;02C1F7|07AEDD;
-   BNE CODE_02C227                      ;02C1FB|02C227;
+   BNE +                                ;02C1FB|02C227;
    LDX.W Selection_offset               ;02C1FD|00103F;
    LDA.W Object_var1_Category,X         ;02C200|0009C7;
    STA.B $20                            ;02C203|000020;
@@ -12458,30 +12269,27 @@ CODE_02C1F7:
    TAX                                  ;02C209|      ;
    LDA.W Curr_HP_Rooks,X                ;02C20A|0012F3;
    CMP.B $20                            ;02C20D|000020;
-   BMI CODE_02C213                      ;02C20F|02C213;
-   BCS CODE_02C235                      ;02C211|02C235;
-CODE_02C213:
-   LDA.W Curr_HP_Rooks,X                ;02C213|0012F3;
+   BMI ++                               ;02C20F|02C213;
+   BCS +++                              ;02C211|02C235;
+++ LDA.W Curr_HP_Rooks,X                ;02C213|0012F3;
    LDX.W Selection_offset               ;02C216|00103F;
    STA.W Object_var1_Category,X         ;02C219|0009C7;
    LDA.W #$C17C                         ;02C21C|      ;
    LDY.W #$0002                         ;02C21F|      ;
    JML.L Sub_LoadStuff                  ;02C222|008DB4;
    RTL                                  ;02C226|      ;
-CODE_02C227:
-   LDX.W Selection_offset               ;02C227|00103F;
+ + LDX.W Selection_offset               ;02C227|00103F;
    LDA.W #$C16B                         ;02C22A|      ;
    LDY.W #$0002                         ;02C22D|      ;
    JML.L Sub_LoadStuff                  ;02C230|008DB4;
    RTL                                  ;02C234|      ;
-CODE_02C235:
-   LDA.W Curr_HP_Rooks,X                ;02C235|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C235|0012F3;
    LDX.W Selection_offset               ;02C238|00103F;
    STA.W Object_var1_Category,X         ;02C23B|0009C7;
    RTL                                  ;02C23E|      ;
 LoadData_Enemy46:
    db $04                               ;02C23F|      ;
-   dl Battle_Prep                       ;02C240|029124;
+   dl ASM_Battle_Prep                   ;02C240|029124;
 DATA8_02C243:
    db $09                               ;02C243|      ;
    dl CODE_02C2DA                       ;02C244|02C2DA;
@@ -12490,7 +12298,7 @@ DATA8_02C243:
    db $08                               ;02C24A|      ;
    dw DATA8_02C26E                      ;02C24B|02C26E;
    db $04                               ;02C24D|      ;
-   dl DATA8_029111                      ;02C24E|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C24E|029111;
    db $0B                               ;02C251|      ;
    dw DATA8_02C25F                      ;02C252|02C25F;
    db $14                               ;02C254|      ;
@@ -12515,14 +12323,14 @@ DATA8_02C26E:
    db $24                               ;02C26E|      ;
    db $02                               ;02C26F|      ;
    db $07                               ;02C270|      ;
-   dl Zeros_11DB                        ;02C271|0781F0;
+   dl Clear_Condition_mirror            ;02C271|0781F0;
    db $08                               ;02C274|      ;
    dw DATA8_02C2CA                      ;02C275|02C2CA;
 DATA8_02C277:
    db $24                               ;02C277|      ;
    db $02                               ;02C278|      ;
    db $07                               ;02C279|      ;
-   dl CODE_078219                       ;02C27A|078219;
+   dl Sub_Get_Condition_Change          ;02C27A|078219;
    db $12                               ;02C27D|      ;
    db $05                               ;02C27E|      ;
    dw DATA8_02C28E                      ;02C27F|02C28E;
@@ -12614,7 +12422,7 @@ DATA8_02C2CA:
    dw DATA8_02C2CA                      ;02C2D8|02C2CA;
 CODE_02C2DA:
    JSL.L Is_Equals_1575                 ;02C2DA|07AEDD;
-   BNE CODE_02C30A                      ;02C2DE|02C30A;
+   BNE +                                ;02C2DE|02C30A;
    LDX.W Selection_offset               ;02C2E0|00103F;
    LDA.W Object_var1_Category,X         ;02C2E3|0009C7;
    STA.B $20                            ;02C2E6|000020;
@@ -12623,30 +12431,27 @@ CODE_02C2DA:
    TAX                                  ;02C2EC|      ;
    LDA.W Curr_HP_Rooks,X                ;02C2ED|0012F3;
    CMP.B $20                            ;02C2F0|000020;
-   BMI CODE_02C2F6                      ;02C2F2|02C2F6;
-   BCS CODE_02C318                      ;02C2F4|02C318;
-CODE_02C2F6:
-   LDA.W Curr_HP_Rooks,X                ;02C2F6|0012F3;
+   BMI ++                               ;02C2F2|02C2F6;
+   BCS +++                              ;02C2F4|02C318;
+++ LDA.W Curr_HP_Rooks,X                ;02C2F6|0012F3;
    LDX.W Selection_offset               ;02C2F9|00103F;
    STA.W Object_var1_Category,X         ;02C2FC|0009C7;
    LDA.W #$C25B                         ;02C2FF|      ;
    LDY.W #$0002                         ;02C302|      ;
    JML.L Sub_LoadStuff                  ;02C305|008DB4;
    RTL                                  ;02C309|      ;
-CODE_02C30A:
-   LDX.W Selection_offset               ;02C30A|00103F;
+ + LDX.W Selection_offset               ;02C30A|00103F;
    LDA.W #$C24A                         ;02C30D|      ;
    LDY.W #$0002                         ;02C310|      ;
    JML.L Sub_LoadStuff                  ;02C313|008DB4;
    RTL                                  ;02C317|      ;
-CODE_02C318:
-   LDA.W Curr_HP_Rooks,X                ;02C318|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C318|0012F3;
    LDX.W Selection_offset               ;02C31B|00103F;
    STA.W Object_var1_Category,X         ;02C31E|0009C7;
    RTL                                  ;02C321|      ;
 LoadData_Enemy47:
    db $04                               ;02C322|      ;
-   dl Battle_Prep                       ;02C323|029124;
+   dl ASM_Battle_Prep                   ;02C323|029124;
 DATA8_02C326:
    db $09                               ;02C326|      ;
    dl CODE_02C3B8                       ;02C327|02C3B8;
@@ -12655,7 +12460,7 @@ DATA8_02C326:
    db $08                               ;02C32D|      ;
    dw DATA8_02C351                      ;02C32E|02C351;
    db $04                               ;02C330|      ;
-   dl DATA8_029111                      ;02C331|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C331|029111;
    db $0B                               ;02C334|      ;
    dw DATA8_02C342                      ;02C335|02C342;
    db $14                               ;02C337|      ;
@@ -12680,14 +12485,14 @@ DATA8_02C351:
    db $24                               ;02C351|      ;
    db $02                               ;02C352|      ;
    db $07                               ;02C353|      ;
-   dl Zeros_11DB                        ;02C354|0781F0;
+   dl Clear_Condition_mirror            ;02C354|0781F0;
    db $08                               ;02C357|      ;
    dw DATA8_02C3AB                      ;02C358|02C3AB;
 DATA8_02C35A:
    db $24                               ;02C35A|      ;
    db $02                               ;02C35B|      ;
    db $07                               ;02C35C|      ;
-   dl CODE_078219                       ;02C35D|078219;
+   dl Sub_Get_Condition_Change          ;02C35D|078219;
    db $12                               ;02C360|      ;
    db $05                               ;02C361|      ;
    dw DATA8_02C371                      ;02C362|02C371;
@@ -12774,7 +12579,7 @@ DATA8_02C3AB:
    dw DATA8_02C3AB                      ;02C3B6|02C3AB;
 CODE_02C3B8:
    JSL.L Is_Equals_1575                 ;02C3B8|07AEDD;
-   BNE CODE_02C3E8                      ;02C3BC|02C3E8;
+   BNE +                                ;02C3BC|02C3E8;
    LDX.W Selection_offset               ;02C3BE|00103F;
    LDA.W Object_var1_Category,X         ;02C3C1|0009C7;
    STA.B $20                            ;02C3C4|000020;
@@ -12783,30 +12588,27 @@ CODE_02C3B8:
    TAX                                  ;02C3CA|      ;
    LDA.W Curr_HP_Rooks,X                ;02C3CB|0012F3;
    CMP.B $20                            ;02C3CE|000020;
-   BMI CODE_02C3D4                      ;02C3D0|02C3D4;
-   BCS CODE_02C3F6                      ;02C3D2|02C3F6;
-CODE_02C3D4:
-   LDA.W Curr_HP_Rooks,X                ;02C3D4|0012F3;
+   BMI ++                               ;02C3D0|02C3D4;
+   BCS +++                              ;02C3D2|02C3F6;
+++ LDA.W Curr_HP_Rooks,X                ;02C3D4|0012F3;
    LDX.W Selection_offset               ;02C3D7|00103F;
    STA.W Object_var1_Category,X         ;02C3DA|0009C7;
    LDA.W #$C33E                         ;02C3DD|      ;
    LDY.W #$0002                         ;02C3E0|      ;
    JML.L Sub_LoadStuff                  ;02C3E3|008DB4;
    RTL                                  ;02C3E7|      ;
-CODE_02C3E8:
-   LDX.W Selection_offset               ;02C3E8|00103F;
+ + LDX.W Selection_offset               ;02C3E8|00103F;
    LDA.W #$C32D                         ;02C3EB|      ;
    LDY.W #$0002                         ;02C3EE|      ;
    JML.L Sub_LoadStuff                  ;02C3F1|008DB4;
    RTL                                  ;02C3F5|      ;
-CODE_02C3F6:
-   LDA.W Curr_HP_Rooks,X                ;02C3F6|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C3F6|0012F3;
    LDX.W Selection_offset               ;02C3F9|00103F;
    STA.W Object_var1_Category,X         ;02C3FC|0009C7;
    RTL                                  ;02C3FF|      ;
 LoadData_Enemy48:
    db $04                               ;02C400|      ;
-   dl Battle_Prep                       ;02C401|029124;
+   dl ASM_Battle_Prep                   ;02C401|029124;
 DATA8_02C404:
    db $09                               ;02C404|      ;
    dl CODE_02C496                       ;02C405|02C496;
@@ -12815,7 +12617,7 @@ DATA8_02C404:
    db $08                               ;02C40B|      ;
    dw DATA8_02C42F                      ;02C40C|02C42F;
    db $04                               ;02C40E|      ;
-   dl DATA8_029111                      ;02C40F|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C40F|029111;
    db $0B                               ;02C412|      ;
    dw DATA8_02C420                      ;02C413|02C420;
    db $14                               ;02C415|      ;
@@ -12840,14 +12642,14 @@ DATA8_02C42F:
    db $24                               ;02C42F|      ;
    db $02                               ;02C430|      ;
    db $07                               ;02C431|      ;
-   dl Zeros_11DB                        ;02C432|0781F0;
+   dl Clear_Condition_mirror            ;02C432|0781F0;
    db $08                               ;02C435|      ;
    dw DATA8_02C489                      ;02C436|02C489;
 DATA8_02C438:
    db $24                               ;02C438|      ;
    db $02                               ;02C439|      ;
    db $07                               ;02C43A|      ;
-   dl CODE_078219                       ;02C43B|078219;
+   dl Sub_Get_Condition_Change          ;02C43B|078219;
    db $12                               ;02C43E|      ;
    db $05                               ;02C43F|      ;
    dw DATA8_02C44F                      ;02C440|02C44F;
@@ -12934,7 +12736,7 @@ DATA8_02C489:
    dw DATA8_02C489                      ;02C494|02C489;
 CODE_02C496:
    JSL.L Is_Equals_1575                 ;02C496|07AEDD;
-   BNE CODE_02C4C6                      ;02C49A|02C4C6;
+   BNE +                                ;02C49A|02C4C6;
    LDX.W Selection_offset               ;02C49C|00103F;
    LDA.W Object_var1_Category,X         ;02C49F|0009C7;
    STA.B $20                            ;02C4A2|000020;
@@ -12943,30 +12745,27 @@ CODE_02C496:
    TAX                                  ;02C4A8|      ;
    LDA.W Curr_HP_Rooks,X                ;02C4A9|0012F3;
    CMP.B $20                            ;02C4AC|000020;
-   BMI CODE_02C4B2                      ;02C4AE|02C4B2;
-   BCS CODE_02C4D4                      ;02C4B0|02C4D4;
-CODE_02C4B2:
-   LDA.W Curr_HP_Rooks,X                ;02C4B2|0012F3;
+   BMI ++                               ;02C4AE|02C4B2;
+   BCS +++                              ;02C4B0|02C4D4;
+++ LDA.W Curr_HP_Rooks,X                ;02C4B2|0012F3;
    LDX.W Selection_offset               ;02C4B5|00103F;
    STA.W Object_var1_Category,X         ;02C4B8|0009C7;
    LDA.W #$C41C                         ;02C4BB|      ;
    LDY.W #$0002                         ;02C4BE|      ;
    JML.L Sub_LoadStuff                  ;02C4C1|008DB4;
    RTL                                  ;02C4C5|      ;
-CODE_02C4C6:
-   LDX.W Selection_offset               ;02C4C6|00103F;
+ + LDX.W Selection_offset               ;02C4C6|00103F;
    LDA.W #$C40B                         ;02C4C9|      ;
    LDY.W #$0002                         ;02C4CC|      ;
    JML.L Sub_LoadStuff                  ;02C4CF|008DB4;
    RTL                                  ;02C4D3|      ;
-CODE_02C4D4:
-   LDA.W Curr_HP_Rooks,X                ;02C4D4|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C4D4|0012F3;
    LDX.W Selection_offset               ;02C4D7|00103F;
    STA.W Object_var1_Category,X         ;02C4DA|0009C7;
    RTL                                  ;02C4DD|      ;
 LoadData_Enemy49:
    db $04                               ;02C4DE|      ;
-   dl Battle_Prep                       ;02C4DF|029124;
+   dl ASM_Battle_Prep                   ;02C4DF|029124;
 DATA8_02C4E2:
    db $09                               ;02C4E2|      ;
    dl CODE_02C56A                       ;02C4E3|02C56A;
@@ -12975,7 +12774,7 @@ DATA8_02C4E2:
    db $08                               ;02C4E9|      ;
    dw DATA8_02C50D                      ;02C4EA|02C50D;
    db $04                               ;02C4EC|      ;
-   dl DATA8_029111                      ;02C4ED|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C4ED|029111;
    db $0B                               ;02C4F0|      ;
    dw DATA8_02C4FE                      ;02C4F1|02C4FE;
    db $14                               ;02C4F3|      ;
@@ -13000,14 +12799,14 @@ DATA8_02C50D:
    db $24                               ;02C50D|      ;
    db $02                               ;02C50E|      ;
    db $07                               ;02C50F|      ;
-   dl Zeros_11DB                        ;02C510|0781F0;
+   dl Clear_Condition_mirror            ;02C510|0781F0;
    db $08                               ;02C513|      ;
    dw DATA8_02C563                      ;02C514|02C563;
 DATA8_02C516:
    db $24                               ;02C516|      ;
    db $02                               ;02C517|      ;
    db $07                               ;02C518|      ;
-   dl CODE_078219                       ;02C519|078219;
+   dl Sub_Get_Condition_Change          ;02C519|078219;
    db $12                               ;02C51C|      ;
    db $05                               ;02C51D|      ;
    dw DATA8_02C52D                      ;02C51E|02C52D;
@@ -13084,7 +12883,7 @@ DATA8_02C563:
    dw DATA8_02C563                      ;02C568|02C563;
 CODE_02C56A:
    JSL.L Is_Equals_1575                 ;02C56A|07AEDD;
-   BNE CODE_02C59A                      ;02C56E|02C59A;
+   BNE +                                ;02C56E|02C59A;
    LDX.W Selection_offset               ;02C570|00103F;
    LDA.W Object_var1_Category,X         ;02C573|0009C7;
    STA.B $20                            ;02C576|000020;
@@ -13093,30 +12892,27 @@ CODE_02C56A:
    TAX                                  ;02C57C|      ;
    LDA.W Curr_HP_Rooks,X                ;02C57D|0012F3;
    CMP.B $20                            ;02C580|000020;
-   BMI CODE_02C586                      ;02C582|02C586;
-   BCS CODE_02C5A8                      ;02C584|02C5A8;
-CODE_02C586:
-   LDA.W Curr_HP_Rooks,X                ;02C586|0012F3;
+   BMI ++                               ;02C582|02C586;
+   BCS +++                              ;02C584|02C5A8;
+++ LDA.W Curr_HP_Rooks,X                ;02C586|0012F3;
    LDX.W Selection_offset               ;02C589|00103F;
    STA.W Object_var1_Category,X         ;02C58C|0009C7;
    LDA.W #$C4FA                         ;02C58F|      ;
    LDY.W #$0002                         ;02C592|      ;
    JML.L Sub_LoadStuff                  ;02C595|008DB4;
    RTL                                  ;02C599|      ;
-CODE_02C59A:
-   LDX.W Selection_offset               ;02C59A|00103F;
+ + LDX.W Selection_offset               ;02C59A|00103F;
    LDA.W #$C4E9                         ;02C59D|      ;
    LDY.W #$0002                         ;02C5A0|      ;
    JML.L Sub_LoadStuff                  ;02C5A3|008DB4;
    RTL                                  ;02C5A7|      ;
-CODE_02C5A8:
-   LDA.W Curr_HP_Rooks,X                ;02C5A8|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C5A8|0012F3;
    LDX.W Selection_offset               ;02C5AB|00103F;
    STA.W Object_var1_Category,X         ;02C5AE|0009C7;
    RTL                                  ;02C5B1|      ;
 LoadData_Enemy4A:
    db $04                               ;02C5B2|      ;
-   dl Battle_Prep                       ;02C5B3|029124;
+   dl ASM_Battle_Prep                   ;02C5B3|029124;
 DATA8_02C5B6:
    db $09                               ;02C5B6|      ;
    dl CODE_02C63E                       ;02C5B7|02C63E;
@@ -13125,7 +12921,7 @@ DATA8_02C5B6:
    db $08                               ;02C5BD|      ;
    dw DATA8_02C5E1                      ;02C5BE|02C5E1;
    db $04                               ;02C5C0|      ;
-   dl DATA8_029111                      ;02C5C1|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C5C1|029111;
    db $0B                               ;02C5C4|      ;
    dw DATA8_02C5D2                      ;02C5C5|02C5D2;
    db $14                               ;02C5C7|      ;
@@ -13150,14 +12946,14 @@ DATA8_02C5E1:
    db $24                               ;02C5E1|      ;
    db $02                               ;02C5E2|      ;
    db $07                               ;02C5E3|      ;
-   dl Zeros_11DB                        ;02C5E4|0781F0;
+   dl Clear_Condition_mirror            ;02C5E4|0781F0;
    db $08                               ;02C5E7|      ;
    dw DATA8_02C637                      ;02C5E8|02C637;
 DATA8_02C5EA:
    db $24                               ;02C5EA|      ;
    db $02                               ;02C5EB|      ;
    db $07                               ;02C5EC|      ;
-   dl CODE_078219                       ;02C5ED|078219;
+   dl Sub_Get_Condition_Change          ;02C5ED|078219;
    db $12                               ;02C5F0|      ;
    db $05                               ;02C5F1|      ;
    dw DATA8_02C601                      ;02C5F2|02C601;
@@ -13234,7 +13030,7 @@ DATA8_02C637:
    dw DATA8_02C637                      ;02C63C|02C637;
 CODE_02C63E:
    JSL.L Is_Equals_1575                 ;02C63E|07AEDD;
-   BNE CODE_02C66E                      ;02C642|02C66E;
+   BNE +                                ;02C642|02C66E;
    LDX.W Selection_offset               ;02C644|00103F;
    LDA.W Object_var1_Category,X         ;02C647|0009C7;
    STA.B $20                            ;02C64A|000020;
@@ -13243,30 +13039,27 @@ CODE_02C63E:
    TAX                                  ;02C650|      ;
    LDA.W Curr_HP_Rooks,X                ;02C651|0012F3;
    CMP.B $20                            ;02C654|000020;
-   BMI CODE_02C65A                      ;02C656|02C65A;
-   BCS CODE_02C67C                      ;02C658|02C67C;
-CODE_02C65A:
-   LDA.W Curr_HP_Rooks,X                ;02C65A|0012F3;
+   BMI ++                               ;02C656|02C65A;
+   BCS +++                              ;02C658|02C67C;
+++ LDA.W Curr_HP_Rooks,X                ;02C65A|0012F3;
    LDX.W Selection_offset               ;02C65D|00103F;
    STA.W Object_var1_Category,X         ;02C660|0009C7;
    LDA.W #$C5CE                         ;02C663|      ;
    LDY.W #$0002                         ;02C666|      ;
    JML.L Sub_LoadStuff                  ;02C669|008DB4;
    RTL                                  ;02C66D|      ;
-CODE_02C66E:
-   LDX.W Selection_offset               ;02C66E|00103F;
+ + LDX.W Selection_offset               ;02C66E|00103F;
    LDA.W #$C5BD                         ;02C671|      ;
    LDY.W #$0002                         ;02C674|      ;
    JML.L Sub_LoadStuff                  ;02C677|008DB4;
    RTL                                  ;02C67B|      ;
-CODE_02C67C:
-   LDA.W Curr_HP_Rooks,X                ;02C67C|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C67C|0012F3;
    LDX.W Selection_offset               ;02C67F|00103F;
    STA.W Object_var1_Category,X         ;02C682|0009C7;
    RTL                                  ;02C685|      ;
 LoadData_Enemy4B:
    db $04                               ;02C686|      ;
-   dl Battle_Prep                       ;02C687|029124;
+   dl ASM_Battle_Prep                   ;02C687|029124;
 DATA8_02C68A:
    db $09                               ;02C68A|      ;
    dl CODE_02C6B3                       ;02C68B|02C6B3;
@@ -13275,7 +13068,7 @@ DATA8_02C68A:
    db $08                               ;02C691|      ;
    dw DATA8_02C6AE                      ;02C692|02C6AE;
    db $04                               ;02C694|      ;
-   dl DATA8_029111                      ;02C695|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C695|029111;
    db $1A                               ;02C698|      ;
    dw DATA8_02C68A                      ;02C699|02C68A;
    db $04                               ;02C69B|      ;
@@ -13296,7 +13089,7 @@ DATA8_02C6AE:
    dw DATA8_02C6AE                      ;02C6B1|02C6AE;
 CODE_02C6B3:
    JSL.L Is_Equals_1575                 ;02C6B3|07AEDD;
-   BNE CODE_02C6E3                      ;02C6B7|02C6E3;
+   BNE +                                ;02C6B7|02C6E3;
    LDX.W Selection_offset               ;02C6B9|00103F;
    LDA.W Object_var1_Category,X         ;02C6BC|0009C7;
    STA.B $20                            ;02C6BF|000020;
@@ -13305,39 +13098,36 @@ CODE_02C6B3:
    TAX                                  ;02C6C5|      ;
    LDA.W Curr_HP_Rooks,X                ;02C6C6|0012F3;
    CMP.B $20                            ;02C6C9|000020;
-   BMI CODE_02C6CF                      ;02C6CB|02C6CF;
-   BCS CODE_02C6F1                      ;02C6CD|02C6F1;
-CODE_02C6CF:
-   LDA.W Curr_HP_Rooks,X                ;02C6CF|0012F3;
+   BMI ++                               ;02C6CB|02C6CF;
+   BCS +++                              ;02C6CD|02C6F1;
+++ LDA.W Curr_HP_Rooks,X                ;02C6CF|0012F3;
    LDX.W Selection_offset               ;02C6D2|00103F;
    STA.W Object_var1_Category,X         ;02C6D5|0009C7;
    LDA.W #$C69B                         ;02C6D8|      ;
    LDY.W #$0002                         ;02C6DB|      ;
    JML.L Sub_LoadStuff                  ;02C6DE|008DB4;
    RTL                                  ;02C6E2|      ;
-CODE_02C6E3:
-   LDX.W Selection_offset               ;02C6E3|00103F;
+ + LDX.W Selection_offset               ;02C6E3|00103F;
    LDA.W #$C691                         ;02C6E6|      ;
    LDY.W #$0002                         ;02C6E9|      ;
    JML.L Sub_LoadStuff                  ;02C6EC|008DB4;
    RTL                                  ;02C6F0|      ;
-CODE_02C6F1:
-   LDA.W Curr_HP_Rooks,X                ;02C6F1|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C6F1|0012F3;
    LDX.W Selection_offset               ;02C6F4|00103F;
    STA.W Object_var1_Category,X         ;02C6F7|0009C7;
    RTL                                  ;02C6FA|      ;
-LoadData_Enemy4C:
+LoadData_Enemy4C_GALNEON1:
    db $04                               ;02C6FB|      ;
-   dl Battle_Prep                       ;02C6FC|029124;
+   dl ASM_Battle_Prep                   ;02C6FC|029124;
 DATA8_02C6FF:
    db $09                               ;02C6FF|      ;
-   dl CODE_02C728                       ;02C700|02C728;
+   dl Sub_02C728                        ;02C700|02C728;
    db $1A                               ;02C703|      ;
    dw DATA8_02C723                      ;02C704|02C723;
    db $08                               ;02C706|      ;
    dw DATA8_02C723                      ;02C707|02C723;
    db $04                               ;02C709|      ;
-   dl DATA8_029111                      ;02C70A|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C70A|029111;
    db $1A                               ;02C70D|      ;
    dw DATA8_02C6FF                      ;02C70E|02C6FF;
    db $04                               ;02C710|      ;
@@ -13352,13 +13142,13 @@ DATA8_02C6FF:
    db $03                               ;02C71F|      ;
    dl DATA8_0290F9                      ;02C720|0290F9;
 DATA8_02C723:
-   db $37                               ;02C723|      ;
+   db $37                               ;02C723|      ; 37 03: SETANIM 03 arg 7
    db $03                               ;02C724|      ;
    db $1A                               ;02C725|      ;
    dw DATA8_02C723                      ;02C726|02C723;
-CODE_02C728:
+Sub_02C728:
    JSL.L Is_Equals_1575                 ;02C728|07AEDD;
-   BNE CODE_02C758                      ;02C72C|02C758;
+   BNE +                                ;02C72C|02C758;
    LDX.W Selection_offset               ;02C72E|00103F;
    LDA.W Object_var1_Category,X         ;02C731|0009C7;
    STA.B $20                            ;02C734|000020;
@@ -13367,30 +13157,27 @@ CODE_02C728:
    TAX                                  ;02C73A|      ;
    LDA.W Curr_HP_Rooks,X                ;02C73B|0012F3;
    CMP.B $20                            ;02C73E|000020;
-   BMI CODE_02C744                      ;02C740|02C744;
-   BCS CODE_02C766                      ;02C742|02C766;
-CODE_02C744:
-   LDA.W Curr_HP_Rooks,X                ;02C744|0012F3;
+   BMI ++                               ;02C740|02C744;
+   BCS +++                              ;02C742|02C766;
+++ LDA.W Curr_HP_Rooks,X                ;02C744|0012F3;
    LDX.W Selection_offset               ;02C747|00103F;
    STA.W Object_var1_Category,X         ;02C74A|0009C7;
    LDA.W #$C710                         ;02C74D|      ;
    LDY.W #$0002                         ;02C750|      ;
    JML.L Sub_LoadStuff                  ;02C753|008DB4;
    RTL                                  ;02C757|      ;
-CODE_02C758:
-   LDX.W Selection_offset               ;02C758|00103F;
+ + LDX.W Selection_offset               ;02C758|00103F;
    LDA.W #$C706                         ;02C75B|      ;
    LDY.W #$0002                         ;02C75E|      ;
    JML.L Sub_LoadStuff                  ;02C761|008DB4;
    RTL                                  ;02C765|      ;
-CODE_02C766:
-   LDA.W Curr_HP_Rooks,X                ;02C766|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C766|0012F3;
    LDX.W Selection_offset               ;02C769|00103F;
    STA.W Object_var1_Category,X         ;02C76C|0009C7;
    RTL                                  ;02C76F|      ;
-LoadData_Enemy4D:
+LoadData_Enemy4D_GALNEON2:
    db $04                               ;02C770|      ;
-   dl Battle_Prep                       ;02C771|029124;
+   dl ASM_Battle_Prep                   ;02C771|029124;
 DATA8_02C774:
    db $09                               ;02C774|      ;
    dl CODE_02C79D                       ;02C775|02C79D;
@@ -13399,7 +13186,7 @@ DATA8_02C774:
    db $08                               ;02C77B|      ;
    dw DATA8_02C798                      ;02C77C|02C798;
    db $04                               ;02C77E|      ;
-   dl DATA8_029111                      ;02C77F|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C77F|029111;
    db $1A                               ;02C782|      ;
    dw DATA8_02C774                      ;02C783|02C774;
    db $04                               ;02C785|      ;
@@ -13420,7 +13207,7 @@ DATA8_02C798:
    dw DATA8_02C798                      ;02C79B|02C798;
 CODE_02C79D:
    JSL.L Is_Equals_1575                 ;02C79D|07AEDD;
-   BNE CODE_02C7CD                      ;02C7A1|02C7CD;
+   BNE +                                ;02C7A1|02C7CD;
    LDX.W Selection_offset               ;02C7A3|00103F;
    LDA.W Object_var1_Category,X         ;02C7A6|0009C7;
    STA.B $20                            ;02C7A9|000020;
@@ -13429,75 +13216,72 @@ CODE_02C79D:
    TAX                                  ;02C7AF|      ;
    LDA.W Curr_HP_Rooks,X                ;02C7B0|0012F3;
    CMP.B $20                            ;02C7B3|000020;
-   BMI CODE_02C7B9                      ;02C7B5|02C7B9;
-   BCS CODE_02C7DB                      ;02C7B7|02C7DB;
-CODE_02C7B9:
-   LDA.W Curr_HP_Rooks,X                ;02C7B9|0012F3;
+   BMI ++                               ;02C7B5|02C7B9;
+   BCS +++                              ;02C7B7|02C7DB;
+++ LDA.W Curr_HP_Rooks,X                ;02C7B9|0012F3;
    LDX.W Selection_offset               ;02C7BC|00103F;
    STA.W Object_var1_Category,X         ;02C7BF|0009C7;
    LDA.W #$C785                         ;02C7C2|      ;
    LDY.W #$0002                         ;02C7C5|      ;
    JML.L Sub_LoadStuff                  ;02C7C8|008DB4;
    RTL                                  ;02C7CC|      ;
-CODE_02C7CD:
-   LDX.W Selection_offset               ;02C7CD|00103F;
+ + LDX.W Selection_offset               ;02C7CD|00103F;
    LDA.W #$C77B                         ;02C7D0|      ;
    LDY.W #$0002                         ;02C7D3|      ;
    JML.L Sub_LoadStuff                  ;02C7D6|008DB4;
    RTL                                  ;02C7DA|      ;
-CODE_02C7DB:
-   LDA.W Curr_HP_Rooks,X                ;02C7DB|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C7DB|0012F3;
    LDX.W Selection_offset               ;02C7DE|00103F;
    STA.W Object_var1_Category,X         ;02C7E1|0009C7;
    RTL                                  ;02C7E4|      ;
-LoadData_Enemy4E:
+LoadData_Enemy4E_RIMSALA1:
    db $04                               ;02C7E5|      ;
-   dl Battle_Prep                       ;02C7E6|029124;
+   dl ASM_Battle_Prep                   ;02C7E6|029124;
 DATA8_02C7E9:
    db $09                               ;02C7E9|      ;
-   dl CODE_02C81F                       ;02C7EA|02C81F;
+   dl Sub_02C81F                        ;02C7EA|02C81F;
    db $1A                               ;02C7ED|      ;
    dw DATA8_02C815                      ;02C7EE|02C815;
    db $08                               ;02C7F0|      ;
    dw DATA8_02C815                      ;02C7F1|02C815;
    db $04                               ;02C7F3|      ;
-   dl DATA8_029111                      ;02C7F4|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C7F4|029111;
    db $1A                               ;02C7F7|      ;
    dw DATA8_02C7E9                      ;02C7F8|02C7E9;
    db $07                               ;02C7FA|      ; SFX Confirm
    dl GetSet_SFX                        ;02C7FB|009C44;
    db $07                               ;02C7FE|      ;
-   db $30                               ;02C7FF|      ; 30 00
+   db $30                               ;02C7FF|      ; 30 00: SETANIM 00
    db $00                               ;02C800|      ;
-   db $06                               ;02C801|      ; 06 20
+   db $06                               ;02C801|      ; 06: WAIT 20
    db $20                               ;02C802|      ;
-   db $34                               ;02C803|      ; 34 04
+   db $34                               ;02C803|      ; 34 04: SETANIM 4 04
    db $04                               ;02C804|      ;
-   db $30                               ;02C805|      ; 30 02
+   db $30                               ;02C805|      ; 30 02: SETANIM 02
    db $02                               ;02C806|      ;
-   db $06                               ;02C807|      ; 06 18
+   db $06                               ;02C807|      ; 06 18: WAIT 18
    db $18                               ;02C808|      ;
-   db $24                               ;02C809|      ; 24 02
+   db $24                               ;02C809|      ; 24 02: LDA var02
    db $02                               ;02C80A|      ;
-   db $07                               ;02C80B|      ;
+   db $07                               ;02C80B|      ; 07: Check if var02 has condition (01) (Deceased)
    dl Condition_Check_2b                ;02C80C|07B0B0;
    dw $0001                             ;02C80F|      ;
-   db $0B                               ;02C811|      ;
+   db $0B                               ;02C811|      ; Jump if false
    dw DATA8_02C7E9                      ;02C812|02C7E9;
-   db $00                               ;02C814|      ; 00 (End?)
+   db $00                               ;02C814|      ; 00: END
 DATA8_02C815:
-   db $30                               ;02C815|      ; 30 00
+   db $30                               ;02C815|      ; 30 00: SETANIM 00
    db $00                               ;02C816|      ;
-   db $06                               ;02C817|      ; 06 21
+   db $06                               ;02C817|      ; 06: WAIT 21
    db $21                               ;02C818|      ;
-   db $A8                               ;02C819|      ; A8
-   db $06                               ;02C81A|      ; 06 20
+   db $A8                               ;02C819|      ; A8: INCANIM 0
+   db $06                               ;02C81A|      ; 06: WAIT 20
    db $20                               ;02C81B|      ;
-   db $1A                               ;02C81C|      ;
+   db $1A                               ;02C81C|      ; 1A: JMP C815
    dw DATA8_02C815                      ;02C81D|02C815;
-CODE_02C81F:
+Sub_02C81F:
    JSL.L Is_Equals_1575                 ;02C81F|07AEDD;
-   BNE CODE_02C84F                      ;02C823|02C84F;
+   BNE +                                ;02C823|02C84F;
    LDX.W Selection_offset               ;02C825|00103F;
    LDA.W Object_var1_Category,X         ;02C828|0009C7;
    STA.B $20                            ;02C82B|000020;
@@ -13506,30 +13290,27 @@ CODE_02C81F:
    TAX                                  ;02C831|      ;
    LDA.W Curr_HP_Rooks,X                ;02C832|0012F3;
    CMP.B $20                            ;02C835|000020;
-   BMI CODE_02C83B                      ;02C837|02C83B;
-   BCS CODE_02C85D                      ;02C839|02C85D;
-CODE_02C83B:
-   LDA.W Curr_HP_Rooks,X                ;02C83B|0012F3;
+   BMI ++                               ;02C837|02C83B;
+   BCS +++                              ;02C839|02C85D;
+++ LDA.W Curr_HP_Rooks,X                ;02C83B|0012F3;
    LDX.W Selection_offset               ;02C83E|00103F;
    STA.W Object_var1_Category,X         ;02C841|0009C7;
    LDA.W #$C7FA                         ;02C844|      ;
    LDY.W #$0002                         ;02C847|      ;
    JML.L Sub_LoadStuff                  ;02C84A|008DB4;
    RTL                                  ;02C84E|      ;
-CODE_02C84F:
-   LDX.W Selection_offset               ;02C84F|00103F;
+ + LDX.W Selection_offset               ;02C84F|00103F;
    LDA.W #$C7F0                         ;02C852|      ;
    LDY.W #$0002                         ;02C855|      ;
    JML.L Sub_LoadStuff                  ;02C858|008DB4;
    RTL                                  ;02C85C|      ;
-CODE_02C85D:
-   LDA.W Curr_HP_Rooks,X                ;02C85D|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C85D|0012F3;
    LDX.W Selection_offset               ;02C860|00103F;
    STA.W Object_var1_Category,X         ;02C863|0009C7;
    RTL                                  ;02C866|      ;
-LoadData_Enemy4F:
+LoadData_Enemy4F_RIMSALA2:
    db $04                               ;02C867|      ;
-   dl Battle_Prep                       ;02C868|029124;
+   dl ASM_Battle_Prep                   ;02C868|029124;
 DATA8_02C86B:
    db $09                               ;02C86B|      ;
    dl CODE_02C8D7                       ;02C86C|02C8D7;
@@ -13538,7 +13319,7 @@ DATA8_02C86B:
    db $08                               ;02C872|      ;
    dw DATA8_02C8C0                      ;02C873|02C8C0;
    db $04                               ;02C875|      ;
-   dl DATA8_029111                      ;02C876|029111;
+   dl ASM_Wrapper_Enemy_Turn            ;02C876|029111;
    db $1A                               ;02C879|      ;
    dw DATA8_02C86B                      ;02C87A|02C86B;
    db $07                               ;02C87C|      ; SFX: Confirm
@@ -13550,10 +13331,10 @@ DATA8_02C86B:
    db $80                               ;02C885|      ; 80 01 0000
    db $01                               ;02C886|      ;
    dw $0000                             ;02C887|      ;
-   db $13                               ;02C889|      ; 13: $2130 = 00
+   db $13                               ;02C889|      ; 13: $2130 = 00 (Color window allow all)
    dw $2130                             ;02C88A|      ;
    db $00                               ;02C88C|      ;
-   db $13                               ;02C88D|      ; 13: $2131 = 02
+   db $13                               ;02C88D|      ; 13: $2131 = 02 (Color math, enable on BG2)
    dw $2131                             ;02C88E|      ;
    db $02                               ;02C890|      ;
    db $07                               ;02C891|      ;
@@ -13568,7 +13349,7 @@ DATA8_02C86B:
    db $02                               ;02C89E|      ;
    db $02                               ;02C89F|      ;
    db $02                               ;02C8A0|      ;
-   db $06                               ;02C8A1|      ;
+   db $06                               ;02C8A1|      ; 06: WAIT 1
    db $01                               ;02C8A2|      ;
    db $02                               ;02C8A3|      ; 02: End loop
    db $01                               ;02C8A4|      ; 01: Loop 16x
@@ -13581,40 +13362,40 @@ DATA8_02C86B:
    db $06                               ;02C8AD|      ;
    db $01                               ;02C8AE|      ;
    db $02                               ;02C8AF|      ; 02: End loop
-   db $13                               ;02C8B0|      ; 13: $2131 = 00
+   db $13                               ;02C8B0|      ; 13: $2131 = 00 (Disable color math)
    dw $2131                             ;02C8B1|      ;
    db $00                               ;02C8B3|      ;
-   db $24                               ;02C8B4|      ;
+   db $24                               ;02C8B4|      ; 24: load var2
    db $02                               ;02C8B5|      ;
-   db $07                               ;02C8B6|      ;
+   db $07                               ;02C8B6|      ; 07: Check if (var2) has condition 1 (deceased)
    dl Condition_Check_2b                ;02C8B7|07B0B0;
    db $01                               ;02C8BA|      ;
    db $00                               ;02C8BB|      ;
-   db $0B                               ;02C8BC|      ;
+   db $0B                               ;02C8BC|      ; 0B: Jump if false
    dw DATA8_02C86B                      ;02C8BD|02C86B;
-   db $00                               ;02C8BF|      ; 00 (End?)
+   db $00                               ;02C8BF|      ; 00 END
 DATA8_02C8C0:
-   db $78                               ;02C8C0|      ; 78
+   db $78                               ;02C8C0|      ; 78: UNK1 01 0000
    db $01                               ;02C8C1|      ;
    dw $0000                             ;02C8C2|      ;
-   db $80                               ;02C8C4|      ; 80
+   db $80                               ;02C8C4|      ; 80: UNK2 01 0000
    db $01                               ;02C8C5|      ;
    dw $0000                             ;02C8C6|      ;
-   db $06                               ;02C8C8|      ; 06
+   db $06                               ;02C8C8|      ; 06: WAIT 20
    db $20                               ;02C8C9|      ;
-   db $78                               ;02C8CA|      ; 78
+   db $78                               ;02C8CA|      ; 78: UNK1 01 0100
    db $01                               ;02C8CB|      ;
    dw $0100                             ;02C8CC|      ;
-   db $80                               ;02C8CE|      ; 80
+   db $80                               ;02C8CE|      ; 80: UNK2 01 0000
    db $01                               ;02C8CF|      ;
    dw $0000                             ;02C8D0|      ;
-   db $06                               ;02C8D2|      ; 06
+   db $06                               ;02C8D2|      ; 06: WAIT 20
    db $20                               ;02C8D3|      ;
-   db $1A                               ;02C8D4|      ;
+   db $1A                               ;02C8D4|      ; 1A: JMP C8C0
    dw DATA8_02C8C0                      ;02C8D5|02C8C0;
 CODE_02C8D7:
    JSL.L Is_Equals_1575                 ;02C8D7|07AEDD;
-   BNE CODE_02C907                      ;02C8DB|02C907;
+   BNE +                                ;02C8DB|02C907;
    LDX.W Selection_offset               ;02C8DD|00103F;
    LDA.W Object_var1_Category,X         ;02C8E0|0009C7;
    STA.B $20                            ;02C8E3|000020;
@@ -13623,24 +13404,21 @@ CODE_02C8D7:
    TAX                                  ;02C8E9|      ;
    LDA.W Curr_HP_Rooks,X                ;02C8EA|0012F3;
    CMP.B $20                            ;02C8ED|000020;
-   BMI CODE_02C8F3                      ;02C8EF|02C8F3;
-   BCS CODE_02C915                      ;02C8F1|02C915;
-CODE_02C8F3:
-   LDA.W Curr_HP_Rooks,X                ;02C8F3|0012F3;
+   BMI ++                               ;02C8EF|02C8F3;
+   BCS +++                              ;02C8F1|02C915;
+++ LDA.W Curr_HP_Rooks,X                ;02C8F3|0012F3;
    LDX.W Selection_offset               ;02C8F6|00103F;
    STA.W Object_var1_Category,X         ;02C8F9|0009C7;
    LDA.W #$C87C                         ;02C8FC|      ;
    LDY.W #$0002                         ;02C8FF|      ;
    JML.L Sub_LoadStuff                  ;02C902|008DB4;
    RTL                                  ;02C906|      ;
-CODE_02C907:
-   LDX.W Selection_offset               ;02C907|00103F;
+ + LDX.W Selection_offset               ;02C907|00103F;
    LDA.W #$C872                         ;02C90A|      ;
    LDY.W #$0002                         ;02C90D|      ;
    JML.L Sub_LoadStuff                  ;02C910|008DB4;
    RTL                                  ;02C914|      ;
-CODE_02C915:
-   LDA.W Curr_HP_Rooks,X                ;02C915|0012F3;
++++ LDA.W Curr_HP_Rooks,X                ;02C915|0012F3;
    LDX.W Selection_offset               ;02C918|00103F;
    STA.W Object_var1_Category,X         ;02C91B|0009C7;
    RTL                                  ;02C91E|      ;

@@ -1,4 +1,5 @@
    lorom
+   incsrc "defines.asm"
    incsrc "bank_00.asm"
    incsrc "bank_01.asm"
    incsrc "bank_02.asm"
